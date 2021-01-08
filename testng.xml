@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite_Salmonella" parallel="classes ">
+  <test thread-count="10" name="Salmonella" parallel="classes">
+    <classes>
+      <class name="Test.Ancera.Reports.CoccidiaLog"/>
+      <class name="Test.Ancera.Reports.ExternalCoccidia"/>
+    </classes>
+  </test> 
+</suite> 
