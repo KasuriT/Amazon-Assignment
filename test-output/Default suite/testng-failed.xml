@@ -7,7 +7,7 @@
         <methods>
           <include name="extent"/>
           <include name="endreport"/>
-          <include name="AssignSelection"/>
+          <include name="DeactivateAssignAgreement"/>
         </methods>
       </class> <!-- Test.Ancera.Administration.AgreementManagement -->
     </classes>
