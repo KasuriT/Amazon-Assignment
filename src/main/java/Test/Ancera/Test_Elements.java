@@ -1141,6 +1141,14 @@ public class Test_Elements {
 
 	///////////////////////////////////////////////Coccidia Timeline Log Elements/////////////////////////////////////////////////////////
 
+	public static String ctlDateTo = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
+	public static String ctlToday = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[1]/button";
+	public static String ctlLast24Hours = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[2]/button";
+	public static String ctlLast7Days = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
+	public static String ctlLast30Days = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
+	public static String ctlThisMonth = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
+	public static String ctlLastMonth = "/html/body/app-root/div/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
+	
 	public static String ctlSampleID = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[1]/div/div/div[2]/div[3]/app-custom-checkbox-list[1]/div/div[1]/label/span";
 	public static String ctlSampleIDInput = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[1]/div/div/div[2]/div[3]/app-custom-checkbox-list[1]/div/div[2]/div[1]/input";
 	public static String ctlSampleIDbeforeXpath = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[1]/div/div/div[2]/div[3]/app-custom-checkbox-list[1]/div/div[2]/div[2]/ul/li[";   

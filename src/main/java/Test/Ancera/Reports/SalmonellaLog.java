@@ -51,7 +51,7 @@ public class SalmonellaLog {
 		ConfigureLogin.login();
 	}
 
-	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -523,7 +523,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
+	@Test (description="Test Case: Date Enter",enabled= false, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateEnter = SalmonellaModel.EnterDate();
@@ -636,7 +636,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-20: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -765,7 +765,7 @@ public class SalmonellaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 
-					String recordBefore = Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText(); 
+					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
 
@@ -789,7 +789,7 @@ public class SalmonellaLog {
 						Thread.sleep(objFilter.wait);
 
 						Test_Variables.steps.createNode("2. Verify the filter is applied and user is able to see the relavant records in the table");
-						String recordAfter = Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText();
+						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
 							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
@@ -818,6 +818,105 @@ public class SalmonellaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterTop, objModel.TestCaseDescriptionBubbleFilterTop);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
+						
+						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
+
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
+						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
+						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+					
+					//////////////////////////////
+					
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
+						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
+
+						
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
+							Test_Variables.steps.createNode("3. Select the checkbox");
+
+			
+								try {
+									
+									
+									Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 #"+objFilter.LstFilterValues.get(i))).size() != 0);
+									Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
+									Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+									Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+									Helper.driver.findElement(By.id(objFilter.LstFilterValues.get(i))).click();
+									break;
+								} catch(StaleElementReferenceException e) {
+								} 
+								catch(AssertionError er) {
+									Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+									Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+									Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+								}
+								catch(Exception ex) {
+									Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+									Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+									Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+								}
+												   
+							chkCounter++;
+						}
+						
+						
+						
+						
+			//			Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
+			//			Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
+			//			Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
+			//			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+			//			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(Exception ex) {
+
+					}
+///////////////////////////////////////////////////////////////////////////////
+					
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
 
@@ -912,7 +1011,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 7) 
+	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 7) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-84: Verify Salmonella Lock Filter Functionality", "This test case will test Salmonella Lock Filter Functionality");
@@ -983,7 +1082,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Pagination",enabled= true, priority = 8) 
+	@Test (description="Test Case: Test Pagination",enabled= false, priority = 8) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Helper.driver.get(Constants.url_SalmonellaLog);
@@ -1125,7 +1224,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 9) 
+	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 9) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_SalmonellaLog);
@@ -1231,7 +1330,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 10) 
+	@Test (description="Test Case: Test Salmonella PNG Download",enabled= false, priority = 10) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-96: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
@@ -1305,7 +1404,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =11) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= false, priority =11) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-97: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
@@ -1364,7 +1463,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Salmonella Template Download",enabled= false, priority = 12) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-98: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");

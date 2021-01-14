@@ -742,7 +742,7 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterListXPathPrefix = Test_Elements.eclDateFrom;
 		objFilter.FilterListXPathSuffix = Test_Elements.eclDateTo;
 		objFilter.fromDate = "12/01/2020";
-		objFilter.toDate = "12/07/2020";
+		objFilter.toDate = "01/07/2021";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 

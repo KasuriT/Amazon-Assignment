@@ -613,6 +613,11 @@ public class Test_Variables {
 	public static String ctlLast10FileName = "Last 10 Coccidia Tests - ";
 	public static String ctlOverTimeFileName = "Oocyst Counts Over Time - ";
 	
+	public static ArrayList<CoccidiaTimelineModel> lstCoccidiaTimelineDateSearch = new ArrayList<>();
+	
+	public static ArrayList<CoccidiaTimelineModel> lstCoccidiaTimelineDateEnter = new ArrayList<>();
+	
+	
 	//////////////////////////////////////////////////////////////End Coccidia Timeline Variables////////////////////////////////////////////////////////////////////////////////////
 	
 	

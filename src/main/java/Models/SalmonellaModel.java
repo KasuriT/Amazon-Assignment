@@ -10,6 +10,10 @@ public class SalmonellaModel {
 	public String TestCaseDescription;
 	public String TestCaseNameSearch;
 	public String TestCaseDescriptionSearch;
+	public String TestCaseNameBubbleFilterTop;
+	public String TestCaseDescriptionBubbleFilterTop;
+	public String TestCaseNameBubbleFilterCheckbox;
+	public String TestCaseDescriptionBubbleFilterCheckbox;
 	public String TestCaseNameClearInput;
 	public String TestCaseDescClearInput;
 	public ArrayList<ReportFilters> lstFilters;
@@ -36,7 +40,11 @@ public class SalmonellaModel {
 		objTmp.TestCaseDescription = "This testcase will verify user can filter 'Medium' from Load Filter";
 		objTmp.TestCaseNameSearch = "AN-SL-22: Verify the results are displayed in the table after applying 'Medium' from Load Filter";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying 'Medium' from Load Filter";
-		objTmp.TestCaseNameClearInput = "AN-SL-23: Verify user can clear input field and reset Load Filter on selecting 'Medium'";
+		objTmp.TestCaseNameBubbleFilterTop = "AN-SL-23: Verify filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-SL-24: Verify filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseNameClearInput = "AN-SL-25: Verify user can clear input field and reset Load Filter on selecting 'Medium'";
 		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Load Filter by clicking on cross icon and reset the filter";
 		objTmp.ApplyFilter = false;
 		objTmp.ResetFilter = true;
@@ -46,24 +54,23 @@ public class SalmonellaModel {
 		objFilter.FilterXPath = "Load";
 		objFilter.FilterListXPathSearch = "place-holder-search-Load";
 		objFilter.SearchVlaue = "Medium";
-		objFilter.FilterListXPathPrefix = Test_Elements.slLoadbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.slLoadafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.slLoadafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Medium"));
 		objFilter.getRowValue = Test_Elements.slLoadRow;
 		objFilter.rowValueExpected = Test_Elements.slLoadYellow;
 		objFilter.ClearInput = "clear-input-Load";
-		objFilter.wait = 5000;
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-	
+	/*
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-24: Verify user can filter 'High' from Load Filter";
+		objTmp.TestCaseName = "AN-SL-26: Verify user can filter 'High' from Load Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can filter 'High' from Load Filter";
-		objTmp.TestCaseNameSearch = "AN-SL-25: Verify the results are displayed in the table after applying 'High' from Load Filter";
+		objTmp.TestCaseNameSearch = "AN-SL-27: Verify the results are displayed in the table after applying 'High' from Load Filter";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying 'High' from Load Filter";
-		objTmp.TestCaseNameClearInput = "AN-SL-26: Verify user can clear input field and reset Load Filter on selecting 'High'";
+		objTmp.TestCaseNameBubbleFilterTop = "AN-SL-28: Verify filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseNameClearInput = "AN-SL-30: Verify user can clear input field and reset Load Filter on selecting 'High'";
 		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Load Filter by clicking on cross icon and reset the filter";
     	objTmp.ApplyFilter = false;
 		objTmp.ResetFilter = true;
@@ -73,9 +80,6 @@ public class SalmonellaModel {
 		objFilter.FilterXPath = "Load";
 		objFilter.FilterListXPathSearch = "place-holder-search-Load";
 		objFilter.SearchVlaue = "High";
-		objFilter.FilterListXPathPrefix = Test_Elements.slLoadbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.slLoadafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.slLoadafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("High"));
 		objFilter.getRowValue = Test_Elements.slLoadRow;
 		objFilter.rowValueExpected = Test_Elements.slLoadRed;
@@ -86,10 +90,12 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-27: Verify user can filter 'Low' from Load Filter";
+		objTmp.TestCaseName = "AN-SL-31: Verify user can filter 'Low' from Load Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can filter 'Low' from Load Filter";
 		objTmp.TestCaseNameSearch = "AN-SL-28: Verify the results are displayed in the table after applying Load Filter with 'Low'";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Load Filter with 'Low'";
+		objTmp.TestCaseNameBubbleFilterTop = "AN-SL-23: Verify filter bubbles to top of filter list on applying filter";
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that filter bubbles to top of filter list on applying filter";
 		objTmp.TestCaseNameClearInput = "AN-SL-29: Verify user can clear input field and reset Load Filter on selecting 'Low'";
 		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Load Filter by clicking on cross icon and reset the filter";
 		objTmp.ApplyFilter = false;
@@ -100,9 +106,6 @@ public class SalmonellaModel {
 		objFilter.FilterXPath = "Load";
 		objFilter.FilterListXPathSearch = "place-holder-search-Load";
 		objFilter.SearchVlaue = "Low";
-		objFilter.FilterListXPathPrefix = Test_Elements.slLoadbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.slLoadafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.slLoadafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Low"));
 		objFilter.getRowValue = Test_Elements.slLoadRow;
 		objFilter.rowValueExpected = Test_Elements.slLoadGreen;  
@@ -607,6 +610,8 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 
+*/
+
 		return lstSalmonellaModel;
 	}
 	
@@ -814,7 +819,7 @@ public class SalmonellaModel {
 		objFilter.FilterListXPathPrefix = Test_Elements.slDateFrom;
 		objFilter.FilterListXPathSuffix = Test_Elements.slDateTo;
 		objFilter.fromDate = "12/01/2020";
-		objFilter.toDate = "12/07/2020";
+		objFilter.toDate = "01/07/2021";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		

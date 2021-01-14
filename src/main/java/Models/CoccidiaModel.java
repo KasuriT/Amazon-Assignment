@@ -634,7 +634,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathPrefix = Test_Elements.clDateFrom;
 		objFilter.FilterListXPathSuffix = Test_Elements.clDateTo;
 		objFilter.fromDate = "12/01/2020";
-		objFilter.toDate = "12/07/2020";
+		objFilter.toDate = "01/07/2021";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
