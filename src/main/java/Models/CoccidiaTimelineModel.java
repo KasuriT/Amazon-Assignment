@@ -36,14 +36,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objFilter.FilterXPath = Test_Elements.ctlSampleID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlSampleIDInput;
+		objFilter.FilterXPath = "Sample ID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Sample ID";
 		objFilter.SearchVlaue = "Coccivac";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlSampleIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlSampleIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlSampleIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccivac"));
-		objFilter.ClearInput = Test_Elements.ctlSampleIDClearInput;
+		objFilter.ClearInput = "clear-input-Sample ID";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		
@@ -60,14 +60,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objFilter.FilterXPath = Test_Elements.ctlInstrumentID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlInstrumentIDInput;
+		objFilter.FilterXPath = "Instrument ID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Instrument ID";
 		objFilter.SearchVlaue = "PSN0002";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlInstrumentIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlInstrumentIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlInstrumentIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0002"));
-		objFilter.ClearInput = Test_Elements.ctlInstrumentIDClearInput;
+		objFilter.ClearInput = "clear-input-Instrument ID";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		
@@ -84,14 +84,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Catridge ID Filter";
-		objFilter.FilterXPath = Test_Elements.ctlCatridgeID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlCatridgeIDInput;
+		objFilter.FilterXPath = "Catridge ID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Cartridge ID";
 		objFilter.SearchVlaue = "03-31-2020_PSN13_21613_cocc";  
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlCatridgeIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlCatridgeIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlCatridgeIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("03-31-2020_PSN13_21613_cocc"));
-		objFilter.ClearInput = Test_Elements.ctlCatridgeIDClearInput;
+		objFilter.ClearInput = "clear-input-Cartridge ID";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		
@@ -109,13 +109,13 @@ public class CoccidiaTimelineModel {
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
 		objFilter.FilterXPath = Test_Elements.ctlLaneID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlLaneInput;
+		objFilter.FilterListXPathSearch = "place-holder-search-Lane";
 		objFilter.SearchVlaue = "10";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlLanebeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlLaneafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlLaneafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
-		objFilter.ClearInput = Test_Elements.ctlLaneClearInput;
+		objFilter.ClearInput = "clear-input-Lane";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 	
@@ -132,14 +132,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Pathogen Filter";
-		objFilter.FilterXPath = Test_Elements.ctlPathogenID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlPathogenInput;
+		objFilter.FilterXPath = "Pathogen";
+		objFilter.FilterListXPathSearch = "place-holder-search-Pathogen";
 		objFilter.SearchVlaue = "Coccidia";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlPathogenbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlPathogenafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlPathogenafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia"));
-		objFilter.ClearInput = Test_Elements.ctlPathogenClearInput;
+		objFilter.ClearInput = "place-holder-search-Pathogen";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		               
@@ -157,14 +157,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objFilter.FilterXPath = Test_Elements.ctlImprocID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlImprocInput;
+		objFilter.FilterXPath = "Improc Version";
+		objFilter.FilterListXPathSearch = "place-holder-search-Improc Version";
 		objFilter.SearchVlaue = "2.0";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlImprocbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlImprocafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlImprocafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2.0"));
-		objFilter.ClearInput = Test_Elements.ctlImprocClearInput;
+		objFilter.ClearInput = "clear-input-Improc Version";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp); 		
 		
@@ -181,14 +181,14 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "multiple value from same filter";
-		objFilter.FilterXPath = Test_Elements.ctlSampleID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlSampleIDInput;
+		objFilter.FilterXPath = "Sample ID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Sample ID";
 		objFilter.SearchVlaue = "TD";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlSampleIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlSampleIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlSampleIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
-		objFilter.ClearInput = Test_Elements.ctlSampleIDInput;
+		objFilter.ClearInput = "clear-input-Sample ID";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		
@@ -206,22 +206,22 @@ public class CoccidiaTimelineModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objFilter.FilterXPath = Test_Elements.ctlInstrumentID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlInstrumentIDInput;
+		objFilter.FilterXPath = "Instrument ID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Instrument ID";
 		objFilter.SearchVlaue = "PSN0004";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlInstrumentIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlInstrumentIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlInstrumentIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.ClearInput = Test_Elements.ctlInstrumentIDInput;
-		objFilter.FilterXPath = Test_Elements.ctlSampleID;
-		objFilter.FilterListXPathSearch = Test_Elements.ctlSampleIDInput;
+		objFilter.ClearInput = "clear-input-Instrument ID";
+		objFilter.FilterXPath = "SampleID";
+		objFilter.FilterListXPathSearch = "place-holder-search-Sample ID";
 		objFilter.SearchVlaue = "Coccivac";
 		objFilter.FilterListXPathPrefix = Test_Elements.ctlSampleIDbeforeXpath;
 		objFilter.FilterListXPathSuffix = Test_Elements.ctlSampleIDafterXpath;
 		objFilter.FilterListXPathChkSuffix = Test_Elements.ctlSampleIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccivac"));
-		objFilter.ClearInput = Test_Elements.ctlSampleIDInput;
+		objFilter.ClearInput = "clear-input-Sample ID";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 	

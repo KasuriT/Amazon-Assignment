@@ -6,8 +6,9 @@
       <class name="Test.Ancera.Administration.AgreementManagement">
         <methods>
           <include name="extent"/>
+          <include name="User"/>
           <include name="endreport"/>
-          <include name="DeactivateAssignAgreement"/>
+          <include name="DeleteFromGrid"/>
         </methods>
       </class> <!-- Test.Ancera.Administration.AgreementManagement -->
     </classes>

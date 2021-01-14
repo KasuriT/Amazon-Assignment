@@ -305,23 +305,24 @@ public class Test_Variables {
 	
 	public static ArrayList<AgreementManagementModel> lstAgreementManagementCheckbox = new ArrayList<>(
 			Arrays.asList(
-					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div/div[1]/div", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/input", "AN-License-16: Verify user can assign agreement at Organization level", "This test case will verify that user can assign agreement at Organization level", "Organization", "AN-License-17: Verify agreement is assigned to user at Organization Level", "This test case will verify that agreement is assigned to user at Organization Level", "", ""),
-					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[2]/div/div/table/tbody/tr[1]/td[1]/div", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[2]/div/div/table/tbody/tr[1]/td[1]/div/input", "AN-License-18: Verify user can assign agreement at User level", "This test case will verify that user can assign agreement at User level", "User", "AN-License-19: Verify agreement is assigned to user at User Level", "This test case will verify that agreement is assigned to user at User Level", "", ""),
-					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div/div[1]", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[1]/div[1]/input", "AN-License-20: Verify user can assign agreement at Organization Type level", "This test case will verify that user can assign agreement at Organization Type level", "Organization Type", "AN-License-21: Verify agreement is assigned to user at Organization Type Level", "This test case will verify that agreement is assigned to user at Organization Type Level", "", "")
+					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div/div[1]/div", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/input", "AN-License-18: Verify user can assign agreement at Organization level", "This test case will verify that user can assign agreement at Organization level", "Organization", "AN-License-19: Verify agreement is assigned to user at Organization Level", "This test case will verify that agreement is assigned to user at Organization Level", "", ""),
+					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[2]/div/div/table/tbody/tr[1]/td[1]/div", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[2]/div/div/table/tbody/tr[1]/td[1]/div/input", "AN-License-20: Verify user can assign agreement at User level", "This test case will verify that user can assign agreement at User level", "User", "AN-License-21: Verify agreement is assigned to user at User Level", "This test case will verify that agreement is assigned to user at User Level", "", ""),
+					new AgreementManagementModel("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div/div[1]", "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div[1]/div[1]/input", "AN-License-22: Verify user can assign agreement at Organization Type level", "This test case will verify that user can assign agreement at Organization Type level", "Organization Type", "AN-License-23: Verify agreement is assigned to user at Organization Type Level", "This test case will verify that agreement is assigned to user at Organization Type Level", "", "")
 					));
 	
 	
 	public static ArrayList<AgreementManagementModel> lstAgreementManagementDeactivate = new ArrayList<>(
 			Arrays.asList(
-					new AgreementManagementModel("No items found", "AN-License-30: Verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "This testcase will verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "The assigned but deactivated agreement was not displayed", "The assigned but deactivated agreement was displayed"),
-					new AgreementManagementModel("sample.pdf", "AN-License-31: Verify that assigned and reactivated agreement is displayed in user agreement dropdown", "This testcase will verify that assigned and reactivated agreement is displayed in user agreement dropdown", "The assigned and reactivated agreement was displayed successfully", "The assigned and reactivated agreement was not displayed")
+					new AgreementManagementModel("No items found", "AN-License-32: Verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "This testcase will verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "The assigned but deactivated agreement was not displayed", "The assigned but deactivated agreement was displayed"),
+					new AgreementManagementModel("samplefile"+date0+".pdf", "AN-License-33: Verify that assigned and reactivated agreement is displayed in user agreement dropdown", "This testcase will verify that assigned and reactivated agreement is displayed in user agreement dropdown", "The assigned and reactivated agreement was displayed successfully", "The assigned and reactivated agreement was not displayed")
 							));
 			
 			
 			
 	public static ArrayList<String> lstAgreemmentManagementFileName = new ArrayList<>(
 			Arrays.asList("sample.pdf", 
-					"SampleAutomatedFile.pdf"));
+					"file"+date0+".pdf",
+					"samplefile"+date0+".pdf"));
 	
 	////////////////////////////////////////////////End Agreement Management Variables////////////////////////////////////////////////////////
 	

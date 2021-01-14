@@ -522,13 +522,35 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 		
 
-		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-75: Verify user can filter multiple value from same filter";
+		objTmp.TestCaseName = "AN-SL-75: Verify user can filter any value from Result Status Filter";
+		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Result Status Filter";
+		objTmp.TestCaseNameSearch = "AN-SL-76: Verify the results are displayed in the table after applying Result Status Filter";
+		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Result Status Filter";
+		objTmp.TestCaseNameClearInput = "AN-SL-77: Verify user can clear input field and reset  Result Status Filter";
+		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Result Status Filter by clicking on cross icon and reset the filter";
+		objTmp.ApplyFilter = false;
+		objTmp.ResetFilter = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Piper User Filter";
+		objFilter.FilterXPath = "Result Status";
+		objFilter.FilterListXPathSearch = "place-holder-search-Result Status";
+		objFilter.SearchVlaue = "Pending";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "clear-input-Result Status";
+		objFilter.wait = 3000;
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+		
+			
+		objTmp = new SalmonellaModel();
+		objTmp.TestCaseName = "AN-SL-78: Verify user can filter multiple value from same filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can filter multiple value from same filter";
-		objTmp.TestCaseNameSearch = "AN-SL-76: Verify the results are displayed in the table after applying multiple value from same filter";
+		objTmp.TestCaseNameSearch = "AN-SL-79: Verify the results are displayed in the table after applying multiple value from same filter";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying multiple value from same filter";
-		objTmp.TestCaseNameClearInput = "AN-SL-77: Verify user can clear input field and reset filter after applying multiple value from same filter";
+		objTmp.TestCaseNameClearInput = "AN-SL-80: Verify user can clear input field and reset filter after applying multiple value from same filter";
 		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field and reset filter after applying multiple value from same filter by clicking on cross icon"; 
 		objTmp.ApplyFilter = false;
 		objTmp.ResetFilter = true;
@@ -552,11 +574,11 @@ public class SalmonellaModel {
 	
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-78: Verify user can filter values from two filters at sametime";
+		objTmp.TestCaseName = "AN-SL-81: Verify user can filter values from two filters at sametime";
 		objTmp.TestCaseDescription = "This testcase will verify user filter values from two filters at sametime";
-		objTmp.TestCaseNameSearch = "AN-SL-79: Verify the results are displayed in the table after applying filter values from two filters at sametime";
+		objTmp.TestCaseNameSearch = "AN-SL-82: Verify the results are displayed in the table after applying filter values from two filters at sametime";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying filter values from two filters at sametime";
-		objTmp.TestCaseNameClearInput = "AN-SL-80: Verify user can clear input fields and reset filters after applying filter values from two filters at sametime";
+		objTmp.TestCaseNameClearInput = "AN-SL-83: Verify user can clear input fields and reset filters after applying filter values from two filters at sametime";
 		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field after applying filter values from two filters at sametime";
 		objTmp.ApplyFilter = false;
 		objTmp.ResetFilter = true;
@@ -805,7 +827,7 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 		
-		objTmp.TestCaseName = "AN-SL-82: Verify pagination exist on Salmonella Log report";
+		objTmp.TestCaseName = "AN-SL-85: Verify pagination exist on Salmonella Log report";
 		objTmp.TestCaseDescription = "This testcase will verify that pagination exist on Salmonella Log report";
 		objTmp.paginationExist = true;
 		objTmp.paginationLastPage = false;
@@ -821,7 +843,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-83: Verify user navigates to last page on clicking '>>' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-86: Verify user navigates to last page on clicking '>>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to last page on clicking '>>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = true;
@@ -838,7 +860,7 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-84: Verify user navigates to previous page on clicking '<' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-87: Verify user navigates to previous page on clicking '<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to previous page on clicking '<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -855,7 +877,7 @@ public class SalmonellaModel {
 	
 	
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-85: Verify user navigates to first page on clicking '<<' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-88: Verify user navigates to first page on clicking '<<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to first page on clicking '<<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -872,7 +894,7 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-86: Verify user navigates to next page on clicking '>' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-89: Verify user navigates to next page on clicking '>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to next page on clicking '>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -897,9 +919,9 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 		
-		objTmp.TestCaseName = "AN-SL-87: Verify 100 rows are displayed when 100 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-90: Verify 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-88: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-91: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
@@ -911,9 +933,9 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-89: Verify 250 rows are displayed when 250 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-92: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-90: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-93: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -925,9 +947,9 @@ public class SalmonellaModel {
 		
 			
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-91: Verify 500 rows are displayed when 500 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-94: Verify 500 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 500 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-92: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-95: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();

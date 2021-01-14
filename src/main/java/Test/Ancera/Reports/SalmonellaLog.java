@@ -915,7 +915,7 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 7) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-81: Verify Salmonella Lock Filter Functionality", "This test case will test Salmonella Lock Filter Functionality");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-84: Verify Salmonella Lock Filter Functionality", "This test case will test Salmonella Lock Filter Functionality");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1048,9 +1048,7 @@ public class SalmonellaLog {
 							Test_Variables.results.createNode("Navigated to last page successfully");
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-
 						}
-
 
 						if (objModel.paginationPreviousPage) {
 
@@ -1236,7 +1234,7 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 10) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-93: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-96: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1310,7 +1308,7 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =11) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-94: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-97: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1369,7 +1367,7 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 12) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-95: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-98: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
