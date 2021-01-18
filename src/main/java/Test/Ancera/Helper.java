@@ -45,8 +45,8 @@ public class Helper {
 	public static void saveResult(ITestResult result, String reportPath) throws IOException {
 		System.out.println(Reporter.getCurrentTestResult());
 		if (result.getStatus() == ITestResult.FAILURE) {
-			Test_Variables.test.log(Status.FAIL, "TEST CASE FAILED IS " + result.getName()); // to add name in extent report
-			Test_Variables.test.log(Status.FAIL, "TEST CASE FAILED IS " + result.getThrowable()); // to add error/exception in extent report
+			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getName()); // to add name in extent report
+			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getThrowable()); // to add error/exception in extent report
 	//		String screenshotPath = getScreenshot(result.getName(), reportPath);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));// adding screen shot
 		} 
@@ -69,7 +69,7 @@ public class Helper {
 		else if (testResult == ITestResult.FAILURE) {
 			objResult.setStatus(ITestResult.FAILURE);
 			objResult.setThrowable(e);
-			Test_Variables.test.log(Status.FAIL, "TEST CASE Failed"); // to add name in extent report
+			Test_Variables.test.log(Status.FAIL, "Test Case Failed"); // to add name in extent report
 			Test_Variables.test.log(Status.FAIL, "Issue -> " + e); // to add error/exception in extent report
 	//		String screenshotPath = getScreenshot(result.getName(), reportPath);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));// adding screen shot

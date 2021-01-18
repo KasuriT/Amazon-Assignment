@@ -52,7 +52,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -312,7 +312,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaDateSearch = ExternalCoccidiaModel.FillDate();
@@ -501,7 +501,7 @@ public class ExternalCoccidia {
 
 
 
-	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
+	@Test (description="Test Case: Date Enter",enabled= false, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaDateEnter = ExternalCoccidiaModel.EnterDate();
@@ -584,7 +584,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-17: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -643,7 +643,7 @@ public class ExternalCoccidia {
 	}
 	
 	
-	@Test (description="Test Case: Reset Filter",enabled= true, priority = 6) 
+	@Test (description="Test Case: Reset Filter",enabled= false, priority = 6) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
 		try {
@@ -789,8 +789,9 @@ public class ExternalCoccidia {
 //							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getText();
 //							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
 //						}	
-
-						Assert.assertTrue(recordBefore != recordAfter);
+						System.out.println(recordBefore+", "+recordAfter);
+						Assert.assertNotEquals(recordBefore, recordAfter);
+					//	Assert.assertTrue(recordBefore != recordAfter);
 						Test_Variables.test.pass("Records verified successfully");
 						Test_Variables.results.createNode("User is able to see filtered records in table successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
@@ -871,7 +872,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-76: Verify External Coccidia Lock Filter Functionality", "This test case will test External Coccidia Lock Filter Functionality");
@@ -937,7 +938,7 @@ public class ExternalCoccidia {
 		Thread.sleep(1000);
 	}
 
-	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstExternalCoccidiaPagination = ExternalCoccidiaModel.pagination();
 		Helper.driver.get(Constants.url_ExternalCoccidiaLog);
@@ -1081,7 +1082,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_ExternalCoccidiaLog);
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
@@ -1184,7 +1185,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 11) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-88: Verify user can download External Coccidia PNG file", "This test case will verify user can download External Coccidia PNG file");
@@ -1252,7 +1253,7 @@ public class ExternalCoccidia {
 
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-89: Verify user can download External Coccidia CSV file", "This test case will verify that user can download External Coccidia CSV file");
@@ -1311,7 +1312,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 13) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-90: Verify user can download External Coccidia Template file", "This test case will verify that user download External Coccidia Template file");

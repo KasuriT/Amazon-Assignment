@@ -2,22 +2,22 @@
 <testng-results skipped="0" failed="0" ignored="10" total="12" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="64758" started-at="2021-01-14T18:08:14 PKT" finished-at="2021-01-14T18:09:19 PKT">
+  <suite name="Default suite" duration-ms="322016" started-at="2021-01-15T16:32:40 PKT" finished-at="2021-01-15T16:38:02 PKT">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="64758" started-at="2021-01-14T18:08:14 PKT" finished-at="2021-01-14T18:09:19 PKT">
+    <test name="Default test" duration-ms="322016" started-at="2021-01-15T16:32:40 PKT" finished-at="2021-01-15T16:38:02 PKT">
       <class name="Test.Ancera.Reports.SalmonellaLog">
-        <test-method status="PASS" signature="extent()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="extent" is-config="true" duration-ms="29421" started-at="2021-01-14T18:08:14 PKT" finished-at="2021-01-14T18:08:44 PKT">
+        <test-method status="PASS" signature="extent()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="extent" is-config="true" duration-ms="28905" started-at="2021-01-15T16:32:40 PKT" finished-at="2021-01-15T16:33:09 PKT">
           <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
               <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"#Home"}
   (Session info: chrome=87.0.4280.88)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.141', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.145', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:49361}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
-Session ID: 35d980b127f3c729dfd0243d85147b7d
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57203}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b71bfaae494f68a8c34884d5889fdad6
 *** Element info: {Using=id, value=Home}]]>
             </message>
             <full-stacktrace>
@@ -25,10 +25,10 @@ Session ID: 35d980b127f3c729dfd0243d85147b7d
   (Session info: chrome=87.0.4280.88)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.141', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.145', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:49361}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
-Session ID: 35d980b127f3c729dfd0243d85147b7d
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57203}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b71bfaae494f68a8c34884d5889fdad6
 *** Element info: {Using=id, value=Home}
 at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -76,18 +76,48 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method status="PASS" signature="NavigateSalmonella()[pri:2, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="NavigateSalmonella" duration-ms="17579" started-at="2021-01-14T18:08:44 PKT" description="Test Case: Navigate to Salmonella Log Screen" finished-at="2021-01-14T18:09:01 PKT">
+        <test-method status="PASS" signature="NavigateSalmonella()[pri:2, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="NavigateSalmonella" duration-ms="17970" started-at="2021-01-15T16:33:09 PKT" description="Test Case: Navigate to Salmonella Log Screen" finished-at="2021-01-15T16:33:27 PKT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NavigateSalmonella -->
-        <test-method status="PASS" signature="SearchFilter()[pri:6, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="SearchFilter" duration-ms="17056" started-at="2021-01-14T18:09:01 PKT" description="Test Case: Filter Test" finished-at="2021-01-14T18:09:19 PKT">
-          <exception class="java.lang.Exception">
+        <test-method status="PASS" signature="SearchFilter()[pri:6, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="SearchFilter" duration-ms="274483" started-at="2021-01-15T16:33:27 PKT" description="Test Case: Filter Test" finished-at="2021-01-15T16:38:01 PKT">
+          <exception class="org.openqa.selenium.InvalidSelectorException">
             <message>
-              <![CDATA[java.lang.AssertionError: expected [true] but found [false]]]>
+              <![CDATA[invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=87.0.4280.88)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.145', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57203}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b71bfaae494f68a8c34884d5889fdad6
+*** Element info: {Using=css selector, value=li.order-1#06-29-2020}]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [true] but found [false]
-at Test.Ancera.Reports.SalmonellaLog.SearchFilter(SalmonellaLog.java:895)
+              <![CDATA[org.openqa.selenium.InvalidSelectorException: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=87.0.4280.88)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'LAPTOP-O6K4VQH7', ip: '192.168.19.145', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.88, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\MUHAMM~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57203}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: b71bfaae494f68a8c34884d5889fdad6
+*** Element info: {Using=css selector, value=li.order-1#06-29-2020}
+at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:353)
+at org.openqa.selenium.remote.RemoteWebDriver.findElementsByCssSelector(RemoteWebDriver.java:424)
+at org.openqa.selenium.By$ByCssSelector.findElements(By.java:441)
+at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:311)
+at Test.Ancera.Reports.SalmonellaLog.SearchFilter(SalmonellaLog.java:923)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -116,20 +146,13 @@ at org.testng.TestNG.run(TestNG.java:1034)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:97)
-at org.testng.Assert.failNotEquals(Assert.java:968)
-at org.testng.Assert.assertTrue(Assert.java:43)
-at org.testng.Assert.assertTrue(Assert.java:53)
-at Test.Ancera.Reports.SalmonellaLog.SearchFilter(SalmonellaLog.java:883)
-... 28 more
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.Exception -->
+          </exception> <!-- org.openqa.selenium.InvalidSelectorException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SearchFilter -->
-        <test-method status="PASS" signature="endreport()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="endreport" is-config="true" duration-ms="641" started-at="2021-01-14T18:09:19 PKT" finished-at="2021-01-14T18:09:19 PKT">
+        <test-method status="PASS" signature="endreport()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@fad74ee]" name="endreport" is-config="true" duration-ms="608" started-at="2021-01-15T16:38:01 PKT" finished-at="2021-01-15T16:38:02 PKT">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->

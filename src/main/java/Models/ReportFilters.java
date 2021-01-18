@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ReportFilters {
 	public String FilterName;
 	public String FilterXPath;
+	public String FilterID;
 	public String FilterListXPathSearch;
 	public String SearchVlaue;
 	public String FilterListXPathPrefix;
@@ -26,4 +27,5 @@ public class ReportFilters {
 	public String paginationCount;
 	
 	public ArrayList<String> LstFilterValues;
+	public ArrayList<String> LstFilterXpath;
 }

@@ -6,7 +6,6 @@
       <class name="Test.Ancera.Reports.SalmonellaLog">
         <methods>
           <include name="NavigateSalmonella"/>
-          <include name="SearchFilter"/>
           <include name="extent"/>
           <include name="endreport"/>
         </methods>

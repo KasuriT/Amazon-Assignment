@@ -55,7 +55,7 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
-
+/*
 		objTmp = new ExternalCoccidiaModel();
 		objTmp.TestCaseName = "AN-ECL-22: Verify user can filter any value from Instrument ID Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Instrument ID Filter";
@@ -421,7 +421,7 @@ public class ExternalCoccidiaModel {
 		objFilter.ClearInput = "clear-input-Flock ID";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
+*/
 
 		objTmp = new ExternalCoccidiaModel();
 		objTmp.TestCaseName = "AN-ECL-64: Verify user can filter any value from Collection Site Type Filter";
@@ -449,7 +449,7 @@ public class ExternalCoccidiaModel {
 		lstExternalCoccidiaModel.add(objTmp);
 
 
-
+/*
 		objTmp = new ExternalCoccidiaModel();
 		objTmp.TestCaseName = "AN-ECL-67: Verify user can filter any value from Result Status Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Result Status Filter";
@@ -535,7 +535,7 @@ public class ExternalCoccidiaModel {
 		objFilter.ClearInput = "clear-input-Lab Sample ID";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
+*/
 		return lstExternalCoccidiaModel;
 	}
 

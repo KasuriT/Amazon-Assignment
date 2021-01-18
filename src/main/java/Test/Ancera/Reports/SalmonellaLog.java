@@ -490,33 +490,33 @@ public class SalmonellaLog {
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 				}
 
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));	
-//
-//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.slResetButton));
-//				Test_Variables.steps.createNode("5. Click on Reset button");
-//				actions.moveToElement(element).click().perform();
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));
-//				Thread.sleep(3000);
-//				actions.moveToElement(element).click().perform();
-//				Thread.sleep(5000);
-//
-//				try{   
-//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText(), recordBefore);
-//					Test_Variables.test.pass("Filter reset successfully");
-//					Test_Variables.results.createNode("3. Filter reset successfully");
-//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-//				}
-//				catch(AssertionError er) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-//				}
-//				catch(Exception ex) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-//				}
+				//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));	
+				//
+				//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.slResetButton));
+				//				Test_Variables.steps.createNode("5. Click on Reset button");
+				//				actions.moveToElement(element).click().perform();
+				//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));
+				//				Thread.sleep(3000);
+				//				actions.moveToElement(element).click().perform();
+				//				Thread.sleep(5000);
+				//
+				//				try{   
+				//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText(), recordBefore);
+				//					Test_Variables.test.pass("Filter reset successfully");
+				//					Test_Variables.results.createNode("3. Filter reset successfully");
+				//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+				//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+				//				}
+				//				catch(AssertionError er) {
+				//					Test_Variables.test.fail("Filter failed to reset");
+				//					Test_Variables.results.createNode("2. Filter failed to reset");
+				//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+				//				}
+				//				catch(Exception ex) {
+				//					Test_Variables.test.fail("Filter failed to reset");
+				//					Test_Variables.results.createNode("2. Filter failed to reset");
+				//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+				//				}
 			}
 		}
 	}
@@ -603,34 +603,34 @@ public class SalmonellaLog {
 					}					
 				}
 
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));	
-//				Thread.sleep(1500);
-//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.slResetButton));
-//				Test_Variables.steps.createNode("3. Click on Reset button");
-//				Actions actions = new Actions(Helper.driver);
-//				actions.moveToElement(element).click().perform();
-//				Thread.sleep(3000);
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.eslResetButton)));
-//				actions.moveToElement(element).click().perform();
-//				Thread.sleep(2000);
-//
-//				try{
-//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText(), recordBefore);
-//					Test_Variables.test.pass("Filter reset successfully");
-//					Test_Variables.results.createNode("2. Filter reset successfully");
-//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-//				}
-//				catch(AssertionError er) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-//				}
-//				catch(Exception ex) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-//				}
+				//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));	
+				//				Thread.sleep(1500);
+				//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.slResetButton));
+				//				Test_Variables.steps.createNode("3. Click on Reset button");
+				//				Actions actions = new Actions(Helper.driver);
+				//				actions.moveToElement(element).click().perform();
+				//				Thread.sleep(3000);
+				//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.eslResetButton)));
+				//				actions.moveToElement(element).click().perform();
+				//				Thread.sleep(2000);
+				//
+				//				try{
+				//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText(), recordBefore);
+				//					Test_Variables.test.pass("Filter reset successfully");
+				//					Test_Variables.results.createNode("2. Filter reset successfully");
+				//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+				//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+				//				}
+				//				catch(AssertionError er) {
+				//					Test_Variables.test.fail("Filter failed to reset");
+				//					Test_Variables.results.createNode("2. Filter failed to reset");
+				//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+				//				}
+				//				catch(Exception ex) {
+				//					Test_Variables.test.fail("Filter failed to reset");
+				//					Test_Variables.results.createNode("2. Filter failed to reset");
+				//					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+				//				}
 			}
 		}
 	}
@@ -707,7 +707,7 @@ public class SalmonellaLog {
 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	
 			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
 
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -721,6 +721,7 @@ public class SalmonellaLog {
 
 				Actions actions = new Actions(Helper.driver);
 				for (ReportFilters objFilter : objModel.lstFilters) {	
+					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
 						Thread.sleep(1500);
@@ -731,11 +732,12 @@ public class SalmonellaLog {
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.SearchVlaue+")");
 						Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).sendKeys(objFilter.SearchVlaue);  
-						Thread.sleep(1000);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Thread.sleep(1000);
+				
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
-							Test_Variables.steps.createNode("3. Select the checkbox");
+							Test_Variables.steps.createNode("3. Select the checkbox and verify that apply filter button becomes active or not");
 							int attempts = 0;
 							while(attempts < 4) {
 								try {
@@ -749,28 +751,26 @@ public class SalmonellaLog {
 						}
 
 						Assert.assertTrue(chkCounter == objFilter.LstFilterValues.size()); 
-						Test_Variables.test.pass("Checkbox selected successfully");
-						Test_Variables.results.createNode("Checkbox selected successfully");
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() != 0);
+						Test_Variables.test.pass("Checkbox selected successfully and Apply filter button becomes active");
+						Test_Variables.results.createNode("Checkbox selected successfully and Apply filter button becomes active");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 					}		
 					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
 					}
 					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
 						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
@@ -788,37 +788,84 @@ public class SalmonellaLog {
 						Helper.driver.findElement(By.id("filter-icon")).click(); 
 						Thread.sleep(objFilter.wait);
 
-						Test_Variables.steps.createNode("2. Verify the filter is applied and user is able to see the relavant records in the table");
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
 							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
 							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
-						}	
+						}
 
-//						if(recordAfter != "0" && objFilter.FilterName != "Load Filter") {
-//							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getText();
-//							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
-//						}	
-						
-						Assert.assertTrue(recordBefore != recordAfter);
-						Test_Variables.test.pass("Records verified successfully");
-						Test_Variables.results.createNode("User is able to see filtered records in table successfully");
+						//if(recordAfter != "0" && objFilter.FilterName != "Load Filter") {
+						//String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getText();
+						//Assert.assertEquals(getRow, objFilter.rowValueExpected);			
+						System.out.println(recordBefore+", "+recordAfter);
+						Assert.assertNotEquals(recordBefore, recordAfter);
+						Test_Variables.test.pass("Filter applied successfully");
+						Test_Variables.results.createNode("Filter applied successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-					}
+					}		
 					catch(AssertionError er) {
-						Test_Variables.test.fail("Records verification failed");
-						Test_Variables.results.createNode("User failed to see filtered records in table");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
 					}
 					catch(Exception ex) {
-						Test_Variables.test.fail("Records verification failed");
-						Test_Variables.results.createNode("User failed to see filtered records in table");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 
 
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and apply filter");
+
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+
+						Test_Variables.steps.createNode("1. Verify blue filter indicator next to applied filter/s");	
+						
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
+
+							try {
+								Assert.assertTrue(Helper.driver.findElements(By.id("filter-indicator-"+objFilter.LstFilterXpath.get(i))).size() != 0);
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
+								Test_Variables.test.pass("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
+								Test_Variables.results.createNode("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+		
+								break;
+							} catch(StaleElementReferenceException e) {
+							} 
+							catch(AssertionError er) {
+								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+							}
+							catch(Exception ex) {
+								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+							}					   
+							chkCounter++;
+						}
+					}
+					catch(Exception ex) {
+					}
+								
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterTop, objModel.TestCaseDescriptionBubbleFilterTop);
 
@@ -833,10 +880,10 @@ public class SalmonellaLog {
 						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
-						
+
 						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
 
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 app-custom-checkbox-list#"+objFilter.FilterID)).size() != 0);
 						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
 						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
@@ -852,9 +899,7 @@ public class SalmonellaLog {
 						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
-					
-					//////////////////////////////
-					
+
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
 
@@ -869,54 +914,37 @@ public class SalmonellaLog {
 						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
-						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
+						Test_Variables.steps.createNode("1. Verify checkbox selected pops to top of filter checkbox list");
 
-						
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
 							Test_Variables.steps.createNode("3. Select the checkbox");
-
-			
-								try {
-									
-									
-									Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 #"+objFilter.LstFilterValues.get(i))).size() != 0);
-									Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
-									Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
-									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-									Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-									Helper.driver.findElement(By.id(objFilter.LstFilterValues.get(i))).click();
-									break;
-								} catch(StaleElementReferenceException e) {
-								} 
-								catch(AssertionError er) {
-									Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
-									Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
-									Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-								}
-								catch(Exception ex) {
-									Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
-									Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
-									Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-								}
-												   
+							try {
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1#"+objFilter.LstFilterValues.get(i))).size() != 0);
+								Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+								Helper.driver.findElement(By.id(objFilter.LstFilterValues.get(i))).click();
+								break;
+							} catch(StaleElementReferenceException e) {
+							} 
+							catch(AssertionError er) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+							}
+							catch(Exception ex) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+							}					   
 							chkCounter++;
 						}
-						
-						
-						
-						
-			//			Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
-			//			Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
-			//			Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
-			//			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-			//			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 					}
 					catch(Exception ex) {
-
 					}
-///////////////////////////////////////////////////////////////////////////////
-					
+
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
 
@@ -937,8 +965,8 @@ public class SalmonellaLog {
 						WebElement clearInput = Helper.driver.findElement(By.id(objFilter.ClearInput));
 						JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
 						jse.executeScript("arguments[0].click()", clearInput);
-						Thread.sleep(500);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Thread.sleep(500);
 						WebElement closeSearch = Helper.driver.findElement(By.id(objFilter.FilterXPath));
 						actions.moveToElement(closeSearch).click().perform();
 
@@ -957,48 +985,49 @@ public class SalmonellaLog {
 						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
+					
 
-					Thread.sleep(1000);
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameRevertBack, objModel.TestCaseDescriptionRevertBack);
 
-					if(objModel.ResetFilter) {
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Click on apply filter button; selected filter moves to the top");
+
+						Test_Variables.steps.createNode("1. Click on reset button");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						
 						Helper.driver.findElement(By.id("reset-icon")).click();
 						Thread.sleep(2000);
 						
-//						Test_Variables.steps.createNode("2. Click on reset button");
-//						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));		
-//						WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.slResetButton));
-//						actions.moveToElement(element).click().perform();
-//						
-//						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));
-//						Thread.sleep(2000);
-//						actions.moveToElement(element).click().perform();
-//						Thread.sleep(objFilter.wait);
-//
-//						System.out.println(recordBefore);
-//						System.out.println(Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText());
-//						String recordAfter = Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText();
-//
-//						try {
-//							Assert.assertEquals(recordAfter, recordBefore);
-//							Test_Variables.test.pass("Filter reset successfully");
-//							Test_Variables.results.createNode("2. Filter reset successfully");
-//							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-//							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-//						}catch(AssertionError er) {
-//							Test_Variables.test.fail("Filter failed to reset successfully");
-//							Test_Variables.results.createNode("2. Filter failed to reset");
-//							Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-//						}catch(Exception ex){
-//							Test_Variables.test.fail("Filter failed to reset successfully");
-//							Test_Variables.results.createNode("2. Filter failed to reset");
-//							Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-//						}
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() == 0);
+						Test_Variables.test.pass("Filter reverts back to its position successfully on resetting filter");
+						Test_Variables.results.createNode("Filter reverts back to its position successfully on resetting filter");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
+						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
+						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 
-					if(objModel.ApplyFilter) {
+					if(objModel.ReloadPage) {
 						Helper.driver.get(Constants.url_SalmonellaLog);
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 						Thread.sleep(2000);
 					}
 					Thread.sleep(1000);
@@ -1134,7 +1163,7 @@ public class SalmonellaLog {
 						if (objModel.paginationLastPage) {
 							Thread.sleep(8000);
 							Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");
-			
+
 							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
 								Thread.sleep(500);
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
@@ -1234,8 +1263,8 @@ public class SalmonellaLog {
 		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("09/01/2020");
 		Helper.driver.findElement(By.id("filter-icon")).click();
 		Thread.sleep(3500);
-		
-		
+
+
 		Test_Variables.lstSalmonellaRowCount = SalmonellaModel.searchRows();
 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaRowCount) { 	
@@ -1346,8 +1375,8 @@ public class SalmonellaLog {
 
 			Test_Variables.steps.createNode("1. Hover mouse towards barchart on top");
 			Test_Variables.steps.createNode("2. Export PNG button becomes visible");
-			
-			
+
+
 			Helper.driver.get(Constants.url_SalmonellaLog);
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.slResetButton)));
 			Thread.sleep(1000);
@@ -1382,7 +1411,7 @@ public class SalmonellaLog {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 
-	//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.slPNGFileName+date+".png")); 
+			//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.slPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
 			Test_Variables.results.createNode("PNG downloads successfully");
@@ -1442,7 +1471,7 @@ public class SalmonellaLog {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 
-	//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.slCSVFileName+date+".csv"));
+			//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.slCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1498,7 +1527,7 @@ public class SalmonellaLog {
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-		//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.slSampleMetaData+".xlsx"));
+			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.slSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
@@ -1520,7 +1549,7 @@ public class SalmonellaLog {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-	//	Helper.driver.close();
+		//	Helper.driver.close();
 	}
 
 }
