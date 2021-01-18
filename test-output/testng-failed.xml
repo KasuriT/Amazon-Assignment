@@ -5,7 +5,8 @@
     <classes>
       <class name="Test.Ancera.Reports.SalmonellaLog">
         <methods>
-          <include name="NavigateSalmonella"/>
+          <include name="CSVExport"/>
+          <include name="TemplateExport"/>
           <include name="extent"/>
           <include name="endreport"/>
         </methods>
