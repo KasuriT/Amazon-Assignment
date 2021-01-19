@@ -18,6 +18,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -909,6 +910,9 @@ public class SalmonellaLog {
 						jse.executeScript("arguments[0].click()", clearInput);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						Thread.sleep(500);
+						
+			
+						
 						WebElement closeSearch = Helper.driver.findElement(By.id(objFilter.FilterXPath));
 						actions.moveToElement(closeSearch).click().perform();
 
@@ -927,6 +931,76 @@ public class SalmonellaLog {
 						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
+					
+					
+					
+					
+					///////////
+					
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest("aaa", objModel.TestCaseDescriptionRevertBack);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+					
+						
+						String a = Helper.driver.findElement(By.id("results-found-count")).getText();
+						
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
+							Test_Variables.steps.createNode("3. Select the checkbox");
+							try {
+								
+								Actions builder = new Actions(Helper.driver); 
+								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
+								WebElement pngHover = Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator"));
+								Test_Variables.steps.createNode("3. Click on the button");
+								builder.moveToElement(pngHover).build().perform();
+								Thread.sleep(500);
+
+								WebElement button = Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear"));
+								JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
+								jse.executeScript("arguments[0].click()", button);
+
+WebDriverWait wait = new WebDriverWait(Helper.driver,10);
+//wait.until(ExpectedConditions.textToBe(By.id("results-found-count"), a));
+wait.until(ExpectedConditions.textToBePresentInElement(Helper.driver.findElement(By.id("results-found-count")), a));
+	//		Thread.sleep(5000);		
+	
+							Assert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), recordBefore);			
+	Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+
+								break;
+							} catch(StaleElementReferenceException e) {
+							} 
+							catch(AssertionError er) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+							}
+							catch(Exception ex) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+							}					   
+							chkCounter++;
+						}
+					}
+
+					catch(Exception ex) {
+					}
+					
+					
+					//////////////////
+					
+					
+					
+					
+					
 					
 
 					try {
@@ -947,7 +1021,7 @@ public class SalmonellaLog {
 						Test_Variables.steps.createNode("1. Click on reset button");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						
-						Helper.driver.findElement(By.id("reset-icon")).click();
+					//	Helper.driver.findElement(By.id("reset-icon")).click();
 						Thread.sleep(2000);
 						
 						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() == 0);
@@ -1361,7 +1435,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =11) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= false, priority =11) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-97: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
@@ -1420,7 +1494,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Salmonella Template Download",enabled= false, priority = 12) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-98: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");

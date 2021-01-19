@@ -702,7 +702,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 			
-	*/		
+		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "multiple value from same filter";
@@ -780,7 +780,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 
-
+*/	
 
 		return lstSalmonellaModel;
 	}
