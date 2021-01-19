@@ -36,7 +36,6 @@ public class SalmonellaModel {
 
 	}
 
-	
 	public static String buttonActiveTitle = "Verify apply filter button becomes active on selecting checkbox from ";
 	public static String buttonActiveDesc = "This test case will verify that filter button becomes active on selecting checkbox from ";
 	public static String applyFilterTitle = "Verify user can apply ";
@@ -84,11 +83,11 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slLoadRow;
 		objFilter.rowValueExpected = Test_Elements.slLoadYellow;
 		objFilter.ClearInput = "Load-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 5000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-/*	
+
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
@@ -274,7 +273,7 @@ public class SalmonellaModel {
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
 		objTmp.TestCaseNameRevertBack = "AN-SL-72: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = false;
+		objTmp.ReloadPage = true;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "lane-num";
@@ -354,7 +353,7 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slQCCodeRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "QC-Code-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);                   
 
@@ -376,7 +375,7 @@ public class SalmonellaModel {
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
 		objTmp.TestCaseNameRevertBack = "AN-SL-93: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = true;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "version";
@@ -388,7 +387,7 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slImprocIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Improc-Version-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 5000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 		
@@ -495,7 +494,7 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slSiteTypeRow;
 		objFilter.rowValueExpected = "";
 		objFilter.ClearInput = "Collection-Site-Type-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 4500;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 		
@@ -517,7 +516,7 @@ public class SalmonellaModel {
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
 		objTmp.TestCaseNameRevertBack = "AN-SL-58: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = false;
+		objTmp.ReloadPage = true;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "sample-matrix";
@@ -597,7 +596,7 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slDateReceivedRow;
 		objFilter.rowValueExpected = "";
 		objFilter.ClearInput = "Date-Received-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 6000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -631,7 +630,7 @@ public class SalmonellaModel {
 		objFilter.getRowValue = Test_Elements.slKitLotRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Kit-Lot-clear-input";
-		objFilter.wait = 3000;
+		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -694,8 +693,8 @@ public class SalmonellaModel {
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
 		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
-		objFilter.SearchVlaue = "Pending";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Result-Status-clear-input";
 		objFilter.wait = 3000;
@@ -779,8 +778,6 @@ public class SalmonellaModel {
 		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-
-*/	
 
 		return lstSalmonellaModel;
 	}

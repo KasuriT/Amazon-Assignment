@@ -163,42 +163,41 @@ public class CoccidiaLog {
 		}
 
 		for(int i=0; i<Test_Variables.lstCoccidiaIngest.size(); i++)	{
-
-			Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstCoccidiaIngest.get(i).testCaseTitle, Test_Variables.lstCoccidiaIngest.get(i).testCaseDesc);	
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("Run login API to generate token");
-			Test_Variables.preconditions.createNode("Add token in Authorization and run file announcement API with unique RUN ID");
-			Test_Variables.steps.createNode(Test_Variables.lstCoccidiaIngest.get(i).step);
-
-			Thread.sleep(2000);
-			RequestSpecification request_fileupload = RestAssured.given();
-			request_fileupload.header("Content-Type", "application/json");
-			request_fileupload.header("Authorization", "bearer " +token);
-
-			HttpGet postRequest1 = new HttpGet(Constants.api_FileUpload);
-			postRequest1.addHeader("Content-Type", "application/json");
-			postRequest1.addHeader("Authorization", "Bearer "+token);
-
-			json3.put("runId", Test_Variables.lstCoccidiaIngest.get(i).runId);
-			json3.put("checksum", Test_Variables.lstCoccidiaIngest.get(i).checksum);
-			json3.put("fileName", Test_Variables.lstCoccidiaIngest.get(i).fileName);
-			json3.put("fileType", Test_Variables.lstCoccidiaIngest.get(i).fileType);
-			json3.put("file", Test_Variables.lstCoccidiaIngest.get(i).file);
-			json3.put("fileJson", Test_Variables.lstCoccidiaIngest.get(i).fileJson);				
-			json3.put("Improc", Test_Variables.lstCoccidiaIngest.get(i).improc);
-
-			request_fileupload.body(json3.toString());
-			Response response2 = request_fileupload.post(Constants.api_FileUpload);
-			String data3 = response2.asString();
-			System.out.println(data3);
-
-			JsonPath jsonPathEvaluator1 = response.jsonPath();
-			jsonPathEvaluator1.get("statusCode");
-
 			try{
+				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstCoccidiaIngest.get(i).testCaseTitle, Test_Variables.lstCoccidiaIngest.get(i).testCaseDesc);	
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("Run login API to generate token");
+				Test_Variables.preconditions.createNode("Add token in Authorization and run file announcement API with unique RUN ID");
+				Test_Variables.steps.createNode(Test_Variables.lstCoccidiaIngest.get(i).step);
+
+				Thread.sleep(2000);
+				RequestSpecification request_fileupload = RestAssured.given();
+				request_fileupload.header("Content-Type", "application/json");
+				request_fileupload.header("Authorization", "bearer " +token);
+
+				HttpGet postRequest1 = new HttpGet(Constants.api_FileUpload);
+				postRequest1.addHeader("Content-Type", "application/json");
+				postRequest1.addHeader("Authorization", "Bearer "+token);
+
+				json3.put("runId", Test_Variables.lstCoccidiaIngest.get(i).runId);
+				json3.put("checksum", Test_Variables.lstCoccidiaIngest.get(i).checksum);
+				json3.put("fileName", Test_Variables.lstCoccidiaIngest.get(i).fileName);
+				json3.put("fileType", Test_Variables.lstCoccidiaIngest.get(i).fileType);
+				json3.put("file", Test_Variables.lstCoccidiaIngest.get(i).file);
+				json3.put("fileJson", Test_Variables.lstCoccidiaIngest.get(i).fileJson);				
+				json3.put("Improc", Test_Variables.lstCoccidiaIngest.get(i).improc);
+
+				request_fileupload.body(json3.toString());
+				Response response2 = request_fileupload.post(Constants.api_FileUpload);
+				String data3 = response2.asString();
+				System.out.println(data3);
+
+				JsonPath jsonPathEvaluator1 = response.jsonPath();
+				jsonPathEvaluator1.get("statusCode");
+
 				//	Assert.assertEquals(statusCodeFileUpload, 114); 
 				Test_Variables.test.pass("File Upload API ran successfully");
 				Test_Variables.results.createNode(Test_Variables.lstCoccidiaIngest.get(i).passScenario);
@@ -213,8 +212,6 @@ public class CoccidiaLog {
 				Test_Variables.results.createNode(Test_Variables.lstCoccidiaIngest.get(i).failScenario);
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 			}
-
-
 			
 			try{
 				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstCoccidiaIngest.get(i).testCaseTitleIngestion, Test_Variables.lstCoccidiaIngest.get(i).testCaseDescIngestion);	
@@ -230,34 +227,24 @@ public class CoccidiaLog {
 
 				Thread.sleep(1000);
 				Helper.driver.get(Constants.url_CoccidiaLog);
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Sample ID")));
-				Thread.sleep(3000);
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Sample-ID")));
+				Thread.sleep(1000);
 			
 				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
-				Helper.driver.findElement(By.id("Sample ID")).click();
+				Helper.driver.findElement(By.id("filter-Sample-ID")).click();
 				Thread.sleep(1000);
 				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
-				Helper.driver.findElement(By.id("place-holder-search-Sample ID")).sendKeys("Test"+Test_Variables.lstSampleID.get(i));
+				Helper.driver.findElement(By.id("Sample-ID-place-holder-search")).sendKeys("Test"+Test_Variables.lstSampleID.get(i));
 				Thread.sleep(1500);
 				Helper.driver.findElement(By.id("Test"+Test_Variables.lstSampleID.get(i))).click();
-				
-//				for (int j=1; j<=4000; j++) {
-//					String actualXpathx = Test_Elements.clSampleIDbeforeXpath+j+Test_Elements.clSampleIDafterXpath;
-//					WebElement element = Helper.driver.findElement(By.xpath(actualXpathx));
-//
-//					if (element.getText().equals("Test"+Test_Variables.lstSampleID.get(i))) {
-//						Helper.driver.findElement(By.xpath(Test_Elements.clSampleIDbeforeXpath+j+Test_Elements.clSampleIDafterXpath1)).click();
-//						break;
-//					}
-//				}
-				
+
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 				Thread.sleep(1500);
 				Test_Variables.steps.createNode("3. Click on Apply filter button");
 				Helper.driver.findElement(By.id("filter-icon")).click();  
 				Thread.sleep(5000);
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-				String records = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText();
+				String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 				Assert.assertEquals(records, "1"); 
 				Test_Variables.test.pass("Ingested Successfully");
@@ -295,7 +282,7 @@ public class CoccidiaLog {
 			Helper.driver.get(Constants.url_CoccidiaLog);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon"))); 
 			Thread.sleep(2000);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText();
+			String actual = Helper.driver.findElement(By.id("Coccidia Log")).getText();
 			String expected = "Coccidia Log";
 
 			Assert.assertEquals(actual, expected); 
@@ -336,9 +323,9 @@ public class CoccidiaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
 
-				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(objFilter.FilterXPath))); 
+				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				actions.moveToElement(Helper.driver.findElement(By.xpath(objFilter.FilterXPath))).click().perform();	
+				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();	
 				Thread.sleep(1000);
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -360,10 +347,10 @@ public class CoccidiaLog {
 						Date todate2 = cal.getTime();    
 						String toDate = dateFormat.format(todate2);
 
-						String fromDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathPrefix)).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSuffix)).getAttribute("value");
+						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
 
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
 						System.out.println(fromDate);
@@ -406,8 +393,8 @@ public class CoccidiaLog {
 						String toDate = dateFormat.format(todate2);
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						String fromDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathPrefix)).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSuffix)).getAttribute("value");
+						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
 
 						Thread.sleep(2000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
@@ -448,8 +435,8 @@ public class CoccidiaLog {
 						String toDate = dateFormat.format(todate2);
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						String fromDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathPrefix)).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSuffix)).getAttribute("value");
+						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
 
 						Thread.sleep(2000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
@@ -475,16 +462,16 @@ public class CoccidiaLog {
 					}
 				}
 
-				String recordBefore = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText(); 
+				String recordBefore = Helper.driver.findElement(By.xpath("results-found-count")).getText(); 
 				try {
 
 					Test_Variables.steps.createNode("4. Click on Apply filter button");
-					Helper.driver.findElement(By.xpath(Test_Elements.clApplyFilter)).click();
-					Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clResetButton)));	
-					Thread.sleep(5000);
+					Helper.driver.findElement(By.id("filter-icon")).click();
+					Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));	
+					Thread.sleep(4000);
 
-					String recordAfter = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText();
-					Assert.assertTrue(recordBefore != recordAfter); 
+					String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+					Assert.assertNotEquals(recordBefore, recordAfter); 
 					Test_Variables.test.pass(objFilter.FilterName+" applied successfully");
 					Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -498,33 +485,8 @@ public class CoccidiaLog {
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 				}
-
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clResetButton)));	
-//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.clResetButton));
-//				Test_Variables.steps.createNode("5. Click on Reset button");
-//				actions.moveToElement(element).click().perform();
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clResetButton)));
-//				Thread.sleep(3000);
-//				actions.moveToElement(element).click().perform();
-//				Thread.sleep(3000);
-//
-//				try{   
-//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText(), recordBefore);
-//					Test_Variables.test.pass("Filter reset successfully");
-//					Test_Variables.results.createNode("3. Filter reset successfully");
-//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-//				}
-//				catch(AssertionError er) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-//				}
-//				catch(Exception ex) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-//				}
+				Helper.driver.findElement(By.id("reset-icon")).click();
+				Thread.sleep(2500);
 			}
 		}
 	}
@@ -550,7 +512,7 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			String recordBefore = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText(); 
+			String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
 
@@ -558,23 +520,23 @@ public class CoccidiaLog {
 				Test_Variables.steps.createNode("1. "+objFilter.FilterName);
 				Thread.sleep(1000);
 
-				Helper.driver.findElement(By.xpath(objFilter.FilterListXPathPrefix)).clear();
-				Helper.driver.findElement(By.xpath(objFilter.FilterListXPathPrefix)).sendKeys(objFilter.fromDate);
+				Helper.driver.findElement(By.id("filterDateFrom")).clear();
+				Helper.driver.findElement(By.id("filterDateFrom")).sendKeys(objFilter.fromDate);
 				Thread.sleep(1000);
-				Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSuffix)).clear();
-				Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSuffix)).sendKeys(objFilter.toDate);
+				Helper.driver.findElement(By.id("filterDateTo")).clear();
+				Helper.driver.findElement(By.id("filterDateTo")).sendKeys(objFilter.toDate);
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
 
 				Test_Variables.steps.createNode("2. Click on Apply filter button");
-				Helper.driver.findElement(By.xpath(Test_Elements.clApplyFilter)).click();
+				Helper.driver.findElement(By.id("filter-icon")).click();
 
 				if(objModel.Filter1) {
 					try {
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-						String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
-						String expected = objFilter.alertMessage;
+						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+						Thread.sleep(1000);
+						String actual = Helper.driver.findElement(By.id("message")).getText();
 
-						Assert.assertEquals(actual, expected); 
+						Assert.assertEquals(actual, objFilter.alertMessage); 
 						Test_Variables.test.pass("Filter was not applied successfully");
 						Test_Variables.results.createNode("1. Filter was not applied successfully");	
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
@@ -593,8 +555,8 @@ public class CoccidiaLog {
 				if(objModel.Filter2) {
 
 					try {
-						String recordAfter = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText();
-						Assert.assertTrue(recordBefore != recordAfter); 
+						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+						Assert.assertNotEquals(recordBefore, recordAfter); 
 						Test_Variables.test.pass("Filter was applied");
 						Test_Variables.results.createNode("1. Filter was applied");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -609,32 +571,8 @@ public class CoccidiaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 					}					
 				}
-
-//				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clResetButton)));	
-//				Thread.sleep(1500);
-//				WebElement element = Helper.driver.findElement(By.xpath(Test_Elements.clResetButton));
-//				Test_Variables.steps.createNode("3. Click on Reset button");
-//				Actions actions = new Actions(Helper.driver);
-//				actions.moveToElement(element).click().perform();
-//				Thread.sleep(3000);
-//
-//				try{
-//					Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText(), recordBefore);
-//					Test_Variables.test.pass("Filter reset successfully");
-//					Test_Variables.results.createNode("2. Filter reset successfully");
-//					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-//					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-//				}
-//				catch(AssertionError er) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-//				}
-//				catch(Exception ex) {
-//					Test_Variables.test.fail("Filter failed to reset");
-//					Test_Variables.results.createNode("2. Filter failed to reset");
-//					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-//				}
+				Helper.driver.findElement(By.id("reset-icon")).click();
+				Thread.sleep(2000);
 			}
 		}
 	}
@@ -655,30 +593,30 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clApplyFilter)));
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-icon")));
 			Test_Variables.steps.createNode("1. Enter valid date in from and 2 fields");
-			Helper.driver.findElement(By.xpath(Test_Elements.clDateFrom)).clear();
-			Helper.driver.findElement(By.xpath(Test_Elements.clDateFrom)).sendKeys("12/01/2020");
-			Helper.driver.findElement(By.xpath(Test_Elements.clDateTo)).clear();
-			Helper.driver.findElement(By.xpath(Test_Elements.clDateTo)).sendKeys("12/15/2020");
+			Helper.driver.findElement(By.id("filterDateFrom")).clear();
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("11/01/2020");
+			Helper.driver.findElement(By.id("filterDateTo")).clear();
+			Helper.driver.findElement(By.id("filterDateTo")).sendKeys("12/01/2020");
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("2. Click on Apply filter button");
-			Helper.driver.findElement(By.xpath(Test_Elements.clApplyFilter)).click();
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clResetButton)));	
+			Helper.driver.findElement(By.id("filter-icon")).click();
 			Thread.sleep(3000);
 			Test_Variables.steps.createNode("3. Click on Lock button");
-			Helper.driver.findElement(By.id("save-icon")).click();;
+			WebElement button = Helper.driver.findElement(By.id("save-icon"));
+			JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
+			jse.executeScript("arguments[0].click()", button);
 			Thread.sleep(1000);
-			String recordsbeforefilter = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumber)).getText(); 
+
+			String recordsbeforefilter = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("4. Close report");
-			Helper.driver.get(Constants.url_reports);
-			Thread.sleep(2000);
 			Test_Variables.steps.createNode("5. Reopen report and verify that records are still the same as before closing the report");
 			Helper.driver.get(Constants.url_CoccidiaLog);
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clApplyFilter)));
-			String recordsafterfilter = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumber)).getText();
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-icon")));
+			String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 			Assert.assertEquals(recordsafterfilter, recordsbeforefilter);
 			Test_Variables.test.pass("Filter locked functionality verified successfully on date filter");
@@ -694,12 +632,60 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}
-
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.id("un-save-icon")).click();
 	}
 
+	@Test (description="Test Case: Reset Filter",enabled= false, priority = 6) 
+	public void ResetFilter() throws InterruptedException, IOException {
 
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-18: Verify user can reset filter", "This testcase will verify that user can reset filter");
+
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");	
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("reset-icon")).click();
+			Thread.sleep(3000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+			String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
+			Test_Variables.steps.createNode("1. Change from date");
+			Helper.driver.findElement(By.id("filterDateFrom")).clear();
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("09/01/2020");
+			Test_Variables.steps.createNode("2. Click on apply filter button");
+			Helper.driver.findElement(By.id("filter-icon")).click();
+			Thread.sleep(3500);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+			String recordAfterApplyFilter = Helper.driver.findElement(By.id("results-found-count")).getText();
+			Assert.assertTrue(recordBefore != recordAfterApplyFilter, "Failed to apply filter (Records remained same after applying filters)");
+			Test_Variables.steps.createNode("3. Click on reset button");
+			Helper.driver.findElement(By.id("reset-icon")).click();
+			Thread.sleep(3500);
+			String recordAfterReset =  Helper.driver.findElement(By.id("results-found-count")).getText();
+
+			Assert.assertEquals(recordAfterReset, recordBefore);
+			Test_Variables.test.pass("Filter reset successfully");
+			Test_Variables.results.createNode("Filter reset successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+		}catch(AssertionError er) {
+			Test_Variables.test.fail("Filter failed to reset successfully");
+			Test_Variables.results.createNode("Filter failed to reset");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("Filter failed to reset successfully");
+			Test_Variables.results.createNode("Filter failed to reset");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
+		}	
+	}
+	
 	
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
 	public void SearchFilter() throws InterruptedException, IOException {
@@ -920,14 +906,10 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			Helper.driver.get(Constants.url_CoccidiaLog);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Sample ID")));
-			Thread.sleep(3000);
-			Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
-			Helper.driver.findElement(By.id("Sample ID")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("place-holder-search-Sample ID")).sendKeys("2019_SFC_2");
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("2019_SFC_2")).click();
+			Helper.driver.findElement(By.id("filterDateFrom")).clear();
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("12/01/2020");
 			Thread.sleep(1000);
 
 			WebElement applyFilter = Helper.driver.findElement(By.id("filter-icon"));
@@ -940,20 +922,15 @@ public class CoccidiaLog {
 			actions.moveToElement(lockButton).click().perform();
 			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-			String recordsafterfilter = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText();  //records after applying filter
-			Thread.sleep(500);
-			Test_Variables.steps.createNode("3. Close Coccidia Log Report");
-			Helper.driver.get(Constants.url_reports);
-
+			String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 			Thread.sleep(1000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("4. Reopen Coccidia Log Report");
 			Helper.driver.get(Constants.url_CoccidiaLog);
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.clRecordNumberTop)));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count")));
 			Test_Variables.steps.createNode("5. Verify lock filter remains applied");
 
-			Assert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText());
+			Assert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
 			Test_Variables.test.pass("Filter locked functionality verified successfully");
 			Test_Variables.results.createNode("Filter lock remained applied on reopening the report");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -969,7 +946,7 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}	
-		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.clUnLockButton)));
+		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("un-save-icon")));
 		Helper.driver.findElement(By.id("un-save-icon")).click();
 		Thread.sleep(1000);
 	}
@@ -1002,7 +979,7 @@ public class CoccidiaLog {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-						String recordNumber = Helper.driver.findElement(By.xpath(Test_Elements.clRecordNumberTop)).getText();
+						String recordNumber = Helper.driver.findElement(By.id("results-found-count")).getText();
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 
 						String removeComma = recordNumber.replace(",", "");
@@ -1028,7 +1005,7 @@ public class CoccidiaLog {
 							Thread.sleep(8000);
 							Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");
 			
-							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
+							if (Helper.driver.findElements(By.id("message")).size() !=0) {
 								Thread.sleep(500);
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 								Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
@@ -1239,25 +1216,26 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("2. Export PNG button becomes visible");
 			Test_Variables.steps.createNode("3. Click on the button");
 
-			
-			Helper.driver.findElement(By.id("Sample ID")).click();
-			Thread.sleep(500);
-			Helper.driver.findElement(By.id("place-holder-search-Sample ID")).sendKeys("TD01");
-			Thread.sleep(500);
-			Helper.driver.findElement(By.id("TD01")).click();
-			Thread.sleep(500);
+			Helper.driver.get(Constants.url_CoccidiaLog);
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("filterDateFrom")).clear();
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("12/01/2020");
 			Helper.driver.findElement(By.id("filter-icon")).click();
-			Thread.sleep(2500);
+			Thread.sleep(3500);
 
-			Actions builder = new Actions(Helper.driver);  
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.clPngHover)));
-			WebElement pngHover = Helper.driver.findElement(By.xpath(Test_Elements.clPngHover));
+			Actions builder = new Actions(Helper.driver); 
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("svg-layout")));
+			WebElement pngHover = Helper.driver.findElement(By.id("svg-layout"));
+			Test_Variables.steps.createNode("3. Click on the button");
 			builder.moveToElement(pngHover).build().perform();
-			Thread.sleep(500);
+			Thread.sleep(1000);
+			
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-			WebElement clickDownload = Helper.driver.findElement(By.xpath(Test_Elements.clPng));
+			WebElement clickDownload = Helper.driver.findElement(By.id("dc-bar-chart-salm-png"));
 			Actions actions = new Actions(Helper.driver);
 			actions.moveToElement(clickDownload).click().perform();
+			
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-icon")));
 			Thread.sleep(4000);
 
