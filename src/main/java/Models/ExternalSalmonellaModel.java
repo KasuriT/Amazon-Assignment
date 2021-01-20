@@ -153,7 +153,7 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-
+		
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID Filter";
@@ -841,7 +841,7 @@ public class ExternalSalmonellaModel {
 		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
+	
 		return lstExternalSalmonellaModel;
 	}
 	

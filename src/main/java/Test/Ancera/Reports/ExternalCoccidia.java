@@ -266,7 +266,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Navigate to External Coccidia Log Screen",enabled= true, priority = 2) 
 	public void NavigateCoccidia() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-06: Verify user can navigate to External Coccidia Log Screen", "This test case will verify user can navigate to External Coccidia Log Screen");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-04: Verify user can navigate to External Coccidia Log Screen", "This test case will verify user can navigate to External Coccidia Log Screen");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -578,7 +578,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-17: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
 
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -636,7 +636,7 @@ public class ExternalCoccidia {
 	public void ResetFilter() throws InterruptedException, IOException {
 
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-18: Verify user can reset filter", "This testcase will verify that user can reset filter");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-16: Verify user can reset filter", "This testcase will verify that user can reset filter");
 
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -847,7 +847,7 @@ public class ExternalCoccidia {
 						Thread.sleep(2000);				
 					}
 
-					if(objModel.ApplyFilter) {
+					if(objModel.ReloadPage) {
 						Helper.driver.get(Constants.url_ExternalCoccidiaLog);
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 						Thread.sleep(3000);
@@ -864,7 +864,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-76: Verify External Coccidia Lock Filter Functionality", "This test case will test External Coccidia Lock Filter Functionality");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-169: Verify External Coccidia Lock Filter Functionality", "This test case will test External Coccidia Lock Filter Functionality");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1177,7 +1177,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-88: Verify user can download External Coccidia PNG file", "This test case will verify user can download External Coccidia PNG file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-181: Verify user can download External Coccidia PNG file", "This test case will verify user can download External Coccidia PNG file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1247,7 +1247,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-89: Verify user can download External Coccidia CSV file", "This test case will verify that user can download External Coccidia CSV file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-182: Verify user can download External Coccidia CSV file", "This test case will verify that user can download External Coccidia CSV file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1306,7 +1306,7 @@ public class ExternalCoccidia {
 	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-90: Verify user can download External Coccidia Template file", "This test case will verify that user download External Coccidia Template file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-183: Verify user can download External Coccidia Template file", "This test case will verify that user download External Coccidia Template file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);

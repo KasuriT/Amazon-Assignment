@@ -702,7 +702,7 @@ public class ExternalSalmonella {
 						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("5. Click on External Salmonella Log; External Salmonella Log reports open");
 						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
 						Test_Variables.preconditions.createNode("7. Select the checkbox");
 
@@ -713,8 +713,7 @@ public class ExternalSalmonella {
 						Helper.driver.findElement(By.id("filter-icon")).click(); 
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));	
 						Thread.sleep(objFilter.wait);
-						Thread.sleep(2000);
-
+						Thread.sleep(1000);	
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {

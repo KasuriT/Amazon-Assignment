@@ -6,14 +6,22 @@ import Test.Ancera.Test_Elements;
 
 public class ExternalCoccidiaModel {
 
+	public String TestCaseNameButtonActive;
+	public String TestCaseDescriptionButtonActive;
 	public String TestCaseName;
 	public String TestCaseDescription;
 	public String TestCaseNameSearch;
 	public String TestCaseDescriptionSearch;
+	public String TestCaseNameBubbleFilterTop;
+	public String TestCaseDescriptionBubbleFilterTop;
+	public String TestCaseNameBubbleFilterCheckbox;
+	public String TestCaseDescriptionBubbleFilterCheckbox;
 	public String TestCaseNameClearInput;
 	public String TestCaseDescClearInput;
+	public String TestCaseNameRevertBack;
+	public String TestCaseDescriptionRevertBack;
 	public ArrayList<ReportFilters> lstFilters;
-	public boolean ApplyFilter;
+	public boolean ReloadPage;
 	public boolean ResetFilter;
 	public boolean Filter1;
 	public boolean Filter2;
@@ -23,519 +31,678 @@ public class ExternalCoccidiaModel {
 	public boolean paginationNextPage;
 	public boolean paginationFirstPage;
 	public boolean paginationPreviousPage;
+	
 	public ExternalCoccidiaModel() {
 
 	}
 
+	
+	public static String buttonActiveTitle = "Verify apply filter button becomes active on selecting checkbox from ";
+	public static String buttonActiveDesc = "This test case will verify that filter button becomes active on selecting checkbox from ";
+	public static String applyFilterTitle = "Verify user can apply ";
+	public static String applyFilterDesc = "This test case will verify that filtered records are displayed in table on applying ";
+	public static String filterIndicatorTitle = "Verify blue filter indicator appears next to applied filter and apply filter button becomes inactive on applying ";
+	public static String filterIndicatorDesc = "This test case will verify that blue filter indicator appears next to applied filter and apply filter button becomes inactive on applying ";
+	public static String filterTopTitle = " moves to top of filter list on applying filter";
+	public static String filterTopDesc = " bubbles to top of filter list on applying filter";
+	public static String CheckboxTopTitle = " moves to top of filter list on applying filter";
+	public static String CheckboxTopDesc = " bubbles to top of filter list on applying filter";
+	public static String clearInputTitle = "Verify input field gets cleared on clicking cross icon and filter button becomes inactive after applying ";
+	public static String clearInputDesc = "This test case will verify that input field gets cleared on clicking the cross icon in ";
+	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
+	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
+	
+	
 	public static ArrayList<ExternalCoccidiaModel> FillData() {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
 
-		objTmp.TestCaseName = "AN-ECL-19: Verify user can filter any value from Sample ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Sample ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-20: Verify the results are displayed in the table after applying Sample ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Sample ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-21: Verify clear input functionality of Sample ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Sample ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
-		objFilter.FilterName = "Lab Sample ID Filter";
-		objFilter.FilterXPath = "Lab Sample ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Lab Sample ID";
-		objFilter.SearchVlaue = "2019_SFC_2";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSampleIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSampleIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSampleIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2019_SFC_2"));
-		objFilter.getRowValue = Test_Elements.eclSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "clear-input-Lab Sample ID";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
-
-/*
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-22: Verify user can filter any value from Instrument ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Instrument ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-23: Verify the results are displayed in the table after applying Instrument ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Instrument ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-24: Verify clear input functionality of Instrument ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Instrument ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
+		objFilter.FilterName = "Sample ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-17: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-18: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-19: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-20: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-21: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-22: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-24: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Instrument ID Filter";
-		objFilter.FilterXPath = "Instrument ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Instrument ID";
-		objFilter.SearchVlaue = "PSN0002";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclInstrumentIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclInstrumentIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclInstrumentIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0002"));
-		objFilter.getRowValue = Test_Elements.eclInstrumentIDRow;
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
+		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
+		objFilter.SearchVlaue = "TD02";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD02"));
+		objFilter.getRowValue = Test_Elements.slSampleIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "clear-input-Instrument ID";
+		objFilter.ClearInput = "Sample-ID-clear-input";
+		objFilter.wait = 20000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-25: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-26: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-27: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-28: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-29: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-30: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-32: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.FilterXPath = "filter-Instrument-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
+		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
+		objFilter.SearchVlaue = "PSN0004";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
+		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.ClearInput = "Instrument-ID-clear-input";
+		objFilter.wait = 4000;
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-25: Verify user can filter any value from Catridge ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Catridge ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-26: Verify the results are displayed in the table after applying Catridge ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Catridge ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-27: Verify clear input functionality of Catridge ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Catridge ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objFilter.FilterXPath = "Cartridge ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Cartridge ID";
-		objFilter.SearchVlaue = "03-31-2020_PSN13_21613_cocc";  
-		objFilter.FilterListXPathPrefix = Test_Elements.eclCatridgeIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclCatridgeIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclCatridgeIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("03-31-2020_PSN13_21613_cocc"));
-		objFilter.getRowValue = Test_Elements.eclCatridgeIDRow;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-33: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-34: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-35: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-36: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-37: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-38: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-40: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "cartrtidge-id";
+		objFilter.FilterXPath = "filter-Cartridge-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
+		objFilter.FilterListXPathSearch = "Cartridge-ID-place-holder-search";
+		objFilter.SearchVlaue = "TestAutomation";  
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation"));  //uat
+		objFilter.getRowValue = Test_Elements.slCatridgeIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "clear-input-Cartridge ID";
+		objFilter.ClearInput = "Cartridge-ID-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-28: Verify user can filter any value from Lane Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Lane Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-29: Verify the results are displayed in the table after applying Lane Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Lane Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-30: Verify clear input functionality of Lane Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Lane Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
-		objFilter.FilterXPath = "Lane";
-		objFilter.FilterListXPathSearch = "place-holder-search-Lane";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-41: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-42: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-43: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-44: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-45: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-46: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-48: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "lane-num";
+		objFilter.FilterXPath = "filter-Lane";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
+		objFilter.FilterListXPathSearch = "Lane-place-holder-search";
 		objFilter.SearchVlaue = "10";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclLanebeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclLaneafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclLaneafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
-		objFilter.getRowValue = Test_Elements.eclLaneIDRow;
+		objFilter.getRowValue = Test_Elements.slLaneIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "clear-input-Lane";
+		objFilter.ClearInput = "Lane-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
-
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-31: Verify user can filter any value from Assay Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Assay Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-32: Verify the results are displayed in the table after applying Assay Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Assay Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-33: Verify clear input functionality of Assay Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Assay Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objFilter.FilterXPath = "Assay";
-		objFilter.FilterListXPathSearch = "place-holder-search-Assay";
-		objFilter.SearchVlaue = "Coccidia-SYBR";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclAssaybeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclAssayafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclAssayafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));
-		objFilter.getRowValue = Test_Elements.eclAssayRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "clear-input-Assay";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
-
-
-
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-34: Verify user can filter any value from Improc Version Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Improc Version Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-35: Verify the results are displayed in the table after applying Improc Version Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Improc Version Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-36: Verify clear input functionality of Improc Version Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Improc Version Filter by clicking on cross icon";
-		objTmp.ApplyFilter = true;
-		objTmp.ResetFilter = true;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-49: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-50: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-51: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-52: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-53: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-54: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-56: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "pathogen";
+		objFilter.FilterXPath = "filter-Assay";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
+		objFilter.FilterListXPathSearch = "Assay-place-holder-search";
+		objFilter.SearchVlaue = "Coccidia-SYBR";   
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  //uat
+		objFilter.getRowValue = Test_Elements.slAssayRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.ClearInput = "Assay-clear-input";
+		objFilter.wait = 4000;
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);               
+
+		
+		objTmp = new ExternalCoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objFilter.FilterXPath = "Improc Version";
-		objFilter.FilterListXPathSearch = "place-holder-search-Improc Version";
-		objFilter.SearchVlaue = "2.0";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclImprocbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclImprocafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclImprocafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2.0"));
-		objFilter.getRowValue = Test_Elements.eclImprocIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Improc Version";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp); 
-
-
-
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-37: Verify user can filter any value from Site Name Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Site Name Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-38: Verify the results are displayed in the table after applying Site Name Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Site Name Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-39: Verify clear input functionality of Site Name Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Site Name Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Collection Site Name Filter";
-		objFilter.FilterXPath = "Collection Site Name";
-		objFilter.FilterListXPathSearch = "place-holder-search-Collection Site Name";
-		objFilter.SearchVlaue = "Peco Gordo";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSiteNamebeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSiteNameafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSiteNameafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Peco Gordo"));
-		objFilter.getRowValue = Test_Elements.eclSiteNameRow;
+		objFilter.FilterID = "version";
+		objFilter.FilterXPath = "filter-Improc-Version";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
+		objFilter.SearchVlaue = "";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("select-all-text-Improc Version"));
+		objFilter.getRowValue = Test_Elements.slImprocIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Collection Site Name";
+		objFilter.ClearInput = "Improc-Version-clear-input";
+		objFilter.wait = 5000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp); 
-
-
-
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-40: Verify user can filter any value from Sample Matrix Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Sample Matrix Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-41: Verify the results are displayed in the table after applying Sample Matrix Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Sample Matrix Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-42: Verify clear input functionality of Sample Matrix Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Sample Matrix Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Site Name Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-65: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-66: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-67: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-68: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-69: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-70: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-72: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
 		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "site-id";
+		objFilter.FilterXPath = "filter-Site-Name";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Site-Name"));
+		objFilter.FilterListXPathSearch = "Site-Name-place-holder-search";
+		objFilter.SearchVlaue = "Test";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
+		objFilter.getRowValue = Test_Elements.slSiteNameRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "Site-Name-clear-input";
+		objFilter.wait = 4500;
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp); 
+		
+		
+		objTmp = new ExternalCoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objFilter.FilterXPath = "Sample Matrix";
-		objFilter.FilterListXPathSearch = "place-holder-search-Sample Matrix";;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-73: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-74: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-75: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-76: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-77: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-78: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-80: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "sample-matrix";
+		objFilter.FilterXPath = "filter-Sample-Matrix";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
+		objFilter.FilterListXPathSearch = "Sample-Matrix-place-holder-search";
 		objFilter.SearchVlaue = "Feces";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSampleMatrixbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSampleMatrixafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSampleMatrixafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
-		objFilter.getRowValue = Test_Elements.eclSampleMatrixRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "clear-input-Sample Matrix";
+		objFilter.getRowValue = Test_Elements.slSampleMatrixRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "Sample-Matrix-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp); 
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-43: Verify user can filter any value from Customer Sample ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Customer Sample ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-44: Verify the results are displayed in the table after applying Customer Sample ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Customer Sample ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-45: Verify clear input functionality of Customer Sample ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Customer Sample ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objFilter.FilterXPath = "Customer Sample ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Customer Sample ID";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-81: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-82: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-83: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-84: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-85: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-86: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-88: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "customer-sample-id";
+		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
+		objFilter.FilterListXPathSearch = "Customer-Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "CS1";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclCSampleIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclCSampleIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclCSampleIDafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS1"));
-		objFilter.getRowValue = Test_Elements.eclCSampleIDRow;
+		objFilter.getRowValue = Test_Elements.slCSampleIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Customer Sample ID";
+		objFilter.ClearInput = "Customer-Sample-ID-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
-
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-46: Verify user can filter any value from Date Received Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Date Received Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-47: Verify the results are displayed in the table after applying Date Received Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Date Received Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-48: Verify clear input functionality of Date Received Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Date Received Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received Filter";
-		objFilter.FilterXPath = "Date Received";
-		objFilter.FilterListXPathSearch = "place-holder-search-Date Received";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-89: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-90: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-91: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-92: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-93: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-94: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-96: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "meta-data-recieved";
+		objFilter.FilterXPath = "filter-Date-Received";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
+		objFilter.FilterListXPathSearch = "Date-Received-place-holder-search";
 		objFilter.SearchVlaue = "06-11-2020";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclDateReceivedbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclDateReceivedafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclDateReceivedafterXpath1;
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("06-11-2020"));
-		objFilter.getRowValue = Test_Elements.eclDateReceivedRow;
+		objFilter.getRowValue = Test_Elements.slDateReceivedRow;
 		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "clear-input-Date Received";
+		objFilter.ClearInput = "Date-Received-clear-input";
+		objFilter.wait = 6000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-49: Verify user can filter any value from Kit Lot Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Kit Lot Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-50: Verify the results are displayed in the table after applying Kit Lot Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Kit Lot Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-51: Verify clear input functionality of Kit Lot Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Kit Lot Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objFilter.FilterXPath = "Kit Lot";
-		objFilter.FilterListXPathSearch = "place-holder-search-Kit Lot";
-		objFilter.SearchVlaue = "June";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclKitLotbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclKitLotafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclKitLotafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("June"));
-		objFilter.getRowValue = Test_Elements.eclKitLotRow;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-97: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-98: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-99: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-100: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-101: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-102: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-104: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "kit-lot";
+		objFilter.FilterXPath =  "filter-Kit-Lot";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
+		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
+		objFilter.SearchVlaue = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A"));
+		objFilter.getRowValue = Test_Elements.slKitLotRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Kit Lot";
+		objFilter.ClearInput = "Kit-Lot-clear-input";
+		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-52: Verify user can filter any value from Piper User Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Piper User Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-53: Verify the results are displayed in the table after applying Piper User Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Piper User Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-54: Verify clear input functionality of Piper User Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Piper User Filter by clicking on cross icon";
-		objTmp.ApplyFilter = true;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objFilter.FilterXPath = "Piper User";
-		objFilter.FilterListXPathSearch = "place-holder-search-Piper User";
-		objFilter.SearchVlaue = "QUSER";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclPiperUserbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclPiperUserafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclPiperUserafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("QUSER"));
-		objFilter.getRowValue = Test_Elements.eclPiperUserRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "clear-input-Piper User";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-105: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-106: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-107: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-108: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-109: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-110: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-112: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "user-name";
+		objFilter.FilterXPath = "filter-Piper-User";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
+		objFilter.FilterListXPathSearch = "Piper-User-place-holder-search";
+		objFilter.SearchVlaue = "FHasan";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("FHasan"));
+		objFilter.getRowValue = Test_Elements.slPiperUserRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "Piper-User-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-55: Verify user can filter any value from Collection Site ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Collection Site ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-56: Verify the results are displayed in the table after applying Collection Site ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Collection Site ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-57: Verify clear input functionality of Collection Site ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Collection Site ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objFilter.FilterXPath = "Collection Site ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Collection Site ID";
-		objFilter.SearchVlaue = "1001001";  
-		objFilter.FilterListXPathPrefix = Test_Elements.eclCollectionSitebeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclCollectionSiteafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclCollectionSiteafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1001001"));
-		objFilter.getRowValue = Test_Elements.eclCSiteIDRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "clear-input-Collection Site ID";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-113: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-114: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-115: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-116: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-117: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-118: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-120: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "collection-site-id";
+		objFilter.FilterXPath = "filter-Collection-Site-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-ID"));
+		objFilter.FilterListXPathSearch = "Collection-Site-ID-place-holder-search";
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Collection-Site-ID_cust-cb-lst-txt_Blank"));
+		objFilter.ClearInput = "Collection-Site-ID-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-58: Verify user can filter any value from Requested Assay Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Requested Assay Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-59: Verify the results are displayed in the table after applying Requested Assay Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Requested Assay Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-60: Verify clear input functionality of Requested Assay Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Requested Assay Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objFilter.FilterXPath = "Requested Assay";
-		objFilter.FilterListXPathSearch = "place-holder-search-Requested Assay";
-		objFilter.SearchVlaue = "   RA8   ";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclRequestedAssaybeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclRequestedAssayafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclRequestedAssayafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("   RA8   "));
-		objFilter.getRowValue = Test_Elements.eclRequestedAssayRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Requested Assay";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-121: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-122: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-123: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-124: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-125: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-126: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-128: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "requested-assay";
+		objFilter.FilterXPath = "filter-Requested-Assay";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
+		objFilter.FilterListXPathSearch = "Requested-Assay-place-holder-search";
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Requested-Assay_cust-cb-lst-txt_Blank"));
+		objFilter.ClearInput = "Requested-Assay-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-61: Verify user can filter any value from Flock ID Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Flock ID Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-62: Verify the results are displayed in the table after applying Flock ID Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Flock ID Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-63: Verify clear input functionality of Flock ID Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Flock ID Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objFilter.FilterXPath = "Flock ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Flock ID";
-		objFilter.SearchVlaue = "62";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclFlockIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclFlockIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclFlockIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("62"));
-		objFilter.getRowValue = Test_Elements.eclFlockIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "clear-input-Flock ID";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
-*/
-
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-64: Verify user can filter any value from Collection Site Type Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Collection Site Type Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-65: Verify the results are displayed in the table after applying Collection Site Type Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Collection Site Type Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-66: Verify clear input functionality of Collection Site Type Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Collection Site Type Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-129: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-130: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-131: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-132: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-133: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-134: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-136: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Collection Site Type Filter";
-		objFilter.FilterXPath = "Collection Site Type";
-		objFilter.FilterListXPathSearch = "place-holder-search-Collection Site Type";
-		objFilter.SearchVlaue = "Complex";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSiteTypebeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSiteTypeafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSiteTypeafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Complex"));
-		objFilter.getRowValue = Test_Elements.eclCSiteTypeRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "clear-input-Collection Site Type";
+		objFilter.FilterID = "flock-id";
+		objFilter.FilterXPath = "filter-Flock-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
+		objFilter.FilterListXPathSearch = "Flock-ID-place-holder-search";
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Requested-Assay_cust-cb-lst-txt_Blank"));
+		objFilter.ClearInput = "Flock-ID-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
-/*
+		
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-67: Verify user can filter any value from Result Status Filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter any value from Result Status Filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-68: Verify the results are displayed in the table after applying Result Status Filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying Result Status Filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-69: Verify clear input functionality of Result Status Filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field of Result Status Filter by clicking on cross icon";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection-Site-Type Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-137: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-138: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-139: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-140: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-141: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-142: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-144: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "collection-site-type";
+		objFilter.FilterXPath = "filter-Collection-Site-Type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
+		objFilter.FilterListXPathSearch = "Collection-Site-Type-place-holder-search";
+		objFilter.SearchVlaue = "Complex";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Complex"));
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "Collection-Site-Type-clear-input";
+		objFilter.wait = 3000;
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+	
+		objTmp = new ExternalCoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objFilter.FilterXPath = "Result Status";
-		objFilter.FilterListXPathSearch = "place-holder-search-Result Status";
-		objFilter.SearchVlaue = "Pending";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclResultStatusbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclResultStatusafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclResultStatusafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
-		//objFilter.getRowValue = Test_Elements.eclResultStatusRow; 
-		objFilter.rowValueExpected = "";        
-		objFilter.ClearInput = "clear-input-Result Status";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-145: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-146: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-147: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-148: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-149: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-150: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-152: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "result-status";
+		objFilter.FilterXPath = "filter-Result-Status";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
+		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
+		objFilter.SearchVlaue = "Completed";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Completed"));
+		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.ClearInput = "Result-Status-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
+			
+		
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-70: Verify user can filter multiple value from same filter";
-		objTmp.TestCaseDescription = "This testcase will verify user can filter multiple value from same filter";
-		objTmp.TestCaseNameSearch = "AN-ECL-71: Verify the results are displayed in the table after applying multiple value from same filter";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying multiple value from same filter";
-		objTmp.TestCaseNameClearInput = "AN-ECL-72: Verify clear input functionality after applying multiple value from same filter";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field after applying multiple value from same filter by clicking on cross icon"; 
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = true;
-		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "multiple value from same filter";
-		objFilter.FilterXPath = "Lab Sample ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Lab Sample ID";
-		objFilter.SearchVlaue = "TD";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSampleIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSampleIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSampleIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
-		objFilter.getRowValue = Test_Elements.eclSampleIDRow;
-		objFilter.rowValueExpected = "TD06";
-		objFilter.ClearInput = "clear-input-Lab Sample ID";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
-
-
-
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-73: Verify user can filter values from two filters at sametime";
-		objTmp.TestCaseDescription = "This testcase will verify user filter values from two filters at sametime";
-		objTmp.TestCaseNameSearch = "AN-ECL-74: Verify the results are displayed in the table after applying filter values from two filters at sametime";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify the results are displayed in the table after applying filter values from two filters at sametime";
-		objTmp.TestCaseNameClearInput = "AN-ECL-75: Verify clear input functionality after applying filter values from two filters at sametimer";
-		objTmp.TestCaseDescClearInput = "This test case will verify user can clear search field after applying filter values from two filters at sametime";
-		objTmp.ApplyFilter = false;
-		objTmp.ResetFilter = false;
+		objTmp.TestCaseNameButtonActive = "AN-ECL-153: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-154: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-155: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-156: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-157: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-158: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-160: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Instrument ID Filter";
-		objFilter.FilterXPath = "Instrument ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Instrument ID";
-		objFilter.SearchVlaue = "PSN0004";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclInstrumentIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclInstrumentIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclInstrumentIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.ClearInput = "clear-input-Instrument ID";
-		objFilter.FilterXPath = "Lab Sample ID";
-		objFilter.FilterListXPathSearch = "place-holder-search-Lab Sample ID";
-		objFilter.SearchVlaue = "Coccivac";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclSampleIDbeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclSampleIDafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.eclSampleIDafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccivac"));
-		objFilter.getRowValue = Test_Elements.eclSampleIDRow;
-		objFilter.rowValueExpected = "Coccivac";
-		objFilter.ClearInput = "clear-input-Lab Sample ID";
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
+		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
+		objFilter.SearchVlaue = "TD";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
+		objFilter.getRowValue = Test_Elements.slSampleIDRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.ClearInput = "Sample-ID-clear-input";
+		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-*/
+		
+	
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-161: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-162: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-163: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-164: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-165: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-166: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameRevertBack = "AN-ECL-168: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.FilterXPath = "filter-Instrument-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID", "Sample-ID"));
+		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
+		objFilter.SearchVlaue = "PSN0004";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
+		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.ClearInput = "Instrument-ID-clear-input";
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
+		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
+		objFilter.SearchVlaue = "TD";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05"));
+		objFilter.getRowValue = Test_Elements.slSampleIDRow;
+		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.ClearInput = "Sample-ID-clear-input";
+		objFilter.wait = 4000;
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+
+
 		return lstExternalCoccidiaModel;
 	}
 
@@ -544,7 +711,7 @@ public class ExternalCoccidiaModel {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
 
-		objTmp.TestCaseName = "AN-ECL-07: Verify user can filter Today date from date Filter";
+		objTmp.TestCaseName = "AN-ECL-05: Verify user can filter Today date from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of date filter after selecting 'Today'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -565,7 +732,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-08: Verify user can filter Last 24 Hours from date Filter";
+		objTmp.TestCaseName = "AN-ECL-06: Verify user can filter Last 24 Hours from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 24 Hours after selecting 'Last 24 Hours'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -587,7 +754,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-09: Verify user can filter Last 7 Days from date Filter";
+		objTmp.TestCaseName = "AN-ECL-07: Verify user can filter Last 7 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 7 Days after selecting 'Last 7 Days'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -609,7 +776,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter Last 30 Days from date Filter";
+		objTmp.TestCaseName = "AN-ECL-08: Verify user can filter Last 30 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 30 Days after selecting 'Last 30 Days'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -630,7 +797,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-11: Verify user can filter Last Month from date Filter";
+		objTmp.TestCaseName = "AN-ECL-09: Verify user can filter Last Month from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last Month after selecting 'Last Month'";
 		objTmp.Filter1 = false;
 		objTmp.Filter2 = true;
@@ -651,7 +818,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-12: Verify user can filter This Month from date Filter";
+		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter This Month from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
 		objTmp.Filter1 = false;
 		objTmp.Filter2 = false;
@@ -681,7 +848,7 @@ public class ExternalCoccidiaModel {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
 
-		objTmp.TestCaseName = "AN-ECL-13: Verify user cannot apply filter with invalid date";
+		objTmp.TestCaseName = "AN-ECL-11: Verify user cannot apply filter with invalid date";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot add date with invalid from and to date";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -698,7 +865,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-14: Verify user cannot apply filter with any other date format except mm/dd/yyyy";
+		objTmp.TestCaseName = "AN-ECL-12: Verify user cannot apply filter with any other date format except mm/dd/yyyy";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with any other date format except mm/dd/yyyy";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -715,7 +882,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-15: Verify user cannot apply filter with from date greater than to date";
+		objTmp.TestCaseName = "AN-ECL-13: Verify user cannot apply filter with from date greater than to date";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with from date greater than to date";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -732,7 +899,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-16: Verify user can search for records with valid date";
+		objTmp.TestCaseName = "AN-ECL-14: Verify user can search for records with valid date";
 		objTmp.TestCaseDescription = "This testcase will verify that user can search for records with valid date";
 		objTmp.Filter1 = false;
 		objTmp.Filter2 = true;
@@ -755,7 +922,7 @@ public class ExternalCoccidiaModel {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
 
-		objTmp.TestCaseName = "AN-ECL-77: Verify pagination exist on Salmonella Log report";
+		objTmp.TestCaseName = "AN-ECL-170: Verify pagination exist on Salmonella Log report";
 		objTmp.TestCaseDescription = "This testcase will verify that pagination exist on Salmonella Log report";
 		objTmp.paginationExist = true;
 		objTmp.paginationLastPage = false;
@@ -771,7 +938,7 @@ public class ExternalCoccidiaModel {
 		lstExternalCoccidiaModel.add(objTmp);
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-78: Verify user navigates to last page on clicking '>>' button in pagnation";
+		objTmp.TestCaseName = "AN-ECL-171: Verify user navigates to last page on clicking '>>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to last page on clicking '>>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = true;
@@ -788,7 +955,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-79: Verify user navigates to previous page on clicking '<' button in pagnation";
+		objTmp.TestCaseName = "AN-ECL-172: Verify user navigates to previous page on clicking '<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to previous page on clicking '<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -805,7 +972,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-80: Verify user navigates to first page on clicking '<<' button in pagnation";
+		objTmp.TestCaseName = "AN-ECL-173: Verify user navigates to first page on clicking '<<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to first page on clicking '<<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -822,7 +989,7 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-81: Verify user navigates to next page on clicking '>' button in pagnation";
+		objTmp.TestCaseName = "AN-ECL-174: Verify user navigates to next page on clicking '>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to next page on clicking '>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -846,9 +1013,9 @@ public class ExternalCoccidiaModel {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
 
-		objTmp.TestCaseName = "AN-ECL-82: Verify 100 rows are displayed when 100 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-ECL-175: Verify 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-ECL-83: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-ECL-176: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
@@ -860,9 +1027,9 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-84: Verify 250 rows are displayed when 250 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-ECL-177: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-ECL-85: Verify 500 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-ECL-178: Verify 500 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -874,9 +1041,9 @@ public class ExternalCoccidiaModel {
 
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-86: Verify 500 rows are displayed when 500 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-ECL-179: Verify 500 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 500 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-ECL-87: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-ECL-180: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
