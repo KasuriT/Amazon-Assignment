@@ -2,9 +2,9 @@ package Test.Ancera;
 
 public class Constants {
 
-	public static String url = "http://192.168.5.45:3300";
+//	public static String url = "http://192.168.5.45:3300";
 	public static String api = "http://192.168.5.45:3400/api/ancerainput/v1";
-//	public static String url = "https://ie-uat.ancera.com";    //uat url
+	public static String url = "https://ie-uat.ancera.com";    //uat url
 //	public static String api = "https://ie-uat.ancera.com:5510/api/ancerainput/v1";   //uat api
 	
 	public static String url_login = url+"/auth/sign-in";

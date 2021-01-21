@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
@@ -696,7 +697,6 @@ public class CoccidiaLog {
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaSearch) { 	
 			try {
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
-
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -711,17 +711,17 @@ public class CoccidiaLog {
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));
-						Thread.sleep(1000);
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
+						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
 						WebElement expandFilter = Helper.driver.findElement(By.id(objFilter.FilterXPath));
 
 						actions.moveToElement(expandFilter).click().perform();				
-						Thread.sleep(1000);
+						Thread.sleep(500);
 						Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.SearchVlaue+")");
 						Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).sendKeys(objFilter.SearchVlaue);  
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						Thread.sleep(1000);
+						Thread.sleep(500);
 
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 4000; i++) {
@@ -738,7 +738,6 @@ public class CoccidiaLog {
 							chkCounter++;
 						}
 
-						Thread.sleep(1000);
 					//	Assert.assertTrue(chkCounter == objFilter.LstFilterValues.size()); 
 						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() != 0);
 						Test_Variables.test.pass("Checkbox selected successfully and Apply filter button becomes active");
@@ -774,20 +773,12 @@ public class CoccidiaLog {
 
 						Test_Variables.steps.createNode("1. Click on apply filter button");	
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Instrument-ID")));
+						Thread.sleep(500);
 						Helper.driver.findElement(By.id("filter-icon")).click(); 
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));	
 						Thread.sleep(objFilter.wait);
-						Thread.sleep(4000);	
-						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-
-//						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
-//							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
-//							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
-//						}
-
-						//if(recordAfter != "0" && objFilter.FilterName != "Load Filter") {
-						//String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getText();
-						//Assert.assertEquals(getRow, objFilter.rowValueExpected);			
+						
+						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 						System.out.println(recordBefore+", "+recordAfter);
 						Assert.assertNotEquals(recordBefore, recordAfter);
 						Test_Variables.test.pass("Filter applied successfully");
@@ -808,7 +799,7 @@ public class CoccidiaLog {
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
-
+			
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -821,14 +812,13 @@ public class CoccidiaLog {
 						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
 						Test_Variables.preconditions.createNode("7. Select the checkbox and apply filter");
 
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-
 						Test_Variables.steps.createNode("1. Verify blue filter indicator next to applied filter/s");	
-Thread.sleep(1000);
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
 
 							try {
+					//			Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.FilterXPath+"-filter-indicator")).size() != 0);
+
 								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0);
 								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
 								Test_Variables.test.pass("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
@@ -856,7 +846,7 @@ Thread.sleep(1000);
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterTop, objModel.TestCaseDescriptionBubbleFilterTop);
-
+					
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -870,7 +860,7 @@ Thread.sleep(1000);
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
 
 						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
-						Thread.sleep(500);
+
 //						int chkCounter = 0;
 //						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
 //
@@ -899,12 +889,8 @@ Thread.sleep(1000);
 //					}
 //					catch(Exception ex) {
 //					}
-									
-						
-//						
+															
 						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
-
-						
 					//	Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 app-custom-checkbox-list#"+objFilter.FilterID)).size() != 0);
 						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
 						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
@@ -924,7 +910,7 @@ Thread.sleep(1000);
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
-
+				
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -937,7 +923,7 @@ Thread.sleep(1000);
 						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
 						Test_Variables.steps.createNode("1. Verify checkbox selected pops to top of filter checkbox list");
-						Thread.sleep(1000);
+
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
 							Test_Variables.steps.createNode("3. Select the checkbox");
@@ -972,7 +958,7 @@ Thread.sleep(1000);
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
-
+						
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -991,7 +977,7 @@ Thread.sleep(1000);
 						JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
 						jse.executeScript("arguments[0].click()", clearInput);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						Thread.sleep(500);
+						Thread.sleep(1000);
 
 						WebElement closeSearch = Helper.driver.findElement(By.id(objFilter.FilterXPath));
 						actions.moveToElement(closeSearch).click().perform();
@@ -1074,7 +1060,7 @@ Thread.sleep(1000);
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameRevertBack, objModel.TestCaseDescriptionRevertBack);
-
+			
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1091,9 +1077,9 @@ Thread.sleep(1000);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 						Thread.sleep(800);
 						Helper.driver.findElement(By.id("reset-icon")).click();
-						Thread.sleep(4500);
+						Thread.sleep(5500);
 
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() == 0);
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#"+objFilter.FilterXPath)).size() != 0);
 						Test_Variables.test.pass("Filter reverts back to its position successfully on resetting filter");
 						Test_Variables.results.createNode("Filter reverts back to its position successfully on resetting filter");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
