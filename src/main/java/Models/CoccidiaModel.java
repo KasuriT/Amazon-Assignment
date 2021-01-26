@@ -258,7 +258,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
 		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Improc-Version_cust-cb-lst-txt_Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.getRowValue = Test_Elements.slImprocIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Improc-Version-clear-input";
@@ -432,8 +432,8 @@ public class CoccidiaModel {
 		objFilter.FilterXPath =  "filter-Kit-Lot";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
 		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
-		objFilter.SearchVlaue = "A";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A"));
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.getRowValue = Test_Elements.slKitLotRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Kit-Lot-clear-input";
@@ -534,7 +534,7 @@ public class CoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "sample-id";
 		objFilter.FilterXPath = "filter-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Sample-ID"));
 		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "TD";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
