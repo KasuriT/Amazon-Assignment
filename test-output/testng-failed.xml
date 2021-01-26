@@ -3,14 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.CoccidiaLog">
+      <class name="Test.Ancera.Reports.ExternalCoccidia">
         <methods>
-          <include name="extent"/>
           <include name="endreport"/>
-          <include name="NavigateCoccidia"/>
-          <include name="TestFilters"/>
+          <include name="DateFilter"/>
+          <include name="extent"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.CoccidiaLog -->
+      </class> <!-- Test.Ancera.Reports.ExternalCoccidia -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -10,6 +10,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterSuite;
@@ -31,7 +33,7 @@ public class Helper {
 	  	projectPath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
 
-		driver = new ChromeDriver(); 
+		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
 		
@@ -88,6 +90,15 @@ public class Helper {
 		FileUtils.copyFile(source, finalDestination);
 		return "." + reportPath + dateName+".png";
 
+	}
+	
+	
+	
+	private static ChromeOptions getChromeOptions() {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("disable-infobars");
+		options.setHeadless(false);
+		return options;
 	}
 	
 
