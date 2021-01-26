@@ -418,7 +418,7 @@ public class SalmonellaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 				}
-
+//
 				if(objModel.Filter3) {
 					try {
 						String value1 = objFilter.fromDate;	
