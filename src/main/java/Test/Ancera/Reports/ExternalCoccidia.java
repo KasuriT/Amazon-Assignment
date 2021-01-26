@@ -324,7 +324,7 @@ public class ExternalCoccidia {
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
-
+//
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
 				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();		
