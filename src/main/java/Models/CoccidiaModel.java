@@ -257,8 +257,8 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Improc-Version";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
 		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
-		objFilter.SearchVlaue = "Blank";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.SearchVlaue = "4";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
 		objFilter.getRowValue = Test_Elements.slImprocIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Improc-Version-clear-input";
