@@ -3,15 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.SalmonellaLog">
+      <class name="Test.Ancera.Reports.ExternalSalmonella">
         <methods>
-          <include name="PNGExport"/>
-          <include name="CSVExport"/>
-          <include name="TemplateExport"/>
+          <include name="Pagination"/>
           <include name="extent"/>
+          <include name="RowsPerPage"/>
           <include name="endreport"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
+      </class> <!-- Test.Ancera.Reports.ExternalSalmonella -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

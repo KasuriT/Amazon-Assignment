@@ -19,6 +19,8 @@ public class ExternalSalmonellaModel {
 	public String TestCaseDescriptionBubbleFilterCheckbox;
 	public String TestCaseNameClearInput;
 	public String TestCaseDescClearInput;
+	public String TestCaseNameHoverReset;
+	public String TestCaseDescriptionHoverReset;
 	public String TestCaseNameRevertBack;
 	public String TestCaseDescriptionRevertBack;
 	public ArrayList<ReportFilters> lstFilters;
@@ -103,6 +105,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-29: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-30: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-31: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -136,6 +140,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-37: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-38: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-39: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -169,6 +175,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-45: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-46: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-47: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -203,6 +211,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-53: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-54: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-55: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -237,6 +247,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-61: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-62: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-63: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -271,6 +283,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-69: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-70: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-71: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = true;
@@ -305,6 +319,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-77: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-78: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-79: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -339,6 +355,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-85: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-86: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-87: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -373,6 +391,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-93: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-94: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-95: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -407,6 +427,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-101: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-102: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-103: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -442,6 +464,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-109: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-110: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-111: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -476,6 +500,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-117: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-118: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-119: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -513,6 +539,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-125: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-126: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-127: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = true;
@@ -547,6 +575,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-133: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-134: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-135: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -581,6 +611,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-141: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-142: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-143: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -615,6 +647,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-149: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-150: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-151: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -649,6 +683,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-157: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-158: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-159: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -683,6 +719,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-165: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-166: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-167: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -693,7 +731,7 @@ public class ExternalSalmonellaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
 		objFilter.FilterListXPathSearch = "Requested-Assay-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Requested-Assay_cust-cb-lst-txt_Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Requested-Assay-clear-input";
 		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
@@ -715,6 +753,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-173: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-174: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-175: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -725,7 +765,7 @@ public class ExternalSalmonellaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
 		objFilter.FilterListXPathSearch = "Flock-ID-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Requested-Assay_cust-cb-lst-txt_Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Flock-ID-clear-input";
 		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
@@ -747,6 +787,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-181: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-180: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-183: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -757,7 +799,7 @@ public class ExternalSalmonellaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
 		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Requested-Assay_cust-cb-lst-txt_Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Result-Status-clear-input";
 		objFilter.wait = 3000;
@@ -780,6 +822,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-189: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-190: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-191: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -787,7 +831,7 @@ public class ExternalSalmonellaModel {
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "sample-id";
 		objFilter.FilterXPath = "filter-Lab-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Lab-Sample-ID"));
 		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "0604sample";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1", "0604sample2"));
@@ -800,47 +844,49 @@ public class ExternalSalmonellaModel {
 		
 	
 		
-		objTmp = new ExternalSalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Two Filters";
-		objTmp.TestCaseNameButtonActive = "AN-ESL-192: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseName = "AN-ESL-193: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-ESL-194: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-195: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-196: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-ESL-197: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameRevertBack = "AN-ESL-199: Verify "+objFilter.FilterName+revertBackTitle;
-		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = "isntrument-id";
-		objFilter.FilterXPath = "filter-Instrument-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
-		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
-		objFilter.SearchVlaue = "PSN0004";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Instrument-ID-clear-input";
-		objFilter.FilterID = "sample-id";
-		objFilter.FilterXPath = "filter-Lab-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
-		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "0604sample1";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-		objFilter.wait = 3000;
-		objTmp.lstFilters.add(objFilter);
-		lstExternalSalmonellaModel.add(objTmp);
+//		objTmp = new ExternalSalmonellaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Two Filters";
+//		objTmp.TestCaseNameButtonActive = "AN-ESL-192: "+buttonActiveTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+//		objTmp.TestCaseName = "AN-ESL-193: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-ESL-194: "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-195: Verify "+objFilter.FilterName+filterTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-196: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+//		objTmp.TestCaseNameClearInput = "AN-ESL-197: "+clearInputTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameHoverReset = "AN-ESL-24: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+//		objTmp.TestCaseNameRevertBack = "AN-ESL-199: Verify "+objFilter.FilterName+revertBackTitle;
+//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+//		objTmp.ReloadPage = false;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterID = "isntrument-id";
+//		objFilter.FilterXPath = "filter-Instrument-ID";
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
+//		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
+//		objFilter.SearchVlaue = "PSN0004";
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
+//		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
+//		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+//		objFilter.ClearInput = "Instrument-ID-clear-input";
+//		objFilter.FilterID = "sample-id";
+//		objFilter.FilterXPath = "filter-Lab-Sample-ID";
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
+//		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
+//		objFilter.SearchVlaue = "0604sample1";
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1"));
+//		objFilter.getRowValue = Test_Elements.slSampleIDRow;
+//		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+//		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
+//		objFilter.wait = 3000;
+//		objTmp.lstFilters.add(objFilter);
+//		lstExternalSalmonellaModel.add(objTmp);
 	
 		return lstExternalSalmonellaModel;
 	}
