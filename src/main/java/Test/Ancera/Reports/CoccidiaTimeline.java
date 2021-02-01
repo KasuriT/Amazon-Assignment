@@ -85,7 +85,7 @@ public class CoccidiaTimeline {
 	}
 	
 
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaTimelineDateSearch = CoccidiaTimelineModel.FillDate();
@@ -250,7 +250,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Date Enter",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Enter",enabled= false, priority = 3) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaTimelineDateEnter = CoccidiaTimelineModel.EnterDate();
@@ -311,7 +311,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 4) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 4) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CT-12: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -369,7 +369,7 @@ public class CoccidiaTimeline {
 	
 	
 	
-	@Test (description="Test Case: Reset Test",enabled= true, priority = 5) 
+	@Test (description="Test Case: Reset Test",enabled= false, priority = 5) 
 	public void ResetFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CT-13: Verify filter can be reset", "This testcase will verify that filter can be reset");
@@ -445,8 +445,8 @@ public class CoccidiaTimeline {
 				Actions actions = new Actions(Helper.driver);
 				for (ReportFilters objFilter : objModel.lstFilters) {
 					try {	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
-						Thread.sleep(1500);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
 						WebElement expandFilter = Helper.driver.findElement(By.id(objFilter.FilterXPath));
 						actions.moveToElement(expandFilter).click().perform();
@@ -550,7 +550,7 @@ public class CoccidiaTimeline {
 	}
 	
 	
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 7) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled = false, priority = 7) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CT-49: Verify Coccidia Timeline Lock Filter Functionality", "This test case will test Coccidia Timeline Lock Filter Functionality");
@@ -618,7 +618,7 @@ public class CoccidiaTimeline {
 
 
 
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 8) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 8) 
 	public void PNGExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-50: Verify user can download Coccidia Timeline PNG file", "This test case will verify user can download Coccidia Timeline PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -677,7 +677,7 @@ public class CoccidiaTimeline {
 
 
 
-	@Test (description="Test Case: Test Coccidia Oocysts Count Download",enabled= true, priority = 9) 
+	@Test (description="Test Case: Test Coccidia Oocysts Count Download",enabled= false, priority = 9) 
 	public void OocystsCountExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-51: Verify user can download Oocysts Count PNG file", "This test case will verify that user can download Oocysts Count PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -728,7 +728,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Last 10 Coccidia Test Download",enabled= true, priority = 10) 
+	@Test (description="Test Case: Test Coccidia Last 10 Coccidia Test Download",enabled= false, priority = 10) 
 	public void CoccidiaTestExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-52: Verify user can download Last 10 Coccidia Test PNG file", "This test case will verify that user can download last 10 Coccidia Test PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -779,7 +779,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Count Over Time Download",enabled= true, priority = 11) 
+	@Test (description="Test Case: Test Coccidia Count Over Time Download",enabled= false, priority = 11) 
 	public void CoccidiaCountOverTimeExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-53: Verify user can download Coccidia Count Over Time PNG file", "This test case will verify that user can download Coccidia Count Over Time PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);

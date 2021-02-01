@@ -85,10 +85,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "TD02";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD02"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Sample-ID-clear-input";
-		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
@@ -119,10 +116,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
 		objFilter.SearchVlaue = "PSN0004";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Instrument-ID-clear-input";
-		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -154,10 +148,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Cartridge-ID-place-holder-search";
 		objFilter.SearchVlaue = "TestAutomation";  
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation"));  //uat
-		objFilter.getRowValue = Test_Elements.slCatridgeIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Cartridge-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -188,11 +179,8 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
 		objFilter.FilterListXPathSearch = "Lane-place-holder-search";
 		objFilter.SearchVlaue = "10";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
-		objFilter.getRowValue = Test_Elements.slLaneIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10")); 
 		objFilter.ClearInput = "Lane-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 	
@@ -224,10 +212,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Assay-place-holder-search";
 		objFilter.SearchVlaue = "Coccidia-SYBR";   
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  //uat
-		objFilter.getRowValue = Test_Elements.slAssayRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Assay-clear-input";
-		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);               
 
@@ -259,10 +244,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
 		objFilter.SearchVlaue = "4";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
-		objFilter.getRowValue = Test_Elements.slImprocIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Improc-Version-clear-input";
-		objFilter.wait = 5000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
 		
@@ -294,10 +276,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Site-Name-place-holder-search";
 		objFilter.SearchVlaue = "Test";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
-		objFilter.getRowValue = Test_Elements.slSiteNameRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Site-Name-clear-input";
-		objFilter.wait = 4500;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
 		
@@ -329,10 +308,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Sample-Matrix-place-holder-search";
 		objFilter.SearchVlaue = "F";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
-		objFilter.getRowValue = Test_Elements.slSampleMatrixRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Sample-Matrix-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
 		
@@ -364,10 +340,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Customer-Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "CS1";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS1"));
-		objFilter.getRowValue = Test_Elements.slCSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Customer-Sample-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
@@ -399,10 +372,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Date-Received-place-holder-search";
 		objFilter.SearchVlaue = "06-11-2020";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("06-11-2020"));
-		objFilter.getRowValue = Test_Elements.slDateReceivedRow;
-		objFilter.rowValueExpected = "";
 		objFilter.ClearInput = "Date-Received-clear-input";
-		objFilter.wait = 6000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -434,10 +404,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.getRowValue = Test_Elements.slKitLotRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Kit-Lot-clear-input";
-		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -469,10 +436,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Piper-User-place-holder-search";
 		objFilter.SearchVlaue = "FHasan";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("FHasan"));
-		objFilter.getRowValue = Test_Elements.slPiperUserRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Piper-User-clear-input";
-		objFilter.wait = 4500;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -504,9 +468,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
 		objFilter.SearchVlaue = "Completed";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Completed"));
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Result-Status-clear-input";
-		objFilter.wait = 7000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 			
@@ -538,10 +500,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "TD";
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Sample-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		

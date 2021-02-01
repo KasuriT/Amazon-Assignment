@@ -28,4 +28,5 @@ public class ReportFilters {
 	
 	public ArrayList<String> LstFilterValues;
 	public ArrayList<String> LstFilterXpath;
+	public ArrayList<String> LstFilterSearch;
 }

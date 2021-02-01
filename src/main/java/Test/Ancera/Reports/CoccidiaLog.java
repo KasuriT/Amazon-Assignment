@@ -56,7 +56,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -640,6 +640,7 @@ public class CoccidiaLog {
 		}
 	}
 
+	
 	@Test (description="Test Case: Reset Filter",enabled= false, priority = 6) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
@@ -690,7 +691,7 @@ public class CoccidiaLog {
 
 
 	
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 7) 
 	public void TestFilters() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaSearch = CoccidiaModel.FillData();
@@ -1089,8 +1090,9 @@ public class CoccidiaLog {
 		}
 	}
 	
+
 	
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 7) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-137: Verify Coccidia Lock Filter Functionality", "This test case will test Coccidia Lock Filter Functionality");
@@ -1153,7 +1155,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstCoccidiaPagination = CoccidiaModel.pagination();
 	//	Helper.driver.get(Constants.url_CoccidiaLog);
@@ -1294,7 +1296,7 @@ public class CoccidiaLog {
 
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 	//	Helper.driver.get(Constants.url_CoccidiaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1397,7 +1399,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-149: Verify user can download Coccidia PNG file", "This test case will verify user can download Coccidia PNG file");
@@ -1464,7 +1466,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 11) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-150: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
@@ -1522,7 +1524,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-151: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");

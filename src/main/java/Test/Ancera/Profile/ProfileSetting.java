@@ -54,13 +54,15 @@ public class ProfileSetting {
 			Test_Variables.steps.createNode("2. Click on Profile Settings icon on top right of screen");
 			
 			Helper.driver.get(Test_Variables.lstProfileNavigate.get(i).url);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("open-profile")));
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));
-			Thread.sleep(10000);
+			//Thread.sleep(10000);
 			Helper.driver.findElement(By.id("open-profile")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-save-2")));
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getTitle)).getText();
 			String expected = Test_Variables.profileTitle;
 
@@ -191,14 +193,17 @@ public class ProfileSetting {
 		Test_Variables.steps.createNode("1. Click on Profile Setting icon on top right of screen; Profile setting page opens");
 		Test_Variables.steps.createNode("2. Again click on it");
 		Helper.driver.get(Constants.url_user);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.profileButton)));
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		Helper.driver.findElement(By.xpath(Test_Elements.profileButton)).click();
 		Test_Variables.test.createNode("Click on Profile Setting button");
-		Thread.sleep(2000);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));
 		Helper.driver.findElement(By.xpath(Test_Elements.profileBackButton)).click();
-		Thread.sleep(1500);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
 
 		try{
 			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText(), "User Management"); 

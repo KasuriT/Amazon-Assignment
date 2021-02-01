@@ -18,6 +18,7 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Test.Ancera.Helper;
+import Test.Ancera.RetryFailedCases;
 import Test.Ancera.Test_Elements;
 import Test.Ancera.Test_Variables;
 import Test.Ancera.ConfigureLogin;
@@ -89,7 +90,7 @@ public class ForgotPassword {
 		}
 	}
 
-	@Test(enabled= true, priority= 2)
+	@Test(enabled= true, priority= 2,  retryAnalyzer = RetryFailedCases.class)
 	public void VerifyEmailReceived() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-FP-03: Verify user receives reset password link", "This test case will check whether user reveives an email to reset password");
@@ -240,6 +241,12 @@ public class ForgotPassword {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Forgot Password", Constants.ForgotPasswordReportPath));
 			Helper.driver.findElement(By.id("btn-sign-in")).click();
 
+			Thread.sleep(1500);
+			if (Helper.driver.findElements(By.cssSelector("div button.footer__btn-main")).size() != 0) {
+				Helper.driver.findElement(By.cssSelector("div button.footer__btn-main")).click();
+			}
+			
+			
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Home")));
 			Thread.sleep(2000);
 

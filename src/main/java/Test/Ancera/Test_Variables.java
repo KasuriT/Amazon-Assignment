@@ -43,8 +43,6 @@ public class Test_Variables {
 	//public static String login_email = "faraz@tenx.ai";
 	//public static String login_password = "tenx01tenx";
 	
-	
-	
 	public static String forgotPassword_email = "ancera.test.user100@gmail.com";
 	public static String forgotPassword_password = "ancera123";
 	public static String forgotPasswordSecurityEmail = "junnaid0005@gmail.com";

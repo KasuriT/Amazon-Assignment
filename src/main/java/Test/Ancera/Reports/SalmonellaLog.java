@@ -637,7 +637,7 @@ public class SalmonellaLog {
 
 
 	
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
 	public void TestFilters() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
@@ -1062,6 +1062,487 @@ public class SalmonellaLog {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////////////////////////////////////
+	
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
+	public void TestFilters111() throws InterruptedException, IOException {
+
+		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
+
+		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+
+				Actions actions = new Actions(Helper.driver);
+				for (ReportFilters objFilter : objModel.lstFilters) {	
+					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
+					try {
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
+
+						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterXPath));
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+						Thread.sleep(500);	
+						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
+						
+						
+						
+						for(int i = 0; i<objFilter.LstFilterSearch.size(); i++) {
+						WebElement expandFilter = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
+						actions.moveToElement(expandFilter).click().perform();				
+						Thread.sleep(500);						
+						
+						Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.LstFilterValues.get(i)+")");
+						Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).sendKeys(objFilter.LstFilterSearch.get(i));  
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Thread.sleep(500);
+						}
+
+		//				Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.SearchVlaue+")");
+		//				Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).sendKeys(objFilter.SearchVlaue);  
+		//				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+		//				Thread.sleep(500);
+
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 4000; i++) {
+							Test_Variables.steps.createNode("3. Select the checkbox and verify that apply filter button becomes active or not");
+							int attempts = 0;
+							while(attempts < 4) {
+								try {
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
+									break;
+								} catch(StaleElementReferenceException e) {
+								} 
+								attempts++;
+							}					   
+							chkCounter++;
+						}
+							
+						WebElement filter_button_scroll = Helper.driver.findElement(By.id("filter-icon"));
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_button_scroll); 
+
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() != 0);
+						Test_Variables.test.pass("Checkbox selected successfully and Apply filter button becomes active");
+						Test_Variables.results.createNode("Checkbox selected successfully and Apply filter button becomes active");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}		
+					catch(AssertionError er) {
+						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox");
+
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+
+						Test_Variables.steps.createNode("1. Click on apply filter button");	
+
+						WebElement element = Helper.driver.findElement(By.id("filter-icon"));
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+						Thread.sleep(500);
+
+						Helper.driver.findElement(By.id("filter-icon")).click(); 
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
+						
+						
+						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
+							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
+							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
+						}
+									
+						//if(recordAfter != "0" && objFilter.FilterName != "Load Filter") {
+						//String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getText();
+						//Assert.assertEquals(getRow, objFilter.rowValueExpected);	
+						
+						if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0) {
+							Actions builder = new Actions(Helper.driver); 
+							WebElement hover = Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear"));
+							builder.moveToElement(hover).build().perform();	
+						}
+						
+						
+						
+						System.out.println(recordBefore+", "+recordAfter);
+						Assert.assertNotEquals(recordBefore, recordAfter);
+						Test_Variables.test.pass("Filter applied successfully");
+						Test_Variables.results.createNode("Filter applied successfully");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}		
+					catch(AssertionError er) {
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and apply filter");
+						
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Variables.steps.createNode("1. Verify blue filter indicator next to applied filter/s");	
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
+
+							try {
+								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0);
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
+								Test_Variables.test.pass("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
+								Test_Variables.results.createNode("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+								break;
+							} catch(StaleElementReferenceException e) {
+							} 
+							catch(AssertionError er) {
+								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+							}
+							catch(Exception ex) {
+								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+							}					   
+							chkCounter++;
+						}
+					}
+					catch(Exception ex) {
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterTop, objModel.TestCaseDescriptionBubbleFilterTop);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
+
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
+						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
+						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
+						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
+						Test_Variables.steps.createNode("1. Verify checkbox selected pops to top of filter checkbox list");
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						int chkCounter = 0;
+						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
+							Test_Variables.steps.createNode("3. Select the checkbox");
+							try {
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 p#"+objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).size() != 0);
+								Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+
+								break;
+							} catch(StaleElementReferenceException e) {
+							} 
+							catch(AssertionError er) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+							}
+							catch(Exception ex) {
+								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
+								Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+							}					   
+							chkCounter++;
+						}
+					}
+					catch(Exception ex) {
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Click on apply filter button");
+						
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Thread.sleep(500);
+						Test_Variables.steps.createNode("1. Click on cross icon next to entered text in search field");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+//						WebElement clearInput = Helper.driver.findElement(By.id(objFilter.ClearInput));
+//						JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
+//						jse.executeScript("arguments[0].click()", clearInput);
+//						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+//						Thread.sleep(500);
+
+						//   "Instrument-ID-place-holder-search"   "Lab-Sample-ID-clear-input"
+						
+						
+	//					Assert.assertTrue(objFilter.FilterListXPathSearch.contains(""));
+/////////////////
+						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-clear-input"));
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Thread.sleep(500);
+							String a = objFilter.LstFilterXpath.get(i)+"-place-holder-search";
+							Assert.assertTrue(a.contains(""));
+							
+							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
+							actions.moveToElement(closeSearch).click().perform();
+							Thread.sleep(500);
+						}
+
+						Test_Variables.test.pass("Input search field cleared successfully");
+						Test_Variables.results.createNode("1. Search field cleared successfully on clicking cross icon");
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail("Search field failed to clear");
+						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail("Search field failed to clear");
+						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameHoverReset, objModel.TestCaseDescriptionHoverReset);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Apply "+objFilter.FilterName);
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						try {
+							
+				//			WebElement element = Helper.driver.findElement(By.id(objFilter.FilterXPath));
+				//			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+							Thread.sleep(1500);	
+							
+							
+							int chkCounter = 0;
+							for (int i = 0; chkCounter < objFilter.LstFilterXpath.size(); i++) {
+
+					//			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(objFilter.FilterXPath)));
+
+//								WebElement element = Helper.driver.findElement(By.id(objFilter.FilterXPath));
+//								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+//								Thread.sleep(500);	
+								Test_Variables.steps.createNode("1. Hover to blue indicator next to applied filter; blue indicator changes to cross icon");
+								Test_Variables.steps.createNode("2. Click on the blue indicator icon");
+								
+								if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {
+									Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+								}
+
+								if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).size() != 0) {
+									Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+								}
+								
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Thread.sleep(500);
+								chkCounter++;
+								System.out.println(recordBefore);
+							}
+
+							Assert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), recordBefore);			
+							Test_Variables.test.pass("Filter records reset successfully on clicking blue indicator icon");
+							Test_Variables.results.createNode("Filter records reset successfully on clicking blue indicator icon");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+						}
+						catch(AssertionError er) {
+							Test_Variables.test.fail("Filter records failed to reset on clicking blue indicator icon");
+							Test_Variables.results.createNode("Filter records failed to reset on clicking blue indicator icon");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+						}
+						catch(Exception ex) {
+							Test_Variables.test.fail("Filter records failed to reset on clicking blue indicator icon");
+							Test_Variables.results.createNode("Filter records failed to reset on clicking blue indicator icon");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+						}					   
+					}
+					catch(Exception ex) {
+					}
+
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameRevertBack, objModel.TestCaseDescriptionRevertBack);
+
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on  Salmonella Log; Salmonella Log reports open");
+						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
+						Test_Variables.preconditions.createNode("7. Click on apply filter button; selected filter moves to the top");
+
+						Test_Variables.steps.createNode("1. Click on reset button");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Thread.sleep(500);
+						
+						
+						for (int i = 0; i<objFilter.LstFilterXpath.size(); i++) { 
+					    Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#filter-"+objFilter.LstFilterXpath.get(i))).size() != 0);	
+						//Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#"+objFilter.FilterXPath)).size() != 0);
+						}
+						Test_Variables.test.pass("Filter reverts back to its position successfully on resetting filter");
+						Test_Variables.results.createNode("Filter reverts back to its position successfully on resetting filter");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
+						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
+						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
+
+					if(objModel.ReloadPage) {
+						Helper.driver.get(Constants.url_SalmonellaLog);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));
+					}
+					
+					if(objFilter.FilterName == "Load Filter") {
+						Helper.driver.findElement(By.id("reset-icon")).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					}
+					Thread.sleep(1000);
+				}
+			}
+			catch(Exception ex) {
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 7) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
@@ -1155,7 +1636,7 @@ public class SalmonellaLog {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-						String recordNumber = Helper.driver.findElement(By.xpath(Test_Elements.slRecordNumberTop)).getText();
+						String recordNumber = Helper.driver.findElement(By.id("results-found-count")).getText();
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 
 						String removeComma = recordNumber.replace(",", "");
