@@ -305,7 +305,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaDateSearch = ExternalCoccidiaModel.FillDate();
@@ -494,7 +494,7 @@ public class ExternalCoccidia {
 
 
 
-	@Test (description="Test Case: Date Enter",enabled= false, priority = 4) 
+	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaDateEnter = ExternalCoccidiaModel.EnterDate();
@@ -581,7 +581,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -639,7 +639,7 @@ public class ExternalCoccidia {
 	}
 	
 	
-	@Test (description="Test Case: Reset Filter",enabled= false, priority = 6) 
+	@Test (description="Test Case: Reset Filter",enabled= true, priority = 6) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
 		try {
@@ -689,7 +689,7 @@ public class ExternalCoccidia {
 	}
 	
 
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
 	public void TestFilters() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaSearch = ExternalCoccidiaModel.FillData();
@@ -1089,7 +1089,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-169: Verify External Coccidia Lock Filter Functionality", "This test case will test External Coccidia Lock Filter Functionality");
@@ -1152,7 +1152,7 @@ public class ExternalCoccidia {
 
 	}
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstExternalCoccidiaPagination = ExternalCoccidiaModel.pagination();
 		Helper.driver.findElement(By.id("filterDateFrom")).clear();

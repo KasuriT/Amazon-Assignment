@@ -5,7 +5,7 @@
     <classes>
       <class name="Test.Ancera.Reports.SalmonellaLog">
         <methods>
-          <include name="TestFilters111"/>
+          <include name="Sorting1"/>
           <include name="extent"/>
           <include name="endreport"/>
         </methods>

@@ -470,6 +470,8 @@ public class Test_Variables {
 	public static ArrayList<SalmonellaModel> lstSalmonellaRowCount = new ArrayList<>();
 	
 	public static ArrayList<SalmonellaModel> lstSalmonellaPagination = new ArrayList<>();
+	
+	public static ArrayList<SalmonellaModel> lstSalmonellaSorting = new ArrayList<>();
 
 	////////////////////////////////////////////////////End Salmonella Ingest Variables/////////////////////////////////////////////////////////////////
 	

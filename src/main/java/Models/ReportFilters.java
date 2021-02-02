@@ -12,6 +12,7 @@ public class ReportFilters {
 	public String FilterListXPathSuffix;
 	public String FilterListXPathChkSuffix;
 	public String ClearInput;
+	public String ColumnID;
 	public String getRowValue;
 	public String rowValueExpected;
 	public int wait;
