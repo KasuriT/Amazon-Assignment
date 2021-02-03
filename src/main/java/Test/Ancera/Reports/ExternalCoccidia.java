@@ -3,11 +3,13 @@ package Test.Ancera.Reports;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
@@ -28,7 +30,6 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.ReportFilters;
-import Models.ExternalCoccidiaModel;
 import Models.ExternalCoccidiaModel;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
@@ -688,7 +689,7 @@ public class ExternalCoccidia {
 	
 	
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 7) 
 	public void TestFilters111() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaSearch = ExternalCoccidiaModel.FillData();
@@ -790,12 +791,6 @@ public class ExternalCoccidia {
 						Helper.driver.findElement(By.id("filter-icon")).click(); 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
-
-
-						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
-							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
-							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
-						}
 
 						if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0) {
 							Actions builder = new Actions(Helper.driver); 
@@ -1101,404 +1096,7 @@ public class ExternalCoccidia {
 		}
 	}
 
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
-	public void TestFilters() throws InterruptedException, IOException {
 
-		Test_Variables.lstExternalCoccidiaSearch = ExternalCoccidiaModel.FillData();
-
-		for (ExternalCoccidiaModel objModel : Test_Variables.lstExternalCoccidiaSearch) { 	
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-
-				Actions actions = new Actions(Helper.driver);
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
-					try {
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
-
-						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterXPath));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-						Thread.sleep(500);	
-						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
-						WebElement expandFilter = Helper.driver.findElement(By.id(objFilter.FilterXPath));
-
-						actions.moveToElement(expandFilter).click().perform();				
-						Thread.sleep(500);
-						Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.SearchVlaue+")");
-						Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).sendKeys(objFilter.SearchVlaue);  
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Thread.sleep(500);
-
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 4000; i++) {
-							Test_Variables.steps.createNode("3. Select the checkbox and verify that apply filter button becomes active or not");
-							int attempts = 0;
-							while(attempts < 4) {
-								try {
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
-									break;
-								} catch(StaleElementReferenceException e) {
-								} 
-								attempts++;
-							}					   
-							chkCounter++;
-						}
-							
-						WebElement filter_button_scroll = Helper.driver.findElement(By.id("filter-icon"));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_button_scroll); 
-
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() != 0);
-						Test_Variables.test.pass("Checkbox selected successfully and Apply filter button becomes active");
-						Test_Variables.results.createNode("Checkbox selected successfully and Apply filter button becomes active");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-					}		
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to select checkbox or Apply filter button remained inactive");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Select the checkbox");
-
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-
-						Test_Variables.steps.createNode("1. Click on apply filter button");	
-
-						WebElement element = Helper.driver.findElement(By.id("filter-icon"));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
-						Thread.sleep(500);
-
-						Helper.driver.findElement(By.id("filter-icon")).click(); 
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
-						System.out.println(recordBefore+", "+recordAfter);
-						Assert.assertNotEquals(recordBefore, recordAfter);
-						Test_Variables.test.pass("Filter applied successfully");
-						Test_Variables.results.createNode("Filter applied successfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-					}		
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);						
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Select the checkbox and apply filter");
-						
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.steps.createNode("1. Verify blue filter indicator next to applied filter/s");	
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
-
-							try {
-								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0);
-								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
-								Test_Variables.test.pass("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
-								Test_Variables.results.createNode("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-								break;
-							} catch(StaleElementReferenceException e) {
-							} 
-							catch(AssertionError er) {
-								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
-								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-							}
-							catch(Exception ex) {
-								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
-								Test_Variables.results.createNode("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-							}					   
-							chkCounter++;
-						}
-					}
-					catch(Exception ex) {
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterTop, objModel.TestCaseDescriptionBubbleFilterTop);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
-
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
-
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
-						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
-						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
-						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail("Filter failed to bubble to top of filter list on applying");
-						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
-						Test_Variables.steps.createNode("1. Verify checkbox selected pops to top of filter checkbox list");
-
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
-							Test_Variables.steps.createNode("3. Select the checkbox");
-							try {
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 p#"+objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).size() != 0);
-								Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
-								Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-
-								break;
-							} catch(StaleElementReferenceException e) {
-							} 
-							catch(AssertionError er) {
-								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
-								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-							}
-							catch(Exception ex) {
-								Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
-								Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-							}					   
-							chkCounter++;
-						}
-					}
-					catch(Exception ex) {
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Click on apply filter button");
-						
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(500);
-						Test_Variables.steps.createNode("1. Click on cross icon next to entered text in search field");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						WebElement clearInput = Helper.driver.findElement(By.id(objFilter.ClearInput));
-						JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
-						jse.executeScript("arguments[0].click()", clearInput);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(500);
-
-						Assert.assertTrue(objFilter.FilterListXPathSearch.contains(""));
-
-						WebElement closeSearch = Helper.driver.findElement(By.id(objFilter.FilterXPath));
-						actions.moveToElement(closeSearch).click().perform();
-
-						Test_Variables.test.pass("Input search field cleared successfully");
-						Test_Variables.results.createNode("1. Search field cleared successfully on clicking cross icon");
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail("Search field failed to clear");
-						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail("Search field failed to clear");
-						Test_Variables.results.createNode("1. Search field failed to clear on clicking cross icon");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameHoverReset, objModel.TestCaseDescriptionHoverReset);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Apply "+objFilter.FilterName);
-
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 4000; i++) {
-							try {
-								Actions builder = new Actions(Helper.driver); 
-								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
-
-								WebElement element = Helper.driver.findElement(By.id(objFilter.FilterXPath));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
-								Thread.sleep(500);	
-								Test_Variables.steps.createNode("1. Hover to blue indicator next to applied filter; blue indicator changes to cross icon");
-								WebElement hover = Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator"));
-								builder.moveToElement(hover).build().perform();
-								Thread.sleep(500);
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Test_Variables.steps.createNode("2. Click on the blue indicator icon");
-								WebElement button = Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear"));
-								JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
-								jse.executeScript("arguments[0].click()", button);
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								
-								System.out.println(recordBefore);
-								Assert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), recordBefore);			
-								Test_Variables.test.pass("Filter records reset successfully on clicking blue indicator icon");
-								Test_Variables.results.createNode("Filter records reset successfully on clicking blue indicator icon");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-								break;
-							} catch(StaleElementReferenceException e) {
-							} 
-							catch(AssertionError er) {
-								Test_Variables.test.fail("Filter records failed to reset on clicking blue indicator icon");
-								Test_Variables.results.createNode("Filter records failed to reset on clicking blue indicator icon");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-							}
-							catch(Exception ex) {
-								Test_Variables.test.fail("Filter records failed to reset on clicking blue indicator icon");
-								Test_Variables.results.createNode("Filter records failed to reset on clicking blue indicator icon");
-								Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-							}					   
-							chkCounter++;
-						}
-					}
-
-					catch(Exception ex) {
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameRevertBack, objModel.TestCaseDescriptionRevertBack);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on External Coccidia Log; External Coccidia Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Click on apply filter button; selected filter moves to the top");
-
-						Test_Variables.steps.createNode("1. Click on reset button");
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(500);
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#"+objFilter.FilterXPath)).size() != 0);
-						Test_Variables.test.pass("Filter reverts back to its position successfully on resetting filter");
-						Test_Variables.results.createNode("Filter reverts back to its position successfully on resetting filter");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
-						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail("Filter failed to revert back to its position on resetting filter");
-						Test_Variables.results.createNode("Filter failed to revert back to its position on resetting filter");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
-					}
-
-					if(objModel.ReloadPage) {
-						Helper.driver.get(Constants.url_ExternalCoccidiaLog);
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));
-					}
-					Thread.sleep(1000);
-				}
-			}
-			catch(Exception ex) {
-			}
-		}
-	}
 
 
 	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
@@ -1595,96 +1193,108 @@ public class ExternalCoccidia {
 						double y = 100;
 						double divide = Math.ceil(Math.abs(x/y));
 						final int totalPages = (int)divide;
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
-						Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
 
-						if (objModel.paginationExist) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("1. Verify pagination exists");
-							Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
-							Assert.assertTrue(Helper.driver.findElements(By.id("activePageNumber")).size() != 0);
-							Test_Variables.test.pass("Pagination displayed successfully");
-							Test_Variables.results.createNode("Pagination displayed successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);		
-						}
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
+							Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
 
-
-						if (objModel.paginationLastPage) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");
-			
-							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
-								Thread.sleep(1000);
+							if (objModel.paginationExist) {
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Test_Variables.steps.createNode("1. Verify pagination exists");
+								Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
+								Assert.assertTrue(Helper.driver.findElements(By.id("activePageNumber")).size() != 0);
+								Test_Variables.test.pass("Pagination displayed successfully");
+								Test_Variables.results.createNode("Pagination displayed successfully");
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
-								Assert.fail("An error alert message displayed");
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);		
 							}
-							
-							String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-							Assert.assertEquals(pageCount, totalPages+"/"+totalPages);
-							Test_Variables.test.pass("Navigated to last page successfully");
-							Test_Variables.results.createNode("Navigated to last page successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-
-						}
 
 
-						if (objModel.paginationPreviousPage) {
+							if (objModel.paginationLastPage) {
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");
 
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("1. Click on '<' icon in pagination");
-							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
-								Thread.sleep(1000);
+								if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
+									Thread.sleep(1000);
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+									Assert.fail("An error alert message displayed");
+								}
+
+								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
+								Assert.assertEquals(pageCount, totalPages+"/"+totalPages);
+								Test_Variables.test.pass("Navigated to last page successfully");
+								Test_Variables.results.createNode("Navigated to last page successfully");
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
-								Assert.fail("An error alert message displayed");
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+
 							}
-							String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-							Assert.assertEquals(pageCount, (totalPages-1)+"/"+totalPages);
-							Test_Variables.test.pass("Navigated to previous page successfully");
-							Test_Variables.results.createNode("Navigated to previous page successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-						}
 
 
-						if (objModel.paginationFirstPage) {	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("1. Click on '<<' icon in pagination");
-							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
-								Thread.sleep(1000);
+							if (objModel.paginationPreviousPage) {
+
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Test_Variables.steps.createNode("1. Click on '<' icon in pagination");
+								if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
+									Thread.sleep(1000);
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+									Assert.fail("An error alert message displayed");
+								}
+								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
+								Assert.assertEquals(pageCount, (totalPages-1)+"/"+totalPages);
+								Test_Variables.test.pass("Navigated to previous page successfully");
+								Test_Variables.results.createNode("Navigated to previous page successfully");
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
-								Assert.fail("An error alert message displayed");
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
 							}
-							String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-							Assert.assertEquals(pageCount, 1+"/"+totalPages);
-							Test_Variables.test.pass("Navigated to first page successfully");
-							Test_Variables.results.createNode("Navigated to first page successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-						}
 
 
-						if (objModel.paginationNextPage) {	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("1. Click on '>' icon in pagination");
-							if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
-								Thread.sleep(1000);
+							if (objModel.paginationFirstPage) {	
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Test_Variables.steps.createNode("1. Click on '<<' icon in pagination");
+								if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
+									Thread.sleep(1000);
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+									Assert.fail("An error alert message displayed");
+								}
+								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
+								Assert.assertEquals(pageCount, 1+"/"+totalPages);
+								Test_Variables.test.pass("Navigated to first page successfully");
+								Test_Variables.results.createNode("Navigated to first page successfully");
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-								Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
-								Assert.fail("An error alert message displayed");
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
 							}
-							String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-							Assert.assertEquals(pageCount, 2+"/"+totalPages);
-							Test_Variables.test.pass("Navigated to next page successfully");
-							Test_Variables.results.createNode("Navigated to next page successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+
+
+							if (objModel.paginationNextPage) {	
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Test_Variables.steps.createNode("1. Click on '>' icon in pagination");
+								if (Helper.driver.findElements(By.id("alrt")).size() !=0) {
+									Thread.sleep(1000);
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+									Assert.fail("An error alert message displayed");
+								}
+								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
+								Assert.assertEquals(pageCount, 2+"/"+totalPages);
+								Test_Variables.test.pass("Navigated to next page successfully");
+								Test_Variables.results.createNode("Navigated to next page successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+							}
 						}
 
+						else {
+							Assert.assertTrue(true, "Records are less then 100; pagination cannot be tested");
+							Test_Variables.test.pass("Records are less then 100; pagination cannot be tested");
+							Test_Variables.results.createNode("Records are less then 100; pagination cannot be tested");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail("Failed to get desired results on clicking "+objFilter.FilterName+" button");
@@ -1701,17 +1311,19 @@ public class ExternalCoccidia {
 			catch(Exception ex) {
 			}
 		}
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Helper.driver.findElement(By.id("first-page")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
 	
 	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
-	//	Helper.driver.get(Constants.url_ExternalCoccidiaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 		Thread.sleep(500);
 		Helper.driver.findElement(By.id("filterDateFrom")).clear();
-		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("09/01/2020");
+		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("07/01/2020");
 		Helper.driver.findElement(By.id("filter-icon")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
@@ -1736,21 +1348,34 @@ public class ExternalCoccidia {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
-						WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
-						actions.moveToElement(expandFilter).click().perform();				
-						Thread.sleep(500);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
 
-						List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
-						int count = rows.size();
-						System.out.println("ROW COUNT : "+count);
-						Assert.assertEquals(count, Integer.parseInt(objFilter.count));
-						Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > Integer.parseInt(objFilter.count)) {
+
+							WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
+							actions.moveToElement(expandFilter).click().perform();				
+							Thread.sleep(500);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
+							int count = rows.size();
+							System.out.println("ROW COUNT : "+count);
+							Assert.assertEquals(count, Integer.parseInt(objFilter.count));
+							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
+							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
+						}
+
+						else {
+							Assert.assertTrue(true, "Records are less then "+objFilter.count);
+							Test_Variables.test.pass("Records are less then "+objFilter.count);
+							Test_Variables.results.createNode("Rcords are less then "+objFilter.count);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" failed to display");
@@ -1779,16 +1404,31 @@ public class ExternalCoccidia {
 						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
 						Test_Variables.steps.createNode("2. Go to next page from pagination");
 						Test_Variables.steps.createNode("3. Verify that still "+objFilter.FilterName+" is selected");
-						Helper.driver.findElement(By.id("next-page")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
-						int count = rows.size();
-						System.out.println("ROW COUNT : "+count);
-						Assert.assertEquals(count, Integer.parseInt(objFilter.count));
-						Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
-						Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully on next page");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);	
+						
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
+						int sum = Integer.parseInt(objFilter.count) + Integer.parseInt(objFilter.count);
+
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
+
+							Helper.driver.findElement(By.id("next-page")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
+							int count = rows.size();
+							System.out.println("ROW COUNT : "+count);
+							Assert.assertEquals(count, Integer.parseInt(objFilter.count));
+							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
+							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully on next page");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);	
+						}
+
+						else {
+							Assert.assertTrue(true, "Records are less then "+sum);
+							Test_Variables.test.pass("Records are less then "+sum);
+							Test_Variables.results.createNode("Rcords are less then "+sum);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" failed to display on next page");
@@ -1875,7 +1515,7 @@ public class ExternalCoccidia {
 
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-182: Verify user can download External Coccidia CSV file", "This test case will verify that user can download External Coccidia CSV file");
@@ -1934,7 +1574,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 13) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-183: Verify user can download External Coccidia Template file", "This test case will verify that user download External Coccidia Template file");

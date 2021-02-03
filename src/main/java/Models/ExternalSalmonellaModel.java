@@ -34,11 +34,11 @@ public class ExternalSalmonellaModel {
 	public boolean paginationNextPage;
 	public boolean paginationFirstPage;
 	public boolean paginationPreviousPage;
-	
+
 	public ExternalSalmonellaModel() {
-		
+
 	}
-	
+
 	public static String buttonActiveTitle = "Verify apply filter button becomes active on selecting checkbox from ";
 	public static String buttonActiveDesc = "This test case will verify that filter button becomes active on selecting checkbox from ";
 	public static String applyFilterTitle = "Verify user can apply ";
@@ -53,11 +53,11 @@ public class ExternalSalmonellaModel {
 	public static String clearInputDesc = "This test case will verify that input field gets cleared on clicking the cross icon in ";
 	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
 	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
-	
+
 	public static ArrayList<ExternalSalmonellaModel> FillData() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();
-		
+
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
 		objTmp.TestCaseNameButtonActive = "AN-ESL-16: Verify apply filter button becomes active on selecting 'Medium' from Load filter";
@@ -72,6 +72,8 @@ public class ExternalSalmonellaModel {
 		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
 		objTmp.TestCaseNameClearInput = "AN-ESL-21: "+clearInputTitle+objFilter.FilterName;
 		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-22: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.TestCaseNameRevertBack = "AN-ESL-23: Verify "+objFilter.FilterName+revertBackTitle;
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
@@ -79,16 +81,13 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "w2-cell-count";
 		objFilter.FilterXPath = "filter-Load";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Load"));
-		objFilter.FilterListXPathSearch = "Load-place-holder-search";
-		objFilter.SearchVlaue = "Medium";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Med"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Medium"));
 		objFilter.getRowValue = Test_Elements.eslLoadRow;
 		objFilter.rowValueExpected = Test_Elements.eslLoadYellow;
-		objFilter.ClearInput = "Load-clear-input";
-		objFilter.wait = 5000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
+
 
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
@@ -114,17 +113,14 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "w2-cell-count";
 		objFilter.FilterXPath = "filter-Load";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Load"));
-		objFilter.FilterListXPathSearch = "Load-place-holder-search";
-		objFilter.SearchVlaue = "High";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("High"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("High"));
 		objFilter.getRowValue = Test_Elements.eslLoadRow;
 		objFilter.rowValueExpected = Test_Elements.eslLoadRed;
-		objFilter.ClearInput = "Load-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
@@ -149,17 +145,14 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "w2-cell-count";
 		objFilter.FilterXPath = "filter-Load";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Load"));
-		objFilter.FilterListXPathSearch = "Load-place-holder-search";
-		objFilter.SearchVlaue = "Low";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Low"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Low"));
 		objFilter.getRowValue = Test_Elements.eslLoadRow;
 		objFilter.rowValueExpected = Test_Elements.eslLoadGreen;  
-		objFilter.ClearInput = "Load-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID Filter";
@@ -185,17 +178,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "sample-id";
 		objFilter.FilterXPath = "filter-Lab-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
-		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "0604sample1";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation100"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation100"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
@@ -221,16 +209,11 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "isntrument-id";
 		objFilter.FilterXPath = "filter-Instrument-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
-		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
-		objFilter.SearchVlaue = "PSN0004";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Instrument-ID-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0018"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0018"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
+
 
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
@@ -257,17 +240,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "cartrtidge-id";
 		objFilter.FilterXPath = "filter-Cartridge-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
-		objFilter.FilterListXPathSearch = "Cartridge-ID-place-holder-search";
-		objFilter.SearchVlaue = "20201023_swtest1";  
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("20201023_swtest1"));  //uat
-		objFilter.getRowValue = Test_Elements.slCatridgeIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Cartridge-ID-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
@@ -293,17 +271,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "lane-num";
 		objFilter.FilterXPath = "filter-Lane";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
-		objFilter.FilterListXPathSearch = "Lane-place-holder-search";
-		objFilter.SearchVlaue = "10";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
-		objFilter.getRowValue = Test_Elements.slLaneIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Lane-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10")); 
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-	
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
@@ -329,17 +302,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "pathogen";
 		objFilter.FilterXPath = "filter-Assay";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
-		objFilter.FilterListXPathSearch = "Assay-place-holder-search";
-		objFilter.SearchVlaue = "listeria-probes";   
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("listeria-probes"));  //uat
-		objFilter.getRowValue = Test_Elements.slAssayRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Assay-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("listeria-probes"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("listeria-probes"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-			
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "QC Code Filter";
@@ -365,53 +333,42 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "count-outcome";
 		objFilter.FilterXPath = "filter-QC-Code";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("QC-Code"));
-		objFilter.FilterListXPathSearch = "QC-Code-place-holder-search";
-		objFilter.SearchVlaue = "P";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("p"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PASS"));
-		objFilter.getRowValue = Test_Elements.slQCCodeRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "QC-Code-clear-input";
-		objFilter.wait = 4000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);                   
 
-		
-		objTmp = new ExternalSalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseNameButtonActive = "AN-ESL-88: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseName = "AN-ESL-89: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-ESL-90 "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-91: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-92: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-ESL-93: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameHoverReset = "AN-ESL-94: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		objTmp.TestCaseNameRevertBack = "AN-ESL-95: Verify "+objFilter.FilterName+revertBackTitle;
-		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = "version";
-		objFilter.FilterXPath = "filter-Improc-Version";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
-		objFilter.SearchVlaue = "pro";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("process"));
-		objFilter.getRowValue = Test_Elements.slImprocIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Improc-Version-clear-input";
-		objFilter.wait = 5000;
-		objTmp.lstFilters.add(objFilter);
-		lstExternalSalmonellaModel.add(objTmp); 
-		
-		
+
+		//		objTmp = new ExternalSalmonellaModel();
+		//		objFilter = new ReportFilters();
+		//		objFilter.FilterName = "Improc Version Filter";
+		//		objTmp.TestCaseNameButtonActive = "AN-ESL-88: "+buttonActiveTitle+objFilter.FilterName;
+		//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		//		objTmp.TestCaseName = "AN-ESL-89: "+applyFilterTitle+objFilter.FilterName;
+		//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		//		objTmp.TestCaseNameSearch = "AN-ESL-90 "+filterIndicatorTitle+objFilter.FilterName;
+		//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		//		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-91: Verify "+objFilter.FilterName+filterTopTitle;
+		//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-92: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		//		objTmp.TestCaseNameClearInput = "AN-ESL-93: "+clearInputTitle+objFilter.FilterName;
+		//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		//		objTmp.TestCaseNameHoverReset = "AN-ESL-94: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		//		objTmp.TestCaseNameRevertBack = "AN-ESL-95: Verify "+objFilter.FilterName+revertBackTitle;
+		//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		//		objTmp.ReloadPage = false;
+		//		objTmp.lstFilters = new ArrayList<>();
+		//		objFilter = new ReportFilters();
+		//		objFilter.FilterID = "version";
+		//		objFilter.FilterXPath = "filter-Improc-Version";
+		//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("process"));
+		//		objTmp.lstFilters.add(objFilter);
+		//		lstExternalSalmonellaModel.add(objTmp); 
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Name Filter";
@@ -437,18 +394,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "site-id";
 		objFilter.FilterXPath = "filter-Collection-Site-Name";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Name"));
-		objFilter.FilterListXPathSearch = "Collection-Site-Name-place-holder-search";
-		objFilter.SearchVlaue = "Test";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Test"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
-		objFilter.getRowValue = Test_Elements.slSiteNameRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Collection-Site-Name-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp); 
-		
 
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
@@ -474,17 +425,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "collection-site-id";
 		objFilter.FilterXPath = "filter-Collection-Site-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-ID"));
-		objFilter.FilterListXPathSearch = "Collection-Site-ID-place-holder-search";
-		objFilter.SearchVlaue = "1001002";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1001002"));
-		objFilter.getRowValue = Test_Elements.slSiteIDRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "Collection-Site-ID-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp); 
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
@@ -510,20 +456,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "collection-site-type";
 		objFilter.FilterXPath = "filter-Collection-Site-Type"; 
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
-		objFilter.FilterListXPathSearch = "Collection-Site-Type-place-holder-search";
-		objFilter.SearchVlaue = "Farm";
-		objFilter.FilterListXPathPrefix = Test_Elements.slSiteTypebeforeXpath;
-		objFilter.FilterListXPathSuffix = Test_Elements.slSiteTypeafterXpath;
-		objFilter.FilterListXPathChkSuffix = Test_Elements.slSiteTypeafterXpath1;
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Farm"));
-		objFilter.getRowValue = Test_Elements.slSiteTypeRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "Collection-Site-Type-clear-input";
-		objFilter.wait = 4500;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp); 
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
@@ -549,17 +487,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "sample-matrix";
 		objFilter.FilterXPath = "filter-Sample-Matrix";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
-		objFilter.FilterListXPathSearch = "Sample-Matrix-place-holder-search";
-		objFilter.SearchVlaue = "Feces";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
-		objFilter.getRowValue = Test_Elements.slSampleMatrixRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Sample-Matrix-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp); 
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
@@ -585,17 +518,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "customer-sample-id";
 		objFilter.FilterXPath =  "filter-Customer-Sample-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-Id"));
-		objFilter.FilterListXPathSearch = "Customer-Sample-Id-place-holder-search";
-		objFilter.SearchVlaue = "BAL-1234";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("BAL-1234"));
-		objFilter.getRowValue = Test_Elements.slCSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Customer-Sample-Id-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received Filter";
@@ -621,17 +549,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "meta-data-recieved";
 		objFilter.FilterXPath = "filter-Date-Received";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
-		objFilter.FilterListXPathSearch = "Date-Received-place-holder-search";
-		objFilter.SearchVlaue = "06-29-2020";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("06-29-2020"));
-		objFilter.getRowValue = Test_Elements.slDateReceivedRow;
-		objFilter.rowValueExpected = "";
-		objFilter.ClearInput = "Date-Received-clear-input";
-		objFilter.wait = 6000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
@@ -657,17 +580,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "kit-lot";
 		objFilter.FilterXPath =  "filter-Kit-Lot";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
-		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
-		objFilter.SearchVlaue = "SAL456773";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SAL456773"));
-		objFilter.getRowValue = Test_Elements.slKitLotRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Kit-Lot-clear-input";
-		objFilter.wait = 4000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
@@ -693,17 +611,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "user-name";
 		objFilter.FilterXPath = "filter-Piper-User";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
-		objFilter.FilterListXPathSearch = "Piper-User-place-holder-search";
-		objFilter.SearchVlaue = "FHasan";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("FHasan"));
-		objFilter.getRowValue = Test_Elements.slPiperUserRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Piper-User-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Quser"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("QUSER"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
@@ -729,15 +642,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "requested-assay";
 		objFilter.FilterXPath = "filter-Requested-Assay";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
-		objFilter.FilterListXPathSearch = "Requested-Assay-place-holder-search";
-		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.ClearInput = "Requested-Assay-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
@@ -763,15 +673,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "flock-id";
 		objFilter.FilterXPath = "filter-Flock-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
-		objFilter.FilterListXPathSearch = "Flock-ID-place-holder-search";
-		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.ClearInput = "Flock-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-	
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
@@ -797,16 +704,12 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "result-status";
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
-		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
-		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
-		objFilter.ClearInput = "Result-Status-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-			
-		
+
+
 		objTmp = new ExternalSalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "multiple value from same filter";
@@ -832,71 +735,53 @@ public class ExternalSalmonellaModel {
 		objFilter.FilterID = "sample-id";
 		objFilter.FilterXPath = "filter-Lab-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Lab-Sample-ID"));
-		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "0604sample";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1", "0604sample2"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-		objFilter.wait = 3000;
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation1"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation100", "TestAutomation101")); 
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-	
-		
-//		objTmp = new ExternalSalmonellaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseNameButtonActive = "AN-ESL-192: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-ESL-193: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-ESL-194: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-195: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-196: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-ESL-197: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-ESL-24: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-ESL-199: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterID = "isntrument-id";
-//		objFilter.FilterXPath = "filter-Instrument-ID";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
-//		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
-//		objFilter.SearchVlaue = "PSN0004";
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-//		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
-//		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-//		objFilter.ClearInput = "Instrument-ID-clear-input";
-//		objFilter.FilterID = "sample-id";
-//		objFilter.FilterXPath = "filter-Lab-Sample-ID";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
-//		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-//		objFilter.SearchVlaue = "0604sample1";
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0604sample1"));
-//		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-//		objFilter.rowValueExpected = objFilter.SearchVlaue; 
-//		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-//		objFilter.wait = 3000;
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalSalmonellaModel.add(objTmp);
-	
+
+
+		objTmp = new ExternalSalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseNameButtonActive = "AN-ESL-192: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ESL-193: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ESL-194: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ESL-195: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ESL-196: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ESL-197: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ESL-198: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ESL-199: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Instrument-ID"));
+		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation100", "PSN0018"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation100", "PSN0018"));
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Lab-Sample-ID";
+		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
+		objTmp.lstFilters.add(objFilter);
+		lstExternalSalmonellaModel.add(objTmp);
+
 		return lstExternalSalmonellaModel;
 	}
-	
-	
-	
+
+
 	public static ArrayList<ExternalSalmonellaModel> FillDate() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();
-		
+
 		objTmp.TestCaseName = "AN-ESL-05: Verify user can filter Today date from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of date filter after selecting 'Today'";
 		objTmp.Filter1 = true;
@@ -905,18 +790,14 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eslDateOpen;
 		objFilter.FilterListXPathSearch = Test_Elements.eslToday;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
 		objFilter.toDate = "0";
 		objFilter.fromDate = "0";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-	
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-06: Verify user can filter Last 24 Hours from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 24 Hours after selecting 'Last 24 Hours'";
@@ -926,18 +807,14 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eslDateOpen;
 		objFilter.FilterListXPathSearch = Test_Elements.eslLast24Hours;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
 		objFilter.toDate = "-1";
 		objFilter.fromDate = "-1";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-				
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-07: Verify user can filter Last 7 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 7 Days after selecting 'Last 7 Days'";
@@ -947,18 +824,14 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eslDateOpen;
 		objFilter.FilterListXPathSearch = Test_Elements.eslLast7Days;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
 		objFilter.toDate = "0";
 		objFilter.fromDate = "-7";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-				
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-08: Verify user can filter Last 30 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 30 Days after selecting 'Last 30 Days'";
@@ -968,18 +841,14 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eslDateOpen;
 		objFilter.FilterListXPathSearch = Test_Elements.eslLast30Days;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
 		objFilter.toDate = "0";
 		objFilter.fromDate = "-30";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-09: Verify user can filter Last Month from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last Month after selecting 'Last Month'";
@@ -989,48 +858,42 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eslDateOpen;
 		objFilter.FilterListXPathSearch = Test_Elements.eslLastMonth;
 		objFilter.toMonth = "-1";
 		objFilter.fromMonth = "-1";
 		objFilter.toDate = "30";
 		objFilter.fromDate = "1";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
-//		objTmp = new ExternalSalmonellaModel();
-//		objTmp.TestCaseName = "AN-ESL-10: Verify user can filter This Month from date Filter";
-//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-//		objTmp.Filter1 = false;
-//		objTmp.Filter2 = false;
-//		objTmp.Filter3 = true;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Date Filter";
-//		objFilter.FilterXPath = Test_Elements.eslDateOpen;
-//		objFilter.FilterListXPathSearch = Test_Elements.eslThisMonth;
-//		objFilter.toMonth = "0";
-//		objFilter.fromMonth = "0";
-//		objFilter.toDate = "0";
-//		objFilter.fromDate = "1";
-//		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-//		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalSalmonellaModel.add(objTmp);
-			
+
+		//		objTmp = new ExternalSalmonellaModel();
+		//		objTmp.TestCaseName = "AN-ESL-10: Verify user can filter This Month from date Filter";
+		//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+		//		objTmp.Filter1 = false;
+		//		objTmp.Filter2 = false;
+		//		objTmp.Filter3 = true;
+		//		objTmp.lstFilters = new ArrayList<>();
+		//		objFilter = new ReportFilters();
+		//		objFilter.FilterName = "Date Filter";
+		//		objFilter.FilterXPath = Test_Elements.eslDateOpen;
+		//		objFilter.FilterListXPathSearch = Test_Elements.eslThisMonth;
+		//		objFilter.toMonth = "0";
+		//		objFilter.fromMonth = "0";
+		//		objFilter.toDate = "0";
+		//		objFilter.fromDate = "1";
+		//		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
+		//		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
+		//		objTmp.lstFilters.add(objFilter);
+		//		lstExternalSalmonellaModel.add(objTmp);
+
 		return lstExternalSalmonellaModel;
 	}
-	
-	
-	
-	
+
+
 	public static ArrayList<ExternalSalmonellaModel> EnterDate() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();
-		
+
 		objTmp.TestCaseName = "AN-ESL-11: Verify user cannot apply filter with invalid date";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot add date with invalid from and to date";
 		objTmp.Filter1 = true;
@@ -1038,15 +901,12 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Enter invalid date";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objFilter.fromDate = "12/01/2020";
 		objFilter.toDate = "11/11/202020";
 		objFilter.alertMessage = "Please select a valid date";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-12: Verify user cannot apply filter with any other date format except mm/dd/yyyy";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with any other date format except mm/dd/yyyy";
@@ -1055,15 +915,12 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Enter any other date format except mm/dd/yyyy";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objFilter.fromDate = "12/01/2020";
 		objFilter.toDate = "20/12/2020";
 		objFilter.alertMessage = "Please select a valid date";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
 
-		
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-13: Verify user cannot apply filter with from date greater than to date";
 		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with from date greater than to date";
@@ -1072,15 +929,12 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Enter from date greater than to date";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objFilter.fromDate = "12/01/2020";
 		objFilter.toDate = "10/01/2020";
 		objFilter.alertMessage = "Please select a valid date";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-14: Verify user can search for records with valid date";
 		objTmp.TestCaseDescription = "This testcase will verify that user can search for records with valid date";
@@ -1089,22 +943,19 @@ public class ExternalSalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Enter valid date";
-		objFilter.FilterListXPathPrefix = Test_Elements.eslDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eslDateTo;
 		objFilter.fromDate = "12/01/2020";
 		objFilter.toDate = "01/07/2021";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
+
 		return lstExternalSalmonellaModel;
-		
 	}
-	
-	
+
+
 	public static ArrayList<ExternalSalmonellaModel> pagination() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();
-		
+
 		objTmp.TestCaseName = "AN-ESL-202: Verify pagination exist on Salmonella Log report";
 		objTmp.TestCaseDescription = "This testcase will verify that pagination exist on Salmonella Log report";
 		objTmp.paginationExist = true;
@@ -1119,7 +970,7 @@ public class ExternalSalmonellaModel {
 		objFilter.paginationCount = Test_Elements.eslTotalPages;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-203: Verify user navigates to last page on clicking '>>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to last page on clicking '>>' button in pagnation";
@@ -1134,9 +985,8 @@ public class ExternalSalmonellaModel {
 		objFilter.paginationPage = "last-page";
 		objFilter.paginationCount = Test_Elements.eslTotalPages;
 		objTmp.lstFilters.add(objFilter);
-		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+		lstExternalSalmonellaModel.add(objTmp);	
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-204: Verify user navigates to previous page on clicking '<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to previous page on clicking '<' button in pagnation";
@@ -1152,8 +1002,7 @@ public class ExternalSalmonellaModel {
 		objFilter.paginationCount = Test_Elements.eslTotalPages;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-	
-	
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-205: Verify user navigates to first page on clicking '<<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to first page on clicking '<<' button in pagnation";
@@ -1169,8 +1018,7 @@ public class ExternalSalmonellaModel {
 		objFilter.paginationCount = Test_Elements.eslTotalPages;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-206: Verify user navigates to next page on clicking '>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to next page on clicking '>' button in pagnation";
@@ -1186,17 +1034,15 @@ public class ExternalSalmonellaModel {
 		objFilter.paginationCount = Test_Elements.eslTotalPages;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		return lstExternalSalmonellaModel;
-		
-}
-	
 
-	
+		return lstExternalSalmonellaModel;	
+	}
+
+
 	public static ArrayList<ExternalSalmonellaModel> searchRows() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();
-		
+
 		objTmp.TestCaseName = "AN-ESL-207: Verify 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseNameSearch = "AN-ESL-208: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
@@ -1209,8 +1055,7 @@ public class ExternalSalmonellaModel {
 		objFilter.count = "100";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-		
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-209: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
@@ -1224,8 +1069,7 @@ public class ExternalSalmonellaModel {
 		objFilter.count = "250";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-		
-			
+
 		objTmp = new ExternalSalmonellaModel();
 		objTmp.TestCaseName = "AN-ESL-211: Verify 500 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 500 Rows per Page is selected";
@@ -1239,9 +1083,7 @@ public class ExternalSalmonellaModel {
 		objFilter.count = "500";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalSalmonellaModel.add(objTmp);
-	
+
 		return lstExternalSalmonellaModel;	
-}
-	
-	
+	}
 }

@@ -322,8 +322,8 @@ public class CoccidiaModel {
 		objFilter.FilterID = "customer-sample-id";
 		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CS8"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS8"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
@@ -442,8 +442,8 @@ public class CoccidiaModel {
 		objFilter.FilterID = "result-status";
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Pending"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 

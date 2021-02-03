@@ -44,8 +44,8 @@ public class ConfigureLogin {
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Home")));
 			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("Home")).getText();
-			String expected = "Home";
+			String actual = Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText();
+			String expected = "Ancera Intelligence Engine (Testing Environment)";
 
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("User logged in successfully");

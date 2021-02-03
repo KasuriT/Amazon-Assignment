@@ -3,12 +3,14 @@ package Test.Ancera.Reports;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -741,7 +743,7 @@ public class SalmonellaLog {
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 						
 						
-						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
+						if(Integer.parseInt(recordAfter) != 0 && objFilter.FilterName == "Load Filter") {
 							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
 							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
 						}
@@ -1556,7 +1558,6 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
-		//	Helper.driver.get(Constants.url_SalmonellaLog);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
@@ -1642,7 +1643,11 @@ public class SalmonellaLog {
 						double y = 100;
 						double divide = Math.ceil(Math.abs(x/y));
 						final int totalPages = (int)divide;
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
+
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
 						Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
 
 						if (objModel.paginationExist) {
@@ -1723,7 +1728,15 @@ public class SalmonellaLog {
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 						}
+						}
 
+						else {
+							Assert.assertTrue(true, "Records are less then 100; pagination cannot be tested");
+							Test_Variables.test.pass("Records are less then 100; pagination cannot be tested");
+							Test_Variables.results.createNode("Records are less then 100; pagination cannot be tested");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail("Failed to get desired results on clicking "+objFilter.FilterName+" button");
@@ -1740,14 +1753,14 @@ public class SalmonellaLog {
 			catch(Exception ex) {
 			}
 		}
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Helper.driver.findElement(By.id("first-page")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
-
 
 
 	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 9) 
 	public void RowsPerPage() throws InterruptedException, IOException {
-
-	//	Helper.driver.get(Constants.url_SalmonellaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 		Thread.sleep(500);
@@ -1779,21 +1792,34 @@ public class SalmonellaLog {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("rows")));
 						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
-						WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
-						actions.moveToElement(expandFilter).click().perform();				
-						Thread.sleep(1000);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-						Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
 
-						List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
-						int count = rows.size();
-						System.out.println("ROW COUNT : "+count);
-						Assert.assertEquals(count, Integer.parseInt(objFilter.count));
-						Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > Integer.parseInt(objFilter.count)) {
+
+							WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
+							actions.moveToElement(expandFilter).click().perform();				
+							Thread.sleep(1000);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+
+							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
+							int count = rows.size();
+							System.out.println("ROW COUNT : "+count);
+							Assert.assertEquals(count, Integer.parseInt(objFilter.count));
+							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
+							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+						}
+
+						else {
+							Assert.assertTrue(true, "Records are less then "+objFilter.count);
+							Test_Variables.test.pass("Records are less then "+objFilter.count);
+							Test_Variables.results.createNode("Rcords are less then "+objFilter.count);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" failed to display");
@@ -1822,16 +1848,31 @@ public class SalmonellaLog {
 						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
 						Test_Variables.steps.createNode("2. Go to next page from pagination");
 						Test_Variables.steps.createNode("3. Verify that still "+objFilter.FilterName+" is selected");
-						Helper.driver.findElement(By.id("next-page")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
-						int count = rows.size();
-						System.out.println("ROW COUNT : "+count);
-						Assert.assertEquals(count, Integer.parseInt(objFilter.count));
-						Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
-						Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully on next page");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
+
+						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
+						int sum = Integer.parseInt(objFilter.count) + Integer.parseInt(objFilter.count);
+
+						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
+
+							Helper.driver.findElement(By.id("next-page")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
+							int count = rows.size();
+							System.out.println("ROW COUNT : "+count);
+							Assert.assertEquals(count, Integer.parseInt(objFilter.count));
+							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
+							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully on next page");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
+						}
+
+						else {
+							Assert.assertTrue(true, "Records are less then "+sum);
+							Test_Variables.test.pass("Records are less then "+sum);
+							Test_Variables.results.createNode("Rcords are less then "+sum);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" failed to display on next page");

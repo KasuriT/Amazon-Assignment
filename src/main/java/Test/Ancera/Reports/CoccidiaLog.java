@@ -54,7 +54,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -789,12 +789,6 @@ public class CoccidiaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 
-
-						if(recordAfter != "0" && objFilter.FilterName == "Load Filter") {
-							String getRow = Helper.driver.findElement(By.xpath(objFilter.getRowValue)).getAttribute("class");
-							Assert.assertEquals(getRow, objFilter.rowValueExpected);			
-						}
-
 						if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0) {
 							Actions builder = new Actions(Helper.driver); 
 							WebElement hover = Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear"));
@@ -1313,6 +1307,9 @@ public class CoccidiaLog {
 			catch(Exception ex) {
 			}
 		}
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Helper.driver.findElement(By.id("first-page")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
 
@@ -1404,7 +1401,6 @@ public class CoccidiaLog {
 						Test_Variables.steps.createNode("3. Verify that still "+objFilter.FilterName+" is selected");
 
 						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
-
 						int sum = Integer.parseInt(objFilter.count) + Integer.parseInt(objFilter.count);
 
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
@@ -1514,7 +1510,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 12) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-150: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
@@ -1573,7 +1569,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 13) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-151: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");

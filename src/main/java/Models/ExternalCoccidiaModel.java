@@ -321,8 +321,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterID = "customer-sample-id";
 		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CS8"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS8"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
@@ -381,7 +381,7 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterID = "kit-lot";
 		objFilter.FilterXPath =  "filter-Kit-Lot";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
