@@ -1887,13 +1887,13 @@ public class SalmonellaLog {
 						Thread.sleep(500);
 
 						List<WebElement> a = Helper.driver.findElements(By.xpath("//tr/td["+objFilter.count+"]"));
-						List<String> b = a.stream().map(s->s.getText()).collect(Collectors.toList());
-						System.out.println(b);
-						List<String> d = b.stream().sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());												
-						List<String> c = d.stream().sorted(Comparator.nullsFirst(null)).collect(Collectors.toList());
+						List<String> sortedListActual = a.stream().map(s->s.getText()).collect(Collectors.toList());
+						System.out.println(sortedListActual);
+						List<String> d = sortedListActual.stream().sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());													
+						List<String> sortedListExpected = d.stream().sorted(Comparator.nullsFirst(null)).collect(Collectors.toList());
 
-						System.out.println(c);
-						Assert.assertTrue(b.equals(c));
+						System.out.println(sortedListExpected);
+						Assert.assertTrue(sortedListActual.equals(sortedListExpected));
 						Test_Variables.test.pass(objFilter.FilterName+" column sorted successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+" column sorted successfully");
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
@@ -1916,14 +1916,7 @@ public class SalmonellaLog {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	@Test (description="Test Case: Test Salmonella PNG Download",enabled= false, priority = 10) 
 	public void PNGExport() throws InterruptedException, IOException {

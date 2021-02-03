@@ -1167,10 +1167,8 @@ public class SalmonellaModel {
 		
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID";
-		objTmp.TestCaseName = "AN-SL-193: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
-		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-194: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseName = "AN-SL-219: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
 		objFilter.ColumnID = "sort-sampleId";
@@ -1179,28 +1177,24 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-195: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "QC Code";
+		objTmp.TestCaseName = "AN-SL-220: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-countOutcome";
 		objFilter.count = "3";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-195: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Status";
+		objTmp.TestCaseName = "AN-SL-221: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-result_status";
 		objFilter.count = "4";
 		objTmp.lstFilters.add(objFilter);
@@ -1208,99 +1202,86 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result";
+		objTmp.TestCaseName = "AN-SL-222: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-outcome";
 		objFilter.count = "5";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-195: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Assay";
+		objTmp.TestCaseName = "AN-SL-223: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-pathogen";
 		objFilter.count = "6";                   
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-197: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result ID";
+		objTmp.TestCaseName = "AN-SL-224: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-runId";
 		objFilter.count = "7";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 	
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-198: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Date";
+		objTmp.TestCaseName = "AN-SL-225: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = false;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-scanDateTime";
 		objFilter.count = "8";
 		objTmp.lstFilters.add(objFilter);       
 		lstSalmonellaModel.add(objTmp);
 		
+//		objTmp = new SalmonellaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Result Time";
+//		objTmp.TestCaseName = "AN-SL-226: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+//		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objTmp.sortLogic1 = true;
+//		objFilter.ColumnID = "sort-time";           
+//		objFilter.count = "9";                 
+//		objTmp.lstFilters.add(objFilter);
+//		lstSalmonellaModel.add(objTmp);
+		
+		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.sortLogic1 = false;
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
-		objFilter.ColumnID = "sort-time";           
-		objFilter.count = "9";                 
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		
-		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter.FilterName = "Collection Site Name";
+		objTmp.TestCaseName = "AN-SL-226: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-site_id";           
 		objFilter.count = "10";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
+	
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Site ID";
+		objTmp.TestCaseName = "AN-SL-227: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-collection_site_id";           
 		objFilter.count = "11";
 		objTmp.lstFilters.add(objFilter);
@@ -1308,56 +1289,48 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Site Type";
+		objTmp.TestCaseName = "AN-SL-228: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-collection_site_type";           
 		objFilter.count = "12";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 	
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample Matrix";
+		objTmp.TestCaseName = "AN-SL-229: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-sample_matrix";           
 		objFilter.count = "13";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Dilution Factor";
+		objTmp.TestCaseName = "AN-SL-230: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-dilution_factor";           
 		objFilter.count = "14";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Customer Sample ID";
+		objTmp.TestCaseName = "AN-SL-231: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-customer_sample_id";           
 		objFilter.count = "15";
 		objTmp.lstFilters.add(objFilter);
@@ -1365,14 +1338,12 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Received";
+		objTmp.TestCaseName = "AN-SL-232: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-metadata_date_recieved";           
 		objFilter.count = "16";
 		objTmp.lstFilters.add(objFilter);
@@ -1381,14 +1352,12 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID";
+		objTmp.TestCaseName = "AN-SL-233: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-cartridgeId";           
 		objFilter.count = "17";
 		objTmp.lstFilters.add(objFilter);
@@ -1396,126 +1365,108 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument ID";
+		objTmp.TestCaseName = "AN-SL-234: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-instrumentId";           
 		objFilter.count = "18";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "W1 Cell Count";
+		objTmp.TestCaseName = "AN-SL-235: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-w1CellCount";           
 		objFilter.count = "19";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "W1 PC Count";
+		objTmp.TestCaseName = "AN-SL-236: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-w1PCCount";           
 		objFilter.count = "20";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "W1 Mean Intensity";
+		objTmp.TestCaseName = "AN-SL-237: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-w1CellMeanIntensity";           
 		objFilter.count = "21";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.sortLogic1 = false;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
-		objFilter.ColumnID = "sort-w2CellCount";           
-		objFilter.count = "22";
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
+//		objTmp = new SalmonellaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "W2 Cell Count";
+//		objTmp.TestCaseName = "AN-SL-238: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+//		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objTmp.sortLogic1 = true;
+//		objFilter.ColumnID = "sort-w2CellCount";           
+//		objFilter.count = "22";
+//		objTmp.lstFilters.add(objFilter);
+//		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "W2 PC Count";
+		objTmp.TestCaseName = "AN-SL-239: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-w2PCCount";           
 		objFilter.count = "23";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "W2 Mean Intensity";
+		objTmp.TestCaseName = "AN-SL-240: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-w2CellMeanIntensity";           
 		objFilter.count = "24";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Piper User";
+		objTmp.TestCaseName = "AN-SL-241: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-user_name";           
 		objFilter.count = "25";
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Kit Lot";
+		objTmp.TestCaseName = "AN-SL-242: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-kit_lot";           
 		objFilter.count = "26";
 		objTmp.lstFilters.add(objFilter);
@@ -1523,14 +1474,12 @@ public class SalmonellaModel {
 		
 		
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-199: Verify 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
-		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version";
+		objTmp.TestCaseName = "AN-SL-243: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "250 Rows per Page";
 		objFilter.ColumnID = "sort-version";           
 		objFilter.count = "27";
 		objTmp.lstFilters.add(objFilter);
@@ -1538,10 +1487,6 @@ public class SalmonellaModel {
 		
 		return lstSalmonellaModel;	
 	}
-	
-	
-	
-	
 }
 
 

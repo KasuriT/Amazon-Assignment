@@ -83,12 +83,14 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
 		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "TD02";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD02"));
+		objFilter.SearchVlaue = "SMP01";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01"));
 		objFilter.ClearInput = "Sample-ID-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
+	
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
@@ -115,6 +117,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
 		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
 		objFilter.SearchVlaue = "PSN0004";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0004"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
 		objFilter.ClearInput = "Instrument-ID-clear-input";
 		objTmp.lstFilters.add(objFilter);
@@ -147,7 +150,8 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
 		objFilter.FilterListXPathSearch = "Cartridge-ID-place-holder-search";
 		objFilter.SearchVlaue = "TestAutomation";  
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation"));  //uat
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
 		objFilter.ClearInput = "Cartridge-ID-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -179,6 +183,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
 		objFilter.FilterListXPathSearch = "Lane-place-holder-search";
 		objFilter.SearchVlaue = "10";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10")); 
 		objFilter.ClearInput = "Lane-clear-input";
 		objTmp.lstFilters.add(objFilter);
@@ -211,42 +216,44 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
 		objFilter.FilterListXPathSearch = "Assay-place-holder-search";
 		objFilter.SearchVlaue = "Coccidia-SYBR";   
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  //uat
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));
 		objFilter.ClearInput = "Assay-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);               
 
-		
-		objTmp = new CoccidiaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseNameButtonActive = "AN-CL-57: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseName = "AN-CL-58: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-CL-59 "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-60: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-CL-62: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		objTmp.TestCaseNameRevertBack = "AN-CL-64: Verify "+objFilter.FilterName+revertBackTitle;
-		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "version";
-		objFilter.FilterXPath = "filter-Improc-Version";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
-		objFilter.SearchVlaue = "4";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
-		objFilter.ClearInput = "Improc-Version-clear-input";
-		objTmp.lstFilters.add(objFilter);
-		lstCoccidiaModel.add(objTmp); 
+
+//		objTmp = new CoccidiaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Improc Version Filter";
+//		objTmp.TestCaseNameButtonActive = "AN-CL-57: "+buttonActiveTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+//		objTmp.TestCaseName = "AN-CL-58: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-CL-59 "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-60: Verify "+objFilter.FilterName+filterTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+//		objTmp.TestCaseNameClearInput = "AN-CL-62: "+clearInputTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+//		objTmp.TestCaseNameRevertBack = "AN-CL-64: Verify "+objFilter.FilterName+revertBackTitle;
+//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+//		objTmp.ReloadPage = false;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterID = "version";
+//		objFilter.FilterXPath = "filter-Improc-Version";
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+//		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
+//		objFilter.SearchVlaue = "1";
+//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("1"));
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+//		objFilter.ClearInput = "Improc-Version-clear-input";
+//		objTmp.lstFilters.add(objFilter);
+//		lstCoccidiaModel.add(objTmp); 
 		
 		
 		objTmp = new CoccidiaModel();
@@ -275,6 +282,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Site-Name"));
 		objFilter.FilterListXPathSearch = "Site-Name-place-holder-search";
 		objFilter.SearchVlaue = "Test";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Test"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
 		objFilter.ClearInput = "Site-Name-clear-input";
 		objTmp.lstFilters.add(objFilter);
@@ -307,6 +315,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
 		objFilter.FilterListXPathSearch = "Sample-Matrix-place-holder-search";
 		objFilter.SearchVlaue = "F";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Feces"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
 		objFilter.ClearInput = "Sample-Matrix-clear-input";
 		objTmp.lstFilters.add(objFilter);
@@ -338,8 +347,9 @@ public class CoccidiaModel {
 		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
 		objFilter.FilterListXPathSearch = "Customer-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "CS1";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS1"));
+		objFilter.SearchVlaue = "CS8";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CS8"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS8"));
 		objFilter.ClearInput = "Customer-Sample-ID-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -370,8 +380,9 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Date-Received";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
 		objFilter.FilterListXPathSearch = "Date-Received-place-holder-search";
-		objFilter.SearchVlaue = "06-11-2020";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("06-11-2020"));
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Date-Received-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -403,6 +414,7 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
 		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Kit-Lot-clear-input";
 		objTmp.lstFilters.add(objFilter);
@@ -434,8 +446,9 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Piper-User";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
 		objFilter.FilterListXPathSearch = "Piper-User-place-holder-search";
-		objFilter.SearchVlaue = "FHasan";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("FHasan"));
+		objFilter.SearchVlaue = "QUser";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("QUser"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("QUSER"));
 		objFilter.ClearInput = "Piper-User-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -466,8 +479,9 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
 		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
-		objFilter.SearchVlaue = "Completed";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Completed"));
+		objFilter.SearchVlaue = "pen";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
 		objFilter.ClearInput = "Result-Status-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -499,50 +513,47 @@ public class CoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Sample-ID"));
 		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "TD";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "SMP02"));
 		objFilter.ClearInput = "Sample-ID-clear-input";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
-	
-//		objTmp = new CoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseNameButtonActive = "AN-CL-129: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-CL-130: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-CL-131: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-132: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-133: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-CL-134: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-135: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-CL-136: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter.FilterID = "isntrument-id";
-//		objFilter.FilterXPath = "filter-Instrument-ID";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID", "Sample-ID"));
-//		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
-//		objFilter.SearchVlaue = "PSN0004";
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
-//		objFilter.ClearInput = "Instrument-ID-clear-input";
-//		objFilter.FilterID = "sample-id";
-//		objFilter.FilterXPath = "filter-Sample-ID";
-//	//	objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
-//		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
-//		objFilter.SearchVlaue = "TD";
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05"));
-//		objFilter.ClearInput = "Sample-ID-clear-input";
-//		objFilter.wait = 4000;
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseNameButtonActive = "AN-SL-178: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-179: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-180: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-SL-181: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-SL-182: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-SL-183: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-SL-184: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-SL-185: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Instrument-ID"));
+		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "PSN0013"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01", "PSN0013")); 
+		objFilter.ClearInput = "Instrument-ID-clear-input";
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Sample-ID";
+		objFilter.FilterListXPathSearch = "Sample-ID-place-holder-search";
+		objFilter.ClearInput = "Sample-ID-clear-input";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
 	
 		return lstCoccidiaModel;
 	}
@@ -878,7 +889,6 @@ public class CoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "250 Rows per Page";
-	//	objFilter.FilterXPath = Test_Elements.clRowsDropdown;
 		objFilter.FilterListXPathSearch = "250";
 		objFilter.count = "250";
 		objTmp.lstFilters.add(objFilter);
@@ -893,7 +903,6 @@ public class CoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "500 Rows per Page";
-	//	objFilter.FilterXPath = Test_Elements.clRowsDropdown;
 		objFilter.FilterListXPathSearch = "500";
 		objFilter.count = "500";
 		objTmp.lstFilters.add(objFilter);

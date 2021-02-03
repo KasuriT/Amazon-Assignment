@@ -84,7 +84,8 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
 		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
 		objFilter.SearchVlaue = "TD02";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD02"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01"));
 		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
 		objFilter.wait = 20000;
 		objTmp.lstFilters.add(objFilter);
@@ -117,6 +118,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
 		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
 		objFilter.SearchVlaue = "PSN0004";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0004"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
 		objFilter.getRowValue = Test_Elements.slInstrumentIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
@@ -152,7 +154,8 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
 		objFilter.FilterListXPathSearch = "Cartridge-ID-place-holder-search";
 		objFilter.SearchVlaue = "TestAutomation";  
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation"));  //uat
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
 		objFilter.getRowValue = Test_Elements.slCatridgeIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Cartridge-ID-clear-input";
@@ -187,6 +190,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
 		objFilter.FilterListXPathSearch = "Lane-place-holder-search";
 		objFilter.SearchVlaue = "10";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
 		objFilter.getRowValue = Test_Elements.slLaneIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
@@ -221,8 +225,9 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Assay";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
 		objFilter.FilterListXPathSearch = "Assay-place-holder-search";
-		objFilter.SearchVlaue = "Coccidia-SYBR";   
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  //uat
+		objFilter.SearchVlaue = "Coccidia-SYBR";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  
 		objFilter.getRowValue = Test_Elements.slAssayRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue; 
 		objFilter.ClearInput = "Assay-clear-input";
@@ -257,6 +262,7 @@ public class ExternalCoccidiaModel {
 //		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
 //		objFilter.FilterListXPathSearch = "Improc-Version-place-holder-search";
 //		objFilter.SearchVlaue = "Bl";
+//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
 //		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Improc-Version_cust-cb-lst-txt_Blank"));
 //		objFilter.getRowValue = Test_Elements.slImprocIDRow;
 //		objFilter.rowValueExpected = objFilter.SearchVlaue;
@@ -292,6 +298,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Name"));
 		objFilter.FilterListXPathSearch = "Collection-Site-Name-place-holder-search";
 		objFilter.SearchVlaue = "Test";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Test"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
 		objFilter.getRowValue = Test_Elements.slSiteNameRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
@@ -327,6 +334,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
 		objFilter.FilterListXPathSearch = "Sample-Matrix-place-holder-search";
 		objFilter.SearchVlaue = "Feces";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("F"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
 		objFilter.getRowValue = Test_Elements.slSampleMatrixRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
@@ -361,8 +369,9 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
 		objFilter.FilterListXPathSearch = "Customer-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "CS1";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS1"));
+		objFilter.SearchVlaue = "CS8";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CS8"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CS8"));
 		objFilter.getRowValue = Test_Elements.slCSampleIDRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Customer-Sample-ID-clear-input";
@@ -396,8 +405,9 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Date-Received";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
 		objFilter.FilterListXPathSearch = "Date-Received-place-holder-search";
-		objFilter.SearchVlaue = "06-11-2020";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("06-11-2020"));
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.getRowValue = Test_Elements.slDateReceivedRow;
 		objFilter.rowValueExpected = "";
 		objFilter.ClearInput = "Date-Received-clear-input";
@@ -432,6 +442,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
 		objFilter.FilterListXPathSearch = "Kit-Lot-place-holder-search";
 		objFilter.SearchVlaue = "Bl";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.getRowValue = Test_Elements.slKitLotRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
@@ -466,8 +477,9 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Piper-User";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
 		objFilter.FilterListXPathSearch = "Piper-User-place-holder-search";
-		objFilter.SearchVlaue = "FHasan";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("FHasan"));
+		objFilter.SearchVlaue = "QUSER";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("QUser"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("QUSER"));
 		objFilter.getRowValue = Test_Elements.slPiperUserRow;
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Piper-User-clear-input";
@@ -502,6 +514,7 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-ID"));
 		objFilter.FilterListXPathSearch = "Collection-Site-ID-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Collection-Site-ID-clear-input";
 		objFilter.wait = 3000;
@@ -535,9 +548,9 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
 		objFilter.FilterListXPathSearch = "Requested-Assay-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Requested-Assay-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 	
@@ -568,9 +581,9 @@ public class ExternalCoccidiaModel {
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
 		objFilter.FilterListXPathSearch = "Flock-ID-place-holder-search";
 		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.ClearInput = "Flock-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -600,11 +613,11 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Collection-Site-Type";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
 		objFilter.FilterListXPathSearch = "Collection-Site-Type-place-holder-search";
-		objFilter.SearchVlaue = "Complex";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Complex"));
+		objFilter.SearchVlaue = "Blank";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
 		objFilter.rowValueExpected = objFilter.SearchVlaue;
 		objFilter.ClearInput = "Collection-Site-Type-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 	
@@ -634,11 +647,10 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
 		objFilter.FilterListXPathSearch = "Result-Status-place-holder-search";
-		objFilter.SearchVlaue = "Completed";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Completed"));
-		objFilter.rowValueExpected = objFilter.SearchVlaue;
+		objFilter.SearchVlaue = "Pending";
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
 		objFilter.ClearInput = "Result-Status-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 			
@@ -668,58 +680,11 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Lab-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Lab-Sample-ID"));
 		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-		objFilter.SearchVlaue = "TD";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05", "TD06"));
-		objFilter.getRowValue = Test_Elements.slSampleIDRow;
-		objFilter.rowValueExpected = objFilter.SearchVlaue; 
+		objFilter.SearchVlaue = "SMP";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "SMP02"));
 		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-		objFilter.wait = 3000;
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
-
-
-
-//		objTmp = new ExternalCoccidiaModel();	
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseNameButtonActive = "AN-ECL-161: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-ECL-162: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-ECL-163: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-164: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-165: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-ECL-166: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-167: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-ECL-168: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objFilter.FilterID = "isntrument-id";
-//		objFilter.FilterXPath = "filter-Instrument-ID";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID", "Lab-Sample-ID"));
-//		objFilter.FilterListXPathSearch = "Instrument-ID-place-holder-search";
-//		objFilter.SearchVlaue = "";
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("DESKTOP-77VTAPV", "1"));
-//		objFilter.ClearInput = "Instrument-ID-clear-input";
-//		objFilter.FilterID = "sample-id";
-//		objFilter.FilterXPath = "filter-Lab-Sample-ID";
-////		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
-//		objFilter.FilterListXPathSearch = "Lab-Sample-ID-place-holder-search";
-//		objFilter.SearchVlaue = "1";
-//	//	objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD05"));
-//		objFilter.ClearInput = "Lab-Sample-ID-clear-input";
-//		objFilter.wait = 4000;
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalCoccidiaModel.add(objTmp);
 
 		return lstExternalCoccidiaModel;
 	}
@@ -835,25 +800,25 @@ public class ExternalCoccidiaModel {
 		lstExternalCoccidiaModel.add(objTmp);
 
 
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter This Month from date Filter";
-		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-		objTmp.Filter1 = false;
-		objTmp.Filter2 = false;
-		objTmp.Filter3 = true;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Date Filter";
-		objFilter.FilterXPath = Test_Elements.eclDateOpen;
-		objFilter.FilterListXPathSearch = Test_Elements.eclThisMonth;
-		objFilter.toMonth = "0";
-		objFilter.fromMonth = "0";
-		objFilter.toDate = "0";
-		objFilter.fromDate = "1";
-		objFilter.FilterListXPathPrefix = Test_Elements.eclDateFrom;
-		objFilter.FilterListXPathSuffix = Test_Elements.eclDateTo;
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
+//		objTmp = new ExternalCoccidiaModel();
+//		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter This Month from date Filter";
+//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+//		objTmp.Filter1 = false;
+//		objTmp.Filter2 = false;
+//		objTmp.Filter3 = true;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Date Filter";
+//		objFilter.FilterXPath = Test_Elements.eclDateOpen;
+//		objFilter.FilterListXPathSearch = Test_Elements.eclThisMonth;
+//		objFilter.toMonth = "0";
+//		objFilter.fromMonth = "0";
+//		objFilter.toDate = "0";
+//		objFilter.fromDate = "1";
+//		objFilter.FilterListXPathPrefix = Test_Elements.eclDateFrom;
+//		objFilter.FilterListXPathSuffix = Test_Elements.eclDateTo;
+//		objTmp.lstFilters.add(objFilter);
+//		lstExternalCoccidiaModel.add(objTmp);
 
 
 		return lstExternalCoccidiaModel;
