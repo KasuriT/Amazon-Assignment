@@ -647,8 +647,8 @@ public class UserManagement {
 		
 		
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.getTitle)));
-		String actual = Helper.driver.findElement(By.id("Home")).getText();
-		String expected = "Home";
+		String actual = Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText();
+		String expected = "Ancera Intelligence Engine (Testing Environment)";
 		
 		try{
 			Assert.assertEquals(actual, expected); 
@@ -831,7 +831,7 @@ public class UserManagement {
 		Helper.driver.findElement(By.id("email")).sendKeys(Test_Variables.login_email);
 		Helper.driver.findElement(By.id("pwd")).sendKeys(Test_Variables.login_password);
 		Helper.driver.findElement(By.id("btn-sign-in")).click();
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Home")));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
 		Helper.driver.get(Constants.url_user);
 		Test_Functions.userSearch(); 
 		Thread.sleep(1500);

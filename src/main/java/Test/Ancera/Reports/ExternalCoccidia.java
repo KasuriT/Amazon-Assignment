@@ -54,7 +54,7 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -1117,9 +1117,9 @@ public class ExternalCoccidia {
 			Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
 			Helper.driver.findElement(By.id("filter-Instrument-ID")).click();
 			Thread.sleep(500);
-			Helper.driver.findElement(By.id("Instrument-ID-place-holder-search")).sendKeys("PSN0002");
+			Helper.driver.findElement(By.id("Instrument-ID-place-holder-search")).sendKeys("PSN0024");
 			Thread.sleep(500);
-			Helper.driver.findElement(By.id("PSN0002")).click();
+			Helper.driver.findElement(By.id("PSN0024")).click();
 			Thread.sleep(500);
 
 			Helper.driver.findElement(By.id("filter-icon")).click();;

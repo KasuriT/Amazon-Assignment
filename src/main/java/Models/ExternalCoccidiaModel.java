@@ -53,7 +53,7 @@ public class ExternalCoccidiaModel {
 	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
 	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
 	
-	
+/*	
 	public static ArrayList<ExternalCoccidiaModel> FillData() {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
@@ -590,7 +590,7 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "sample-id";
 		objFilter.FilterXPath = "filter-Lab-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Sample-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Lab-Sample-ID"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "SMP02"));
 		objTmp.lstFilters.add(objFilter);
@@ -620,18 +620,18 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "isntrument-id";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Instrument-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Instrument-ID"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "PSN0013"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01", "PSN0013")); 
 		objFilter.FilterID = "sample-id";
-		objFilter.FilterXPath = "filter-Sample-ID";
+		objFilter.FilterXPath = "filter-Lab-Sample-ID";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
 		return lstExternalCoccidiaModel;
 	}
 
-
+*/
 	public static ArrayList<ExternalCoccidiaModel> FillDate() {
 		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
 		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
@@ -934,4 +934,588 @@ public class ExternalCoccidiaModel {
 
 		return lstExternalCoccidiaModel;
 	}
+	
+	
+	
+	public static ArrayList<ExternalCoccidiaModel> FillData() {
+		ArrayList<ExternalCoccidiaModel> lstExternalCoccidiaModel = new ArrayList<ExternalCoccidiaModel>();
+		ExternalCoccidiaModel objTmp = new ExternalCoccidiaModel();
+
+		ReportFilters objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-17: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-18: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-19: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-20: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-21: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-22: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-23: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-24: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Lab-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("0331a"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0331a"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-25: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-26: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-27: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-28: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-29: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-30: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-31: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-32: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.FilterXPath = "filter-Instrument-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0024"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0024"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-33: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-34: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-35: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-36: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-37: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-38: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-39: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-40: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "cartrtidge-id";
+		objFilter.FilterXPath = "filter-Cartridge-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CVC-3320-B0344"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CVC-3320-B0344")); 
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-41: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-42: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-43: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-44: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-45: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-46: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-47: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-48: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "lane-num";
+		objFilter.FilterXPath = "filter-Lane";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Assay Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-49: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-50: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-51: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-52: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-53: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-54: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-55: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-56: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "pathogen";
+		objFilter.FilterXPath = "filter-Assay";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Coccidia"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia"));  
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);               
+
+		
+//		objTmp = new ExternalCoccidiaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Improc Version Filter";
+//		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+//		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+//		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+//		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
+//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+//		objTmp.ReloadPage = false;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterID = "version";
+//		objFilter.FilterXPath = "filter-Improc-Version";
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("4"));
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
+//		objTmp.lstFilters.add(objFilter);
+//		lstExternalCoccidiaModel.add(objTmp); 
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Site Name Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-65: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-66: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-67: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-68: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-69: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-70: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-71: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-72: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "site-id";
+		objFilter.FilterXPath = "filter-Collection-Site-Name";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Name"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Millsboro"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Millsboro"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp); 
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample Matrix Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-73: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-74: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-75: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-76: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-77: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-78: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-79: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-80: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "sample-matrix";
+		objFilter.FilterXPath = "filter-Sample-Matrix";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp); 
+
+
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Customer Sample ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-81: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-82: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-83: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-84: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-85: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-86: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-87: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-88: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "customer-sample-id";
+		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Received Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-89: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-90: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-91: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-92: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-93: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-94: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-95: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-96: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "meta-data-recieved";
+		objFilter.FilterXPath = "filter-Date-Received";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Kit Lot Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-97: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-98: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-99: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-100: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-101: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-102: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-103: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-104: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "kit-lot";
+		objFilter.FilterXPath =  "filter-Kit-Lot";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Piper User Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-105: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-106: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-107: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-108: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-109: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-110: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-111: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-112: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "user-name";
+		objFilter.FilterXPath = "filter-Piper-User";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("DBuhr"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("DBuhr"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Site ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-113: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-114: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-115: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-116: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-117: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-118: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-119: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-120: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "collection-site-id";
+		objFilter.FilterXPath = "filter-Collection-Site-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("2001004"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2001004"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Requested Assay Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-121: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-122: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-123: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-124: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-125: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-126: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-127: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-128: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "requested-assay";
+		objFilter.FilterXPath = "filter-Requested-Assay";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+	
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Flock ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-129: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-130: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-131: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-132: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-133: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-134: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-135: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-136: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "flock-id";
+		objFilter.FilterXPath = "filter-Flock-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection-Site-Type Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-137: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-138: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-139: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-140: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-141: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-142: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-143: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-144: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "collection-site-type";
+		objFilter.FilterXPath = "filter-Collection-Site-Type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Region"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Region"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+	
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Status Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-145: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-146: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-147: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-148: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-149: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-150: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-151: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-152: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "result-status";
+		objFilter.FilterXPath = "filter-Result-Status";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+			
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "multiple value from same filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-153: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-154: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-155: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-156: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-157: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-158: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-159: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-160: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Lab-Sample-ID";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Lab-Sample-ID"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("0331"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0331a", "0331b"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-161: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-162: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-163: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-164: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-165: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-166: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ECL-167: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-168: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lab-Sample-ID", "Instrument-ID"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("0331a", "PSN0024"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("0331a", "PSN0024")); 
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Lab-Sample-ID";
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		return lstExternalCoccidiaModel;
+	}
+	
+	
+	
+	
+	
 }

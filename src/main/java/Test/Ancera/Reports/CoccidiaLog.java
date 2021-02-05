@@ -1444,7 +1444,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 11) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-149: Verify user can download Coccidia PNG file", "This test case will verify user can download Coccidia PNG file");

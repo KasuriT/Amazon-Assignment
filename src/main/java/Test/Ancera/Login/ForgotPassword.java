@@ -247,10 +247,10 @@ public class ForgotPassword {
 			}
 			
 			
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Home")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
 			Thread.sleep(2000);
 
-			Assert.assertEquals(Helper.driver.findElement(By.id("Home")).getText(), "Home"); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText(), "Ancera Intelligence Engine (Testing Environment)"); 
 			Test_Variables.test.pass("User successfully logged into the account with new credentials");
 			Test_Variables.results.createNode("User successfully logged into the account with new credentials");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Forgot Password", Constants.ForgotPasswordReportPath));

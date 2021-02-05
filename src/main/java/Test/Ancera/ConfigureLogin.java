@@ -42,7 +42,7 @@ public class ConfigureLogin {
 				Helper.driver.findElement(By.xpath(Test_Elements.amLicensePopup)).click();
 			}
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Home")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
 			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText();
 			String expected = "Ancera Intelligence Engine (Testing Environment)";

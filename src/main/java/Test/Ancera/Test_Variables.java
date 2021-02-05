@@ -55,7 +55,7 @@ public class Test_Variables {
 	public static String piperId = "PSN0002";
 	public static String piperPassword = "piperdemo";
 	
-	public static String fileDownloadPath = "C:\\Users\\Muhammad Jawad Rauf\\Downloads";
+	public static String fileDownloadPath = "C:\\Users\\User\\Downloads";
 	
 	
 	

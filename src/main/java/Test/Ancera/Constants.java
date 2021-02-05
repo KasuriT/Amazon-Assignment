@@ -4,7 +4,9 @@ public class Constants {
 
 	public static String url = "https://ie-qa.ancera.com/";
 	public static String api = "https://ie-qa.ancera.com:4410/api/ancerainput/v1";
-//	public static String url = "https://ie-uat.ancera.com";   
+//	public static String url = "https://ie-dev.ancera.com/";
+//	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
+//	public static String url = "https://ie-uat.ancera.com/";   
 //	public static String api = "https://ie-uat.ancera.com:5510/api/ancerainput/v1"; 
 	
 	public static String url_login = url+"/auth/sign-in";
