@@ -32,7 +32,7 @@ public class Helper {
 
 	  	projectPath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
-
+				
 		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
@@ -47,17 +47,15 @@ public class Helper {
 	public static void saveResult(ITestResult result, String reportPath) throws IOException {
 		System.out.println(Reporter.getCurrentTestResult());
 		if (result.getStatus() == ITestResult.FAILURE) {
-			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getName()); // to add name in extent report
-			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getThrowable()); // to add error/exception in extent report
-	//		String screenshotPath = getScreenshot(result.getName(), reportPath);
-			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));// adding screen shot
+			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getName());
+			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getThrowable());
+			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));
 		} 
 		else if (result.getStatus() == ITestResult.SKIP) {
 			Test_Variables.test.log(Status.SKIP, "Test Case SKIPPED IS " + result.getName());
 		}
 		else if (result.getStatus() == ITestResult.SUCCESS) {
 			Test_Variables.test.log(Status.PASS, "Test Case Passed");
-			//Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));// adding screen shot
 		}
 	}
 	
@@ -91,7 +89,6 @@ public class Helper {
 		return "." + reportPath + dateName+".png";
 
 	}
-	
 	
 	
 	private static ChromeOptions getChromeOptions() {

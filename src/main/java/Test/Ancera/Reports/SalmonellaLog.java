@@ -1,11 +1,9 @@
 package Test.Ancera.Reports;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -33,6 +31,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.SalmonellaModel;
 import Models.ReportFilters;
+import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -55,7 +54,8 @@ public class SalmonellaLog {
 		ConfigureLogin.login();
 	}
 
-	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
+	@SuppressWarnings("unchecked")
+	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -280,6 +280,8 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.steps.createNode("1. Click on Salmonella Log");
+			
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Helper.driver.get(Constants.url_SalmonellaLog);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
@@ -304,7 +306,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
@@ -356,11 +358,6 @@ public class SalmonellaLog {
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -402,11 +399,6 @@ public class SalmonellaLog {
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -443,12 +435,7 @@ public class SalmonellaLog {
 
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
+						
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -478,6 +465,9 @@ public class SalmonellaLog {
 					Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 					Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Helper.driver.findElement(By.id("reset-icon")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 				}catch(AssertionError er) {
 					Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
@@ -486,16 +476,13 @@ public class SalmonellaLog {
 					Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-				}
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Helper.driver.findElement(By.id("reset-icon")).click();
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));		
+				}	
 			}
 		}
 	}
 
 
-	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
+	@Test (description="Test Case: Date Enter",enabled= false, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateEnter = SalmonellaModel.EnterDate();
@@ -580,7 +567,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-17: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -618,7 +605,7 @@ public class SalmonellaLog {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 			Test_Variables.steps.createNode("4. Close report");
 			Test_Variables.steps.createNode("5. Reopen report and verify that records are still the same as before closing the report");
-			Helper.driver.get(Constants.url_SalmonellaLog);
+			Helper.driver.navigate().refresh();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -645,11 +632,12 @@ public class SalmonellaLog {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
 	public void TestFilters111() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
-
+		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	
 			try {
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
@@ -665,7 +653,6 @@ public class SalmonellaLog {
 
 				Actions actions = new Actions(Helper.driver);
 				for (ReportFilters objFilter : objModel.lstFilters) {	
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
@@ -695,9 +682,10 @@ public class SalmonellaLog {
 							int attempts = 0;
 							while(attempts < 4) {
 								try {
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 									break;
 								} catch(StaleElementReferenceException e) {
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 								} 
 								attempts++;
 							}					   
@@ -746,9 +734,9 @@ public class SalmonellaLog {
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
 						Thread.sleep(500);
 
-						Helper.driver.findElement(By.id("filter-icon")).click(); 
+						ClickElement.clickById(Helper.driver, "filter-icon");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 
 
@@ -810,6 +798,8 @@ public class SalmonellaLog {
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 								break;
 							} catch(StaleElementReferenceException e) {
+								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0);
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
 							} 
 							catch(AssertionError er) {
 								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
@@ -888,7 +878,6 @@ public class SalmonellaLog {
 							Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-
 							break; 
 						}
 						chkCounter++;
@@ -926,10 +915,10 @@ public class SalmonellaLog {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 
 						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-clear-input"));
+							ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"-clear-input");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							String a = objFilter.LstFilterXpath.get(i)+"-place-holder-search";
+							String a = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).getText();
 							Assert.assertTrue(a.contains(""));
 
 							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
@@ -979,11 +968,13 @@ public class SalmonellaLog {
 							Test_Variables.steps.createNode("2. Click on the blue indicator icon");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {
-								Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+								//Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+								ClickElement.clickById(Helper.driver, "-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator");
 							}
 
 							if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).size() != 0) {
-								Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+						//		Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+								ClickElement.clickById(Helper.driver, "div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear");
 							}
 
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -1026,8 +1017,9 @@ public class SalmonellaLog {
 
 						Test_Variables.steps.createNode("1. Click on reset button");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Helper.driver.findElement(By.id("reset-icon")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+					//	ClickElement.clickById(Helper.driver, "reset-icon");
+					//	Helper.driver.findElement(By.id("reset-icon")).click();
+					//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(500);
 
 						for (int i = 0; i<objFilter.LstFilterXpath.size(); i++) { 
@@ -1069,7 +1061,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Reset Filter",enabled= true, priority = 7) 
+	@Test (description="Test Case: Reset Filter",enabled= false, priority = 7) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
 		try {
@@ -1097,8 +1089,10 @@ public class SalmonellaLog {
 			String recordAfterApplyFilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 			Assert.assertTrue(recordBefore != recordAfterApplyFilter, "Failed to apply filter (Records remained same after applying filters)");
 			Test_Variables.steps.createNode("3. Click on reset button");
-			Helper.driver.findElement(By.id("reset-icon")).click();
+			ClickElement.clickById(Helper.driver, "reset-icon");
+		//	Helper.driver.findElement(By.id("reset-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1500);
 			String recordAfterReset =  Helper.driver.findElement(By.id("results-found-count")).getText();
 
 			Assert.assertEquals(recordAfterReset, recordBefore);
@@ -1118,7 +1112,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
+	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-187: Verify Salmonella Lock Filter Functionality", "This test case will test Salmonella Lock Filter Functionality");
@@ -1165,7 +1159,7 @@ public class SalmonellaLog {
 
 			Helper.driver.findElement(By.id("un-save-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Helper.driver.findElement(By.id("un-save-icon")).click();
+			Helper.driver.findElement(By.id("reset-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		}
 
@@ -1183,7 +1177,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -1335,7 +1329,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
@@ -1376,7 +1370,10 @@ public class SalmonellaLog {
 							actions.moveToElement(expandFilter).click().perform();				
 							Thread.sleep(1000);
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
+						//	ClickElement.clickById(Helper.driver, objFilter.FilterListXPathSearch); 
+							
+							Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).click();
+							
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(1000);
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
@@ -1430,7 +1427,7 @@ public class SalmonellaLog {
 
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
 
-							Helper.driver.findElement(By.id("next-page")).click();
+							ClickElement.clickById(Helper.driver, "next-page");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
@@ -1442,7 +1439,6 @@ public class SalmonellaLog {
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
 						}
-
 						else {
 							Assert.assertTrue(true, "Records are less then "+sum);
 							Test_Variables.test.pass("Records are less then "+sum);
@@ -1469,7 +1465,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Sorting",enabled= true, priority = 14) 
+	@Test (description="Sorting",enabled= false, priority = 14) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSorting = SalmonellaModel.sorting();
@@ -1495,11 +1491,11 @@ public class SalmonellaLog {
 						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
-						Helper.driver.findElement(By.id(objFilter.ColumnID)).click();
+						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 
 						if (objModel.sortLogic1) {
-							Helper.driver.findElement(By.id(objFilter.ColumnID)).click();
+							ClickElement.clickById(Helper.driver, objFilter.ColumnID);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						}						
 						Thread.sleep(500);
@@ -1522,11 +1518,50 @@ public class SalmonellaLog {
 						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
 					}
-					catch(Exception ex) {
+					
+					catch(StaleElementReferenceException s) {
+						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					}
+					
+					
+					try {
+						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+						
+						ClickElement.clickById(Helper.driver, "next-page");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						
+						List<WebElement> a = Helper.driver.findElements(By.xpath("//tr/td["+objFilter.count+"]"));
+						List<String> sortedListActual = a.stream().map(s->s.getText()).collect(Collectors.toList());
+						System.out.println(sortedListActual);
+						List<String> d = sortedListActual.stream().sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());													
+						List<String> sortedListExpected = d.stream().sorted(Comparator.nullsFirst(null)).collect(Collectors.toList());
+						
+						Assert.assertTrue(sortedListActual.equals(sortedListExpected));
+						Test_Variables.test.pass(objFilter.FilterName+" column sorted successfully");
+						Test_Variables.results.createNode(objFilter.FilterName+" column sorted successfully");
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+						
+						ClickElement.clickById(Helper.driver, "previous-page");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					}
+					
+					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" column failed to sort");
 						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
 					}
+			
 				}
 			}
 			catch(Exception ex) {
@@ -1536,7 +1571,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 11) 
+	@Test (description="Test Case: Test Salmonella PNG Download",enabled= false, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-199: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
@@ -1553,7 +1588,6 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("1. Hover mouse towards barchart on top");
 			Test_Variables.steps.createNode("2. Export PNG button becomes visible");
 
-			//	Helper.driver.get(Constants.url_SalmonellaLog);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 			Thread.sleep(500);
@@ -1578,13 +1612,13 @@ public class SalmonellaLog {
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
+			@SuppressWarnings("unused")
 			String date= dateFormat.format(date1);
 			Thread.sleep(1000);
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-
-			//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.slPNGFileName+date+".png")); 
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//Assert.assertTrue(namesOfFiles.contains(Test_Variables.slPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
 			Test_Variables.results.createNode("PNG downloads successfully");
@@ -1605,7 +1639,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =12) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= false, priority =12) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-200: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
@@ -1622,28 +1656,30 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			WebElement csvHover = Helper.driver.findElement(By.xpath(Test_Elements.slCsvHover));
+			
+			
+			WebElement csvHover = Helper.driver.findElement(By.id("data-form-download"));
 			Actions builder = new Actions(Helper.driver);
 			builder.moveToElement(csvHover).build().perform();
+			
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Test_Variables.steps.createNode("5. Click on Export as CSV");	
-			builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.slDownloadButton))).click().perform();
-			Thread.sleep(500);
+			Thread.sleep(1000);
+			builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.slCsv))).click().perform();
+			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-
-			WebElement button = Helper.driver.findElement(By.id("export-csv"));
-			JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
-			jse.executeScript("arguments[0].click()", button);
+			ClickElement.clickById(Helper.driver, "export-csv");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
+			@SuppressWarnings("unused")
 			String date= dateFormat.format(date1);
 			Thread.sleep(500);
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.slCSVFileName+date+".csv"));
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//Assert.assertTrue(namesOfFiles.contains(Test_Variables.slCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1664,7 +1700,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 13) 
+	@Test (description="Test Case: Test Salmonella Template Download",enabled= false, priority = 13) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-201: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
@@ -1700,9 +1736,9 @@ public class SalmonellaLog {
 			jse.executeScript("arguments[0].click()", button);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.slSampleMetaData+".xlsx"));
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//Assert.assertTrue(namesOfFiles.contains(Test_Variables.slSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);

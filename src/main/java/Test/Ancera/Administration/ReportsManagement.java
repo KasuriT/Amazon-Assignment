@@ -408,13 +408,14 @@ public class ReportsManagement {
 		Thread.sleep(1500);
 		Helper.driver.findElement(By.xpath(Test_Elements.userEditIcon)).click();
 		Thread.sleep(1500);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.rmUserButton1)));
-		Helper.driver.findElement(By.xpath(Test_Elements.rmUserButton1)).click();
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.rmUserButton2)));
-		Helper.driver.findElement(By.xpath(Test_Elements.rmUserButton2)).click();
-		Thread.sleep(1500);
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));
+		Helper.driver.findElement(By.id("btn-next")).click();
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));
+		Thread.sleep(500);
+		Helper.driver.findElement(By.id("btn-next")).click();
+		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
-		Helper.driver.findElement(By.xpath(Test_Elements.userUpdateRoleInput)).sendKeys(Test_Variables.RoleName);
+		Helper.driver.findElement(By.xpath(Test_Elements.rmRoleFind)).sendKeys(Test_Variables.RoleName);
 		Thread.sleep(1000);
 		String actual = Helper.driver.findElement(By.xpath(Test_Elements.userUpdateRoleResult)).getText();
 

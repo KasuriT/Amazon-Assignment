@@ -31,6 +31,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.ExternalSalmonellaModel;
 import Models.ReportFilters;
+import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -53,6 +54,7 @@ public class ExternalSalmonella {
 		ConfigureLogin.login();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
@@ -265,7 +267,7 @@ public class ExternalSalmonella {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
 			String actual = Helper.driver.findElement(By.id("External Salmonella log")).getText();
-			String expected = "External Salmonella log";
+			String expected = "External Salmonella Log";
 
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("User navigated successfully");
@@ -307,7 +309,7 @@ public class ExternalSalmonella {
 
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("calendarIcon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();		
+				ClickElement.clickById(Helper.driver, "calendarIcon");	
 				Thread.sleep(500);
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -334,12 +336,7 @@ public class ExternalSalmonella {
 
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
+						
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -379,12 +376,7 @@ public class ExternalSalmonella {
 						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
 
 						Thread.sleep(1000);
-						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
+						Test_Variables.steps.createNode("3. Verify the dates in To and From field");
 
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
@@ -423,11 +415,6 @@ public class ExternalSalmonella {
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -448,7 +435,7 @@ public class ExternalSalmonella {
 				try {
 
 					Test_Variables.steps.createNode("4. Click on Apply filter button");
-					Helper.driver.findElement(By.id("filter-icon")).click();
+					ClickElement.clickById(Helper.driver, "filter-icon");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 					String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -466,7 +453,8 @@ public class ExternalSalmonella {
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalSalmonellaReportPath, ex);
 				}
-				Helper.driver.findElement(By.id("reset-icon")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				ClickElement.clickById(Helper.driver, "reset-icon");
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			}
 		}
@@ -507,7 +495,7 @@ public class ExternalSalmonella {
 
 				Thread.sleep(500);
 				Test_Variables.steps.createNode("2. Click on Apply filter button");
-				Helper.driver.findElement(By.id("filter-icon")).click();
+				ClickElement.clickById(Helper.driver, "filter-icon");
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				
 				if(objModel.Filter1) {
@@ -540,6 +528,8 @@ public class ExternalSalmonella {
 						Test_Variables.results.createNode("1. Filter was applied successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Salmonella Log", Constants.ExternalSalmonellaReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalSalmonellaReportPath, null);
+						ClickElement.clickById(Helper.driver, "reset-icon");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					}catch(AssertionError er) {
 						Test_Variables.test.fail("Filter failed to apply successfully");
 						Test_Variables.results.createNode("1. Filter failed to apply successfully");
@@ -549,9 +539,7 @@ public class ExternalSalmonella {
 						Test_Variables.results.createNode("1. Filter failed to apply successfully");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalSalmonellaReportPath, ex);
 					}			
-				}
-				Helper.driver.findElement(By.id("reset-icon")).click();
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				}	
 			}
 		}
 	}
@@ -581,7 +569,7 @@ public class ExternalSalmonella {
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Salmonella Log", Constants.ExternalSalmonellaReportPath));
 			Test_Variables.steps.createNode("2. Click on Apply filter button");
-			Helper.driver.findElement(By.id("filter-icon")).click();
+			ClickElement.clickById(Helper.driver, "filter-icon");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Variables.steps.createNode("3. Click on Lock button");
 			WebElement button = Helper.driver.findElement(By.id("save-icon"));
@@ -603,6 +591,10 @@ public class ExternalSalmonella {
 			Test_Variables.test.pass("Filter locked functionality verified successfully on date filter");
 			Test_Variables.results.createNode("Filter lock remained applied on reopening the report on date filter");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Salmonella Log", Constants.ExternalSalmonellaReportPath));
+			ClickElement.clickById(Helper.driver, "un-save-icon");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(Helper.driver, "reset-icon");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalSalmonellaReportPath, null);
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Filer lock functionality failed on date filter");
@@ -613,12 +605,6 @@ public class ExternalSalmonella {
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalSalmonellaReportPath, ex);
 		}
-
-		Thread.sleep(500);
-		Helper.driver.findElement(By.id("un-save-icon")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Helper.driver.findElement(By.id("reset-icon")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 	}
 
 	
@@ -628,7 +614,7 @@ public class ExternalSalmonella {
 	public void TestFilters111() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalSalmonellaSearch = ExternalSalmonellaModel.FillData();
-
+		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (ExternalSalmonellaModel objModel : Test_Variables.lstExternalSalmonellaSearch) { 	
 			try {
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
@@ -643,8 +629,7 @@ public class ExternalSalmonella {
 				Test_Variables.preconditions.createNode("5. Click on External Salmonella Log; External Salmonella Log reports open");
 
 				Actions actions = new Actions(Helper.driver);
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
+				for (ReportFilters objFilter : objModel.lstFilters) {			
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
@@ -676,9 +661,11 @@ public class ExternalSalmonella {
 							while(attempts < 4) {
 								try {
 									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 									break;
 								} catch(StaleElementReferenceException e) {
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 								} 
 								attempts++;
 							}					   
@@ -728,8 +715,9 @@ public class ExternalSalmonella {
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
 						Thread.sleep(500);
 
-						Helper.driver.findElement(By.id("filter-icon")).click(); 
+						ClickElement.clickById(Helper.driver, "filter-icon");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Thread.sleep(1500);
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 
 						if(NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() != 0 && objFilter.FilterName == "Load Filter") {
@@ -790,6 +778,8 @@ public class ExternalSalmonella {
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalSalmonellaReportPath, null);
 								break;
 							} catch(StaleElementReferenceException e) {
+								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0);
+								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
 							} 
 							catch(AssertionError er) {
 								Test_Variables.test.fail("Blue filter indicator failed to appears next to applied filter or apply filter button did not became inactive");
@@ -906,10 +896,10 @@ public class ExternalSalmonella {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Salmonella Log", Constants.ExternalSalmonellaReportPath));
 
 						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-clear-input"));
+							ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"-clear-input");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							String a = objFilter.LstFilterXpath.get(i)+"-place-holder-search";
+							String a = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).getText();
 							Assert.assertTrue(a.contains(""));
 
 							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
@@ -1008,9 +998,9 @@ public class ExternalSalmonella {
 
 						Test_Variables.steps.createNode("1. Click on reset button");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Helper.driver.findElement(By.id("reset-icon")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(500);
+					//	ClickElement.clickById(Helper.driver, "reset-icon");
+					//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+					//	Thread.sleep(500);
 
 						for (int i = 0; i<objFilter.LstFilterXpath.size(); i++) { 
 							Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#filter-"+objFilter.LstFilterXpath.get(i))).size() != 0);	
@@ -1110,9 +1100,9 @@ public class ExternalSalmonella {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalSalmonellaReportPath, ex);
 		}
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Helper.driver.findElement(By.id("un-save-icon")).click();
+		ClickElement.clickById(Helper.driver, "un-save-icon");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Helper.driver.findElement(By.id("reset-icon")).click();
+		ClickElement.clickById(Helper.driver, "reset-icon");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
@@ -1159,7 +1149,8 @@ public class ExternalSalmonella {
 						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
-							Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
+						//	Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
+							ClickElement.clickById(Helper.driver, objFilter.paginationPage);
 
 							if (objModel.paginationExist) {
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1267,7 +1258,7 @@ public class ExternalSalmonella {
 			}
 		}
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Helper.driver.findElement(By.id("first-page")).click();
+		ClickElement.clickById(Helper.driver, "first-page");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
@@ -1358,7 +1349,7 @@ public class ExternalSalmonella {
 
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
 
-							Helper.driver.findElement(By.id("next-page")).click();
+							ClickElement.clickById(Helper.driver, "next-page");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
@@ -1442,7 +1433,7 @@ public class ExternalSalmonella {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 
-			//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslPNGFileName+date+".png")); 
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
 			Test_Variables.results.createNode("PNG downloads successfully");
@@ -1483,19 +1474,18 @@ public class ExternalSalmonella {
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			WebElement csvHover = Helper.driver.findElement(By.xpath(Test_Elements.eslCsvHover));
+			WebElement csvHover = Helper.driver.findElement(By.id("data-form-download"));
 			Actions builder = new Actions(Helper.driver);
 			builder.moveToElement(csvHover).build().perform();
+			
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Test_Variables.steps.createNode("5. Click on Export as CSV");	
-			builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.eslDownloadButton))).click().perform();
-			Thread.sleep(500);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Salmonella Log", Constants.ExternalSalmonellaReportPath));
-
-			WebElement button = Helper.driver.findElement(By.id("export-csv"));
-			JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
-			jse.executeScript("arguments[0].click()", button);
+			Thread.sleep(1000);
+			builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.eslCsv))).click().perform();
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+			ClickElement.clickById(Helper.driver, "export-csv");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
@@ -1505,7 +1495,7 @@ public class ExternalSalmonella {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 
-			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslCSVFileName+date+".csv"));
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1569,7 +1559,7 @@ public class ExternalSalmonella {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 
-			//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslSampleMetaData+".xlsx"));
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eslSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalSalmonellaReportPath, null);

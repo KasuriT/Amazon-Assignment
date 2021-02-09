@@ -133,32 +133,8 @@ public class ForgotPassword {
 				Helper.driver.findElement(By.xpath(Test_Elements.gmailSecurityEmail)).sendKeys(Keys.ENTER);
 			}
 
-//			Thread.sleep(8000);
-//			
-//			if (Helper.driver.findElements(By.xpath("//*[@class='yW']/span")).size() != 0) {
-//				Alert alert = Helper.driver.switchTo().alert();
-//				alert.accept();
-//				Thread.sleep(1000);
-//				Helper.driver.switchTo().defaultContent();
-//				Thread.sleep(1000);
-//				Helper.driver.findElement(By.id("identifierId")).sendKeys(Test_Variables.forgotPassword_email);    
-//				Thread.sleep(1000);
-//				Helper.driver.findElement(By.id("identifierId")).sendKeys(Keys.ENTER);	
-//				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
-//				Thread.sleep(1000);
-//				Helper.driver.findElement(By.name("password")).sendKeys(Test_Variables.forgotPassword_password);
-//				Helper.driver.findElement(By.name("password")).sendKeys(Keys.ENTER);
-//			}
-			
-			
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
 			Thread.sleep(2000);
-//			List<WebElement> unreademail = Helper.driver.findElements(By.className("zE"));
-//			for(int i=0;i<unreademail.size();i++){
-//				System.out.println(unreademail.get(i).getText());
-//			}
-//			unreademail.get(0).click();
-			
 			List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
 			for(int i=0;i<a.size();i++){
 				if(a.get(i).getText().equals("ancera.org") || a.get(i).getText().equals("support")){  

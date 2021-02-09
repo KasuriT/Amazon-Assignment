@@ -54,7 +54,7 @@ public class CoccidiaModel {
 	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
 	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
 
-/*
+
 	public static ArrayList<CoccidiaModel> FillData() {
 		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
 		CoccidiaModel objTmp = new CoccidiaModel();
@@ -208,34 +208,34 @@ public class CoccidiaModel {
 		lstCoccidiaModel.add(objTmp);               
 
 
-		//		objTmp = new CoccidiaModel();
-		//		objFilter = new ReportFilters();
-		//		objFilter.FilterName = "Improc Version Filter";
-		//		objTmp.TestCaseNameButtonActive = "AN-CL-57: "+buttonActiveTitle+objFilter.FilterName;
-		//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		//		objTmp.TestCaseName = "AN-CL-58: "+applyFilterTitle+objFilter.FilterName;
-		//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		//		objTmp.TestCaseNameSearch = "AN-CL-59 "+filterIndicatorTitle+objFilter.FilterName;
-		//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		//		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-60: Verify "+objFilter.FilterName+filterTopTitle;
-		//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		//		objTmp.TestCaseNameClearInput = "AN-CL-62: "+clearInputTitle+objFilter.FilterName;
-		//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		//		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		//		objTmp.TestCaseNameRevertBack = "AN-CL-64: Verify "+objFilter.FilterName+revertBackTitle;
-		//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-		//		objTmp.ReloadPage = false;
-		//		objTmp.lstFilters = new ArrayList<>();
-		//		objFilter.FilterID = "version";
-		//		objFilter.FilterXPath = "filter-Improc-Version";
-		//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-		//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("1"));
-		//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
-		//		objTmp.lstFilters.add(objFilter);
-		//		lstCoccidiaModel.add(objTmp); 
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version Filter";
+		objTmp.TestCaseNameButtonActive = "AN-CL-57: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-58: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-CL-59 "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-60: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-CL-62: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-CL-64: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "version";
+		objFilter.FilterXPath = "filter-Improc-Version";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("1"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp); 
 
 
 		objTmp = new CoccidiaModel();
@@ -478,40 +478,40 @@ public class CoccidiaModel {
 		lstCoccidiaModel.add(objTmp);
 
 
-//		objTmp = new CoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseNameButtonActive = "AN-CL-129: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-CL-130: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-CL-131: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-132: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-133: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-CL-134: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-135: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-CL-136: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterID = "isntrument-id";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Instrument-ID"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "PSN0013"));
-//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01", "PSN0013")); 
-//		objFilter.FilterID = "sample-id";
-//		objFilter.FilterXPath = "filter-Sample-ID";
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp);
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseNameButtonActive = "AN-CL-129: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-130: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-CL-131: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-CL-132: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CL-133: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-CL-134: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-135: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-CL-136: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "isntrument-id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Instrument-ID"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "PSN0013"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01", "PSN0013")); 
+		objFilter.FilterID = "sample-id";
+		objFilter.FilterXPath = "filter-Sample-ID";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
 
 		return lstCoccidiaModel;
 	}
-*/
+
 
 	public static ArrayList<CoccidiaModel> FillDate() {
 		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
@@ -790,7 +790,7 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objTmp.TestCaseName = "AN-CL-145: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-CL-146: Verify 500 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-CL-146: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -817,7 +817,7 @@ public class CoccidiaModel {
 	}
 	
 	
-	
+	/*
 	public static ArrayList<CoccidiaModel> FillData() {
 		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
 		CoccidiaModel objTmp = new CoccidiaModel();
@@ -1275,7 +1275,7 @@ public class CoccidiaModel {
 		return lstCoccidiaModel;
 	}
 	
-	
+	*/
 	
 }
 

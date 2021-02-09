@@ -31,6 +31,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.ReportFilters;
 import Models.ExternalCoccidiaModel;
+import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -54,7 +55,8 @@ public class ExternalCoccidia {
 	}
 
 
-	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
+	@SuppressWarnings("unchecked")
+	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -324,7 +326,7 @@ public class ExternalCoccidia {
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
-
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
 				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();		
@@ -351,7 +353,7 @@ public class ExternalCoccidia {
 
 						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
 						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
-
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
@@ -397,7 +399,7 @@ public class ExternalCoccidia {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
 						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
 						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
-
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
@@ -437,6 +439,7 @@ public class ExternalCoccidia {
 						String toDate = dateFormat.format(todate2);
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
 						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
 
@@ -467,6 +470,7 @@ public class ExternalCoccidia {
 				String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 				try {
 					Test_Variables.steps.createNode("4. Click on Apply filter button");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 					Helper.driver.findElement(By.id("filter-icon")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 
@@ -520,7 +524,7 @@ public class ExternalCoccidia {
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filterDateFrom")));
 				Test_Variables.steps.createNode("1. "+objFilter.FilterName);
 				Thread.sleep(1000);
-
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 				Helper.driver.findElement(By.id("filterDateFrom")).clear();
 				Helper.driver.findElement(By.id("filterDateFrom")).sendKeys(objFilter.fromDate);
 				Thread.sleep(1000);
@@ -534,6 +538,7 @@ public class ExternalCoccidia {
 				
 				if(objModel.Filter1) {
 					try {
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 						String actual = Helper.driver.findElement(By.id("message")).getText();
 						String expected = objFilter.alertMessage;
@@ -555,7 +560,7 @@ public class ExternalCoccidia {
 				}
 
 				if(objModel.Filter2) {
-
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 					try {
 						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 						Assert.assertNotEquals(recordBefore, recordAfter); 
@@ -573,6 +578,7 @@ public class ExternalCoccidia {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.ExternalCoccidiaReportPath, ex);
 					}					
 				}
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 				Helper.driver.findElement(By.id("reset-icon")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			}
@@ -597,6 +603,7 @@ public class ExternalCoccidia {
 
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-icon")));
 			Test_Variables.steps.createNode("1. Enter valid date in from and 2 fields");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
 			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("11/01/2020");
 			Helper.driver.findElement(By.id("filterDateTo")).clear();
@@ -604,6 +611,7 @@ public class ExternalCoccidia {
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
 			Test_Variables.steps.createNode("2. Click on Apply filter button");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Helper.driver.findElement(By.id("filter-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Variables.steps.createNode("3. Click on Lock button");
@@ -614,6 +622,7 @@ public class ExternalCoccidia {
 			Test_Variables.steps.createNode("4. Close report");
 			Test_Variables.steps.createNode("5. Reopen report and verify that records are still the same as before closing the report");
 			Helper.driver.get(Constants.url_ExternalCoccidiaLog);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-icon")));
 			String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -693,7 +702,7 @@ public class ExternalCoccidia {
 	public void TestFilters111() throws InterruptedException, IOException {
 
 		Test_Variables.lstExternalCoccidiaSearch = ExternalCoccidiaModel.FillData();
-
+		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (ExternalCoccidiaModel objModel : Test_Variables.lstExternalCoccidiaSearch) { 	
 			try {
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameButtonActive, objModel.TestCaseDescriptionButtonActive);
@@ -709,7 +718,6 @@ public class ExternalCoccidia {
 
 				Actions actions = new Actions(Helper.driver);
 				for (ReportFilters objFilter : objModel.lstFilters) {	
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
@@ -737,9 +745,11 @@ public class ExternalCoccidia {
 							int attempts = 0;
 							while(attempts < 4) {
 								try {
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
+									//Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 									break;
 								} catch(StaleElementReferenceException e) {
+									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 								} 
 								attempts++;
 							}					   
@@ -923,7 +933,6 @@ public class ExternalCoccidia {
 							Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);
-
 							break; 
 						}
 						chkCounter++;
@@ -961,10 +970,10 @@ public class ExternalCoccidia {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
 
 						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-clear-input"));
+							ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"-clear-input");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							String a = objFilter.LstFilterXpath.get(i)+"-place-holder-search";
+							String a = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).getText();
 							Assert.assertTrue(a.contains(""));
 
 							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
@@ -1004,24 +1013,27 @@ public class ExternalCoccidia {
 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("External Coccidia Log", Constants.ExternalCoccidiaReportPath));
-						Thread.sleep(1000);	
+						Thread.sleep(500);	
 
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size(); i++) {
 
 							Test_Variables.steps.createNode("1. Hover to blue indicator next to applied filter; blue indicator changes to cross icon");
 							Test_Variables.steps.createNode("2. Click on the blue indicator icon");
-
-							if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {
-								Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							
+							if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {	
+							//	Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+								ClickElement.clickById(Helper.driver, "-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator");
 							}
 
 							if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).size() != 0) {
-								Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+							//	Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+								ClickElement.clickById(Helper.driver, "div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear");
 							}
 
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Thread.sleep(500);
+							Thread.sleep(1500);
 							chkCounter++;
 							System.out.println(recordBefore);
 						}
@@ -1088,7 +1100,7 @@ public class ExternalCoccidia {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));
 					}
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				}
 			}
 			catch(Exception ex) {
@@ -1360,6 +1372,7 @@ public class ExternalCoccidia {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
+							Thread.sleep(1500);
 							int count = rows.size();
 							System.out.println("ROW COUNT : "+count);
 							Assert.assertEquals(count, Integer.parseInt(objFilter.count));
@@ -1493,8 +1506,7 @@ public class ExternalCoccidia {
 			Thread.sleep(500);
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-
-	//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclPNGFileName+date+".png")); 
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
 			Test_Variables.results.createNode("PNG downloads successfully");
@@ -1552,8 +1564,7 @@ public class ExternalCoccidia {
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-
-	//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclCSVFileName+date+".csv"));
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1611,7 +1622,7 @@ public class ExternalCoccidia {
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-	//		Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclSampleMetaData+".xlsx"));
+			Assert.assertTrue(namesOfFiles.contains(Test_Variables.eclSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalCoccidiaReportPath, null);

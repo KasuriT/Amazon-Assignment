@@ -54,6 +54,8 @@ public class ExternalSalmonellaModel {
 	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
 	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
 
+	
+	
 	public static ArrayList<ExternalSalmonellaModel> FillData() {
 		ArrayList<ExternalSalmonellaModel> lstExternalSalmonellaModel = new ArrayList<ExternalSalmonellaModel>();
 		ExternalSalmonellaModel objTmp = new ExternalSalmonellaModel();

@@ -22,6 +22,7 @@ import Models.UserModel;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
+import Test.Ancera.RetryFailedCases;
 import Test.Ancera.Test_Elements;
 import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
@@ -317,75 +318,75 @@ public class UserManagement {
 
 	@Test (enabled= true, priority= 4) 
 	public void CreateUser() throws InterruptedException, IOException {
+		try{
+			//	Helper.driver.get(Constants.url_user);
+			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-	//	Helper.driver.get(Constants.url_user);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
-		Thread.sleep(1000);
-		WebElement search = Helper.driver.findElement(By.xpath(Test_Elements.userSearch));
-		search.sendKeys(Test_Variables.lstUserCreate.get(0));
-		search.sendKeys(Keys.ENTER);
-		Thread.sleep(1500);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userSearchResult)));
-		String ancera_user = Helper.driver.findElement(By.xpath(Test_Elements.userSearchResult)).getText();
-		int i = Integer.parseInt(ancera_user);
+			Thread.sleep(1000);
+			WebElement search = Helper.driver.findElement(By.xpath(Test_Elements.userSearch));
+			search.sendKeys(Test_Variables.lstUserCreate.get(0));
+			search.sendKeys(Keys.ENTER);
+			Thread.sleep(1500);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userSearchResult)));
+			String ancera_user = Helper.driver.findElement(By.xpath(Test_Elements.userSearchResult)).getText();
+			int i = Integer.parseInt(ancera_user);
 
-		if (i == 1) {
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraTab)));
-			Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraTab)).click();
+			if (i == 1) {
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraTab)));
+				Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraTab)).click();
+				Thread.sleep(1000);
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraSite)));
+				Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraSite)).click();
+				Thread.sleep(1000);
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userDeleteIcon)));
+				Helper.driver.findElement(By.xpath(Test_Elements.userDeleteIcon)).click();
+				Thread.sleep(1000);
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userDeletePopup)));
+				Helper.driver.findElement(By.xpath(Test_Elements.userDeletePopup)).click();	
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userCreateButton)));
 			Thread.sleep(1000);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraSite)));
-			Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraSite)).click();
+			Helper.driver.findElement(By.id("create-user")).click();     
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userFirstName)));
 			Thread.sleep(1000);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userDeleteIcon)));
-			Helper.driver.findElement(By.xpath(Test_Elements.userDeleteIcon)).click();
+			Helper.driver.findElement(By.xpath(Test_Elements.userFirstName)).sendKeys(Test_Variables.lstUserCreate.get(0));    
+			Helper.driver.findElement(By.xpath(Test_Elements.userLastName)).sendKeys(Test_Variables.lstUserCreate.get(1));  
+			Helper.driver.findElement(By.xpath(Test_Elements.userPhoneCode)).click();      
+			Helper.driver.findElement(By.xpath(Test_Elements.userPhoneCodeSelect)).click();
 			Thread.sleep(1000);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userDeletePopup)));
-			Helper.driver.findElement(By.xpath(Test_Elements.userDeletePopup)).click();	
+			Helper.driver.findElement(By.xpath(Test_Elements.userPhoneNo)).sendKeys(Test_Variables.lstUserCreate.get(2));
+			Helper.driver.findElement(By.xpath(Test_Elements.userPopupNextButton1)).click();
+
+
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-09: Verify user cannot create a user with invalid email", "This test case will create a user with invalid email");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button");
+			Test_Variables.steps.createNode("1. Enter invalid email");
+			Test_Variables.steps.createNode("2. Click on next button; should display validation message");
+
+			Helper.driver.findElement(By.xpath(Test_Elements.userEmail)).sendKeys(Test_Variables.lstUserEmails.get(i));
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Helper.driver.findElement(By.xpath(Test_Elements.userPopupNextButton2)).click();
+			Thread.sleep(1000);
+			String userEmailactual = Helper.driver.findElement(By.xpath(Test_Elements.emailValidation)).getText();
+
+			Assert.assertEquals(userEmailactual, Test_Elements.invalidemailexpected); 
+			Test_Variables.test.pass("User was not created with invalid email");
+			Test_Variables.results.createNode("Did not save user, displayed validaton message underneath email field 'Invalid Email'");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+		}catch(AssertionError e){
+			Test_Variables.test.fail("User was created with invalid email");
+			Test_Variables.results.createNode("User was created with invalid email");
 		}
 
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userCreateButton)));
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("create-user")).click();     
-		
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userFirstName)));
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.userFirstName)).sendKeys(Test_Variables.lstUserCreate.get(0));    
-		Helper.driver.findElement(By.xpath(Test_Elements.userLastName)).sendKeys(Test_Variables.lstUserCreate.get(1));  
-		Helper.driver.findElement(By.xpath(Test_Elements.userPhoneCode)).click();      
-		Helper.driver.findElement(By.xpath(Test_Elements.userPhoneCodeSelect)).click();
-        Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.userPhoneNo)).sendKeys(Test_Variables.lstUserCreate.get(2));
-		Helper.driver.findElement(By.xpath(Test_Elements.userPopupNextButton1)).click();
-		
-
-				Test_Variables.test = Test_Variables.extent.createTest("AN-UM-09: Verify user cannot create a user with invalid email", "This test case will create a user with invalid email");
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-				
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
-				Test_Variables.preconditions.createNode("4. Click on create new button");
-				Test_Variables.steps.createNode("1. Enter invalid email");
-				Test_Variables.steps.createNode("2. Click on next button; should display validation message");
-				
-				Helper.driver.findElement(By.xpath(Test_Elements.userEmail)).sendKeys(Test_Variables.lstUserEmails.get(i));
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-				Helper.driver.findElement(By.xpath(Test_Elements.userPopupNextButton2)).click();
-				Thread.sleep(1000);
-				String userEmailactual = Helper.driver.findElement(By.xpath(Test_Elements.emailValidation)).getText();
-				try{
-					Assert.assertEquals(userEmailactual, Test_Elements.invalidemailexpected); 
-					Test_Variables.test.pass("User was not created with invalid email");
-					Test_Variables.results.createNode("Did not save user, displayed validaton message underneath email field 'Invalid Email'");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-				}catch(AssertionError e){
-					Test_Variables.test.fail("User was created with invalid email");
-					Test_Variables.results.createNode("User was created with invalid email");
-				}
-				
 				Thread.sleep(1500);
 				
 		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-10: Verify Piper field displays on Clicking Piper toggle button", "This test case will verify that Piper field opens on Clicking Piper toggle button");
@@ -501,7 +502,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 5) 
+	@Test (enabled= true, priority= 5, retryAnalyzer = RetryFailedCases.class) 
 	public void VerifyEmail() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-13: Verify user receives an email to reset password", "This test case will verify that user will receive an email with reset password link");
@@ -579,16 +580,10 @@ public class UserManagement {
 			Test_Variables.test.fail("Did not receive an email");
 			Test_Variables.results.createNode("Email to reset password did not received");
 		}
-		
-		
 
-		
 		Helper.driver.findElement(By.linkText("Create Password")).click();
-		
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
-		
-		
 
 		String currentTabHandle = Helper.driver.getWindowHandle();
 		String newTabHandle = Helper.driver.getWindowHandles()

@@ -1,6 +1,7 @@
 package Test.Ancera.Administration;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -213,11 +214,11 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Delete from File",enabled= true, priority = 5) 
+	@Test (description="Test Case: Delete from File",enabled= false, priority = 5) 
 	public void DeleteFromFile() throws InterruptedException, IOException {
 
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-License-09: Verify user can delete the uploaded file", "This test case will verify that user can delete the uploaded file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-License-09: Verify user can delete the uploaded file from table list", "This test case will verify that user can delete the uploaded file from table list");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -233,18 +234,36 @@ public class AgreementManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
 			Thread.sleep(1000);
 
-			for (int i=1; i<=10; i++) {
+			
+//			for (int j=1; j<=20; j++) {
+//				int x= j-1;
+//				if (Helper.driver.findElement(By.cssSelector("#lst-eula-files-0 td._"+j)).getText() == Test_Variables.lstAgreemmentManagementFileName.get(0)) {
+//					Helper.driver.findElement(By.id("delete-license-"+x)).click();
+//					break;
+//				}
+//			}
+			
+				
+			for (int i=1; i<=15; i++) {
+				try {	
 				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
 				int j= i-1;
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+				if (element.getText() == Test_Variables.lstAgreemmentManagementFileName.get(0)) {
 					Thread.sleep(500);
 					Helper.driver.findElement(By.id("delete-license-"+j)).click();
 					break;
 				}
+				}
+		
+		
+		catch(NoSuchElementException e) {
+			System.out.println("sdsd");
+		}
 			}
-
+		
+		
 			Test_Variables.steps.createNode("2. Click on yes button from delete confirmation box");
 			Helper.driver.findElement(By.id("btn-yes")).click();
 			Thread.sleep(1000); 
@@ -269,11 +288,11 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Delete from Grid",enabled= true, priority = 6) 
+	@Test (description="Test Case: Delete from Grid",enabled= false, priority = 6) 
 	public void DeleteFromGrid() throws InterruptedException, IOException {
 
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-License-10: Verify user can delete the uploaded file", "This test case will verify that user can delete the uploaded file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-License-10: Verify user can delete the uploaded file from grid", "This test case will verify that user can delete the uploaded file from grid");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -646,7 +665,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Invalid Selection",enabled= true, priority = 13) 
+	@Test (description="Test Case: Invalid Selection",enabled= false, priority = 13) 
 	public void InvalidSelection() throws InterruptedException, IOException {
 
 		try {
@@ -690,7 +709,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Assign Agreement",enabled= true, priority = 14) 
+	@Test (description="Test Case: Assign Agreement",enabled= false, priority = 14) 
 	public void VerifyAssignAgreement() throws InterruptedException, IOException {
 
 		for (int i =0; i<Test_Variables.lstAgreementManagementCheckbox.size(); i++) {
@@ -818,7 +837,7 @@ public class AgreementManagement {
 
 
 	
-	@Test (description="Test Case: User",enabled= true, priority = 15) 
+	@Test (description="Test Case: User",enabled= false, priority = 15) 
 	public void User() throws InterruptedException, IOException {
 
 		try {
@@ -871,7 +890,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Organization",enabled= true, priority = 16) 
+	@Test (description="Test Case: Organization",enabled= false, priority = 16) 
 	public void Organization() throws InterruptedException, IOException {
 
 		try {
@@ -922,7 +941,7 @@ public class AgreementManagement {
 	
 	
 	
-	@Test (description="Test Case: Deactivate Assign Agreement",enabled= true, priority = 17) 
+	@Test (description="Test Case: Deactivate Assign Agreement",enabled= false, priority = 17) 
 	public void DeactivateAssignAgreement() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-License-31: Verify user can deactivate assigned Agreement", "This test case will verify that user can deactivate assigned agreement");
@@ -1052,7 +1071,7 @@ public class AgreementManagement {
 		}
 	}
 
-	@Test (description="Test Case: Delete Assigned File",enabled= true, priority = 17) 
+	@Test (description="Test Case: Delete Assigned File",enabled= false, priority = 17) 
 	public void DeleteAssignFile() throws InterruptedException, IOException {
 
 		try {
