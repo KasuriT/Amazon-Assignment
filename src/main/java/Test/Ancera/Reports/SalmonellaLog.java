@@ -231,7 +231,7 @@ public class SalmonellaLog {
 
 				Helper.driver.get(Constants.url_SalmonellaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Lab-Sample-ID")));
 				Thread.sleep(1000);
 
 				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
@@ -306,7 +306,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
@@ -327,7 +327,7 @@ public class SalmonellaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("calendarIcon"))); 
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
 				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();	
 				Thread.sleep(1000);
@@ -335,9 +335,13 @@ public class SalmonellaLog {
 
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
+				
+				if (Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).isEnabled()) {
 				actions.moveToElement(Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch))).click().perform();	
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-
+				
+				
+				
 				if(objModel.Filter1) {
 					try{
 						String value1 = objFilter.fromDate;	
@@ -357,7 +361,7 @@ public class SalmonellaLog {
 
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
+						
 						Assert.assertEquals(fromDateField, fromDate);
 						Assert.assertEquals(toDateField, toDate);
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
@@ -423,12 +427,14 @@ public class SalmonellaLog {
 						Date fromdate1 = cal.getTime();    
 						String fromDate = dateFormat.format(fromdate1);
 
-						String value = objFilter.toDate;
-						cal = Calendar.getInstance();
-						cal.add(Calendar.DATE, Integer.parseInt(value));
-						Date todate2 = cal.getTime();    
-						String toDate = dateFormat.format(todate2);
+//						String value = objFilter.toDate;
+//						cal = Calendar.getInstance();
+//						cal.add(Calendar.DATE, Integer.parseInt(value));
+//						Date todate2 = cal.getTime();    
+//						String toDate = dateFormat.format(todate2);
 
+						String toDate = Helper.driver.findElement(By.xpath("//*[@id=\"0\"]/td[11]")).getText();
+						System.out.println(toDate);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
 						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
@@ -451,6 +457,11 @@ public class SalmonellaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 					}
 				}
+				
+				
+		
+				
+				
 
 				String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 				try {
@@ -460,6 +471,7 @@ public class SalmonellaLog {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 					String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+					Assert.assertFalse(Helper.driver.findElement(By.id("message")).isDisplayed());
 					Assert.assertNotEquals(recordBefore, recordAfter); 
 					Test_Variables.test.pass(objFilter.FilterName+" applied successfully");
 					Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
@@ -476,7 +488,15 @@ public class SalmonellaLog {
 					Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-				}	
+				}
+				
+				
+		}
+				
+				else {
+					Assert.assertTrue(true, "Button is disabled");
+				}
+				
 			}
 		}
 	}
@@ -506,6 +526,7 @@ public class SalmonellaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 				Test_Variables.steps.createNode("1. "+objFilter.FilterName);
 				Thread.sleep(500);
 
@@ -583,6 +604,7 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 			Test_Variables.steps.createNode("1. Enter valid date in from and 2 fields");
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
 			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("10/01/2020");
@@ -633,7 +655,7 @@ public class SalmonellaLog {
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
 	public void TestFilters111() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
@@ -680,8 +702,8 @@ public class SalmonellaLog {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Variables.steps.createNode("3. Select the checkbox and verify that apply filter button becomes active or not");
 							int attempts = 0;
-							while(attempts < 4) {
-								try {
+							while(attempts < 4) {                          
+								try {                                                                                                                                                 
 									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
 									break;
 								} catch(StaleElementReferenceException e) {
@@ -1077,6 +1099,7 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 			String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 			Test_Variables.steps.createNode("1. Change from date");
@@ -1127,7 +1150,7 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reset-icon")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
 			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("12/01/2020");
 			Thread.sleep(500);
@@ -1137,7 +1160,7 @@ public class SalmonellaLog {
 			Actions actions = new Actions(Helper.driver);
 			actions.moveToElement(applyFilter).click().perform();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 			Test_Variables.steps.createNode("2. Click on lock button");	
 			WebElement lockButton = Helper.driver.findElement(By.id("save-icon"));
 			actions.moveToElement(lockButton).click().perform();
@@ -1181,6 +1204,7 @@ public class SalmonellaLog {
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 		Thread.sleep(500);
 		Helper.driver.findElement(By.id("filterDateFrom")).clear();
 		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("10/01/2020");
@@ -1332,7 +1356,7 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon"))); 
 		Thread.sleep(500);
 		Helper.driver.findElement(By.id("filterDateFrom")).clear();
 		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("09/01/2020");

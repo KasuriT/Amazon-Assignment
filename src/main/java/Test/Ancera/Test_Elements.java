@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,60);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -374,7 +374,10 @@ public class Test_Elements {
 
 
 	/////////////////////////////////////////Agreement Management Elements////////////////////////////////////////////////////
+	
 
+	
+	
 	public static String amBeforelist = "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[2]/div[2]/form/div/div/div/div/table/tbody/tr[";
 	public static String amAfterList = "]/td[1]";
 	public static String amAfterList2 = "]/td[2]/label";
@@ -466,12 +469,6 @@ public class Test_Elements {
 	public static String slThisMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
 	public static String slLastMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
 
-	public static String slLoad = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[1]/label/span";
-	public static String slLoadInput = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[1]/input";
-	public static String slLoadbeforeXpath = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[2]/ul/li[";   
-	public static String slLoadafterXpath = "]";					
-	public static String slLoadafterXpath1 = "]/label/p/b";	
-	public static String slLoadClearInput = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[1]/span";
 	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
 	public static String slLoadRed = "dc-table-column _0 red text-right";
 	public static String slLoadYellow = "dc-table-column _0 yellow text-right";
@@ -481,10 +478,10 @@ public class Test_Elements {
 	public static String slRowsSelect100 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
 	public static String slRowsSelect250 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
 	public static String slRowsSelect500 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-	public static String slNextpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-	public static String slLastpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-	public static String slFirstpage= "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-	public static String slPreviouspage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
+//	public static String slNextpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
+//	public static String slLastpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
+//	public static String slFirstpage= "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
+//	public static String slPreviouspage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
 	public static String slTotalPages = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
 	public static String slPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
@@ -510,12 +507,7 @@ public class Test_Elements {
 	public static String eslLast30Days = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
 	public static String eslThisMonth = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
 	public static String eslLastMonth = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-
-	public static String eslLoad = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[1]/label/span";
-	public static String eslLoadInput = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[1]/input";
-	public static String eslLoadbeforeXpath = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[2]/ul/li[";   
-	public static String eslLoadafterXpath = "]";					
-	public static String eslLoadafterXpath1 = "]/label/p/b";	
+	
 	public static String eslLoadClearInput = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[1]/span";
 	public static String eslLoadRow = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
 	public static String eslLoadRed = "dc-table-column _0 red text-right";
@@ -523,13 +515,13 @@ public class Test_Elements {
 	public static String eslLoadGreen = "dc-table-column _0 green text-right";
 
 	public static String eslRowsDropdown = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-	public static String eslRowsSelect100 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-	public static String eslRowsSelect250 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-	public static String eslRowsSelect500 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-	public static String eslNextpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-	public static String eslLastpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-	public static String eslFirstpage= "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-	public static String eslPreviouspage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
+//	public static String eslRowsSelect100 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
+//	public static String eslRowsSelect250 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
+//	public static String eslRowsSelect500 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
+//	public static String eslNextpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
+//	public static String eslLastpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
+//	public static String eslFirstpage= "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
+//	public static String eslPreviouspage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
 	public static String eslTotalPages = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
 	public static String eslPngHover = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[1]/div[1]";
@@ -570,18 +562,14 @@ public class Test_Elements {
 	public static String clLastMonth = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
 
 
-	public static String clRecordNumberTop = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]/div[1]/span[1]";
-	public static String clRecordNumber = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[1]/p";
-	public static String clSampleIDFirstRecord = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[2]/ul/li[3]";
-
-	public static String clRowsDropdown = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-	public static String clRowsSelect100 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-	public static String clRowsSelect250 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-	public static String clRowsSelect500 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-	public static String clNextpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-	public static String clLastpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-	public static String clFirstpage= "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-	public static String clPreviouspage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
+//	public static String clRowsDropdown = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
+	//public static String clRowsSelect100 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
+//	public static String clRowsSelect250 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
+	//public static String clRowsSelect500 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
+//	public static String clNextpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
+//	public static String clLastpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
+//	public static String clFirstpage= "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
+//	public static String clPreviouspage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
 	public static String clTotalPages = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
 	public static String clPngHover = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[1]/div[1]";
@@ -623,10 +611,6 @@ public class Test_Elements {
 	public static String eclLast30Days = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
 	public static String eclThisMonth = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
 	public static String eclLastMonth = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-
-	public static String eclRecordNumberTop = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[1]/span[1]";
-	public static String eclRecordNumber = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[1]/p";
-	public static String eclSampleIDFirstRecord = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[2]/ul/li[3]";
 
 	public static String eclRowsDropdown = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
 	public static String eclRowsSelect100 = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";

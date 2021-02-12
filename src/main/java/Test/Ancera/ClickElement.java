@@ -11,4 +11,10 @@ public class ClickElement {
 		Actions actions = new Actions(idriver);
 		actions.moveToElement(idriver.findElement(By.id(iid))).click().perform();
 	}	
+	
+	public static void clickByCss(WebDriver idriver, String css) {
+		
+		Actions actions = new Actions(idriver);
+		actions.moveToElement(idriver.findElement(By.cssSelector(css))).click().perform();
+	}	
 }

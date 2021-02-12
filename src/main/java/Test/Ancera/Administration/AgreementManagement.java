@@ -1,9 +1,9 @@
 package Test.Ancera.Administration;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -71,7 +72,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Upload file",enabled= true, priority = 2) 
+	@Test (description="Test Case: Upload file",enabled= false, priority = 2) 
 	public void LicenseUpload() throws InterruptedException, IOException {
 
 		for (int i=0; i<=Test_Variables.lstAgreementManagement.size(); i++) {
@@ -87,8 +88,6 @@ public class AgreementManagement {
 				Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
 
 				Thread.sleep(2000);
-				//	Helper.driver.findElement(By.cssSelector("#file-license")).sendKeys("D:\\sample.pdf");
-				//	Helper.driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+"/EULA/sample.docx");
 				Test_Variables.steps.createNode("1. Click on dotted box; file explorer opens");
 				Test_Variables.steps.createNode("2. Upload "+Test_Variables.lstAgreementManagement.get(i).fileType+"and verify the file is uploaded and visible in box");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
@@ -119,7 +118,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Verify uploaded file",enabled= true, priority = 3) 
+	@Test (description="Test Case: Verify uploaded file",enabled= false, priority = 3) 
 	public void VerifyUploadFile() throws InterruptedException, IOException {
 
 		try {
@@ -163,7 +162,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: View file",enabled= true, priority = 4) 
+	@Test (description="Test Case: View file",enabled= false, priority = 4) 
 	public void ViewFile() throws InterruptedException, IOException {
 
 		try {
@@ -234,36 +233,19 @@ public class AgreementManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
 			Thread.sleep(1000);
 
-			
-//			for (int j=1; j<=20; j++) {
-//				int x= j-1;
-//				if (Helper.driver.findElement(By.cssSelector("#lst-eula-files-0 td._"+j)).getText() == Test_Variables.lstAgreemmentManagementFileName.get(0)) {
-//					Helper.driver.findElement(By.id("delete-license-"+x)).click();
-//					break;
-//				}
-//			}
-			
-				
-			for (int i=1; i<=15; i++) {
-				try {	
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList;
+			for (int i=1; i<=10; i++) {
+				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
-				int j= i-1;
-				if (element.getText() == Test_Variables.lstAgreemmentManagementFileName.get(0)) {
-					Thread.sleep(500);
+				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+					Thread.sleep(1500);
+					int j= i-1;
 					Helper.driver.findElement(By.id("delete-license-"+j)).click();
 					break;
 				}
-				}
-		
-		
-		catch(NoSuchElementException e) {
-			System.out.println("sdsd");
-		}
 			}
 		
-		
+			Thread.sleep(2500);
 			Test_Variables.steps.createNode("2. Click on yes button from delete confirmation box");
 			Helper.driver.findElement(By.id("btn-yes")).click();
 			Thread.sleep(1000); 
@@ -310,13 +292,18 @@ public class AgreementManagement {
 			Helper.driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+Test_Variables.lstAgreementManagement.get(0).fileName);
 			Thread.sleep(2000);
 
-			for (int i=1; i<=10; i++) {
-				String actualXpath = Test_Elements.amBeforeGrid+i+"]";
+			
+			for (int i=1; i<=15; i++) {
+				String actualXpath = Test_Elements.amBeforeGrid+i+"]/p[1]";
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
 				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(500);
-					Helper.driver.findElement(By.xpath(element+"/i")).click();
+					int j = i-1;
+					
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+					Thread.sleep(500);
+					Helper.driver.findElement(By.id("del-license-ic-"+j)).click();
 					break;
 				}
 			}
@@ -366,13 +353,14 @@ public class AgreementManagement {
 			Helper.driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+Test_Variables.lstAgreementManagement.get(0).fileName);
 			Thread.sleep(1000);
 			
-			for (int i=1; i<=10; i++) {
+			for (int i=1; i<=15; i++) {
 				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
 				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
-					Thread.sleep(1500);
+					Thread.sleep(1000);
 					element.click();
+					Thread.sleep(500);
 					element.sendKeys(Keys.BACK_SPACE); element.sendKeys(Keys.BACK_SPACE); element.sendKeys(Keys.BACK_SPACE);
 					element.sendKeys(Keys.BACK_SPACE);
 					element.sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(1));
@@ -381,14 +369,14 @@ public class AgreementManagement {
 			}
 
 			Thread.sleep(500);
-			Helper.driver.findElement(By.id("progressbar-1")).click();
+			ClickElement.clickById(Helper.driver, "progressbar-1");
 			Thread.sleep(500);
 
-			for (int i=1; i<=10; i++) {
+			for (int i=1; i<=15; i++) {
 				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
 					Thread.sleep(500);
 					Assert.assertTrue(true);
 					break;
@@ -430,6 +418,7 @@ public class AgreementManagement {
 			Test_Variables.steps.createNode("1. Click on deactivate toggle button in Actions column next to uploaded file");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
+			
 			for (int i=1; i<=10; i++) {
 				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
@@ -450,7 +439,6 @@ public class AgreementManagement {
 			Test_Variables.results.createNode("The user was able to deactivate the uploaded file successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
-			Helper.driver.findElement(By.cssSelector("#alrt > button")).click();
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("The user was not able to deactivate the uploaded file successfully");
@@ -482,9 +470,18 @@ public class AgreementManagement {
 			Test_Variables.preconditions.createNode("6. Click on deactivate toggle button in Actions column next to uploaded file");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
+
 			Test_Variables.steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			Helper.driver.findElement(By.id("progressbar-2")).click();
+			WebElement element = Helper.driver.findElement(By.id("progressbar-2"));
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("progressbar-2")));
+			
+			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+			JavascriptExecutor js = (JavascriptExecutor) Helper.driver;
+			js.executeScript("window.scrollBy(0,-100)");
+			Thread.sleep(500);
+			
+			ClickElement.clickById(Helper.driver, "progressbar-2");
 			Thread.sleep(500);
 			Test_Variables.steps.createNode("2. Search for deactivated file");
 			Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
@@ -528,10 +525,9 @@ public class AgreementManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
 			Test_Variables.steps.createNode("1. Click on Activate toggle button again");
-			Thread.sleep(500);
-			Helper.driver.findElement(By.id("progressbar-1")).click();
-			Thread.sleep(500);
-
+//			Thread.sleep(500);
+//			Helper.driver.findElement(By.id("progressbar-1")).click();
+//			Thread.sleep(500);
 
 			for (int i=1; i<=10; i++) {
 				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
@@ -553,7 +549,6 @@ public class AgreementManagement {
 			Test_Variables.results.createNode("The user was able to deactivate the uploaded file successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
-			Helper.driver.findElement(By.cssSelector("#alrt > button")).click();
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("The user was not able to reactivate the deactivated file");
@@ -589,7 +584,15 @@ public class AgreementManagement {
 
 			Test_Variables.steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			Helper.driver.findElement(By.id("progressbar-2")).click();
+			WebElement element = Helper.driver.findElement(By.id("progressbar-2"));
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("progressbar-2")));
+			
+			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+			JavascriptExecutor js = (JavascriptExecutor) Helper.driver;
+			js.executeScript("window.scrollBy(0,-100)");
+			Thread.sleep(500);
+			
+			ClickElement.clickById(Helper.driver, "progressbar-2");
 			Thread.sleep(500);
 			Test_Variables.steps.createNode("2. Search for uploaded file in user agreement dropdown");
 			Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
@@ -665,7 +668,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Invalid Selection",enabled= false, priority = 13) 
+	@Test (description="Test Case: Invalid Selection",enabled= true, priority = 13) 
 	public void InvalidSelection() throws InterruptedException, IOException {
 
 		try {
@@ -681,9 +684,10 @@ public class AgreementManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 			Thread.sleep(1000);
 			Test_Variables.steps.createNode("1. Go to apply agreement page");
-			Helper.driver.findElement(By.id("progressbar-2")).click();
+			ClickElement.clickById(Helper.driver, "progressbar-2");
 			Thread.sleep(1000);
 			Test_Variables.steps.createNode("2. Click on organization radio button");
+						
 			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div/div[1]/label")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));

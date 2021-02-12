@@ -54,7 +54,7 @@ public class SalmonellaModel {
 	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
 	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
 
-
+/*
 	public static ArrayList<SalmonellaModel> FillData() {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
@@ -717,7 +717,7 @@ public class SalmonellaModel {
 		return lstSalmonellaModel;
 	}
 
-
+*/
 
 	public static ArrayList<SalmonellaModel> FillDate() {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
@@ -808,22 +808,22 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 
-		//		objTmp = new SalmonellaModel();
-		//		objTmp.TestCaseName = "AN-SL-11: Verify user can filter This Month from date Filter";
-		//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-		//		objTmp.Filter1 = false;
-		//		objTmp.Filter2 = false;
-		//		objTmp.Filter3 = true;
-		//		objTmp.lstFilters = new ArrayList<>();
-		//		objFilter = new ReportFilters();
-		//		objFilter.FilterName = "Date Filter";
-		//		objFilter.FilterListXPathSearch = Test_Elements.slThisMonth;
-		//		objFilter.toMonth = "0";
-		//		objFilter.fromMonth = "0";
-		//		objFilter.toDate = "0";
-		//		objFilter.fromDate = "1";
-		//		objTmp.lstFilters.add(objFilter);
-		//		lstSalmonellaModel.add(objTmp);
+		objTmp = new SalmonellaModel();
+		objTmp.TestCaseName = "AN-SL-11: Verify user can filter This Month from date Filter";
+		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+		objTmp.Filter1 = false;
+		objTmp.Filter2 = false;
+		objTmp.Filter3 = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Filter";
+		objFilter.FilterListXPathSearch = Test_Elements.slThisMonth;
+		objFilter.toMonth = "0";
+		objFilter.fromMonth = "0";
+		objFilter.toDate = "0";
+		objFilter.fromDate = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
 
 		return lstSalmonellaModel;
 	}
@@ -1358,7 +1358,7 @@ public class SalmonellaModel {
 		return lstSalmonellaModel;	
 	}
 	
-	/*
+	
 	public static ArrayList<SalmonellaModel> FillData() {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
@@ -2021,7 +2021,7 @@ public class SalmonellaModel {
 		return lstSalmonellaModel;
 	}
 	
-	*/
+	
 	
 }
 

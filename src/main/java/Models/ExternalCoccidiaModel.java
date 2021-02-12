@@ -1024,8 +1024,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterID = "cartrtidge-id";
 		objFilter.FilterXPath = "filter-Cartridge-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("CVC-3320-B0344"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CVC-3320-B0344")); 
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -1090,34 +1090,34 @@ public class ExternalCoccidiaModel {
 		lstExternalCoccidiaModel.add(objTmp);               
 
 		
-//		objTmp = new ExternalCoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Improc Version Filter";
-//		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter.FilterID = "version";
-//		objFilter.FilterXPath = "filter-Improc-Version";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("4"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalCoccidiaModel.add(objTmp); 
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "version";
+		objFilter.FilterXPath = "filter-Improc-Version";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp); 
 		
 		
 		objTmp = new ExternalCoccidiaModel();

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -11,6 +12,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -32,18 +35,37 @@ public class Helper {
 
 	  	projectPath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
-				
+		
+	
+		
 		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
 		
 	
-		Test_Variables.spark.config().setDocumentTitle("Ancera Test Report"); // Tile of report
+		Test_Variables.spark.config().setDocumentTitle("Ancera Test Report");
 		Test_Variables.spark.config().setTheme(Theme.DARK);
 		Test_Variables.extent = new ExtentReports();
 		Test_Variables.extent.attachReporter(Test_Variables.spark);
+		
+			
+//		String downloadFilepath = "D:\\a";
+//		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+//		chromePrefs.put("profile.default_content_settings.popups", 0);
+//		chromePrefs.put("download.default_directory", downloadFilepath);
+//		ChromeOptions options = new ChromeOptions();
+//		options.setExperimentalOption("prefs", chromePrefs);
+//		DesiredCapabilities cap = DesiredCapabilities.chrome();
+//		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//		cap.setCapability(ChromeOptions.CAPABILITY, options);
+	//	@SuppressWarnings("deprecation")
+	//	WebDriver driver = new ChromeDriver(cap);
+		
+	}
+	
 
-	}	
+	
+	
 	public static void saveResult(ITestResult result, String reportPath) throws IOException {
 		System.out.println(Reporter.getCurrentTestResult());
 		if (result.getStatus() == ITestResult.FAILURE) {
