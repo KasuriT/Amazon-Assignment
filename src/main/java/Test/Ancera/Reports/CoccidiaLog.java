@@ -326,8 +326,10 @@ public class CoccidiaLog {
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				actions.moveToElement(Helper.driver.findElement(By.id("calendarIcon"))).click().perform();	
-				Thread.sleep(1000);
+				
+				if (Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).isEnabled()) {
+				ClickElement.clickById(Helper.driver, "calendarIcon");	
+				Thread.sleep(00);
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 				Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
@@ -484,12 +486,20 @@ public class CoccidiaLog {
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 				}
-				ClickElement.clickById(Helper.driver, "reset-icon");
+				
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				ClickElement.clickById(Helper.driver, "reset-icon");
+			    Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			}	
+			else {
+				Test_Variables.test.skip("Unable to test the scenario because button is disabled");
+				Test_Variables.results.createNode("Unable to test the scenario because button is disabled");
+				Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+				ClickElement.clickById(Helper.driver, "results-found-count");
 			}
 		}
 	}
-
+}
 
 	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {

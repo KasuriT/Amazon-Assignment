@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -184,6 +185,11 @@ public class StartAssay {
 		}	
 	}
 
-	
+
+	@AfterTest
+	public static void endreport() {
+		Test_Variables.extent.flush();
+		//	Helper.driver.close();
+	}
 	
 }

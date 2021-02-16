@@ -307,6 +307,8 @@ public class ExternalSalmonella {
 
 				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("calendarIcon"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
+				
+				if (Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).isEnabled()) {
 				ClickElement.clickById(Helper.driver, "calendarIcon");	
 				Thread.sleep(500);
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -453,10 +455,18 @@ public class ExternalSalmonella {
 				}
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				ClickElement.clickById(Helper.driver, "reset-icon");
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			    Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			}	
+			else {
+				Test_Variables.test.skip("Unable to test the scenario because button is disabled");
+				Test_Variables.results.createNode("Unable to test the scenario because button is disabled");
+				Helper.saveResultNew(ITestResult.SKIP, Constants.ExternalSalmonellaReportPath, null);
+				ClickElement.clickById(Helper.driver, "results-found-count");
 			}
 		}
 	}
+}
+
 
 
 	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 

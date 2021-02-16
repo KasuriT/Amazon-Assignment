@@ -338,9 +338,7 @@ public class SalmonellaLog {
 				
 				if (Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).isEnabled()) {
 				actions.moveToElement(Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch))).click().perform();	
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-				
-				
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));	
 				
 				if(objModel.Filter1) {
 					try{
@@ -404,7 +402,7 @@ public class SalmonellaLog {
 						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 
 						Assert.assertEquals(fromDateField, fromDate);
-						Assert.assertEquals(toDateField, toDate);
+						Assert.assertEquals(toDateField, toDate, "Please ingest data with current date to test this scenario successfully");
 						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 
@@ -458,11 +456,6 @@ public class SalmonellaLog {
 					}
 				}
 				
-				
-		
-				
-				
-
 				String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 				try {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -471,7 +464,6 @@ public class SalmonellaLog {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 					String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-					Assert.assertFalse(Helper.driver.findElement(By.id("message")).isDisplayed());
 					Assert.assertNotEquals(recordBefore, recordAfter); 
 					Test_Variables.test.pass(objFilter.FilterName+" applied successfully");
 					Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
@@ -489,14 +481,16 @@ public class SalmonellaLog {
 					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 				}
-				
-				
-		}
-				
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				ClickElement.clickById(Helper.driver, "reset-icon");
+			    Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		}	
 				else {
-					Assert.assertTrue(true, "Button is disabled");
+					Test_Variables.test.skip("Unable to test the scenario because button is disabled");
+					Test_Variables.results.createNode("Unable to test the scenario because button is disabled");
+					Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
+					ClickElement.clickById(Helper.driver, "results-found-count");
 				}
-				
 			}
 		}
 	}
