@@ -56,7 +56,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unchecked")
-	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -76,7 +76,7 @@ public class CoccidiaLog {
 		JSONObject json = new JSONObject();
 		json.put("piperid", Test_Variables.piperId);
 		json.put("password", Test_Variables.piperPassword);
-		json.put("DISAPIVersion", "14.13.0");
+		json.put("DISAPIVersion", "14.13");
 		request.body(json.toString());
 		Response response = request.post(Constants.api_login);
 		int code = response.getStatusCode();
@@ -230,14 +230,14 @@ public class CoccidiaLog {
 
 				Helper.driver.get(Constants.url_CoccidiaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Sample-ID")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Sample-Id")));
 				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
-				Helper.driver.findElement(By.id("filter-Sample-ID")).click();
+				Helper.driver.findElement(By.id("filter-Sample-Id")).click();
 				Thread.sleep(500);
 				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
-				Helper.driver.findElement(By.id("Sample-ID-place-holder-search")).sendKeys("Test"+Test_Variables.lstSampleID.get(i));
-				Thread.sleep(500);
-				Helper.driver.findElement(By.id("Test"+Test_Variables.lstSampleID.get(i))).click();
+				Helper.driver.findElement(By.id("Sample-Id-place-holder-search")).sendKeys("Test"+Test_Variables.lstSampleID.get(i));
+				Thread.sleep(1500);
+				Helper.driver.findElement(By.id("Sample-Id_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(i))).click();;
 
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 				Thread.sleep(500);
@@ -281,7 +281,7 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("1. Click on Coccidia Log");
 
 			Helper.driver.get(Constants.url_CoccidiaLog);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Instrument-ID"))); 
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Instrument-Id"))); 
 			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(By.id("Coccidia Log")).getText();
 			String expected = "Coccidia Log";
@@ -324,182 +324,185 @@ public class CoccidiaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
+				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-Id"))); 
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				
+
 				if (Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch)).isEnabled()) {
-				ClickElement.clickById(Helper.driver, "calendarIcon");	
-				Thread.sleep(00);
-				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+					ClickElement.clickById(Helper.driver, "calendarIcon");	
+					Thread.sleep(1000);
+					//	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-				Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
-				actions.moveToElement(Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch))).click().perform();	
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-
-				if(objModel.Filter1) {
-					try{
-						String value1 = objFilter.fromDate;	
-						Calendar cal = Calendar.getInstance();
-						cal.add(Calendar.DATE, Integer.parseInt(value1));
-						Date fromdate1 = cal.getTime();    
-						String fromDate = dateFormat.format(fromdate1);
-
-						String value = objFilter.toDate;
-						cal = Calendar.getInstance();
-						cal.add(Calendar.DATE, Integer.parseInt(value));
-						Date todate2 = cal.getTime();    
-						String toDate = dateFormat.format(todate2);
-
-						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
-
-						Thread.sleep(1000);
-						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
-						Assert.assertEquals(fromDateField, fromDate);
-						Assert.assertEquals(toDateField, toDate);
-						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
-
-					}catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}
-				}
-
-
-				if(objModel.Filter2) {
-					try{
-						String value2 =objFilter.fromMonth;
-						String value1 = objFilter.fromDate;	
-						Calendar cal = Calendar.getInstance();
-						cal.add(Calendar.MONTH, Integer.parseInt(value2));
-						cal.set(Calendar.DATE, Integer.parseInt(value1));
-						Date fromdate1 = cal.getTime();    
-						String fromDate = dateFormat.format(fromdate1);
-
-						String value3 =objFilter.toMonth;   
-						cal = Calendar.getInstance();
-						cal.add(Calendar.MONTH, Integer.parseInt(value3));
-						cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-						Date todate2 = cal.getTime();    
-						String toDate = dateFormat.format(todate2);
-
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
-
-						Thread.sleep(1000);
-						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
-						Assert.assertEquals(fromDateField, fromDate);
-						Assert.assertEquals(toDateField, toDate);
-						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
-
-					}catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}
-				}
-
-				if(objModel.Filter3) {
-					try {
-						String value1 = objFilter.fromDate;	
-						Calendar cal = Calendar.getInstance();
-						cal.set(Calendar.DATE, Integer.parseInt(value1));
-						Date fromdate1 = cal.getTime();    
-						String fromDate = dateFormat.format(fromdate1);
-
-						String value = objFilter.toDate;
-						cal = Calendar.getInstance();
-						cal.add(Calendar.DATE, Integer.parseInt(value));
-						Date todate2 = cal.getTime();    
-						String toDate = dateFormat.format(todate2);
-
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
-						String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
-
-						Thread.sleep(1000);
-						Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-						System.out.println(fromDate);
-						System.out.println(fromDateField);
-						System.out.println(toDate);
-						System.out.println(toDateField);
-
-						Assert.assertEquals(fromDateField, fromDate);
-						Assert.assertEquals(toDateField, toDate);
-						Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
-						Test_Variables.results.createNode("1. "+objFilter.FilterName+ " values verified successfully");
-
-					}catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
-						Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}
-				}
-		
-				try {
-					String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
-					Test_Variables.steps.createNode("4. Click on Apply filter button");
-					ClickElement.clickById(Helper.driver, "filter-icon");
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(500);
-					String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-					Assert.assertNotEquals(recordBefore, recordAfter); 
-					Test_Variables.test.pass(objFilter.FilterName+" applied successfully");
-					Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
+					Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
+					actions.moveToElement(Helper.driver.findElement(By.xpath(objFilter.FilterListXPathSearch))).click().perform();	
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-				}catch(AssertionError er) {
-					Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
-					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
-					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-				}catch(Exception ex){
-					Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
-					Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
-					Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+
+					if(objModel.Filter1) {
+						try{
+							String value1 = objFilter.fromDate;	
+							Calendar cal = Calendar.getInstance();
+							cal.add(Calendar.DATE, Integer.parseInt(value1));
+							Date fromdate1 = cal.getTime();    
+							String fromDate = dateFormat.format(fromdate1);
+
+							String value = objFilter.toDate;
+							cal = Calendar.getInstance();
+							cal.add(Calendar.DATE, Integer.parseInt(value));
+							Date todate2 = cal.getTime();    
+							String toDate = dateFormat.format(todate2);
+
+							String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+							String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
+
+							Thread.sleep(1000);
+							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
+
+							System.out.println(fromDate);
+							System.out.println(fromDateField);
+							System.out.println(toDate);
+							System.out.println(toDateField);
+
+							Assert.assertEquals(fromDateField, fromDate);
+							Assert.assertEquals(toDateField, toDate);
+							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
+
+						}catch(AssertionError er) {
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+						}
+					}
+
+
+					if(objModel.Filter2) {
+						try{
+							String value2 =objFilter.fromMonth;
+							String value1 = objFilter.fromDate;	
+							Calendar cal = Calendar.getInstance();
+							cal.add(Calendar.MONTH, Integer.parseInt(value2));
+							cal.set(Calendar.DATE, Integer.parseInt(value1));
+							Date fromdate1 = cal.getTime();    
+							String fromDate = dateFormat.format(fromdate1);
+
+							String value3 =objFilter.toMonth;   
+							cal = Calendar.getInstance();
+							cal.add(Calendar.MONTH, Integer.parseInt(value3));
+							cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+							Date todate2 = cal.getTime();    
+							String toDate = dateFormat.format(todate2);
+
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+							String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+							String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
+
+							Thread.sleep(1000);
+							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
+
+							System.out.println(fromDate);
+							System.out.println(fromDateField);
+							System.out.println(toDate);
+							System.out.println(toDateField);
+
+							Assert.assertEquals(fromDateField, fromDate);
+							Assert.assertEquals(toDateField, toDate);
+							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
+
+						}catch(AssertionError er) {
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+						}
+					}
+
+					if(objModel.Filter3) {
+						try {
+							String value1 = objFilter.fromDate;	
+							Calendar cal = Calendar.getInstance();
+							cal.set(Calendar.DATE, Integer.parseInt(value1));
+							Date fromdate1 = cal.getTime();    
+							String fromDate = dateFormat.format(fromdate1);
+
+							//						String value = objFilter.toDate;
+							//						cal = Calendar.getInstance();
+							//						cal.add(Calendar.DATE, Integer.parseInt(value));
+							//						Date todate2 = cal.getTime();    
+							//						String toDate = dateFormat.format(todate2);
+
+							String toDate = Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-log/div[1]/div/div[2]/div[2]/div[4]/div/table/tbody/tr[1]/td[12]")).getText();
+							System.out.println(toDate);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+							String fromDateField = Helper.driver.findElement(By.id("filterDateFrom")).getAttribute("value");
+							String toDateField = Helper.driver.findElement(By.id("filterDateTo")).getAttribute("value");
+
+							Thread.sleep(1000);
+							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
+
+							System.out.println(fromDate);
+							System.out.println(fromDateField);
+							System.out.println(toDate);
+							System.out.println(toDateField);
+
+							Assert.assertEquals(fromDateField, fromDate);
+							Assert.assertEquals(toDateField, toDate);
+							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
+							Test_Variables.results.createNode("1. "+objFilter.FilterName+ " values verified successfully");
+
+						}catch(AssertionError er) {
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
+							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+						}
+					}
+
+					try {
+						String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
+						Test_Variables.steps.createNode("4. Click on Apply filter button");
+						ClickElement.clickById(Helper.driver, "filter-icon");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(500);
+						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+						Assert.assertNotEquals(recordBefore, recordAfter); 
+						Test_Variables.test.pass(objFilter.FilterName+" applied successfully");
+						Test_Variables.results.createNode("2. "+objFilter.FilterName+" applied successfully");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+					}catch(AssertionError er) {
+						Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+					}catch(Exception ex){
+						Test_Variables.test.fail(objFilter.FilterName+" failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName+" failed to apply");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+					}
+
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					ClickElement.clickById(Helper.driver, "reset-icon");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				}	
+				else {
+					Test_Variables.test.skip("Unable to test the scenario because button is disabled");
+					Test_Variables.results.createNode("Unable to test the scenario because button is disabled");
+					Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+					ClickElement.clickById(Helper.driver, "results-found-count");
 				}
-				
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				ClickElement.clickById(Helper.driver, "reset-icon");
-			    Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			}	
-			else {
-				Test_Variables.test.skip("Unable to test the scenario because button is disabled");
-				Test_Variables.results.createNode("Unable to test the scenario because button is disabled");
-				Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
-				ClickElement.clickById(Helper.driver, "results-found-count");
 			}
 		}
 	}
-}
 
 	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
@@ -507,81 +510,84 @@ public class CoccidiaLog {
 		Test_Variables.lstCoccidiaDateEnter = CoccidiaModel.EnterDate();
 
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaDateEnter) { 
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
-			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+				String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 
-			String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
+				for (ReportFilters objFilter : objModel.lstFilters) {
 
-			for (ReportFilters objFilter : objModel.lstFilters) {
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-Id"))); 
+					Test_Variables.steps.createNode("1. "+objFilter.FilterName);
+					Thread.sleep(500);
 
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
-				Test_Variables.steps.createNode("1. "+objFilter.FilterName);
-				Thread.sleep(500);
+					Helper.driver.findElement(By.id("filterDateFrom")).clear();
+					Helper.driver.findElement(By.id("filterDateFrom")).sendKeys(objFilter.fromDate);
+					Thread.sleep(500);
+					Helper.driver.findElement(By.id("filterDateTo")).clear();
+					Helper.driver.findElement(By.id("filterDateTo")).sendKeys(objFilter.toDate);
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
 
-				Helper.driver.findElement(By.id("filterDateFrom")).clear();
-				Helper.driver.findElement(By.id("filterDateFrom")).sendKeys(objFilter.fromDate);
-				Thread.sleep(500);
-				Helper.driver.findElement(By.id("filterDateTo")).clear();
-				Helper.driver.findElement(By.id("filterDateTo")).sendKeys(objFilter.toDate);
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
+					Test_Variables.steps.createNode("2. Click on Apply filter button");
+					ClickElement.clickById(Helper.driver, "filter-icon");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					if(objModel.Filter1) {
+						try {
+							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+							Thread.sleep(500);
+							String actual = Helper.driver.findElement(By.id("message")).getText();
 
-				Test_Variables.steps.createNode("2. Click on Apply filter button");
-				ClickElement.clickById(Helper.driver, "filter-icon");
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				if(objModel.Filter1) {
-					try {
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-						Thread.sleep(500);
-						String actual = Helper.driver.findElement(By.id("message")).getText();
+							Assert.assertEquals(actual, objFilter.alertMessage); 
+							Test_Variables.test.pass("Filter was not applied successfully");
+							Test_Variables.results.createNode("1. Filter was not applied successfully");	
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+						}catch(AssertionError er) {
+							Test_Variables.test.fail("Filter was applied with invalid date or did not receive an alert message");
+							Test_Variables.results.createNode("1. Filter was applied with invalid date or did not receive an alert message");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail("Filter was applied with invalid date or did not receive an alert message");
+							Test_Variables.results.createNode("1. Filter was applied with invalid date or did not receive an alert message");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+						}	
+					}
 
-						Assert.assertEquals(actual, objFilter.alertMessage); 
-						Test_Variables.test.pass("Filter was not applied successfully");
-						Test_Variables.results.createNode("1. Filter was not applied successfully");	
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-					}catch(AssertionError er) {
-						Test_Variables.test.fail("Filter was applied with invalid date or did not receive an alert message");
-						Test_Variables.results.createNode("1. Filter was applied with invalid date or did not receive an alert message");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail("Filter was applied with invalid date or did not receive an alert message");
-						Test_Variables.results.createNode("1. Filter was applied with invalid date or did not receive an alert message");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}	
+					if(objModel.Filter2) {
+
+						try {
+							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+							Assert.assertNotEquals(recordBefore, recordAfter); 
+							Test_Variables.test.pass("Filter was applied");
+							Test_Variables.results.createNode("1. Filter was applied");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+						}catch(AssertionError er) {
+							Test_Variables.test.fail("Filter failed to apply ");
+							Test_Variables.results.createNode("1. Filter failed to apply");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail("Filter failed to apply");
+							Test_Variables.results.createNode("1. Filter failed to apply");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+						}					
+					}
+					ClickElement.clickById(Helper.driver, "reset-icon");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				}
-
-				if(objModel.Filter2) {
-
-					try {
-						String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-						Assert.assertNotEquals(recordBefore, recordAfter); 
-						Test_Variables.test.pass("Filter was applied");
-						Test_Variables.results.createNode("1. Filter was applied");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-					}catch(AssertionError er) {
-						Test_Variables.test.fail("Filter failed to apply ");
-						Test_Variables.results.createNode("1. Filter failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail("Filter failed to apply");
-						Test_Variables.results.createNode("1. Filter failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}					
-				}
-				ClickElement.clickById(Helper.driver, "reset-icon");
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			}
+			catch (Exception ex) {
 			}
 		}
 	}
@@ -603,12 +609,12 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-Id"))); 
 			Test_Variables.steps.createNode("1. Enter valid date in from and 2 fields");
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
-			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("11/01/2020");
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("01/01/2021");
 			Helper.driver.findElement(By.id("filterDateTo")).clear();
-			Helper.driver.findElement(By.id("filterDateTo")).sendKeys("12/01/2020");
+			Helper.driver.findElement(By.id("filterDateTo")).sendKeys("02/02/2021");
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("2. Click on Apply filter button");
@@ -649,7 +655,7 @@ public class CoccidiaLog {
 		}
 	}
 
-	
+
 	@Test (description="Test Case: Reset Filter",enabled= true, priority = 6) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
@@ -666,12 +672,14 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Lane"))); 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 			Test_Variables.steps.createNode("1. Change from date");
 			Helper.driver.findElement(By.id("filterDateFrom")).clear();
-			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("09/01/2020");
+			Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("01/01/2021");
+			Helper.driver.findElement(By.id("filterDateTo")).clear();
+			Helper.driver.findElement(By.id("filterDateTo")).sendKeys("02/02/2021");
 			Test_Variables.steps.createNode("2. Click on apply filter button");
 			ClickElement.clickById(Helper.driver, "filter-icon");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -680,7 +688,6 @@ public class CoccidiaLog {
 			Assert.assertTrue(recordBefore != recordAfterApplyFilter, "Failed to apply filter (Records remained same after applying filters)");
 			Test_Variables.steps.createNode("3. Click on reset button");
 			ClickElement.clickById(Helper.driver, "reset-icon");
-		//	Helper.driver.findElement(By.id("reset-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			String recordAfterReset =  Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -734,13 +741,13 @@ public class CoccidiaLog {
 						for(int i = 0; i<objFilter.LstFilterSearch.size(); i++) {
 							WebElement expandFilter = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
 							actions.moveToElement(expandFilter).click().perform();				
-							Thread.sleep(500);						
+							Thread.sleep(1500);						
 
 							Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.LstFilterValues.get(i)+")");
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).clear();
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).sendKeys(objFilter.LstFilterSearch.get(i));  
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-							Thread.sleep(500);
+							Thread.sleep(1000);
 						}
 
 						int chkCounter = 0;
@@ -751,7 +758,6 @@ public class CoccidiaLog {
 							while(attempts < 4) {
 								try {
 									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
-									//Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).click();
 									break;
 								} catch(StaleElementReferenceException e) {
 									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
@@ -980,7 +986,7 @@ public class CoccidiaLog {
 							Thread.sleep(500);
 							String a = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).getText();
 							Assert.assertTrue(a.contains(""));
-							
+
 							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
 							actions.moveToElement(closeSearch).click().perform();
 							Thread.sleep(500);
@@ -1018,7 +1024,7 @@ public class CoccidiaLog {
 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-		
+
 						Thread.sleep(1000);	
 
 						int chkCounter = 0;
@@ -1028,12 +1034,10 @@ public class CoccidiaLog {
 							Test_Variables.steps.createNode("2. Click on the blue indicator icon");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {
-							//	Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
 								ClickElement.clickById(Helper.driver, "-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator");
 							}
 
 							if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).size() != 0) {
-							//	Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
 								ClickElement.clickById(Helper.driver, "div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear");
 							}
 
@@ -1059,7 +1063,7 @@ public class CoccidiaLog {
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 					}					   
 
-					
+
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameRevertBack, objModel.TestCaseDescriptionRevertBack);
 
@@ -1078,7 +1082,7 @@ public class CoccidiaLog {
 						Test_Variables.steps.createNode("1. Click on reset button");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						//ClickElement.clickById(Helper.driver, "reset-icon");
-						//Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(500);
 
 						for (int i = 0; i<objFilter.LstFilterXpath.size(); i++) { 
@@ -1104,7 +1108,7 @@ public class CoccidiaLog {
 					if(objModel.ReloadPage) {
 						Helper.driver.get(Constants.url_CoccidiaLog);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID")));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-Id")));
 					}
 					Thread.sleep(500);
 				}
@@ -1113,9 +1117,9 @@ public class CoccidiaLog {
 			}
 		}
 	}
-	
-	
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
+
+
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-137: Verify Coccidia Lock Filter Functionality", "This test case will test Coccidia Lock Filter Functionality");
@@ -1150,7 +1154,7 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("4. Reopen Coccidia Log Report");
 			Helper.driver.navigate().refresh();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-ID"))); 
+			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-Instrument-Id"))); 
 			Test_Variables.steps.createNode("5. Verify lock filter remains applied");
 
 			Assert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
@@ -1185,7 +1189,7 @@ public class CoccidiaLog {
 		Helper.driver.findElement(By.id("filterDateFrom")).clear();
 		Helper.driver.findElement(By.id("filterDateFrom")).sendKeys("10/01/2020");
 		ClickElement.clickById(Helper.driver, "filter-icon");
-	//	Helper.driver.findElement(By.id("filter-icon")).click();
+		//	Helper.driver.findElement(By.id("filter-icon")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaPagination) { 	
@@ -1216,7 +1220,7 @@ public class CoccidiaLog {
 						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
-				//			Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
+							//			Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
 							ClickElement.clickById(Helper.driver, objFilter.paginationPage);
 
 							if (objModel.paginationExist) {
@@ -1375,7 +1379,7 @@ public class CoccidiaLog {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 							ClickElement.clickById(Helper.driver, objFilter.FilterListXPathSearch);
-						//	Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
+							//	Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();;  			
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1500);
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
@@ -1429,7 +1433,7 @@ public class CoccidiaLog {
 						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
 
 							ClickElement.clickById(Helper.driver, "next-page");
-						//	Helper.driver.findElement(By.id("next-page")).click();
+							//	Helper.driver.findElement(By.id("next-page")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							List<WebElement> rows = Helper.driver.findElements(By.xpath("//table[@class='dc-chart']/tbody/tr"));
 							int count = rows.size();
@@ -1505,14 +1509,14 @@ public class CoccidiaLog {
 			actions.moveToElement(clickDownload).click().perform();
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		//	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
-		//	Date date1 = new Date();
-		//	String date= dateFormat.format(date1);
+			//	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			//	Date date1 = new Date();
+			//	String date= dateFormat.format(date1);
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			@SuppressWarnings("unused")
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-		//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clPNGFileName+date+".png")); 
+			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
 			Test_Variables.results.createNode("PNG downloads successfully");
@@ -1565,14 +1569,14 @@ public class CoccidiaLog {
 			jse.executeScript("arguments[0].click()", button);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-		//	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
-		//	Date date1 = new Date();
-		//	String date= dateFormat.format(date1);
+			//	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			//	Date date1 = new Date();
+			//	String date= dateFormat.format(date1);
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			@SuppressWarnings("unused")
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-		//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clCSVFileName+date+".csv"));
+			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1628,7 +1632,7 @@ public class CoccidiaLog {
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			@SuppressWarnings("unused")
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
-		//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clSampleMetaData+".xlsx"));
+			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);

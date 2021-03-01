@@ -1007,7 +1007,7 @@ public class ReportsManagement {
 	
 	@Test (description="Test Case: Delete Report Group",enabled= true, priority= 21) 
 	public void DeleteReportGroup() throws InterruptedException, IOException {
-
+		try{
 		Test_Variables.test = Test_Variables.extent.createTest("AM-RM-28: Verify user can delete Report Group", "This test case will verify that user can delete Report Group");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -1041,20 +1041,19 @@ public class ReportsManagement {
 
 		Thread.sleep(1500);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
-		Helper.driver.findElement(By.xpath(Test_Elements.rmReportGroupsDeleteConfrm)).click();
+		Helper.driver.findElement(By.id("btn-yes")).click();
 		Thread.sleep(1000);
 
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-		String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+		String actual = Helper.driver.findElement(By.xpath("message")).getText();
 		String expected = "Report Group details deleted.";
 
-		try{
+	
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("Report Configuration details deleted successfully");
 			Test_Variables.results.createNode("User should receive an alert message that 'Report Group details deleted.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 		}catch(AssertionError e){
 			Test_Variables.test.fail("Report Configuration details deletion failed");
 			Test_Variables.results.createNode("User did not receive an alert message that 'Report Group details deleted.'");

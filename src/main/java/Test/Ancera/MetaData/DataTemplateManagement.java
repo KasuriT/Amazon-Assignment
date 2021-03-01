@@ -496,7 +496,7 @@ public class DataTemplateManagement{
 		
 	@Test (description="Update Template", enabled= true, priority= 7) 
 	public void UpdateTemplate() throws InterruptedException, IOException {
-		
+		try {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-17: Verify user can update Template", "This test case will verify that user can update template");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -525,16 +525,19 @@ public class DataTemplateManagement{
 		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmUpdateButton)).click();
+		Helper.driver.findElement(By.id("btn-save")).click();
 		Thread.sleep(1000);
-
-		try{
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText(), "Data template details updated."); 
+		
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Data template details updated."); 
 			Test_Variables.test.pass("Template updated successfully");
 			Test_Variables.results.createNode("Template updated successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+
 		}catch(AssertionError e){
+			Test_Variables.test.fail("Template failed to update");
+			Test_Variables.results.createNode("Template failed to update");
+		}
+		catch(Exception ex) {
 			Test_Variables.test.fail("Template failed to update");
 			Test_Variables.results.createNode("Template failed to update");
 		}
@@ -606,7 +609,7 @@ public class DataTemplateManagement{
 
 	@Test (description="Test Case: Delete Template",enabled= true, priority= 9) 
 	public void DeleteTemplate() throws InterruptedException, IOException {
-
+		try{
 		Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-19: Verify user can delete Template", "This test case will verify that user can delete a Template");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -654,13 +657,17 @@ public class DataTemplateManagement{
 
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
 
-		try{
+	
 			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText(), "Data template details deleted."); 
 			Test_Variables.test.pass("Template deleted successfully");
 			Test_Variables.results.createNode("Template deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));		
 			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 		}catch(AssertionError e){
+			Test_Variables.test.fail("Failed to delete the Template");
+			Test_Variables.results.createNode("Failed to delete the Template");
+		}
+		catch(Exception ex) {
 			Test_Variables.test.fail("Failed to delete the Template");
 			Test_Variables.results.createNode("Failed to delete the Template");
 		}

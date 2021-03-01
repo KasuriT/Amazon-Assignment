@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver,240);
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -467,12 +467,14 @@ public class Test_Elements {
 	public static String slLast7Days = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
 	public static String slLast30Days = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
 	public static String slThisMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
+	
 	public static String slLastMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-
-	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String slLoadRed = "dc-table-column _0 red text-right";
-	public static String slLoadYellow = "dc-table-column _0 yellow text-right";
-	public static String slLoadGreen = "dc-table-column _0 green text-right";
+									 
+	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div[1]/div/div[2]/div[2]/div[5]/div/table/tbody/tr[1]/td[1]";
+	//public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
+	public static String slLoadRed = "red text-right ng-star-inserted";  
+	public static String slLoadYellow = "yellow text-right ng-star-inserted"; 
+	public static String slLoadGreen = "green text-right ng-star-inserted";
 
 	public static String slRowsDropdown = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
 	public static String slRowsSelect100 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";

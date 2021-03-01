@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -350,89 +351,89 @@ public class AccessManagement{
 	@Test (description="Test Case: Edit Rights screen",enabled= true, priority= 6) 
 	public void EditRightsScreen() throws InterruptedException, IOException
 	{
-		
-		Helper.driver.get(Constants.url_access);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		Thread.sleep(2000);
+		try{
+			Helper.driver.get(Constants.url_access);
+			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Thread.sleep(2000);
 
-		Test_Variables.test = Test_Variables.extent.createTest("AN-AM-09: Verify user can open Edit Rights screen", "This test case will verify that user can open Edit Rights screen");
-		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-		
-        Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-		Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
-		Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-		Test_Variables.steps.createNode("1. Click on edit rights button next to created role");
-		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-09: Verify user can open Edit Rights screen", "This test case will verify that user can open Edit Rights screen");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-		Thread.sleep(2000);		
-		
-		for (int i=2; i<=80; i++) {
-			int j = i-1;
-			String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
-			WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
+			Test_Variables.steps.createNode("1. Click on edit rights button next to created role");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+
+			Thread.sleep(2000);		
+
+			for (int i=2; i<=80; i++) {
+				int j = i-1;
+				String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
+				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+				Thread.sleep(1000);
+				if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
+					Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath2)).click(); 
+					break;
+				}}
+
+
+			Thread.sleep(2000);
+			String getTitleActual = Helper.driver.findElement(By.xpath(Test_Elements.accessGetPopupTitle)).getText();
+			String getTitleExpected = "Edit Rights";
+
+
+			Assert.assertEquals(getTitleActual, getTitleExpected); 
+			Test_Variables.test.pass("Edit Rights Popup opened successfully");
+			Test_Variables.results.createNode("Edits Rights popup opens successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+
+		}catch(AssertionError e){
+			Test_Variables.test.fail("Edit Rights Popup opened failed");
+			Test_Variables.results.createNode("Edits Rights popup failed to open");
+		}	
+		Thread.sleep(1000);	
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-10: Verify user can update Rights", "This test case will verify user can update Rights");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessEditRights)));
+
+			Helper.driver.findElement(By.xpath(Test_Elements.accessEditRights)).click();
+			Thread.sleep(1000);	
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+
+			Helper.driver.findElement(By.xpath(Test_Elements.accessEditRightsSaveButton)).click();
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
+			Test_Variables.preconditions.createNode("5. Click on edit rights button next to created role; edit rights popup opens");		
+
+			Test_Variables.steps.createNode("1. Select rights from list");
+			Test_Variables.steps.createNode("2. Click on save button");
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
+			String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+			String expected = "Rights details updated." ;
+
+
+			Assert.assertEquals(actual, expected); 
+			Test_Variables.test.pass("Rights updated successfully");
+			Test_Variables.results.createNode("Rights updated; an alert message displays 'Rights details updated.'");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Thread.sleep(1000);
-			if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
-				Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath2)).click(); 
-				break;
-			}}
-	
-		
-		Thread.sleep(2000);
-		String getTitleActual = Helper.driver.findElement(By.xpath(Test_Elements.accessGetPopupTitle)).getText();
-		String getTitleExpected = "Edit Rights";
-				
-				try{
-					Assert.assertEquals(getTitleActual, getTitleExpected); 
-					Test_Variables.test.pass("Edit Rights Popup opened successfully");
-					Test_Variables.results.createNode("Edits Rights popup opens successfully");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-				}catch(AssertionError e){
-					Test_Variables.test.fail("Edit Rights Popup opened failed");
-					Test_Variables.results.createNode("Edits Rights popup failed to open");
-				}	
-				Thread.sleep(1000);	
-
-				Test_Variables.test = Test_Variables.extent.createTest("AN-AM-10: Verify user can update Rights", "This test case will verify user can update Rights");
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessEditRights)));
-					
-				Helper.driver.findElement(By.xpath(Test_Elements.accessEditRights)).click();
-				Thread.sleep(1000);	
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-				Helper.driver.findElement(By.xpath(Test_Elements.accessEditRightsSaveButton)).click();
-				
-		        Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
-				Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-				Test_Variables.preconditions.createNode("5. Click on edit rights button next to created role; edit rights popup opens");		
-				
-				Test_Variables.steps.createNode("1. Select rights from list");
-				Test_Variables.steps.createNode("2. Click on save button");
-				
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-				String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
-				String expected = "Rights details updated." ;
-
-				try{
-					Assert.assertEquals(actual, expected); 
-					Test_Variables.test.pass("Rights updated successfully");
-					Test_Variables.results.createNode("Rights updated; an alert message displays 'Rights details updated.'");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
-				}catch(AssertionError e){
-					Test_Variables.test.fail("Rights failed to update");
-					Test_Variables.results.createNode("Rights failed to update");
-				}				
-			}
+			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+		}catch(AssertionError e){
+			Test_Variables.test.fail("Rights failed to update");
+			Test_Variables.results.createNode("Rights failed to update");
+		}				
+	}
 
 		
 		

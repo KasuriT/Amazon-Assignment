@@ -42,12 +42,14 @@ public class ConfigureLogin {
 				Helper.driver.findElement(By.xpath(Test_Elements.amLicensePopup)).click();
 			}
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("open-profile")));
 			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText();
-			String expected = "Ancera Intelligence Engine (Testing Environment)";
+		//	String actual = Helper.driver.findElement(By.id("Ancera Intelligence Engine")).getText();
+		//	String expected = "Ancera Intelligence Engine (Testing Environment)";
 
-			Assert.assertEquals(actual, expected); 
+			
+			Assert.assertTrue(Helper.driver.findElements(By.id("open-profile")).size() != 0);
+		//	Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("User logged in successfully");
 			Test_Variables.results.createNode("User logged in successfully to homepage");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Login", Constants.LoginReportPath));

@@ -3,11 +3,11 @@ package Test.Ancera;
 public class Constants {
 
 //	public static String url = "https://ie-qa.ancera.com";
-	public static String api = "https://ie-qa.ancera.com:4410/api/ancerainput/v1";
-	public static String url = "https://ie-dev.ancera.com";
+//	public static String api = "https://ie-qa.ancera.com:5510/api/ancerainput/v1";
+//	public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
-//	public static String url = "https://ie-uat.ancera.com";   
-//	public static String api = "https://ie-uat.ancera.com:5510/api/ancerainput/v1"; 
+	public static String url = "https://ie-uat.ancera.com";   
+	public static String api = "https://ie-uat.ancera.com:5510/api/ancerainput/v1"; 
 	
 	public static String url_login = url+"/auth/sign-in";
 	public static String url_fp = url+"/auth/forgot-password";
@@ -22,21 +22,13 @@ public class Constants {
 	public static String url_dataTemplate = url+"/home/metadata/dataformat";
 	public static String url_dataUpload = url+"/home/client/dataupload";
 	public static String url_reports = url+"/home/reports/explore";
-//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001";
-	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Internal%20Bacterial%20Log&id=2&code=0001";   //dev
-	
-	
-	
-//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002";
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Internal%20Coccidia%20Log&id=1&code=0002";  //dev
+	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";
 	public static String url_CoccidiaTimeline = url+"/home/reports/timeline/coccidia-timeline?report=Coccidia%20Timeline%20Internal&id=9&code=0004";
 	public static String url_MPNSalmonellaLog = url+"/home/reports/log/mpn-log?report=MPN%20Salmonella%20Log&id=15&code=0006";
 	public static String url_LocalDashboard = url+"/home/reports/wireframe/wireframe?report=Local%20Dashboard&id=16&code=0009";
-//	public static String url_ExternalCoccidiaLog = url+"/home/reports/log/external-coccidia-log?report=External%20Coccidia%20log&id=18&code=0007"; 
-	public static String url_ExternalCoccidiaLog = url+"/home/reports/log/external-coccidia-log?report=Coccidia%20Log&id=11&code=0007";   //dev
-//	public static String url_ExternalSalmonellaLog = url+"/home/reports/log/external-salmonella-log?report=External%20Salmonella%20Log&id=17&code=0008";
-	public static String url_ExternalSalmonellaLog = url+"/home/reports/log/external-salmonella-log?report=External%20Salmonella%20log&id=19&code=0008";
-	
+	public static String url_ExternalCoccidiaLog = url+"/home/reports/log/external-coccidia-log?report=External%20Coccidia%20Log&id=18&code=0007&type=7"; 
+	public static String url_ExternalSalmonellaLog = url+"/home/reports/log/external-salmonella-log?report=External%20Salmonella%20Log&id=17&code=0008&type=8";
 	
 	public static String url_ExternalMPNSalmonellaLog = url+"/home/reports/log/external-mpn-salmonella-log?report=External%20MPN%20Salmonella%20Log&id=19&code=0010";
 

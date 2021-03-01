@@ -1,33 +1,228 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+<testng-results ignored="2" total="12" passed="9" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-02-16T12:09:55 PKT" name="Default suite" finished-at="2021-02-16T12:10:50 PKT" duration-ms="54840">
+  <suite started-at="2021-02-26T18:06:20 PKT" name="Default suite" finished-at="2021-02-26T18:25:10 PKT" duration-ms="1130015">
     <groups>
     </groups>
-    <test started-at="2021-02-16T12:09:55 PKT" name="Default test" finished-at="2021-02-16T12:10:50 PKT" duration-ms="54840">
-      <class name="Test.Ancera.Login.TestLogin">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Login.TestLogin@24fcf36f]" started-at="2021-02-16T12:09:55 PKT" name="extent" finished-at="2021-02-16T12:10:17 PKT" duration-ms="21863" status="PASS">
+    <test started-at="2021-02-26T18:06:20 PKT" name="Default test" finished-at="2021-02-26T18:25:10 PKT" duration-ms="1130015">
+      <class name="Test.Ancera.Reports.ExternalSalmonella">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:06:20 PKT" name="extent" finished-at="2021-02-26T18:07:04 PKT" duration-ms="43087" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="login()[pri:1, instance:Test.Ancera.Login.TestLogin@24fcf36f]" started-at="2021-02-16T12:10:17 PKT" name="login" finished-at="2021-02-16T12:10:44 PKT" duration-ms="27093" status="PASS">
+        <test-method signature="NavigateExternalSalmonella()[pri:2, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:07:04 PKT" name="NavigateExternalSalmonella" description="Test Case: Navigate to External Salmonella Log Screen" finished-at="2021-02-26T18:07:16 PKT" duration-ms="12779" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- login -->
-        <test-method signature="logout()[pri:2, instance:Test.Ancera.Login.TestLogin@24fcf36f]" started-at="2021-02-16T12:10:44 PKT" name="logout" finished-at="2021-02-16T12:10:47 PKT" duration-ms="2799" status="PASS">
+        </test-method> <!-- NavigateExternalSalmonella -->
+        <test-method signature="DateFilter()[pri:3, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:07:16 PKT" name="DateFilter" description="Test Case: Date Filter Test" finished-at="2021-02-26T18:08:08 PKT" duration-ms="51492" status="PASS">
+          <exception class="java.lang.Exception">
+            <message>
+              <![CDATA[java.lang.AssertionError: expected [31/01/2021] but found [01/31/2021]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [31/01/2021] but found [01/31/2021]
+at Test.Ancera.Reports.ExternalSalmonella.DateFilter(ExternalSalmonella.java:390)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:764)
+at org.testng.TestRunner.run(TestRunner.java:585)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+at org.testng.TestNG.runSuites(TestNG.java:1069)
+at org.testng.TestNG.run(TestNG.java:1037)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.AssertionError: expected [31/01/2021] but found [01/31/2021]
+at org.testng.Assert.fail(Assert.java:99)
+at org.testng.Assert.failNotEquals(Assert.java:1037)
+at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+at org.testng.Assert.assertEquals(Assert.java:122)
+at org.testng.Assert.assertEquals(Assert.java:629)
+at org.testng.Assert.assertEquals(Assert.java:639)
+at Test.Ancera.Reports.ExternalSalmonella.DateFilter(ExternalSalmonella.java:383)
+... 28 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Exception -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- logout -->
-        <test-method signature="VerifyLogout()[pri:3, instance:Test.Ancera.Login.TestLogin@24fcf36f]" started-at="2021-02-16T12:10:47 PKT" name="VerifyLogout" finished-at="2021-02-16T12:10:50 PKT" duration-ms="2692" status="PASS">
+        </test-method> <!-- DateFilter -->
+        <test-method signature="EnterDate()[pri:4, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:08:08 PKT" name="EnterDate" description="Test Case: Date Enter" finished-at="2021-02-26T18:08:51 PKT" duration-ms="43095" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- VerifyLogout -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Login.TestLogin@24fcf36f]" started-at="2021-02-16T12:10:50 PKT" name="endreport" finished-at="2021-02-16T12:10:50 PKT" duration-ms="366" status="PASS">
+        </test-method> <!-- EnterDate -->
+        <test-method signature="DateLockFilter()[pri:5, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:08:51 PKT" name="DateLockFilter" description="Test Case: Date Filter Lock Test" finished-at="2021-02-26T18:09:17 PKT" duration-ms="25678" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DateLockFilter -->
+        <test-method signature="TestFilters111()[pri:6, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:09:17 PKT" name="TestFilters111" description="Test Case: Filter Test" finished-at="2021-02-26T18:23:57 PKT" duration-ms="880724" status="PASS">
+          <exception class="java.lang.Exception">
+            <message>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [true] but found [false]
+at Test.Ancera.Reports.ExternalSalmonella.TestFilters111(ExternalSalmonella.java:887)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:764)
+at org.testng.TestRunner.run(TestRunner.java:585)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+at org.testng.TestNG.runSuites(TestNG.java:1069)
+at org.testng.TestNG.run(TestNG.java:1037)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:99)
+at org.testng.Assert.failNotEquals(Assert.java:1037)
+at org.testng.Assert.assertTrue(Assert.java:45)
+at org.testng.Assert.assertTrue(Assert.java:55)
+at Test.Ancera.Reports.ExternalSalmonella.TestFilters111(ExternalSalmonella.java:873)
+... 28 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Exception -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestFilters111 -->
+        <test-method signature="SalmonellaLock()[pri:7, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:23:57 PKT" name="SalmonellaLock" description="Test Case: Test External Salmonella Lock Filter Functionality" finished-at="2021-02-26T18:24:24 PKT" duration-ms="26132" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SalmonellaLock -->
+        <test-method signature="Pagination()[pri:8, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:24:24 PKT" name="Pagination" description="Test Case: Test Pagination" finished-at="2021-02-26T18:24:44 PKT" duration-ms="20412" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Pagination -->
+        <test-method signature="PNGExport()[pri:10, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:24:44 PKT" name="PNGExport" description="Test Case: Test External Salmonella PNG Download" finished-at="2021-02-26T18:24:53 PKT" duration-ms="9007" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PNGExport -->
+        <test-method signature="CSVExport()[pri:11, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:24:53 PKT" name="CSVExport" description="Test Case: Test External Salmonella CSV Download" finished-at="2021-02-26T18:24:57 PKT" duration-ms="4423" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"#export\-csv"}
+  (Session info: chrome=88.0.4324.182)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 88.0.4324.182, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:58883}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 8ab5268559b63c0c7b4929ae4e9d8eb2
+*** Element info: {Using=id, value=export-csv}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#export\-csv"}
+  (Session info: chrome=88.0.4324.182)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 88.0.4324.182, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:58883}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 8ab5268559b63c0c7b4929ae4e9d8eb2
+*** Element info: {Using=id, value=export-csv}
+at jdk.internal.reflect.GeneratedConstructorAccessor13.newInstance(Unknown Source)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:372)
+at org.openqa.selenium.By$ById.findElement(By.java:188)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+at jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.openqa.selenium.support.events.EventFiringWebDriver.lambda$new$1(EventFiringWebDriver.java:105)
+at com.sun.proxy.$Proxy10.findElement(Unknown Source)
+at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:194)
+at Test.Ancera.ClickElement.clickById(ClickElement.java:12)
+at Test.Ancera.Reports.ExternalSalmonella.CSVExport(ExternalSalmonella.java:1508)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:764)
+at org.testng.TestRunner.run(TestRunner.java:585)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+at org.testng.TestNG.runSuites(TestNG.java:1069)
+at org.testng.TestNG.run(TestNG.java:1037)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CSVExport -->
+        <test-method signature="TemplateExport()[pri:12, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:24:57 PKT" name="TemplateExport" description="Test Case: Test External Salmonella Template Download" finished-at="2021-02-26T18:25:09 PKT" duration-ms="11977" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TemplateExport -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.ExternalSalmonella@10feca44]" started-at="2021-02-26T18:25:09 PKT" name="endreport" finished-at="2021-02-26T18:25:10 PKT" duration-ms="1121" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Login.TestLogin -->
+      </class> <!-- Test.Ancera.Reports.ExternalSalmonella -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
