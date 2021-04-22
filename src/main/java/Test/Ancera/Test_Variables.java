@@ -165,8 +165,10 @@ public class Test_Variables {
 
 	public static ArrayList<UserModel> lstUserSearch = new ArrayList<>(
 		Arrays.asList(
-			new UserModel(lstUserCreate.get(0), "AN-UM-15: Verify user can search for created user", "This test case will verify that user can search for created user", "1", "Search for created user", "User searched successfully for valid input", "User was not able to search for created user"),
-			new UserModel("invalid input", "AN-UM-16: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "0", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results")));
+				new UserModel("invalid input", "AN-UM-13: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "1", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results"),
+
+			new UserModel(lstUserCreate.get(0), "AN-UM-14: Verify user can search for created user", "This test case will verify that user can search for created user", "1", "Search for created user", "User searched successfully for valid input", "User was not able to search for created user")));
+		//	new UserModel("invalid input", "AN-UM-16: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "0", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results")));
 
 	
 	///////////////////////////////////////////////////////End User Management Screen Variables///////////////////////////////////////////////////
@@ -259,7 +261,7 @@ public class Test_Variables {
 					"Organization details updated.",
 					"New site created.",
 					"Site details updated.",
-					"Site details deleted.",
+					"Site details deleted successfully.",
 					"Organization details deleted."));
 
 	
@@ -652,8 +654,8 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_reports, "AN-PS-11: Navigate to Profile Setting from Reports Screen", "This test case will verify user can navigate to Profile Setting page from Reports Screen", "1. Hover to sidebar and click on Reports"),
 					new ProfileModel(Constants.url_SalmonellaLog, "AN-PS-12: Navigate to Profile Setting from Salmoenella Screen", "This test case will verify user can navigate to Profile Setting page from Salmonella Screen", "1. Hover to sidebar; click on Reports and select Salmonella log Report"),
 					new ProfileModel(Constants.url_ExternalSalmonellaLog, "AN-PS-13: Navigate to Profile Setting from External Salmonella Screen", "This test case will verify user can navigate to Profile Setting page from External Salmonella  Screen", "1. Hover to sidebar; click on Reports and select External Salmonella log Report"),
-					new ProfileModel(Constants.url_MPNSalmonellaLog, "AN-PS-14: Navigate to Profile Setting from MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select MPN Salmonella Log"),
-					new ProfileModel(Constants.url_ExternalMPNSalmonellaLog, "AN-PS-15: Navigate to Profile Setting from External MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from External MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select External MPN Salmonella Log"),
+				//	new ProfileModel(Constants.url_MPNSalmonellaLog, "AN-PS-14: Navigate to Profile Setting from MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select MPN Salmonella Log"),
+				//	new ProfileModel(Constants.url_ExternalMPNSalmonellaLog, "AN-PS-15: Navigate to Profile Setting from External MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from External MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select External MPN Salmonella Log"),
 					new ProfileModel(Constants.url_CoccidiaLog, "AN-PS-16: Navigate to Profile Setting from Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select Coccidia Log"),
 					new ProfileModel(Constants.url_CoccidiaTimeline, "AN-PS-17: Navigate to Profile Setting from Coccidia Timeline Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Timeline Screen", "1. Hover to sidebar; click on Reports and select Coccidia Timeline"),
 					new ProfileModel(Constants.url_ExternalCoccidiaLog, "AN-PS-18: Navigate to Profile Setting from External Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from External Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select External Coccidia Log"),

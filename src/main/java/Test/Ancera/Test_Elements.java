@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,240);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver,60);
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -40,11 +40,11 @@ public class Test_Elements {
 	public static String userPopupResetButton = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[1]";
 	public static String userPopupGetTitle = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[2]/div";
 
-	public static String firstNameValidation = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[1]/div";
-	public static String lastNameValidation = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[2]/div";
-	public static String phoneCodeValidation= "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[1]/div/div";
-	public static String phoneNumberValidation = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[2]/div/div";
-	public static String emailValidation = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[1]/div";
+	public static String firstNameValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[1]/div";
+	public static String lastNameValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[2]/div";
+	public static String phoneCodeValidation= "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[1]/div/div";
+	public static String phoneNumberValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[2]/div/div";
+	public static String emailValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[1]/div";
 	public static String piperValidation = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div[2]";
 
 	public static String firstnameexpected = "First name is required";
@@ -64,7 +64,7 @@ public class Test_Elements {
 	public static String userPhoneCodeSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[1]/ng-select/ng-dropdown-panel/div/div[2]/div";
 	public static String userOrganizationInActiveText = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/ng-dropdown-panel/div/div[2]/div";
 	public static String userPhoneNo = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[2]/input";
-	public static String userSearch = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[1]/div[2]/div/input";
+	public static String userSearch = "/html/body/app-root/div/app-manage-user-v2/div/div[1]/div[2]/app-search-grid/div/form/input";
 	public static String userSearchResult = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div/div[2]/div/label/span[1]";
 	public static String userCloseSearch = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[1]/div[3]/span/i";   
 	public static String userExpandAnceraTab = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div/div[1]/label";
@@ -80,7 +80,7 @@ public class Test_Elements {
 	public static String userOrganizationTypeSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[2]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
 	public static String userOrganization = "//*[@id=\"organizationId\"]/div/span";
 	public static String userOrganizationInput = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/div/div/div[2]/input";
-	public static String userOrganizationSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
+	public static String userOrganizationSelect = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
 	public static String userPiperUser = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[1]/div/app-custom-radio-button";
 	public static String userPiperUserDD = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div/div/ng-select/div/span";
 	public static String userPiperUserSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div[1]/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]/div"; 
@@ -163,7 +163,7 @@ public class Test_Elements {
 
 	public static String orgSiteTypeexpected = "Site type is required";
 	public static String orgSiteNameexpected = "Site name is required";
-	public static String orgSiteNameValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[2]/div";
+	public static String orgSiteNameValidation = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[2]/div";
 	public static String orgSiteTypeValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/div";
 	public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
 
@@ -178,8 +178,8 @@ public class Test_Elements {
 	public static String orgUpdateNextButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[3]/div/button";
 	public static String orgUpdateSaveButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[3]/div/button[2]";
 	public static String orgSiteButton = "";
-	public static String orgCreateSiteButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/i";
-
+	public static String orgCreateSiteButton = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i\r\n";
+	
 	public static String orgNewSiteButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/i";
 	public static String orgSiteType = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/ng-select/div/span";
 	public static String orgSiteTypeSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
@@ -187,9 +187,9 @@ public class Test_Elements {
 	public static String orgSiteCountrySelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[4]/ng-select/ng-dropdown-panel/div/div[2]/div";
 	public static String orgSiteSaveButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[1]";
 	public static String orgSiteClose = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]";
-	public static String orgCreatedSite = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span";
+	public static String orgCreatedSite = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span";
 	public static String orgStreetAddress = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[3]/input";
-	public static String orgSiteDeleteButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/i[2]";
+	public static String orgSiteDeleteButton = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li[1]/div/i";
 	public static String orgSiteDeleteConfirm = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/app-confirmation-component/div/div/div[3]/div/button[1]";
 	public static String orgDeleteButton = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[2]/div[1]/div[2]/div/div/table/tbody/tr/td[7]/label/img[2]";
 	public static String orgDeleteConfirm = "/html/body/app-root/div[1]/app-manage-organization/app-confirmation-component/div/div/div[3]/div/button[1]";

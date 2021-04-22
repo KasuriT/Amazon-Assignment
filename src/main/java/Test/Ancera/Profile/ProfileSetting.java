@@ -56,18 +56,17 @@ public class ProfileSetting {
 			Helper.driver.get(Test_Variables.lstProfileNavigate.get(i).url);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("open-profile")));
-			//Thread.sleep(5000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));
-			//Thread.sleep(10000);
 			Helper.driver.findElement(By.id("open-profile")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-save-2")));
 			Thread.sleep(500);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getTitle)).getText();
-			String expected = Test_Variables.profileTitle;
+		//	String actual = Helper.driver.findElement(By.xpath(Test_Elements.getTitle)).getText();
+		//	String expected = Test_Variables.profileTitle;
 
 			try{
-				Assert.assertEquals(actual, expected); 
+			//	Assert.assertEquals(actual, expected); 
+				Assert.assertTrue(Helper.driver.findElement(By.id("firstNameId")).isDisplayed());
 				Test_Variables.test.pass("User navigated successfully to Profile Setting page");
 				Test_Variables.results.createNode("User navigates to Profile Setting page");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));

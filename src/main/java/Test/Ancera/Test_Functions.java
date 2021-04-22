@@ -13,19 +13,13 @@ public class Test_Functions {
 
 	public static void userSearch() throws InterruptedException {
 	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userSearch)));
-	Thread.sleep(1000);
+	Thread.sleep(500);
 	WebElement search = Helper.driver.findElement(By.xpath(Test_Elements.userSearch));
 	search.clear();
 	search.sendKeys(Test_Variables.lstUserCreate.get(0));
-	search.sendKeys(Keys.ENTER);
-	Thread.sleep(2000);
-	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraTab)));
-	Thread.sleep(2000);
-	Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraTab)).click();
-	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userExpandAnceraSite)));
+	Helper.driver.findElement(By.id("tag-0")).click();
 	Thread.sleep(1000);
-	Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraSite)).click();
-	Thread.sleep(2000);
+
 	
 	}
 	
@@ -33,8 +27,9 @@ public class Test_Functions {
 		
 		Thread.sleep(2000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgSearch)));
+		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).clear();
 		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
-		//Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys("Organization1000");
+	//	Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys("Organization0447");
 		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys(Keys.ENTER);
 		Thread.sleep(2000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgExpandAnceraTab)));
