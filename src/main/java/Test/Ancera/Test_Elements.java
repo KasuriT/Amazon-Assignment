@@ -316,7 +316,9 @@ public class Test_Elements {
 	public static String rmToggleDataSecurity = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[3]/div[2]/div/app-custom-radio-button";
 	public static String rmNameValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[1]/div";
 	public static String rmDescValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[2]/div";
-	public static String rmbeforeXpath = "/html/body/app-root/div[1]/app-manage-reportrole/div/div/div[2]/div/table/tbody/tr[";
+	
+	
+	public static String rmbeforeXpath = "/html/body/app-root/div/app-manage-reportrole/div/div/div[2]/div/table/tbody/tr[";
 	public static String rmafterXpath = "]/td[1]";					
 	public static String rmafterXpath1 = "]/td[3]/img[1]";
 	public static String rmRoleFind = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[3]/div/div/ng-select/div/div/div[6]/input";
@@ -472,9 +474,9 @@ public class Test_Elements {
 									 
 	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div[1]/div/div[2]/div[2]/div[5]/div/table/tbody/tr[1]/td[1]";
 	//public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String slLoadRed = "red text-right ng-star-inserted";  
-	public static String slLoadYellow = "yellow text-right ng-star-inserted"; 
-	public static String slLoadGreen = "green text-right ng-star-inserted";
+	public static String slLoadRed = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr red ng-star-inserted";  
+	public static String slLoadYellow = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr yellow ng-star-inserted"; 
+	public static String slLoadGreen = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr green ng-star-inserted";
 
 	public static String slRowsDropdown = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
 	public static String slRowsSelect100 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";

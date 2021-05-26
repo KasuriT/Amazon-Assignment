@@ -36,6 +36,7 @@ public class Constants {
 	
 	public static String ReportFilePath = "./target/Reports";
 	public static String LoginReportPath = "/Screenshots/Login/LoginScreenShot";
+	public static String AutoLoginReportPath = "/Screenshots/Login/AutoLoginScreenShot";
 	public static String ForgotPasswordReportPath ="/Screenshots/ForgotPassword/ForgotPasswordScreenShot";
 	public static String ProfileSettingReportPath = "/Screenshots/ProfileSetting/ProfileSettingScreenShot";
 	public static String UserManagementReportPath = "/Screenshots/Administration/UserManagementScreenShot";

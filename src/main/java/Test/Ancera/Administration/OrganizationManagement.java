@@ -560,10 +560,10 @@ public class OrganizationManagement{
 			Helper.driver.findElement(By.id("PhoneNumberId")).clear();
 			Helper.driver.findElement(By.id("PhoneNumberId")).sendKeys("1111111111"); 
 			Thread.sleep(500);
-
-			Helper.driver.findElement(By.id("btn-next")).click(); 
-			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
+			Helper.driver.findElement(By.id("btn-next")).click(); 
+			Thread.sleep(500);
+			
 
 			Helper.driver.findElement(By.id("btn-save")).click();  
 			Thread.sleep(1000);
@@ -952,18 +952,17 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on Inactive toggle button");
 			Test_Variables.steps.createNode("3. Click on save button");
 
-			//Test_Functions.OrgSearch();
-			//Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));                      
 			Helper.driver.findElement(By.id("edit-orgn-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));  
-			Thread.sleep(500);
-			ClickElement.clickById(Helper.driver, "btn-next");
-			Thread.sleep(1000);
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+		//	ClickElement.clickById(Helper.driver, "btn-next");
+			Thread.sleep(2000);
 
 			ClickElement.clickByCss(Helper.driver, "#orgn-status .toggle");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
 			String actual = Helper.driver.findElement(By.id("message")).getText();
@@ -1104,10 +1103,6 @@ public class OrganizationManagement{
 		}
 	}
 	
-	@AfterMethod
-	public void saveResult(ITestResult result) throws IOException {
-		Helper.saveResult(result, Constants.OrgManagementReportPath);
-	}
 
 	@AfterTest
 	public static void endreport() {

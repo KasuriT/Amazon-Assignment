@@ -15,6 +15,7 @@ public class ReportFilters {
 	public String ColumnID;
 	public String getRowValue;
 	public String rowValueExpected;
+	public String checkboxNumber;
 	public int wait;
 	
 	public String toMonth;

@@ -82,7 +82,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Sample-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TD01"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD01"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
@@ -112,7 +113,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Instrument-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-Id"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -142,7 +144,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Cartridge-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-Id"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -172,7 +175,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Lane";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
@@ -202,39 +206,41 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Assay";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia-SYBR"));  
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1"; 
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);               
 
 		
-//		objTmp = new ExternalCoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Improc Version Filter";
-//		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter.FilterID = "version";
-//		objFilter.FilterXPath = "filter-Improc-Version";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Improc-Version_cust-cb-lst-txt_Blank"));
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalCoccidiaModel.add(objTmp); 
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-57: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-58: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-59 "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-60: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-61: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-62: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-CL-63: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-64: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = "version";
+		objFilter.FilterXPath = "filter-Improc-Version";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp); 
 		
 		
 		objTmp = new ExternalCoccidiaModel();
@@ -262,7 +268,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Collection-Site-Name";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Name"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Test"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Test"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp); 
 		
@@ -292,7 +299,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Sample-Matrix";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("F"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Feces"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp); 
 
@@ -322,7 +330,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath =  "filter-Customer-Sample-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
@@ -348,11 +357,12 @@ public class ExternalCoccidiaModel {
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = true;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "meta-data-recieved";
+		objFilter.FilterID = "meta-data-date-received";
 		objFilter.FilterXPath = "filter-Date-Received";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -378,11 +388,12 @@ public class ExternalCoccidiaModel {
 		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "kit-lot";
+		objFilter.FilterID = "Kit-Lot-group-body";
 		objFilter.FilterXPath =  "filter-Kit-Lot";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -412,39 +423,10 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Piper-User";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("QUSER"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("QUSER"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
-
-
-//		objTmp = new ExternalCoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Collection Site ID Filter";
-//		objTmp.TestCaseNameButtonActive = "AN-ECL-113: "+buttonActiveTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-//		objTmp.TestCaseName = "AN-ECL-114: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-ECL-115: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-116: Verify "+objFilter.FilterName+filterTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-117: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-//		objTmp.TestCaseNameClearInput = "AN-ECL-118: "+clearInputTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameHoverReset = "AN-CL-119: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-//		objTmp.TestCaseNameRevertBack = "AN-ECL-120: Verify "+objFilter.FilterName+revertBackTitle;
-//		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
-//		objTmp.ReloadPage = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter.FilterID = "collection-site-id";
-//		objFilter.FilterXPath = "filter-Collection-Site-ID";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-ID"));
-//		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
-//		objTmp.lstFilters.add(objFilter);
-//		lstExternalCoccidiaModel.add(objTmp);
 
 
 		objTmp = new ExternalCoccidiaModel();
@@ -472,7 +454,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Requested-Assay";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 	
@@ -502,7 +485,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Flock-ID";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 		
@@ -532,7 +516,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Collection-Site-Type";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Bl"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 	
@@ -562,10 +547,76 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Result-Status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Result-Status"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Pending"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Pending"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 			
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site ID Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-153: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-154: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-155: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-156: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-157: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-158: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ECL-159: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-160: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "test-site-id";
+		objFilter.FilterXPath = "filter-test-site-id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("test-site-id"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new ExternalCoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site Name Filter";
+		objTmp.TestCaseNameButtonActive = "AN-ECL-161: "+buttonActiveTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-ECL-162: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-ECL-163: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.TestCaseNameBubbleFilterTop = "AN-ECL-164: Verify "+objFilter.FilterName+filterTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-ECL-165: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+		objTmp.TestCaseNameClearInput = "AN-ECL-166: "+clearInputTitle+objFilter.FilterName;
+		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+		objTmp.TestCaseNameHoverReset = "AN-ECL-167: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+		objTmp.TestCaseNameRevertBack = "AN-ECL-168: Verify "+objFilter.FilterName+revertBackTitle;
+		objTmp.TestCaseDescriptionRevertBack = "This testcase will verify that "+objFilter.FilterName+revertBackDesc;
+		objTmp.ReloadPage = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = "test-site-name";
+		objFilter.FilterXPath = "filter-test-site-name";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("test-site-name"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Blank"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.checkboxNumber = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstExternalCoccidiaModel.add(objTmp);
+		
+		
 		
 		objTmp = new ExternalCoccidiaModel();
 		objFilter = new ReportFilters();
@@ -592,7 +643,8 @@ public class ExternalCoccidiaModel {
 		objFilter.FilterXPath = "filter-Sample-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id", "Sample-Id"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP10", "SMP11"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
@@ -720,22 +772,22 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
 
-		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter This Month from date Filter";
-		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-		objTmp.Filter1 = false;
-		objTmp.Filter2 = false;
-		objTmp.Filter3 = true;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Date Filter";
-		objFilter.FilterListXPathSearch = Test_Elements.eclThisMonth;
-		objFilter.toMonth = "0";
-		objFilter.fromMonth = "0";
-		objFilter.toDate = "0";
-		objFilter.fromDate = "1";
-		objTmp.lstFilters.add(objFilter);
-		lstExternalCoccidiaModel.add(objTmp);
+//		objTmp = new ExternalCoccidiaModel();
+//		objTmp.TestCaseName = "AN-ECL-10: Verify user can filter This Month from date Filter";
+//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+//		objTmp.Filter1 = false;
+//		objTmp.Filter2 = false;
+//		objTmp.Filter3 = true;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Date Filter";
+//		objFilter.FilterListXPathSearch = Test_Elements.eclThisMonth;
+//		objFilter.toMonth = "0";
+//		objFilter.fromMonth = "0";
+//		objFilter.toDate = "0";
+//		objFilter.fromDate = "1";
+//		objTmp.lstFilters.add(objFilter);
+//		lstExternalCoccidiaModel.add(objTmp);
 		
 		return lstExternalCoccidiaModel;
 	}
@@ -759,15 +811,15 @@ public class ExternalCoccidiaModel {
 		lstExternalCoccidiaModel.add(objTmp);
 
 		objTmp = new ExternalCoccidiaModel();
-		objTmp.TestCaseName = "AN-ECL-12: Verify user cannot apply filter with any other date format except dd/mm/yyyy";
-		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with any other date format except dd/mm/yyyy";
+		objTmp.TestCaseName = "AN-ECL-12: Verify user cannot apply filter with any other date format except mm/dd/yyyy";
+		objTmp.TestCaseDescription = "This testcase will verify that user cannot apply filter with any other date format except mm/dd/yyyy";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Enter any other date format except dd/mm/yyyy";
+		objFilter.FilterName = "Enter any other date format except mm/dd/yyyy";
 		objFilter.fromDate = "12/01/2020";
-		objFilter.toDate = "12/20/2020";
+		objFilter.toDate = "20/12/2020";
 		objFilter.alertMessage = "Please select a valid date";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
@@ -901,7 +953,7 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "100 Rows per Page";
-		objFilter.FilterListXPathSearch = "100";
+		objFilter.FilterListXPathSearch = "rows-100";
 		objFilter.count = "100";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
@@ -914,7 +966,7 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "250 Rows per Page";
-		objFilter.FilterListXPathSearch = "250";
+		objFilter.FilterListXPathSearch = "rows-250";
 		objFilter.count = "250";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
@@ -927,7 +979,7 @@ public class ExternalCoccidiaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "500 Rows per Page";
-		objFilter.FilterListXPathSearch = "500";
+		objFilter.FilterListXPathSearch = "rows-500";
 		objFilter.count = "500";
 		objTmp.lstFilters.add(objFilter);
 		lstExternalCoccidiaModel.add(objTmp);
