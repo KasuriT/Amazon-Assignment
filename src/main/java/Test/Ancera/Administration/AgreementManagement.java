@@ -72,7 +72,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Upload file",enabled= false, priority = 2) 
+	@Test (description="Test Case: Upload file",enabled= true, priority = 2) 
 	public void LicenseUpload() throws InterruptedException, IOException {
 
 		for (int i=0; i<=Test_Variables.lstAgreementManagement.size(); i++) {
@@ -118,7 +118,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Verify uploaded file",enabled= false, priority = 3) 
+	@Test (description="Test Case: Verify uploaded file",enabled= true, priority = 3) 
 	public void VerifyUploadFile() throws InterruptedException, IOException {
 
 		try {
@@ -162,7 +162,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: View file",enabled= false, priority = 4) 
+	@Test (description="Test Case: View file",enabled= true, priority = 4) 
 	public void ViewFile() throws InterruptedException, IOException {
 
 		try {
@@ -213,7 +213,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Delete from File",enabled= false, priority = 5) 
+	@Test (description="Test Case: Delete from File",enabled= true, priority = 5) 
 	public void DeleteFromFile() throws InterruptedException, IOException {
 
 		try {
@@ -270,7 +270,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Delete from Grid",enabled= false, priority = 6) 
+	@Test (description="Test Case: Delete from Grid",enabled= true, priority = 6) 
 	public void DeleteFromGrid() throws InterruptedException, IOException {
 
 		try {
@@ -333,7 +333,7 @@ public class AgreementManagement {
 	}
 	
 
-	@Test (description="Test Case: Rename file",enabled= true, priority = 7) 
+	@Test (description="Test Case: Rename file",enabled= false, priority = 7) 
 	public void RenameFile() throws InterruptedException, IOException {
 
 		try {
@@ -401,7 +401,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Deactivate file",enabled= true, priority = 8) 
+	@Test (description="Test Case: Deactivate file",enabled= false, priority = 8) 
 	public void DeactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -453,7 +453,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Deactivate file",enabled= true, priority = 9) 
+	@Test (description="Test Case: Verify Deactivate file",enabled= false, priority = 9) 
 	public void VerifyDeactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -507,7 +507,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Reactivate file",enabled= true, priority = 10) 
+	@Test (description="Test Case: Reactivate file",enabled= false, priority = 10) 
 	public void ReactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -564,7 +564,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Verify Reactivate file",enabled= true, priority = 11) 
+	@Test (description="Test Case: Verify Reactivate file",enabled= false, priority = 11) 
 	public void VerifyReactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -620,7 +620,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Search User",enabled= true, priority = 12) 
+	@Test (description="Test Case: Search User",enabled= false, priority = 12) 
 	public void SearchUser() throws InterruptedException, IOException {
 
 		try {
@@ -668,7 +668,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Invalid Selection",enabled= true, priority = 13) 
+	@Test (description="Test Case: Invalid Selection",enabled= false, priority = 13) 
 	public void InvalidSelection() throws InterruptedException, IOException {
 
 		try {

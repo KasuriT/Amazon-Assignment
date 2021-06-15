@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.ExternalCoccidia">
+      <class name="Test.Ancera.MetaData.DataUpload">
         <methods>
           <include name="endreport"/>
-          <include name="CSVExport"/>
           <include name="extent"/>
+          <include name="SitePerformance"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.ExternalCoccidia -->
+      </class> <!-- Test.Ancera.MetaData.DataUpload -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

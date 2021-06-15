@@ -1183,7 +1183,7 @@ public class ExternalCoccidia {
 
 	}
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstExternalCoccidiaPagination = ExternalCoccidiaModel.pagination();
 //		Helper.driver.findElement(By.id("filterDateFrom")).clear();
@@ -1338,7 +1338,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("reset-icon")));
@@ -1472,7 +1472,7 @@ public class ExternalCoccidia {
 	}
 
 	
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 11) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-ECL-181: Verify user can download External Coccidia PNG file", "This test case will verify user can download External Coccidia PNG file");

@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -776,7 +775,7 @@ public class ReportsManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(By.id("message")).getText();
-			String expected = "Report Group details updated.";
+			String expected = "Report Group details updated successfully.";
 
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("Report details updated successfully");

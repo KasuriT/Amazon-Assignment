@@ -56,7 +56,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unchecked")
-	@Test (description="Test Case: Run APIs", enabled= false, priority= 1) 
+	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -309,7 +309,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaDateSearch = CoccidiaModel.FillDate();
@@ -510,7 +510,7 @@ public class CoccidiaLog {
 		}
 	}
 
-	@Test (description="Test Case: Date Enter",enabled= false, priority = 4) 
+	@Test (description="Test Case: Date Enter",enabled= true, priority = 4) 
 	public void EnterDate() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaDateEnter = CoccidiaModel.EnterDate();
@@ -599,7 +599,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -662,7 +662,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Reset Filter",enabled= false, priority = 6) 
+	@Test (description="Test Case: Reset Filter",enabled= true, priority = 6) 
 	public void ResetFilter() throws InterruptedException, IOException {
 
 		try {
@@ -1127,7 +1127,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-137: Verify Coccidia Lock Filter Functionality", "This test case will test Coccidia Lock Filter Functionality");
@@ -1193,7 +1193,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstCoccidiaPagination = CoccidiaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1352,7 +1352,7 @@ public class CoccidiaLog {
 
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(500);
@@ -1486,8 +1486,179 @@ public class CoccidiaLog {
 		}
 	}
 
+	
+	@Test (description="Sorting",enabled= false, priority = 11) 
+	public void Sorting() throws InterruptedException, IOException {
 
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 11) 
+		Test_Variables.lstCoccidiaSorting = CoccidiaModel.sorting();
+
+		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaSorting) { 	
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+
+				for (ReportFilters objFilter : objModel.lstFilters) {	
+					try {
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+
+						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
+						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));						
+						Thread.sleep(500);
+						Assert.assertTrue(Helper.driver.findElement(By.cssSelector(".sort-desc")).isDisplayed());
+						Test_Variables.test.pass(objFilter.FilterName+" column sorted successfully");
+						Test_Variables.results.createNode(objFilter.FilterName+" column sorted successfully");
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.ExternalSalmonellaReportPath, null);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Assert.assertTrue(Helper.driver.findElement(By.cssSelector(".sort-asc")).isDisplayed());
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail(objFilter.FilterName+" column failed to sort");
+						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+					}
+					
+					catch(StaleElementReferenceException s) {
+						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					}
+				}
+			}
+			catch(Exception ex) {
+			}
+		}
+	}
+	
+	
+	@Test (enabled= false, priority = 13) 
+	public void FieldAccessUnview() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-325: Verify that unselecting column from field access popup hides the column from report table", "This testcase will verify that unselecting column from field access popup hides the column from report table");
+
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+			Test_Variables.steps.createNode("1. Click on filed access icon; popup appears");
+
+			Helper.driver.get(Constants.url_CoccidiaLog);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			WebElement csvHover = Helper.driver.findElement(By.id("sort-outcome"));
+			Actions builder = new Actions(Helper.driver);
+			builder.moveToElement(csvHover).build().perform();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-log/div[1]/div/div[2]/div[2]/div[3]/div/span")).click();
+			System.out.println("a");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(5000);
+			Test_Variables.steps.createNode("2. Unselect any column and click on save button");
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-log/div[2]/app-report-modal/div/div/div/div[2]/app-user-preference-fields/div[1]/div/div/div/table/tbody/tr[1]/td[4]/label/div")).click();
+			Thread.sleep(3000);
+			System.out.println("b");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			System.out.println("c");
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon")));
+			Thread.sleep(3000);
+			if (Helper.driver.findElements(By.id("sort-laneNum")).size() == 0) {
+				System.out.println("d");
+				Assert.assertTrue(true);
+				Test_Variables.test.pass("Column was hidden successfully");
+				Test_Variables.results.createNode("Column was hidden successfully");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("filter-Instrument-Id")).click();
+				System.out.println("e");
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+			}
+
+		}catch(AssertionError er) {
+			Test_Variables.test.fail("Column failed to hide");
+			Test_Variables.results.createNode("Column failed to hide");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("Column failed to hide");
+			Test_Variables.results.createNode("Column failed to hide");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+		}
+	}
+
+	
+	@Test (enabled= false, priority = 14) 
+	public void FieldAccessView() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-ESL-326: Verify that re-selecting column from field access popup displays the column from report table", "This testcase will verify that re-selecting column from field access popup displays the column from report table");
+
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+			Test_Variables.steps.createNode("1. Click on filed access icon; popup appears");
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			WebElement csvHover = Helper.driver.findElement(By.id("sort-outcome"));
+			Actions builder = new Actions(Helper.driver);
+			builder.moveToElement(csvHover).build().perform();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-log/div[1]/div/div[2]/div[2]/div[3]/div/span")).click();
+			System.out.println("a");
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/div/app-external-salmonella-log/div[2]/app-report-modal/div/div/div/div[2]/app-user-preference-fields/div[1]/div/div/div/table/tbody/tr[1]/td[4]/label/div")));
+			Thread.sleep(1000);
+			Test_Variables.steps.createNode("2. Re-select any unselcted column and click on save button");
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-log/div[2]/app-report-modal/div/div/div/div[2]/app-user-preference-fields/div[1]/div/div/div/table/tbody/tr[1]/td[4]/label/div")).click();
+			System.out.println("b");
+			Thread.sleep(1000);                 
+			Helper.driver.findElement(By.id("btn-save")).click();
+			System.out.println("c");
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("calendarIcon")));
+			Thread.sleep(3000);
+			Assert.assertTrue(Helper.driver.findElement(By.id("sort-laneNum")).isDisplayed());
+			Test_Variables.test.pass("Column displayed successfully");
+			Test_Variables.results.createNode("Column displayed successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("filter-Instrument-Id")).click();
+			System.out.println("d");
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+		}catch(AssertionError er) {
+			Test_Variables.test.fail("Column failed to display");
+			Test_Variables.results.createNode("Column failed to display");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("Column failed to display");
+			Test_Variables.results.createNode("Column failed to display");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+		}
+	}
+	
+	
+
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-149: Verify user can download Coccidia PNG file", "This test case will verify user can download Coccidia PNG file");
@@ -1553,7 +1724,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 12) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-150: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
@@ -1611,7 +1782,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 13) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 17) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-151: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");

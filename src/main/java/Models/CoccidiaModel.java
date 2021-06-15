@@ -33,6 +33,8 @@ public class CoccidiaModel {
 	public boolean paginationNextPage;
 	public boolean paginationFirstPage;
 	public boolean paginationPreviousPage;
+	public boolean sortLogic1;
+	public boolean sortLogic2;
 
 	public CoccidiaModel() {
 
@@ -549,7 +551,7 @@ public class CoccidiaModel {
 		objFilter.FilterXPath = "filter-Sample-Id";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id", "Sample-Id"));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
 		objFilter.checkboxNumber = "1";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -892,6 +894,353 @@ public class CoccidiaModel {
 
 		return lstCoccidiaModel;
 	}
+	
+	
+	public static ArrayList<CoccidiaModel> sorting() {
+		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
+		CoccidiaModel objTmp = new CoccidiaModel();
+
+		ReportFilters objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane";
+		objTmp.TestCaseName = "AN-CL-218: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-laneNum";
+		objFilter.count = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+	    objFilter = new ReportFilters();
+		objFilter.FilterName = "Lab Sample ID";
+		objTmp.TestCaseName = "AN-CL-219: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-sampleId";
+		objFilter.count = "2";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "QC Code";
+		objTmp.TestCaseName = "AN-CL-220: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-countOutcome";
+		objFilter.count = "3";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Status";
+		objTmp.TestCaseName = "AN-CL-221: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-result_status";
+		objFilter.count = "4";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Total OPG";
+		objTmp.TestCaseName = "AN-CL-222: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-totalOPG";
+		objFilter.count = "5";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Small OPG";
+		objTmp.TestCaseName = "AN-CL-223: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-totalSmallOPG";
+		objFilter.count = "6";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Medium OPG";
+		objTmp.TestCaseName = "AN-CL-224: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-totalMediumOPG";
+		objFilter.count = "7";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Large OPG";
+		objTmp.TestCaseName = "AN-CL-225: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-totalLargeOPG";
+		objFilter.count = "8";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result";
+		objTmp.TestCaseName = "AN-CL-222: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-outcome";
+		objFilter.count = "9";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Assay";
+		objTmp.TestCaseName = "AN-CL-223: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-pathogen";
+		objFilter.count = "10";                   
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result ID";
+		objTmp.TestCaseName = "AN-CL-224: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-runId";
+		objFilter.count = "11";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Date";
+		objTmp.TestCaseName = "AN-CL-225: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = false;
+		objFilter.ColumnID = "sort-scanDateTime";
+		objFilter.count = "12";
+		objTmp.lstFilters.add(objFilter);       
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Site Name";
+		objTmp.TestCaseName = "AN-CL-226: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-site_id";           
+		objFilter.count = "13";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample Matrix";
+		objTmp.TestCaseName = "AN-CL-229: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-sample_matrix";           
+		objFilter.count = "14";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Customer Sample ID";
+		objTmp.TestCaseName = "AN-CL-231: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-customer_sample_id";           
+		objFilter.count = "15";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Received";
+		objTmp.TestCaseName = "AN-CL-232: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-metadata_date_recieved";           
+		objFilter.count = "16";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID";
+		objTmp.TestCaseName = "AN-CL-233: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-cartridgeId";           
+		objFilter.count = "17";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument ID";
+		objTmp.TestCaseName = "AN-CL-234: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-instrumentId";           
+		objFilter.count = "18";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Total Count";
+		objTmp.TestCaseName = "AN-CL-236: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-oocystTotalCount";           
+		objFilter.count = "19";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Small Count";
+		objTmp.TestCaseName = "AN-CL-237: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-oocystSmallCount";           
+		objFilter.count = "20";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Medium Count";
+		objTmp.TestCaseName = "AN-CL-238: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-oocystMediumCount";           
+		objFilter.count = "21";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Large Count";
+		objTmp.TestCaseName = "AN-CL-239: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-oocystLargeCount";           
+		objFilter.count = "22";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mean Intensity";
+		objTmp.TestCaseName = "AN-CL-240: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-oocystMeanIntensity";           
+		objFilter.count = "23";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Piper User";
+		objTmp.TestCaseName = "AN-CL-241: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-user_name";           
+		objFilter.count = "24";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Kit Lot";
+		objTmp.TestCaseName = "AN-CL-242: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-kit_lot";           
+		objFilter.count = "25";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version";
+		objTmp.TestCaseName = "AN-CL-243: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-version";           
+		objFilter.count = "26";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site ID";
+		objTmp.TestCaseName = "AN-CL-244: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-testSiteId";
+		objFilter.count = "27";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site Name";
+		objTmp.TestCaseName = "AN-CL-245: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-testSiteName";
+		objFilter.count = "28";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		return lstCoccidiaModel;	
+	}	
+	
+	
+	
 	
 }
 

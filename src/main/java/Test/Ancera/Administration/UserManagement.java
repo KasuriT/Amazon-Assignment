@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -328,6 +327,7 @@ public class UserManagement {
 			String firstNameReset = usrFirstName.getAttribute("value");
 			usrFirstName.sendKeys(Test_Variables.lstUserCreate.get(0));
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("btn-reset")).click();
 			Thread.sleep(1000);
 
@@ -714,11 +714,11 @@ public class UserManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("lastNameId")).clear();
 			Helper.driver.findElement(By.id("lastNameId")).sendKeys(Test_Variables.lstUserUpdate.get(0));
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(500);
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(500);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
@@ -756,7 +756,6 @@ public class UserManagement {
 			Test_Variables.steps.createNode("1. Update the user and click on  Save button");
 			Test_Variables.steps.createNode("2. Reopen the updated popup to verify that changes made were save or not");
 
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-user-1")));
 			Helper.driver.findElement(By.id("edit-user-1")).click();
 			Thread.sleep(1500);
@@ -777,7 +776,7 @@ public class UserManagement {
 			Test_Variables.results.createNode("User updation failed");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
-		Helper.driver.findElement(By.id("close-popup-modal")).click();
+		Helper.driver.findElement(By.cssSelector(".close")).click();
 		Thread.sleep(1000);
 	}
 

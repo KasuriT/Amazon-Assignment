@@ -1,6 +1,5 @@
 package Test.Ancera.Administration;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -11,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -855,14 +853,15 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("3. Reopen ithe updated site to verify the cahnges were saved or not");
 
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();  
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgCreatedSite)));
+			Thread.sleep(2000);
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.xpath(Test_Elements.orgCreatedSite)).click(); 
 			Thread.sleep(2000);
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("streetAddressId")));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			String addressActual = Helper.driver.findElement(By.id("zipCodeId")).getAttribute("value");
 			String addressExpected = "54000";
 
@@ -1005,8 +1004,8 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("4. Search for the inactivated organization in Organization dropdown; should not appear");
 
 			Helper.driver.get(Constants.url_user);
-			Thread.sleep(500);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("create-user")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstNameId")));

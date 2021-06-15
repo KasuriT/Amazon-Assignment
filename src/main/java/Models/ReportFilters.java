@@ -31,4 +31,12 @@ public class ReportFilters {
 	public ArrayList<String> LstFilterValues;
 	public ArrayList<String> LstFilterXpath;
 	public ArrayList<String> LstFilterSearch;
+	
+	public String MinMean;
+	public String MaxMean;
+	public String MinStd;
+	public String MaxStd;
+	
+	public ArrayList<String> LstColumnValues;
+	public ArrayList<Integer> LstColumnID;
 }

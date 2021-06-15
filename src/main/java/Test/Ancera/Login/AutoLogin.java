@@ -37,7 +37,7 @@ public class AutoLogin {
 
 	@Test (description="Test Case: Auto Login Test",enabled= true, priority = 1) 
 	public void AutoLoginTest() throws InterruptedException, IOException {
-
+try {
 		Test_Variables.lstAutoLoginCheck = AutoLoginModel.FillData();
 
 		WebElement csvHover = Helper.driver.findElement(By.id("menu-administration"));
@@ -105,9 +105,9 @@ public class AutoLogin {
 			}
 		}
 	}
-
-
-
+catch(AssertionError er) {
+	}
+	}
 
 	@AfterTest
 	public static void endreport() {

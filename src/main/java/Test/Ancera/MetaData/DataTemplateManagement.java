@@ -133,18 +133,18 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("3. Click on reset button");
 		
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmName)).sendKeys("Test");
+		Helper.driver.findElement(By.id("ColNameID")).sendKeys("Test");
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmDefaultValue)).sendKeys("100");
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldLength)).sendKeys("100");
+		Helper.driver.findElement(By.id("defaultValueId")).sendKeys("100");
+		Helper.driver.findElement(By.id("colLengthId")).sendKeys("100");
 		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmResetButton)).click();
+		Helper.driver.findElement(By.id("btn-reset-field")).click();
 		Thread.sleep(1000);
 
-		String nameActual = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmName)).getText();
-		String defaultValueActual = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmDefaultValue)).getText();	
-		String lengthActual = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldLength)).getText();
+		String nameActual = Helper.driver.findElement(By.id("ColNameID")).getText();
+		String defaultValueActual = Helper.driver.findElement(By.id("defaultValueId")).getText();	
+		String lengthActual = Helper.driver.findElement(By.id("colLengthId")).getText();
 		Thread.sleep(1000);
 		if (nameActual.isEmpty() && defaultValueActual.isEmpty() && lengthActual.isEmpty())
 		{
@@ -186,7 +186,7 @@ public class DataTemplateManagement{
 				Test_Variables.steps.createNode("1. Click on Create New button");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 
-				Helper.driver.findElement(By.xpath(Test_Elements.dtmCreateButton)).click();
+				Helper.driver.findElement(By.id("create-data-format")).click();
 				Thread.sleep(1500);
 
 				try{
@@ -216,18 +216,18 @@ public class DataTemplateManagement{
 
 			Thread.sleep(1000);
 
-			Helper.driver.findElement(By.xpath(Test_Elements.dtmResetButton)).click();
-			Helper.driver.findElement(By.xpath(Test_Elements.dtmName)).sendKeys(objModel.dtmName);
+			Helper.driver.findElement(By.id("btn-reset")).click();
+			Helper.driver.findElement(By.id("nameId")).sendKeys(objModel.dtmName);
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.dtmDesc)).sendKeys(objModel.dtmDesc);	
+			Helper.driver.findElement(By.id("DescId")).sendKeys(objModel.dtmDesc);	
 			Thread.sleep(1000);
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.dtmSaveButton)));
-			Helper.driver.findElement(By.xpath(Test_Elements.dtmSaveButton)).click(); 
+			Helper.driver.findElement(By.id("btn-save")).click(); 
 			Thread.sleep(2000);
 
-			if (Helper.driver.findElements(By.xpath(Test_Elements.alertbox)).size() != 0) {
+			if (Helper.driver.findElements(By.id("message")).size() != 0) {
 			
 				Actions actions = new Actions(Helper.driver);
 				actions.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.alertClose))).click().perform();
@@ -271,9 +271,9 @@ public class DataTemplateManagement{
 
 			if (objModel.chkAlert)
 			{
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 				Thread.sleep(1000);
-				String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+				String actual = Helper.driver.findElement(By.id("message")).getText();
 				String expected = "Atleast one column is required in Data Template.";
 				
 				try{
@@ -292,21 +292,23 @@ public class DataTemplateManagement{
 				{
 
 					Thread.sleep(1000);
-					Helper.driver.findElement(By.xpath(Test_Elements.dtmClmResetButton)).click();
-					Helper.driver.findElement(By.xpath(Test_Elements.dtmClmName)).sendKeys(objModel.clmName);
+					Helper.driver.findElement(By.id("btn-reset-field")).click();
+					Helper.driver.findElement(By.id("ColNameID")).sendKeys(objModel.clmName);
 					Thread.sleep(1000);
 
 					if(objModel.clmType) {
-						Helper.driver.findElement(By.xpath(Test_Elements.dtmClmType)).click();
+						Helper.driver.findElement(By.id("ColTypeId")).click();
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.xpath(Test_Elements.dtmClmTypeSelect)).click();			
+						Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(1)")).click();			
 					}
 
-					Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldLength)).sendKeys(objModel.clmLength);	
+					Helper.driver.findElement(By.id("colLengthId")).sendKeys(objModel.clmLength);	
 					Thread.sleep(1000);
+					
+					Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[3]/div/div/app-custom-radio-button/div/div")).click();
 
-					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.dtmClmSaveButton)));
-					Helper.driver.findElement(By.xpath(Test_Elements.dtmClmSaveButton)).click(); 
+					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-add-field")));
+					Helper.driver.findElement(By.id("btn-add-field")).click(); 
 					Thread.sleep(1000);
 
 				}
@@ -315,16 +317,16 @@ public class DataTemplateManagement{
 
 					if ( objModel.clmName.isEmpty())
 					{
-						if(Helper.driver.findElement(By.xpath(Test_Elements.dtmClmNameValidation)).isDisplayed()) {
-							NameError = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmNameValidation)).getText();
+						if(Helper.driver.findElement(By.xpath("//div[contains(text(), 'Field name is required ')]")).isDisplayed()) {
+							NameError = Helper.driver.findElement(By.xpath("//div[contains(text(), 'Field name is required ')]")).getText();
 						}
 						Assert.assertEquals(NameError, Test_Elements.dtmClmNameExpected); 
 					}
 
 					if ( objModel.clmLength.isEmpty())
 					{
-						if(Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldLengthValidation)).isDisplayed()) {
-							DescError = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldLengthValidation)).getText();
+						if(Helper.driver.findElement(By.xpath("//div[contains(text(), 'Field length is required ')]")).isDisplayed()) {
+							DescError = Helper.driver.findElement(By.xpath("//div[contains(text(), 'Field length is required ')]")).getText();
 						}
 						Assert.assertEquals(DescError, Test_Elements.dtmClmLengthExpected); 
 					}
@@ -342,6 +344,9 @@ public class DataTemplateManagement{
 
 			if (objModel.verifyClm) {
 
+				WebElement filter_scroll = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmGetText));
+				((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+				
 				String actual =	Helper.driver.findElement(By.xpath(Test_Elements.dtmClmGetText)).getText();
 				try{
 					Assert.assertEquals(actual, "1"); 
@@ -370,9 +375,9 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("4. Click on save button");
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmSaveButton)).click();
+		Helper.driver.findElement(By.id("btn-save")).click();
 		Thread.sleep(2000);
-		String act = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+		String act = Helper.driver.findElement(By.id("message")).getText();
 		String exp = "New data template created.";
 
 		try{
@@ -392,7 +397,7 @@ public class DataTemplateManagement{
 
 	@Test (description="Test Case: Update Template Column",enabled= true, priority= 5) 
 	public void UpdateTemplateColumn() throws InterruptedException, IOException {
-
+		try{
 		Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-15: Verify user can update Template Column", "This test case will verify that user can update templates column");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -418,7 +423,7 @@ public class DataTemplateManagement{
 
 		Thread.sleep(1500);
 
-		for (int i=1; i<=20; i++) {
+		for (int i=1; i<=30; i++) {
 			String actualXpath = beforeXpath+i+afterXpath;
 			WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
 
@@ -432,18 +437,24 @@ public class DataTemplateManagement{
 		}
 
 		WebDriverWait wait = new WebDriverWait(Helper.driver,10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.dtmClmEditIcon)));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-field-1")));
+		WebElement filter_scroll = Helper.driver.findElement(By.id("edit-field-1"));
+		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+		
 
 		Thread.sleep(2000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmEditIcon)).click();  //click on edit template column
+		Helper.driver.findElement(By.id("edit-field-1")).click();  //click on edit template column
 		Thread.sleep(2000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmUpdateDefaultValue)).clear();  //enter default value
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmUpdateDefaultValue)).sendKeys(Test_Variables.lstDTMColumnUpdation.get(0));  //enter default value
+		Helper.driver.findElement(By.id("defaultValueId")).clear();  //enter default value
+		Helper.driver.findElement(By.id("defaultValueId")).sendKeys(Test_Variables.lstDTMColumnUpdation.get(0));  //enter default value
 		Thread.sleep(2000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmUpdateButton)).click();
+		Helper.driver.findElement(By.id("btn-save-field")).click();
 
-		try{
+	
+			WebElement filter_scroll1 = Helper.driver.findElement(By.xpath(Test_Elements.dtmClmUpdateGetText));
+			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll1); 
+			
 			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.dtmClmUpdateGetText)).getText(), "20"+Test_Variables.lstDTMColumnUpdation.get(0)); 
 			Test_Variables.test.pass("Template column updated successfully");
 			Test_Variables.results.createNode("Template column updated successfully");
@@ -476,10 +487,12 @@ public class DataTemplateManagement{
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		Thread.sleep(2000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmDeleteButton)).click();  //click on edit template column
+		WebElement filter_scroll = Helper.driver.findElement(By.id("delete-field-1"));
+		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+		Helper.driver.findElement(By.id("delete-field-1")).click();  //click on edit template column
 		Thread.sleep(2000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmDeleteCnfrm)).click();
+		Helper.driver.findElement(By.id("btn-yes")).click();
 
 		if(Helper.driver.findElements(By.xpath(Test_Elements.dtmClmGetText)).size() ==0)
 		{
@@ -514,14 +527,18 @@ public class DataTemplateManagement{
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Thread.sleep(2000);
 		
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldNameUpdate)).sendKeys("test");
+		Helper.driver.findElement(By.id("ColNameID")).sendKeys("test");
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldTypeUpdate)).click();
+		Helper.driver.findElement(By.id("ColTypeId")).click();
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmFieldTypeSelectUpdate)).click();			
+		Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(1)")).click();		
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("colLengthId")).sendKeys("10");
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[3]/div/div/app-custom-radio-button/div/div")).click();
 
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.xpath(Test_Elements.dtmClmAddButtonUpdate)).click();
+		Helper.driver.findElement(By.id("btn-add-field")).click();
 		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 

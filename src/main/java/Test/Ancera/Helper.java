@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -12,8 +11,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -34,7 +31,7 @@ public class Helper {
 	public static void config() {
 
 	  	projectPath = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", projectPath+"/ChromeDriver/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
 		
 	
 		

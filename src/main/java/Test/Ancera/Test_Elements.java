@@ -426,8 +426,8 @@ public class Test_Elements {
 	public static String dtmClmNameExpected = "Field name is required";
 	public static String dtmClmTypeExpected = "Field type is required";
 	public static String dtmClmLengthExpected = "Field length is required";
-	public static String dtmClmGetText = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[2]/div/table/tbody/tr/td[1]/label";
-	public static String dtmClmUpdateGetText = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[2]/div/table/tbody/tr/td[6]/label/span";
+	public static String dtmClmGetText = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[3]/div/table/tbody/tr[1]/td[2]";
+	public static String dtmClmUpdateGetText = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[3]/div/table/tbody/tr[1]/td[6]/label/span";
 
 	public static String dtmClmFieldNameUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[1]/div[1]/input";
 	public static String dtmClmFieldTypeUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div[1]/ng-select/div/span";

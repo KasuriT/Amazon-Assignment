@@ -97,7 +97,7 @@ public class AutoLoginModel {
 		
 		objTmp = new AutoLoginModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Piper Management";
+		objFilter.FilterName = "PIPER Management";
 		objTmp.TestCaseName = "AN-AL-08: Verify when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.TestCaseDescription = "This testcase will verify that when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.precondition = "Click on Adminsitration and right click on "+ objFilter.FilterName +" to open it in new tab";
@@ -108,7 +108,7 @@ public class AutoLoginModel {
 
 		objTmp = new AutoLoginModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Piper Software Management";
+		objFilter.FilterName = "PIPER Software Management";
 		objTmp.TestCaseName = "AN-AL-09: Verify when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.TestCaseDescription = "This testcase will verify that when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.precondition = "Click on Adminsitration and right click on "+ objFilter.FilterName +" to open it in new tab";
@@ -119,12 +119,12 @@ public class AutoLoginModel {
 		
 		objTmp = new AutoLoginModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Piper Configuration Management";
+		objFilter.FilterName = "PIPER Configuration Management";
 		objTmp.TestCaseName = "AN-AL-10: Verify when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.TestCaseDescription = "This testcase will verify that when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
 		objTmp.precondition = "Click on Adminsitration and right click on "+ objFilter.FilterName +" to open it in new tab";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterXPath = "roleMGMTPiperSoftware";
+		objFilter.FilterXPath = "roleMGMTManagePiperConfig";
 		objTmp.lstFilters.add(objFilter);
 		lstAutoLoginModel.add(objTmp);
 
@@ -161,16 +161,16 @@ public class AutoLoginModel {
 		objTmp.lstFilters.add(objFilter);
 		lstAutoLoginModel.add(objTmp);
 		
-		objTmp = new AutoLoginModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Reports";
-		objTmp.TestCaseName = "AN-AL-14: Verify when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
-		objTmp.TestCaseDescription = "This testcase will verify that when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
-		objTmp.precondition = "Click on Adminsitration and right click on "+ objFilter.FilterName +" to open it in new tab";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterXPath = "roleMGMTReport";
-		objTmp.lstFilters.add(objFilter);
-		lstAutoLoginModel.add(objTmp);
+//		objTmp = new AutoLoginModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Reports";
+//		objTmp.TestCaseName = "AN-AL-14: Verify when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
+//		objTmp.TestCaseDescription = "This testcase will verify that when user right click on "+ objFilter.FilterName +" Screen from the navigation bar that screen is opened in a new tab";
+//		objTmp.precondition = "Click on Adminsitration and right click on "+ objFilter.FilterName +" to open it in new tab";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterXPath = "roleMGMTReport";
+//		objTmp.lstFilters.add(objFilter);
+//		lstAutoLoginModel.add(objTmp);
 		
 		objTmp = new AutoLoginModel();
 		objFilter = new ReportFilters();

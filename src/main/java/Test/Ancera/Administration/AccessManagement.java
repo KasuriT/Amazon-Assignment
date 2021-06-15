@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -222,6 +221,7 @@ public class AccessManagement{
 			Test_Variables.results.createNode("New role created; displays alert message 'New role created.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+			ClickElement.clickByCss(Helper.driver, ".close");
 		}catch(AssertionError er){
 			Test_Variables.test.fail("New role failed to create");
 			Test_Variables.results.createNode("New role failed to create");
@@ -251,7 +251,7 @@ public class AccessManagement{
 			Test_Functions.AccessFind();
 			Thread.sleep(2000);
 
-			WebElement desc = Helper.driver.findElement(By.id("nmeRoleDesc"));
+			WebElement desc = Helper.driver.findElement(By.id("DescId"));
 			desc.clear();
 			desc.sendKeys("Role Updated");
 			Thread.sleep(1000);
@@ -268,7 +268,7 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("2. Update name and description of role");
 			Test_Variables.steps.createNode("3. Click on save button");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("messsage")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstAccessAlertMessages.get(1) ;
 
@@ -315,9 +315,9 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("1. Reopen updated role by clicking on update button");
 			Test_Variables.steps.createNode("2. Verify the updation made in fields are saved");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessUpdateDesc)));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("DescId")));
 			Thread.sleep(1500);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.accessUpdateDesc)).getAttribute("value");
+			String actual = Helper.driver.findElement(By.id("DescId")).getAttribute("value");
 			String expected = "Role Updated";
 			Thread.sleep(1000);
 
@@ -363,9 +363,9 @@ public class AccessManagement{
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 
-			Helper.driver.findElement(By.xpath(Test_Elements.accessUpdateButton)).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstAccessAlertMessages.get(1) ;
 
 			Assert.assertEquals(actual, expected); 
@@ -373,7 +373,7 @@ public class AccessManagement{
 			Test_Variables.results.createNode("User receives an alert message that 'Role details updated'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+			ClickElement.clickByCss(Helper.driver, ".close");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("User does not receives an alert message that 'Role details updated'");
@@ -464,8 +464,8 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("1. Select rights from list");
 			Test_Variables.steps.createNode("2. Click on save button");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = "Rights details updated." ;
 
 			Assert.assertEquals(actual, expected); 
@@ -473,7 +473,7 @@ public class AccessManagement{
 			Test_Variables.results.createNode("Rights updated; an alert message displays 'Rights details updated.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+			ClickElement.clickByCss(Helper.driver, ".close");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Rights failed to update");

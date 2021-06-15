@@ -55,7 +55,7 @@ public class Test_Functions {
 			Thread.sleep(1000);
 
 			if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
-
+		//		if (element.getText().equals("Administrator5949")) {
 				Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath1)).click(); 
 				break;
 			}}}
