@@ -23,6 +23,7 @@ public class Constants {
 	public static String url_piperConfiguration = url+"/home/admin/piper-configuration";
 	public static String url_dataTemplate = url+"/home/metadata/dataformat";
 	public static String url_dataUpload = url+"/home/client/dataupload";
+	public static String url_poultryManagement = url+"/home/metadata/poultry";
 	public static String url_reports = url+"/home/reports/explore";
 	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";
 	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";
@@ -51,6 +52,7 @@ public class Constants {
 	public static String PiperConfigurationReportPath = "/Screenshots/Piper_Administration/PiperConfigurationScreenShot";
 	public static String DataTemplateManagementReportPath = "/Screenshots/MetaData/DTManagementScreenShot";
 	public static String DataUploadReportPath = "/Screenshots/MetaData/DTUploadScreenShot";
+	public static String PoultryManagementReportPath = "/Screenshots/MetaData/PoultryManagementScreenShot";
 	
 	public static String SalmonellaReportPath = "/Screenshots/Reports/SalmonellaScreenShot";
 	public static String ExternalSalmonellaReportPath = "/Screenshots/Reports/ExternalSalmonellaScreenShot";

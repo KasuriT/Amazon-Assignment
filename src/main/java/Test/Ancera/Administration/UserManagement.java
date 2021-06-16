@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Models.ReportFilters;
 import Models.UserModel;
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
@@ -76,7 +77,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 2) 
+	@Test (description="Exceptional Flow: Mandatory field check", enabled= false, priority= 2) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -301,7 +302,7 @@ public class UserManagement {
 
 
 
-	@Test (description="Exceptional Flow: Reset fields", enabled= true, priority= 3) 
+	@Test (description="Exceptional Flow: Reset fields", enabled= false, priority= 3) 
 	public void ResetButton() throws InterruptedException, IOException {
 
 		try {
@@ -352,7 +353,7 @@ public class UserManagement {
 
 
 
-	@Test (enabled= true, priority= 4) 
+	@Test (enabled= false, priority= 4) 
 	public void CreateUser() throws InterruptedException, IOException {
 		try{
 			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -468,7 +469,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 5, retryAnalyzer = RetryFailedCases.class) 
+	@Test (enabled= false, priority= 5, retryAnalyzer = RetryFailedCases.class) 
 	public void VerifyEmail() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-11: Verify user receives an email to reset password", "This test case will verify that user will receive an email with reset password link");
@@ -560,7 +561,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 6) 
+	@Test (enabled= false, priority= 6) 
 	public void ResetPassword() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-12: Verify user can set password and log in", "This test case will verify that user can set password and log into his account");
@@ -614,7 +615,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Search Created User",enabled= true, priority= 7) 
+	@Test (description="Test Case: Search Created User",enabled= false, priority= 7) 
 	public void SearchUser() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -691,7 +692,7 @@ public class UserManagement {
 		}
 	}
 
-	@Test (description="Test Case: Update User", enabled = true, priority= 8) 
+	@Test (description="Test Case: Update User", enabled = false, priority= 8) 
 	public void UpdateUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-16: Verify user can update a user", "This test case will verify that user can update a user");
@@ -740,7 +741,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Update User", enabled = true, priority= 9) 
+	@Test (description="Test Case: Verify Update User", enabled = false, priority= 9) 
 	public void VerifyUpdateUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-17: Verify user is actually updated", "This test case will verify that the user is actually updated by reopening the popup after updation");
@@ -781,7 +782,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Delete User", enabled= true, priority= 10) 
+	@Test (description="Test Case: Delete User", enabled= false, priority= 10) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be deleted", "This test case will verify that user can delete a user");
@@ -833,7 +834,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Delete User", enabled= true, priority= 11) 
+	@Test (description="Test Case: Verify Delete User", enabled= false, priority= 11) 
 	public void VerifyDeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Search for deleted user to verify user is actually deleted", "This test case will search for deleted user to verify user is actually deleted");
@@ -873,6 +874,73 @@ public class UserManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}	
 	}
+	
+	
+	////////////////////////////
+	
+	
+	@Test (enabled= true, priority = 12) 
+	public void Sorting() throws InterruptedException, IOException {
+		
+		Test_Variables.lstUserSorting = UserModel.FillData();
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-first-name"))); 
+		
+		for (UserModel objModel : Test_Variables.lstUserSorting) { 
+			try {
+				Thread.sleep(2000);
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.testCaseTitle, objModel.testCaseDesc);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+
+				for (@SuppressWarnings("unused") ReportFilters objFilter : objModel.lstFilters) {	
+					try {						
+						Test_Variables.steps.createNode("1. "+objModel.step1);
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						
+						if(objModel.search) {
+							Helper.driver.findElement(By.id("search-bar")).sendKeys("a");
+							Helper.driver.findElement(By.id("tag-0")).click();
+							Thread.sleep(500);
+						}
+								
+						Helper.driver.findElement(By.id(objModel.userType)).click();
+						Helper.driver.findElement(By.id(objModel.sortType)).click();
+						Thread.sleep(2000);
+						Assert.assertTrue(Helper.driver.findElement(By.cssSelector(".sorting_desc")).isDisplayed()); 
+						if (Helper.driver.findElements(By.id("message")).size() != 0) {
+							Assert.assertTrue(false);
+						}
+						Test_Variables.test.pass(objModel.passScenario);
+						Test_Variables.results.createNode(objModel.passScenario);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataUploadReportPath, null);
+						Helper.driver.findElement(By.id(objModel.sortType)).click();			
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail(objModel.failScenario);
+						Test_Variables.results.createNode(objModel.failScenario);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail(objModel.failScenario);
+						Test_Variables.results.createNode(objModel.failScenario);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
+					}
+				}
+			}	
+			catch(Exception ex) {
+			}
+		}
+	}
+	
+	
+	
+
 
 
 	@AfterTest

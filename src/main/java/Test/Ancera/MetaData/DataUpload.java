@@ -72,12 +72,12 @@ public class DataUpload {
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to User Management Screen");
+			Test_Variables.results.createNode("User did not navigate to Data Upload Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
 			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to User Management Screen");
+			Test_Variables.results.createNode("User did not navigate to Data Upload Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
 		}
 	}
