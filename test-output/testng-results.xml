@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-06-16T17:26:20 PKT" name="Default suite" finished-at="2021-06-16T17:26:51 PKT" duration-ms="30776">
+  <suite started-at="2021-06-21T16:01:03 PKT" name="Default suite" finished-at="2021-06-21T16:08:36 PKT" duration-ms="453293">
     <groups>
     </groups>
-    <test started-at="2021-06-16T17:26:20 PKT" name="Default test" finished-at="2021-06-16T17:26:51 PKT" duration-ms="30776">
-      <class name="Test.Ancera.MetaData.PoultryManagement">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.MetaData.PoultryManagement@932bc4a]" started-at="2021-06-16T17:26:20 PKT" name="extent" finished-at="2021-06-16T17:26:42 PKT" duration-ms="21921" status="PASS">
+    <test started-at="2021-06-21T16:01:03 PKT" name="Default test" finished-at="2021-06-21T16:08:36 PKT" duration-ms="453293">
+      <class name="Test.Ancera.Reports.InstallationRun">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.InstallationRun@24fcf36f]" started-at="2021-06-21T16:01:03 PKT" name="extent" finished-at="2021-06-21T16:01:23 PKT" duration-ms="19707" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigatePoultryManagement()[pri:1, instance:Test.Ancera.MetaData.PoultryManagement@932bc4a]" started-at="2021-06-16T17:26:42 PKT" name="NavigatePoultryManagement" description="Test Case: Navigate to Poultry Management Screen" finished-at="2021-06-16T17:26:48 PKT" duration-ms="5247" status="PASS">
+        <test-method signature="installationRunConfig()[pri:2, instance:Test.Ancera.Reports.InstallationRun@24fcf36f]" started-at="2021-06-21T16:01:23 PKT" name="installationRunConfig" finished-at="2021-06-21T16:08:36 PKT" duration-ms="432914" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigatePoultryManagement -->
-        <test-method signature="VerifyTableContent()[pri:2, instance:Test.Ancera.MetaData.PoultryManagement@932bc4a]" started-at="2021-06-16T17:26:48 PKT" name="VerifyTableContent" description="Test Case: Verify table Content" finished-at="2021-06-16T17:26:48 PKT" duration-ms="476" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- VerifyTableContent -->
-        <test-method signature="VerifyFilter()[pri:3, instance:Test.Ancera.MetaData.PoultryManagement@932bc4a]" started-at="2021-06-16T17:26:48 PKT" name="VerifyFilter" description="Test Case: Verify Filter" finished-at="2021-06-16T17:26:50 PKT" duration-ms="2349" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- VerifyFilter -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.MetaData.PoultryManagement@932bc4a]" started-at="2021-06-16T17:26:50 PKT" name="endreport" finished-at="2021-06-16T17:26:51 PKT" duration-ms="728" status="PASS">
+        </test-method> <!-- installationRunConfig -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.InstallationRun@24fcf36f]" started-at="2021-06-21T16:08:36 PKT" name="endreport" finished-at="2021-06-21T16:08:36 PKT" duration-ms="612" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.MetaData.PoultryManagement -->
+      </class> <!-- Test.Ancera.Reports.InstallationRun -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

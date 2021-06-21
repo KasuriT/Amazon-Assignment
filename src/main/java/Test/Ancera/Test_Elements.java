@@ -453,6 +453,18 @@ public class Test_Elements {
 	
 	///////////////////////////////////////////////End Data Upload /////////////////////////////////////////////////////////////////
 
+	
+	/////////////////////////////////////////////Poultry Management/////////////////////////////////////////////////////////////////
+	
+	public static String poultryStartDateSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[3]/button[3]";
+	public static String poultryBrandName = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/img";
+	public static String poultryBrandNameSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/div[2]/label[1]";
+	public static String poultryAdminMethod = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[4]/div/app-custom-input-dropdown/div/img";
+	public static String poultryAdminMethodSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[4]/div/app-custom-input-dropdown/div/div[2]/label[1]";
+	
+	///////////////////////////////////////////End Poultry Management///////////////////////////////////////////////////////////////
+	
+	
 
 	///////////////////////////////////////////////Salmonella Log Elements/////////////////////////////////////////////////////////
 

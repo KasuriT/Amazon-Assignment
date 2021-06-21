@@ -72,7 +72,7 @@ public class Piper_Configuration {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, new Exception(er));
 		}catch(Exception ex){
 			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("Salmonella Log report failed to open");
+			Test_Variables.results.createNode("Piper Configuration screen failed to open");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, ex);
 		}
 	}
