@@ -1827,6 +1827,7 @@ public class SalmonellaLog {
 				}
 
 				FileInputStream fsIP= new FileInputStream(new File("./Excel/MetaData.xlsx"));
+				@SuppressWarnings("resource")
 				XSSFWorkbook wb = new XSSFWorkbook(fsIP);
 				XSSFSheet worksheet = wb.getSheetAt(0);
 				Cell cell = null;
