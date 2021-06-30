@@ -231,24 +231,28 @@ public class CoccidiaLog {
 
 				Helper.driver.get(Constants.url_CoccidiaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Sample-Id")));
-				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
-				Helper.driver.findElement(By.id("filter-Sample-Id")).click();
-				Thread.sleep(500);
-				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+				Thread.sleep(1000);
 
+				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
+				ClickElement.clickByCss(Helper.driver, "#sort-sampleId .log-header__filter-icon");				
+				Thread.sleep(800);
+				Helper.driver.findElement(By.cssSelector("#sort-sampleId .filter-popup__footer--view-all")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
 				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
-				Helper.driver.findElement(By.id("Sample-Id-place-holder-search")).clear();
-				Helper.driver.findElement(By.id("Sample-Id-place-holder-search")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Thread.sleep(1500);								
-				Helper.driver.findElement(By.id("Sample-Id_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j))).click();
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Thread.sleep(1500);
+					Helper.driver.findElement(By.cssSelector("#sort-sampleId form-control")).clear();
+					Helper.driver.findElement(By.cssSelector("#sort-sampleId form-control")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);								
+					Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+Test_Variables.lstSampleID.get(j))).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(800);
 				}
-				
+
 				Test_Variables.steps.createNode("3. Click on Apply filter button");
-				Helper.driver.findElement(By.id("filter-icon")).click();  
+				Helper.driver.findElement(By.cssSelector("#sort-sampleId .filter-popup__action--apply")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 				String records = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -287,7 +291,7 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("1. Click on Coccidia Log");
 
 			Helper.driver.get(Constants.url_CoccidiaLog);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Instrument-Id"))); 
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(By.id("Coccidia Log")).getText();
 			String expected = "Coccidia Log";

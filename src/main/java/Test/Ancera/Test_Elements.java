@@ -476,19 +476,18 @@ public class Test_Elements {
 	public static String slDateOpen = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
 	public static String slDateFrom = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
 	public static String slDateTo = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
-	public static String slToday = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[1]/button";
-	public static String slLast24Hours = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[2]/button";
-	public static String slLast7Days = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
-	public static String slLast30Days = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
-	public static String slThisMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
-	
-	public static String slLastMonth = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
+	public static String slToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
+	public static String slLast24Hours = "body app-root p:nth-child(2)";
+	public static String slLast7Days = "body app-root p:nth-child(3)";
+	public static String slLast30Days = "body app-root p:nth-child(4)";
+	public static String slThisMonth = "body app-root p:nth-child(5)";
+	public static String slLastMonth = "body app-root p:nth-child(6)";
 									 
 	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div[1]/div/div[2]/div[2]/div[5]/div/table/tbody/tr[1]/td[1]";
 	//public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String slLoadRed = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr red ng-star-inserted";  
-	public static String slLoadYellow = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr yellow ng-star-inserted"; 
-	public static String slLoadGreen = "text-center table-cell-w-adjust filter-group checkbox-brdr-clr green ng-star-inserted";
+	public static String slLoadRed = ".red";  
+	public static String slLoadYellow = ".yellow"; 
+	public static String slLoadGreen = ".green";
 
 	public static String slRowsDropdown = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
 	public static String slRowsSelect100 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";

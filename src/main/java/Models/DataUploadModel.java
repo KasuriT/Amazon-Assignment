@@ -397,7 +397,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+	
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-64: Verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";

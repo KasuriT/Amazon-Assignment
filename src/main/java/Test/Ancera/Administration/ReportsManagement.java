@@ -35,7 +35,7 @@ public class ReportsManagement {
 		Helper.config();
 		ConfigureLogin.login();
 	}
-	
+
 
 	@Test (description="Test Case: Navigate to Reports Management Screen",enabled=true, priority = 2) 
 	public void NavigateRM() throws InterruptedException, IOException {
@@ -74,7 +74,7 @@ public class ReportsManagement {
 		}
 	}
 
-	
+
 	@Test (description="Open Create Role Popup", enabled= true, priority= 3) 
 	public void OpenPopup() throws InterruptedException, IOException {
 		try{
@@ -197,7 +197,7 @@ public class ReportsManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-save")).click();
 
-			
+
 			try {
 				if(objModel.step)	
 				{
@@ -217,13 +217,13 @@ public class ReportsManagement {
 						}
 						Assert.assertEquals(rmDescError, "Role description is required"); 
 					}
-					
+
 					Test_Variables.test.pass(objModel.passScenario);
 					Test_Variables.results.createNode(objModel.passScenario);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));
 					continue;
 				}
-			
+
 
 
 				if (objModel.save)
@@ -299,10 +299,10 @@ public class ReportsManagement {
 			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = "Reporting role details updated successfully.";
-			
+
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("Role updated successfully");
-			
+
 			//Helper.driver.findElement(By.cssSelector("#alrt .close")).click();
 			Test_Variables.results.createNode("User receives an alert message that 'Role details updated'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
@@ -347,7 +347,7 @@ public class ReportsManagement {
 			for (int i=1; i<=100; i++) {
 				String actualXpath = Test_Elements.rmbeforeXpath+i+Test_Elements.rmafterXpath;
 				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-			//	Thread.sleep(1500);
+				//	Thread.sleep(1500);
 
 				if (element.getText().equals(Test_Variables.RoleName)) {
 					WebElement filter_scroll = Helper.driver.findElement(By.xpath(Test_Elements.rmbeforeXpath+i+Test_Elements.rmafterXpath1));
@@ -379,7 +379,7 @@ public class ReportsManagement {
 	}
 
 
-	
+
 	@Test (description="Test Case: InActivate Role",enabled= true, priority= 8) 
 	public void InActiveRole() throws InterruptedException, IOException {
 		try{
@@ -453,7 +453,7 @@ public class ReportsManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("edit-user-1")).click();
-			
+
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
@@ -464,10 +464,10 @@ public class ReportsManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Helper.driver.findElement(By.cssSelector("#reportRoleId input")).sendKeys(Test_Variables.RoleName);
 			Thread.sleep(1000);
-		//	String actual = Helper.driver.findElement(By.cssSelector("//div[contains(text(), 'No items found')]")).getText();
+			//	String actual = Helper.driver.findElement(By.cssSelector("//div[contains(text(), 'No items found')]")).getText();
 
 			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("div .ng-option-disabled")).isDisplayed());
-		//	Assert.assertEquals(actual, "No items found"); 
+			//	Assert.assertEquals(actual, "No items found"); 
 			Test_Variables.test.pass("InActivated Role was not found in User Management screen");
 			Test_Variables.results.createNode("User was not able to see InActivated Role in dropdown list");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
@@ -684,33 +684,11 @@ public class ReportsManagement {
 
 				if (objModel.rgsave)
 				{
-					//				Test_Variables.test = Test_Variables.extent.createTest("AN-RM-20: Verify user can save Report Details: Verify that user can save report details on filling all mandatory fields");
-					//				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-					//				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-					//				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-					//
-					//				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-					//				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-					//				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select Report Management");
-					//				Test_Variables.preconditions.createNode("4. Click on Report Groups button; Report Group popup opens");
-					//				Test_Variables.preconditions.createNode("5. Click on '+' icon; Report Group Details screen shows up");
-					//				Test_Variables.steps.createNode("1. Enter valid data in all fields");
-					//				Test_Variables.steps.createNode("2. Click on save button");
-
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 					Thread.sleep(1000);
 					String actual = Helper.driver.findElement(By.id("message")).getText();
 					String expected = "New report group created.";
-
-					//			try{
 					Assert.assertEquals(actual, expected); 
-					//				Test_Variables.test.pass("Report Group details saved successfully");
-					//				Test_Variables.results.createNode("Report Group details saved successfully");
-					//				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
-					//			}catch(AssertionError e){
-					//				Test_Variables.test.fail("Report Group details failed to save");
-					//			Test_Variables.results.createNode("Report Group details failed to save");
-					//			}	
 				}
 
 				Test_Variables.test.pass(objModel.rgpassScenario);
@@ -758,8 +736,8 @@ public class ReportsManagement {
 
 				if (element.getText().equals(Test_Variables.ReportName)) {
 					Helper.driver.findElement(By.xpath(Test_Elements.rgbeforeXpath+i+Test_Elements.rgafterXpath)).click();
-				//	Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
-				//	ClickElement.clickById(Helper.driver, "edit-report-role-"+i);
+					//	Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
+					//	ClickElement.clickById(Helper.driver, "edit-report-role-"+i);
 					break;
 				}
 			}
@@ -769,7 +747,7 @@ public class ReportsManagement {
 			Helper.driver.findElement(By.id("groupDescId")).clear();
 			Helper.driver.findElement(By.id("groupDescId")).sendKeys("Automated Report Details Update Test ");
 			Thread.sleep(1000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));		
 			Helper.driver.findElement(By.id("btn-save-2")).click();
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -850,7 +828,7 @@ public class ReportsManagement {
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-       
+
 		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
@@ -873,10 +851,10 @@ public class ReportsManagement {
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 				break;
 			}
-	//		else {
-	//			Test_Variables.test.fail("Added report displayed in Edit Rights page failed");
-	//			Test_Variables.results.createNode("User is not able to view Report Groups in Edit Rights popup successfully");
-	//		}
+			//		else {
+			//			Test_Variables.test.fail("Added report displayed in Edit Rights page failed");
+			//			Test_Variables.results.createNode("User is not able to view Report Groups in Edit Rights popup successfully");
+			//		}
 		}
 	}
 
@@ -889,7 +867,7 @@ public class ReportsManagement {
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-       
+
 		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
@@ -897,7 +875,7 @@ public class ReportsManagement {
 		Test_Variables.preconditions.createNode("5. Create a Role");
 		Test_Variables.steps.createNode("1. Click on edit rights icon next to created role; popup appears");
 		Test_Variables.steps.createNode("2. Click on report group");
-		
+
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Thread.sleep(1500);
 
@@ -913,23 +891,23 @@ public class ReportsManagement {
 			}
 
 		}
-			Thread.sleep(1500);
-			String actual =	Helper.driver.findElement(By.xpath(Test_Elements.rmEditRightsReportName)).getText();
-			String expected = "Salmonella Log";
+		Thread.sleep(1500);
+		String actual =	Helper.driver.findElement(By.xpath(Test_Elements.rmEditRightsReportName)).getText();
+		String expected = "Salmonella Log";
 
-			try{
-				Assert.assertEquals(actual, expected); 
-				Test_Variables.test.pass("Reports in report groups displayed successfully");
-				Test_Variables.results.createNode("Displays list of reports that are present in that Report Group");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
-			}catch(AssertionError e){
-				Test_Variables.test.fail("Reports in report groups did not displayed successfully");
-				Test_Variables.results.createNode("Did not displayed list of reports that are present in that Report Group");
-			}
+		try{
+			Assert.assertEquals(actual, expected); 
+			Test_Variables.test.pass("Reports in report groups displayed successfully");
+			Test_Variables.results.createNode("Displays list of reports that are present in that Report Group");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+		}catch(AssertionError e){
+			Test_Variables.test.fail("Reports in report groups did not displayed successfully");
+			Test_Variables.results.createNode("Did not displayed list of reports that are present in that Report Group");
 		}
-	
+	}
 
-	
+
+
 
 	@Test (description="Test Case: Save Report Access rights",enabled= true, priority= 19) 
 	public void SaveAccessRights() throws InterruptedException, IOException {
@@ -938,7 +916,7 @@ public class ReportsManagement {
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-       
+
 		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
@@ -946,8 +924,8 @@ public class ReportsManagement {
 		Test_Variables.preconditions.createNode("5. Create a Report Group and add a new report into it");
 		Test_Variables.steps.createNode("1. Click on edit rights icon next to created role; popup appears");
 		Test_Variables.steps.createNode("2. Click on Save button");
-		
-		
+
+
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Thread.sleep(1500);
 
@@ -973,7 +951,7 @@ public class ReportsManagement {
 		}
 	}
 
-	
+
 	@Test (description="Test Case: Delete Report Group Configurations",enabled= false, priority= 20) 
 	public void DeleteReportGroupConfigurations() throws InterruptedException, IOException {
 
@@ -981,7 +959,7 @@ public class ReportsManagement {
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-       
+
 		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
@@ -989,10 +967,10 @@ public class ReportsManagement {
 		Test_Variables.preconditions.createNode("5. Create a Report Group and add a new report into it");
 		Test_Variables.steps.createNode("1. Click on delete button next to added report; confirmaton message appears");
 		Test_Variables.steps.createNode("2. Click on Yes");
-		
+
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Helper.driver.get(Constants.url_reportsManagement);
-	
+
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.rmReportGroupsCreateButton)));
 		Thread.sleep(1500);
 		Helper.driver.findElement(By.xpath(Test_Elements.rmReportGroupsCreateButton)).click();
@@ -1012,7 +990,7 @@ public class ReportsManagement {
 						Helper.driver.findElement(By.xpath("")).click();
 					}
 				}
-			//	Helper.driver.findElement(By.xpath(Test_Elements.rgbeforeXpath+i+Test_Elements.rgafterXpathExpandDelete)).click();
+				//	Helper.driver.findElement(By.xpath(Test_Elements.rgbeforeXpath+i+Test_Elements.rgafterXpathExpandDelete)).click();
 				break;
 			}
 		}
@@ -1038,12 +1016,229 @@ public class ReportsManagement {
 			Test_Variables.results.createNode("User did not receive an alert message that 'Report Confguration details deleted.'");
 		}
 	}
-	
-	
-	@Test (description="Test Case: Delete Report Group",enabled= true, priority= 21) 
+
+
+	@Test (description="Test Case: Inactivate Report Group",enabled= false, priority= 21) 
+	public void InActivateReportGroup() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AM-RM-28: Verify user can inactivate Report Group", "This test case will verify that user can inactivate Report Group");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
+			Test_Variables.preconditions.createNode("4. Click on Create New button; popup appears");
+			Test_Variables.preconditions.createNode("5. Create a Report Group");
+			Test_Variables.steps.createNode("1. Click on inactivate toggle button");
+
+			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			
+			Helper.driver.findElement(By.id("edit-role-rights-1")).click();
+			Thread.sleep(2000);
+			
+			for (int i=1; i<=Test_Variables.ReportGroupLength; i++) {
+				String actualXpath = Test_Elements.rgbeforeXpath+i+Test_Elements.rgafterXpath;
+				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+				Thread.sleep(500);
+
+			//	if (element.getText().equals(Test_Variables.ReportName)) {
+					if (element.getText().equals("Test Report Group1248")) {			
+					Helper.driver.findElement(By.xpath(Test_Elements.rgbeforeXpath+i+Test_Elements.rgafterXpath)).click();
+					break;
+				}
+			}
+
+			Thread.sleep(1500);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("groupNameId")));
+			Helper.driver.findElement(By.cssSelector(".toggle")).click();
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));		
+			Helper.driver.findElement(By.id("btn-save-2")).click();
+			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
+			String actual = Helper.driver.findElement(By.id("message")).getText();
+			String expected = "Report Group details updated successfully.";
+
+			Assert.assertEquals(actual, expected); 
+			Test_Variables.test.pass("Report Group inactivated successfully");
+			Test_Variables.results.createNode("Report Group inactivated successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ReportManagementReportPath, null);
+		}		
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Report Group failed to inactivate");
+			Test_Variables.results.createNode("Report Group failed to inactivate");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ReportManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Report Group failed to inactivate");
+			Test_Variables.results.createNode("Report Group failed to inactivate");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ReportManagementReportPath, ex);
+		}
+	}
+
+
+	@Test (description="Test Case: Verify inactivated report group in edit rights screen",enabled= false, priority= 22) 
+	public void VerifyInactivatedReportGroup() throws InterruptedException, IOException {
+
+		Test_Variables.test = Test_Variables.extent.createTest("AM-RM-29: Verify inactivated Report Group is not visible on Edit Rights popup", "This test case will verify that inactivated report group is not being displayed on Edit Rights popup");
+		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
+		Test_Variables.preconditions.createNode("4. Click on Create New button; popup appears");
+		Test_Variables.preconditions.createNode("5. Create a Report Group and make it inactivated");
+		Test_Variables.steps.createNode("1. Click on edit rights icon to check if report group appears in list or not");
+
+		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Thread.sleep(1500);
+		Helper.driver.findElement(By.id("edit-role-rights-1")).click();
+		Thread.sleep(1500);
+		for (int i=1; i<=Test_Variables.ReportGroupLength; i++) {
+			String actualXpath = Test_Elements.rmEditRightsbeforeXpath+i+Test_Elements.rmEditRightsafterXpath;
+			WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+
+			Thread.sleep(2500);
+
+			if (element.getText().equals("Test Report Group1248")) {
+				Test_Variables.test.fail("Inactivated report group is displayed in Edit Rights page");
+				Test_Variables.results.createNode("Inactivated report group is displayed in Edit Rights page");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+				break;
+			}
+			else {
+				Test_Variables.test.pass("Inactivated report group is not displayed in Edit Rights page successfully");
+				Test_Variables.results.createNode("Inactivated report group is not displayed in Edit Rights page successfully");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.ReportManagementReportPath, null);
+			}
+			Helper.driver.findElement(By.cssSelector(".close-text")).click();
+		}
+	}
+
+
+
+	@Test (description="Test Case: Hide Column",enabled= false, priority= 23) 
+	public void HideColumn() throws InterruptedException, IOException {
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AM-RM-29: Verify Report Groups are visible on Edit Rights popup", "This test case will verify that added report group is being displayed on Edit Rights popup");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Adminstration and select Report Management");
+			Test_Variables.preconditions.createNode("4. Click on Create New button; popup appears");
+			Test_Variables.preconditions.createNode("5. Create a Role");
+			Test_Variables.steps.createNode("1. Click on edit rights icon next to created role; popup appears");
+
+			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Thread.sleep(1000);
+		
+			for (int i=1; i<=100; i++) {
+				WebElement element = Helper.driver.findElement(By.cssSelector("tbody tr:nth-child("+i+") td:nth-child(1) label:nth-child(1)"));
+				Thread.sleep(1000);
+
+				if (element.getText().equals("PIPER Output")) {
+					Helper.driver.findElement(By.id("edit-role-rights-"+i)).click();
+					Thread.sleep(2000);	
+					break;
+				}
+			}
+
+			for (int j =2; j<=100; j++) {
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ul:nth-child(2) li:nth-child(1) label:nth-child(1)")));
+				WebElement element_group = Helper.driver.findElement(By.cssSelector("ul:nth-child("+j+") li:nth-child(1) label:nth-child(1)"));
+				Thread.sleep(1000);	
+				if (element_group.getText().equals("all reports")) {
+					Helper.driver.findElement(By.cssSelector("ul:nth-child("+j+") li:nth-child(1) label:nth-child(1)")).click();
+					Thread.sleep(1000);	
+					Helper.driver.findElement(By.cssSelector("tbody tr:nth-child(1) td:nth-child(6) span:nth-child(1) i:nth-child(1)")).click();
+					Thread.sleep(1000);	
+					if (Helper.driver.findElements(By.cssSelector("#field-0.T")).size() != 0) {
+					Helper.driver.findElement(By.id("field-0")).click();
+					}
+					Helper.driver.findElement(By.id("btn-save")).click();  
+					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+					break;
+				}
+			}	
+
+			Helper.driver.get(Constants.url_SalmonellaLog);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			int column = Helper.driver.findElements(By.id("sort-laneNum")).size();
+
+			
+			
+			Helper.driver.get(Constants.url_reportsManagement);
+			for (int i=1; i<=Test_Variables.ReportGroupLength; i++) {
+				WebElement element = Helper.driver.findElement(By.cssSelector("tbody tr:nth-child("+i+") td:nth-child(1) label:nth-child(1)"));
+				Thread.sleep(1000);
+
+				if (element.getText().equals("PIPER Output")) {
+					Helper.driver.findElement(By.id("edit-role-rights-"+i)).click();
+					Thread.sleep(1000);	
+					break;
+				}
+			}
+
+			for (int j =2; j<=100; j++) {
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ul:nth-child(2) li:nth-child(1) label:nth-child(1)")));
+				WebElement element_group = Helper.driver.findElement(By.cssSelector("ul:nth-child("+j+") li:nth-child(1) label:nth-child(1)"));
+				Thread.sleep(1000);	
+				if (element_group.getText().equals("all reports")) {
+					Helper.driver.findElement(By.cssSelector("ul:nth-child("+j+") li:nth-child(1) label:nth-child(1)")).click();
+					Thread.sleep(1000);	
+					Helper.driver.findElement(By.cssSelector("tbody tr:nth-child(1) td:nth-child(6) span:nth-child(1) i:nth-child(1)")).click();
+					Thread.sleep(1000);	
+					if (Helper.driver.findElements(By.cssSelector("#field-0.T")).size() == 0) {
+					Helper.driver.findElement(By.id("field-0")).click();
+					}
+					Helper.driver.findElement(By.id("btn-save")).click();
+					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+					break;
+				}
+			}
+				
+			Assert.assertEquals(column, 0);
+			Test_Variables.test.pass("Inactivated report group is not displayed in Edit Rights page successfully");
+			Test_Variables.results.createNode("Inactivated report group is not displayed in Edit Rights page successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ReportManagementReportPath, null);
+			
+		}		
+		catch(AssertionError er) {
+			Test_Variables.test.fail("User did not receive an alert message that 'Report Group details deleted.'");
+			Test_Variables.results.createNode("User did not receive an alert message that 'Report Group details deleted.'");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ReportManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("User did not receive an alert message that 'Report Group details deleted.'");
+			Test_Variables.results.createNode("User did not receive an alert message that 'Report Group details deleted.'");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ReportManagementReportPath, ex);
+		}
+	}
+
+
+
+
+
+
+
+
+
+	@Test (description="Test Case: Delete Report Group",enabled= false, priority= 22) 
 	public void DeleteReportGroup() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AM-RM-28: Verify user can delete Report Group", "This test case will verify that user can delete Report Group");
+			Test_Variables.test = Test_Variables.extent.createTest("AM-RM-30: Verify user can delete Report Group", "This test case will verify that user can delete Report Group");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1057,7 +1252,7 @@ public class ReportsManagement {
 			Test_Variables.steps.createNode("2. Click on Yes");
 
 			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			Helper.driver.get(Constants.url_reportsManagement);
+			//	Helper.driver.get(Constants.url_reportsManagement);
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.rmReportGroupsCreateButton)));
 			Thread.sleep(1500);
@@ -1084,8 +1279,8 @@ public class ReportsManagement {
 			String expected = "Report Group details deleted.";
 
 			Assert.assertEquals(actual, expected); 
-			Test_Variables.test.pass("Report Configuration details deleted successfully");
-			Test_Variables.results.createNode("User should receive an alert message that 'Report Group details deleted.'");
+			Test_Variables.test.pass("Report Group deleted successfully");
+			Test_Variables.results.createNode("Report Group deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ReportManagementReportPath, null);
 		}		

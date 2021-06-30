@@ -292,7 +292,7 @@ public class InstallationRun {
 	}
 	
 	
-	@Test (enabled= true, priority = 2) 
+	@Test (enabled= false, priority = 2) 
 	public void installationRunConfigPractice() throws InterruptedException, IOException {
 	
 		Helper.driver.get(Constants.url_SalmonellaLog);
@@ -351,7 +351,7 @@ public class InstallationRun {
 	
 	
 	@SuppressWarnings("unchecked")
-	@Test (enabled= false, priority = 3) 
+	@Test (enabled= true, priority = 3) 
 	public void installationRunConfigCoccidia() throws InterruptedException, IOException {
 
 		int z = 0;
