@@ -73,7 +73,6 @@ public class SalmonellaModel {
 		objFilter.FilterID = "#sort-laneNum";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3")); 
-		objTmp.resetFilter = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);	
 	
@@ -89,7 +88,6 @@ public class SalmonellaModel {
 		objFilter.FilterID = "#sort-sampleId";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("14", "15"));
-		objTmp.resetFilter = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 			

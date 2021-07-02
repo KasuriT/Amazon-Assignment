@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Wed Jun 30 14:25:54 PKT 2021</td>
+<td>Started on:</td><td>Fri Jul 02 16:24:32 PKT 2021</td>
 </tr>
-<tr><td>Total time:</td><td>162 seconds (162024 ms)</td>
+<tr><td>Total time:</td><td>243 seconds (243235 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,9 +75,9 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='Test.Ancera.Reports.SalmonellaLog.TestFilter()'><b>TestFilter</b><br>Test class: Test.Ancera.Reports.SalmonellaLog<br>Test method: Test Case: Filter Test</td>
-<td><div><pre>java.lang.Exception: java.lang.AssertionError: expected [1] but found [0]
-	at Test.Ancera.Reports.SalmonellaLog.TestFilter(SalmonellaLog.java:797)
+<td title='Test.Ancera.Reports.CoccidiaLog.RunAPI()'><b>RunAPI</b><br>Test class: Test.Ancera.Reports.CoccidiaLog<br>Test method: Test Case: Run APIs</td>
+<td><div><pre>java.lang.Exception: java.lang.AssertionError: expected [12] but found [10]
+	at Test.Ancera.Reports.CoccidiaLog.RunAPI(CoccidiaLog.java:357)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -106,18 +106,18 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [1] but found [0]
+Caused by: java.lang.AssertionError: expected [12] but found [10]
 	at org.testng.Assert.fail(Assert.java:99)
 	at org.testng.Assert.failNotEquals(Assert.java:1037)
 	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
 	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at org.testng.Assert.assertEquals(Assert.java:917)
-	at Test.Ancera.Reports.SalmonellaLog.TestFilter(SalmonellaLog.java:788)
+	at org.testng.Assert.assertEquals(Assert.java:629)
+	at org.testng.Assert.assertEquals(Assert.java:639)
+	at Test.Ancera.Reports.CoccidiaLog.RunAPI(CoccidiaLog.java:349)
 	... 28 more
-</pre></div><a href='#' onClick='toggleBox("stack-trace1252165500", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1252165500'><pre>java.lang.Exception: java.lang.AssertionError: expected [1] but found [0]
-	at Test.Ancera.Reports.SalmonellaLog.TestFilter(SalmonellaLog.java:797)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1415887228", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1415887228'><pre>java.lang.Exception: java.lang.AssertionError: expected [12] but found [10]
+	at Test.Ancera.Reports.CoccidiaLog.RunAPI(CoccidiaLog.java:357)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -146,31 +146,18 @@ Caused by: java.lang.AssertionError: expected [1] but found [0]
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [1] but found [0]
+Caused by: java.lang.AssertionError: expected [12] but found [10]
 	at org.testng.Assert.fail(Assert.java:99)
 	at org.testng.Assert.failNotEquals(Assert.java:1037)
 	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
 	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:907)
-	at org.testng.Assert.assertEquals(Assert.java:917)
-	at Test.Ancera.Reports.SalmonellaLog.TestFilter(SalmonellaLog.java:788)
+	at org.testng.Assert.assertEquals(Assert.java:629)
+	at org.testng.Assert.assertEquals(Assert.java:639)
+	at Test.Ancera.Reports.CoccidiaLog.RunAPI(CoccidiaLog.java:349)
 	... 28 more
 </pre></div></td>
-<td>48</td>
-<td>Test.Ancera.Reports.SalmonellaLog@78123e82</td></tr>
-</table><p>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
-<tr><td><b>Test method</b></td>
-<td width="30%"><b>Exception</b></td>
-<td width="10%"><b>Time (seconds)</b></td>
-<td><b>Instance</b></td>
-</tr>
-<tr>
-<td title='Test.Ancera.Reports.SalmonellaLog.NavigateSalmonella()'><b>NavigateSalmonella</b><br>Test class: Test.Ancera.Reports.SalmonellaLog<br>Test method: Test Case: Navigate to Salmonella Log Screen</td>
-<td></td>
-<td>49</td>
-<td>Test.Ancera.Reports.SalmonellaLog@78123e82</td></tr>
+<td>224</td>
+<td>Test.Ancera.Reports.CoccidiaLog@63a12c68</td></tr>
 </table><p>
 </body>
 </html>

@@ -568,14 +568,12 @@ public class Test_Elements {
 
 	public static String clDateOpen = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
 	public static String clDateFrom = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
-	public static String clDateTo = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
-	public static String clToday = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[1]/button";
-	public static String clLast24Hours = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[2]/button";
-	public static String clLast7Days = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
-	public static String clLast30Days = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
-	public static String clThisMonth = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
-	public static String clLastMonth = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-
+	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
+	public static String clLast24Hours = "body app-root p:nth-child(2)";
+	public static String clLast7Days = "body app-root p:nth-child(3)";
+	public static String clLast30Days = "body app-root p:nth-child(4)";
+	public static String clThisMonth = "body app-root p:nth-child(5)";
+	public static String clLastMonth = "body app-root p:nth-child(6)";
 
 //	public static String clRowsDropdown = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
 	//public static String clRowsSelect100 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
