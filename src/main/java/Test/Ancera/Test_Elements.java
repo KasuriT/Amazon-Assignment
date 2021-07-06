@@ -553,98 +553,43 @@ public class Test_Elements {
 
 	//////////////////////////////////////////////////Coccidia Log Elements/////////////////////////////////////////////////////////
 
-	public static String clSampleIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[2]";
-	public static String clInstrumentIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[17]";
-	public static String clCatridgeIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[16]";
-	public static String clLaneIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String clAssayRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[8]";
-	public static String clImprocIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[26]";
-	public static String clSiteNameRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[12]";
-	public static String clSampleMatrixRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[13]";
-	public static String clCSampleIDRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[14]";
-	public static String clDateReceivedRow = "//*[@id=\"dc-table-graph\"]/tbody/tr[1]/td[15]";
-	public static String clKitLotRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[25]";
-	public static String clPiperUserRow = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[24]";
+	public static String clSampleIDCol = "#col-1";
+	public static String clResultStatusCol = "#col-3";
+	public static String clTotalOPGCol = "#col-4";
+	public static String clSmallOPGCol = "#col-5";
+	public static String clMediumOPGCol = "#col-6";
+	public static String clLargeOPGCol = "#col-7";
+	public static String clAssayCol = "#col-9";
+	public static String clDateCol = "#col-11";
+	public static String clSiteNameCol = "#col-13";
+	public static String clSampleMatrixCol = "#col-14";
+	public static String clCSampleIDCol = "#col-15";
+	public static String clCatridgeIDCol = "#col-17";
+	public static String clInstrumentIDCol = "#col-18";
+	public static String clTotalCountCol = "#col-19";
+	public static String clSmallCountCol = "#col-20";
+	public static String clMediumCountCol = "#col-21";
+	public static String clLargeCountCol = "#col-22";
+	public static String clPiperUserCol = "#col-24";
+	public static String clKitLotCol = "#col-25";
+	public static String clImprocIDCol = "#col-26";
+	public static String clTestSiteIDCol = "#col-27";
+	public static String clTestSiteNameCol = "#col-28";
+	public static String clRunTypeCol = "#col-32";
+	
+	
 
-	public static String clDateOpen = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
-	public static String clDateFrom = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
 	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
 	public static String clLast24Hours = "body app-root p:nth-child(2)";
 	public static String clLast7Days = "body app-root p:nth-child(3)";
 	public static String clLast30Days = "body app-root p:nth-child(4)";
 	public static String clThisMonth = "body app-root p:nth-child(5)";
-	public static String clLastMonth = "body app-root p:nth-child(6)";
-
-//	public static String clRowsDropdown = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-	//public static String clRowsSelect100 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-//	public static String clRowsSelect250 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-	//public static String clRowsSelect500 = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-//	public static String clNextpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-//	public static String clLastpage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-//	public static String clFirstpage= "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-//	public static String clPreviouspage = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
+	public static String clLastMonth = "body app-root p:nth-child(6)";	
+	
 	public static String clTotalPages = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
-	public static String clPngHover = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[1]/div[1]";
-	public static String clCsvHover = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]";
-	public static String clPng = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
-	public static String clDownloadButton = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";
-	public static String clCsv = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";	
-	public static String clExportDataTemplate = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/div/li/label";
-	public static String clSampleMetaDataExport = "/html/body/app-root/div[1]/app-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
 
 	//////////////////////////////////////////////////End Coccidia Log Elements///////////////////////////////////////////////////////
-
-
-	////////////////////////////////////////////////External Coccidia Log Elements////////////////////////////////////////////////////
-
-	public static String eclSampleIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[2]";
-	public static String eclInstrumentIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/thead/tr/th[21]";
-	public static String eclCatridgeIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[20]";
-	public static String eclLaneIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String eclAssayRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[8]";
-	public static String eclImprocIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[24]";
-	public static String eclSiteNameRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[12]";
-	public static String eclSampleMatrixRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[17]";
-	public static String eclCSampleIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[18]";
-	public static String eclDateReceivedRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[19]";
-	public static String eclKitLotRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[23]";
-	public static String eclPiperUserRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[22]";
-	public static String eclCSiteIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[13]";
-	public static String eclRequestedAssayRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[15]";
-	public static String eclFlockIDRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[16]";
-	public static String eclCSiteTypeRow = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[14]";
-
-	public static String eclDateOpen = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
-	public static String eclDateFrom = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
-	public static String eclDateTo = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
-	public static String eclToday = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[1]/button";
-	public static String eclLast24Hours = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[2]/button";
-	public static String eclLast7Days = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
-	public static String eclLast30Days = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
-	public static String eclThisMonth = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
-	public static String eclLastMonth = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-
-	public static String eclRowsDropdown = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-	public static String eclRowsSelect100 = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-	public static String eclRowsSelect250 = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-	public static String eclRowsSelect500 = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-	public static String eclNextpage = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-	public static String eclLastpage = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-	public static String eclFirstpage= "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-	public static String eclPreviouspage = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
-	public static String eclTotalPages = "/html/body/app-root/div/app-external-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
-
-	public static String eclPngHover = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[1]/div[1]";
-	public static String eclCsvHover = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]";
-	public static String eclPng = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
-	public static String eclDownloadButton = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";
-	public static String eclCsv = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/li/label";	
-	public static String eclExportDataTemplate = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/div/li/label";
-	public static String eclSampleMetaDataExport = "/html/body/app-root/div[1]/app-external-coccidia-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
-
-
-	///////////////////////////////////////////////End External Coccidia Log Elements///////////////////////////////////////////////////////
 
 
 	///////////////////////////////////////////////Coccidia Timeline Log Elements/////////////////////////////////////////////////////////

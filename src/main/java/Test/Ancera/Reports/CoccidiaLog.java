@@ -1,6 +1,8 @@
 package Test.Ancera.Reports;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -12,10 +14,14 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -55,6 +61,9 @@ public class CoccidiaLog {
 	}
 
 
+
+	
+	
 	@SuppressWarnings("unchecked")
 	@Test (description="Test Case: Run APIs", enabled= true, priority= 1) 
 	public void RunAPI() throws InterruptedException, IOException	{
@@ -166,8 +175,8 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("File Announcement API failed to run");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}
-		
-		
+
+
 		///////////////////////////////////////////////////////////////////////////
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-StrtAssay-01: Verify Coccidia Start Assay API", "This test case will run Coccidia Start Assay api");	
@@ -218,7 +227,6 @@ public class CoccidiaLog {
 			Thread.sleep(1000);
 			Test_Variables.steps.createNode("2. Search for the Cartridge ID against which the data is ingested");
 
-			System.out.println(Test_Variables.CartridgeID);
 			Helper.driver.findElement(By.id("cartridgeId_search-input")).clear();
 			Helper.driver.findElement(By.id("cartridgeId_search-input")).sendKeys(""+Test_Variables.CartridgeID);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -230,7 +238,6 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("3. Click on Apply filter button");
 			Helper.driver.findElement(By.id("cartridgeId_apply")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 			Assert.assertEquals(records, "12"); 
@@ -238,6 +245,63 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("Start Assay API ran successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+
+			for(int i = 0; i<12;i++) {
+				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clResultStatusCol+" label")).getText();
+				Assert.assertEquals(getResultStatus, "Pending");
+
+				String getDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clDateCol+" label")).getText();
+				Assert.assertEquals(getDate, Test_Variables.dateMMDDYYYY1);
+
+				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clAssayCol+" label")).getText();
+				Assert.assertEquals(getPathogen, Test_Variables.Pathogen);
+
+				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clCatridgeIDCol+" label")).getText();
+				Assert.assertEquals(getCartridgeID, Test_Variables.CartridgeID);
+
+				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clInstrumentIDCol+" label")).getText();
+				Assert.assertEquals(getInstrumentID, Test_Variables.InstrumentID);
+
+				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clPiperUserCol+" label")).getText();
+				Assert.assertEquals(getPiperUser, Test_Variables.PiperUser);
+
+				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteIDCol+" label")).getText();
+				Assert.assertTrue(getTestSiteID.isEmpty() == false);
+
+				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteNameCol+" label")).getText();
+				Assert.assertTrue(getTestSiteName.isEmpty() == false);
+
+				Helper.driver.findElement(By.id("audit-trial-"+i)).click();
+				Thread.sleep(1000);
+				String getAuditDate = Helper.driver.findElement(By.id("audit-changed-date-0")).getText();
+				Assert.assertEquals(getAuditDate, Test_Variables.dateMMDDYYYY1);
+
+				String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+				Assert.assertEquals(getAuditAction, "Created");
+
+				String getAuditUser = Helper.driver.findElement(By.id("audit-changed-by-0")).getText();
+				Assert.assertEquals(getAuditUser, Test_Variables.PiperUser);
+
+				String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-3.text-dark")).getText(); 
+				Assert.assertEquals(getAuditResultStatus, "Pending");
+
+				String getAuditCartridgeId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-16.text-dark")).getText();
+				Assert.assertEquals(getAuditCartridgeId, Test_Variables.CartridgeID);
+
+				String getAuditInstrumentId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-17.text-dark")).getText();
+				Assert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID);
+
+				String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
+				Assert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser);
+
+				String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-26.text-dark")).getText();
+				Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
+
+				String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-27.text-dark")).getText();
+				Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
+				
+				Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+			}			
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Start Assay API failed to run");
@@ -248,9 +312,9 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("Start Assay API failed to run");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}
-			
+
 		///////////////////////////////////////////////////////////////////////	
-		
+
 
 		for(int i=0; i<Test_Variables.lstCoccidiaIngest.size(); i++)	{
 			try{
@@ -280,7 +344,7 @@ public class CoccidiaLog {
 				json3.put("fileJson", Test_Variables.lstCoccidiaIngest.get(i).fileJson);				
 				json3.put("Improc", Test_Variables.lstCoccidiaIngest.get(i).improc);
 				json3.put("RunMode", Test_Variables.lstCoccidiaIngest.get(i).runMode);
-				
+
 				request_fileupload.body(json3.toString());
 				Response response2 = request_fileupload.post(Constants.api_FileUpload);
 				String data3 = response2.asString();
@@ -314,8 +378,212 @@ public class CoccidiaLog {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
-				
+
 				Thread.sleep(75000);
+				Helper.driver.get(Constants.url_CoccidiaLog);
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+				Thread.sleep(1000);
+
+				Test_Variables.steps.createNode("1. Click on Lab Sample ID to expand the filter");
+				ClickElement.clickById(Helper.driver, "sampleId_show-filter");			
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("sampleId_view-all")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(1000);
+				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
+
+				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
+
+					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);				
+					Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j))).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(800);
+				}
+
+				Test_Variables.steps.createNode("3. Click on Apply filter button");
+				Helper.driver.findElement(By.id("sampleId_apply")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+				String records = Helper.driver.findElement(By.id("results-found-count")).getText();
+
+				Assert.assertEquals(records, "12"); 
+				
+				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clResultStatusCol+" label")).getText();
+				Assert.assertEquals(getResultStatus, "Completed");
+
+				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clAssayCol+" label")).getText();
+				Assert.assertEquals(getPathogen, Test_Variables.Pathogen);
+
+				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clCatridgeIDCol+" label")).getText();
+				Assert.assertEquals(getCartridgeID, Test_Variables.CartridgeID);
+
+				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clInstrumentIDCol+" label")).getText();
+				Assert.assertEquals(getInstrumentID, Test_Variables.InstrumentID);
+
+				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clPiperUserCol+" label")).getText();
+				Assert.assertEquals(getPiperUser, Test_Variables.PiperUser);
+	
+		//		String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clRunTypeCol+" label")).getText();
+		//		Assert.assertEquals(getRunType, Test_Variables.RunType);
+				
+				String getImprocID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clImprocIDCol+" label")).getText();
+				Assert.assertEquals(getImprocID, Test_Variables.ImprocVersion);
+
+				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteIDCol+" label")).getText();
+				Assert.assertTrue(getTestSiteID.isEmpty() == false);
+
+				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteNameCol+" label")).getText();
+				Assert.assertTrue(getTestSiteName.isEmpty() == false);
+				
+				String getTotalCount = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTotalCountCol+" label")).getText();
+				Assert.assertTrue(getTotalCount.isEmpty() == false);
+				
+				String getSmallCount = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clSmallCountCol+" label")).getText();
+				Assert.assertTrue(getSmallCount.isEmpty() == false);
+				
+				String getMediumCount = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clMediumCountCol+" label")).getText();
+				Assert.assertTrue(getMediumCount.isEmpty() == false);
+				
+				String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clLargeCountCol+" label")).getText();
+				Assert.assertTrue(getLargeCount.isEmpty() == false);
+				
+				Helper.driver.findElement(By.id("audit-trial-"+i)).click();
+				Thread.sleep(1000);
+
+				String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+				Assert.assertEquals(getAuditAction, "Modified");
+
+				String getAuditUser = Helper.driver.findElement(By.id("audit-changed-by-0")).getText();
+				Assert.assertEquals(getAuditUser, Test_Variables.PiperUser);
+
+				String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-3.text-dark")).getText();
+				Assert.assertEquals(getAuditResultStatus, "Completed");
+
+				String getAuditCartridgeId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-16.text-dark")).getText();
+				Assert.assertEquals(getAuditCartridgeId, Test_Variables.CartridgeID);
+
+				String getAuditInstrumentId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-17.text-dark")).getText();
+				Assert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID);
+
+				String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
+				Assert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser);
+				
+				String getAuditImprocVersion = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-25.text-dark")).getText();
+				Assert.assertEquals(getAuditImprocVersion, Test_Variables.ImprocVersion);
+
+				String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-26.text-dark")).getText();
+				Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
+
+				String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-27.text-dark")).getText();
+				Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
+				
+				Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+				
+				Test_Variables.test.pass("Ingested Successfully");
+				Test_Variables.results.createNode("Data ingestion verified successfully");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+			}catch(AssertionError er) {
+				Test_Variables.test.fail("Ingestion failed");
+				Test_Variables.results.createNode("Data ingestion verification failed");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+			}catch(Exception ex){
+				Test_Variables.test.fail("Ingestion failed");
+				Test_Variables.results.createNode("Data ingestion verification failed");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+			}
+			
+			///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+			try {	
+				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstCoccidiaIngest.get(i).testCaseTitleIngestion, Test_Variables.lstCoccidiaIngest.get(i).testCaseDescIngestion);	
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
+
+		//		String getSampleID = Helper.driver.findElement(By.cssSelector("#row-1 #col-1")).getText();
+		//		String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-1 #col-15")).getText();
+
+				FileInputStream fsIP= new FileInputStream(new File("./Excel/"+Test_Variables.fileName));
+				@SuppressWarnings("resource")
+				XSSFWorkbook wb = new XSSFWorkbook(fsIP);
+				XSSFSheet worksheet = wb.getSheetAt(0);
+				Cell cell = null;
+
+				for (int z=0; z<12; z++) {
+
+					String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+1+" "+Test_Elements.clSampleIDCol)).getText();
+					String updatedSampleID = getSampleID+"U";
+					cell=worksheet.getRow(z).createCell(17); 
+					cell.setCellValue(updatedSampleID);  
+
+					String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+1+" #col-10")).getText();
+					cell=worksheet.getRow(z).createCell(3); 
+					cell.setCellValue(getResultID);  
+					
+					cell=worksheet.getRow(z+1).createCell(2); 
+					cell.setCellValue(Test_Variables.CartridgeID); 
+
+					cell=worksheet.getRow(z+1).createCell(5); 
+					cell.setCellValue(Test_Variables.SampleMatrix); 
+					
+					cell=worksheet.getRow(z+1).createCell(11); 
+					cell.setCellValue(Test_Variables.FlockID); 
+					
+					cell=worksheet.getRow(z+1).createCell(7); 
+					cell.setCellValue(Test_Variables.RequestedAssay); 
+					
+					cell=worksheet.getRow(z+1).createCell(19); 
+					cell.setCellValue(Test_Variables.KitLot); 
+					
+					cell=worksheet.getRow(z+1).createCell(6); 
+					cell.setCellValue(Test_Variables.CustomerSampleID); 
+					
+					cell=worksheet.getRow(z+1).createCell(4); 
+					cell.setCellValue(Test_Variables.SiteID); 
+
+					String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-0")).getText();
+					cell=worksheet.getRow(z+1).createCell(1); 
+					cell.setCellValue(getLane);  
+ 	
+					fsIP.close();
+				}
+
+				FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.fileName));
+				wb.write(output_file);
+				output_file.close();  
+
+				Helper.driver.get(Constants.url_dataUpload);
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("OrgnTypeID")).click();
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("DataFormatId")).click();
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+Test_Variables.fileName);
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
+				Thread.sleep(4000);
+				Helper.driver.findElement(By.cssSelector(".fa-save")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
+				Thread.sleep(2000);
+
 				Helper.driver.get(Constants.url_CoccidiaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -328,11 +596,11 @@ public class CoccidiaLog {
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
 				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
-				
+
 				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
-					
+
 					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).clear();
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
+					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).sendKeys("Test"+Test_Variables.lstSampleID.get(j)+"U");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);				
 					Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j))).click();
@@ -347,20 +615,21 @@ public class CoccidiaLog {
 				String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 				Assert.assertEquals(records, "12"); 
-				Test_Variables.test.pass("Ingested Successfully");
 				Test_Variables.results.createNode("Data ingestion verified successfully");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 				Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+
 			}catch(AssertionError er) {
-				Test_Variables.test.fail("Ingestion failed");
-				Test_Variables.results.createNode("Data ingestion verification failed");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+				Test_Variables.test.fail("gf");
+					Test_Variables.results.createNode("gfg");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.InstallationRunReportPath, new Exception(er));
 			}catch(Exception ex){
-				Test_Variables.test.fail("Ingestion failed");
-				Test_Variables.results.createNode("Data ingestion verification failed");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+				Test_Variables.test.fail("h");
+				Test_Variables.results.createNode("fgfg");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.InstallationRunReportPath, ex);	
 			}
-			Thread.sleep(2000);				
+			
+			Thread.sleep(2000);	
 		}	
 	}
 
@@ -385,7 +654,7 @@ public class CoccidiaLog {
 			String actual = Helper.driver.findElement(By.id("Coccidia Log")).getText();
 			String expected = "Coccidia Log";
 
-			Assert.assertEquals(actual, expected); 
+			Assert.assertEquals(actual, expected);			
 			Test_Variables.test.pass("User navigated successfully");
 			Test_Variables.results.createNode("Coccidia Log report opens successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -401,11 +670,11 @@ public class CoccidiaLog {
 		}
 	}
 
-	
+
 	@Test (description="Test Case: Wildcard",enabled= false, priority = 2) 
 	public void wildcard() throws InterruptedException, IOException {
 
-		
+
 		Test_Variables.lstCoccidiaWildcardSearch = CoccidiaModel.Wildcard(); 
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaWildcardSearch) { 	
 			try {
@@ -425,31 +694,31 @@ public class CoccidiaLog {
 
 						Test_Variables.steps.createNode("1. Click on Coccidia Log");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						
+
 						WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.FilterID));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 	
 						Thread.sleep(1000);
 						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .fa-filter")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						
-						
+
+
 						if (Helper.driver.findElements(By.cssSelector(objFilter.FilterID+" .data-log-radio")).size() == 0) {
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__wildcard")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					}
-						
-						if(objModel.startWith) {
-						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option1")).click();
+							Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__wildcard")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						}
-						
+
+						if(objModel.startWith) {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option1")).click();
+						}
+
 						if(objModel.endsWith) {
 							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option3")).click();
 						}
-						
+
 						if(objModel.contains) {
 							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option2")).click();
 						}
-				
+
 						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).clear();
 						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).sendKeys(objModel.input);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -480,7 +749,7 @@ public class CoccidiaLog {
 								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
 							}
 						}
-						
+
 						Thread.sleep(1000);
 						Test_Variables.test.pass("User navigated successfully");
 						Test_Variables.results.createNode("Coccidia Log report opens successfully");
@@ -502,7 +771,7 @@ public class CoccidiaLog {
 			}
 		}
 	}
-	
+
 
 	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
@@ -649,7 +918,7 @@ public class CoccidiaLog {
 							cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 							Date todate2 = cal.getTime();    
 							String toDate = dateFormat.format(todate2);
-							
+
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 							String fromDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
@@ -681,7 +950,7 @@ public class CoccidiaLog {
 					Thread.sleep(500);
 					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .log-header__clear-filter")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					
+
 				}
 				else {
 					Test_Variables.test.skip("Unable to test the scenario because button is disabled");
@@ -690,10 +959,10 @@ public class CoccidiaLog {
 					ClickElement.clickById(Helper.driver, "results-found-count");
 				}
 			}
-			}
+		}
 	}
 
-	
+
 	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
@@ -762,7 +1031,7 @@ public class CoccidiaLog {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
-	
+
 	@Test (description="Test Case: Filter Test",enabled= false, priority = 6) 
 	public void TestFilter() throws InterruptedException, IOException {
 
@@ -880,7 +1149,7 @@ public class CoccidiaLog {
 			}
 		}
 	}
-	
+
 
 	@SuppressWarnings("unused")
 	@Test (description="Test Case: Filter Test",enabled= false, priority = 7) 
@@ -1109,7 +1378,7 @@ public class CoccidiaLog {
 
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							String s = Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterID+" li.custom-control:nth-child("+objFilter.checkboxNumber+")")).getText();
-							
+
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 p#"+objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+s)).size() != 0);
 							Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
@@ -1156,7 +1425,7 @@ public class CoccidiaLog {
 						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).clear();
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).sendKeys("text");
-							
+
 							ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"-clear-input");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
@@ -1642,7 +1911,7 @@ public class CoccidiaLog {
 		}
 	}
 
-	
+
 	@Test (description="Sorting",enabled= false, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
@@ -1686,7 +1955,7 @@ public class CoccidiaLog {
 						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
 					}
-					
+
 					catch(StaleElementReferenceException s) {
 						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1697,8 +1966,8 @@ public class CoccidiaLog {
 			}
 		}
 	}
-	
-	
+
+
 	@Test (enabled= false, priority = 13) 
 	public void FieldAccessUnview() throws InterruptedException, IOException {
 		try{
@@ -1750,7 +2019,7 @@ public class CoccidiaLog {
 		}
 	}
 
-	
+
 	@Test (enabled= false, priority = 14) 
 	public void FieldAccessView() throws InterruptedException, IOException {
 		try{
@@ -1796,8 +2065,8 @@ public class CoccidiaLog {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}
 	}
-	
-	
+
+
 
 	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
@@ -1934,7 +2203,7 @@ public class CoccidiaLog {
 
 			Helper.driver.findElement(By.cssSelector("#select-runId-0 .checkbox")).click();
 			Thread.sleep(500);
-			
+
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
@@ -1969,8 +2238,8 @@ public class CoccidiaLog {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 		}
 	}
-	
-	
+
+
 	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 17) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
@@ -1999,9 +2268,9 @@ public class CoccidiaLog {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("5. Click on Export Data Template");
 			Test_Variables.steps.createNode("6. Select Sample MetaData Template");
-			WebElement button = Helper.driver.findElement(By.xpath(Test_Elements.clSampleMetaDataExport));
-			JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
-			jse.executeScript("arguments[0].click()", button);
+	//		WebElement button = Helper.driver.findElement(By.xpath(Test_Elements.clSampleMetaDataExport));
+	//		JavascriptExecutor jse = (JavascriptExecutor)Helper.driver;
+	//		jse.executeScript("arguments[0].click()", button);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
