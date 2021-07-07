@@ -211,12 +211,12 @@ public class PAConfig {
 			postRequest3.addHeader("Content-Type", "application/json");
 			postRequest3.addHeader("Authorization", "Bearer "+token);
 
-			json4.put("DateTime", Test_Variables.lstStartAssay.get(0).DateTime);
-			json4.put("InstrumentId", Test_Variables.lstStartAssay.get(0).InstrumentID);
-			json4.put("UserId", Test_Variables.lstStartAssay.get(0).UserID);
-			json4.put("CartridgeId", Test_Variables.lstStartAssay.get(0).CartridgeID);
-			json4.put("RunId", Test_Variables.lstStartAssay.get(0).RunID);
-			json4.put("PathogenName", Test_Variables.lstStartAssay.get(0).PathogenName);				
+			json4.put("DateTime", Test_Variables.lstStartAssaySalmonella.get(0).DateTime);
+			json4.put("InstrumentId", Test_Variables.lstStartAssaySalmonella.get(0).InstrumentID);
+			json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
+			json4.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
+			json4.put("RunId", Test_Variables.lstStartAssaySalmonella.get(0).RunID);
+			json4.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(0).PathogenName);				
 
 			request_startAssay.body(json4.toString());
 			Response response3 = request_startAssay.post(Constants.api_StartAssay);
@@ -486,12 +486,12 @@ public class PAConfig {
 			postRequest3.addHeader("Content-Type", "application/json");
 			postRequest3.addHeader("Authorization", "Bearer "+token);
 
-			json4.put("DateTime", Test_Variables.lstStartAssay.get(0).DateTime);
-			json4.put("InstrumentId", Test_Variables.lstStartAssay.get(0).InstrumentID);
-			json4.put("UserId", Test_Variables.lstStartAssay.get(0).UserID);
-			json4.put("CartridgeId", Test_Variables.lstStartAssay.get(0).CartridgeID);
-			json4.put("RunId", Test_Variables.lstStartAssay.get(0).RunID);
-			json4.put("PathogenName", Test_Variables.lstStartAssay.get(0).PathogenName);				
+			json4.put("DateTime", Test_Variables.lstStartAssaySalmonella.get(0).DateTime);
+			json4.put("InstrumentId", Test_Variables.lstStartAssaySalmonella.get(0).InstrumentID);
+			json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
+			json4.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
+			json4.put("RunId", Test_Variables.lstStartAssaySalmonella.get(0).RunID);
+			json4.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(0).PathogenName);				
 
 			request_startAssay.body(json4.toString());
 			Response response3 = request_startAssay.post(Constants.api_StartAssay);

@@ -61,6 +61,7 @@ public class Constants {
 	public static String CoccidiaTimelineReportPath = "/Screenshots/Reports/CoccidiaTimelineScreenShot";
 	public static String StartAssayReportPath = "/Screenshots/Reports/StartAssayScreenShot";
 	public static String InstallationRunReportPath = "/Screenshots/Reports/InstallationRunScreenShot";
+	public static String NormalIngestionReportPath = "/Screenshots/Reports/NormalIngestionScreenShot";
 	
 	public static String api_login = api+"/login";
 	public static String api_announcement = api+"/runfilelist";

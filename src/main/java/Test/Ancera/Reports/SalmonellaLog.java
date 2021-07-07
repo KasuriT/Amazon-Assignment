@@ -28,6 +28,7 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.SalmonellaModel;
+import Models.CoccidiaModel;
 import Models.ReportFilters;
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
@@ -320,8 +321,111 @@ public class SalmonellaLog {
 		}
 	}
 
+	
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 2) 
+	public void wildcard() throws InterruptedException, IOException {
+		Test_Variables.lstSalmonellaWildcardSearch = SalmonellaModel.Wildcard(); 
+		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaWildcardSearch) { 	
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+
+				for (ReportFilters objFilter : objModel.lstFilters) {	
+					try {	
+
+						Test_Variables.steps.createNode("1. Click on Salmonella Log");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+						WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.FilterID));
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 	
+						Thread.sleep(1000);
+						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .fa-filter")).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+
+						if (Helper.driver.findElements(By.cssSelector(objFilter.FilterID+" .data-log-radio")).size() == 0) {
+							Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__wildcard")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						}
+
+						if(objModel.startWith) {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option1")).click();
+						}
+
+						if(objModel.endsWith) {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option3")).click();
+						}
+
+						if(objModel.contains) {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option2")).click();
+						}
+
+						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).clear();
+						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).sendKeys(objModel.input);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(1000);
+						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__action--apply")).click();
+
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(1000);
+						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
+						int count = rows.size();
+						Thread.sleep(1000);
+						for (int i = 0; i<count; i++) {
+							if(objModel.startWith) {
+								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
+								System.out.println(str);
+								Assert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
+							}
+
+							if(objModel.endsWith) {
+								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
+								System.out.println(str);
+								Assert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
+							}
+
+							if(objModel.contains) {
+								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
+								System.out.println(str);
+								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
+							}
+						}
+
+						Thread.sleep(1000);
+						Test_Variables.test.pass("User navigated successfully");
+						Test_Variables.results.createNode("Coccidia Log report opens successfully");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+					}catch(AssertionError er) {
+						Test_Variables.test.fail("User navigation failed");
+						Test_Variables.results.createNode("Coccidia Log report failed to open");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+					}catch(Exception ex){
+						Test_Variables.test.fail("User navigation failed");
+						Test_Variables.results.createNode("Coccidia Log report failed to open");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+					}
+					Helper.driver.findElement(By.id(objFilter.FilterXPath+"_clear-filter")).click();
+				}
+			}
+			catch(Exception ex) {
+			}
+		}
+	}
+	
+	
+	
+	
+
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
@@ -492,7 +596,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 5) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 5) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-17: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -1208,7 +1312,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-187: Verify Salmonella Lock Filter Functionality", "This test case will test Salmonella Lock Filter Functionality");
@@ -1222,6 +1326,7 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
+			Helper.driver.navigate().refresh();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-laneNum"))); 
 
@@ -1273,7 +1378,7 @@ public class SalmonellaLog {
 		}
 	}
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -1420,7 +1525,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
@@ -1552,7 +1657,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Sorting",enabled= false, priority = 11) 
+	@Test (description="Sorting",enabled= true, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSorting = SalmonellaModel.sorting();
@@ -1826,7 +1931,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (enabled= false, priority = 14) 
+	@Test (enabled= true, priority = 14) 
 	public void FieldAccessUnview() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-325: Verify that unselecting column from field access popup hides the column from report table", "This testcase will verify that unselecting column from field access popup hides the column from report table");
@@ -1885,7 +1990,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (enabled= false, priority = 15) 
+	@Test (enabled= true, priority = 15) 
 	public void FieldAccessView() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-326: Verify that re-selecting column from field access popup displays the column from report table", "This testcase will verify that re-selecting column from field access popup displays the column from report table");
@@ -2007,7 +2112,7 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Test Salmonella PNG Download",enabled= false, priority = 17) 
+	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 17) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-199: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
@@ -2077,7 +2182,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= false, priority =18) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =18) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-200: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");

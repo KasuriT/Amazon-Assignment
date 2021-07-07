@@ -468,14 +468,34 @@ public class Test_Elements {
 
 	///////////////////////////////////////////////Salmonella Log Elements/////////////////////////////////////////////////////////
 
-	public static String reportbeforeXpath = "/html/body/app-root/div[1]/app-report-viewer/div/div/div[1]/div[2]/div[";   
-	public static String reportafterXpath = "]/div/div[2]/label";					
-	public static String reportafterXpath1 = "]/div/div[1]/img";
-	public static String reportGetTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";
-
-	public static String slDateOpen = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
-	public static String slDateFrom = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
-	public static String slDateTo = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
+	public static String slLaneCol = "0";
+	public static String slSampleIDCol = "1";
+	public static String slResultStatusCol = "3";
+	public static String slTotalOPGCol = "4";
+	public static String slSmallOPGCol = "5";
+	public static String slMediumOPGCol = "6";
+	public static String slLargeOPGCol = "7";
+	public static String slAssayCol = "9";
+	public static String slResultIDCol = "10";
+	public static String slDateCol = "11";
+	public static String slSiteNameCol = "13";
+	public static String slSampleMatrixCol = "14";
+	public static String slCSampleIDCol = "15";
+	public static String slCatridgeIDCol = "17";
+	public static String slInstrumentIDCol = "18";
+	public static String slTotalCountCol = "19";
+	public static String slSmallCountCol = "20";
+	public static String slMediumCountCol = "21";
+	public static String slLargeCountCol = "22";
+	public static String slPiperUserCol = "24";
+	public static String slKitLotCol = "25";
+	public static String slImprocIDCol = "26";
+	public static String slTestSiteIDCol = "27";
+	public static String slTestSiteNameCol = "28";
+	public static String slRequestedAssayCol = "30";
+	public static String slFlockIDCol = "31";
+	public static String slRunTypeCol = "32";
+	
 	public static String slToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
 	public static String slLast24Hours = "body app-root p:nth-child(2)";
 	public static String slLast7Days = "body app-root p:nth-child(3)";
@@ -484,19 +504,10 @@ public class Test_Elements {
 	public static String slLastMonth = "body app-root p:nth-child(6)";
 									 
 	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div[1]/div/div[2]/div[2]/div[5]/div/table/tbody/tr[1]/td[1]";
-	//public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
 	public static String slLoadRed = ".red";  
 	public static String slLoadYellow = ".yellow"; 
 	public static String slLoadGreen = ".green";
 
-	public static String slRowsDropdown = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-	public static String slRowsSelect100 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-	public static String slRowsSelect250 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-	public static String slRowsSelect500 = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-//	public static String slNextpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-//	public static String slLastpage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-//	public static String slFirstpage= "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-//	public static String slPreviouspage = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
 	public static String slTotalPages = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
 	public static String slPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
@@ -511,50 +522,11 @@ public class Test_Elements {
 	/////////////////////////////////////////////////End Salmonella Log Elements////////////////////////////////////////////////////////////
 
 
-	///////////////////////////////////////////////External Salmonella Log Elements/////////////////////////////////////////////////////////
-
-	public static String eslDateOpen = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/i";
-	public static String eslDateFrom = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[1]/input";
-	public static String eslDateTo = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";
-	public static String eslToday = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[1]/button";
-	public static String eslLast24Hours = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[2]/button";
-	public static String eslLast7Days = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[3]/button";
-	public static String eslLast30Days = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[4]/button";
-	public static String eslThisMonth = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[5]/button";
-	public static String eslLastMonth = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div/ngx-daterangepicker-material/div/div[1]/ul/li[6]/button";
-	
-	public static String eslLoadClearInput = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[1]/div/div/div[2]/div[2]/app-custom-checkbox-list[1]/div/div[2]/div[1]/span";
-	public static String eslLoadRow = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/div/table/tbody/tr[1]/td[1]";
-	public static String eslLoadRed = "dc-table-column _0 red text-right";
-	public static String eslLoadYellow = "dc-table-column _0 yellow text-right";
-	public static String eslLoadGreen = "dc-table-column _0 green text-right";
-
-	public static String eslRowsDropdown = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select";
-//	public static String eslRowsSelect100 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[1]";
-//	public static String eslRowsSelect250 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[2]";
-//	public static String eslRowsSelect500 = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[16]/select/option[3]";
-//	public static String eslNextpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[13]/i";
-//	public static String eslLastpage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[14]/i";
-//	public static String eslFirstpage= "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[1]/i";
-//	public static String eslPreviouspage = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[2]/i";
-	public static String eslTotalPages = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
-
-	public static String eslPngHover = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[1]/div[1]";
-	public static String eslCsvHover = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[2]";
-	public static String eslPng = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
-	public static String eslDownloadButton = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";
-	public static String eslCsv = "/html/body/app-root/div/app-external-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";
-	public static String eslExportDataTemplate = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/div/li/label";
-	public static String eslSampleMetaDataExport = "/html/body/app-root/div[1]/app-external-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
-
-
-	///////////////////////////////////////////////End External Salmonella Log Elements/////////////////////////////////////////////
-
-
 	//////////////////////////////////////////////////Coccidia Log Elements/////////////////////////////////////////////////////////
 
 	public static String clSampleIDCol = "#col-1";
 	public static String clResultStatusCol = "#col-3";
+	public static String clResultIDCol = "#col-10";
 	public static String clTotalOPGCol = "#col-4";
 	public static String clSmallOPGCol = "#col-5";
 	public static String clMediumOPGCol = "#col-6";
@@ -576,9 +548,11 @@ public class Test_Elements {
 	public static String clTestSiteIDCol = "#col-27";
 	public static String clTestSiteNameCol = "#col-28";
 	public static String clRunTypeCol = "#col-32";
-	
-	
+	public static String clRequestedAssayCol = "#col-30";
+	public static String clFlockIDCol = "#col-31";
 
+	
+	
 	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
 	public static String clLast24Hours = "body app-root p:nth-child(2)";
 	public static String clLast7Days = "body app-root p:nth-child(3)";

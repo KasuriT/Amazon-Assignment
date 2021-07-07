@@ -86,15 +86,15 @@ public class StartAssay {
 
 		
 
-		for(int i=0; i<Test_Variables.lstStartAssay.size(); i++)	{
+		for(int i=0; i<Test_Variables.lstStartAssaySalmonella.size(); i++)	{
 			try{
-				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstStartAssay.get(i).testCaseTitle, Test_Variables.lstStartAssay.get(i).testCaseDesc);	
+				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstStartAssaySalmonella.get(i).testCaseTitle, Test_Variables.lstStartAssaySalmonella.get(i).testCaseDesc);	
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
 				Test_Variables.preconditions.createNode("Run login API to generate token");
-				Test_Variables.steps.createNode(Test_Variables.lstStartAssay.get(i).step);
+				Test_Variables.steps.createNode(Test_Variables.lstStartAssaySalmonella.get(i).step);
 				JSONObject json3 = new JSONObject();
 				Thread.sleep(2000);
 				RequestSpecification request_startAssay = RestAssured.given();
@@ -106,12 +106,12 @@ public class StartAssay {
 				postRequest1.addHeader("Content-Type", "application/json");
 				postRequest1.addHeader("Authorization", "Bearer "+token);
 
-				json3.put("DateTime", Test_Variables.lstStartAssay.get(i).DateTime);
-				json3.put("InstrumentId", Test_Variables.lstStartAssay.get(i).InstrumentID);
-				json3.put("UserId", Test_Variables.lstStartAssay.get(i).UserID);
-				json3.put("CartridgeId", Test_Variables.lstStartAssay.get(i).CartridgeID);
-				json3.put("RunId", Test_Variables.lstStartAssay.get(i).RunID);
-				json3.put("PathogenName", Test_Variables.lstStartAssay.get(i).PathogenName);				
+				json3.put("DateTime", Test_Variables.lstStartAssaySalmonella.get(i).DateTime);
+				json3.put("InstrumentId", Test_Variables.lstStartAssaySalmonella.get(i).InstrumentID);
+				json3.put("UserId", Test_Variables.lstStartAssaySalmonella.get(i).UserID);
+				json3.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(i).CartridgeID);
+				json3.put("RunId", Test_Variables.lstStartAssaySalmonella.get(i).RunID);
+				json3.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(i).PathogenName);				
 
 				request_startAssay.body(json3.toString());
 
@@ -139,7 +139,7 @@ public class StartAssay {
 			Thread.sleep(1000);
 
 			try {
-				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstStartAssay.get(i).testCaseTitleVerification, Test_Variables.lstStartAssay.get(i).testCaseDescVerification);	
+				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstStartAssaySalmonella.get(i).testCaseTitleVerification, Test_Variables.lstStartAssaySalmonella.get(i).testCaseDescVerification);	
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -148,9 +148,9 @@ public class StartAssay {
 				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on "+Test_Variables.lstStartAssay.get(i).PathogenName+"Log");
+				Test_Variables.preconditions.createNode("5. Click on "+Test_Variables.lstStartAssaySalmonella.get(i).PathogenName+"Log");
 
-				Helper.driver.get(Test_Variables.lstStartAssay.get(i).url);
+				Helper.driver.get(Test_Variables.lstStartAssaySalmonella.get(i).url);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-Cartridge-Id")));
 				Thread.sleep(1000);
@@ -159,7 +159,7 @@ public class StartAssay {
 				Helper.driver.findElement(By.id("filter-Cartridge-Id")).click();
 				Thread.sleep(500);
 				Test_Variables.steps.createNode("2. Search for the Sample ID against which the data is ingested");
-				Helper.driver.findElement(By.id("Cartridge-Id-place-holder-search")).sendKeys(Test_Variables.lstStartAssay.get(0).CartridgeID);
+				Helper.driver.findElement(By.id("Cartridge-Id-place-holder-search")).sendKeys(Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
 				Thread.sleep(500);
 				ClickElement.clickByCss(Helper.driver, "#cartrtidge-id li.custom-control:nth-child(1)");		
 				Thread.sleep(500);

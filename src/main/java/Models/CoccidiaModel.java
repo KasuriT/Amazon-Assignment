@@ -6,25 +6,11 @@ import Test.Ancera.Test_Elements;
 
 public class CoccidiaModel {
 
-	public String TestCaseNameButtonActive;
-	public String TestCaseDescriptionButtonActive;
 	public String TestCaseName;
 	public String TestCaseDescription;
 	public String TestCaseNameSearch;
 	public String TestCaseDescriptionSearch;
-	public String TestCaseNameBubbleFilterTop;
-	public String TestCaseDescriptionBubbleFilterTop;
-	public String TestCaseNameBubbleFilterCheckbox;
-	public String TestCaseDescriptionBubbleFilterCheckbox;
-	public String TestCaseNameClearInput;
-	public String TestCaseDescClearInput;
-	public String TestCaseNameHoverReset;
-	public String TestCaseDescriptionHoverReset;
-	public String TestCaseNameRevertBack;
-	public String TestCaseDescriptionRevertBack;
 	public ArrayList<ReportFilters> lstFilters;
-	public boolean ReloadPage;
-	public boolean ResetFilter;
 	public boolean Filter1;
 	public boolean Filter2;
 	public boolean Filter3;
@@ -44,21 +30,11 @@ public class CoccidiaModel {
 
 	}
 
-
-	public static String buttonActiveTitle = "Verify apply filter button becomes active on selecting checkbox from ";
-	public static String buttonActiveDesc = "This test case will verify that filter button becomes active on selecting checkbox from ";
 	public static String applyFilterTitle = "Verify user can apply ";
 	public static String applyFilterDesc = "This test case will verify that user can apply ";
 	public static String filterIndicatorTitle = "Verify that selected checkbox/s moves to the top on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that selected checkbox/s moves to the top on applying ";
-	public static String filterTopTitle = " moves to top of filter list on applying filter";
-	public static String filterTopDesc = " bubbles to top of filter list on applying filter";
-	public static String CheckboxTopTitle = " moves to top of filter list on applying filter";
-	public static String CheckboxTopDesc = " bubbles to top of filter list on applying filter";
-	public static String clearInputTitle = "Verify input field gets cleared on clicking cross icon and filter button becomes inactive after applying ";
-	public static String clearInputDesc = "This test case will verify that input field gets cleared on clicking the cross icon in ";
-	public static String revertBackTitle = " rolls back to its original position on clicking reset button";
-	public static String revertBackDesc = " rolls back to its original position on clicking reset button";
+
 
 
 	public static ArrayList<CoccidiaModel> FillData() {
@@ -96,10 +72,10 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
 		objTmp.TestCaseName = "AN-CL-21: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
 		objTmp.TestCaseNameSearch = "AN-CL-22: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-Id"));
@@ -150,7 +126,6 @@ public class CoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
 
-
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
@@ -164,7 +139,6 @@ public class CoccidiaModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
-
 
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
@@ -183,7 +157,6 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
 		objTmp.TestCaseName = "AN-CL-33: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
 		objTmp.TestCaseNameSearch = "AN-CL-34: "+filterIndicatorTitle+objFilter.FilterName;
@@ -198,10 +171,10 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
 		objTmp.TestCaseName = "AN-CL-26: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
 		objTmp.TestCaseNameSearch = "AN-CL-27: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-Id"));
@@ -289,7 +262,6 @@ public class CoccidiaModel {
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
 		objTmp.TestCaseNameSearch = "AN-CL-39: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-requested_assay";
@@ -327,22 +299,6 @@ public class CoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
-//		objTmp = new CoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseName = "AN-CL-130: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-CL-131: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterID = "instrument-id";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id", "Instrument-Id"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP10", "PSN0004"));
-//		objFilter.FilterID = "sample-id";
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp);
-
 		return lstCoccidiaModel;
 	}
 
@@ -1071,8 +1027,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objTmp.TestCaseName = "AN-CL-125: Verify wild card Contains search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-125: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sampleId";
 		objFilter.FilterXPath = "sampleId";
@@ -1105,8 +1061,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-CL-127: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-127: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
 		objFilter.FilterXPath = "result_status";
@@ -1122,8 +1078,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-CL-128: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-128: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
 		objFilter.FilterXPath = "result_status";
@@ -1156,8 +1112,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-CL-130: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-130: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-pathogen";
 		objFilter.FilterXPath = "pathogen";
@@ -1173,8 +1129,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-CL-131: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-131: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-pathogen";
 		objFilter.FilterXPath = "pathogen";
@@ -1207,8 +1163,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-CL-133: Verify wild card Ends With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-133: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sample_matrix";
 		objFilter.FilterXPath = "sample_matrix";
@@ -1258,8 +1214,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-CL-136: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-136: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-customer_sample_id";
 		objFilter.FilterXPath = "customer_sample_id";
@@ -1275,8 +1231,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-CL-137: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-137: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-customer_sample_id";
 		objFilter.FilterXPath = "customer_sample_id";
@@ -1309,8 +1265,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-CL-139: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-139: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-cartridgeId";
 		objFilter.FilterXPath = "cartridgeId";
@@ -1326,8 +1282,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-CL-139: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-139: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-cartridgeId";
 		objFilter.FilterXPath = "cartridgeId";
@@ -1360,8 +1316,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-CL-142: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-142: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
 		objFilter.FilterXPath = "instrumentId";
@@ -1377,8 +1333,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-CL-143: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-143: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
 		objFilter.FilterXPath = "instrumentId";
@@ -1411,8 +1367,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-CL-145: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-145: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-user_name";
 		objFilter.FilterXPath = "user_name";
@@ -1428,8 +1384,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-CL-146: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-146: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-user_name";
 		objFilter.FilterXPath = "user_name";
@@ -1462,8 +1418,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-CL-148: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-148: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-kit_lot";
 		objFilter.FilterXPath = "kit_lot";
@@ -1479,8 +1435,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-CL-149: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-149: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-kit_lot";
 		objFilter.FilterXPath = "kit_lot";
@@ -1513,8 +1469,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-CL-151: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-151: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-version";
 		objFilter.FilterXPath = "version";
@@ -1530,8 +1486,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-CL-152: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-152: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-version";
 		objFilter.FilterXPath = "version";
@@ -1583,8 +1539,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-CL-155: Verify wild card Contains search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-155: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-testSiteId";
@@ -1619,8 +1575,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-CL-157: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-157: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-testSiteName";
@@ -1637,8 +1593,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-CL-158: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-158: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-testSiteName";
@@ -1657,7 +1613,6 @@ public class CoccidiaModel {
 		objFilter.FilterName = "Requested Assay Filter";
 		objTmp.TestCaseName = "AN-CL-159: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-requested_assay";
@@ -1674,9 +1629,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-CL-160: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.ReloadPage = false;
+		objTmp.TestCaseName = "AN-CL-160: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-requested_assay";
@@ -1693,9 +1647,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-CL-161: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.ReloadPage = false;
+		objTmp.TestCaseName = "AN-CL-161: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-requested_assay";
@@ -1730,8 +1683,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-CL-163: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-163: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-flock_id";
@@ -1748,8 +1701,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-CL-164: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-164: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = "#sort-flock_id";
@@ -1783,8 +1736,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-CL-166: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-166: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_type";
 		objFilter.FilterXPath = "collection_site_type";
@@ -1800,8 +1753,8 @@ public class CoccidiaModel {
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-CL-167: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-CL-167: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_type";
 		objFilter.FilterXPath = "collection_site_type";

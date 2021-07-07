@@ -7,7 +7,9 @@
         <methods>
           <include name="extent"/>
           <include name="endreport"/>
-          <include name="RunAPI"/>
+          <include name="CSVExport"/>
+          <include name="CoccidiaLock"/>
+          <include name="DateFilter"/>
         </methods>
       </class> <!-- Test.Ancera.Reports.CoccidiaLog -->
     </classes>
