@@ -399,7 +399,7 @@ public class CoccidiaLog {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(500);
+			Thread.sleep(1500);
 
 			Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
 			Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-chevron-down")).click();
@@ -448,6 +448,7 @@ public class CoccidiaLog {
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 5) 
 	public void TestFilter() throws InterruptedException, IOException {
 
+		Helper.driver.navigate().refresh();
 		Test_Variables.lstCoccidiaSearch = CoccidiaModel.FillData();
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaSearch) { 	
@@ -1260,7 +1261,7 @@ public class CoccidiaLog {
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("#export-data-template label")).click();
+			Helper.driver.findElement(By.cssSelector("#export-data-template label")).click();
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
 			Test_Variables.steps.createNode("5. Click on Export Data Template");
 			Test_Variables.steps.createNode("6. Select Sample MetaData Template");

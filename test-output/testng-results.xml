@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="4" total="17" passed="10" failed="3" skipped="0">
+<testng-results ignored="2" total="3" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-07-07T13:15:43 PKT" name="Default suite" finished-at="2021-07-07T13:37:32 PKT" duration-ms="1309454">
+  <suite started-at="2021-07-09T15:10:16 PKT" name="Default suite" finished-at="2021-07-09T15:18:02 PKT" duration-ms="466417">
     <groups>
     </groups>
-    <test started-at="2021-07-07T13:15:43 PKT" name="Default test" finished-at="2021-07-07T13:37:32 PKT" duration-ms="1309454">
-      <class name="Test.Ancera.Reports.CoccidiaLog">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:15:43 PKT" name="extent" finished-at="2021-07-07T13:16:08 PKT" duration-ms="24980" status="PASS">
+    <test started-at="2021-07-09T15:10:16 PKT" name="Default test" finished-at="2021-07-09T15:18:02 PKT" duration-ms="466417">
+      <class name="Test.Ancera.Reports.Normal_Ingestion">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.Normal_Ingestion@212b5695]" started-at="2021-07-09T15:10:16 PKT" name="extent" finished-at="2021-07-09T15:10:41 PKT" duration-ms="25020" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigateCoccidia()[pri:1, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:16:08 PKT" name="NavigateCoccidia" description="Test Case: Navigate to Coccidia Log Screen" finished-at="2021-07-07T13:16:17 PKT" duration-ms="9861" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- NavigateCoccidia -->
-        <test-method signature="wildcard()[pri:2, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:16:17 PKT" name="wildcard" description="Test Case: Wildcard" finished-at="2021-07-07T13:27:03 PKT" duration-ms="645718" status="PASS">
-          <exception class="org.openqa.selenium.ElementNotInteractableException">
+        <test-method signature="NormalIngestionSalmonella()[pri:2, instance:Test.Ancera.Reports.Normal_Ingestion@212b5695]" started-at="2021-07-09T15:10:41 PKT" name="NormalIngestionSalmonella" description="Test Case: Normal Ingestion for Salmonella" finished-at="2021-07-09T15:18:01 PKT" duration-ms="440591" status="FAIL">
+          <exception class="org.openqa.selenium.ElementClickInterceptedException">
             <message>
-              <![CDATA[element not interactable
+              <![CDATA[element click intercepted: Element <small _ngcontent-nkc-c7="" class="ml-1 ng-star-inserted" id="sampleId_cust-cb-lst-txt_TestAutomation11016Updt">...</small> is not clickable at point (372, 439). Other element would receive the click: <div _ngcontent-nkc-c2="" class="overlay overlay-loader waiting z-12100">...</div>
   (Session info: chrome=91.0.4472.124)
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097]]>
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:51330}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9fe3404bdc382f2ad437738ceb9ac3d1]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.ElementNotInteractableException: element not interactable
+              <![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <small _ngcontent-nkc-c7="" class="ml-1 ng-star-inserted" id="sampleId_cust-cb-lst-txt_TestAutomation11016Updt">...</small> is not clickable at point (372, 439). Other element would receive the click: <div _ngcontent-nkc-c2="" class="overlay overlay-loader waiting z-12100">...</div>
   (Session info: chrome=91.0.4472.124)
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:51330}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9fe3404bdc382f2ad437738ceb9ac3d1
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:64)
 at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -47,13 +43,13 @@ at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverComman
 at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
 at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
 at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:84)
-at jdk.internal.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+at jdk.internal.reflect.GeneratedMethodAccessor24.invoke(Unknown Source)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 at java.base/java.lang.reflect.Method.invoke(Method.java:564)
 at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
 at com.sun.proxy.$Proxy12.click(Unknown Source)
 at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.click(EventFiringWebDriver.java:417)
-at Test.Ancera.Reports.CoccidiaLog.wildcard(CoccidiaLog.java:712)
+at Test.Ancera.Reports.Normal_Ingestion.NormalIngestionSalmonella(Normal_Ingestion.java:1373)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -84,299 +80,15 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          </exception> <!-- org.openqa.selenium.ElementClickInterceptedException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- wildcard -->
-        <test-method signature="DateFilter()[pri:3, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:27:03 PKT" name="DateFilter" description="Test Case: Date Filter Test" finished-at="2021-07-07T13:27:16 PKT" duration-ms="13311" status="FAIL">
-          <exception class="org.openqa.selenium.ElementNotInteractableException">
-            <message>
-              <![CDATA[element not interactable: element has zero size
-  (Session info: chrome=91.0.4472.124)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.ElementNotInteractableException: element not interactable: element has zero size
-  (Session info: chrome=91.0.4472.124)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:285)
-at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:84)
-at jdk.internal.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.lambda$new$0(EventFiringWebDriver.java:404)
-at com.sun.proxy.$Proxy12.click(Unknown Source)
-at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.click(EventFiringWebDriver.java:417)
-at Test.Ancera.Reports.CoccidiaLog.DateFilter(CoccidiaLog.java:948)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- DateFilter -->
-        <test-method signature="DateLockFilter()[pri:5, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:27:16 PKT" name="DateLockFilter" description="Test Case: Date Filter Lock Test" finished-at="2021-07-07T13:27:34 PKT" duration-ms="17178" status="PASS">
-          <exception class="org.openqa.selenium.NoSuchElementException">
-            <message>
-              <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"sort-scanDateTime"}
-  (Session info: chrome=91.0.4472.124)
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097
-*** Element info: {Using=css selector, value=sort-scanDateTime}]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"sort-scanDateTime"}
-  (Session info: chrome=91.0.4472.124)
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097
-*** Element info: {Using=css selector, value=sort-scanDateTime}
-at jdk.internal.reflect.GeneratedConstructorAccessor13.newInstance(Unknown Source)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:420)
-at org.openqa.selenium.By$ByCssSelector.findElement(By.java:431)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
-at jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.openqa.selenium.support.events.EventFiringWebDriver.lambda$new$1(EventFiringWebDriver.java:105)
-at com.sun.proxy.$Proxy10.findElement(Unknown Source)
-at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:194)
-at Test.Ancera.Reports.CoccidiaLog.DateLockFilter(CoccidiaLog.java:1024)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- DateLockFilter -->
-        <test-method signature="TestFilter()[pri:6, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:27:34 PKT" name="TestFilter" description="Test Case: Filter Test" finished-at="2021-07-07T13:32:19 PKT" duration-ms="285622" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestFilter -->
-        <test-method signature="CoccidiaLock()[pri:8, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:32:19 PKT" name="CoccidiaLock" description="Test Case: Test Coccidia Lock Filter Functionality" finished-at="2021-07-07T13:32:37 PKT" duration-ms="17920" status="FAIL">
-          <exception class="java.lang.Exception">
-            <message>
-              <![CDATA[java.lang.AssertionError: expected [50] but found [1,749]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [50] but found [1,749]
-at Test.Ancera.Reports.CoccidiaLog.CoccidiaLock(CoccidiaLog.java:1622)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [50] but found [1,749]
-at org.testng.Assert.fail(Assert.java:99)
-at org.testng.Assert.failNotEquals(Assert.java:1037)
-at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-at org.testng.Assert.assertEquals(Assert.java:122)
-at org.testng.Assert.assertEquals(Assert.java:629)
-at org.testng.Assert.assertEquals(Assert.java:639)
-at Test.Ancera.Reports.CoccidiaLog.CoccidiaLock(CoccidiaLog.java:1605)
-... 28 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.Exception -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- CoccidiaLock -->
-        <test-method signature="Pagination()[pri:9, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:32:37 PKT" name="Pagination" description="Test Case: Test Pagination" finished-at="2021-07-07T13:32:51 PKT" duration-ms="14194" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Pagination -->
-        <test-method signature="RowsPerPage()[pri:10, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:32:51 PKT" name="RowsPerPage" description="Test Case: Test Table Rows" finished-at="2021-07-07T13:33:35 PKT" duration-ms="43346" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- RowsPerPage -->
-        <test-method signature="Sorting()[pri:11, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:33:35 PKT" name="Sorting" description="Sorting" finished-at="2021-07-07T13:35:50 PKT" duration-ms="135550" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Sorting -->
-        <test-method signature="FieldAccessUnview()[pri:13, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:35:50 PKT" name="FieldAccessUnview" finished-at="2021-07-07T13:36:09 PKT" duration-ms="18329" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- FieldAccessUnview -->
-        <test-method signature="FieldAccessView()[pri:14, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:36:09 PKT" name="FieldAccessView" finished-at="2021-07-07T13:36:20 PKT" duration-ms="11231" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- FieldAccessView -->
-        <test-method signature="PNGExport()[pri:15, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:36:20 PKT" name="PNGExport" description="Test Case: Test Coccidia PNG Download" finished-at="2021-07-07T13:36:29 PKT" duration-ms="9368" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- PNGExport -->
-        <test-method signature="CSVExport()[pri:16, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:36:29 PKT" name="CSVExport" description="Test Case: Test Coccidia CSV Download" finished-at="2021-07-07T13:37:31 PKT" duration-ms="62071" status="FAIL">
-          <exception class="org.openqa.selenium.TimeoutException">
-            <message>
-              <![CDATA[Expected condition failed: waiting for element to no longer be visible: By.id: notification-loading (tried for 60 second(s) with 500 milliseconds interval)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.support.events.EventFiringWebDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to no longer be visible: By.id: notification-loading (tried for 60 second(s) with 500 milliseconds interval)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.10.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
-Driver info: org.openqa.selenium.support.events.EventFiringWebDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 91.0.4472.124, chrome: {chromedriverVersion: 91.0.4472.101 (af52a90bf870..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56544}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 2282c270eac05460c2098e1c1b7c8097
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:95)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:272)
-at Test.Ancera.Reports.CoccidiaLog.CSVExport(CoccidiaLog.java:2155)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- CSVExport -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.CoccidiaLog@6d4e5011]" started-at="2021-07-07T13:37:31 PKT" name="endreport" finished-at="2021-07-07T13:37:32 PKT" duration-ms="713" status="PASS">
+        </test-method> <!-- NormalIngestionSalmonella -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.Normal_Ingestion@212b5695]" started-at="2021-07-09T15:18:01 PKT" name="endreport" finished-at="2021-07-09T15:18:02 PKT" duration-ms="751" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Reports.CoccidiaLog -->
+      </class> <!-- Test.Ancera.Reports.Normal_Ingestion -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
