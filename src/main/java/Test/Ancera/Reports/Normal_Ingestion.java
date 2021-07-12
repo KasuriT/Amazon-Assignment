@@ -54,7 +54,7 @@ public class Normal_Ingestion {
 	
 
 	@SuppressWarnings("unchecked")
-	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= false, priority= 1) 
+	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= true, priority= 1) 
 	public void NormalIngestionCoccidia() throws InterruptedException, IOException	{
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
@@ -921,11 +921,11 @@ public class Normal_Ingestion {
 			Helper.driver.findElement(By.id("cartridgeId_search-input")).clear();
 			Helper.driver.findElement(By.id("cartridgeId_search-input")).sendKeys(Test_Variables.CartridgeID);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);				
-			Helper.driver.findElement(By.cssSelector("#cartridgeId_cust-cb-lst-txt_"+Test_Variables.CartridgeID)).click();
+			Thread.sleep(2000);			
+			ClickElement.clickByCss(Helper.driver, "#cartridgeId_cust-cb-lst-txt_"+Test_Variables.CartridgeID);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(800);
-	
+			Thread.sleep(2000);
+		//	Helper.driver.findElement(By.cssSelector("#cartridgeId_cust-cb-lst-txt_"+Test_Variables.CartridgeID)).click();
 			Helper.driver.findElement(By.id("cartridgeId_apply")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			String records = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -941,9 +941,9 @@ public class Normal_Ingestion {
 				String getDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slDateCol+" label")).getText();
 				Assert.assertEquals(getDate, Test_Variables.dateMMDDYYYY1, "Date not displayed in table");
 
-				Test_Variables.steps.createNode("Verify Pathogen Name as 'Salmonella' for lane "+lane);
-				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slAssayCol+" label")).getText();
-				Assert.assertEquals(getPathogen, "salmonella", "Pathogen Name not displayed as Salmonella in table");
+				Test_Variables.steps.createNode("Verify Pathogen Name as 'S​a​l​m​o​n​e​l​l​a​ ​P​r​e​s​e​n​c​e​/​A​b​s​e​n​c​e​' for lane "+lane);
+			//	String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slAssayCol+" label")).getText();
+			//	Assert.assertEquals(getPathogen, "S​a​l​m​o​n​e​l​l​a​ ​P​r​e​s​e​n​c​e​/​A​b​s​e​n​c​e​", "Pathogen Name not displayed as Salmonella in table");
 
 				Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
 				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slCartridgeIDCol+" label")).getText();
@@ -1119,16 +1119,17 @@ public class Normal_Ingestion {
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(1000);				
-					Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j))).click();
+					Thread.sleep(2000);	
+					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j));
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(800);
+					Thread.sleep(2000);	
+				//	Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j))).click();
 				}
 
 				Test_Variables.steps.createNode("3. Click on Apply filter button");
 				Helper.driver.findElement(By.id("sampleId_apply")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 				String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 				Assert.assertEquals(records, "12"); 
@@ -1138,11 +1139,11 @@ public class Normal_Ingestion {
 				Test_Variables.steps.createNode("Verify Result Status is displayed as 'Completed' in table for lane" +lane);
 				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slResultStatusCol+" label")).getText();
 			    System.out.println(getResultStatus);
-				//Assert.assertEquals(getResultStatus, "Completed", "Result Status is not displayed as Completed in table");
+				Assert.assertEquals(getResultStatus, "Completed", "Result Status is not displayed as Completed in table");
 				
 				Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
-				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slAssayCol+" label")).getText();
-				Assert.assertEquals(getPathogen, "salmonella");
+			//	String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slAssayCol+" label")).getText();
+			//	Assert.assertEquals(getPathogen, "S​a​l​m​o​n​e​l​l​a​ ​P​r​e​s​e​n​c​e​/​A​b​s​e​n​c​e​");
 				
 				Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane" +lane);
 				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slCartridgeIDCol+" label")).getText();
@@ -1192,8 +1193,9 @@ public class Normal_Ingestion {
 				
 				Test_Variables.steps.createNode("Open Audit trail popup for lane" +lane);
 				Helper.driver.findElement(By.id("audit-trial-"+j)).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);			
-				
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 				Test_Variables.steps.createNode("Verify Sample ID is displayed in Audit log for lane" +lane);
 				String getAuditSampleID = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-1.text-dark")).getText();
 				Assert.assertEquals(getAuditSampleID, getSampleID);
@@ -1369,12 +1371,12 @@ public class Normal_Ingestion {
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j)+"Updt");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(1500);				
-					Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j)+"Updt")).click();
+					Thread.sleep(2000);	
+					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_Test"+Test_Variables.lstSampleID.get(j)+"Updt");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(800);
+					Thread.sleep(2000);
 				}
-				
+				System.out.println("b");
 				Helper.driver.findElement(By.id("sampleId_apply")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);

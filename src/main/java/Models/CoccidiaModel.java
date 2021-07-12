@@ -49,8 +49,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-18: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-laneNum";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-laneNum"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -63,8 +62,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-20: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-sampleId";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Id"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-sampleId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -77,8 +75,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-22: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-result_status";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-Id"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-result_status"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -91,26 +88,10 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-24: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-pathogen";
-		objFilter.FilterXPath = "filter-Assay";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Assay"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-pathogen"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);  
-
-//		objTmp = new CoccidiaModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Site Name Filter";
-//		objTmp.TestCaseName = "AN-CL-25: "+applyFilterTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-//		objTmp.TestCaseNameSearch = "AN-CL-26: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter.FilterID = "#sort-site_id";
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Site-Name"));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp); 
 		
 		objTmp = new CoccidiaModel();
 		objFilter = new ReportFilters();
@@ -120,8 +101,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-28: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-sample_matrix";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-Matrix"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-sample_matrix"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
@@ -134,8 +114,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-30: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-customer_sample_id";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Customer-Sample-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-customer_sample_id"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -148,8 +127,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-32: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-metadata_date_recieved";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Date-Received"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-metadata_date_recieved"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -162,8 +140,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-34: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-cartridgeId";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-Id"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-cartridgeId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -176,8 +153,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-27: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-instrumentId";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-Id"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-instrumentId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -190,8 +166,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-29: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-user_name";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Piper-User"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-user_name"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -204,8 +179,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-31: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-kit_lot";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Kit-Lot"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-kit_lot"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -218,8 +192,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-33 "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-version";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-version"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp); 
@@ -233,8 +206,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = "#sort-testSiteId";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("test-site-id"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-testSiteId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -249,8 +221,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = "#sort-testSiteName";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("test-site-name"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-testSiteName"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -264,8 +235,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = "#sort-requested_assay";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Requested-Assay"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-requested_assay"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -279,8 +249,7 @@ public class CoccidiaModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = "#sort-flock_id";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Flock-ID"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-flock_id"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -293,9 +262,36 @@ public class CoccidiaModel {
 		objTmp.TestCaseNameSearch = "AN-CL-43: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#sort-collection_site_type";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Collection-Site-Type"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-collection_site_type"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Run Type Filter";
+		objTmp.TestCaseName = "AN-SL-44: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-45: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-runType"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseName = "AN-SL-46: Verify user can apply 2 filters at same time";
+		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
+		objTmp.TestCaseNameSearch = "AN-SL-47: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#sort-laneNum", "#sort-sampleId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		
@@ -352,7 +348,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = Test_Elements.clLast7Days;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
-		objFilter.toDate = "0";
+		objFilter.toDate = "-1";
 		objFilter.fromDate = "-7";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -369,7 +365,7 @@ public class CoccidiaModel {
 		objFilter.FilterListXPathSearch = Test_Elements.clLast30Days;
 		objFilter.toMonth = "0";
 		objFilter.fromMonth = "0";
-		objFilter.toDate = "0";
+		objFilter.toDate = "-1";
 		objFilter.fromDate = "-30";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
@@ -391,22 +387,22 @@ public class CoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
-		objTmp = new CoccidiaModel();
-		objTmp.TestCaseName = "AN-CL-10: Verify user can filter This Month from date Filter";
-		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-		objTmp.Filter1 = false;
-		objTmp.Filter2 = false;
-		objTmp.Filter3 = true;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Date Filter";
-		objFilter.FilterListXPathSearch = Test_Elements.clThisMonth;
-		objFilter.toMonth = "0";
-		objFilter.fromMonth = "0";
-		objFilter.toDate = "0";
-		objFilter.fromDate = "1";
-		objTmp.lstFilters.add(objFilter);
-		lstCoccidiaModel.add(objTmp);
+//		objTmp = new CoccidiaModel();
+//		objTmp.TestCaseName = "AN-CL-10: Verify user can filter This Month from date Filter";
+//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+//		objTmp.Filter1 = false;
+//		objTmp.Filter2 = false;
+//		objTmp.Filter3 = true;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Date Filter";
+//		objFilter.FilterListXPathSearch = Test_Elements.clThisMonth;
+//		objFilter.toMonth = "0";
+//		objFilter.fromMonth = "0";
+//		objFilter.toDate = "0";
+//		objFilter.fromDate = "1";
+//		objTmp.lstFilters.add(objFilter);
+//		lstCoccidiaModel.add(objTmp);
 
 		return lstCoccidiaModel;
 	}
@@ -980,6 +976,18 @@ public class CoccidiaModel {
 		objTmp.sortLogic1 = true;
 		objFilter.ColumnID = "sort-flock_id";
 		objFilter.count = "28";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Run Type";
+		objTmp.TestCaseName = "AN-CL-249: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.sortLogic1 = true;
+		objFilter.ColumnID = "sort-runType";
+		objFilter.count = "29";
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 		

@@ -582,10 +582,9 @@ public class Test_Elements {
 	public static String clImprocIDCol = "#col-26";
 	public static String clTestSiteIDCol = "#col-27";
 	public static String clTestSiteNameCol = "#col-28";
-	public static String clRunTypeCol = "#col-32";
 	public static String clRequestedAssayCol = "#col-30";
 	public static String clFlockIDCol = "#col-31";
-
+	public static String clRunTypeCol = "#col-32";
 	
 	
 	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
