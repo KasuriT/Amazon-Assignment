@@ -11,6 +11,7 @@ public class APIModel {
 	public String fileJson;
 	public String improc;
 	public int runMode;
+	public String pathogen;
 	public boolean search;
 	public String testCaseTitle;
 	public String testCaseDesc;
@@ -20,7 +21,7 @@ public class APIModel {
 	public String testCaseTitleIngestion;
 	public String testCaseDescIngestion;
 
-	public APIModel (String _runId, String _checksum,  String _fileName, String _fileType, String _file, String _fileJson, String _improc, int _runMode,
+	public APIModel (String _runId, String _checksum,  String _fileName, String _fileType, String _file, String _fileJson, String _improc, int _runMode, String _pathogen,
 			 boolean _search, String _testCaseTitle, String _testCaseDesc, String _step, String _passScenario, String _failScenario, 
 			 String _testCaseTitleIngestion, String _testCaseDescIngestion)
 
@@ -33,6 +34,7 @@ public class APIModel {
 		this.fileJson = _fileJson;
 		this.improc = _improc;
 		this.runMode = _runMode;
+		this.pathogen = _pathogen;
 		this.search = _search;
 		this.testCaseTitle = _testCaseTitle;
 		this.testCaseDesc = _testCaseDesc;

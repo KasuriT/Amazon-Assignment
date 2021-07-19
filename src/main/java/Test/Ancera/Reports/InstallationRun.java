@@ -6,8 +6,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -45,10 +43,9 @@ public class InstallationRun {
 		ConfigureLogin.login();
 	}
 
-
 	
 	@SuppressWarnings("unchecked")
-	@Test (enabled= false, priority = 2) 
+	@Test (enabled= false, priority = 1) 
 	public void installationRunConfigSalmonella() throws InterruptedException, IOException {
 
 		int z = 0;
@@ -65,45 +62,26 @@ public class InstallationRun {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
-				
+
 				for (ReportFilters objFilter : objModel.lstFilters) {
-					
+
 					Helper.driver.get(Constants.url_piperConfiguration);			
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);
 
 					for (int i = 1; i<=100; i++) {
 						if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
-							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals("4.0.8.2")) {
+							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(Test_Variables.installationImprocVersionSalm)) {
 								Thread.sleep(1000);
-								WebElement filter_scroll = Helper.driver.findElement(By.id("edit-installation-"+i));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-								Helper.driver.findElement(By.id("delete-installation-"+i)).click();
-								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
-								Helper.driver.findElement(By.id("btn-yes")).click();
-
-								Helper.driver.navigate().refresh();	
-								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-installation-run")));
+								Helper.driver.findElement(By.id("edit-installation-"+i)).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Thread.sleep(1000);
 								break;
 							}
 						}
 					}
-
+					
 					Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-					Helper.driver.findElement(By.cssSelector("#PathogenName  .ng-arrow-wrapper")).click();
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys("Salmonella");
-					Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys(Keys.ENTER);
-					Helper.driver.findElement(By.id("create-installation-run")).click();
-					Thread.sleep(2000);
-					Helper.driver.findElement(By.cssSelector("#ImprocName .ng-arrow-wrapper")).click();
-					Helper.driver.findElement(By.cssSelector("#ImprocName input")).sendKeys(Keys.ENTER);
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion .ng-arrow-wrapper")).click();
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys("4.0.8.2");
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Keys.ENTER);	
-					Thread.sleep(1000);
-
 					Test_Variables.steps.createNode("3. "+objModel.steps);
 					Helper.driver.findElement(By.id("MinMeanVal")).clear();
 					Helper.driver.findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
@@ -118,7 +96,7 @@ public class InstallationRun {
 					Thread.sleep(2000);
 
 					////////////////////////////////////////////////////////////////////////////////////////
-		
+
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
 					JSONObject json = new JSONObject();   
@@ -138,7 +116,6 @@ public class InstallationRun {
 
 					Thread.sleep(2000);
 					RequestSpecification request_announcement = RestAssured.given();
-
 					request_announcement.header("Content-Type", "application/json");
 					request_announcement.header("Authorization", "bearer " +token);
 
@@ -152,11 +129,10 @@ public class InstallationRun {
 					JSONObject json4 = new JSONObject();
 					JSONArray list = new JSONArray();
 
-					json1.put("runId", Test_Variables.lstApiAnnouncement.get(0));
+					json1.put("runId", Test_Variables.AnnouncementRunID);
 					json1.put("dateTime", Test_Variables.lstApiAnnouncement.get(1));
 					json1.put("Piperid",  Test_Variables.lstApiAnnouncement.get(2));
 					json1.put("MPNCalculationType", Test_Variables.lstApiAnnouncement.get(3));
-
 					json2.put("fileName", Test_Variables.lstApiAnnouncement.get(4));
 					json2.put("checksum", Test_Variables.lstApiAnnouncement.get(5));
 
@@ -170,31 +146,31 @@ public class InstallationRun {
 					System.out.println(data1);
 
 					///////////////////////////////////////////////////////////////////////////
-					
-					RequestSpecification request_startAssay = RestAssured.given();
+					if (objModel.runStartAssay) {
+						RequestSpecification request_startAssay = RestAssured.given();
 
-					request_startAssay.header("Content-Type", "application/json");
-					request_startAssay.header("Authorization", "bearer " +token);
+						request_startAssay.header("Content-Type", "application/json");
+						request_startAssay.header("Authorization", "bearer " +token);
 
-					HttpGet postRequest3 = new HttpGet(Constants.api_StartAssay);
-					postRequest3.addHeader("Content-Type", "application/json");
-					postRequest3.addHeader("Authorization", "Bearer "+token);
+						HttpGet postRequest3 = new HttpGet(Constants.api_StartAssay);
+						postRequest3.addHeader("Content-Type", "application/json");
+						postRequest3.addHeader("Authorization", "Bearer "+token);
 
-					json4.put("DateTime", Test_Variables.lstStartAssaySalmonella.get(0).DateTime);
-					json4.put("InstrumentId", Test_Variables.lstStartAssaySalmonella.get(0).InstrumentID);
-					json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
-					json4.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
-					json4.put("RunId", Test_Variables.lstStartAssaySalmonella.get(0).RunID);
-					json4.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(0).PathogenName);				
+						json4.put("DateTime", Test_Variables.lstStartAssaySalmonella.get(0).DateTime);
+						json4.put("InstrumentId", Test_Variables.lstStartAssaySalmonella.get(0).InstrumentID);
+						json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
+						json4.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
+						json4.put("RunId", objModel.sampleID);
+						json4.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(0).PathogenName);				
 
-					request_startAssay.body(json4.toString());
-					Response response3 = request_startAssay.post(Constants.api_StartAssay);
+						request_startAssay.body(json4.toString());
+						Response response3 = request_startAssay.post(Constants.api_StartAssay);
 
-					String data4 = response3.asString();
-					System.out.println(data4);
-							
+						String data4 = response3.asString();
+						System.out.println(data4);			
+					}
 					///////////////////////////////////////////////////////////////////////	
-					
+
 					Thread.sleep(2000);
 					RequestSpecification request_fileupload = RestAssured.given();
 
@@ -205,17 +181,17 @@ public class InstallationRun {
 					postRequest1.addHeader("Content-Type", "application/json");
 					postRequest1.addHeader("Authorization", "Bearer "+token);
 
-					json3.put("runId", Test_Variables.lstInstallationRunIngest.get(z).runId);
-					json3.put("checksum", Test_Variables.lstInstallationRunIngest.get(z).checksum);
-					json3.put("fileName", Test_Variables.lstInstallationRunIngest.get(z).fileName);
-					json3.put("fileType", Test_Variables.lstInstallationRunIngest.get(z).fileType);
-					json3.put("file", Test_Variables.lstInstallationRunIngest.get(z).file);
-					json3.put("fileJson", Test_Variables.lstInstallationRunIngest.get(z).fileJson);				
-					json3.put("Improc", Test_Variables.lstInstallationRunIngest.get(z).improc);
-					json3.put("RunMode", Test_Variables.lstInstallationRunIngest.get(z).runMode);
-					System.out.println(z);
-					z++;
-					
+					json3.put("runId", Test_Variables.lstSalmonellaIngest.get(0).runId);
+					json3.put("checksum", Test_Variables.lstSalmonellaIngest.get(0).checksum);
+					json3.put("fileName", Test_Variables.lstSalmonellaIngest.get(0).fileName);
+					json3.put("fileType", Test_Variables.lstSalmonellaIngest.get(0).fileType);
+					json3.put("file", Test_Variables.lstSalmonellaIngest.get(0).file);
+					json3.put("fileJson", objModel.fileJson);				
+					json3.put("Improc", Test_Variables.lstSalmonellaIngest.get(0).improc);
+					json3.put("RunMode", "2");
+					json3.put("Pathogen", Test_Variables.lstSalmonellaIngest.get(0).pathogen);
+
+
 					request_fileupload.body(json3.toString());
 					Response response2 = request_fileupload.post(Constants.api_FileUpload);
 
@@ -224,55 +200,75 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(1000);
+					Thread.sleep(210000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
 					Thread.sleep(3000);
 
 					Test_Variables.steps.createNode("4. Navigate to report and search for Ingested sample id");
-					ClickElement.clickByCss(Helper.driver, "#sort-sampleId .log-header__filter-icon");
+					Helper.driver.findElement(By.id("sampleId_show-filter")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(2000);
 
-					Helper.driver.findElement(By.xpath("//*[@id=\"sort-sampleId\"]/div[1]/app-custom-filter-popup/div/div/div[3]/span[2]")).click();
+					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(3000);
-					
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).clear();
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).sendKeys("Test"+Test_Variables.lstSampleID.get(0));
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(3000);						
-
-	
-					Helper.driver.findElement(By.id("Test"+Test_Variables.lstSampleID.get(0))).click();
+					Thread.sleep(3000);	
+					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
-					
+					System.out.println(z);
+					z++;
+
 					Test_Variables.steps.createNode("5. Verify the status in QC Code column");
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .filter-popup__action--apply")).click();
+					Helper.driver.findElement(By.id("sampleId_apply")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1500);					
 
 					for (int x=0; x<12; x++) {
-						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-2")).getText();
+						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slQCCodeCol)).getText();
 						System.out.println(getData);
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
+
+						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
+						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
+
+						String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteIDCol+" label")).getText();
+						Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
+
+						String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteNameCol+" label")).getText();
+						Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
+
+						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
+						Actions builder = new Actions(Helper.driver);
+						builder.moveToElement(hover).build().perform();
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
+						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
+						Thread.sleep(1500);
+
+						String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
+						Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
+
+						String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
+						Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
+
+						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
+						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 						
-						if(objModel.checkAudit) {
-							WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-							Actions builder = new Actions(Helper.driver);
-							builder.moveToElement(hover).build().perform();
-							Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-							Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-runId")));
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
-							Thread.sleep(1000);
-							Assert.assertTrue(Helper.driver.findElement(By.id("audit-action-7")).isDisplayed());
-							Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
-							Thread.sleep(800);
-						}
+						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
+						Assert.assertEquals(getAuditRunType, "Installation");
+						
+		//				String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+		//				Assert.assertEquals(getAuditAction, "Created");
+						
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
+						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+						Thread.sleep(800);
 					}
-		
+
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 					Test_Variables.test.pass(objModel.passStep);
 					Test_Variables.results.createNode(objModel.passStep);
@@ -290,66 +286,8 @@ public class InstallationRun {
 			}
 		}
 	}
-	
-	
-	@Test (enabled= false, priority = 2) 
-	public void installationRunConfigPractice() throws InterruptedException, IOException {
-	
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
-		Thread.sleep(3000);
-
-		Test_Variables.steps.createNode("4. Navigate to report and search for Ingested sample id");
-		ClickElement.clickByCss(Helper.driver, "#sort-sampleId .log-header__filter-icon");
-		Thread.sleep(2000);
-
-		Helper.driver.findElement(By.xpath("//*[@id=\"sort-sampleId\"]/div[1]/app-custom-filter-popup/div/div/div[3]/span[2]")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(3000);
-		
-		Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).clear();
-		Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).sendKeys("TestAutomation12749");
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(3000);						
 
 
-		Helper.driver.findElement(By.id("TestAutomation12749")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);
-		
-		Test_Variables.steps.createNode("5. Verify the status in QC Code column");
-		Helper.driver.findElement(By.cssSelector("#sort-sampleId .filter-popup__action--apply")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		
-		for (int x=0; x<12; x++) {
-			String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-2")).getText();
-			System.out.println(getData);
-			Assert.assertEquals(getData, "PASS");
-			
-			
-				WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-				Actions builder = new Actions(Helper.driver);
-				builder.moveToElement(hover).build().perform();
-				Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-				Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-runId")));
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
-				Thread.sleep(1000);
-				Assert.assertTrue(Helper.driver.findElement(By.id("audit-action-7")).isDisplayed());
-				Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
-				
-			
-		}
-		
-	}
-	
-	
-	
-	
-
-	
-	
 	@SuppressWarnings("unchecked")
 	@Test (enabled= true, priority = 3) 
 	public void installationRunConfigCoccidia() throws InterruptedException, IOException {
@@ -369,46 +307,26 @@ public class InstallationRun {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
-				
+
 				for (ReportFilters objFilter : objModel.lstFilters) {
-					
+
 					Helper.driver.get(Constants.url_piperConfiguration);			
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);
 
 					for (int i = 1; i<=100; i++) {
 						if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
-							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals("6.2.1.0")) {
+							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(Test_Variables.installationImprocVersionCocci)) {
 								Thread.sleep(1000);
-								WebElement filter_scroll = Helper.driver.findElement(By.id("edit-installation-"+i));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-								Helper.driver.findElement(By.id("delete-installation-"+i)).click();
-								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
-								Helper.driver.findElement(By.id("btn-yes")).click();
-
-								Helper.driver.navigate().refresh();	
-								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-installation-run")));
+								Helper.driver.findElement(By.id("edit-installation-"+i)).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Thread.sleep(1500);
 								break;
 							}
 						}
 					}
 
 					Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-					Helper.driver.findElement(By.cssSelector("#PathogenName  .ng-arrow-wrapper")).click();
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys("Coccidia");
-					Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys(Keys.ENTER);
-					Helper.driver.findElement(By.id("create-installation-run")).click();
-					Thread.sleep(2000);
-					Helper.driver.findElement(By.cssSelector("#ImprocName .ng-arrow-wrapper")).click();
-					Helper.driver.findElement(By.cssSelector("#ImprocName input")).sendKeys("ImprocCocc01");
-					Helper.driver.findElement(By.cssSelector("#ImprocName input")).sendKeys(Keys.ENTER);
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion .ng-arrow-wrapper")).click();
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys("6.2.1.0");
-					Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Keys.ENTER);	
-					Thread.sleep(1000);
-
 					Test_Variables.steps.createNode("3. "+objModel.steps);
 					Helper.driver.findElement(By.id("MinMeanVal")).clear();
 					Helper.driver.findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
@@ -423,7 +341,7 @@ public class InstallationRun {
 					Thread.sleep(2000);
 
 					////////////////////////////////////////////////////////////////////////////////////////
-		
+
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
 					JSONObject json = new JSONObject();   
@@ -461,7 +379,6 @@ public class InstallationRun {
 					json1.put("dateTime", Test_Variables.lstApiAnnouncement.get(1));
 					json1.put("Piperid",  Test_Variables.lstApiAnnouncement.get(2));
 					json1.put("MPNCalculationType", Test_Variables.lstApiAnnouncement.get(3));
-
 					json2.put("fileName", Test_Variables.lstApiAnnouncement.get(4));
 					json2.put("checksum", Test_Variables.lstApiAnnouncement.get(5));
 
@@ -475,31 +392,33 @@ public class InstallationRun {
 					System.out.println(data1);
 
 					///////////////////////////////////////////////////////////////////////////
+				
+					if (objModel.runStartAssay) {
+						RequestSpecification request_startAssay = RestAssured.given();
+
+						request_startAssay.header("Content-Type", "application/json");
+						request_startAssay.header("Authorization", "bearer " +token);
+
+						HttpGet postRequest3 = new HttpGet(Constants.api_StartAssay);
+						postRequest3.addHeader("Content-Type", "application/json");
+						postRequest3.addHeader("Authorization", "Bearer "+token);
+
+						json4.put("DateTime", Test_Variables.lstStartAssayCoccidia.get(0).DateTime);
+						json4.put("InstrumentId", Test_Variables.lstStartAssayCoccidia.get(0).InstrumentID);
+						json4.put("UserId", Test_Variables.lstStartAssayCoccidia.get(0).UserID);
+						json4.put("CartridgeId", Test_Variables.lstStartAssayCoccidia.get(0).CartridgeID);
+						json4.put("RunId", objModel.sampleID);
+						json4.put("PathogenName", Test_Variables.lstStartAssayCoccidia.get(0).PathogenName);				
+
+						request_startAssay.body(json4.toString());
+						Response response3 = request_startAssay.post(Constants.api_StartAssay);
+
+						String data4 = response3.asString();
+						System.out.println(data4);
+					}
 					
-					RequestSpecification request_startAssay = RestAssured.given();
-
-					request_startAssay.header("Content-Type", "application/json");
-					request_startAssay.header("Authorization", "bearer " +token);
-
-					HttpGet postRequest3 = new HttpGet(Constants.api_StartAssay);
-					postRequest3.addHeader("Content-Type", "application/json");
-					postRequest3.addHeader("Authorization", "Bearer "+token);
-
-					json4.put("DateTime", Test_Variables.lstStartAssayCoccidia.get(0).DateTime);
-					json4.put("InstrumentId", Test_Variables.lstStartAssayCoccidia.get(0).InstrumentID);
-					json4.put("UserId", Test_Variables.lstStartAssayCoccidia.get(0).UserID);
-					json4.put("CartridgeId", Test_Variables.lstStartAssayCoccidia.get(0).CartridgeID);
-					json4.put("RunId", Test_Variables.lstStartAssayCoccidia.get(0).RunID);
-					json4.put("PathogenName", Test_Variables.lstStartAssayCoccidia.get(0).PathogenName);				
-
-					request_startAssay.body(json4.toString());
-					Response response3 = request_startAssay.post(Constants.api_StartAssay);
-
-					String data4 = response3.asString();
-					System.out.println(data4);
-							
 					///////////////////////////////////////////////////////////////////////	
-					
+
 					Thread.sleep(2000);
 					RequestSpecification request_fileupload = RestAssured.given();
 
@@ -510,17 +429,16 @@ public class InstallationRun {
 					postRequest1.addHeader("Content-Type", "application/json");
 					postRequest1.addHeader("Authorization", "Bearer "+token);
 
-					json3.put("runId", Test_Variables.lstInstallationRunIngestCoccidia.get(z).runId);
-					json3.put("checksum", Test_Variables.lstInstallationRunIngestCoccidia.get(z).checksum);
-					json3.put("fileName", Test_Variables.lstInstallationRunIngestCoccidia.get(z).fileName);
-					json3.put("fileType", Test_Variables.lstInstallationRunIngestCoccidia.get(z).fileType);
-					json3.put("file", Test_Variables.lstInstallationRunIngestCoccidia.get(z).file);
-					json3.put("fileJson", Test_Variables.lstInstallationRunIngestCoccidia.get(z).fileJson);				
-					json3.put("Improc", Test_Variables.lstInstallationRunIngestCoccidia.get(z).improc);
-					json3.put("RunMode", Test_Variables.lstInstallationRunIngestCoccidia.get(z).runMode);
-					System.out.println(z);
-					z++;
-					
+					json3.put("runId", Test_Variables.lstCoccidiaIngest.get(0).runId);
+					json3.put("checksum", Test_Variables.lstCoccidiaIngest.get(0).checksum);
+					json3.put("fileName", Test_Variables.lstCoccidiaIngest.get(0).fileName);
+					json3.put("fileType", Test_Variables.lstCoccidiaIngest.get(0).fileType);
+					json3.put("file", Test_Variables.lstCoccidiaIngest.get(0).file);
+					json3.put("fileJson", objModel.fileJson);				
+					json3.put("Improc", Test_Variables.lstCoccidiaIngest.get(0).improc);
+					json3.put("RunMode", "2");
+					json3.put("Pathogen", Test_Variables.lstCoccidiaIngest.get(0).pathogen);
+
 					request_fileupload.body(json3.toString());
 					Response response2 = request_fileupload.post(Constants.api_FileUpload);
 
@@ -529,55 +447,82 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(1000);
+					Thread.sleep(210000);
 
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
-					Thread.sleep(3000);
-
-					Test_Variables.steps.createNode("4. Navigate to report and search for Ingested sample id");
-					ClickElement.clickByCss(Helper.driver, "#sort-sampleId .log-header__filter-icon");
 					Thread.sleep(2000);
 
-					Helper.driver.findElement(By.xpath("//*[@id=\"sort-sampleId\"]/div[1]/app-custom-filter-popup/div/div/div[3]/span[2]")).click();
+					Test_Variables.steps.createNode("4. Navigate to report and search for Ingested sample id");
+					Helper.driver.findElement(By.id("sampleId_show-filter")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(3000);
-					
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).clear();
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .form-control")).sendKeys("Test"+Test_Variables.lstSampleID.get(0));
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(3000);						
+					Thread.sleep(2000);
 
-	
-					Helper.driver.findElement(By.id("Test"+Test_Variables.lstSampleID.get(0))).click();
+					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(3000);	
+					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
-					
+					System.out.println(z);
+					z++;
+
 					Test_Variables.steps.createNode("5. Verify the status in QC Code column");
-					Helper.driver.findElement(By.cssSelector("#sort-sampleId .filter-popup__action--apply")).click();
+					Helper.driver.findElement(By.id("sampleId_apply")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1500);				
 
 					for (int x=0; x<12; x++) {
-						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-2")).getText();
+						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clQCCodeCol)).getText();
 						System.out.println(getData);
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
+
+						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
+						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
+
+						String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
+						Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
+
+						String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
+						Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
+
+						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
+						Actions builder = new Actions(Helper.driver);
+						builder.moveToElement(hover).build().perform();
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
+						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
+						Thread.sleep(1500);
+
+						String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteIDCol+".text-dark")).getText();
+						Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
+
+						String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
+						Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
+
+						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
+						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 						
-						if(objModel.checkAudit) {
-							WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-							Actions builder = new Actions(Helper.driver);
-							builder.moveToElement(hover).build().perform();
-							Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-							Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-runId")));
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
-							Thread.sleep(1000);
-							Assert.assertTrue(Helper.driver.findElement(By.id("audit-action-7")).isDisplayed());
-							Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
-							Thread.sleep(800);
+						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
+						Assert.assertEquals(getAuditRunType, "Installation");
+
+						if (objModel.runStartAssay) {
+							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 1);
+							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-2")).size(), 0);
 						}
+						else {
+							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-0")).size(), 1);
+							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 0);
+						}
+						
+						
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
+						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+						Thread.sleep(800);
 					}
-		
+
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 					Test_Variables.test.pass(objModel.passStep);
 					Test_Variables.results.createNode(objModel.passStep);
@@ -595,8 +540,7 @@ public class InstallationRun {
 			}
 		}
 	}
-	
-	
+
 
 	@AfterTest
 	public static void endreport() {

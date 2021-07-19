@@ -1,131 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="13" total="18" passed="3" failed="2" skipped="0">
+<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-07-12T14:32:52 PKT" name="Default suite" finished-at="2021-07-12T14:34:15 PKT" duration-ms="82865">
+  <suite started-at="2021-07-20T01:16:47 PKT" name="Default suite" finished-at="2021-07-20T01:48:35 PKT" duration-ms="1907899">
     <groups>
     </groups>
-    <test started-at="2021-07-12T14:32:52 PKT" name="Default test" finished-at="2021-07-12T14:34:15 PKT" duration-ms="82865">
-      <class name="Test.Ancera.Reports.SalmonellaLog">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:32:52 PKT" name="extent" finished-at="2021-07-12T14:33:11 PKT" duration-ms="19563" status="PASS">
+    <test started-at="2021-07-20T01:16:47 PKT" name="Default test" finished-at="2021-07-20T01:48:35 PKT" duration-ms="1907899">
+      <class name="Test.Ancera.Reports.InstallationRun">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.InstallationRun@7ea9e1e2]" started-at="2021-07-20T01:16:47 PKT" name="extent" finished-at="2021-07-20T01:17:13 PKT" duration-ms="25994" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigateSalmonella()[pri:1, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:33:11 PKT" name="NavigateSalmonella" description="Test Case: Navigate to Salmonella Log Screen" finished-at="2021-07-12T14:33:37 PKT" duration-ms="25443" status="PASS">
+        <test-method signature="installationRunConfigCoccidia()[pri:3, instance:Test.Ancera.Reports.InstallationRun@7ea9e1e2]" started-at="2021-07-20T01:17:13 PKT" name="installationRunConfigCoccidia" finished-at="2021-07-20T01:48:34 PKT" duration-ms="1881090" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigateSalmonella -->
-        <test-method signature="PNGExport()[pri:17, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:33:37 PKT" name="PNGExport" description="Test Case: Test Salmonella PNG Download" finished-at="2021-07-12T14:33:51 PKT" duration-ms="13999" status="FAIL">
-          <exception class="java.lang.Exception">
-            <message>
-              <![CDATA[java.lang.AssertionError: expected [true] but found [false]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [true] but found [false]
-at Test.Ancera.Reports.SalmonellaLog.PNGExport(SalmonellaLog.java:1549)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:99)
-at org.testng.Assert.failNotEquals(Assert.java:1037)
-at org.testng.Assert.assertTrue(Assert.java:45)
-at org.testng.Assert.assertTrue(Assert.java:55)
-at Test.Ancera.Reports.SalmonellaLog.PNGExport(SalmonellaLog.java:1540)
-... 28 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.Exception -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- PNGExport -->
-        <test-method signature="CSVExport()[pri:18, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:33:51 PKT" name="CSVExport" description="Test Case: Test Salmonella CSV Download" finished-at="2021-07-12T14:34:00 PKT" duration-ms="8793" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- CSVExport -->
-        <test-method signature="CSVAuditExport()[pri:19, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:34:00 PKT" name="CSVAuditExport" description="Test Case: Test Salmonella Audit Download" finished-at="2021-07-12T14:34:08 PKT" duration-ms="8670" status="FAIL">
-          <exception class="java.lang.Exception">
-            <message>
-              <![CDATA[java.lang.AssertionError: expected [true] but found [false]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [true] but found [false]
-at Test.Ancera.Reports.SalmonellaLog.CSVAuditExport(SalmonellaLog.java:1661)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:99)
-at org.testng.Assert.failNotEquals(Assert.java:1037)
-at org.testng.Assert.assertTrue(Assert.java:45)
-at org.testng.Assert.assertTrue(Assert.java:55)
-at Test.Ancera.Reports.SalmonellaLog.CSVAuditExport(SalmonellaLog.java:1652)
-... 28 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.Exception -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- CSVAuditExport -->
-        <test-method signature="TemplateExport()[pri:20, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:34:08 PKT" name="TemplateExport" description="Test Case: Test Salmonella Template Download" finished-at="2021-07-12T14:34:14 PKT" duration-ms="5675" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TemplateExport -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@57d7f8ca]" started-at="2021-07-12T14:34:14 PKT" name="endreport" finished-at="2021-07-12T14:34:15 PKT" duration-ms="660" status="PASS">
+        </test-method> <!-- installationRunConfigCoccidia -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.InstallationRun@7ea9e1e2]" started-at="2021-07-20T01:48:34 PKT" name="endreport" finished-at="2021-07-20T01:48:35 PKT" duration-ms="745" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
+      </class> <!-- Test.Ancera.Reports.InstallationRun -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -201,7 +201,7 @@ public class Normal_Ingestion {
 
 			String data4 = response3.asString();
 			System.out.println(data4);
-			Thread.sleep(120000);
+			Thread.sleep(180000);
 			
 			Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Coccidia Report");
 			Helper.driver.get(Constants.url_CoccidiaLog);
@@ -234,35 +234,35 @@ public class Normal_Ingestion {
 			for(int i = 0; i<12;i++) {
 				int lane = i+1;
 				Test_Variables.steps.createNode("Verify Result Status as 'Pending' for lane "+lane);
-				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clResultStatusCol+" label")).getText();
+				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clResultStatusCol+" label")).getText();
 				Assert.assertEquals(getResultStatus, "Pending", "Result Status not displayed as Pending in table");
 
 				Test_Variables.steps.createNode("Verify Date is displayed same as that written in API body for lane "+lane);
-				String getDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clDateCol+" label")).getText();
+				String getDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clDateCol+" label")).getText();
 				Assert.assertEquals(getDate, Test_Variables.dateMMDDYYYY1, "Date not displayed in table");
 
 				Test_Variables.steps.createNode("Verify Pathogen Name as 'Coccidia' for lane "+lane);
-				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clAssayCol+" label")).getText();
+				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clAssayCol+" label")).getText();
 				Assert.assertEquals(getPathogen, Test_Variables.Pathogen, "Pathogen Name not displayed as Coccidia in table");
 
 				Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
-				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clCatridgeIDCol+" label")).getText();
+				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clCatridgeIDCol+" label")).getText();
 				Assert.assertEquals(getCartridgeID, Test_Variables.CartridgeID, "Cartridge ID not displayed in table");
 
 				Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane "+lane);
-				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clInstrumentIDCol+" label")).getText();
+				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clInstrumentIDCol+" label")).getText();
 				Assert.assertEquals(getInstrumentID, Test_Variables.InstrumentID, "Instrument ID not displayed in table");
 
 				Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
-				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clPiperUserCol+" label")).getText();
+				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
 				Assert.assertEquals(getPiperUser, Test_Variables.PiperUser, "Piper User not displayed in table");
 
 				Test_Variables.steps.createNode("Verify Test Site ID is written  for lane "+lane);
-				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteIDCol+" label")).getText();
+				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
 				Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not displaying in table");
 
 				Test_Variables.steps.createNode("Verify Test Site Name is written for lane "+lane);
-				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+i+" "+Test_Elements.clTestSiteNameCol+" label")).getText();
+				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
 				Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not displaying in table");
 
 				Test_Variables.steps.createNode("Open Audit Trial popup for lane "+lane);			
@@ -397,7 +397,7 @@ public class Normal_Ingestion {
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-				Thread.sleep(120000);
+				Thread.sleep(180000);
 				Helper.driver.get(Constants.url_CoccidiaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -412,7 +412,7 @@ public class Normal_Ingestion {
 				Thread.sleep(1000);
 				Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
-				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
+				for(int j=0; j<4; j++)	{
 
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
@@ -434,58 +434,58 @@ public class Normal_Ingestion {
 				for(int j = 0; j<12; j++) {
 				int lane = j+1;
 				Test_Variables.steps.createNode("Verify Result Status is displayed as 'Completed' in table for lane" +lane);
-				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clResultStatusCol+" label")).getText();
+				String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clResultStatusCol+" label")).getText();
 				Assert.assertEquals(getResultStatus, "Completed", "Result Status is not displayed as Completed in table");
 				
 				Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
-				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clAssayCol+" label")).getText();
+				String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clAssayCol+" label")).getText();
 				Assert.assertEquals(getPathogen, Test_Variables.Pathogen);
 				
 				Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane" +lane);
-				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clCatridgeIDCol+" label")).getText();
+				String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clCatridgeIDCol+" label")).getText();
 				Assert.assertEquals(getCartridgeID, Test_Variables.CartridgeID);
 				
 				Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane" +lane);
-				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clInstrumentIDCol+" label")).getText();
+				String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clInstrumentIDCol+" label")).getText();
 				Assert.assertEquals(getInstrumentID, Test_Variables.InstrumentID);
 				
 				Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane" +lane);
-				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clPiperUserCol+" label")).getText();
+				String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
 				Assert.assertEquals(getPiperUser, Test_Variables.PiperUser);
 				
 				Test_Variables.steps.createNode("Verify Run Type as "+Test_Variables.RunType+" in API body for lane" +lane);
-				String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clRunTypeCol+" label")).getText();
+				String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
 				Assert.assertEquals(getRunType, Test_Variables.RunType, "Run Type is not displayed in table");
 				
 				Test_Variables.steps.createNode("Verify Improc Version as "+Test_Variables.ImprocVersion+" in API body for lane" +lane);
-				String getImprocID = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clImprocIDCol+" label")).getText();
+				String getImprocID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clImprocIDCol+" label")).getText();
 				Assert.assertEquals(getImprocID, Test_Variables.ImprocVersion);
 				
 				Test_Variables.steps.createNode("Verify Test Site ID is displayed in table for lane" +lane);
-				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clTestSiteIDCol+" label")).getText();
+				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
 				Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
 				
 				Test_Variables.steps.createNode("Verify Test Site Name is displayed in table for lane" +lane);
-				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clTestSiteNameCol+" label")).getText();
+				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
 				Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");
 				
 				Test_Variables.steps.createNode("Verify Total Count is displayed in table for lane" +lane);
-				String getTotalCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clTotalCountCol+" label")).getText();
+				String getTotalCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTotalCountCol+" label")).getText();
 				Assert.assertTrue(getTotalCount.isEmpty() == false);
 				
 				Test_Variables.steps.createNode("Verify Small Count is displayed in table for lane" +lane);
-				String getSmallCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clSmallCountCol+" label")).getText();
+				String getSmallCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSmallCountCol+" label")).getText();
 				Assert.assertTrue(getSmallCount.isEmpty() == false);
 				
 				Test_Variables.steps.createNode("Verify Medium Count is displayed in table for lane" +lane);
-				String getMediumCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clMediumCountCol+" label")).getText();
+				String getMediumCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clMediumCountCol+" label")).getText();
 				Assert.assertTrue(getMediumCount.isEmpty() == false);
 				
 				Test_Variables.steps.createNode("Verify Large Count is displayed in table for lane" +lane);
-				String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clLargeCountCol+" label")).getText();
+				String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clLargeCountCol+" label")).getText();
 				Assert.assertTrue(getLargeCount.isEmpty() == false);
 					
-				String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+j+" "+Test_Elements.clSampleIDCol+" label")).getText();
+				String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
 				
 				Test_Variables.steps.createNode("Open Audit trail popup for lane" +lane);
 				Helper.driver.findElement(By.id("audit-trial-"+j)).click();
@@ -590,13 +590,13 @@ public class Normal_Ingestion {
 
 				for (int z=0; z<12; z++) {
 
-					String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" "+Test_Elements.clSampleIDCol)).getText();
+					String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clSampleIDCol)).getText();
 					System.out.println(getSampleID);
 				//	String updatedSampleID = getSampleID+"U";
 					cell=worksheet.getRow(z+1).createCell(17); 
 					cell.setCellValue(getSampleID+"Updt");  
 
-					String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" "+Test_Elements.clResultIDCol)).getText();
+					String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clResultIDCol)).getText();
 					cell=worksheet.getRow(z+1).createCell(3); 
 					cell.setCellValue(getResultID);  
 
@@ -664,7 +664,7 @@ public class Normal_Ingestion {
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
 
-				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
+				for(int j=0; j<4; j++)	{
 
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j)+"Updt");
@@ -681,22 +681,22 @@ public class Normal_Ingestion {
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));		
 				 
 				for (int k=0; k<12;k++) {
-				String getRequestedAssay = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clRequestedAssayCol+" label")).getText();
+				String getRequestedAssay = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clRequestedAssayCol+" label")).getText();
 				Assert.assertEquals(getRequestedAssay, Test_Variables.RequestedAssay);
 
-				String getFlockID = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clFlockIDCol+" label")).getText();
+				String getFlockID = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clFlockIDCol+" label")).getText();
 				Assert.assertEquals(getFlockID, Test_Variables.FlockID);
 				
-				String getCSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clCSampleIDCol+" label")).getText();
+				String getCSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clCSampleIDCol+" label")).getText();
 				Assert.assertEquals(getCSampleID, Test_Variables.CustomerSampleID);
 				
-				String getSampleMatrix = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clSampleMatrixCol+" label")).getText();
+				String getSampleMatrix = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleMatrixCol+" label")).getText();
 				Assert.assertEquals(getSampleMatrix, Test_Variables.SampleMatrix);
 				
-				String getKitLot = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clKitLotCol+" label")).getText();
+				String getKitLot = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clKitLotCol+" label")).getText();
 				Assert.assertEquals(getKitLot, Test_Variables.KitLot);
 				
-				String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" "+Test_Elements.clSampleIDCol+" label")).getText();
+				String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
 				
 				Helper.driver.findElement(By.id("audit-trial-"+k)).click();
 				Thread.sleep(1000);		
@@ -901,7 +901,7 @@ public class Normal_Ingestion {
 
 			String data4 = response3.asString();
 			System.out.println(data4);
-			Thread.sleep(120000);
+			Thread.sleep(180000);
 			
 			Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 			Helper.driver.get(Constants.url_SalmonellaLog);
@@ -1099,7 +1099,7 @@ public class Normal_Ingestion {
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Salmonella Log");
 
-				Thread.sleep(120000);
+				Thread.sleep(180000);
 				Helper.driver.get(Constants.url_SalmonellaLog);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1114,7 +1114,7 @@ public class Normal_Ingestion {
 				Thread.sleep(1000);
 				Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
-				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
+				for(int j=0; j<4; j++)	{
 
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j));
@@ -1366,7 +1366,7 @@ public class Normal_Ingestion {
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
 
-				for(int j=0; j<Test_Variables.lstSampleID.size(); j++)	{
+				for(int j=0; j<4; j++)	{
 
 					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("Test"+Test_Variables.lstSampleID.get(j)+"Updt");
@@ -1453,180 +1453,6 @@ public class Normal_Ingestion {
 			Thread.sleep(2000);	
 		}	
 	}
-	
-	
-	
-	
-	
-	@SuppressWarnings("unchecked")
-	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= false, priority= 1) 
-	public void NormalIngestiofgnCoccidia() throws InterruptedException, IOException	{
-try {
-		Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
-		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-		Test_Variables.steps.createNode("1. Enter valid piperid ("+Test_Variables.piperId+")");
-		Test_Variables.steps.createNode("2. Enter valid password (********)");
-		Test_Variables.steps.createNode("3. Run the API");
-	
-	
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
-		Thread.sleep(1000);
-		WebElement filter_scroll = Helper.driver.findElement(By.id("instrumentId_show-filter"));
-		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
-
-		Helper.driver.findElement(By.id("cartridgeId_show-filter")).click();	
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("cartridgeId_view-all")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-
-		Helper.driver.findElement(By.id("cartridgeId_search-input")).clear();
-		Helper.driver.findElement(By.id("cartridgeId_search-input")).sendKeys("TestCartridge0334");
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);				
-		Helper.driver.findElement(By.cssSelector("#cartridgeId_cust-cb-lst-txt_TestCartridge0334")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(800);
-
-		Helper.driver.findElement(By.id("cartridgeId_apply")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		String records = Helper.driver.findElement(By.id("results-found-count")).getText();
-		Assert.assertEquals(records, "12"); 
-
-		for(int i = 0; i<12;i++) {
-			int lane = i+1;
-			Test_Variables.steps.createNode("Verify Result Status as 'Pending' for lane "+lane);
-			String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slResultStatusCol+" label")).getText();
-		//	Assert.assertEquals(getResultStatus, "Pending", "Result Status not displayed as Pending in table");
-
-			Test_Variables.steps.createNode("Verify Date is displayed same as that written in API body for lane "+lane);
-			String getDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slDateCol+" label")).getText();
-		//	Assert.assertEquals(getDate, Test_Variables.dateMMDDYYYY1, "Date not displayed in table");
-
-			Test_Variables.steps.createNode("Verify Pathogen Name as 'Salmonella' for lane "+lane);
-			String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slAssayCol+" label")).getText();
-			Assert.assertEquals(getPathogen, "salmonella", "Pathogen Name not displayed as Salmonella in table");
-
-			Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
-			String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slCartridgeIDCol+" label")).getText();
-	//		Assert.assertEquals(getCartridgeID, Test_Variables.CartridgeID, "Cartridge ID not displayed in table");
-
-			Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane "+lane);
-			String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slInstrumentIDCol+" label")).getText();
-			Assert.assertEquals(getInstrumentID, Test_Variables.InstrumentID, "Instrument ID not displayed in table");
-
-			Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
-			String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slPiperUserCol+" label")).getText();
-			Assert.assertEquals(getPiperUser, Test_Variables.PiperUser, "Piper User not displayed in table");
-
-			Test_Variables.steps.createNode("Verify Test Site ID is written  for lane "+lane);
-			String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slTestSiteIDCol+" label")).getText();
-			Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not displaying in table");
-
-			Test_Variables.steps.createNode("Verify Test Site Name is written for lane "+lane);
-			String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slTestSiteNameCol+" label")).getText();
-			Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not displaying in table");
-
-			Test_Variables.steps.createNode("Open Audit Trial popup for lane "+lane);
-			WebElement scroll = Helper.driver.findElement(By.id("select-runId-0"));
-			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
-			
-			Actions builder = new Actions(Helper.driver); 
-			WebElement hover = Helper.driver.findElement(By.cssSelector("#audit-trial-"+i+" img"));
-			builder.moveToElement(hover).build().perform();	
-			Thread.sleep(1500);
-			Helper.driver.findElement(By.id("audit-trial-"+i)).click();
-			Thread.sleep(3000);
-			
-			Test_Variables.steps.createNode("Verify Date is same as that written in API body for lane "+lane);
-			String getAuditDate = Helper.driver.findElement(By.id("audit-changed-date-0")).getText();
-	//		Assert.assertEquals(getAuditDate, Test_Variables.dateMMDDYYYY1);
-
-			Test_Variables.steps.createNode("Verify Action as 'Created' for lane "+lane);
-			String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
-			Assert.assertEquals(getAuditAction, "Modified", "Action not displayed as 'Created 'in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Changed by is same as that written in API body for lane "+lane);
-			String getAuditUser = Helper.driver.findElement(By.id("audit-changed-by-0")).getText();
-			Assert.assertEquals(getAuditUser, Test_Variables.PiperUser, "Changed By not displayed in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Result Status as 'Pending' for lane "+lane);
-			String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slResultStatusCol+".text-dark")).getText(); 
-			Assert.assertEquals(getAuditResultStatus, "Completed", "Result Status not displayed as Pending in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
-			String getAuditCartridgeId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-16.text-dark")).getText();
-	//		Assert.assertEquals(getAuditCartridgeId, Test_Variables.CartridgeID, "Cartridge ID not displayed in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane "+lane);
-			String getAuditInstrumentId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-16.text-dark ")).getText();
-			System.out.println(getAuditInstrumentId);
-			Assert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID, "Instrument ID not displayed in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
-		//	String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slPiperUserCol+".text-dark")).getText();
-			String getAuditPiperUser1 = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-		//	System.out.println(getAuditPiperUser); System.out.println(getAuditPiperUser1);
-			Assert.assertEquals(getAuditPiperUser1, Test_Variables.PiperUser, "Piper User not displayed in Audit Log");
-
-			
-			System.out.println("tr:nth-child(1) #col-"+Test_Elements.slCartridgeIDCol+".text-dark");
-			
-			Test_Variables.steps.createNode("Verify Test Site ID for lane "+lane);
-			String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-26.text-dark")).getText();
-			Assert.assertTrue(getAuditTestSiteId.isEmpty() == false, "Test Site ID is not displaying in Audit Log");
-
-			Test_Variables.steps.createNode("Verify Test Site Name for lane "+lane);
-			String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-29.text-dark")).getText();
-			Assert.assertTrue(getAuditTestSiteName.isEmpty() == false, "Test Site Name is not displaying in Audit Log");
-
-			Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
-	}	
-	Test_Variables.test.pass("Start Assay all scenarios passed successfully");
-	Test_Variables.results.createNode("Start Assay all scenarios passed successfully");
-	Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
-	Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);
-}
-catch(AssertionError er) {
-	Test_Variables.test.fail("Start Assay API failed");
-	Test_Variables.results.createNode("Start Assay API failed");
-	Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, new Exception(er));
-}catch(Exception ex){
-	Test_Variables.test.fail("Start Assay API failed");
-	Test_Variables.results.createNode("Start Assay API failed");
-	Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, ex);
-}
-	
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 	@AfterTest

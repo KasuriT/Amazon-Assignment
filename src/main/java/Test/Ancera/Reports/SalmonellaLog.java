@@ -361,7 +361,7 @@ public class SalmonellaLog {
 						Thread.sleep(1000);
 						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
 						int count = rows.size();
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
@@ -403,11 +403,13 @@ public class SalmonellaLog {
 	
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
 
+		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
+		
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaDateSearch) { 
 			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
@@ -459,8 +461,10 @@ public class SalmonellaLog {
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
+							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 							Assert.assertEquals(fromDateField, fromDate);
 							Assert.assertEquals(toDateField, toDate);
+							Assert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 
@@ -495,8 +499,10 @@ public class SalmonellaLog {
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-							Assert.assertEquals(fromDateField, fromDate);
-					//		Assert.assertEquals(toDateField, toDate, "Please ingest data with current date to test this scenario successfully");
+							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+					//		Assert.assertEquals(fromDateField, fromDate);
+							Assert.assertEquals(toDateField, toDate, "Please ingest data with current date to test this scenario successfully");
+							Assert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 

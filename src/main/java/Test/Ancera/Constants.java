@@ -7,7 +7,7 @@ public class Constants {
 //	public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
 //	public static String url = "https://ie-uat.ancera.com";   
-//	public static String api = "https://ie-uat.ancera.com:5510/api/ancerainput/v1"; 
+//	public static String api = "https://disapi-uat.ancera.com/api/ancerainput/v1"; 
 	
 	public static String url_login = url+"/auth/sign-in";
 	public static String url_fp = url+"/auth/forgot-password";
@@ -62,6 +62,7 @@ public class Constants {
 	public static String StartAssayReportPath = "/Screenshots/Reports/StartAssayScreenShot";
 	public static String InstallationRunReportPath = "/Screenshots/Reports/InstallationRunScreenShot";
 	public static String NormalIngestionReportPath = "/Screenshots/Reports/NormalIngestionScreenShot";
+	public static String PAConfigReportPath = "/Screenshots/Reports/PAConfigScreenShot";
 	
 	public static String api_login = api+"/login";
 	public static String api_announcement = api+"/runfilelist";

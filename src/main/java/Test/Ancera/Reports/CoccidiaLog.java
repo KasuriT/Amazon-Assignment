@@ -146,19 +146,16 @@ public class CoccidiaLog {
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								System.out.println(str);
 								Assert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
 							}
 
 							if(objModel.endsWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								System.out.println(str);
 								Assert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
 							}
 
 							if(objModel.contains) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								System.out.println(str);
 								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
 							}
 						}
@@ -187,9 +184,10 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 3) 
 	public void DateFilter() throws InterruptedException, IOException {
 
+		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 		Test_Variables.lstCoccidiaDateSearch = CoccidiaModel.FillDate();
 
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaDateSearch) { 
@@ -208,8 +206,10 @@ public class CoccidiaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-scanDateTime"))); 
+				Thread.sleep(1000);
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
+				WebElement filter_scroll = Helper.driver.findElement(By.id("scanDateTime_show-filter"));
+				((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 				Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
@@ -221,9 +221,11 @@ public class CoccidiaLog {
 				if (Helper.driver.findElement(By.cssSelector(objFilter.FilterListXPathSearch)).isEnabled()) {
 					actions.moveToElement(Helper.driver.findElement(By.cssSelector(objFilter.FilterListXPathSearch))).click().perform();	
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(750);
-					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();
-					Thread.sleep(750);
+					Thread.sleep(1000);
+					Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
+					System.out.println("1");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));	
 
 					if(objModel.Filter1) {
@@ -242,9 +244,12 @@ public class CoccidiaLog {
 							String fromDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
+							System.out.println("2");
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
+							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 							Assert.assertEquals(fromDateField, fromDate);
 							Assert.assertEquals(toDateField, toDate);
+							Assert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 
@@ -281,9 +286,10 @@ public class CoccidiaLog {
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
-
-							Assert.assertEquals(fromDateField, fromDate);
-						//	Assert.assertEquals(toDateField, toDate);
+							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
+						//	Assert.assertEquals(fromDateField, fromDate);
+							Assert.assertEquals(toDateField, toDate);
+							Assert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 
@@ -340,9 +346,11 @@ public class CoccidiaLog {
 							Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 						}
 					}
-					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();
+					Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
+					System.out.println("3");
 					Thread.sleep(500);
-					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .log-header__clear-filter")).click();
+					Helper.driver.findElement(By.id("scanDateTime_clear-filter")).click();
+					System.out.println("4");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 				}
@@ -547,6 +555,53 @@ public class CoccidiaLog {
 		}
 	}
 
+	
+	
+	@Test (description="Test Case: Test Site Name Filter",enabled= false, priority = 6) 
+	public void SiteName() throws InterruptedException, IOException {
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-137: Verify Coccidia Lock Filter Functionality", "This test case will test Coccidia Lock Filter Functionality");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
+
+			Helper.driver.navigate().refresh();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-laneNum"))); 
+			Thread.sleep(1000);	
+			String recordsBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
+			Helper.driver.findElement(By.id("site_id_show-filter")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			Thread.sleep(1000);	
+			Helper.driver.findElement(By.cssSelector(".background-white:nth-child(2)  div.table-responsive.apl-data-log-table.apl-scrollbar div.mb-0 table.table__data-log tr.text-uppercase th.min-w-157px.w-157px.max-w-157px.ng-star-inserted:nth-child(16) div.filter-block.d-none.d-block app-sites-filter-popup.ng-star-inserted div.filter-popup div.filter-popup__container div.filter-popup__body div.filter-popup__filter-container.apl-scrollbar div.sites-box.ancera-scrollbar.grid-container tr.ng-star-inserted:nth-child(1) td:nth-child(1) div.d-flex.align-items-center.site-view-checkbox div.checkbox.checkbox-sm > label.mb-0:nth-child(2)")).click();
+			Helper.driver.findElement(By.id("list-title_apply")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			
+			Assert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), recordsBefore);
+			Test_Variables.test.pass("Checkbox selected successfully");
+			Test_Variables.results.createNode("Checkbox selected successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Filer lock functionality failed");
+			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Filer lock functionality failed");
+			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+		}	
+	}
+	
+	
 
 	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 6) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
@@ -963,13 +1018,16 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
 
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slLaneCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1CellCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1PCCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1MeanIntensityCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CellCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CPCCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2MeanIntensityCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLaneCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalOPGCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallOPGCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumOPGCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeOPGCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalCountCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallCountCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumCountCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeCountCol+" .text-right")).isDisplayed() == true);
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMeanIntensityCol+" .text-right")).isDisplayed() == true);
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -1107,7 +1165,7 @@ public class CoccidiaLog {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-			WebElement clickDownload = Helper.driver.findElement(By.id("dc-bar-chart-salm-png"));
+			WebElement clickDownload = Helper.driver.findElement(By.id("dc-bar-chart-coci-png"));
 			Actions actions = new Actions(Helper.driver);
 			actions.moveToElement(clickDownload).click().perform();
 
@@ -1117,8 +1175,8 @@ public class CoccidiaLog {
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 			Thread.sleep(1000);
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clPNGFileName+date+".png")); 
 			System.out.println("Success");
 			Test_Variables.test.pass("PNG downloaded successfully");
@@ -1173,8 +1231,8 @@ public class CoccidiaLog {
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clCSVFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
@@ -1228,8 +1286,8 @@ public class CoccidiaLog {
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clCSVAuditFileName+date+".csv"));
 			System.out.println("Success");
 			Test_Variables.test.pass("CSV file downloaded successfully");
@@ -1278,9 +1336,8 @@ public class CoccidiaLog {
 			ClickElement.clickById(Helper.driver, "Sample-Metadata-Upload-Template");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			File downloadFolder = new File(Test_Variables.fileDownloadPath);
-			@SuppressWarnings("unused")
-			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
+			//File downloadFolder = new File(Test_Variables.fileDownloadPath);
+			//List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 			//	Assert.assertTrue(namesOfFiles.contains(Test_Variables.clSampleMetaData+".xlsx"));
 			Test_Variables.test.pass("Sample MetaData downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData downloaded successfully");

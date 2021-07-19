@@ -1198,8 +1198,8 @@ public class SalmonellaModel {
 		objTmp.contains = true;
 		objTmp.endsWith = false;
 		objFilter.ColumnID = Test_Elements.slAssayCol;
-		objTmp.input = "t";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("t", "T"));
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 	
@@ -1215,8 +1215,8 @@ public class SalmonellaModel {
 		objTmp.contains = false;
 		objTmp.endsWith = true;
 		objFilter.ColumnID = Test_Elements.slAssayCol;
-		objTmp.input = "t";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("t", "T"));
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 		
