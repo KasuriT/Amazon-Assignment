@@ -31,6 +31,8 @@ public class ReportFilters {
 	public ArrayList<String> LstFilterValues;
 	public ArrayList<String> LstFilterXpath;
 	public ArrayList<String> LstFilterSearch;
+	public ArrayList<String> LstSampleID;
+	public ArrayList<String> LstValues;
 	
 	public String MinMean;
 	public String MaxMean;

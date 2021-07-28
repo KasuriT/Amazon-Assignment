@@ -499,7 +499,8 @@ public class Test_Elements {
 	public static String slFlockIDCol = "29";
 	public static String slTestSiteNameCol = "30";
 	public static String slRunTypeCol = "31";
-
+	public static String footerCount = ".filter-popup__footer--count";
+	
 	public static String slAuditLaneCol = "0";
 	public static String slAuditSampleIDCol = "1";
 	public static String slAuditQCCodeCol = "2";

@@ -31,6 +31,4 @@ public class LoginModel {
 		this.invalidCredentials = _invalidCredentials;
 		this.validCredentials = _validCredentials;
 	}
-	
-	
 }

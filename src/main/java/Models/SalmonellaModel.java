@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Variables;
 
 public class SalmonellaModel {
 
@@ -40,7 +41,12 @@ public class SalmonellaModel {
 	public boolean startWith;
 	public boolean endsWith;
 	public boolean contains;
+	public boolean runIngestion;
+	public boolean firstCase;
+	public boolean secondCase;
 	public String input;
+	public String fileJson;
+	public String sampleID;
 
 	public SalmonellaModel() {
 
@@ -1956,6 +1962,85 @@ public class SalmonellaModel {
 
 		return lstSalmonellaModel;
 	}	
+	
+	
+	public static ArrayList<SalmonellaModel> ContexualCheck() {
+		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
+		SalmonellaModel objTmp;
+		ReportFilters objFilter;
+	/*	
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lab Sample ID Filter";
+		objTmp.TestCaseName = "AN-SL-217: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.runIngestion = true;
+		objTmp.firstCase = true;
+		objTmp.secondCase = false;
+		objTmp.sampleID = Test_Variables.dateYYYYMMDD+"-TestAut-ContexualTest-"+Test_Variables.date0;
+	    objTmp.fileJson = "[{'LANE':'1','PATHOGEN':'Salmonella','SAMPLEID':'"+objTmp.sampleID+"','SCANDATETIME':'2021/07/13 13:45:43','OUTCOME':'','STATUSCODE':'','CALIBRATED_PIPER_COUNTS':'0','COUNT_OUTCOME':'','CARTRIDGEID':'CartIDContexual"+Test_Variables.date0+"','EXPERIMENTID':'','INSTRUMENTID':'PSN0009','USERID':'100','RUN_ID':'2021021-salmonella -TC01','RUN_TYPE':'SCRIPT_1001a Salmonella Probes','MPN_CALCULATION_TYPE':'2','DILUTION_FACTOR':'0.01','LANE_NO':'1','DATE':'2020-06-03','TIME':'10:45:43.914898','W1_PC_COUNT':'0','W1_CELL_COUNT':'0','W1_PC_MEAN_INTENSITY':'','W1_CELL_MEAN_INTENSITY':'','W1_PC_RANGE_INTENSITY':'0','W1_CELL_RANGE_INTENSITY':'0','W1_PC_CV_INTENSITY':'','W1_CELL_CV_INTENSITY':'','W1_PC_MEAN_SIZE':'','W1_CELL_MEAN_SIZE':'','W1_PC_RANGE_SIZE':'','W1_CELL_RANGE_SIZE':'','W1_PC_CV_SIZE':'','W1_CELL_CV_SIZE':'','W2_PC_COUNT':'0','W2_CELL_COUNT':'200','W2_PC_MEAN_INTENSITY':'','W2_CELL_MEAN_INTENSITY':'','W2_PC_RANGE_INTENSITY':'0','W2_CELL_RANGE_INTENSITY':'0','W2_PC_CV_INTENSITY':'','W2_CELL_CV_INTENSITY':'','W2_PC_MEAN_SIZE':'','W2_CELL_MEAN_SIZE':'','W2_PC_RANGE_SIZE':'','W2_CELL_RANGE_SIZE':'','W2_PC_CV_SIZE':'','W2_CELL_CV_SIZE':'','STATUS':'','LANE_TOTAL_AREA_UM2':'326035983.8748','LANE_NOISE_AREA_UM2':'82232170.4712','LANE_NOISE_RATIO_PERCENT':'95.73','LANE_NOISE_OBJECT_COUNT':'71','W1_NOISE_AREA_UM2':'8323637.364','W2_NOISE_AREA_UM2':'8315160.7508','W1_NOISE_RATIO_PERCENT':'100.0','W2_NOISE_RATIO_PERCENT':'99.8993635494474','W1_NOISE_OBJECT_COUNT':'0','W2_NOISE_OBJECT_COUNT':'0','LANE_SMALL_NOISE_OBJECT_COUNT':'71','LANE_MEDIUM_NOISE_OBJECT_COUNT':'0','LANE_LARGE_NOISE_OBJECT_COUNT':'0','LANE_EXTRA_LARGE_NOISE_OBJECT_COUNT':'0','IMPROC':'ImprocSalm01','VERSION':'4.0.8.2','ERROR_CODE':'B01','IE_COLLECTION_SITE_ID':'1001043','IE_SAMPLE_MATRIX_ID':''}]";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("sampleId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList(objTmp.sampleID));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "countOutcome", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "instrumentId", "w2CellCount", "user_name", "kit_lot", "version", "testSiteId", "requested_assay", "flock_id", "testSiteName", "runType"));
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+		
+		
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID Filter";
+		objTmp.TestCaseName = "AN-SL-218: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.runIngestion = false;
+		objTmp.firstCase = true;
+		objTmp.secondCase = false;
+		objTmp.sampleID = Test_Variables.dateYYYYMMDD+"-TestAut-ContexualTest-"+Test_Variables.date0;
+	    objTmp.fileJson = "[{'LANE':'1','PATHOGEN':'Salmonella','SAMPLEID':'"+objTmp.sampleID+"','SCANDATETIME':'2021/07/13 13:45:43','OUTCOME':'','STATUSCODE':'','CALIBRATED_PIPER_COUNTS':'0','COUNT_OUTCOME':'','CARTRIDGEID':'CartIDContexual"+Test_Variables.date0+"','EXPERIMENTID':'','INSTRUMENTID':'PSN0009','USERID':'100','RUN_ID':'2021021-salmonella -TC01','RUN_TYPE':'SCRIPT_1001a Salmonella Probes','MPN_CALCULATION_TYPE':'2','DILUTION_FACTOR':'0.01','LANE_NO':'1','DATE':'2020-06-03','TIME':'10:45:43.914898','W1_PC_COUNT':'0','W1_CELL_COUNT':'0','W1_PC_MEAN_INTENSITY':'','W1_CELL_MEAN_INTENSITY':'','W1_PC_RANGE_INTENSITY':'0','W1_CELL_RANGE_INTENSITY':'0','W1_PC_CV_INTENSITY':'','W1_CELL_CV_INTENSITY':'','W1_PC_MEAN_SIZE':'','W1_CELL_MEAN_SIZE':'','W1_PC_RANGE_SIZE':'','W1_CELL_RANGE_SIZE':'','W1_PC_CV_SIZE':'','W1_CELL_CV_SIZE':'','W2_PC_COUNT':'0','W2_CELL_COUNT':'200','W2_PC_MEAN_INTENSITY':'','W2_CELL_MEAN_INTENSITY':'','W2_PC_RANGE_INTENSITY':'0','W2_CELL_RANGE_INTENSITY':'0','W2_PC_CV_INTENSITY':'','W2_CELL_CV_INTENSITY':'','W2_PC_MEAN_SIZE':'','W2_CELL_MEAN_SIZE':'','W2_PC_RANGE_SIZE':'','W2_CELL_RANGE_SIZE':'','W2_PC_CV_SIZE':'','W2_CELL_CV_SIZE':'','STATUS':'','LANE_TOTAL_AREA_UM2':'326035983.8748','LANE_NOISE_AREA_UM2':'82232170.4712','LANE_NOISE_RATIO_PERCENT':'95.73','LANE_NOISE_OBJECT_COUNT':'71','W1_NOISE_AREA_UM2':'8323637.364','W2_NOISE_AREA_UM2':'8315160.7508','W1_NOISE_RATIO_PERCENT':'100.0','W2_NOISE_RATIO_PERCENT':'99.8993635494474','W1_NOISE_OBJECT_COUNT':'0','W2_NOISE_OBJECT_COUNT':'0','LANE_SMALL_NOISE_OBJECT_COUNT':'71','LANE_MEDIUM_NOISE_OBJECT_COUNT':'0','LANE_LARGE_NOISE_OBJECT_COUNT':'0','LANE_EXTRA_LARGE_NOISE_OBJECT_COUNT':'0','IMPROC':'ImprocSalm01','VERSION':'4.0.8.2','ERROR_CODE':'B01','IE_COLLECTION_SITE_ID':'1001043','IE_SAMPLE_MATRIX_ID':''}]";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("cartridgeId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CartIDContexual"+Test_Variables.date0));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "sampleId", "countOutcome", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "instrumentId", "w2CellCount", "user_name", "kit_lot", "version", "testSiteId", "requested_assay", "flock_id", "testSiteName", "runType"));
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+	*/
+		
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane Filter";
+		objTmp.TestCaseName = "AN-SL-219: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.firstCase = false;
+		objTmp.secondCase = true;
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("laneNum"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "kit_lot", "version", "requested_assay", "flock_id"));
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+		
+		
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument Filter";
+		objTmp.TestCaseName = "AN-SL-220: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.firstCase = false;
+		objTmp.secondCase = true;
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("instrumentId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0009"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "sampleId", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "kit_lot", "version", "requested_assay", "flock_id"));
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+			
+		return lstSalmonellaModel;
+	}	
+	
 }
 
 
