@@ -28,7 +28,6 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.PAModel;
-import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -60,7 +59,7 @@ public class PAConfig {
 		Test_Variables.lstPASalmonella = PAModel.FillData();
 		for (PAModel objModel : Test_Variables.lstPASalmonella) { 
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-PAConfig-02: Verify the ingestion with RunMode 3 and Sample Matrix ID and compare the results with Threshold", "This test case will verify the ingestion with RunMode 3 and  Sample Matrix ID and compare the results with Threshold");
+			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);

@@ -18,6 +18,7 @@ public class Constants {
 	public static String url_reportsManagement = url+"/home/admin/reportroles";
 	public static String url_alert = url+"/home/admin/alerts";
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
+	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
 	public static String url_piperManagement = url+"/home/admin/piper";
 	public static String url_piperSoftware = url+"/home/admin/piper-software-management";
 	public static String url_piperConfiguration = url+"/home/admin/piper-configuration";
@@ -67,7 +68,7 @@ public class Constants {
 	public static String api_login = api+"/login";
 	public static String api_announcement = api+"/runfilelist";
 	public static String api_FileUpload = api+"/fileupload";
-	public static String api_StartAssay = api+"/startAssay";
+	public static String api_StartAssay = api+"/startAssay?apiVersion=17.0";
 	
 	
 }

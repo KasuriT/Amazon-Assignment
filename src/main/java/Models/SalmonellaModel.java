@@ -63,9 +63,9 @@ public class SalmonellaModel {
 		SalmonellaModel objTmp = new SalmonellaModel();
 		ReportFilters  objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
-		objTmp.TestCaseName = "AN-SL-17: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-11: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-18: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-12: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -77,9 +77,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-19: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-13: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-20: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-14: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -91,9 +91,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "QC Code Filter";
-		objTmp.TestCaseName = "AN-SL-21: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-15: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-22: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-16: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -105,9 +105,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-23: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-17: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-24: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-18: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -119,9 +119,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-25: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-19: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-26: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-20: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -133,9 +133,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-29: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-21: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-30: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-22: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -147,9 +147,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-31: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-23: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-32: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-24: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -161,9 +161,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-33: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-25: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-34: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-26: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -175,9 +175,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-35: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-27: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-36: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-28: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -189,9 +189,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received Filter";
-		objTmp.TestCaseName = "AN-SL-37: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-29: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-38: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-30: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -203,9 +203,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-39: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-31: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-40: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-32: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -217,9 +217,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-41: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-33: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-42: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-34: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -231,9 +231,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
-		objTmp.TestCaseName = "AN-SL-43: Verify user can select 'Medium' from Load Filter";
+		objTmp.TestCaseName = "AN-SL-35: Verify user can select 'Medium' from Load Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can select 'Medium' from Load Filter";
-		objTmp.TestCaseNameSearch = "AN-SL-44: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-36: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -247,9 +247,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
-		objTmp.TestCaseName = "AN-SL-45: Verify user can select 'High' from Load Filter";
+		objTmp.TestCaseName = "AN-SL-37: Verify user can select 'High' from Load Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can select 'High' from Load Filter";
-		objTmp.TestCaseNameSearch = "AN-SL-46: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-38: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -263,9 +263,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Load Filter";
-		objTmp.TestCaseName = "AN-SL-47: Verify user can select 'Low' from Load Filter";
+		objTmp.TestCaseName = "AN-SL-39: Verify user can select 'Low' from Load Filter";
 		objTmp.TestCaseDescription = "This testcase will verify user can select 'Low' from Load Filter";
-		objTmp.TestCaseNameSearch = "AN-SL-48: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-40: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -279,9 +279,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-SL-49: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-41: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-50: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-42: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -293,9 +293,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-51: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-43: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-52: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-44: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -307,9 +307,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-SL-53: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-45: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-54: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-46: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -321,9 +321,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-55: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-47: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-56: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-48: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -335,9 +335,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-ESL-57: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-49: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-ESL-58: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-50: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
@@ -350,9 +350,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-ESL-59: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-51: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-ESL-60: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-52: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -364,9 +364,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-61: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-53: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-62: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-54: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -378,9 +378,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-63: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-55: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-64: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-56: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -392,9 +392,9 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Two Filters";
-		objTmp.TestCaseName = "AN-SL-65: Verify user can apply 2 filters at same time";
+		objTmp.TestCaseName = "AN-SL-57: Verify user can apply 2 filters at same time";
 		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
-		objTmp.TestCaseNameSearch = "AN-SL-66: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-SL-58: "+filterIndicatorTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -412,7 +412,7 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 
-		objTmp.TestCaseName = "AN-SL-06: Verify user can filter Today date from date Filter";
+		objTmp.TestCaseName = "AN-SL-04: Verify user can filter Today date from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of date filter after selecting 'Today'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -429,7 +429,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-07: Verify user can filter Last 24 Hours from date Filter";
+		objTmp.TestCaseName = "AN-SL-05: Verify user can filter Last 24 Hours from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 24 Hours after selecting 'Last 24 Hours'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -446,7 +446,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-08: Verify user can filter Last 7 Days from date Filter";
+		objTmp.TestCaseName = "AN-SL-06: Verify user can filter Last 7 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 7 Days after selecting 'Last 7 Days'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -463,7 +463,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-09: Verify user can filter Last 30 Days from date Filter";
+		objTmp.TestCaseName = "AN-SL-07: Verify user can filter Last 30 Days from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 30 Days after selecting 'Last 30 Days'";
 		objTmp.Filter1 = true;
 		objTmp.Filter2 = false;
@@ -480,7 +480,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-10: Verify user can filter Last Month from date Filter";
+		objTmp.TestCaseName = "AN-SL-08: Verify user can filter Last Month from date Filter";
 		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last Month after selecting 'Last Month'";
 		objTmp.Filter1 = false;
 		objTmp.Filter2 = true;
@@ -497,7 +497,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 //		objTmp = new SalmonellaModel();
-//		objTmp.TestCaseName = "AN-SL-11: Verify user can filter This Month from date Filter";
+//		objTmp.TestCaseName = "AN-SL-09: Verify user can filter This Month from date Filter";
 //		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
 //		objTmp.Filter1 = false;
 //		objTmp.Filter2 = false;
@@ -584,7 +584,7 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 
-		objTmp.TestCaseName = "AN-SL-188: Verify pagination exist on Salmonella Log report";
+		objTmp.TestCaseName = "AN-SL-136: Verify pagination exist on Salmonella Log report";
 		objTmp.TestCaseDescription = "This testcase will verify that pagination exist on Salmonella Log report";
 		objTmp.paginationExist = true;
 		objTmp.paginationLastPage = false;
@@ -600,7 +600,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-189: Verify user navigates to last page on clicking '>>' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-137: Verify user navigates to last page on clicking '>>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to last page on clicking '>>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = true;
@@ -616,7 +616,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-190: Verify user navigates to previous page on clicking '<' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-138: Verify user navigates to previous page on clicking '<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to previous page on clicking '<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -632,7 +632,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-191: Verify user navigates to first page on clicking '<<' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-139: Verify user navigates to first page on clicking '<<' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to first page on clicking '<<' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -648,7 +648,7 @@ public class SalmonellaModel {
 		lstSalmonellaModel.add(objTmp);
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-192: Verify user navigates to next page on clicking '>' button in pagnation";
+		objTmp.TestCaseName = "AN-SL-140: Verify user navigates to next page on clicking '>' button in pagnation";
 		objTmp.TestCaseDescription = "This testcase will verify that user navgates to next page on clicking '>' button in pagnation";
 		objTmp.paginationExist = false;
 		objTmp.paginationLastPage = false;
@@ -671,7 +671,7 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 
-		objTmp.TestCaseName = "AN-SL-193: Verify 100 rows are displayed when 100 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-141: Verify 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseNameSearch = "AN-SL-194: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
@@ -685,7 +685,7 @@ public class SalmonellaModel {
 
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-195: Verify 250 rows are displayed when 250 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-142: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
@@ -699,7 +699,7 @@ public class SalmonellaModel {
 
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-197: Verify 500 rows are displayed when 500 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-143: Verify 500 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseNameSearch = "AN-SL-198: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
@@ -721,7 +721,7 @@ public class SalmonellaModel {
 
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane";
-		objTmp.TestCaseName = "AN-SL-218: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-144: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -733,7 +733,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 	    objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID";
-		objTmp.TestCaseName = "AN-SL-219: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-145: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -745,7 +745,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "QC Code";
-		objTmp.TestCaseName = "AN-SL-220: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-146: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -757,7 +757,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status";
-		objTmp.TestCaseName = "AN-SL-221: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-147: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -769,7 +769,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result";
-		objTmp.TestCaseName = "AN-SL-222: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-148: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -781,7 +781,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay";
-		objTmp.TestCaseName = "AN-SL-223: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-149: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -793,7 +793,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result ID";
-		objTmp.TestCaseName = "AN-SL-224: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-150: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -805,7 +805,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Date";
-		objTmp.TestCaseName = "AN-SL-225: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-151: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = false;
@@ -817,7 +817,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Name";
-		objTmp.TestCaseName = "AN-SL-226: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-152: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -829,7 +829,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID";
-		objTmp.TestCaseName = "AN-SL-227: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-153: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -841,7 +841,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type";
-		objTmp.TestCaseName = "AN-SL-228: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-154: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -853,7 +853,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix";
-		objTmp.TestCaseName = "AN-SL-229: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-155: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -865,7 +865,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Dilution Factor";
-		objTmp.TestCaseName = "AN-SL-230: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-156: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -877,7 +877,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID";
-		objTmp.TestCaseName = "AN-SL-231: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-157: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -889,7 +889,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received";
-		objTmp.TestCaseName = "AN-SL-232: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-158: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -901,7 +901,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID";
-		objTmp.TestCaseName = "AN-SL-233: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-159: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -913,7 +913,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID";
-		objTmp.TestCaseName = "AN-SL-234: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-160: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -925,7 +925,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 Cell Count";
-		objTmp.TestCaseName = "AN-SL-235: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-161: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -937,7 +937,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 PC Count";
-		objTmp.TestCaseName = "AN-SL-236: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-162: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -949,7 +949,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 Mean Intensity";
-		objTmp.TestCaseName = "AN-SL-237: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-163: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -961,7 +961,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Cell Count";
-		objTmp.TestCaseName = "AN-SL-238: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-164: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -973,7 +973,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 PC Count";
-		objTmp.TestCaseName = "AN-SL-239: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-165: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -985,7 +985,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Mean Intensity";
-		objTmp.TestCaseName = "AN-SL-240: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-166: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -997,7 +997,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User";
-		objTmp.TestCaseName = "AN-SL-241: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-167: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1009,7 +1009,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot";
-		objTmp.TestCaseName = "AN-SL-242: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-168: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1021,7 +1021,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version";
-		objTmp.TestCaseName = "AN-SL-243: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-169: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1033,7 +1033,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID";
-		objTmp.TestCaseName = "AN-SL-244: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-170: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1045,7 +1045,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name";
-		objTmp.TestCaseName = "AN-SL-245: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-171: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1057,7 +1057,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type";
-		objTmp.TestCaseName = "AN-SL-246: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseName = "AN-SL-172: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.sortLogic1 = true;
@@ -1075,7 +1075,7 @@ public class SalmonellaModel {
 
 		ReportFilters objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-123: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-59: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sampleId";
@@ -1092,7 +1092,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-124: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-60: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sampleId";
@@ -1110,7 +1110,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-125: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-61: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sampleId";
@@ -1127,7 +1127,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-126: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-62: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
@@ -1144,7 +1144,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-127: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-63: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
@@ -1161,7 +1161,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-128: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-64: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-result_status";
@@ -1178,7 +1178,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-129: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-65: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-pathogen";
@@ -1195,7 +1195,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-130: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-66: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-pathogen";
@@ -1212,7 +1212,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-131: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-67: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-pathogen";
@@ -1229,7 +1229,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-165: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-68: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_id";
@@ -1246,7 +1246,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-166: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-69: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_id";
@@ -1263,7 +1263,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-167: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-70: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_id";
@@ -1281,7 +1281,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-165: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-71: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_type";
@@ -1298,7 +1298,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-166: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-72: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_type";
@@ -1315,7 +1315,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-167: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-73: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-collection_site_type";
@@ -1333,7 +1333,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-132: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-74: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sample_matrix";
@@ -1350,7 +1350,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-133: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-75: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sample_matrix";
@@ -1367,7 +1367,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-134: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-75: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-sample_matrix";
@@ -1384,7 +1384,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-135: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-76: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-customer_sample_id";
@@ -1401,7 +1401,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-136: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-77: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-customer_sample_id";
@@ -1418,7 +1418,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-137: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-78: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-customer_sample_id";
@@ -1435,7 +1435,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-138: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-79: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-cartridgeId";
@@ -1452,7 +1452,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-139: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-80: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-cartridgeId";
@@ -1469,7 +1469,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-139: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-81: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-cartridgeId";
@@ -1486,7 +1486,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-141: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-82: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
@@ -1503,7 +1503,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-142: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-83: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
@@ -1520,7 +1520,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-143: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-84: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-instrumentId";
@@ -1537,7 +1537,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-SL-144: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-85: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-user_name";
@@ -1554,7 +1554,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-SL-145: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-86: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-user_name";
@@ -1571,7 +1571,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-SL-146: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-87: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-user_name";
@@ -1588,7 +1588,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-147: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-88: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-kit_lot";
@@ -1605,7 +1605,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-148: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-89: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-kit_lot";
@@ -1622,7 +1622,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-149: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-90: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-kit_lot";
@@ -1639,7 +1639,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-SL-150: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-91: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-version";
@@ -1656,7 +1656,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-SL-151: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-92: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-version";
@@ -1673,7 +1673,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-SL-152: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-93: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = "#sort-version";
@@ -1690,7 +1690,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-153: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-94: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1708,7 +1708,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-154: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-95: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1726,7 +1726,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-155: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-96: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1744,7 +1744,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-156: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-97: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1762,7 +1762,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-157: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-98: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1780,7 +1780,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-158: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-99: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1798,7 +1798,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-SL-159: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-100: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
@@ -1817,7 +1817,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-SL-160: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-101: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
@@ -1836,7 +1836,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-SL-161: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-102: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
@@ -1855,7 +1855,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-SL-162: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-103: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1873,7 +1873,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-SL-163: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-104: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1891,7 +1891,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-SL-164: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-105: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1909,7 +1909,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-165: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-106: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1927,7 +1927,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-166: Verify wild card Contains search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-107: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1945,7 +1945,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-167: Verify wild card Ends With search on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-108: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1968,11 +1968,11 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp;
 		ReportFilters objFilter;
-	/*	
+		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-217: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseName = "AN-SL-109: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
 		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1991,7 +1991,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-218: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseName = "AN-SL-110: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
 		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -2005,12 +2005,12 @@ public class SalmonellaModel {
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "sampleId", "countOutcome", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "instrumentId", "w2CellCount", "user_name", "kit_lot", "version", "testSiteId", "requested_assay", "flock_id", "testSiteName", "runType"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-	*/
+	
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
-		objTmp.TestCaseName = "AN-SL-219: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseName = "AN-SL-111: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
 		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -2026,7 +2026,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument Filter";
-		objTmp.TestCaseName = "AN-SL-220: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseName = "AN-SL-112: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
 		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();

@@ -63,7 +63,7 @@ public class PAModel {
 		objTmp.ThresholdValue = "50";
 		objTmp.lstFilters.add(objFilter);
 		lstPAModel.add(objTmp);
-/*
+
 		objTmp = new PAModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-PA-03: Ingest a run for Salmonella and upload invalid sample matrix and verify the result are updated accordingly";
@@ -192,7 +192,7 @@ public class PAModel {
 		objTmp.ThresholdValue = "50";
 		objTmp.lstFilters.add(objFilter);
 		lstPAModel.add(objTmp);
-		*/
+		
 		return lstPAModel;
 	}	
 }

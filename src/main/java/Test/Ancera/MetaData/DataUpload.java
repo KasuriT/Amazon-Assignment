@@ -318,7 +318,7 @@ public class DataUpload {
 	}
 
 
-	@Test (enabled= false, priority = 5) 
+	@Test (enabled= true, priority = 5) 
 	public void saveTemplates() throws InterruptedException, IOException {
 		
 		Test_Variables.lstDataUploadSaveTemplate = DataUploadModel.FillDataSaveTemplate();	

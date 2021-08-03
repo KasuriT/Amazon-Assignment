@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Variables;
 
 public class CoccidiaModel {
 
@@ -25,6 +26,11 @@ public class CoccidiaModel {
 	public boolean endsWith;
 	public boolean contains;
 	public String input;
+	public String fileJson;
+	public boolean firstCase;
+	public boolean secondCase;
+	public boolean runIngestion;
+	public String sampleID;
 
 	public CoccidiaModel() {
 
@@ -1778,7 +1784,82 @@ public class CoccidiaModel {
 		return lstCoccidiaModel;
 	}
 
+	public static ArrayList<CoccidiaModel> ContexualCheck() {
+		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
+		CoccidiaModel objTmp;
+		ReportFilters objFilter;
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lab Sample ID Filter";
+		objTmp.TestCaseName = "AN-SL-109: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.runIngestion = true;
+		objTmp.firstCase = true;
+		objTmp.secondCase = false;
+		objTmp.sampleID = Test_Variables.dateYYYYMMDD+"-TestAut-ContexualTest-"+Test_Variables.date0;
+	    objTmp.fileJson = "[{'LANE':'1','PATHOGEN':'Coccidia','SAMPLEID':'"+objTmp.sampleID+"','SCANDATETIME':'"+Test_Variables.date100+"','FIGUREOFMERIT':'0','OUTCOME':'','STATUSCODE':'','CALIBRATED_PIPER_COUNTS':'0','COUNT_OUTCOME':'','CARTRIDGEID':'CartIDContexual"+Test_Variables.date0+"','EXPERIMENTID':'','INSTRUMENTID':'"+Test_Variables.InstrumentID+"','USERID':'"+Test_Variables.UserID+"','RUN_ID':'"+objTmp.sampleID+"','RUN_TYPE':'SCRIPT_swtest','LANE_NO':'1','DATE':'','TIME':'','LANE_TOTAL_OOCYST_COUNT':'13','LANE_TOTAL_OOCYST_MEAN_INTENSITY':'','LANE_TOTAL_OOCYST_RANGE_INTENSITY':'','LANE_TOTAL_OOCYST_CV_INTENSITY':'','LANE_TOTAL_OOCYST_MEAN_AREA':'','LANE_TOTAL_OOCYST_RANGE_AREA':'','LANE_TOTAL_OOCYST_CV_AREA':'','LANE_TOTAL_OOCYST_MEAN_MAJORAXIS':'','LANE_TOTAL_OOCYST_RANGE_MAJORAXIS':'','LANE_TOTAL_OOCYST_CV_MAJORAXIS':'','LANE_TOTAL_OOCYST_MEAN_MINORAXIS':'','LANE_TOTAL_OOCYST_RANGE_MINORAXIS':'','LANE_TOTAL_OOCYST_CV_MINORAXIS':'','LANE_TOTAL_OOCYST_COUNT_SPORULATED':'','LANE_TOTAL_OOCYST_COUNT_UNSPORULATED':'','LANE_TOTAL_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_SMALL_OOCYST_COUNT':'130','LANE_SMALL_OOCYST_MEAN_INTENSITY':'','LANE_SMALL_OOCYST_RANGE_INTENSITY':'','LANE_SMALL_OOCYST_CV_INTENSITY':'','LANE_SMALL_OOCYST_MEAN_AREA':'','LANE_SMALL_OOCYST_RANGE_AREA':'','LANE_SMALL_OOCYST_CV_AREA':'','LANE_SMALL_OOCYST_MEAN_MAJORAXIS':'','LANE_SMALL_OOCYST_RANGE_MAJORAXIS':'','LANE_SMALL_OOCYST_CV_MAJORAXIS':'','LANE_SMALL_OOCYST_MEAN_MINORAXIS':'','LANE_SMALL_OOCYST_RANGE_MINORAXIS':'','LANE_SMALL_OOCYST_CV_MINORAXIS':'','LANE_SMALL_OOCYST_COUNT_SPORULATED':'','LANE_SMALL_OOCYST_COUNT_UNSPORULATED':'','LANE_SMALL_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_MEDIUM_OOCYST_COUNT':'130','LANE_MEDIUM_OOCYST_MEAN_INTENSITY':'','LANE_MEDIUM_OOCYST_RANGE_INTENSITY':'','LANE_MEDIUM_OOCYST_CV_INTENSITY':'','LANE_MEDIUM_OOCYST_MEAN_AREA':'','LANE_MEDIUM_OOCYST_RANGE_AREA':'','LANE_MEDIUM_OOCYST_CV_AREA':'','LANE_MEDIUM_OOCYST_MEAN_MAJORAXIS':'','LANE_MEDIUM_OOCYST_RANGE_MAJORAXIS':'','LANE_MEDIUM_OOCYST_CV_MAJORAXIS':'','LANE_MEDIUM_OOCYST_MEAN_MINORAXIS':'','LANE_MEDIUM_OOCYST_RANGE_MINORAXIS':'','LANE_MEDIUM_OOCYST_CV_MINORAXIS':'','LANE_MEDIUM_OOCYST_COUNT_SPORULATED':'','LANE_MEDIUM_OOCYST_COUNT_UNSPORULATED':'','LANE_MEDIUM_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_LARGE_OOCYST_COUNT':'120','LANE_LARGE_OOCYST_MEAN_INTENSITY':'','LANE_LARGE_OOCYST_RANGE_INTENSITY':'','LANE_LARGE_OOCYST_CV_INTENSITY':'','LANE_LARGE_OOCYST_MEAN_AREA':'','LANE_LARGE_OOCYST_RANGE_AREA':'','LANE_LARGE_OOCYST_CV_AREA':'','LANE_LARGE_OOCYST_MEAN_MAJORAXIS':'','LANE_LARGE_OOCYST_RANGE_MAJORAXIS':'','LANE_LARGE_OOCYST_CV_MAJORAXIS':'','LANE_LARGE_OOCYST_MEAN_MINORAXIS':'','LANE_LARGE_OOCYST_RANGE_MINORAXIS':'','LANE_LARGE_OOCYST_CV_MINORAXIS':'','LANE_LARGE_OOCYST_COUNT_SPORULATED':'','LANE_LARGE_OOCYST_COUNT_UNSPORULATED':'','LANE_LARGE_OOCYST_COUNT_UNCERTAINSPORULATION':'','STATUS':'','LANE_TOTAL_AREA_UM2':'','LANE_NOISE_AREA_UM2':'','LANE_NOISE_RATIO_PERCENT':'','LANE_NOISE_OBJECT_COUNT':'','LANE_SMALL_NOISE_OBJECT_COUNT':'','LANE_MEDIUM_NOISE_OBJECT_COUNT':'','LANE_LARGE_NOISE_OBJECT_COUNT':'','LANE_EXTRA_LARGE_NOISE_OBJECT_COUNT':'','IMPROC':'ImprocCocc01','VERSION':'"+Test_Variables.ImprocVersion+"','ERROR_CODE':'Exception','IE_COLLECTION_SITE_ID':''}]";
+	    objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("sampleId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList(objTmp.sampleID));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "pathogen", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "instrumentId", "user_name", "kit_lot", "version", "testSiteId", "testSiteName", "requested_assay", "flock_id", "runType"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID Filter";
+		objTmp.TestCaseName = "AN-SL-110: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.runIngestion = false;
+		objTmp.firstCase = true;
+		objTmp.secondCase = false;
+		objTmp.sampleID = Test_Variables.dateYYYYMMDD+"-TestAut-ContexualTestCocci-"+Test_Variables.date0;
+	    objTmp.fileJson = "[{'LANE':'1','PATHOGEN':'Coccidia','SAMPLEID':'"+objTmp.sampleID+"','SCANDATETIME':'"+Test_Variables.date100+"','FIGUREOFMERIT':'0','OUTCOME':'','STATUSCODE':'','CALIBRATED_PIPER_COUNTS':'0','COUNT_OUTCOME':'','CARTRIDGEID':'CartIDContexual"+Test_Variables.date0+"','EXPERIMENTID':'','INSTRUMENTID':'"+Test_Variables.InstrumentID+"','USERID':'"+Test_Variables.UserID+"','RUN_ID':'"+objTmp.sampleID+"','RUN_TYPE':'SCRIPT_swtest','LANE_NO':'1','DATE':'','TIME':'','LANE_TOTAL_OOCYST_COUNT':'13','LANE_TOTAL_OOCYST_MEAN_INTENSITY':'','LANE_TOTAL_OOCYST_RANGE_INTENSITY':'','LANE_TOTAL_OOCYST_CV_INTENSITY':'','LANE_TOTAL_OOCYST_MEAN_AREA':'','LANE_TOTAL_OOCYST_RANGE_AREA':'','LANE_TOTAL_OOCYST_CV_AREA':'','LANE_TOTAL_OOCYST_MEAN_MAJORAXIS':'','LANE_TOTAL_OOCYST_RANGE_MAJORAXIS':'','LANE_TOTAL_OOCYST_CV_MAJORAXIS':'','LANE_TOTAL_OOCYST_MEAN_MINORAXIS':'','LANE_TOTAL_OOCYST_RANGE_MINORAXIS':'','LANE_TOTAL_OOCYST_CV_MINORAXIS':'','LANE_TOTAL_OOCYST_COUNT_SPORULATED':'','LANE_TOTAL_OOCYST_COUNT_UNSPORULATED':'','LANE_TOTAL_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_SMALL_OOCYST_COUNT':'130','LANE_SMALL_OOCYST_MEAN_INTENSITY':'','LANE_SMALL_OOCYST_RANGE_INTENSITY':'','LANE_SMALL_OOCYST_CV_INTENSITY':'','LANE_SMALL_OOCYST_MEAN_AREA':'','LANE_SMALL_OOCYST_RANGE_AREA':'','LANE_SMALL_OOCYST_CV_AREA':'','LANE_SMALL_OOCYST_MEAN_MAJORAXIS':'','LANE_SMALL_OOCYST_RANGE_MAJORAXIS':'','LANE_SMALL_OOCYST_CV_MAJORAXIS':'','LANE_SMALL_OOCYST_MEAN_MINORAXIS':'','LANE_SMALL_OOCYST_RANGE_MINORAXIS':'','LANE_SMALL_OOCYST_CV_MINORAXIS':'','LANE_SMALL_OOCYST_COUNT_SPORULATED':'','LANE_SMALL_OOCYST_COUNT_UNSPORULATED':'','LANE_SMALL_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_MEDIUM_OOCYST_COUNT':'130','LANE_MEDIUM_OOCYST_MEAN_INTENSITY':'','LANE_MEDIUM_OOCYST_RANGE_INTENSITY':'','LANE_MEDIUM_OOCYST_CV_INTENSITY':'','LANE_MEDIUM_OOCYST_MEAN_AREA':'','LANE_MEDIUM_OOCYST_RANGE_AREA':'','LANE_MEDIUM_OOCYST_CV_AREA':'','LANE_MEDIUM_OOCYST_MEAN_MAJORAXIS':'','LANE_MEDIUM_OOCYST_RANGE_MAJORAXIS':'','LANE_MEDIUM_OOCYST_CV_MAJORAXIS':'','LANE_MEDIUM_OOCYST_MEAN_MINORAXIS':'','LANE_MEDIUM_OOCYST_RANGE_MINORAXIS':'','LANE_MEDIUM_OOCYST_CV_MINORAXIS':'','LANE_MEDIUM_OOCYST_COUNT_SPORULATED':'','LANE_MEDIUM_OOCYST_COUNT_UNSPORULATED':'','LANE_MEDIUM_OOCYST_COUNT_UNCERTAINSPORULATION':'','LANE_LARGE_OOCYST_COUNT':'120','LANE_LARGE_OOCYST_MEAN_INTENSITY':'','LANE_LARGE_OOCYST_RANGE_INTENSITY':'','LANE_LARGE_OOCYST_CV_INTENSITY':'','LANE_LARGE_OOCYST_MEAN_AREA':'','LANE_LARGE_OOCYST_RANGE_AREA':'','LANE_LARGE_OOCYST_CV_AREA':'','LANE_LARGE_OOCYST_MEAN_MAJORAXIS':'','LANE_LARGE_OOCYST_RANGE_MAJORAXIS':'','LANE_LARGE_OOCYST_CV_MAJORAXIS':'','LANE_LARGE_OOCYST_MEAN_MINORAXIS':'','LANE_LARGE_OOCYST_RANGE_MINORAXIS':'','LANE_LARGE_OOCYST_CV_MINORAXIS':'','LANE_LARGE_OOCYST_COUNT_SPORULATED':'','LANE_LARGE_OOCYST_COUNT_UNSPORULATED':'','LANE_LARGE_OOCYST_COUNT_UNCERTAINSPORULATION':'','STATUS':'','LANE_TOTAL_AREA_UM2':'','LANE_NOISE_AREA_UM2':'','LANE_NOISE_RATIO_PERCENT':'','LANE_NOISE_OBJECT_COUNT':'','LANE_SMALL_NOISE_OBJECT_COUNT':'','LANE_MEDIUM_NOISE_OBJECT_COUNT':'','LANE_LARGE_NOISE_OBJECT_COUNT':'','LANE_EXTRA_LARGE_NOISE_OBJECT_COUNT':'','IMPROC':'ImprocCocc01','VERSION':'"+Test_Variables.ImprocVersion+"','ERROR_CODE':'Exception','IE_COLLECTION_SITE_ID':''}]";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("cartridgeId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CartIDContexual"+Test_Variables.date0));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "sampleId", "pathogen", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "instrumentId", "user_name", "kit_lot", "version", "testSiteId", "testSiteName", "requested_assay", "flock_id", "runType"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
 	
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane Filter";
+		objTmp.TestCaseName = "AN-SL-111: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.firstCase = false;
+		objTmp.secondCase = true;
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("laneNum"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "requested_assay", "flock_id"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument Filter";
+		objTmp.TestCaseName = "AN-SL-112: Apply "+objFilter.FilterName+" and verify all other filters behaves contexually";
+		objTmp.TestCaseDescription = "This testcase will verify that after applying "+objFilter.FilterName+" all other filters behave contexually";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objTmp.firstCase = false;
+		objTmp.secondCase = true;
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("instrumentId"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0009"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId", "pathogen", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "kit_lot", "version", "requested_assay", "flock_id"));
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+			
+		return lstCoccidiaModel;
+	}	
 	
 }
 

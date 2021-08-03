@@ -60,9 +60,6 @@ public class Helper {
 		
 	}
 	
-
-	
-	
 	public static void saveResult(ITestResult result, String reportPath) throws IOException {
 		System.out.println(Reporter.getCurrentTestResult());
 		if (result.getStatus() == ITestResult.FAILURE) {

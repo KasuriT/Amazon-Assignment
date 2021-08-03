@@ -3,6 +3,7 @@ package PiperAdminstration;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -31,7 +32,7 @@ public class PiperManagement {
 	}
 
 	
-	@Test (description="Test Case: Navigate to Piper Management Screen",enabled=true, priority = 2) 
+	@Test (description="Test Case: Navigate to Piper Management Screen",enabled=true, priority = 1) 
 	public void NavigateePM() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PM-01: Verify user can navigate to Piper Management Screen", "This test case will verify that user can navigate to Piper Managament screen");
@@ -49,54 +50,76 @@ public class PiperManagement {
 			Test_Variables.steps.createNode("2. Expand Administration and click on Piper Managment");
 
 			Assert.assertEquals(actual, expected); 
-			Test_Variables.test.pass("User navigated successfully to Access Management screen");
-			Test_Variables.results.createNode("User navigates to Access Management Screen");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+			Test_Variables.test.pass("User navigated successfully to Piper Management screen");
+			Test_Variables.results.createNode("User navigates to Piper Management Screen");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Management", Constants.PiperManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperManagementReportPath, null);
 		}catch(AssertionError er){
-			Test_Variables.test.fail("User did not navigated to Access Management screen");
-			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
+			Test_Variables.test.fail("User did not navigated to Piper Management screen");
+			Test_Variables.results.createNode("User did not navigate to Piper Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, new Exception(er));
 		}	
 		catch(Exception ex){
-			Test_Variables.test.fail("User did not navigated to Access Management screen");
-			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
+			Test_Variables.test.fail("User did not navigated to Piper Management screen");
+			Test_Variables.results.createNode("User did not navigate to Piper Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, ex);
 		}	
 	}
 	
 
-	@Test (description="Test Case: Navigate to Piper Management Screen",enabled=true, priority = 2) 
+	@Test (description="Test Case: All basic scenarios",enabled=true, priority = 2) 
 	public void NavigatePM() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-PM-01: Verify user can navigate to Piper Management Screen", "This test case will verify that user can navigate to Piper Managament screen");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-PM-02: Verify user can view sites", "This test case will verify that user can view sites");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, "Pre_Conditions");
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, "Steps");
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, "Result");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Management", Constants.PiperManagementReportPath));
 
-			Helper.driver.get(Constants.url_piperManagement);
-			Thread.sleep(2000);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText();
-			String expected = "PIPER Management";
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login+ "and login with valid credentials");
-			Test_Variables.steps.createNode("1. Hover to sidebar to expand menu");
-			Test_Variables.steps.createNode("2. Expand Administration and click on Piper Managment");
-
-			Assert.assertEquals(actual, expected); 
-			Test_Variables.test.pass("User navigated successfully to Access Management screen");
-			Test_Variables.results.createNode("User navigates to Access Management Screen");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+			Test_Variables.preconditions.createNode("2. Hover to sidebar to expand menu");
+			Test_Variables.preconditions.createNode("3. Expand Administration and click on Piper Managment");
+			Test_Variables.steps.createNode("1. Open configure piper popop");
+			Test_Variables.steps.createNode("2. Verify sites hierarcy");
+			Test_Variables.steps.createNode("3. Verify oranization appears in dropdown");
+			Test_Variables.steps.createNode("4. Verify user can save the settings");
+			
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("piper-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(By.cssSelector(".b-md:nth-child(1)")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(By.id("btn-show-tree")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Assert.assertTrue(Helper.driver.findElement(By.cssSelector(".popup-heading")).isDisplayed());
+			
+			Helper.driver.findElement(By.cssSelector("#orgTypeId .ng-arrow-wrapper")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			if (Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(1)")).getText() == "Ancera" && Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(2)")).getText() == "Client" && Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(3)")).getText() == "Partner" && Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(4)")).getText() == "Consumer") {
+				Assert.assertTrue(true);
+			}
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(By.cssSelector(".p-point-625 #btn-ok-sites")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector(".btn-ok#btn-ok-sites")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Testing sites details updated successfully.");
+			
+			Test_Variables.test.pass("Sites and dropdowns verified successfully");
+			Test_Variables.results.createNode("Sites and dropdowns verified successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Management", Constants.PiperManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperManagementReportPath, null);
 		}catch(AssertionError er){
-			Test_Variables.test.fail("User did not navigated to Access Management screen");
-			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
+			Test_Variables.test.fail("Sites and dropdowns failed to verify");
+			Test_Variables.results.createNode("Sites and dropdowns failed to verify");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, new Exception(er));
 		}	
 		catch(Exception ex){
-			Test_Variables.test.fail("User did not navigated to Access Management screen");
-			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
+			Test_Variables.test.fail("Sites and dropdowns failed to verify");
+			Test_Variables.results.createNode("Sites and dropdowns failed to verify");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, ex);
 		}	
 	}
 	

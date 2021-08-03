@@ -149,9 +149,11 @@ public class InstallationRunModel {
 	
 	public static ArrayList<InstallationRunModel> FillDataCoccidia() {
 		ArrayList<InstallationRunModel> lstInstallationRunModel = new ArrayList<InstallationRunModel>();	
-		InstallationRunModel objTmp = new InstallationRunModel();
-		
-		ReportFilters objFilter = new ReportFilters();
+		InstallationRunModel objTmp;
+		ReportFilters objFilter;
+	
+		objTmp = new InstallationRunModel();
+		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-IR-07: Verify QC Code is Fail against all lanes when Outcome is 'QCFAil' and StatusCode is '34' for Coccidia";
 		objTmp.TestCaseDescription = "This test case will verify QC Code is Fail against all lanes when Outcome is 'QCFAil' and StatusCode is '34' for Coccidia";
 		objTmp.lstFilters = new ArrayList<>();
@@ -187,7 +189,7 @@ public class InstallationRunModel {
 		objTmp.failStep = "QC Code did not Fail against all lanes when Mean was out of range";
 		objTmp.lstFilters.add(objFilter);
 		lstInstallationRunModel.add(objTmp);
-				
+		
 		objTmp = new InstallationRunModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-IR-09: Verify QC Code is Fail against all lanes when Standard Deviation is out of range for Coccidia";
@@ -263,7 +265,7 @@ public class InstallationRunModel {
 		objTmp.failStep = "QC Code was not Pass when Mean and Standard Deviation were in range";
 		objTmp.lstFilters.add(objFilter);
 		lstInstallationRunModel.add(objTmp);
-	
+
 		return lstInstallationRunModel;
 	}
 	
