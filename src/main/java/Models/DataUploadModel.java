@@ -730,7 +730,7 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.steps = "Enter string value in decimal field";
-		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
+		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload file with String datatype in Decimal datatype successfully";
 		objTmp.failStep = "User was able to upload file with String datatype in Decimal datatype";
 		objTmp.lstFilters.add(objFilter);

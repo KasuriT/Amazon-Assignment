@@ -6,6 +6,9 @@ public class ReportFilters {
 	public String FilterName;
 	public String FilterXPath;
 	public String FilterID;
+	public String FilterSort;
+	public String FilterApply;
+	public String FilterClear;
 	public String FilterListXPathSearch;
 	public String SearchVlaue;
 	public String FilterListXPathPrefix;

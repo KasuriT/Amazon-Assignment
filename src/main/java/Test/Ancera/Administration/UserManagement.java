@@ -77,7 +77,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Exceptional Flow: Mandatory field check", enabled= false, priority= 2) 
+	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 2) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
 		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -302,7 +302,7 @@ public class UserManagement {
 
 
 
-	@Test (description="Exceptional Flow: Reset fields", enabled= false, priority= 3) 
+	@Test (description="Exceptional Flow: Reset fields", enabled= true, priority= 3) 
 	public void ResetButton() throws InterruptedException, IOException {
 
 		try {
@@ -376,7 +376,7 @@ public class UserManagement {
 				}
 			}
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("create-user")).click();     
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstNameId")));
@@ -387,6 +387,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.cssSelector("#phoneCodeId div.ng-star-inserted")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("PhoneNumberId")).sendKeys(Test_Variables.lstUserCreate.get(2));
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 
 
@@ -401,7 +402,7 @@ public class UserManagement {
 			Test_Variables.preconditions.createNode("4. Click on create new button");
 			Test_Variables.steps.createNode("1. Enter invalid email");
 			Test_Variables.steps.createNode("2. Click on next button; should display validation message");
-
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("emailId")).sendKeys(Test_Variables.lstUserEmails.get(0));
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Helper.driver.findElement(By.id("btn-next")).click();
@@ -412,9 +413,15 @@ public class UserManagement {
 			Test_Variables.test.pass("User was not created with invalid email");
 			Test_Variables.results.createNode("Did not save user, displayed validaton message underneath email field 'Invalid Email'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-		}catch(AssertionError e){
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+		}catch(AssertionError er) {
 			Test_Variables.test.fail("User was created with invalid email");
 			Test_Variables.results.createNode("User was created with invalid email");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("User was created with invalid email");
+			Test_Variables.results.createNode("User was created with invalid email");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
 
 
@@ -431,7 +438,7 @@ public class UserManagement {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
 			Test_Variables.preconditions.createNode("4. Click on create new button");
 			Test_Variables.steps.createNode("1. Enter valid data in all fields and click on Save button");
-			Thread.sleep(500);
+			Thread.sleep(2000);
 
 			Helper.driver.findElement(By.id("emailId")).clear();   
 			Helper.driver.findElement(By.id("emailId")).sendKeys(Test_Variables.createUserEmail);  
@@ -440,7 +447,7 @@ public class UserManagement {
 			Thread.sleep(1000);
 			ClickElement.clickById(Helper.driver, "organizationId");
 			Helper.driver.findElement(By.xpath(Test_Elements.userOrganizationSelect)).click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 
 			Helper.driver.findElement(By.id("btn-next")).click();   
 			Thread.sleep(1000);
@@ -448,7 +455,7 @@ public class UserManagement {
 			Thread.sleep(1000);
 			ClickElement.clickById(Helper.driver, "rolesId-1");  
 			ClickElement.clickByCss(Helper.driver, "#rolesId span.ng-arrow-wrapper"); 
-
+			Thread.sleep(2000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click();    
 
@@ -459,16 +466,21 @@ public class UserManagement {
 			Test_Variables.test.pass("New User created successfully");
 			Test_Variables.results.createNode("New User created successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-		}catch(AssertionError e){
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+		}catch(AssertionError er) {
 			Test_Variables.test.fail("Failed to create a new user");
 			Test_Variables.results.createNode("Failed to create a new user");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("Failed to create a new user");
+			Test_Variables.results.createNode("Failed to create a new user");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
-
 		Thread.sleep(500);
 	}
 
 
-	@Test (enabled= false, priority= 5, retryAnalyzer = RetryFailedCases.class) 
+	@Test (enabled= true, priority= 5, retryAnalyzer = RetryFailedCases.class) 
 	public void VerifyEmail() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-11: Verify user receives an email to reset password", "This test case will verify that user will receive an email with reset password link");
@@ -560,64 +572,69 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= false, priority= 6) 
+	@Test (enabled= true, priority= 6) 
 	public void ResetPassword() throws InterruptedException, IOException {
-
-		Test_Variables.test = Test_Variables.extent.createTest("AN-UM-12: Verify user can set password and log in", "This test case will verify that user can set password and log into his account");
-		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
-		Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
-		Test_Variables.preconditions.createNode("5. Go to email account against which the user is created and check that mail to reset password is received or not");
-		Test_Variables.steps.createNode("1. Click on the reset password link;  user redirects to application to set new password");
-		Test_Variables.steps.createNode("2. Enter email and newly set password; user should be logged in");
-
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordId")));
-		Helper.driver.findElement(By.id("passwordId")).sendKeys(Test_Variables.createUserPassword);
-
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("rePassordId")));
-
-		Helper.driver.findElement(By.id("rePassordId")).sendKeys(Test_Variables.createUserPassword);
-		Helper.driver.findElement(By.cssSelector("button.apl-btn")).click();
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
-		Helper.driver.findElement(By.id("email")).clear(); 
-		Helper.driver.findElement(By.id("email")).sendKeys(Test_Variables.createUserEmail);     
-		Helper.driver.findElement(By.id("pwd")).clear();
-		Helper.driver.findElement(By.id("pwd")).sendKeys(Test_Variables.createUserPassword);
-		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-		Helper.driver.findElement(By.id("btn-sign-in")).click();
-
-		if (Helper.driver.findElements(By.xpath("/html/body/app-root/div/app-sign-in/div[2]/app-general-modal/div/div/div/div[2]/app-view-user-license/div[2]/button[1]")).size() != 0 ) {
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-sign-in/div[2]/app-general-modal/div/div/div/div[2]/app-view-user-license/div[2]/button[1]")).click();
-		}
-
-
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
-
 		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-12: Verify user can set password and log in", "This test case will verify that user can set password and log into his account");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
+			Test_Variables.preconditions.createNode("5. Go to email account against which the user is created and check that mail to reset password is received or not");
+			Test_Variables.steps.createNode("1. Click on the reset password link;  user redirects to application to set new password");
+			Test_Variables.steps.createNode("2. Enter email and newly set password; user should be logged in");
+
+			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Thread.sleep(2000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordId")));
+			Helper.driver.findElement(By.id("passwordId")).sendKeys(Test_Variables.createUserPassword);
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("rePassordId")));
+
+			Helper.driver.findElement(By.id("rePassordId")).sendKeys(Test_Variables.createUserPassword);
+			Helper.driver.findElement(By.cssSelector("button.apl-btn")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(4000);
+//			Helper.driver.findElement(By.id("email")).clear(); 
+//			Helper.driver.findElement(By.id("email")).sendKeys(Test_Variables.createUserEmail);     
+//			Helper.driver.findElement(By.id("pwd")).clear();
+//			Helper.driver.findElement(By.id("pwd")).sendKeys(Test_Variables.createUserPassword);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+//			Helper.driver.findElement(By.id("btn-sign-in")).click();
+//			if (Helper.driver.findElements(By.xpath("/html/body/app-root/div/app-sign-in/div[2]/app-general-modal/div/div/div/div[2]/app-view-user-license/div[2]/button[1]")).size() != 0 ) {
+//				Thread.sleep(1000);
+//				Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-sign-in/div[2]/app-general-modal/div/div/div/div[2]/app-view-user-license/div[2]/button[1]")).click();
+//			}
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
+
 			Assert.assertTrue(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).isDisplayed());
 			Test_Variables.test.pass("Password was reset; user logged in successfully");
 			Test_Variables.results.createNode("Password was reset; user logged in successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-		}catch(AssertionError e){
-			Test_Variables.test.fail("New User log in failed");
-			Test_Variables.results.createNode("User failed to login");
-		}	
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("User failed to login");
+			Test_Variables.results.createNode("User failed to login");  
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("User failed to login");
+			Test_Variables.results.createNode("User failed to login");  	
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
+		}
 	}
 
 
-	@Test (description="Test Case: Search Created User",enabled= false, priority= 7) 
+	@Test (description="Test Case: Search Created User",enabled= true, priority= 7) 
 	public void SearchUser() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userSearch)));
 		for(UserModel objModel : Test_Variables.lstUserSearch) {
 			try{
@@ -691,7 +708,7 @@ public class UserManagement {
 		}
 	}
 
-	@Test (description="Test Case: Update User", enabled = false, priority= 8) 
+	@Test (description="Test Case: Update User", enabled = true, priority= 8) 
 	public void UpdateUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-16: Verify user can update a user", "This test case will verify that user can update a user");
@@ -708,10 +725,11 @@ public class UserManagement {
 			Thread.sleep(1000);
 			Test_Functions.userSearch();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-user-1")));
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("edit-user-1")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastNameId")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("lastNameId")).clear();
 			Helper.driver.findElement(By.id("lastNameId")).sendKeys(Test_Variables.lstUserUpdate.get(0));
 			Thread.sleep(2000);
@@ -758,11 +776,10 @@ public class UserManagement {
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-user-1")));
 			Helper.driver.findElement(By.id("edit-user-1")).click();
-			Thread.sleep(1500);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2500);
 
-			String a = Helper.driver.findElement(By.id("lastNameId")).getAttribute("value");
-			System.out.println(a);
-			Assert.assertEquals(a, Test_Variables.lstUserUpdate.get(0)); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("lastNameId")).getAttribute("value"), Test_Variables.lstUserUpdate.get(0)); 
 			Test_Variables.test.pass("User updation verified successfully");
 			Test_Variables.results.createNode("User was updated successfully; changes remained saved");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
@@ -776,19 +793,22 @@ public class UserManagement {
 			Test_Variables.results.createNode("User updation failed");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
-		Helper.driver.findElement(By.cssSelector(".close")).click();
-		Thread.sleep(1000);
+		Thread.sleep(1500);
+		Helper.driver.findElement(By.id("close-popup-modal")).click();
+		
 	}
 
 
-	@Test (description="Test Case: Delete User", enabled= false, priority= 10) 
+	@Test (description="Test Case: Delete User", enabled= true, priority= 10) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be deleted", "This test case will verify that user can delete a user");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-Helper.driver.navigate().refresh();
+		//	Helper.driver.navigate().refresh();
+		//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
@@ -803,6 +823,8 @@ Helper.driver.navigate().refresh();
 			Helper.driver.findElement(By.id("btn-sign-in")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
 			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
 			Test_Functions.userSearch(); 
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-user-1")));
@@ -833,7 +855,7 @@ Helper.driver.navigate().refresh();
 	}
 
 
-	@Test (description="Test Case: Verify Delete User", enabled= false, priority= 11) 
+	@Test (description="Test Case: Verify Delete User", enabled= true, priority= 11) 
 	public void VerifyDeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Search for deleted user to verify user is actually deleted", "This test case will search for deleted user to verify user is actually deleted");

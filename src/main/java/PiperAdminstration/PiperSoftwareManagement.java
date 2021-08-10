@@ -75,7 +75,7 @@ public class PiperSoftwareManagement {
 	}
 	
 	
-	@Test (description="Test Case: Invalid File Upload",enabled= false, priority = 2) 
+	@Test (description="Test Case: Invalid File Upload",enabled= true, priority = 2) 
 	public void InvalidFileUpload() throws InterruptedException, IOException {
 
 		for (int i=0; i<Test_Variables.lstPSManagement.size(); i++) {
@@ -174,19 +174,19 @@ public class PiperSoftwareManagement {
 			Thread.sleep(3000);
 			String b = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2)")).getText();
 			Assert.assertEquals(b, "08.11.10."+i+"");
-			Test_Variables.test.pass("User navigated successfully to PIPER Software Management screen");
-			Test_Variables.results.createNode("User navigated successfully to PIPER Software Management screen");
+			Test_Variables.test.pass("Valid .msi file uploaded successfully");
+			Test_Variables.results.createNode("Valid .msi file uploaded successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Software Management", Constants.PiperSoftwareReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperSoftwareReportPath, null);
 		}
 		catch(AssertionError er) {
-			Test_Variables.test.fail("hfgh");
-			Test_Variables.results.createNode("gg");
+			Test_Variables.test.fail("Valid .msi file failed to upload");
+			Test_Variables.results.createNode("Valid .msi file failed to upload");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperSoftwareReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			Test_Variables.test.fail("hfgh");
-			Test_Variables.results.createNode("hfgh");
+			Test_Variables.test.fail("Valid .msi file failed to upload");
+			Test_Variables.results.createNode("Valid .msi file failed to upload");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperSoftwareReportPath, ex);
 		}
 	}

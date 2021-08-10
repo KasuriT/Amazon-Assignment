@@ -359,22 +359,22 @@ public class CoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
-//		objTmp = new CoccidiaModel();
-//		objTmp.TestCaseName = "AN-CL-08: Verify user can filter Last 30 Days from date Filter";
-//		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 30 Days after selecting 'Last 30 Days'";
-//		objTmp.Filter1 = true;
-//		objTmp.Filter2 = false;
-//		objTmp.Filter3 = false;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Date Filter";
-//		objFilter.FilterListXPathSearch = Test_Elements.clLast30Days;
-//		objFilter.toMonth = "0";
-//		objFilter.fromMonth = "0";
-//		objFilter.toDate = "-1";
-//		objFilter.fromDate = "-30";
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp);
+		objTmp = new CoccidiaModel();
+		objTmp.TestCaseName = "AN-CL-08: Verify user can filter Last 30 Days from date Filter";
+		objTmp.TestCaseDescription = "This testcase will verify the functionality of Last 30 Days after selecting 'Last 30 Days'";
+		objTmp.Filter1 = true;
+		objTmp.Filter2 = false;
+		objTmp.Filter3 = false;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Filter";
+		objFilter.FilterListXPathSearch = Test_Elements.clLast30Days;
+		objFilter.toMonth = "0";
+		objFilter.fromMonth = "0";
+		objFilter.toDate = "-1";
+		objFilter.fromDate = "-30";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
 
 		objTmp = new CoccidiaModel();
 		objTmp.TestCaseName = "AN-CL-09: Verify user can filter Last Month from date Filter";
@@ -393,22 +393,22 @@ public class CoccidiaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaModel.add(objTmp);
 
-//		objTmp = new CoccidiaModel();
-//		objTmp.TestCaseName = "AN-CL-10: Verify user can filter This Month from date Filter";
-//		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
-//		objTmp.Filter1 = false;
-//		objTmp.Filter2 = false;
-//		objTmp.Filter3 = true;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Date Filter";
-//		objFilter.FilterListXPathSearch = Test_Elements.clThisMonth;
-//		objFilter.toMonth = "0";
-//		objFilter.fromMonth = "0";
-//		objFilter.toDate = "0";
-//		objFilter.fromDate = "1";
-//		objTmp.lstFilters.add(objFilter);
-//		lstCoccidiaModel.add(objTmp);
+		objTmp = new CoccidiaModel();
+		objTmp.TestCaseName = "AN-CL-10: Verify user can filter This Month from date Filter";
+		objTmp.TestCaseDescription = "This testcase will verify the functionality of This Month after selecting 'This Month'";
+		objTmp.Filter1 = false;
+		objTmp.Filter2 = false;
+		objTmp.Filter3 = true;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Filter";
+		objFilter.FilterListXPathSearch = Test_Elements.clThisMonth;
+		objFilter.toMonth = "0";
+		objFilter.fromMonth = "0";
+		objFilter.toDate = "0";
+		objFilter.fromDate = "1";
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
 
 		return lstCoccidiaModel;
 	}
@@ -999,6 +999,265 @@ public class CoccidiaModel {
 		
 		return lstCoccidiaModel;	
 	}	
+	
+	
+	public static ArrayList<CoccidiaModel> Lock() {
+		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();
+		CoccidiaModel objTmp;
+		ReportFilters objFilter;
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane Filter";
+		objTmp.TestCaseName = "AN-SL-59: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slLane+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slLane;
+		objFilter.FilterApply = Test_Elements.slLane+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slLane+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample ID Filter";
+		objTmp.TestCaseName = "AN-SL-60: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slSampleID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slSampleID;
+		objFilter.FilterApply = Test_Elements.slSampleID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slSampleID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Status Filter";
+		objTmp.TestCaseName = "AN-SL-62: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slResultStatus+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slResultStatus;
+		objFilter.FilterApply = Test_Elements.slResultStatus+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slResultStatus+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Assay Filter";
+		objTmp.TestCaseName = "AN-SL-63: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slAssay+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slAssay;
+		objFilter.FilterApply = Test_Elements.slAssay+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slAssay+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Sample Matrix Filter";
+		objTmp.TestCaseName = "AN-SL-66: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slSampleMatrix+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slSampleMatrix;
+		objFilter.FilterApply = Test_Elements.slSampleMatrix+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slSampleMatrix+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Customer Sample ID Filter";
+		objTmp.TestCaseName = "AN-SL-67: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slCustomerSampleID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCustomerSampleID;
+		objFilter.FilterApply = Test_Elements.slCustomerSampleID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slCustomerSampleID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Date Received Filter";
+		objTmp.TestCaseName = "AN-SL-68: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slDateReceived+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slDateReceived;
+		objFilter.FilterApply = Test_Elements.slDateReceived+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slDateReceived+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Cartridge ID Filter";
+		objTmp.TestCaseName = "AN-SL-69: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slCartridgeID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCartridgeID;
+		objFilter.FilterApply = Test_Elements.slCartridgeID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slCartridgeID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Instrument ID Filter";
+		objTmp.TestCaseName = "AN-SL-70: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slInstrumentID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slInstrumentID;
+		objFilter.FilterApply = Test_Elements.slInstrumentID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slInstrumentID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Piper User Filter";
+		objTmp.TestCaseName = "AN-SL-71: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slPiperUser+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slPiperUser;
+		objFilter.FilterApply = Test_Elements.slPiperUser+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slPiperUser+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Kit Lot Filter";
+		objTmp.TestCaseName = "AN-SL-73: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slkitLot+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slkitLot;
+		objFilter.FilterApply = Test_Elements.slkitLot+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slkitLot+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Improc Version Filter";
+		objTmp.TestCaseName = "AN-SL-74: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slImprocVersion+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slImprocVersion;
+		objFilter.FilterApply = Test_Elements.slImprocVersion+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slImprocVersion+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site ID Filter";
+		objTmp.TestCaseName = "AN-SL-75: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slTestSiteID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteID;
+		objFilter.FilterApply = Test_Elements.slTestSiteID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slTestSiteID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Test Site Name Filter";
+		objTmp.TestCaseName = "AN-SL-76: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slTestSiteName+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteName;
+		objFilter.FilterApply = Test_Elements.slTestSiteName+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slTestSiteName+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Site Type Filter";
+		objTmp.TestCaseName = "AN-SL-76: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slCollectionSiteType+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteType;
+		objFilter.FilterApply = Test_Elements.slCollectionSiteType+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slCollectionSiteType+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Requested Assay Filter";
+		objTmp.TestCaseName = "AN-SL-77: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slRequestedAssay+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slRequestedAssay;
+		objFilter.FilterApply = Test_Elements.slRequestedAssay+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slRequestedAssay+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Flock ID Filter";
+		objTmp.TestCaseName = "AN-SL-78: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slFlockID+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slFlockID;
+		objFilter.FilterApply = Test_Elements.slFlockID+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slFlockID+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Run Type Filter";
+		objTmp.TestCaseName = "AN-SL-79: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slRunType+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slRunType;
+		objFilter.FilterApply = Test_Elements.slRunType+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slRunType+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		objTmp = new CoccidiaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Date Filter";
+		objTmp.TestCaseName = "AN-SL-80: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.slCollectionDate+""+Test_Elements.slShowFilter;
+		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate;
+		objFilter.FilterApply = Test_Elements.slCollectionDate+""+Test_Elements.slApplyFilter;
+		objFilter.FilterClear = Test_Elements.slCollectionDate+""+Test_Elements.slClearFilter;
+		objTmp.lstFilters.add(objFilter);
+		lstCoccidiaModel.add(objTmp);
+		
+		return lstCoccidiaModel;
+	}
+
 	
 	public static ArrayList<CoccidiaModel> Wildcard() {
 		ArrayList<CoccidiaModel> lstCoccidiaModel = new ArrayList<CoccidiaModel>();

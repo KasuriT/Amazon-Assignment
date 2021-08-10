@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="PiperAdminstration.PiperManagement">
+      <class name="Test.Ancera.Reports.SalmonellaLog">
         <methods>
-          <include name="endreport"/>
-          <include name="NavigatePM"/>
+          <include name="FieldAccessUnview"/>
           <include name="extent"/>
+          <include name="endreport"/>
         </methods>
-      </class> <!-- PiperAdminstration.PiperManagement -->
+      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -476,6 +476,7 @@ public class Test_Elements {
 	public static String slAssayCol = "5";
 	public static String slResultIDCol = "6";
 	public static String slDateCol = "7";
+	public static String slTimeCol = "8";
 	public static String slSiteNameCol = "9";
 	public static String slSiteIDCol = "10";
 	public static String slSiteTypeCol = "11";
@@ -495,10 +496,11 @@ public class Test_Elements {
 	public static String slKitLotCol = "25";
 	public static String slImprocIDCol = "26";
 	public static String slTestSiteIDCol = "27";
-	public static String slRequestedAssayCol = "28";
-	public static String slFlockIDCol = "29";
-	public static String slTestSiteNameCol = "30";
+	public static String slTestSiteNameCol = "28";
+	public static String slRequestedAssayCol = "29";
+	public static String slFlockIDCol = "30";
 	public static String slRunTypeCol = "31";
+	public static String slCollectionDateCol = "32";
 	public static String footerCount = ".filter-popup__footer--count";
 	
 	public static String slAuditLaneCol = "0";
@@ -527,10 +529,11 @@ public class Test_Elements {
 	public static String slAuditKitLotCol = "24";
 	public static String slAuditImprocIDCol = "25";
 	public static String slAuditTestSiteIDCol = "26";
-	public static String slAuditRequestedAssayCol = "27";
-	public static String slAuditFlockIDCol = "28";
-	public static String slAuditTestSiteNameCol = "29";
+	public static String slAuditTestSiteNameCol = "27";
+	public static String slAuditRequestedAssayCol = "28";
+	public static String slAuditFlockIDCol = "29";
 	public static String slAuditRunTypeCol = "30";
+	public static String slAuditCollectionDate = "31";
 	
 	public static String slToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
 	public static String slLast24Hours = "body app-root p:nth-child(2)";
@@ -538,7 +541,45 @@ public class Test_Elements {
 	public static String slLast30Days = "body app-root p:nth-child(4)";
 	public static String slThisMonth = "body app-root p:nth-child(5)";
 	public static String slLastMonth = "body app-root p:nth-child(6)";
-									 
+					
+	public static String slShowFilter = "_show-filter";
+	public static String slSortFilter = "sort-";
+	public static String slApplyFilter = "_apply";
+	public static String slClearFilter = "_clear-filter";
+	
+	public static String slLane = "laneNum";
+	public static String slSampleID = "sampleId";
+	public static String slQCCode = "countOutcome";
+	public static String slResultStatus = "result_status";
+	public static String slResult = "outcome";
+	public static String slAssay = "pathogen";
+	public static String slResultTime = "time";
+	public static String slResultDate = "scanDateTime";
+	public static String slCollectionSiteID = "collection_site_id";
+	public static String slCollectionSiteName = "site_id";
+	public static String slCollectionSiteType = "collection_site_type"; 
+	public static String slSampleMatrix = "sample_matrix";
+	public static String slDilutionFactor = "dilution_factor";
+	public static String slCustomerSampleID = "customer_sample_id";
+	public static String slDateReceived = "metadata_date_recieved";
+	public static String slCartridgeID = "cartridgeId";
+	public static String slInstrumentID = "instrumentId";
+	public static String slW1CellCount = "w1CellCount";
+	public static String slW1PCCount = "w1PCCount";
+	public static String slW1MeanIntensity = "w1CellMeanIntensity";
+	public static String slW2CellCount = "w2CellCount";
+	public static String slW2PCCount = "w2PCCount";
+	public static String slW2MeanIntensity = "w2CellMeanIntensity";
+	public static String slPiperUser = "user_name";
+	public static String slkitLot = "kit_lot";
+	public static String slImprocVersion = "version";
+	public static String slTestSiteID = "testSiteId";
+	public static String slTestSiteName = "testSiteName";
+	public static String slRequestedAssay = "requested_assay";
+	public static String slFlockID = "flock_id";
+	public static String slRunType = "runType";
+	public static String slCollectionDate = "collectionDate";
+	
 	public static String slLoadRow = "/html/body/app-root/div/app-salmonella-log/div[1]/div/div[2]/div[2]/div[5]/div/table/tbody/tr[1]/td[1]";
 	public static String slLoadRed = ".red";  
 	public static String slLoadYellow = ".yellow"; 
@@ -546,6 +587,11 @@ public class Test_Elements {
 
 	public static String slTotalPages = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
+	public static String closeAudit = ".u-report-modal-close-icon";
+	
+	
+	
+	
 	public static String slPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
 	public static String slCsvHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]";
 	public static String slPng = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
@@ -590,6 +636,7 @@ public class Test_Elements {
 	public static String clRequestedAssayCol = "30";
 	public static String clFlockIDCol = "31";
 	public static String clRunTypeCol = "32";
+	public static String clCollectionDateCol = "33";
 	
 	public static String clAuditLaneCol = "0";
 	public static String clAuditSampleIDCol = "1";
@@ -621,6 +668,7 @@ public class Test_Elements {
 	public static String clAuditFlockIDCol = "28";
 	public static String clAuditTestSiteNameCol = "27";
 	public static String clAuditRunTypeCol = "31";
+	public static String clAuditCollectionDateCol = "32";
 	
 	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
 	public static String clLast24Hours = "body app-root p:nth-child(2)";

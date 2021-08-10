@@ -202,7 +202,7 @@ public class Piper_Configuration {
 
 
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("a", "a");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-04: Verify dropdowns are disabled in update mode", "This testcase will verify that dropdowns are disabled in update mode");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -218,6 +218,7 @@ public class Piper_Configuration {
 			for (int i = 1; i<=1000; i++) {
 				//	String a =	Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText();
 				//	System.out.println(a +" 1"+Test_Variables.date0);
+				Thread.sleep(1000);
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText().equals("1"+Test_Variables.date0)) {
 					Thread.sleep(1000);
 
@@ -228,26 +229,25 @@ public class Piper_Configuration {
 				}
 			}
 
-
 			Assert.assertTrue(Helper.driver.findElements(By.cssSelector(".disable-cursor-NgSelect ")).size() == 2);
-			Test_Variables.test.pass("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.pass("Dropdowns were disabled in update mode");
+			Test_Variables.results.createNode("Dropdowns were disabled in update mode");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
 
 		}catch(AssertionError er) {
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Dropdowns were not disabled in update mode");
+			Test_Variables.results.createNode("Dropdowns were not disabled in update mode");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, new Exception(er));
 		}catch(Exception ex){
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Dropdowns were not disabled in update mode");
+			Test_Variables.results.createNode("Dropdowns were not disabled in update mode");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, ex);
 		}
 
 
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("aa", "a");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-05: Verify piper configuration can be updated", "This testcase will verify that piper configuration can be updated");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -262,25 +262,28 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.id("MinStdVal")).clear();
 			Helper.driver.findElement(By.id("MinStdVal")).sendKeys("500");
 			Helper.driver.findElement(By.id("btn-save")).click();
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Installation Run Configuration saved successfully");
+			Test_Variables.test.pass("Installation Run Configuration updated successfully");
+			Test_Variables.results.createNode("Installation Run Configuration updated successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
 		}catch(AssertionError er) {
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Installation Run Configuration failed to update");
+			Test_Variables.results.createNode("Installation Run Configuration failed to update");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, new Exception(er));
 		}catch(Exception ex){
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Installation Run Configuration failed to update");
+			Test_Variables.results.createNode("Installation Run Configuration failed to update");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, ex);
 		}
 	}
-
-
 
 
 	@Test (enabled= true, priority = 4) 
 	public void DeletePiperConfig() throws InterruptedException, IOException {
 
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("a", "a");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-06: Verify user can delete piper configuration", "This testcase will verify that user can delete piper configuration");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -291,7 +294,6 @@ public class Piper_Configuration {
 			Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-
 
 			for (int i = 1; i<=1000; i++) {
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText().equals("1"+Test_Variables.date0)) {
@@ -309,32 +311,22 @@ public class Piper_Configuration {
 			String message = Helper.driver.findElement(By.id("message")).getText();
 			Assert.assertEquals(message, "Installation Run Configuration details deleted.");
 
-			Test_Variables.test.pass("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.pass("Piper configuration deleted successfully");
+			Test_Variables.results.createNode("Piper configuration deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
 
 		}catch(AssertionError er) {
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Piper configuration failed to delete");
+			Test_Variables.results.createNode("Piper configuration failed to delete");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, new Exception(er));
 		}catch(Exception ex){
-			Test_Variables.test.fail("a");
-			Test_Variables.results.createNode("a");
+			Test_Variables.test.fail("Piper configuration failed to delete");
+			Test_Variables.results.createNode("Piper configuration failed to delete");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, ex);
 		}
 
 	}
-
-
-
-
-
-
-
-
-
-
 
 	@AfterTest
 	public static void endreport() {

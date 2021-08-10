@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="16" total="18" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-03T17:09:19 PKT" name="Default suite" finished-at="2021-08-03T17:12:29 PKT" duration-ms="189620">
+  <suite started-at="2021-08-10T15:28:30 PKT" name="Default suite" finished-at="2021-08-10T15:32:14 PKT" duration-ms="223865">
     <groups>
     </groups>
-    <test started-at="2021-08-03T17:09:19 PKT" name="Default test" finished-at="2021-08-03T17:12:29 PKT" duration-ms="189620">
-      <class name="PiperAdminstration.PiperManagement">
-        <test-method is-config="true" signature="extent()[pri:0, instance:PiperAdminstration.PiperManagement@57af006c]" started-at="2021-08-03T17:09:19 PKT" name="extent" finished-at="2021-08-03T17:11:01 PKT" duration-ms="102555" status="PASS">
+    <test started-at="2021-08-10T15:28:30 PKT" name="Default test" finished-at="2021-08-10T15:32:14 PKT" duration-ms="223865">
+      <class name="Test.Ancera.Reports.SalmonellaLog">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:28:30 PKT" name="extent" finished-at="2021-08-10T15:29:42 PKT" duration-ms="71923" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigateePM()[pri:1, instance:PiperAdminstration.PiperManagement@57af006c]" started-at="2021-08-03T17:11:01 PKT" name="NavigateePM" description="Test Case: Navigate to Piper Management Screen" finished-at="2021-08-03T17:12:24 PKT" duration-ms="82121" status="PASS">
+        <test-method signature="NavigateSalmonella()[pri:1, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:29:42 PKT" name="NavigateSalmonella" description="Test Case: Navigate to Salmonella Log Screen" finished-at="2021-08-10T15:30:16 PKT" duration-ms="34669" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigateePM -->
-        <test-method signature="NavigatePM()[pri:2, instance:PiperAdminstration.PiperManagement@57af006c]" started-at="2021-08-03T17:12:24 PKT" name="NavigatePM" description="Test Case: Navigate to Piper Management Screen" finished-at="2021-08-03T17:12:28 PKT" duration-ms="4625" status="PASS">
+        </test-method> <!-- NavigateSalmonella -->
+        <test-method signature="FieldAccessUnview()[pri:13, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:30:16 PKT" name="FieldAccessUnview" finished-at="2021-08-10T15:32:13 PKT" duration-ms="116962" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigatePM -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:PiperAdminstration.PiperManagement@57af006c]" started-at="2021-08-03T17:12:28 PKT" name="endreport" finished-at="2021-08-03T17:12:29 PKT" duration-ms="297" status="PASS">
+        </test-method> <!-- FieldAccessUnview -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:32:13 PKT" name="endreport" finished-at="2021-08-10T15:32:14 PKT" duration-ms="290" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- PiperAdminstration.PiperManagement -->
+      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
