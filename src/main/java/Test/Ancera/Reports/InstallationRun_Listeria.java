@@ -235,11 +235,11 @@ public class InstallationRun_Listeria {
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
 						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
 
-						String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteIDCol+" label")).getText();
-						Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
+		//				String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteIDCol+" label")).getText();
+		//				Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
 
-						String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteNameCol+" label")).getText();
-						Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
+		//				String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteNameCol+" label")).getText();
+		//				Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
 
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
@@ -250,11 +250,11 @@ public class InstallationRun_Listeria {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
 						Thread.sleep(1500);
 
-						String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
-						Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
+			//			String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
+			//			Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
 
-						String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
-						Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
+			//			String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
+			//			Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
 						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);

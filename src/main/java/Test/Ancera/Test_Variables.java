@@ -32,6 +32,7 @@ import Models.RMModel;
 import Models.SalmonellaModel;
 import Models.StartAssayModel;
 import Models.UserModel;
+import Test.Ancera.Administration.AgreementManagement;
 
 public class Test_Variables {
 
@@ -316,7 +317,7 @@ public class Test_Variables {
 	public static ArrayList<AgreementManagementModel> lstAgreementManagementDeactivate = new ArrayList<>(
 			Arrays.asList(
 					new AgreementManagementModel("No items found", "AN-License-32: Verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "This testcase will verify that assigned but deactivated agreement is not displayed in user agreement dropdown", "The assigned but deactivated agreement was not displayed", "The assigned but deactivated agreement was displayed"),
-					new AgreementManagementModel("samplefile"+date0+".pdf", "AN-License-33: Verify that assigned and reactivated agreement is displayed in user agreement dropdown", "This testcase will verify that assigned and reactivated agreement is displayed in user agreement dropdown", "The assigned and reactivated agreement was displayed successfully", "The assigned and reactivated agreement was not displayed")
+					new AgreementManagementModel("", "AN-License-33: Verify that assigned and reactivated agreement is displayed in user agreement dropdown", "This testcase will verify that assigned and reactivated agreement is displayed in user agreement dropdown", "The assigned and reactivated agreement was displayed successfully", "The assigned and reactivated agreement was not displayed")
 							));	
 			
 	public static ArrayList<String> lstAgreemmentManagementFileName = new ArrayList<>(

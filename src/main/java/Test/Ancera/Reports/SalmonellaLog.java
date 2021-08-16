@@ -36,13 +36,12 @@ import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
-import static org.testng.Assert.assertTrue;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -102,9 +101,11 @@ public class SalmonellaLog {
 
 	
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 2) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
+		Test_Functions.fieldLevelReset();
+		
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
 
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -267,7 +268,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 3) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 3) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-10: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -338,7 +339,7 @@ public class SalmonellaLog {
 	
 
 
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 4) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();
@@ -473,7 +474,7 @@ public class SalmonellaLog {
 	}
 
 	
-	@Test (description="Test Case: Test Site Name Filter",enabled= false, priority = 5) 
+	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 5) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-59: Verify Site Name Filter Functionality", "This test case will test Site Name Filter Functionality");
@@ -526,7 +527,7 @@ public class SalmonellaLog {
 	
 	
 	
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 6) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 6) 
 	public void wildcard() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -628,7 +629,7 @@ public class SalmonellaLog {
 	
 	
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= false, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);
@@ -723,7 +724,7 @@ public class SalmonellaLog {
 								jsonPathEvaluator1.get("statusCode");
 								Thread.sleep(1000);
 								
-								Thread.sleep(60000);
+								Thread.sleep(120000);
 								Helper.driver.navigate().refresh();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);
@@ -840,7 +841,7 @@ public class SalmonellaLog {
 	}
 	
 	
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -916,7 +917,7 @@ public class SalmonellaLog {
 	}
 
 	
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -1063,7 +1064,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
@@ -1195,7 +1196,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Sorting",enabled= false, priority = 11) 
+	@Test (description="Sorting",enabled= true, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSorting = SalmonellaModel.sorting();
@@ -1252,10 +1253,10 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (enabled= false, priority = 12) 
+	@Test (enabled= true, priority = 12) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-173: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-174: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
 
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -1291,9 +1292,12 @@ public class SalmonellaLog {
 	}
 
 
-
 	@Test (enabled= true, priority = 13) 
-	public void FieldAccessUnview() throws InterruptedException, IOException {
+	public void FieldAccess() throws InterruptedException, IOException {
+		
+		Helper.driver.navigate().refresh();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		
 		Test_Variables.lstSalmonellaFieldAccess = SalmonellaModel.FieldAccess();
 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaFieldAccess) { 	
@@ -1313,37 +1317,59 @@ public class SalmonellaLog {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-
-						//Helper.driver.navigate().refresh();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);     
 						Helper.driver.findElement(By.id("edit-field-access")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(2000);
-						Test_Variables.steps.createNode("2. Unselect any column and click on save button");
-						
-						int inc = Integer.parseInt(objFilter.FilterID) + 1;
-						Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
-						Thread.sleep(1500);
+						Test_Variables.steps.createNode("2. Unselect "+objFilter.FilterName+" column and Select previously unselected filter column and click on save button");
+									
+						if(objModel.viewAccess) {
+							if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
+							Helper.driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
+							}
+							Thread.sleep(1000);
+						}	
+
+						if(objModel.unviewAccess) {
+							int inc = Integer.parseInt(objFilter.FilterID) + 1;
+							if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
+							Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
+							}
+							Thread.sleep(1000);
+						}
 
 						Helper.driver.findElement(By.id("btn-save")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 						Thread.sleep(1000);
-			
-						System.out.println(Helper.driver.findElements(By.id(objFilter.FilterSort)).size());
-						
-						Assert.assertEquals(Helper.driver.findElements(By.id(objFilter.FilterSort)).size(), 0);
-						
+						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Report Settings Saved");
+
+						if(objModel.viewAccess) {
+							Test_Variables.steps.createNode("3. Verify selected column is displayed in the table");
+							Assert.assertEquals(Helper.driver.findElements(By.id(objModel.FilterUnHideID)).size(), 1);
+						}	
+						if(objModel.unviewAccess) {
+							Test_Variables.steps.createNode("4. Verify unselected column is hidden in the table");
+							Assert.assertEquals(Helper.driver.findElements(By.id(objModel.FilterHideID)).size(), 0);
+						}
+						Test_Variables.steps.createNode("5. Open audit log and verify that unselected column is hidden while selected column is displayed");
 						Helper.driver.findElement(By.id("audit-trial-0")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
-						
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.FilterSort+".table-header-report")).size(), 0);
-						
+
+						if(objModel.viewAccess) {
+							Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#audit-"+objModel.FilterUnHideID+".table-header-report")).size(), 1);	
+						}
+
+						if(objModel.unviewAccess) {
+							Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#audit-"+objModel.FilterHideID+".table-header-report")).size(), 0);
+						}
+
 						Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
-						
+
 						Test_Variables.test.pass("Column was hidden successfully");
 						Test_Variables.results.createNode("Column was hidden successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
@@ -1353,61 +1379,18 @@ public class SalmonellaLog {
 						Test_Variables.test.fail(objFilter.FilterName+" column failed to hide");
 						Test_Variables.results.createNode(objFilter.FilterName+" column failed to shide");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-				}catch(Exception ex){
-					Test_Variables.test.fail(objFilter.FilterName+" column failed to hide");
-					Test_Variables.results.createNode(objFilter.FilterName+" column failed to shide");
-					Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-				}
+					}catch(Exception ex){
+						Test_Variables.test.fail(objFilter.FilterName+" column failed to hide");
+						Test_Variables.results.createNode(objFilter.FilterName+" column failed to shide");
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+					}
 				}
 			}
 			catch(Exception ex) {
 			}
 		}
 	}
-
-
-	@Test (enabled= false, priority = 14) 
-	public void FieldAccessView() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-175: Verify that re-selecting column from field access popup displays the column from report table", "This testcase will verify that re-selecting column from field access popup displays the column from report table");
-
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-			Test_Variables.steps.createNode("1. Click on filed access icon; popup appears");
-
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("edit-field-access")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tr:nth-child(1) td:nth-child(4) label .rpt-fields")));
-			Thread.sleep(1000);
-			Test_Variables.steps.createNode("2. Re-select any unselcted column and click on save button");
-			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(4) label .rpt-fields")).click();
-			Thread.sleep(1000);                
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			Assert.assertTrue(Helper.driver.findElement(By.id("sort-laneNum")).isDisplayed());
-			Test_Variables.test.pass("Column displayed successfully");
-			Test_Variables.results.createNode("Column displayed successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-		}catch(AssertionError er) {
-			Test_Variables.test.fail("Column failed to display");
-			Test_Variables.results.createNode("Column failed to display");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-		}catch(Exception ex){
-			Test_Variables.test.fail("Column failed to display");
-			Test_Variables.results.createNode("Column failed to display");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-		}
-	}
+	
 
 	 public File getTheNewestFile(String filePath, String ext) {
 	     File theNewestFile = null;
@@ -1424,10 +1407,10 @@ public class SalmonellaLog {
 	 }
 	
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Test Salmonella PNG Download",enabled= false, priority = 15) 
+	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-176: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-214: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1493,10 +1476,10 @@ public class SalmonellaLog {
 	}
 	
 
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= false, priority =16) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-177: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-215: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1545,7 +1528,8 @@ public class SalmonellaLog {
 				e.printStackTrace();
 			}
 
-			Assert.assertEquals(lines, getRowCount);
+			long excludeHeader = lines - 1;
+			Assert.assertEquals(excludeHeader, getRowCount);
 
 			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
@@ -1565,10 +1549,10 @@ public class SalmonellaLog {
 		Thread.sleep(1000);
 	}
 
-	@Test (description="Test Case: Test Salmonella Audit Download",enabled= false, priority = 17) 
+	@Test (description="Test Case: Test Salmonella Audit Download",enabled= true, priority = 17) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-178: Verify user can download Salmonella Audit file", "This test case will verify that user can download Salmonella Audit file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-216: Verify user can download Salmonella Audit file", "This test case will verify that user can download Salmonella Audit file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1584,7 +1568,7 @@ public class SalmonellaLog {
 			ClickElement.clickByCss(Helper.driver, "#select-runId-0 .checkbox");
 			Thread.sleep(1000);
 
-			String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
+			//String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
 			
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
@@ -1608,18 +1592,6 @@ public class SalmonellaLog {
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-
-			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
-			long lines = 0;
-			try {
-				lines = Files.lines(path).count();
-				//System.out.println(lines);
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			Assert.assertEquals(lines, getRowCount);
 	
 			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
@@ -1639,10 +1611,10 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Template Download",enabled= false, priority = 18) 
+	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 18) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-179: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-217: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);

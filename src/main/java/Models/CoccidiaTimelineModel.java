@@ -53,9 +53,11 @@ public class CoccidiaTimelineModel {
 
 	public static ArrayList<CoccidiaTimelineModel> FillData() {
 		ArrayList<CoccidiaTimelineModel> lstCoccidiaTimelineModel = new ArrayList<CoccidiaTimelineModel>();
-		CoccidiaTimelineModel objTmp = new CoccidiaTimelineModel();
-		
-		ReportFilters objFilter = new ReportFilters();
+		CoccidiaTimelineModel objTmp;
+		ReportFilters objFilter;
+	
+		objTmp = new CoccidiaTimelineModel();
+		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
 		objTmp.TestCaseNameButtonActive = "AN-CT-13: "+buttonActiveTitle+objFilter.FilterName;
 		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
@@ -72,16 +74,12 @@ public class CoccidiaTimelineModel {
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = "sample-id";
-		objFilter.FilterXPath = "filter-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TD01"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TD01"));
+		objFilter.FilterXPath = "Sample-Id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 		
-		
-		
+	
 		objTmp = new CoccidiaTimelineModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
@@ -99,14 +97,10 @@ public class CoccidiaTimelineModel {
 		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "isntrument-id";
-		objFilter.FilterXPath = "filter-Instrument-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Instrument-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("PSN0004"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0004"));
+		objFilter.FilterXPath = "Instrument-Id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
-
 
 		objTmp = new CoccidiaTimelineModel();
 		objFilter = new ReportFilters();
@@ -125,11 +119,8 @@ public class CoccidiaTimelineModel {
 		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.ReloadPage = true;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "cartrtidge-id";
-		objFilter.FilterXPath = "filter-Cartridge-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Cartridge-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("TestAutomation"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("TestAutomation")); 
+		objFilter.FilterXPath = "Cartridge-Id";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 
@@ -151,11 +142,8 @@ public class CoccidiaTimelineModel {
 		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "lane-num";
-		objFilter.FilterXPath = "filter-Lane-No";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Lane-No"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("10"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("10")); 
+		objFilter.FilterXPath = "Lane";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);
 
@@ -177,93 +165,33 @@ public class CoccidiaTimelineModel {
 		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
 		objTmp.ReloadPage = false;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "pathogen";
-		objFilter.FilterXPath = "filter-Pathogen";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Pathogen"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("Coccidia"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Coccidia"));
+		objFilter.FilterXPath = "Assay";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
 		objTmp.lstFilters.add(objFilter);
 		lstCoccidiaTimelineModel.add(objTmp);               
 
 		
-		objTmp = new CoccidiaTimelineModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseNameButtonActive = "AN-CT-43: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-CT-44"+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-CT-45: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CT-46: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-CT-47: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameHoverReset = "AN-CT-48: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "version";
-		objFilter.FilterXPath = "filter-Improc-Version";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Improc-Version"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("1"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
-		objTmp.lstFilters.add(objFilter);
-		lstCoccidiaTimelineModel.add(objTmp); 
-		
-
-		objTmp = new CoccidiaTimelineModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "multiple value from same filter";
-		objTmp.TestCaseNameButtonActive = "AN-CT-49: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-CT-50: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-CT-51: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CT-52: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-CT-53: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameHoverReset = "AN-CT-54: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "sample-id";
-		objFilter.FilterXPath = "filter-Sample-ID";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Sample-ID"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "SMP02"));
-		objTmp.lstFilters.add(objFilter);
-		lstCoccidiaTimelineModel.add(objTmp);
-
-
-		objTmp = new CoccidiaTimelineModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Two Filters";
-		objTmp.TestCaseNameButtonActive = "AN-CT-55: "+buttonActiveTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-CT-56: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.TestCaseNameBubbleFilterTop = "AN-CT-57: Verify "+objFilter.FilterName+filterTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
-		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CT-58: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
-		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
-		objTmp.TestCaseNameClearInput = "AN-CT-59: "+clearInputTitle+objFilter.FilterName;
-		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
-		objTmp.TestCaseNameHoverReset = "AN-CT-60: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
-		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
-		objTmp.ReloadPage = false;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = "isntrument-id";
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("Sample-ID", "Instrument-ID"));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("SMP01", "PSN0013"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("SMP01", "PSN0013")); 
-		objFilter.FilterID = "sample-id";
-		objFilter.FilterXPath = "filter-Sample-ID";
-		objTmp.lstFilters.add(objFilter);
-		lstCoccidiaTimelineModel.add(objTmp);
+//		objTmp = new CoccidiaTimelineModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Improc Version Filter";
+//		objTmp.TestCaseNameButtonActive = "AN-CT-43: "+buttonActiveTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionButtonActive = buttonActiveDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-CT-44"+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameBubbleFilterTop = "AN-CT-45: Verify "+objFilter.FilterName+filterTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterTop = "This testcase will verify that "+objFilter.FilterName+filterTopDesc;
+//		objTmp.TestCaseNameBubbleFilterCheckbox = "AN-CT-46: Verify selected checkbox from "+objFilter.FilterName+CheckboxTopTitle;
+//		objTmp.TestCaseDescriptionBubbleFilterCheckbox = "This testcase will verify that "+objFilter.FilterName+CheckboxTopDesc;
+//		objTmp.TestCaseNameClearInput = "AN-CT-47: "+clearInputTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescClearInput = clearInputDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameHoverReset = "AN-CT-48: Verify clicking on the blue indicator next to "+objFilter.FilterName+" resets it";
+//		objTmp.TestCaseDescriptionHoverReset = "This testcase will verify that hovering and clicking on the blue indicator next to applied filter resets it";
+//		objTmp.ReloadPage = false;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterXPath = "Improc-Version";
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(""));
+//		objTmp.lstFilters.add(objFilter);
+//		lstCoccidiaTimelineModel.add(objTmp); 
 	
 		return lstCoccidiaTimelineModel;
 	}

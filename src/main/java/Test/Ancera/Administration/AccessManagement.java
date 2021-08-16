@@ -70,8 +70,29 @@ public class AccessManagement{
 		}
 	}
 
+	
+	@Test (description="Test Case: test",enabled= false, priority = 1) 
+	public void test() throws InterruptedException, IOException {
+		try{
+			Helper.driver.findElement(By.id("edit-role-rights-1")).click();
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) div:nth-child(1)")).click();
+			
+		}catch(AssertionError er){
+			Test_Variables.test.fail("User did not navigated to Access Management screen");
+			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			Test_Variables.test.fail("User did not navigated to Access Management screen");
+			Test_Variables.results.createNode("User did not navigate to Access Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
+		}
+	}
+	
+	
 
-	@Test (description="Test Case: Access Management",enabled= true, priority= 2) 
+	@Test (description="Test Case: Access Management",enabled= false, priority= 2) 
 	public void CreateAccess() throws InterruptedException, IOException
 	{
 		Thread.sleep(2000);
@@ -236,7 +257,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Update Access ",enabled= true, priority= 3) 
+	@Test (description="Test Case: Update Access ",enabled= false, priority= 3) 
 	public void UpdateRole() throws InterruptedException, IOException
 	{
 		try{
@@ -292,7 +313,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Verify Update Access",enabled= true, priority= 4) 
+	@Test (description="Test Case: Verify Update Access",enabled= false, priority= 4) 
 	public void VerifyUpdateRole() throws InterruptedException, IOException
 	{
 		try{
@@ -339,7 +360,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: InActivate Role",enabled= true, priority= 5) 
+	@Test (description="Test Case: InActivate Role",enabled= false, priority= 5) 
 	public void InActivateRole() throws InterruptedException, IOException
 	{
 		try{
@@ -388,7 +409,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Edit Rights screen",enabled= true, priority= 6) 
+	@Test (description="Test Case: Edit Rights screen",enabled= false, priority= 6) 
 	public void EditRightsScreen() throws InterruptedException, IOException
 	{
 		try{
@@ -489,7 +510,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Role Assign screen",enabled= true, priority= 7) 
+	@Test (description="Test Case: Role Assign screen",enabled= false, priority= 7) 
 	public void RoleAssignScreen() throws InterruptedException, IOException
 	{
 		try{

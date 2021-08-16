@@ -61,6 +61,18 @@ public class Test_Functions {
 			}}}
 	
 	
+	public static void fieldLevelReset() throws InterruptedException, IOException {
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("edit-field-access")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("btn-reset")).click();
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("btn-save")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+	}
 	
 	
 	
@@ -78,13 +90,7 @@ public class Test_Functions {
 		      return false;
 		  }
 	
-	
-	
-	
-	
-	
-	
-	
+
 	public static boolean isFileDownloaded(String downloadPath, String fileName) {
 		boolean flag = false;
 	    File dir = new File(downloadPath);

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,60);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver,90);
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -501,6 +501,7 @@ public class Test_Elements {
 	public static String slFlockIDCol = "30";
 	public static String slRunTypeCol = "31";
 	public static String slCollectionDateCol = "32";
+	public static String slFieldAccessCol = "33";
 	public static String footerCount = ".filter-popup__footer--count";
 	
 	public static String slAuditLaneCol = "0";
@@ -702,11 +703,11 @@ public class Test_Elements {
 	public static String ctlOCountPngHover = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[2]/div/div[1]";
 	public static String ctlOCountPng = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[2]/div/div[1]/div/div[1]/span/app-custom-export-png/i";
 
-	public static String ctlLast10PngHover = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[1]/div/div[1]";
-	public static String ctlLast10Png = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[1]/div/div[1]/div/div/span/app-custom-export-png/i";
+	public static String ctlLast10PngHover = "/html/body/app-root/div/app-coccidia-timeline/div[1]/div/div/div[2]/div[2]/div/div[1]/div/div[1]";
+	public static String ctlLast10Png = "/html/body/app-root/div/app-coccidia-timeline/div[1]/div/div/div[2]/div[2]/div/div[1]/div/div[1]/div/div/span/app-custom-export-png/i";
 
 	public static String ctlOverTimePngHover = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[3]/div/div[1]";
-	public static String ctlOverTimePng = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/span/app-custom-export-png/i";
+	public static String ctlOverTimePng = "/html/body/app-root/div/app-coccidia-timeline/div[1]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/span/app-custom-export-png/i";
 
 	////////////////////////////////////////////////End Coccidia Timeline Elements///////////////////////////////////////////////////////
 

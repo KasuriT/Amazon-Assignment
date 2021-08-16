@@ -48,6 +48,7 @@ public class Constants {
 	public static String OrgManagementReportPath = "/Screenshots/Administration/OrganizationManagementScreenShot";
 	public static String ReportManagementReportPath = "/Screenshots/Administration/ReportsManagementScreenShot";
 	public static String AgreementManagementReportPath = "/Screenshots/Administration/AgreementManagementScreenShot";
+	public static String BarcodeManagementReportPath = "/Screenshots/Administration/BarcodeManagementScreenShot";
 	public static String PiperManagementReportPath = "/Screenshots/Piper_Administration/PiperManagementScreenShot";
 	public static String PiperSoftwareReportPath = "/Screenshots/Piper_Administration/PiperSoftwareScreenShot";
 	public static String PiperConfigurationReportPath = "/Screenshots/Piper_Administration/PiperConfigurationScreenShot";

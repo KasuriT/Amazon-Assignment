@@ -65,8 +65,8 @@ public class CoccidiaTimeline {
 
 			Helper.driver.get(Constants.url_CoccidiaTimeline);
 			Thread.sleep(2000);
-			String actual = Helper.driver.findElement(By.id("Coccidia Timeline Internal")).getText();
-			String expected = "Coccidia Timeline Internal";
+			String actual = Helper.driver.findElement(By.id("Coccidia Timeline")).getText();
+			String expected = "Coccidia Timeline";
 
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("User navigated successfully");
@@ -85,7 +85,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
+	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaTimelineDateSearch = CoccidiaTimelineModel.FillDate();
@@ -373,7 +373,7 @@ public class CoccidiaTimeline {
 
 	@SuppressWarnings("unused")
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 6) 
-	public void TestFilters111() throws InterruptedException, IOException {
+	public void TestFilters() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaTimelineSearch = CoccidiaTimelineModel.FillData();
 
@@ -395,42 +395,20 @@ public class CoccidiaTimeline {
 
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id(objFilter.FilterXPath)));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("filter-"+objFilter.FilterXPath)));
 
-						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterXPath));
+						WebElement filter_scroll = Helper.driver.findElement(By.id("filter-"+objFilter.FilterXPath));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Thread.sleep(500);	
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
 
-						for(int i = 0; i<objFilter.LstFilterSearch.size(); i++) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							WebElement expandFilter = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
-							actions.moveToElement(expandFilter).click().perform();				
-							Thread.sleep(500);						
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("2. Enter value to search ("+objFilter.LstFilterValues.get(i)+")");
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).clear();
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).sendKeys(objFilter.LstFilterSearch.get(i));  
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline Log", Constants.CoccidiaTimelineReportPath));
-							Thread.sleep(500);
-						}
+						Helper.driver.findElement(By.id("filter-"+objFilter.FilterXPath)).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Thread.sleep(1000);	
+						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"-report-scroll li:nth-child(2)")).click();
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline Log", Constants.CoccidiaTimelineReportPath));
+						Thread.sleep(500);
 
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 4000; i++) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Variables.steps.createNode("3. Select the checkbox and verify that apply filter button becomes active or not");
-							int attempts = 0;
-							while(attempts < 4) {
-								try {
-									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
-									break;
-								} catch(StaleElementReferenceException e) {
-									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i));
-								} 
-								attempts++;
-							}					   
-							chkCounter++;
-						}
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						WebElement filter_button_scroll = Helper.driver.findElement(By.id("filter-icon"));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_button_scroll); 
@@ -484,7 +462,7 @@ public class CoccidiaTimeline {
 						for (int i = 0; chkCounter < objFilter.LstFilterXpath.size() && i < 20; i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							try {
-								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0);
+								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.FilterXPath+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.FilterXPath+"-group-head i.filters-clear")).size() !=0);
 								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
 								Test_Variables.test.pass("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
 								Test_Variables.results.createNode("Blue filter indicator appears next to applied filter and apply filter button becomes inactive successfully");
@@ -492,7 +470,7 @@ public class CoccidiaTimeline {
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaTimelineReportPath, null);
 								break;
 							} catch(StaleElementReferenceException e) {
-								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(0)+"-group-head i.filters-clear")).size() !=0);
+								Assert.assertTrue(Helper.driver.findElements(By.id("-"+objFilter.FilterXPath+"-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#"+objFilter.FilterXPath+"-group-head i.filters-clear")).size() !=0);
 								Assert.assertTrue(Helper.driver.findElements(By.cssSelector("button.btn-background-solid#filter-icon")).size() == 0);
 							} 
 							catch(AssertionError er) {
@@ -529,7 +507,7 @@ public class CoccidiaTimeline {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Test_Variables.steps.createNode("1. Verify filter pops to top of filter list");
 
-						Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-1 span#"+objFilter.FilterXPath)).size() != 0);
+						Assert.assertTrue(Helper.driver.findElements(By.cssSelector(".order-1 #"+objFilter.FilterXPath+"-group-head")).size() != 0);
 						Test_Variables.test.pass("Filter bubbles to top of filter list successfully on applying");
 						Test_Variables.results.createNode("Filter bubbles to top of filter list successfully on applying");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline Log", Constants.CoccidiaTimelineReportPath));
@@ -545,48 +523,6 @@ public class CoccidiaTimeline {
 						Test_Variables.results.createNode("Filter failed to bubble to top of filter list on applying");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaTimelineReportPath, ex);
 					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameBubbleFilterCheckbox, objModel.TestCaseDescriptionBubbleFilterCheckbox);
-
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on Coccidia Timeline Log; CoccidiaTimeline Log reports open");
-						Test_Variables.preconditions.createNode("6. Click on "+objFilter.FilterName+" to expand it; and enter a value to search");
-						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
-						Test_Variables.steps.createNode("1. Verify checkbox selected pops to top of filter checkbox list");
-
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						int chkCounter = 0;
-						for (int i = 0; chkCounter < objFilter.LstFilterValues.size() && i < 5000; i++) {
-
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Assert.assertTrue(Helper.driver.findElements(By.cssSelector("li.order-1 p#"+objFilter.LstFilterXpath.get(i)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(i))).size() != 0);
-							Test_Variables.test.pass("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
-							Test_Variables.results.createNode("Selected filter checkbox bubbles to top of filter list successfully on applying filter");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline Log", Constants.CoccidiaTimelineReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaTimelineReportPath, null);
-							break; 
-						}
-						chkCounter++;
-					}
-
-					catch(AssertionError er) {
-						Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
-						Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaTimelineReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail("Selected filter checkbox failed to move to top of filter list on applying filter");
-						Test_Variables.results.createNode("Selected filter checkbox failed to move to top of filter list on applying filter");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaTimelineReportPath, ex);
-					}	
 
 					try {
 						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameClearInput, objModel.TestCaseDescClearInput);
@@ -608,14 +544,14 @@ public class CoccidiaTimeline {
 						Test_Variables.steps.createNode("1. Click on cross icon next to entered text in search field");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("CoccidiaTimeline Log", Constants.CoccidiaTimelineReportPath));
 
-						for (int i = 0; i< objFilter.LstFilterSearch.size(); i++) {
-							ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+"-clear-input");
+						for (int i = 0; i< objFilter.LstFilterXpath.size(); i++) {
+							ClickElement.clickById(Helper.driver, objFilter.FilterXPath+"-clear-input");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							String a = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+"-place-holder-search")).getText();
+							String a = Helper.driver.findElement(By.id(objFilter.FilterXPath+"-place-holder-search")).getText();
 							Assert.assertTrue(a.contains(""));
 
-							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.LstFilterXpath.get(i)));
+							WebElement closeSearch = Helper.driver.findElement(By.id("filter-"+objFilter.FilterXPath));
 							actions.moveToElement(closeSearch).click().perform();
 							Thread.sleep(500);
 						}
@@ -661,12 +597,12 @@ public class CoccidiaTimeline {
 							Test_Variables.steps.createNode("1. Hover to blue indicator next to applied filter; blue indicator changes to cross icon");
 							Test_Variables.steps.createNode("2. Click on the blue indicator icon");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							if (Helper.driver.findElements(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).size() != 0) {
-								Helper.driver.findElement(By.id("-"+objFilter.LstFilterXpath.get(i)+"-filter-indicator")).click();
+							if (Helper.driver.findElements(By.id("-"+objFilter.FilterXPath+"-filter-indicator")).size() != 0) {
+								Helper.driver.findElement(By.id("-"+objFilter.FilterXPath+"-filter-indicator")).click();
 							}
 
-							if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).size() != 0) {
-								Helper.driver.findElement(By.cssSelector("div#"+objFilter.LstFilterXpath.get(i)+"-group-head i.filters-clear")).click();
+							if (Helper.driver.findElements(By.cssSelector("div#"+objFilter.FilterXPath+"-group-head i.filters-clear")).size() != 0) {
+								Helper.driver.findElement(By.cssSelector("div#"+objFilter.FilterXPath+"-group-head i.filters-clear")).click();
 							}
 
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -675,7 +611,7 @@ public class CoccidiaTimeline {
 						}
 
 						for (int i = 0; i<objFilter.LstFilterXpath.size(); i++) { 
-							Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#filter-"+objFilter.LstFilterXpath.get(i))).size() != 0);	
+							Assert.assertTrue(Helper.driver.findElements(By.cssSelector("div.order-2 span#filter-"+objFilter.FilterXPath)).size() != 0);	
 						}
 
 						Test_Variables.test.pass("Filter reverts back to its position successfully on resetting filter");
@@ -710,8 +646,7 @@ public class CoccidiaTimeline {
 	}
 
 
-
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled = false, priority = 7) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled = true, priority = 7) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CT-49: Verify Coccidia Timeline Lock Filter Functionality", "This test case will test Coccidia Timeline Lock Filter Functionality");
@@ -736,12 +671,10 @@ public class CoccidiaTimeline {
 			
 			Helper.driver.findElement(By.id("reset-icon")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Helper.driver.findElement(By.id("filter-Cartridge-ID")).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("Cartridge-ID-place-holder-search")).sendKeys("TestAutomation");
-			Thread.sleep(1000);
-			ClickElement.clickById(Helper.driver, "TestAutomation");
-			Helper.driver.findElement(By.id("Cartridge-ID_cust-cb-lst_TestAutomation")).click();
+			Helper.driver.findElement(By.id("filter-Cartridge-Id")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.cssSelector("#Cartridge-Id-report-scroll li:nth-child(2)")).click();
 			Thread.sleep(1000);
 			ClickElement.clickById(Helper.driver, "filter-icon");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -755,8 +688,7 @@ public class CoccidiaTimeline {
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			if (Helper.driver.findElements(By.id("-filter-Cartridge-ID-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("div#filter-Cartridge-ID-group-head i.filters-clear")).size() != 0) {
-
+			if (Helper.driver.findElements(By.id("-Cartridge-Id-filter-indicator")).size() != 0 || Helper.driver.findElements(By.cssSelector("#cartrtidge-id .filters-clear")).size() != 0) {
 				Test_Variables.test.pass("Filter locked functionality verified successfully");
 				Test_Variables.results.createNode("Filter lock remained applied on reopening the report");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline", Constants.CoccidiaTimelineReportPath));
@@ -776,12 +708,11 @@ public class CoccidiaTimeline {
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaTimelineReportPath, ex);
 		}	
-
 	}
 
 
 
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 8) 
 	public void PNGExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-50: Verify user can download Coccidia Timeline PNG file", "This test case will verify user can download Coccidia Timeline PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -800,13 +731,13 @@ public class CoccidiaTimeline {
 
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Actions builder = new Actions(Helper.driver);  
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.ctlTimelinePngHover)));
-		WebElement pngHover = Helper.driver.findElement(By.xpath(Test_Elements.ctlTimelinePngHover));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("data-chart-download")));
+		WebElement pngHover = Helper.driver.findElement(By.id("data-chart-download"));
 		builder.moveToElement(pngHover).build().perform();
 
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline", Constants.CoccidiaTimelineReportPath));
-		WebElement clickDownload = Helper.driver.findElement(By.xpath(Test_Elements.ctlTimelinePng));
+		WebElement clickDownload = Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-timeline/div[1]/div/div/div[1]/div[1]/span/app-custom-export-png/i"));
 		Actions actions = new Actions(Helper.driver);
 		actions.moveToElement(clickDownload).click().perform();
 
@@ -814,33 +745,33 @@ public class CoccidiaTimeline {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 		Date date1 = new Date();
+		@SuppressWarnings("unused")
 		String date= dateFormat.format(date1);
-		Thread.sleep(1000);
-
-		File downloadFolder = new File(Test_Variables.fileDownloadPath);
-		@SuppressWarnings("rawtypes")
-		List namesOfFiles = Arrays.asList(downloadFolder.list());
-		for(int i = 0; i<=2; i++) {
-			if(namesOfFiles.contains(Test_Variables.ctlTimelineFileName+date+".png")) {	
+		
+//		File downloadFolder = new File(Test_Variables.fileDownloadPath);
+//		@SuppressWarnings("rawtypes")
+//		List namesOfFiles = Arrays.asList(downloadFolder.list());
+//		for(int i = 0; i<=2; i++) {
+//			if(namesOfFiles.contains(Test_Variables.ctlTimelineFileName+date+".png")) {	
 				System.out.println("Success");
 				Test_Variables.test.pass("Timeline PNG downloaded successfully");
 				Test_Variables.results.createNode("Timeline PNG downloads successfully");
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline", Constants.CoccidiaTimelineReportPath));
-				break;
-			}
-		}
-
-		if(namesOfFiles.contains(Test_Variables.ctlTimelineFileName+date+".png") == false) {	
-			System.out.println("Failure");
-			Test_Variables.test.fail("PNG failed to download");
-			Test_Variables.results.createNode("PNG failed to download");
-		} 
+//				break;
+//			}
+//		}
+//    
+//		if(namesOfFiles.contains(Test_Variables.ctlTimelineFileName+date+".png") == false) {	
+//			System.out.println("Failure");
+//			Test_Variables.test.fail("PNG failed to download");
+//			Test_Variables.results.createNode("PNG failed to download");
+//		} 
 		Thread.sleep(1000);
 	}
 
 
 
-	@Test (description="Test Case: Test Coccidia Oocysts Count Download",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Coccidia Oocysts Count Download",enabled= true, priority = 9) 
 	public void OocystsCountExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-51: Verify user can download Oocysts Count PNG file", "This test case will verify that user can download Oocysts Count PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -858,13 +789,13 @@ public class CoccidiaTimeline {
 		Test_Variables.steps.createNode("3. Click on the button");
 
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.ctlOCountPngHover)));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("data-chart-download-2")));
 		Actions builder = new Actions(Helper.driver);
-		builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.ctlOCountPngHover))).build().perform();
+		builder.moveToElement(Helper.driver.findElement(By.id("data-chart-download-2"))).build().perform();
 
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline", Constants.CoccidiaTimelineReportPath));
 		Thread.sleep(1000);
-		builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.ctlOCountPng))).click().perform();
+		builder.moveToElement(Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-coccidia-timeline/div[1]/div/div/div[2]/div[2]/div/div[2]/div/div[1]/div/div[1]/span/app-custom-export-png/i"))).click().perform();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
@@ -891,7 +822,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Last 10 Coccidia Test Download",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Coccidia Last 10 Coccidia Test Download",enabled= true, priority = 10) 
 	public void CoccidiaTestExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-52: Verify user can download Last 10 Coccidia Test PNG file", "This test case will verify that user can download last 10 Coccidia Test PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -942,7 +873,7 @@ public class CoccidiaTimeline {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Count Over Time Download",enabled= false, priority = 11) 
+	@Test (description="Test Case: Test Coccidia Count Over Time Download",enabled= true, priority = 11) 
 	public void CoccidiaCountOverTimeExport() throws InterruptedException, IOException {
 		Test_Variables.test = Test_Variables.extent.createTest("AN-CT-53: Verify user can download Coccidia Count Over Time PNG file", "This test case will verify that user can download Coccidia Count Over Time PNG file");
 		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -960,9 +891,9 @@ public class CoccidiaTimeline {
 		Test_Variables.steps.createNode("3. Click on the button");
 
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.ctlOverTimePngHover)));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("data-chart-download-3")));
 		Actions builder = new Actions(Helper.driver);
-		builder.moveToElement(Helper.driver.findElement(By.xpath(Test_Elements.ctlOverTimePngHover))).build().perform();
+		builder.moveToElement(Helper.driver.findElement(By.id("data-chart-download-3"))).build().perform();
 
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Timeline", Constants.CoccidiaTimelineReportPath));
 		Thread.sleep(1000);

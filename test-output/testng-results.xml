@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="16" total="18" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-10T15:28:30 PKT" name="Default suite" finished-at="2021-08-10T15:32:14 PKT" duration-ms="223865">
+  <suite started-at="2021-08-16T12:48:36 PKT" name="Default suite" finished-at="2021-08-16T12:50:14 PKT" duration-ms="97710">
     <groups>
     </groups>
-    <test started-at="2021-08-10T15:28:30 PKT" name="Default test" finished-at="2021-08-10T15:32:14 PKT" duration-ms="223865">
-      <class name="Test.Ancera.Reports.SalmonellaLog">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:28:30 PKT" name="extent" finished-at="2021-08-10T15:29:42 PKT" duration-ms="71923" status="PASS">
+    <test started-at="2021-08-16T12:48:36 PKT" name="Default test" finished-at="2021-08-16T12:50:14 PKT" duration-ms="97710">
+      <class name="Test.Ancera.Administration.BarcodeManagement">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:48:36 PKT" name="extent" finished-at="2021-08-16T12:48:56 PKT" duration-ms="19913" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigateSalmonella()[pri:1, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:29:42 PKT" name="NavigateSalmonella" description="Test Case: Navigate to Salmonella Log Screen" finished-at="2021-08-10T15:30:16 PKT" duration-ms="34669" status="PASS">
+        <test-method signature="NavigateBarcodeManagement()[pri:1, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:48:56 PKT" name="NavigateBarcodeManagement" description="Test Case: Navigate to Barcode Management Screen" finished-at="2021-08-16T12:49:01 PKT" duration-ms="4884" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigateSalmonella -->
-        <test-method signature="FieldAccessUnview()[pri:13, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:30:16 PKT" name="FieldAccessUnview" finished-at="2021-08-10T15:32:13 PKT" duration-ms="116962" status="PASS">
+        </test-method> <!-- NavigateBarcodeManagement -->
+        <test-method signature="ErrorOpeningPrintScreen()[pri:2, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:01 PKT" name="ErrorOpeningPrintScreen" description="Test Case: Error Opening Print Screen" finished-at="2021-08-16T12:49:04 PKT" duration-ms="3095" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- FieldAccessUnview -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.SalmonellaLog@1b1426f4]" started-at="2021-08-10T15:32:13 PKT" name="endreport" finished-at="2021-08-10T15:32:14 PKT" duration-ms="290" status="PASS">
+        </test-method> <!-- ErrorOpeningPrintScreen -->
+        <test-method signature="OpenPrintScreen()[pri:3, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:04 PKT" name="OpenPrintScreen" description="Test Case: Open print screen" finished-at="2021-08-16T12:49:54 PKT" duration-ms="50129" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- OpenPrintScreen -->
+        <test-method signature="AssignedSiteAppearance()[pri:4, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:54 PKT" name="AssignedSiteAppearance" description="Test Case: Assign Sites Appearance" finished-at="2021-08-16T12:50:11 PKT" duration-ms="16723" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AssignedSiteAppearance -->
+        <test-method signature="SearchFunctionality()[pri:5, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:50:11 PKT" name="SearchFunctionality" description="Test Case: Search Functionality" finished-at="2021-08-16T12:50:13 PKT" duration-ms="2647" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SearchFunctionality -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:50:13 PKT" name="endreport" finished-at="2021-08-16T12:50:14 PKT" duration-ms="291" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
+      </class> <!-- Test.Ancera.Administration.BarcodeManagement -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

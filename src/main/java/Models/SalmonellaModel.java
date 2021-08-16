@@ -44,6 +44,10 @@ public class SalmonellaModel {
 	public boolean runIngestion;
 	public boolean firstCase;
 	public boolean secondCase;
+	public boolean viewAccess;
+	public boolean unviewAccess;
+	public String FilterHideID;
+	public String FilterUnHideID;
 	public String input;
 	public String fileJson;
 	public String sampleID;
@@ -687,7 +691,7 @@ public class SalmonellaModel {
 
 		objTmp.TestCaseName = "AN-SL-141: Verify 100 rows are displayed when 100 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-194: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-142: Verify 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 100 rows are displayed when 100 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		ReportFilters objFilter = new ReportFilters();
@@ -699,9 +703,9 @@ public class SalmonellaModel {
 
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-142: Verify 250 rows are displayed when 250 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-143: Verify 250 rows are displayed when 250 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-196: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-144: Verify 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 250 rows are displayed when 250 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -713,9 +717,9 @@ public class SalmonellaModel {
 
 
 		objTmp = new SalmonellaModel();
-		objTmp.TestCaseName = "AN-SL-143: Verify 500 rows are displayed when 500 Rows per Page is selected";
+		objTmp.TestCaseName = "AN-SL-145: Verify 500 rows are displayed when 500 Rows per Page is selected";
 		objTmp.TestCaseDescription = "This testcase will verify that 100 rows are displayed when 500 Rows per Page is selected";
-		objTmp.TestCaseNameSearch = "AN-SL-198: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
+		objTmp.TestCaseNameSearch = "AN-SL-146: Verify 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.TestCaseDescriptionSearch = "This testcase will verify that 500 rows are displayed when 500 Rows per Page is selected and user moves to next page";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1104,7 +1108,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
-		objTmp.TestCaseName = "AN-SL-59: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-113: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slLane+""+Test_Elements.slShowFilter;
@@ -1117,7 +1121,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-60: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-114: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slSampleID+""+Test_Elements.slShowFilter;
@@ -1130,7 +1134,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "QC Code Filter";
-		objTmp.TestCaseName = "AN-SL-61: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-115: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slQCCode+""+Test_Elements.slShowFilter;
@@ -1143,7 +1147,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-62: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-116: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slResultStatus+""+Test_Elements.slShowFilter;
@@ -1156,7 +1160,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-63: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-117: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slAssay+""+Test_Elements.slShowFilter;
@@ -1169,7 +1173,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-64: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-118: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slCollectionSiteID+""+Test_Elements.slShowFilter;
@@ -1182,7 +1186,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-65: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-119: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slCollectionSiteType+""+Test_Elements.slShowFilter;
@@ -1195,7 +1199,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-66: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-120: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slSampleMatrix+""+Test_Elements.slShowFilter;
@@ -1208,7 +1212,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-67: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-121: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slCustomerSampleID+""+Test_Elements.slShowFilter;
@@ -1221,7 +1225,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received Filter";
-		objTmp.TestCaseName = "AN-SL-68: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-122: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slDateReceived+""+Test_Elements.slShowFilter;
@@ -1235,7 +1239,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-69: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-123: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slCartridgeID+""+Test_Elements.slShowFilter;
@@ -1248,7 +1252,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-70: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-124: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slInstrumentID+""+Test_Elements.slShowFilter;
@@ -1261,7 +1265,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Cell Count Filter";
-		objTmp.TestCaseName = "AN-SL-71: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-125: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slW2CellCount+""+Test_Elements.slShowFilter;
@@ -1274,7 +1278,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Cell Count Filter";
-		objTmp.TestCaseName = "AN-SL-72: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-126: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slPiperUser+""+Test_Elements.slShowFilter;
@@ -1287,7 +1291,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-73: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-127: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slkitLot+""+Test_Elements.slShowFilter;
@@ -1313,7 +1317,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-75: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-128: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slTestSiteID+""+Test_Elements.slShowFilter;
@@ -1326,7 +1330,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-76: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-129: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slTestSiteName+""+Test_Elements.slShowFilter;
@@ -1339,7 +1343,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-SL-77: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-130: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slRequestedAssay+""+Test_Elements.slShowFilter;
@@ -1352,7 +1356,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-SL-78: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-131: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slFlockID+""+Test_Elements.slShowFilter;
@@ -1365,7 +1369,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-79: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-132: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slRunType+""+Test_Elements.slShowFilter;
@@ -1378,7 +1382,7 @@ public class SalmonellaModel {
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Date Filter";
-		objTmp.TestCaseName = "AN-SL-80: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseName = "AN-SL-133: Verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.FilterID = Test_Elements.slCollectionDate+""+Test_Elements.slShowFilter;
@@ -2310,7 +2314,6 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
@@ -2322,14 +2325,12 @@ public class SalmonellaModel {
 		objTmp.firstCase = true;
 		objTmp.secondCase = false;
 		objTmp.sampleID = Test_Variables.dateYYYYMMDD+"-TestAut-ContexualTest-"+Test_Variables.date0;
-	    objTmp.fileJson = "[{'LANE':'1','PATHOGEN':'Salmonella','SAMPLEID':'"+objTmp.sampleID+"','SCANDATETIME':'2021/07/13 13:45:43','OUTCOME':'','STATUSCODE':'','CALIBRATED_PIPER_COUNTS':'0','COUNT_OUTCOME':'','CARTRIDGEID':'CartIDContexual"+Test_Variables.date0+"','EXPERIMENTID':'','INSTRUMENTID':'PSN0009','USERID':'100','RUN_ID':'2021021-salmonella -TC01','RUN_TYPE':'SCRIPT_1001a Salmonella Probes','MPN_CALCULATION_TYPE':'2','DILUTION_FACTOR':'0.01','LANE_NO':'1','DATE':'2020-06-03','TIME':'10:45:43.914898','W1_PC_COUNT':'0','W1_CELL_COUNT':'0','W1_PC_MEAN_INTENSITY':'','W1_CELL_MEAN_INTENSITY':'','W1_PC_RANGE_INTENSITY':'0','W1_CELL_RANGE_INTENSITY':'0','W1_PC_CV_INTENSITY':'','W1_CELL_CV_INTENSITY':'','W1_PC_MEAN_SIZE':'','W1_CELL_MEAN_SIZE':'','W1_PC_RANGE_SIZE':'','W1_CELL_RANGE_SIZE':'','W1_PC_CV_SIZE':'','W1_CELL_CV_SIZE':'','W2_PC_COUNT':'0','W2_CELL_COUNT':'200','W2_PC_MEAN_INTENSITY':'','W2_CELL_MEAN_INTENSITY':'','W2_PC_RANGE_INTENSITY':'0','W2_CELL_RANGE_INTENSITY':'0','W2_PC_CV_INTENSITY':'','W2_CELL_CV_INTENSITY':'','W2_PC_MEAN_SIZE':'','W2_CELL_MEAN_SIZE':'','W2_PC_RANGE_SIZE':'','W2_CELL_RANGE_SIZE':'','W2_PC_CV_SIZE':'','W2_CELL_CV_SIZE':'','STATUS':'','LANE_TOTAL_AREA_UM2':'326035983.8748','LANE_NOISE_AREA_UM2':'82232170.4712','LANE_NOISE_RATIO_PERCENT':'95.73','LANE_NOISE_OBJECT_COUNT':'71','W1_NOISE_AREA_UM2':'8323637.364','W2_NOISE_AREA_UM2':'8315160.7508','W1_NOISE_RATIO_PERCENT':'100.0','W2_NOISE_RATIO_PERCENT':'99.8993635494474','W1_NOISE_OBJECT_COUNT':'0','W2_NOISE_OBJECT_COUNT':'0','LANE_SMALL_NOISE_OBJECT_COUNT':'71','LANE_MEDIUM_NOISE_OBJECT_COUNT':'0','LANE_LARGE_NOISE_OBJECT_COUNT':'0','LANE_EXTRA_LARGE_NOISE_OBJECT_COUNT':'0','IMPROC':'ImprocSalm01','VERSION':'4.0.8.2','ERROR_CODE':'B01','IE_COLLECTION_SITE_ID':'1001043','IE_SAMPLE_MATRIX_ID':''}]";
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("cartridgeId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("CartIDContexual"+Test_Variables.date0));
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("laneNum", "sampleId", "countOutcome", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "instrumentId", "w2CellCount", "user_name", "kit_lot", "version", "testSiteId", "requested_assay", "flock_id", "testSiteName", "runType"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 	
-		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
@@ -2344,7 +2345,6 @@ public class SalmonellaModel {
 		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId", "pathogen", "collection_site_id", "collection_site_type", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "cartridgeId", "kit_lot", "version", "requested_assay", "flock_id"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-		
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
@@ -2369,373 +2369,519 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp;
 		ReportFilters objFilter;
-		
+	
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lane Filter";
-		objTmp.TestCaseName = "AN-SL-109: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-175: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slLaneCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slLane;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slLane;
+		objTmp.FilterUnHideID = "";
+		objTmp.unviewAccess = true;   //will hide the current column
+		objTmp.viewAccess = false;    //will unhide the previously hidden column
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-		
+			
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Lab Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-110: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-176: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slSampleIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slSampleID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slSampleID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slLane;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-		
+	
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "QC Code Filter";
-		objTmp.TestCaseName = "AN-SL-111: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-177: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slQCCodeCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slQCCode;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slQCCode;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slSampleID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Status Filter";
-		objTmp.TestCaseName = "AN-SL-112: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-178: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slResultStatusCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slResultStatus;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slResultStatus;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slQCCode;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Filter";
-		objTmp.TestCaseName = "AN-SL-113: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-179: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slResultCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slResult;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slResult;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slResultStatus;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Assay Filter";
-		objTmp.TestCaseName = "AN-SL-114: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-180: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slAssayCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slAssay;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slAssay;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slResult;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+		
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result ID Filter";
+		objTmp.TestCaseName = "AN-SL-181: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = Test_Elements.slResultIDCol;
+		objTmp.FilterHideID = "";
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slAssay;
+		objTmp.unviewAccess = false;
+		objTmp.viewAccess = true;
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+		
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Result Date Filter";
+		objTmp.TestCaseName = "AN-SL-182: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = Test_Elements.slDateCol;
+		objTmp.FilterHideID = "";
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slResultDate;
+		objTmp.unviewAccess = false;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Result Time Filter";
-		objTmp.TestCaseName = "AN-SL-114: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-183: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slTimeCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slResultTime;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slResultTime;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slAssay;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-115: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-184: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slSiteNameCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteName;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteName;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slResultTime;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-116: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-185: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slSiteIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteName;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Collection Site Type Filter";
-		objTmp.TestCaseName = "AN-SL-117: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-186: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slSiteTypeCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteType;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteType;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Sample Matrix Filter";
-		objTmp.TestCaseName = "AN-SL-118: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-187: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slSampleMatrixCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slSampleMatrix;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slSampleMatrix;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionSiteType;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Dilution Factor Filter";
-		objTmp.TestCaseName = "AN-SL-119: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-188: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slDilutionFactorCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slDilutionFactor;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slDilutionFactor;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slSampleMatrix;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Customer Sample ID Filter";
-		objTmp.TestCaseName = "AN-SL-120: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-189: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slCSampleIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCustomerSampleID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCustomerSampleID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slDilutionFactor;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Date Received Filter";
-		objTmp.TestCaseName = "AN-SL-121: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-190: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slReceivedDateCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slDateReceived;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slDateReceived;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCustomerSampleID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Cartridge ID Filter";
-		objTmp.TestCaseName = "AN-SL-122: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-191: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slCartridgeIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slCartridgeID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCartridgeID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slDateReceived;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Instrument ID Filter";
-		objTmp.TestCaseName = "AN-SL-123: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-192: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slInstrumentIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slInstrumentID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slInstrumentID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCartridgeID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 Cell Count Filter";
-		objTmp.TestCaseName = "AN-SL-124: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-193: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW1CellCountCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW1CellCount;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1CellCount;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slInstrumentID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 PC Count Filter";
-		objTmp.TestCaseName = "AN-SL-125: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-194: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW1PCCountCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW1PCCount;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1PCCount;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1CellCount;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W1 Mean Intensity Filter";
-		objTmp.TestCaseName = "AN-SL-126: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-195: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW1MeanIntensityCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW1MeanIntensity;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1MeanIntensity;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1PCCount;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
-		
 
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Cell Count Filter";
-		objTmp.TestCaseName = "AN-SL-127: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-196: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW2CellCountCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW2CellCount;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2CellCount;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW1MeanIntensity;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 PC Count Filter";
-		objTmp.TestCaseName = "AN-SL-128: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-197: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW2CPCCountCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW2PCCount;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2PCCount;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2CellCount;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "W2 Mean Intensity Filter";
-		objTmp.TestCaseName = "AN-SL-129: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-198: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slW2MeanIntensityCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slW2MeanIntensity;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2MeanIntensity;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2PCCount;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Piper User Filter";
-		objTmp.TestCaseName = "AN-SL-130: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-199: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slPiperUserCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slPiperUser;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slPiperUser;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slW2MeanIntensity;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Kit Lot Filter";
-		objTmp.TestCaseName = "AN-SL-131: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-200: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slKitLotCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slkitLot;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slkitLot;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slPiperUser;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Improc Version Filter";
-		objTmp.TestCaseName = "AN-SL-132: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-201: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slImprocIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slImprocVersion;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slImprocVersion;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slkitLot;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site ID Filter";
-		objTmp.TestCaseName = "AN-SL-133: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-202: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slTestSiteIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slImprocVersion;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Test Site Name Filter";
-		objTmp.TestCaseName = "AN-SL-134: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-203: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slTestSiteNameCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteName;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteName;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Requested Assay Filter";
-		objTmp.TestCaseName = "AN-SL-135: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-204: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slRequestedAssayCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slRequestedAssay;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slRequestedAssay;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slTestSiteName;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Flock ID Filter";
-		objTmp.TestCaseName = "AN-SL-136: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objTmp.TestCaseName = "AN-SL-205: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.slFlockIDCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slFlockID;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slFlockID;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slRequestedAssay;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+	
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Run Type Filter";
+		objTmp.TestCaseName = "AN-SL-206: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = Test_Elements.slRunTypeCol;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slRunType;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slFlockID;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
+		objTmp.lstFilters.add(objFilter);
+		lstSalmonellaModel.add(objTmp);
+			
+		objTmp = new SalmonellaModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Collection Date Filter";
+		objTmp.TestCaseName = "AN-SL-207: Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.FilterID = Test_Elements.slCollectionDateCol;
+		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate;
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slRunType;
+		objTmp.unviewAccess = true;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Run Type Filter";
-		objTmp.TestCaseName = "AN-SL-137: Verify field level accessibility of "+objFilter.FilterName+" on hiding it";
-		objTmp.TestCaseDescription = "This testcase will verify field level accessibility of "+objFilter.FilterName+" on hiding it";
+		objFilter.FilterName = "Select back all columns";
+		objTmp.TestCaseName = "AN-SL-208: Select back all unselected columns";
+		objTmp.TestCaseDescription = "This testcase will select back all unselected columns";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.slRunTypeCol;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slRunType;
+		objFilter.FilterID = Test_Elements.slFieldAccessCol;
+		objTmp.FilterHideID = "";
+		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate;
+		objTmp.unviewAccess = false;
+		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
 		return lstSalmonellaModel;
 	}
-	
-	
-	
 	
 }
 

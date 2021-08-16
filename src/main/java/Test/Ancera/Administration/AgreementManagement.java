@@ -1,6 +1,7 @@
 package Test.Ancera.Administration;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -333,7 +334,7 @@ public class AgreementManagement {
 	}
 	
 
-	@Test (description="Test Case: Rename file",enabled= false, priority = 7) 
+	@Test (description="Test Case: Rename file",enabled= true, priority = 7) 
 	public void RenameFile() throws InterruptedException, IOException {
 
 		try {
@@ -351,42 +352,41 @@ public class AgreementManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
 			Helper.driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+Test_Variables.lstAgreementManagement.get(0).fileName);
-			Thread.sleep(1000);
-			
-			for (int i=1; i<=15; i++) {
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+			Thread.sleep(3000);
 
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
-					Thread.sleep(1000);
-					element.click();
-					Thread.sleep(500);
-					element.sendKeys(Keys.BACK_SPACE); element.sendKeys(Keys.BACK_SPACE); element.sendKeys(Keys.BACK_SPACE);
-					element.sendKeys(Keys.BACK_SPACE);
-					element.sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(1));
+			List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			int count = rows.size();
+
+			for(int j = 1; j<count; j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1)")).getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+
+					ClickElement.clickByCss(Helper.driver, "tr:nth-child("+j+") td:nth-child(2)");
+					Thread.sleep(3000);
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(1));
 					break;
 				}
 			}
 
 			Thread.sleep(500);
 			ClickElement.clickById(Helper.driver, "progressbar-1");
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
-			for (int i=1; i<=15; i++) {
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+			for(int j = 1; j<count; j++) {
 
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
-					Thread.sleep(500);
-					Assert.assertTrue(true);
-					break;
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1)")).getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+				WebElement element = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)"));
+
+				Assert.assertEquals(element.getText(), Test_Variables.lstAgreemmentManagementFileName.get(2));
+				Test_Variables.test.pass("The user was able to rename the uploaded file successfully");
+				Test_Variables.results.createNode("The user was able to rename the uploaded file successfully");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
 				}
 			}
-
-			Test_Variables.test.pass("The user was able to rename the uploaded file successfully");
-			Test_Variables.results.createNode("The user was able to rename the uploaded file successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("The user was not able to rename the uploaded file successfully");
@@ -401,9 +401,8 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Deactivate file",enabled= false, priority = 8) 
+	@Test (description="Test Case: Deactivate file",enabled= true, priority = 8) 
 	public void DeactivateFile() throws InterruptedException, IOException {
-
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-License-12: Verify user can deactivate the uploaded file", "This test case will verify that user can deactivate the uploaded file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -418,17 +417,17 @@ public class AgreementManagement {
 			Test_Variables.steps.createNode("1. Click on deactivate toggle button in Actions column next to uploaded file");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
-			
-			for (int i=1; i<=10; i++) {
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+			List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			int count = rows.size();
 
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
+			for(int j = 1; j<count; j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1)")).getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(500);
-					Helper.driver.findElement(By.id("status-license-"+i)).click();
+					Helper.driver.findElement(By.id("status-license-"+j)).click();
 					break;
-				}
+				}			
 			}
+
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-yes")).click();
 
@@ -453,7 +452,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Deactivate file",enabled= false, priority = 9) 
+	@Test (description="Test Case: Verify Deactivate file",enabled= true, priority = 9) 
 	public void VerifyDeactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -470,7 +469,6 @@ public class AgreementManagement {
 			Test_Variables.preconditions.createNode("6. Click on deactivate toggle button in Actions column next to uploaded file");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
-
 			Test_Variables.steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
 			WebElement element = Helper.driver.findElement(By.id("progressbar-2"));
@@ -484,10 +482,10 @@ public class AgreementManagement {
 			ClickElement.clickById(Helper.driver, "progressbar-2");
 			Thread.sleep(500);
 			Test_Variables.steps.createNode("2. Search for deactivated file");
-			Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
+			Helper.driver.findElement(By.cssSelector(".ng-input input")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
 			Thread.sleep(500);
 
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.amDropdownSelect)).getText(), "No items found");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), "No items found");
 			Test_Variables.test.pass("The user was not able to see the deactivated file in User Agreement dropdown successfully");
 			Test_Variables.results.createNode("The user was not able to see the deactivated file in User Agreement dropdown successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
@@ -507,7 +505,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Reactivate file",enabled= false, priority = 10) 
+	@Test (description="Test Case: Reactivate file",enabled= true, priority = 10) 
 	public void ReactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -525,20 +523,18 @@ public class AgreementManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
 			Test_Variables.steps.createNode("1. Click on Activate toggle button again");
-//			Thread.sleep(500);
-//			Helper.driver.findElement(By.id("progressbar-1")).click();
-//			Thread.sleep(500);
 
-			for (int i=1; i<=10; i++) {
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+			List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			int count = rows.size();
 
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
+			for(int j = 1; j<count; j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1)")).getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(500);
-					Helper.driver.findElement(By.id("status-license-"+i)).click();
+					Helper.driver.findElement(By.id("status-license-"+j)).click();
 					break;
-				}
+				}			
 			}
+			
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-yes")).click();
 
@@ -563,8 +559,7 @@ public class AgreementManagement {
 	}
 
 
-
-	@Test (description="Test Case: Verify Reactivate file",enabled= false, priority = 11) 
+	@Test (description="Test Case: Verify Reactivate file",enabled= true, priority = 11) 
 	public void VerifyReactivateFile() throws InterruptedException, IOException {
 
 		try {
@@ -595,10 +590,10 @@ public class AgreementManagement {
 			ClickElement.clickById(Helper.driver, "progressbar-2");
 			Thread.sleep(500);
 			Test_Variables.steps.createNode("2. Search for uploaded file in user agreement dropdown");
-			Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
+			Helper.driver.findElement(By.cssSelector(".ng-input input")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
 			Thread.sleep(1000);
 
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.amDropdownSelect)).getText(), Test_Variables.lstAgreemmentManagementFileName.get(2));;
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), Test_Variables.lstAgreemmentManagementFileName.get(2));
 			Test_Variables.test.pass("The user was able to see the uploaded file in user agreement dropdown successfully on reactivating the file");
 			Test_Variables.results.createNode("The user was able to see the uploaded file in user agreement dropdown successfully on reactivating the file");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
@@ -620,7 +615,7 @@ public class AgreementManagement {
 
 
 
-	@Test (description="Test Case: Search User",enabled= false, priority = 12) 
+	@Test (description="Test Case: Search User",enabled= true, priority = 12) 
 	public void SearchUser() throws InterruptedException, IOException {
 
 		try {
@@ -668,7 +663,7 @@ public class AgreementManagement {
 	}
 
 
-	@Test (description="Test Case: Invalid Selection",enabled= false, priority = 13) 
+	@Test (description="Test Case: Invalid Selection",enabled= true, priority = 13) 
 	public void InvalidSelection() throws InterruptedException, IOException {
 
 		try {
@@ -685,10 +680,10 @@ public class AgreementManagement {
 			Thread.sleep(1000);
 			Test_Variables.steps.createNode("1. Go to apply agreement page");
 			ClickElement.clickById(Helper.driver, "progressbar-2");
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Test_Variables.steps.createNode("2. Click on organization radio button");
 						
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div/div[1]/label")).click();
+			Helper.driver.findElement(By.id("ic-orgnType-1")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Please select user agreement.");;
@@ -709,143 +704,13 @@ public class AgreementManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
 		}
 		Helper.driver.findElement(By.id("progressbar-1")).click();
-	}
-
-
-
-	@Test (description="Test Case: Assign Agreement",enabled= false, priority = 14) 
-	public void VerifyAssignAgreement() throws InterruptedException, IOException {
-
-		for (int i =0; i<Test_Variables.lstAgreementManagementCheckbox.size(); i++) {
-
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstAgreementManagementCheckbox.get(i).testCaseTitle, Test_Variables.lstAgreementManagementCheckbox.get(i).testCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
-				Test_Variables.preconditions.createNode("5. Upload a file and go to Apply Agreement page");
-
-				Helper.driver.findElement(By.id("progressbar-2")).click();
-				Thread.sleep(1000);
-				Test_Variables.steps.createNode("1. Select uploaded file from User Agreement dropdown");
-				Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
-				Thread.sleep(500);
-				Helper.driver.findElement(By.xpath(Test_Elements.amDropdownSelect)).click();
-				Thread.sleep(1500);
-
-				Helper.driver.findElement(By.xpath(Test_Elements.amExpandOrg)).click();
-				Thread.sleep(2000);
-				Helper.driver.findElement(By.xpath(Test_Elements.amExpandOrgType)).click();
-				Thread.sleep(1500);
-
-				WebElement chck1 = Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).checkboxInput));
-				System.out.println("The checkbox is selection state is - " + chck1.isSelected());
-
-				if (chck1.isSelected() == true) {	
-					Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).selectCheckbox)).click();
-					Thread.sleep(500);
-					Helper.driver.findElement(By.id("apply-license")).click();
-				}
-
-				Test_Variables.steps.createNode("2. Click on checkbox next to "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+"");
-				Thread.sleep(1000);
-				Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(i).selectCheckbox)).click();
-				Thread.sleep(500);
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-				Test_Variables.steps.createNode("3. Click on save button");
-				Helper.driver.findElement(By.id("apply-license")).click();
-
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-				Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Data details updated.");;
-				Test_Variables.test.pass("The user was able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level successfully");
-				Test_Variables.results.createNode("The user was able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level successfully");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-				Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
-			}
-			catch(AssertionError er) {
-				Test_Variables.test.fail("The user was not able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level");
-				Test_Variables.results.createNode("The user was not able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
-			}
-			catch(Exception ex) {
-				Test_Variables.test.fail("The user was not able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level");
-				Test_Variables.results.createNode("The user was not able to assign agreement at "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" level");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
-			}
-
-
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstAgreementManagementCheckbox.get(i).testCaseTitleUser, Test_Variables.lstAgreementManagementCheckbox.get(i).testCaseDescriptionUser);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
-				Test_Variables.preconditions.createNode("5. Upload a file and go to Apply Agreement page");	
-				Test_Variables.preconditions.createNode("6. Select agreement from dropdown and select "+Test_Variables.lstAgreementManagementCheckbox.get(i).stepName+" checkbox");	
-
-				Test_Variables.steps.createNode("1. Go to user management screen");
-				Helper.driver.get(Constants.url_user);
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("userSearchId")));
-				Thread.sleep(1500); 
-				Test_Variables.steps.createNode("2. Open any user to whom agreement is assigned");
-				Helper.driver.findElement(By.id("orgnType-1")).click();
-				Thread.sleep(1500); 
-				Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraSite)).click();
-				Thread.sleep(1500); 
-				Test_Variables.steps.createNode("3. Check if the agreement is assigned to that user");
-				Helper.driver.findElement(By.cssSelector("#edit-user-1")).click();
-				Thread.sleep(1000); 
-				Helper.driver.findElement(By.id("btn-next")).click();
-				Thread.sleep(1000); 
-				Helper.driver.findElement(By.id("btn-next")).click(); 
-				Thread.sleep(1000); 
-				Helper.driver.findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));	
-				Thread.sleep(1000); 
-
-				WebElement chck = Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[4]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div/div/input"));
-				System.out.println("The checkbox is selection state is - " + chck.isSelected());
-
-				Assert.assertEquals(chck.isSelected(), true);
-				Test_Variables.test.pass("The agreement was assigned to user successfully");
-				Test_Variables.results.createNode("The agreement was assigned to user successfully");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-				Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
-
-			}
-			catch(AssertionError er) {
-				Test_Variables.test.fail("The agreement was not assigned to user");
-				Test_Variables.results.createNode("The agreement was not assigned to user");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
-			}
-			catch(Exception ex) {
-				Test_Variables.test.fail("The agreement was not assigned to user");
-				Test_Variables.results.createNode("The agreement was not assigned to user");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
-			}
-
-			Helper.driver.get(Constants.url_agreementManagement);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-2")));
-			Thread.sleep(1500);
-
-		}
-	}
-
-
+	}	
 	
-	@Test (description="Test Case: User",enabled= false, priority = 15) 
-	public void User() throws InterruptedException, IOException {
-
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-License-24: Verify file is displayed in create/edit user agreement dropdown in User Management", "This test case will verify that file is displayed in create/edit user agreement dropdown");
+	
+	@Test (description="Test Case: Deactivate Assign Agreement",enabled= true, priority = 17) 
+	public void DeactivateAssignAgreement() throws InterruptedException, IOException {
+			
+			Test_Variables.test = Test_Variables.extent.createTest("AN-License-31: Verify user can deactivate assigned Agreement", "This test case will verify that user can deactivate assigned agreement");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -855,227 +720,109 @@ public class AgreementManagement {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
 			Test_Variables.preconditions.createNode("5. Upload a file");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
+			Test_Variables.preconditions.createNode("6. Go to Apply Agreement page and assign user with an agreement");
 
-			Test_Variables.steps.createNode("1. Go to User Management Screen");
-			Helper.driver.get(Constants.url_user);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("userSearchId")));
+			String filename = Helper.driver.findElement(By.id("eula-name-1")).getText();
+			
+			for (int i=0; i<2;i++) {
+			
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
+			Helper.driver.findElement(By.id("progressbar-1")).click();
 			Thread.sleep(1000);
-			Test_Variables.steps.createNode("2. Click on create or edit user button");
-			Helper.driver.findElement(By.id("orgnType-1")).click();
-			Thread.sleep(1000); 
-			Helper.driver.findElement(By.id(Test_Elements.userExpandAnceraSite)).click();
-			Thread.sleep(1000); 
-			Helper.driver.findElement(By.cssSelector("#edit-user-1")).click();
-			Thread.sleep(1000); 
+			Test_Variables.steps.createNode("1. Deactivate the assigned agreement");
+			Helper.driver.findElement(By.id("status-license-1")).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-yes")).click();
+			try {
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User agreement details updated.");;
+			Test_Variables.test.pass("The user was able to deactivate assigned agreement successfully");
+			Test_Variables.results.createNode("The user was able to deactivate assigned agreement successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("The user was not able to deactivate assigned agreement");
+			Test_Variables.results.createNode("The user was not able to deactivate assigned agreement");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("The user was not able to deactivate assigned agreement");
+			Test_Variables.results.createNode("The user was not able to deactivate assigned agreement");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
+		}
+
+
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstAgreementManagementDeactivate.get(i).testCaseTitle, Test_Variables.lstAgreementManagementDeactivate.get(i).testCaseDescription);
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
+			Test_Variables.preconditions.createNode("5. Upload a file");
+			Test_Variables.preconditions.createNode("6. Go to Apply Agreement page and assign user with an agreement");
+			Test_Variables.preconditions.createNode("7. Deactivated the uploaded agreement");
+			Test_Variables.steps.createNode("1. Go to user management page");
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
+			Thread.sleep(1500); 
+			
+			for(int j=1; j<100; j++) {
+				
+				if(Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(4) label")).getText().equals(Test_Variables.login_email)) {
+				
+					Helper.driver.findElement(By.id("edit-user-"+j)).click();
+					break;
+				}	
+			}
+			Thread.sleep(3000); 
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000); 
 			Helper.driver.findElement(By.id("btn-next")).click(); 
-			Thread.sleep(1000); 	
-			Test_Variables.steps.createNode("3. Search for the file in User Agreement dropdown");
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[4]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));	
-			Thread.sleep(1000); 
-			Assert.assertEquals(Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[4]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div")).getText(), Test_Variables.lstAgreemmentManagementFileName.get(0));;
-			Test_Variables.test.pass("The user was able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was able to search for the file in User Agreement dropdown");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("The user was not able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was not able to search for the file in User Agreement dropdown");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("The user was not able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was not able to search for the file in User Agreement dropdown");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
-		}
-	}
-
-
-	@Test (description="Test Case: Organization",enabled= false, priority = 16) 
-	public void Organization() throws InterruptedException, IOException {
-
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-License-25: Verify file is displayed in create/edit user agreement dropdown in Organization Manamgement", "This test case will verify that file is displayed in create/edit user agreement dropdown");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
-			Test_Variables.preconditions.createNode("5. Upload a file");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-
-			Test_Variables.steps.createNode("1. Go to User Management Screen");
-			Helper.driver.get(Constants.url_organization);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("organSearchId")));
+			Thread.sleep(1500); 
+			Test_Variables.steps.createNode("3. Search for the agreement in User Agreement dropdown");
+			
+			ClickElement.clickById(Helper.driver, "euladdl");
 			Thread.sleep(1000);
-			Test_Variables.steps.createNode("2. Click on create or edit user button");
-			Helper.driver.findElement(By.id("orgnType-1")).click();
+			
+			Helper.driver.findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(filename);
 			Thread.sleep(1000); 
-			Helper.driver.findElement(By.id("edit-orgn-1")).click();
-			Thread.sleep(1000); 
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000); 
-			Test_Variables.steps.createNode("3. Search for the file in User Agreement dropdown");
-			Helper.driver.findElement(By.cssSelector("#eulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));	
-			Thread.sleep(1000); 
-			/////////////////////////////////////
-			// ->		Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#a74fd5948ad9 > div.ng-dropdown-panel-items.scroll-host > div:nth-child(2) > div")).getText(), Test_Variables.lstAgreemmentManagementFileName.get(0));;
-			Test_Variables.test.pass("The user was able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was able to search for the file in User Agreement dropdown");
+			
+			if (i==0) {
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), Test_Variables.lstAgreementManagementDeactivate.get(i).userStatus);
+			}
+			if (i==1) {
+				Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), filename);
+			}
+			Test_Variables.test.pass(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);
+			Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
 		}
 		catch(AssertionError er) {
-			Test_Variables.test.fail("The user was not able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was not able to search for the file in User Agreement dropdown");
+			Test_Variables.test.fail(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
+			Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			Test_Variables.test.fail("The user was not able to search for the file in User Agreement dropdown");
-			Test_Variables.results.createNode("The user was not able to search for the file in User Agreement dropdown");
+			Test_Variables.test.fail(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
+			Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
 		}
-	}
-	
-	
-	
-	@Test (description="Test Case: Deactivate Assign Agreement",enabled= false, priority = 17) 
-	public void DeactivateAssignAgreement() throws InterruptedException, IOException {
-
-		Test_Variables.test = Test_Variables.extent.createTest("AN-License-31: Verify user can deactivate assigned Agreement", "This test case will verify that user can deactivate assigned agreement");
-		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-		Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
-		Test_Variables.preconditions.createNode("5. Upload a file");
-		Test_Variables.preconditions.createNode("6. Go to Apply Agreement page and assign user with an agreement");
 
 		Helper.driver.get(Constants.url_agreementManagement);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
-		Helper.driver.findElement(By.id("progressbar-2")).click();
-		Thread.sleep(1000);
-		Test_Variables.steps.createNode("1. Deactivate the uploaded agreement");
-		Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
-		Thread.sleep(500);
-		Helper.driver.findElement(By.xpath(Test_Elements.amDropdownSelect)).click();
 		Thread.sleep(1500);
-
-		WebElement chck1 = Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).checkboxInput));
-		System.out.println("The checkbox is selection state is - " + chck1.isSelected());
-
-		if (chck1.isSelected() == false) {	
-			Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).selectCheckbox)).click();
-			Thread.sleep(500);
-			Helper.driver.findElement(By.id("apply-license")).click();
-		}
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("progressbar-1")).click();
-
-		for (int i =0; i<=1; i++) {
-
-
-			for (int j=1; j<=10; j++) {
-				String actualXpath = Test_Elements.amBeforelist+j+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
-					Thread.sleep(500);
-					Helper.driver.findElement(By.id("status-license-"+j)).click();
-					break;
-				}
 			}
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-yes")).click();
-
-			try {	
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-				Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User agreement details updated.");;
-				Test_Variables.test.pass("The user was able to deactivate assigned agreement successfully");
-				Test_Variables.results.createNode("The user was able to deactivate assigned agreement successfully");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-				Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
-
-			}
-			catch(AssertionError er) {
-				Test_Variables.test.fail("The user was not able to deactivate assigned agreement");
-				Test_Variables.results.createNode("The user was not able to deactivate assigned agreement");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
-			}
-			catch(Exception ex) {
-				Test_Variables.test.fail("The user was not able to deactivate assigned agreement");
-				Test_Variables.results.createNode("The user was not able to deactivate assigned agreement");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
-			}
-
-
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(Test_Variables.lstAgreementManagementDeactivate.get(i).testCaseTitle, Test_Variables.lstAgreementManagementDeactivate.get(i).testCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Administration and select Agreement Management");
-				Test_Variables.preconditions.createNode("5. Upload a file");
-				Test_Variables.preconditions.createNode("6. Go to Apply Agreement page and assign user with an agreement");
-				Test_Variables.preconditions.createNode("7. Deactivated the uploaded agreement");
-				Test_Variables.steps.createNode("1. Go to user management page");
-				Helper.driver.get(Constants.url_user);
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("userSearchId")));
-				Thread.sleep(1500); 
-				Helper.driver.findElement(By.id("orgnType-1")).click();
-				Thread.sleep(1500); 
-				Helper.driver.findElement(By.xpath(Test_Elements.userExpandAnceraSite)).click();
-				Thread.sleep(1500); 
-				Test_Variables.steps.createNode("2. Open any user to whom agreement was assigned");
-				Helper.driver.findElement(By.cssSelector("#edit-user-1")).click();
-				Thread.sleep(1000); 
-				Helper.driver.findElement(By.id("btn-next")).click();
-				Thread.sleep(1000); 
-				Helper.driver.findElement(By.id("btn-next")).click(); 
-				Thread.sleep(1000); 
-				Test_Variables.steps.createNode("3. Search for the agreement in User Agreement dropdown");
-				Helper.driver.findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));	
-				Thread.sleep(1000); 
-
-				Assert.assertEquals(Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[4]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div")).getText(), Test_Variables.lstAgreementManagementDeactivate.get(i).userStatus);
-				Test_Variables.test.pass(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);
-				Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-				Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);
-
-			}
-			catch(AssertionError er) {
-				Test_Variables.test.fail(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
-				Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
-			}
-			catch(Exception ex) {
-				Test_Variables.test.fail(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
-				Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).failMessage);
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
-			}
-
-			Helper.driver.get(Constants.url_agreementManagement);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-2")));
-			Thread.sleep(1500);
-
-		}
 	}
+	
 
-	@Test (description="Test Case: Delete Assigned File",enabled= false, priority = 17) 
+	@Test (description="Test Case: Delete Assigned File",enabled= true, priority = 17) 
 	public void DeleteAssignFile() throws InterruptedException, IOException {
 
 		try {
@@ -1092,40 +839,12 @@ public class AgreementManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 
 			Test_Variables.steps.createNode("1. Assign the agreement to some user or organization");
-
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
 			Thread.sleep(1000);
-
-			Helper.driver.findElement(By.id("progressbar-2")).click();
-			Thread.sleep(1000);
-			Test_Variables.steps.createNode("2. Click on delete icon next to uploaded file in table");
-			Helper.driver.findElement(By.cssSelector("#ApplyEulaId > div > div > div.ng-input > input[type=text]")).sendKeys(Test_Variables.lstAgreemmentManagementFileName.get(2));
-			Thread.sleep(500);
-			Helper.driver.findElement(By.xpath(Test_Elements.amDropdownSelect)).click();
-			Thread.sleep(1500);
-
-			WebElement chck1 = Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).checkboxInput));
-			System.out.println("The checkbox is selection state is - " + chck1.isSelected());
-
-			if (chck1.isSelected() == false) {	
-				Helper.driver.findElement(By.xpath(Test_Variables.lstAgreementManagementCheckbox.get(0).selectCheckbox)).click();
-				Thread.sleep(500);
-				Helper.driver.findElement(By.id("apply-license")).click();
-			}
-			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("progressbar-1")).click();
-
-			for (int i=1; i<=10; i++) {
-				String actualXpath = Test_Elements.amBeforelist+i+Test_Elements.amAfterList2;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-
-				int j= i-1;
-				if (element.getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(2))) {
-					Thread.sleep(500);
-					Helper.driver.findElement(By.id("delete-license-"+j)).click();
-					break;
-				}
-			}
+			Test_Variables.steps.createNode("2. Click on delete icon next to uploaded file in table");
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("delete-license-0")).click();
 
 			Test_Variables.steps.createNode("2. Click on yes button from delete confirmation box");
 			Helper.driver.findElement(By.id("btn-yes")).click();
@@ -1149,7 +868,26 @@ public class AgreementManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
 		}
 	}
+	
+	
+	@Test (enabled= true, priority = 18) 
+	public void DeleteFile() throws InterruptedException, IOException {
+		
+		List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+		int count = rows.size();
 
+		for(int j = 1; j<count; j++) {
+			if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1)")).getText().equals(Test_Variables.lstAgreemmentManagementFileName.get(0))) {
+				int x = j-1;
+				Helper.driver.findElement(By.id("delete-license-"+x)).click();
+				break;
+			}
+		}
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.id("btn-yes")).click();
+	}
+	
+	
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();

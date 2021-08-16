@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.SalmonellaLog">
+      <class name="Test.Ancera.Administration.BarcodeManagement">
         <methods>
-          <include name="FieldAccessUnview"/>
           <include name="extent"/>
           <include name="endreport"/>
+          <include name="ErrorOpeningPrintScreen"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.SalmonellaLog -->
+      </class> <!-- Test.Ancera.Administration.BarcodeManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
