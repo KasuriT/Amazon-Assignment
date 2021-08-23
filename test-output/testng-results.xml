@@ -1,41 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
+<testng-results ignored="8" total="9" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-16T12:48:36 PKT" name="Default suite" finished-at="2021-08-16T12:50:14 PKT" duration-ms="97710">
+  <suite started-at="2021-08-23T14:48:35 PKT" name="Default suite" finished-at="2021-08-23T14:50:39 PKT" duration-ms="123380">
     <groups>
     </groups>
-    <test started-at="2021-08-16T12:48:36 PKT" name="Default test" finished-at="2021-08-16T12:50:14 PKT" duration-ms="97710">
-      <class name="Test.Ancera.Administration.BarcodeManagement">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:48:36 PKT" name="extent" finished-at="2021-08-16T12:48:56 PKT" duration-ms="19913" status="PASS">
+    <test started-at="2021-08-23T14:48:35 PKT" name="Default test" finished-at="2021-08-23T14:50:39 PKT" duration-ms="123380">
+      <class name="Test.Ancera.Administration.AccessManagement">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:48:35 PKT" name="extent" finished-at="2021-08-23T14:49:08 PKT" duration-ms="33297" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NavigateBarcodeManagement()[pri:1, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:48:56 PKT" name="NavigateBarcodeManagement" description="Test Case: Navigate to Barcode Management Screen" finished-at="2021-08-16T12:49:01 PKT" duration-ms="4884" status="PASS">
+        <test-method signature="UserManagementAccess()[pri:2, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:49:08 PKT" name="UserManagementAccess" description="Test Case: User Management Access" finished-at="2021-08-23T14:50:38 PKT" duration-ms="89308" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NavigateBarcodeManagement -->
-        <test-method signature="ErrorOpeningPrintScreen()[pri:2, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:01 PKT" name="ErrorOpeningPrintScreen" description="Test Case: Error Opening Print Screen" finished-at="2021-08-16T12:49:04 PKT" duration-ms="3095" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- ErrorOpeningPrintScreen -->
-        <test-method signature="OpenPrintScreen()[pri:3, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:04 PKT" name="OpenPrintScreen" description="Test Case: Open print screen" finished-at="2021-08-16T12:49:54 PKT" duration-ms="50129" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- OpenPrintScreen -->
-        <test-method signature="AssignedSiteAppearance()[pri:4, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:49:54 PKT" name="AssignedSiteAppearance" description="Test Case: Assign Sites Appearance" finished-at="2021-08-16T12:50:11 PKT" duration-ms="16723" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AssignedSiteAppearance -->
-        <test-method signature="SearchFunctionality()[pri:5, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:50:11 PKT" name="SearchFunctionality" description="Test Case: Search Functionality" finished-at="2021-08-16T12:50:13 PKT" duration-ms="2647" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SearchFunctionality -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@2fd1433e]" started-at="2021-08-16T12:50:13 PKT" name="endreport" finished-at="2021-08-16T12:50:14 PKT" duration-ms="291" status="PASS">
+        </test-method> <!-- UserManagementAccess -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:50:38 PKT" name="endreport" finished-at="2021-08-23T14:50:39 PKT" duration-ms="739" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Administration.BarcodeManagement -->
+      </class> <!-- Test.Ancera.Administration.AccessManagement -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -4,6 +4,8 @@ public class Constants {
 
 	public static String url = "https://ie-qa.ancera.com"; 
 	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
+//	public static String api = "https://13.92.39.61:8081/api/ancerainput/v1";
+	
 //	public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
 //	public static String url = "https://ie-uat.ancera.com";   

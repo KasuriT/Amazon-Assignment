@@ -1,5 +1,10 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import Test.Ancera.Test_Elements;
+
 public class AccessModel {
 
 	public boolean isOpenPopUp;
@@ -17,10 +22,10 @@ public class AccessModel {
 	public String rgtestcase;
 	public boolean rgstep;
 	
-	
-	
-	
-	
+	public String TestCaseName;
+	public String TestCaseDescription;
+	public ArrayList<ReportFilters> lstFilters;
+
 	public AccessModel (boolean _isOpenPopup, String _accessName, String _accessDesc, String _step1, String _testcase, boolean _step )
 	
 	{
@@ -30,9 +35,7 @@ public class AccessModel {
 		this.step1 = _step1;
 		this.testcase = _testcase;
 		this.step = _step;
-
 	}
-	
 	
 	public AccessModel (String _rgName, String _rgDesc, boolean _rgReports, String _rgstep1, boolean _rgsave, String _rgtestcase, boolean _rgstep )
 	
@@ -44,6 +47,26 @@ public class AccessModel {
 		this.rgsave = _rgsave;
 		this.rgtestcase = _rgtestcase;
 		this.rgstep = _rgstep;
+	}
+	
+	
+	public AccessModel() {
+	}
 
+	public static ArrayList<AccessModel> UserManagementAccessData() {
+		ArrayList<AccessModel> lstAccessModel = new ArrayList<AccessModel>();
+		AccessModel objTmp = new AccessModel();
+		ReportFilters  objFilter = new ReportFilters();
+		objFilter.FilterName = "Lane Filter";
+		objTmp.TestCaseName = "AN-SL-11: ";
+		objTmp.TestCaseDescription = "";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slLane));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3")); 
+		objTmp.lstFilters.add(objFilter);
+		lstAccessModel.add(objTmp);	
+
+		return lstAccessModel;
 	}
 }

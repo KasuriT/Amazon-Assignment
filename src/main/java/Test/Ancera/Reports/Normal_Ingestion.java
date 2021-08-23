@@ -785,7 +785,7 @@ public class Normal_Ingestion {
 	
 	
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= false, priority= 2) 
+	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= true, priority= 2) 
 	public void NormalIngestionCoccidia() throws InterruptedException, IOException	{
 		Test_Variables.lstNormalIngestion = NormalIngestionModel.FillDataCocci();
 		for (NormalIngestionModel objModel : Test_Variables.lstNormalIngestion) { 

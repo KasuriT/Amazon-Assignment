@@ -166,7 +166,16 @@ public class Test_Elements {
 	public static String orgSiteNameValidation = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[2]/div";
 	public static String orgSiteTypeValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/div";
 	public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
-
+	public static String orgSiteDelete = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li[1]/div/div[4]/i[2]";
+	
+	public static String orgSite1Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i";
+	public static String orgSite2Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite3Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite4Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite5Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite6Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/i[1]";
+	public static String orgSite7Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/i[1]";
+	
 	public static String orgPopupCloseButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]/p";
 	public static String orgMaxUser = "//*[@id=\"idMaxUsers\"]";
 	public static String orgSearch = "//*[@id=\"organSearchId\"]";
@@ -590,9 +599,6 @@ public class Test_Elements {
 
 	public static String closeAudit = ".u-report-modal-close-icon";
 	
-	
-	
-	
 	public static String slPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
 	public static String slCsvHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]";
 	public static String slPng = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
@@ -619,9 +625,11 @@ public class Test_Elements {
 	public static String clAssayCol = "9";
 	public static String clResultIDCol = "10";
 	public static String clDateCol = "11";
+	public static String clTimeCol = "12";
 	public static String clSiteNameCol = "13";
 	public static String clSampleMatrixCol = "14";
 	public static String clCSampleIDCol = "15";
+	public static String clReceivedDateCol = "16";
 	public static String clCatridgeIDCol = "17";
 	public static String clInstrumentIDCol = "18";
 	public static String clTotalCountCol = "19";
@@ -638,6 +646,7 @@ public class Test_Elements {
 	public static String clFlockIDCol = "31";
 	public static String clRunTypeCol = "32";
 	public static String clCollectionDateCol = "33";
+	public static String clFieldAccessCol = "34";
 	
 	public static String clAuditLaneCol = "0";
 	public static String clAuditSampleIDCol = "1";
@@ -646,6 +655,7 @@ public class Test_Elements {
 	public static String clAuditResultCol = "4";
 	public static String clAuditAssayCol = "5";
 	public static String clAuditDateCol = "6";
+	public static String clAuditTimeCol = "7";
 	public static String clAuditSiteNameCol = "8";
 	public static String clAuditSiteIDCol = "9";
 	public static String clAuditSiteTypeCol = "10";
@@ -671,12 +681,61 @@ public class Test_Elements {
 	public static String clAuditRunTypeCol = "31";
 	public static String clAuditCollectionDateCol = "32";
 	
-	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
-	public static String clLast24Hours = "body app-root p:nth-child(2)";
-	public static String clLast7Days = "body app-root p:nth-child(3)";
-	public static String clLast30Days = "body app-root p:nth-child(4)";
-	public static String clThisMonth = "body app-root p:nth-child(5)";
-	public static String clLastMonth = "body app-root p:nth-child(6)";	
+	public static String clShowFilter = "_show-filter";
+	public static String clSortFilter = "sort-";
+	public static String clApplyFilter = "_apply";
+	public static String clClearFilter = "_clear-filter";
+	
+	public static String clLane = "laneNum";
+	public static String clSampleID = "sampleId";
+	public static String clQCCode = "countOutcome";
+	public static String clResultStatus = "result_status";
+	public static String clTotalOPG = "totalOPG";
+	public static String clSmallOPG = "totalSmallOPG";
+	public static String clMediumOPG = "totalMediumOPG";
+	public static String clLargeOPG = "totalLargeOPG";
+	public static String clResult = "outcome";
+	public static String clAssay = "pathogen";
+	public static String clResultTime = "time";
+	public static String clResultDate = "scanDateTime";
+	public static String clCollectionSiteID = "collection_site_id";
+	public static String clCollectionSiteName = "site_id";
+	public static String clSampleMatrix = "sample_matrix";
+	public static String clCustomerSampleID = "customer_sample_id";
+	public static String clDateReceived = "metadata_date_recieved";
+	public static String clCartridgeID = "cartridgeId";
+	public static String clInstrumentID = "instrumentId";
+	public static String clTotalCount = "oocystTotalCount";
+	public static String clSmallCount = "oocystSmallCount";
+	public static String clMediumCount = "oocystMediumCount";
+	public static String clLargeCount = "oocystLargeCount";
+	public static String clMeanIntensity = "oocystMeanIntensity";
+	public static String clPiperUser = "user_name";
+	public static String clkitLot = "kit_lot";
+	public static String clImprocVersion = "version";
+	public static String clTestSiteID = "testSiteId";
+	public static String clTestSiteName = "testSiteName";
+	public static String clRequestedAssay = "requested_assay";
+	public static String clFlockID = "flock_id";
+	public static String clRunType = "runType";
+	public static String clCollectionDate = "collectionDate";
+
+	
+	public static String clToday = "#list-title_range-0";
+	public static String clLast24Hours = "#list-title_range-1";
+	public static String clLast7Days = "#list-title_range-2";
+	public static String clLast30Days = "#list-title_range-3";
+	public static String clThisMonth = "#list-title_range-4";
+	public static String clLastMonth = "#list-title_range-5";	
+	
+	
+	
+//	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
+//	public static String clLast24Hours = "body app-root p:nth-child(2)";
+//	public static String clLast7Days = "body app-root p:nth-child(3)";
+//	public static String clLast30Days = "body app-root p:nth-child(4)";
+//	public static String clThisMonth = "body app-root p:nth-child(5)";
+//	public static String clLastMonth = "body app-root p:nth-child(6)";	
 	
 	public static String clTotalPages = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 

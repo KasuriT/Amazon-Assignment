@@ -29,10 +29,10 @@ import Models.PiperSoftwareModel;
 import Models.PoultryManagementModel;
 import Models.ProfileModel;
 import Models.RMModel;
+import Models.RawImageModel;
 import Models.SalmonellaModel;
 import Models.StartAssayModel;
 import Models.UserModel;
-import Test.Ancera.Administration.AgreementManagement;
 
 public class Test_Variables {
 
@@ -291,6 +291,7 @@ public class Test_Variables {
 			Arrays.asList("New Reporting role created.", 
 					"Reporting role details updated successfully."));
 	
+	public static ArrayList<AccessModel> lstUserManagementAccessRole = new ArrayList<>();
 
 	//////////////////////////////////////////////////////End Access Management Screen Variables////////////////////////////////////////////////
 
@@ -556,6 +557,7 @@ public class Test_Variables {
 	public static ArrayList<CoccidiaModel> lstCoccidiaRowCount = new ArrayList<>();
 	public static ArrayList<CoccidiaModel> lstCoccidiaPagination = new ArrayList<>();
 	public static ArrayList<CoccidiaModel> lstCoccidiaSorting = new ArrayList<>();
+	public static ArrayList<CoccidiaModel> lstCoccidiaFieldAccess = new ArrayList<>();
 	public static ArrayList<CoccidiaModel> lstCoccidiaContexualCheck = new ArrayList<>();
 	public static ArrayList<CoccidiaModel> lstCoccidiaLock = new ArrayList<>();
 	
@@ -600,6 +602,14 @@ public class Test_Variables {
 	public static String installationImprocVersionListeria = "2.2.2";
 	
 	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////////////////////Installation Run///////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<RawImageModel> lstRawImageCoccidia = new ArrayList<>();
+
+	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	/////////////////////////////////////////////////////////////P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 
 	

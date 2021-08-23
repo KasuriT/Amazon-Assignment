@@ -406,7 +406,6 @@ public class SalmonellaLog {
 								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollBack); 	
 							}
 
-						//	System.out.println(recordBefore+", "+recordAfter);
 							Assert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass("Checkbox selected successfully");
 							Test_Variables.results.createNode("Checkbox selected successfully");

@@ -636,8 +636,220 @@ public class OrganizationManagement{
 	}
 	
 	
+
 	
-	@Test (description="Test Case: Organization Site Mandatory Check",enabled= true, priority= 10) 
+	@Test (description="Test Case: Organization Site Check",enabled= true, priority= 10) 
+	public void OrganizationSitesCheck() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select Organization Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new Organization");
+			Test_Variables.steps.createNode("1. Click on site button next to created Organization; Organization Site popup appears");
+			Test_Variables.steps.createNode("2. Verify Site Type is Organization");
+
+			
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest");
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("orgnType-1")).click();
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
+//			Thread.sleep(5000);
+//	//		Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i")).click();
+//			Thread.sleep(3000);	
+			
+			
+			
+				
+			Test_Functions.OrgSearch();
+			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.cssSelector("li .text-ellipsis")).click(); 
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String orgType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();
+			Assert.assertEquals(orgType, "Organization");
+			
+			Test_Variables.steps.createNode("3. Click on + icon to create new site and verify Site Type is Region");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite1Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String regionType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			Assert.assertEquals(regionType, "Region");
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Region");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("4. Verify Region Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+			
+			Test_Variables.steps.createNode("5. Click on + icon to create new site and verify Site Type is Sub Region");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite2Add)).click();
+			Thread.sleep(1500);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String subregionType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			Assert.assertEquals(subregionType, "Sub Region");
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Sub Region");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("6. Verify Sub Region Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+			
+			Test_Variables.steps.createNode("7. Click on + icon to create new site and verify Site Type as Complex, Processing PLant, Testing Lab");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite3Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("SiteTypeId")).click();
+			Thread.sleep(1000);
+			
+			String ele1 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();
+			String ele2 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(2)")).getText();
+			String ele3 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(3)")).getText();
+			
+			Assert.assertEquals(ele1, "Complex");
+			Assert.assertEquals(ele2, "Processing Plant");			
+			Assert.assertEquals(ele3, "Testing Lab");
+					
+			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Complex Site");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("8. Verify Complex Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+					
+			Test_Variables.steps.createNode("9. Click on + icon to create new site and verify Site Type as Farm");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite4Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String farmType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			Assert.assertEquals(farmType, "Farm");
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Farm");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("10. Verify Farm Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+			
+			Test_Variables.steps.createNode("11. Click on + icon to create new site and verify Site Type as House");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite5Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String HouseType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			Assert.assertEquals(HouseType, "House");
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test House");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("12. Verify House Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+			
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite3Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("SiteTypeId")).click();
+			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(2)")).click();
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Processing Plant Site");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("13. Create Processing PLant Site");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+			
+			Test_Variables.steps.createNode("14. Click on + icon to create new site and verify Site Type as Rehang, BIrd Wash, Bird Rinse, Chiller, Wing Dip");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite6Add)).click();
+			Thread.sleep(1500);
+			Helper.driver.findElement(By.id("SiteTypeId")).click();
+			Thread.sleep(1000);
+			
+			String elem1 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();
+			String elem2 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(2)")).getText();
+			String elem3 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(3)")).getText();
+			String elem4 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(4)")).getText();
+			String elem5 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(5)")).getText();
+			
+			Assert.assertEquals(elem1, "Rehang");
+			Assert.assertEquals(elem2, "Bird Wash");			
+			Assert.assertEquals(elem3, "Bird Rinse");
+			Assert.assertEquals(elem4, "Chiller");			
+			Assert.assertEquals(elem5, "Wing Dip");	
+			
+			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(4)")).click();
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Chiller Site");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("15. Verify Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+					
+	
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite3Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("SiteTypeId")).click();
+			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(3)")).click();
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Testing Lab Site");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("16. Create Testing Lab Site");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+					
+			Test_Variables.steps.createNode("17. Click on + icon to create new site and verify Site Type as Lab-Sub Division");
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSite7Add)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.cssSelector("#SiteTypeId input")).click();
+			String subDivisionType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			Assert.assertEquals(subDivisionType, "Lab-Sub Division");
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Test Sub Division Site");
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
+			Test_Variables.steps.createNode("18. Verify Lab Sub Division Site can be saved");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
+				
+			Test_Variables.test.pass("Site heirarchy verified successfully");
+			Test_Variables.results.createNode("Site heirarchy verified successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
+			
+			
+			Helper.driver.findElement(By.xpath(Test_Elements.orgSiteDelete)).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-yes")).click();
+			Thread.sleep(1000);
+			
+			
+		}catch(AssertionError er){
+			Test_Variables.test.fail("Site heirarchy failed to verify successfully");
+			Test_Variables.results.createNode("Site heirarchy failed to verify successfully");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			Test_Variables.test.fail("Site heirarchy failed to verify successfully");
+			Test_Variables.results.createNode("Site heirarchy failed to verify successfully");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, ex);
+		}
+	}	
+	
+	
+	@Test (description="Test Case: Organization Site Mandatory Check",enabled= true, priority= 11) 
 	public void OrganizationSiteMandatoryCheck() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-26: Verify Organization Site Mandatory check", "This test case will verify that user cannot create organization site with out filling all mandatory fields");
@@ -653,6 +865,7 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Leave all fields empty and click on save button");
 
+			Helper.driver.navigate().refresh();
 			Test_Functions.OrgSearch();
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
 			Thread.sleep(2000);
@@ -681,7 +894,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Exceptional Flow: Site Reset fields", enabled= true, priority= 11) 
+	@Test (description="Exceptional Flow: Site Reset fields", enabled= true, priority= 12) 
 	public void SiteResetButton() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-27: Verify Organization Site Reset fields check", "This test case will verify that user can reset fields of create organization site");
@@ -698,11 +911,8 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("3. Enter data in fields");
 			Test_Variables.steps.createNode("4. Click on reset button");
 
-			//Thread.sleep(2000);
 			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Lab");
-			//	String orgSiteNameReset = Helper.driver.findElement(By.id("SiteNameId")).getText();
-			String orgSiteName = Helper.driver.findElement(By.id("SiteNameId")).getAttribute("value");
-			System.out.println(orgSiteName);
+			//String orgSiteName = Helper.driver.findElement(By.id("SiteNameId")).getAttribute("value");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.id("btn-reset")).click();
 			Thread.sleep(1000);
@@ -711,7 +921,6 @@ public class OrganizationManagement{
 			Assert.assertTrue(orgSiteNameReset.isEmpty());
 			Test_Variables.test.pass("Fields reset successfully");   
 			Test_Variables.results.createNode("Fields reset successfully");
-			//Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
 		}
 		catch(AssertionError er){
@@ -727,7 +936,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: Create Organization Site",enabled= true, priority= 12) 
+	@Test (description="Test Case: Create Organization Site",enabled= true, priority= 13) 
 	public void CreateOrganizationSite() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-28: Verify Organization Site can be created", "This test case will verify that organization site can be created");
@@ -742,14 +951,40 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("1. Click on site button next to created Organization; Organization Site popup appears");
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Enter valid data in fields");
-			Test_Variables.steps.createNode("4. Click on save button");
+			Test_Variables.steps.createNode("4. Verify valid data is populated on entering valid street address");
+			Test_Variables.steps.createNode("5. Click on save button");
+
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest");
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("orgnType-1")).click();
+//			Thread.sleep(3000);
+//			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
+//			Thread.sleep(5000);
+//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i")).click();
+//			Thread.sleep(3000);		
 
 			Helper.driver.findElement(By.id("SiteTypeId")).click();   
 			Thread.sleep(500);	
 			ClickElement.clickByCss(Helper.driver, "#SiteTypeId div.ng-option:nth-child(1)");
-			//Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/ng-select/ng-dropdown-panel/div/div[2]/div/span")).click(); 
 			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Lab");    
 			Thread.sleep(500);
+			
+			WebElement stAddress = Helper.driver.findElement(By.id("streetAddressId"));
+			stAddress.sendKeys("2428 Carriage Lane"); stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
+			Thread.sleep(8000);
+			
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] span[class='ng-value-label ng-star-inserted']")).getText(), "USA");
+			Helper.driver.findElement(By.cssSelector("#stateId input")).click();
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId .ng-value-label")).getText(), "North Carolina");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='form-group pull-left pl-0 pr-1 col-md-8'] span[class='ng-value-label ng-star-inserted']")).getText(), "Lincolnton");
+
+			//Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#zipCodeId")).getText(), "28092");
+//			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#LatId")).getText(), "35.529122");
+//			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#LongId")).getText(), "-81.27100410000001");
+		
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click(); 
 			Thread.sleep(500);
@@ -778,7 +1013,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Update Organization Sites ",enabled= true, priority= 13) 
+	@Test (description="Test Case: Update Organization Sites ",enabled= true, priority= 14) 
 	public void UpdateOrganizationSites() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-29: Verify Organization Site can be updated", "This test case will verify that organization site can be updated");
@@ -798,11 +1033,13 @@ public class OrganizationManagement{
 
 			Test_Variables.test.createNode("Click on update button next to created site");
 			Helper.driver.findElement(By.xpath(Test_Elements.orgCreatedSite)).click(); 
-			Thread.sleep(3000);
-
-			Helper.driver.findElement(By.id("zipCodeId")).clear();
-			Helper.driver.findElement(By.id("zipCodeId")).sendKeys("54000");  
+			Thread.sleep(4000);
+			Helper.driver.findElement(By.id("SiteNameId")).clear();
+			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Lab Updated");  
 			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] span[class='ng-value-label ng-star-inserted']")).getText(), "USA");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId .ng-value-label")).getText(), "North Carolina");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='form-group pull-left pl-0 pr-1 col-md-8'] span[class='ng-value-label ng-star-inserted']")).getText(), "Lincolnton");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click(); 
 			Thread.sleep(1000);
@@ -811,7 +1048,6 @@ public class OrganizationManagement{
 			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstOrgAlertMessages.get(3) ;
 			Thread.sleep(1000);
-
 			Assert.assertEquals(actual, expected); 
 			Test_Variables.test.pass("Organization site updated successfully");
 			Test_Variables.results.createNode("Organization site updated successfully");
@@ -833,7 +1069,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Verify Update Organization Sites ",enabled= true, priority= 14) 
+	@Test (description="Test Case: Verify Update Organization Sites ",enabled= true, priority= 15) 
 	public void VerifyUpdateOrganizationSites() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-30: Verify Organization Site remains updated on reopening", "This test case will verify that updated organization site remain saved");
@@ -862,9 +1098,8 @@ public class OrganizationManagement{
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("streetAddressId")));
 			Thread.sleep(3000);
-			String addressActual = Helper.driver.findElement(By.id("zipCodeId")).getAttribute("value");
-			String addressExpected = "54000";
-
+			String addressActual = Helper.driver.findElement(By.id("SiteNameId")).getAttribute("value");
+			String addressExpected = "Lab Updated";
 
 			Assert.assertEquals(addressActual, addressExpected); 
 			Test_Variables.test.pass("New Organization site updation verified successfully");
@@ -885,7 +1120,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Delete Organization Sites ",enabled= true, priority= 15) 
+	@Test (description="Test Case: Delete Organization Sites ",enabled= true, priority= 16) 
 	public void DeleteOrganizationSites() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31: Verify Organization Site can be deleted", "This test case will verify that organization site can be deleted");
@@ -935,7 +1170,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: InActive Organization",enabled= true, priority= 16) 
+	@Test (description="Test Case: InActive Organization",enabled= true, priority= 17) 
 	public void InActiveOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-32: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
@@ -956,7 +1191,6 @@ public class OrganizationManagement{
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));  
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
-		//	ClickElement.clickById(Helper.driver, "btn-next");
 			Thread.sleep(2000);
 
 			ClickElement.clickByCss(Helper.driver, "#orgn-status .toggle");
@@ -986,7 +1220,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 17) 
+	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 18) 
 	public void VerifyInActiveOrganization() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-33: Verify inactive Organization Site is not displayed in create user popup", "This test case will verify that inactive organization is not displayed in create new user popup");
@@ -1004,24 +1238,26 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("4. Search for the inactivated organization in Organization dropdown; should not appear");
 
 			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("create-user")).click();
-
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstNameId")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("firstNameId")).sendKeys(Test_Variables.lstUserCreate.get(0));    
 			Helper.driver.findElement(By.id("lastNameId")).sendKeys(Test_Variables.lstUserCreate.get(1));  
-			Helper.driver.findElement(By.id("phoneCodeId")).click();      
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("phoneCodeId")).click();   
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#phoneCodeId div.ng-star-inserted")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("PhoneNumberId")).sendKeys(Test_Variables.lstUserCreate.get(2));
 			Helper.driver.findElement(By.id("btn-next")).click();
-
+			Thread.sleep(2000);
 			ClickElement.clickById(Helper.driver, "orgTypeId");
 			Thread.sleep(500);
 			ClickElement.clickByCss(Helper.driver, "#orgTypeId div.ng-option:nth-child(1)");
-			//Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[2]/ng-select/ng-dropdown-panel/div/div[2]/div[1]/span")).click();  
 			Thread.sleep(500);
 			ClickElement.clickById(Helper.driver, "organizationId");
 			Thread.sleep(500);
@@ -1046,7 +1282,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Delete Organization",enabled= true, priority= 18) 
+	@Test (description="Test Case: Delete Organization",enabled= true, priority= 19) 
 	public void DeleteOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-34: Verify Organization can be deleted", "This test case will verify that organization can be deleted");
@@ -1068,13 +1304,6 @@ public class OrganizationManagement{
 
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("delete-orgn-1")));
 			Helper.driver.findElement(By.id("delete-orgn-1")).click();
-			
-	//		List<WebElement> x = Helper.driver.findElements(By.xpath(Test_Elements.orgDeleteButton));
-
-	//		if (x.size() > 0)
-	//		{
-	//			x.get(0).click();
-	//		}
 
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-yes")));
 			Helper.driver.findElement(By.id("btn-yes")).click();  

@@ -27,10 +27,10 @@ public class Test_Functions {
 		
 		Thread.sleep(2000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgSearch)));
-		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).clear();
-		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
-	//	Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys("Organization0447");
-		Helper.driver.findElement(By.xpath(Test_Elements.orgSearch)).sendKeys(Keys.ENTER);
+		Helper.driver.findElement(By.id("organSearchId")).clear();
+		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
+	//	Helper.driver.findElement(By.id("organSearchId")).sendKeys("Test Organization0447");
+		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
 		Thread.sleep(2000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgExpandAnceraTab)));
 		Helper.driver.findElement(By.xpath(Test_Elements.orgExpandAnceraTab)).click();
@@ -73,6 +73,30 @@ public class Test_Functions {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 	}
+	
+	
+	
+	public static void login() throws InterruptedException, IOException {
+	Helper.driver.findElement(By.id("logout")).click();
+	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+	Thread.sleep(1000);
+	Helper.driver.findElement(By.id("email")).clear();
+	Helper.driver.findElement(By.id("email")).sendKeys(Test_Variables.login_email);
+	Helper.driver.findElement(By.id("pwd")).clear();
+	Helper.driver.findElement(By.id("pwd")).sendKeys(Test_Variables.login_password);
+	Helper.driver.findElement(By.id("btn-sign-in")).click();
+	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
