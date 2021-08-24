@@ -71,11 +71,10 @@ public class AccessManagement{
 		}
 	}
 
-	
-	@Test (description="Test Case: User Management Access",enabled= true, priority = 2) 
+	@Test (description="Test Case: User Management Access",enabled= false, priority = 2) 
 	public void UserManagementAccess() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("aa", "aa");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-12/13/14: Verify create, update and view role of user", "This test case will verify that create, update and view role of user");
 
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -84,9 +83,8 @@ public class AccessManagement{
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-			Test_Variables.steps.createNode("1. Click on filed access icon; popup appears");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
+			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
 
 			///////////////////////////////
 
@@ -107,7 +105,6 @@ public class AccessManagement{
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
 			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
-			System.out.println(getSystemRole);
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -121,6 +118,7 @@ public class AccessManagement{
 				}
 			}
 
+			Test_Variables.steps.createNode("2. Unselect Create radio button next to User Management");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.cssSelector("#isCreateUsers")).isSelected() == true) {	
@@ -134,6 +132,7 @@ public class AccessManagement{
 
 			Test_Functions.login();
 
+			Test_Variables.steps.createNode("3. Go to User Management screen and verify that user is not able to create a new user");
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -141,6 +140,7 @@ public class AccessManagement{
 
 			////////////////////
 
+			Test_Variables.steps.createNode("4. Go to Access Management screen and unselect Edit radio button");
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
@@ -170,6 +170,7 @@ public class AccessManagement{
 
 			Test_Functions.login();
 
+			Test_Variables.steps.createNode("5. Go to User Management screen and verify that user is not able to edit any user");
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -178,6 +179,7 @@ public class AccessManagement{
 			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-untouched#firstNameId")).size(), 1);
 			////////////////////////////////////
 
+			Test_Variables.steps.createNode("6. Go to Access Management screen and unselect View radio button next to User Management");
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
@@ -216,6 +218,7 @@ public class AccessManagement{
 			WebElement pngHover = Helper.driver.findElement(By.id("menu-administration"));
 			builder.moveToElement(pngHover).build().perform();
 
+			Test_Variables.steps.createNode("7. Verify that User Management is not visible in side menu bar");
 			Helper.driver.findElement(By.id("menu-administration")).click();			
 			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageUsersMenu")).size(), 0);
 
@@ -249,20 +252,410 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Test_Variables.test.pass("Access Rights passed for User Management Screen successfully");
+			Test_Variables.results.createNode("Access Rights passed for User Management Screen successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}
 		catch(AssertionError er){
-			Test_Variables.test.fail("Create Access popup failed to open");
-			Test_Variables.results.createNode("Create Access popup failed to open");
+			Test_Variables.test.fail("Access Rights failed for User Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for User Management Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
 		}	
 		catch(Exception ex){
-			Test_Variables.test.fail("Create Access popup failed to open");
-			Test_Variables.results.createNode("Create Access popup failed to open");
+			Test_Variables.test.fail("Access Rights failed for User Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for User Management Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}
 	}
 
 
+	
+	@Test (description="Test Case: Organization Management Access",enabled= false, priority = 3) 
+	public void OrganizationManagementAccess() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-15/16/17: Verify create, update and view role of organization", "This test case will verify that create, update and view role of organization");
+
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
+			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
+
+			///////////////////////////////
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)  label")).getText().equals(Test_Variables.login_email)) {
+					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
+
+			
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Variables.steps.createNode("2. Unselect Create radio button next to Organization Management");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+
+			Test_Functions.login();
+
+			Test_Variables.steps.createNode("3. Go to Organization Management screen and verify that user is not able to create a new user");
+			Helper.driver.get(Constants.url_organization);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElements(By.id("create-organization")).size(), 0);
+
+			////////////////////
+
+			Test_Variables.steps.createNode("4. Go to Access Management screen and unselect Edit radio button");
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+
+			Test_Functions.login();
+
+			Test_Variables.steps.createNode("5. Go to Organization Management screen and verify that user is not able to edit any user");
+			Helper.driver.get(Constants.url_organization);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
+			Helper.driver.findElement(By.id("orgnType-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));
+			Thread.sleep(2000);
+			
+			Helper.driver.findElement(By.id("edit-orgn-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-untouched#nameId")).size(), 1);
+			////////////////////////////////////
+
+			Test_Variables.steps.createNode("6. Go to Access Management screen and unselect View radio button next to User Management");
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+
+			Test_Functions.login();
+
+			Actions builder = new Actions(Helper.driver); 
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("menu-administration")));
+			WebElement pngHover = Helper.driver.findElement(By.id("menu-administration"));
+			builder.moveToElement(pngHover).build().perform();
+
+			Test_Variables.steps.createNode("7. Verify that Organization Management is not visible in side menu bar");
+			Helper.driver.findElement(By.id("menu-administration")).click();			
+			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageOrganMenu")).size(), 0);
+
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Test_Variables.test.pass("Access Rights passed for Organization Management Screen successfully");
+			Test_Variables.results.createNode("Access Rights passed for Organization Management Screen successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+		}
+		catch(AssertionError er){
+			Test_Variables.test.fail("Access Rights failed for Organization Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for Organization Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			Test_Variables.test.fail("Access Rights failed for Organization Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for Organization Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
+		}
+	}
+	
+	
+	
+	@Test (description="Test Case: Organization Sites Management Access",enabled= true, priority = 4) 
+	public void OrganizationSitesManagementAccess() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-18/19/20: Verify create, update and view role of organization sites", "This test case will verify that create, update and view role of organization sites");
+
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
+			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
+
+			///////////////////////////////
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)  label")).getText().equals(Test_Variables.login_email)) {
+					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
+
+			
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Variables.steps.createNode("2. Unselect Create and Update radio button next to Organization Sites");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			
+			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateOrganization Sites']")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) div:nth-child(1)")).click();
+			}
+			
+			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateOrganization Sites']")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+
+			Test_Functions.login();
+
+			Test_Variables.steps.createNode("3. Go to Organization Management screen and verify that user is not able to create or update a site");
+			Helper.driver.get(Constants.url_organization);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
+			
+			
+			
+			Assert.assertEquals(Helper.driver.findElements(By.id("create-organization")).size(), 0);
+
+			////////////////////
+
+
+		
+			Helper.driver.findElement(By.id("orgnType-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));
+			Thread.sleep(2000);
+			
+			Helper.driver.findElement(By.id("edit-orgn-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-untouched#nameId")).size(), 1);
+			////////////////////////////////////
+
+			Test_Variables.steps.createNode("6. Go to Access Management screen and unselect View radio button next to User Management");
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == true) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+
+			Test_Functions.login();
+
+			Actions builder = new Actions(Helper.driver); 
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("menu-administration")));
+			WebElement pngHover = Helper.driver.findElement(By.id("menu-administration"));
+			builder.moveToElement(pngHover).build().perform();
+
+			Test_Variables.steps.createNode("7. Verify that Organization Management is not visible in side menu bar");
+			Helper.driver.findElement(By.id("menu-administration")).click();			
+			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageOrganMenu")).size(), 0);
+
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(750);
+
+			for(int i=1; i<=200; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+					int j = i-1;
+					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					break;
+				}
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+			}
+
+			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == false) {	
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+			}
+
+			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Test_Variables.test.pass("Access Rights passed for Organization Management Screen successfully");
+			Test_Variables.results.createNode("Access Rights passed for Organization Management Screen successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+		}
+		catch(AssertionError er){
+			Test_Variables.test.fail("Access Rights failed for Organization Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for Organization Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			Test_Variables.test.fail("Access Rights failed for Organization Management Screen");
+			Test_Variables.results.createNode("Access Rights failed for Organization Management Screen");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
+		}
+	}
+	
+	
 
 	@Test (description="Test Case: Access Management",enabled= false, priority= 2) 
 	public void CreateAccess() throws InterruptedException, IOException

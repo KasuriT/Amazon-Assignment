@@ -72,6 +72,6 @@ public class Constants {
 	public static String api_announcement = api+"/runfilelist";
 	public static String api_FileUpload = api+"/fileupload";
 	public static String api_StartAssay = api+"/startAssay?apiVersion=17.0";
-	
+	public static String api_RawImage = api+"/rawimgupload";
 	
 }

@@ -469,7 +469,7 @@ public class Test_Variables {
 					"0",  									//MPNCalculationType
 					"20200120202842_PSN0009_sammyproscess_oaeng_improc.csv",    				 //FileName
 					"fab8cc1ea3f6db40c4555c3dfab09a34d2fa2b53cd66af72284af1dacb266910"));    //CheckSum              
-	
+					 
 	public static ArrayList<String> lstSampleID = new ArrayList<>(
 			Arrays.asList("Automation1"+date0,  
 					"Automation2"+date0,

@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="8" total="9" passed="1" failed="0" skipped="0">
+<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-23T14:48:35 PKT" name="Default suite" finished-at="2021-08-23T14:50:39 PKT" duration-ms="123380">
+  <suite started-at="2021-08-24T12:12:46 PKT" name="Default suite" finished-at="2021-08-24T12:12:49 PKT" duration-ms="3518">
     <groups>
     </groups>
-    <test started-at="2021-08-23T14:48:35 PKT" name="Default test" finished-at="2021-08-23T14:50:39 PKT" duration-ms="123380">
-      <class name="Test.Ancera.Administration.AccessManagement">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:48:35 PKT" name="extent" finished-at="2021-08-23T14:49:08 PKT" duration-ms="33297" status="PASS">
+    <test started-at="2021-08-24T12:12:46 PKT" name="Default test" finished-at="2021-08-24T12:12:49 PKT" duration-ms="3518">
+      <class name="Test.Ancera.Reports.RawImageCoccidia">
+        <test-method signature="RawImagfdeCocci()[pri:1, instance:Test.Ancera.Reports.RawImageCoccidia@702b8b12]" started-at="2021-08-24T12:12:46 PKT" name="RawImagfdeCocci" description="Test Case: Raw Image Ingestion for Coccidia" finished-at="2021-08-24T12:12:49 PKT" duration-ms="3485" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- extent -->
-        <test-method signature="UserManagementAccess()[pri:2, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:49:08 PKT" name="UserManagementAccess" description="Test Case: User Management Access" finished-at="2021-08-23T14:50:38 PKT" duration-ms="89308" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- UserManagementAccess -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.AccessManagement@37654521]" started-at="2021-08-23T14:50:38 PKT" name="endreport" finished-at="2021-08-23T14:50:39 PKT" duration-ms="739" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Administration.AccessManagement -->
+        </test-method> <!-- RawImagfdeCocci -->
+      </class> <!-- Test.Ancera.Reports.RawImageCoccidia -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
