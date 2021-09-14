@@ -56,18 +56,18 @@ public class AgreementManagement {
 
 			Assert.assertEquals(Helper.driver.findElement(By.id("Agreement Management")).getText(), "Agreement Management"); 
 			Test_Variables.test.pass("User navigated successfully");
-			Test_Variables.results.createNode("User navigates to Data Upload Screen");
+			Test_Variables.results.createNode("User navigates to Agreement MAnagement Screen");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to User Management Screen");
+			Test_Variables.results.createNode("User did not navigate to Agreement Management Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
 			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to User Management Screen");
+			Test_Variables.results.createNode("User did not navigate to Agreement Management Screen");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
 		}
 	}
@@ -770,7 +770,7 @@ public class AgreementManagement {
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
-			Thread.sleep(1500); 
+			Thread.sleep(2500); 
 			
 			for(int j=1; j<100; j++) {
 				
@@ -780,11 +780,12 @@ public class AgreementManagement {
 					break;
 				}	
 			}
-			Thread.sleep(3000); 
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(4000); 
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000); 
+			Thread.sleep(2000); 
 			Helper.driver.findElement(By.id("btn-next")).click(); 
-			Thread.sleep(1500); 
+			Thread.sleep(2000); 
 			Test_Variables.steps.createNode("3. Search for the agreement in User Agreement dropdown");
 			
 			ClickElement.clickById(Helper.driver, "euladdl");
@@ -891,5 +892,6 @@ public class AgreementManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 }

@@ -455,7 +455,13 @@ public class UserManagement {
 			Thread.sleep(1000);
 			ClickElement.clickById(Helper.driver, "rolesId-1");  
 			ClickElement.clickByCss(Helper.driver, "#rolesId span.ng-arrow-wrapper"); 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
+
+			ClickElement.clickByCss(Helper.driver, "#reportRoleId input");  
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#reportRoleId input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1500);
+			
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click();    
 
@@ -629,8 +635,46 @@ public class UserManagement {
 		}
 	}
 
+	
+	
+	@Test (enabled= true, priority= 7) 
+	public void VerifyReportRole() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-: Verify user can view assigned reports", "This test case will verify that user can view assigned reports");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-	@Test (description="Test Case: Search Created User",enabled= true, priority= 7) 
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
+			Test_Variables.steps.createNode("1. Assign report role to new user");
+			Test_Variables.steps.createNode("2. Go to reports and verify the reports are visible to the user");
+
+			Helper.driver.get(Constants.url_reports);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			
+			Assert.assertNotEquals(Helper.driver.findElements(By.cssSelector(".report-img")).size(), 0);
+			Test_Variables.test.pass("Password was reset; user logged in successfully");
+			Test_Variables.results.createNode("Password was reset; user logged in successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("User failed to login");
+			Test_Variables.results.createNode("User failed to login");  
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("User failed to login");
+			Test_Variables.results.createNode("User failed to login");  	
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
+		}
+	}
+	
+	@Test (description="Test Case: Search Created User",enabled= true, priority= 8) 
 	public void SearchUser() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -708,7 +752,7 @@ public class UserManagement {
 		}
 	}
 
-	@Test (description="Test Case: Update User", enabled = true, priority= 8) 
+	@Test (description="Test Case: Update User", enabled = true, priority= 9) 
 	public void UpdateUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-16: Verify user can update a user", "This test case will verify that user can update a user");
@@ -758,7 +802,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Update User", enabled = false, priority= 9) 
+	@Test (description="Test Case: Verify Update User", enabled = false, priority= 10) 
 	public void VerifyUpdateUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-17: Verify user is actually updated", "This test case will verify that the user is actually updated by reopening the popup after updation");
@@ -799,7 +843,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Delete User", enabled= true, priority= 10) 
+	@Test (description="Test Case: Delete User", enabled= true, priority= 11) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be deleted", "This test case will verify that user can delete a user");
@@ -855,7 +899,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Delete User", enabled= true, priority= 11) 
+	@Test (description="Test Case: Verify Delete User", enabled= true, priority= 12) 
 	public void VerifyDeleteUser() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Search for deleted user to verify user is actually deleted", "This test case will search for deleted user to verify user is actually deleted");
@@ -900,7 +944,7 @@ public class UserManagement {
 	////////////////////////////
 	
 	
-	@Test (enabled= false, priority = 12) 
+	@Test (enabled= false, priority = 13) 
 	public void Sorting() throws InterruptedException, IOException {
 		
 		Test_Variables.lstUserSorting = UserModel.FillData();
@@ -962,5 +1006,6 @@ public class UserManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 }

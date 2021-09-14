@@ -21,7 +21,7 @@ public class Test_Elements {
 
 	public static String gmailEmail = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input";
 	public static String gmailPassword = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input";
-	public static String gmailSecurityCheck = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div";
+	public static String gmailSecurityCheck = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div/div[2]";
 	public static String gmailSecurityEmail = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[2]/div[1]/div/div[1]/div/div[1]/input";
 
 	///////////////////////////////////////////End ForgotPassword Elements////////////////////////////////////////////////////
@@ -168,6 +168,8 @@ public class Test_Elements {
 	public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
 	public static String orgSiteDelete = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li[1]/div/div[4]/i[2]";
 	
+	
+	public static String orgSite1Text = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[2]/span";
 	public static String orgSite1Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i";
 	public static String orgSite2Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[1]";
 	public static String orgSite3Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/div/div[4]/i[1]";
@@ -465,7 +467,9 @@ public class Test_Elements {
 	
 	/////////////////////////////////////////////Poultry Management/////////////////////////////////////////////////////////////////
 	
-	public static String poultryStartDateSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[3]/button[3]";
+	public static String poultryStartDateSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[2]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[4]/button[4]";
+	public static String poultryStartDateSelect1 =  "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[4]/button[4]";
+	
 	public static String poultryBrandName = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/img";
 	public static String poultryBrandNameSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/div[2]/label[1]";
 	public static String poultryAdminMethod = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[4]/div/app-custom-input-dropdown/div/img";
@@ -520,6 +524,7 @@ public class Test_Elements {
 	public static String slAuditResultCol = "4";
 	public static String slAuditAssayCol = "5";
 	public static String slAuditDateCol = "6";
+	public static String slAuditTimeCol = "7";
 	public static String slAuditSiteNameCol = "8";
 	public static String slAuditSiteIDCol = "9";
 	public static String slAuditSiteTypeCol = "10";
@@ -545,12 +550,12 @@ public class Test_Elements {
 	public static String slAuditRunTypeCol = "30";
 	public static String slAuditCollectionDate = "31";
 	
-	public static String slToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
-	public static String slLast24Hours = "body app-root p:nth-child(2)";
-	public static String slLast7Days = "body app-root p:nth-child(3)";
-	public static String slLast30Days = "body app-root p:nth-child(4)";
-	public static String slThisMonth = "body app-root p:nth-child(5)";
-	public static String slLastMonth = "body app-root p:nth-child(6)";
+	public static String slToday = "#list-title_range-0";
+	public static String slLast24Hours = "#list-title_range-1";
+	public static String slLast7Days = "#list-title_range-2";
+	public static String slLast30Days = "#list-title_range-3";
+	public static String slThisMonth = "#list-title_range-4";
+	public static String slLastMonth = "#list-title_range-5";	
 					
 	public static String slShowFilter = "_show-filter";
 	public static String slSortFilter = "sort-";
@@ -652,32 +657,28 @@ public class Test_Elements {
 	public static String clAuditSampleIDCol = "1";
 	public static String clAuditQCCodeCol = "2";
 	public static String clAuditResultStatusCol = "3";
-	public static String clAuditResultCol = "4";
-	public static String clAuditAssayCol = "5";
-	public static String clAuditDateCol = "6";
-	public static String clAuditTimeCol = "7";
-	public static String clAuditSiteNameCol = "8";
-	public static String clAuditSiteIDCol = "9";
-	public static String clAuditSiteTypeCol = "10";
-	public static String clAuditSampleMatrixCol = "11";
-	public static String clAuditDilutionFactorCol = "12";
-	public static String clAuditCSampleIDCol = "13";
-	public static String clAuditReceivedDateCol = "14";
-	public static String clAuditCartridgeIDCol = "15";
-	public static String clAuditInstrumentIDCol = "16";
-	public static String clAuditW1CellCountCol = "17";
-	public static String clAuditW1PCCountCol = "18";
-	public static String clAuditW1MeanIntensityCol = "19";
-	public static String clAuditW2CellCountCol = "20";
-	public static String clAuditW2CPCCountCol = "21";
-	public static String clAuditW2MeanIntensityCol = "22";
+	public static String clAuditAssayCol = "9";
+	public static String clAuditDateCol = "10";
+	public static String clAuditTimeCol = "11";
+	public static String clAuditSiteNameCol = "12";
+	public static String clAuditSampleMatrixCol = "13";
+	public static String clAuditCSampleIDCol = "14";
+	public static String clAuditReceivedDateCol = "15";
+	public static String clAuditCartridgeIDCol = "16";
+	public static String clAuditInstrumentIDCol = "17";
+	public static String clAuditTotalCountCol = "18";
+	public static String clAuditSmallCountCol = "19";
+	public static String clAuditMediumCountCol = "20";
+	public static String clAuditLargeCountCol = "21";
+	public static String clAuditMeanIntensityCol = "22";
 	public static String clAuditPiperUserCol = "23";
 	public static String clAuditKitLotCol = "24";
 	public static String clAuditImprocIDCol = "25";
 	public static String clAuditTestSiteIDCol = "26";
-	public static String clAuditRequestedAssayCol = "27";
-	public static String clAuditFlockIDCol = "28";
 	public static String clAuditTestSiteNameCol = "27";
+	public static String clAuditCSiteTypeCol = "28";
+	public static String clAuditRequestedAssayCol = "29";
+	public static String clAuditFlockIDCol = "30";
 	public static String clAuditRunTypeCol = "31";
 	public static String clAuditCollectionDateCol = "32";
 	

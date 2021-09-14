@@ -405,7 +405,7 @@ public class OrganizationManagement{
 		Thread.sleep(1500);
 		
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-21: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select Organization Management");
@@ -653,7 +653,6 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("1. Click on site button next to created Organization; Organization Site popup appears");
 			Test_Variables.steps.createNode("2. Verify Site Type is Organization");
 
-			
 //			Thread.sleep(3000);
 //			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest");
 //			Thread.sleep(3000);
@@ -665,10 +664,7 @@ public class OrganizationManagement{
 //			Thread.sleep(5000);
 //	//		Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i")).click();
 //			Thread.sleep(3000);	
-			
-			
-			
-				
+						
 			Test_Functions.OrgSearch();
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -796,8 +792,7 @@ public class OrganizationManagement{
 			Thread.sleep(1500);
 			Test_Variables.steps.createNode("15. Verify Site can be saved");
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New site created.");
-					
-	
+						
 			Helper.driver.findElement(By.xpath(Test_Elements.orgSite3Add)).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("SiteTypeId")).click();
@@ -827,15 +822,12 @@ public class OrganizationManagement{
 			Test_Variables.test.pass("Site heirarchy verified successfully");
 			Test_Variables.results.createNode("Site heirarchy verified successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
-			
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);			
 			
 			Helper.driver.findElement(By.xpath(Test_Elements.orgSiteDelete)).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-yes")).click();
-			Thread.sleep(1000);
-			
-			
+			Thread.sleep(4000);	
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Site heirarchy failed to verify successfully");
 			Test_Variables.results.createNode("Site heirarchy failed to verify successfully");
@@ -952,19 +944,7 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Enter valid data in fields");
 			Test_Variables.steps.createNode("4. Verify valid data is populated on entering valid street address");
-			Test_Variables.steps.createNode("5. Click on save button");
-
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest");
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("orgnType-1")).click();
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
-//			Thread.sleep(5000);
-//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i")).click();
-//			Thread.sleep(3000);		
+			Test_Variables.steps.createNode("5. Click on save button");	
 
 			Helper.driver.findElement(By.id("SiteTypeId")).click();   
 			Thread.sleep(500);	
@@ -1186,6 +1166,7 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on Inactive toggle button");
 			Test_Variables.steps.createNode("3. Click on save button");
 
+			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));                      
 			Helper.driver.findElement(By.id("edit-orgn-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));  
@@ -1240,14 +1221,14 @@ public class OrganizationManagement{
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
-			Thread.sleep(1500);
+			Thread.sleep(2500);
 			Helper.driver.findElement(By.id("create-user")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstNameId")));
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("firstNameId")).sendKeys(Test_Variables.lstUserCreate.get(0));    
 			Helper.driver.findElement(By.id("lastNameId")).sendKeys(Test_Variables.lstUserCreate.get(1));  
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("phoneCodeId")).click();   
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#phoneCodeId div.ng-star-inserted")).click();
@@ -1335,6 +1316,7 @@ public class OrganizationManagement{
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 
 }

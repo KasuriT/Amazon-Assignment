@@ -45,7 +45,7 @@ public class InstallationRun {
 
 	
 	@SuppressWarnings("unchecked")
-	@Test (enabled= false, priority = 1) 
+	@Test (enabled= true, priority = 1) 
 	public void installationRunConfigSalmonella() throws InterruptedException, IOException {
 
 		int z = 0;
@@ -167,11 +167,12 @@ public class InstallationRun {
 						Response response3 = request_startAssay.post(Constants.api_StartAssay);
 
 						String data4 = response3.asString();
-						System.out.println(data4);			
+						System.out.println(data4);	
+						Thread.sleep(60000);
 					}
 					///////////////////////////////////////////////////////////////////////	
 
-					Thread.sleep(2000);
+					
 					RequestSpecification request_fileupload = RestAssured.given();
 
 					request_fileupload.header("Content-Type", "application/json");
@@ -200,7 +201,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(210000);
+					Thread.sleep(180000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -234,12 +235,6 @@ public class InstallationRun {
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
 						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
 
-			//			String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteIDCol+" label")).getText();
-			//			Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
-
-			//			String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTestSiteNameCol+" label")).getText();
-			//			Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
-
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
 						builder.moveToElement(hover).build().perform();
@@ -249,20 +244,11 @@ public class InstallationRun {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
 						Thread.sleep(1500);
 
-			//			String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
-			//			Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
-
-			//			String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
-			//			Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
-
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
 						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 						
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
 						Assert.assertEquals(getAuditRunType, "Installation");
-						
-		//				String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
-		//				Assert.assertEquals(getAuditAction, "Created");
 						
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
@@ -289,7 +275,7 @@ public class InstallationRun {
 
 
 	@SuppressWarnings("unchecked")
-	@Test (enabled= true, priority = 3) 
+	@Test (enabled= false, priority = 3) 
 	public void installationRunConfigCoccidia() throws InterruptedException, IOException {
 
 		int z = 0;
@@ -415,11 +401,12 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
+						Thread.sleep(60000);
 					}
 					
 					///////////////////////////////////////////////////////////////////////	
 
-					Thread.sleep(2000);
+					
 					RequestSpecification request_fileupload = RestAssured.given();
 
 					request_fileupload.header("Content-Type", "application/json");
@@ -447,7 +434,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(210000);
+					Thread.sleep(180000);
 
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -481,12 +468,6 @@ public class InstallationRun {
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
 						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
 
-				//		String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
-				//		Assert.assertTrue(getTestSiteID.isEmpty() == false, "Test Site ID is not dislayed in table");
-
-				//		String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
-				//		Assert.assertTrue(getTestSiteName.isEmpty() == false, "Test Site Name is not dislayed in table");	
-
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
 						builder.moveToElement(hover).build().perform();
@@ -495,12 +476,6 @@ public class InstallationRun {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
 						Thread.sleep(1500);
-
-					//	String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteIDCol+".text-dark")).getText();
-					//	Assert.assertTrue(getAuditTestSiteId.isEmpty() == false);
-
-					//	String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
-					//	Assert.assertTrue(getAuditTestSiteName.isEmpty() == false);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
 						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
@@ -547,6 +522,4 @@ public class InstallationRun {
 		Test_Variables.extent.flush();
 		//	Helper.driver.close();
 	}
-
-
 }

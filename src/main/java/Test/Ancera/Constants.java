@@ -4,10 +4,10 @@ public class Constants {
 
 	public static String url = "https://ie-qa.ancera.com"; 
 	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
-//	public static String api = "https://13.92.39.61:8081/api/ancerainput/v1";
 	
 //	public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
+	
 //	public static String url = "https://ie-uat.ancera.com";   
 //	public static String api = "https://disapi-uat.ancera.com/api/ancerainput/v1"; 
 	
@@ -28,8 +28,15 @@ public class Constants {
 	public static String url_dataUpload = url+"/home/client/dataupload";
 	public static String url_poultryManagement = url+"/home/metadata/poultry";
 	public static String url_reports = url+"/home/reports/explore";
-	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";
+	
+//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat
+//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";   //uat
+	
+	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+	
+//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=18&code=0002&type=2";   //dev
+	
 	public static String url_CoccidiaTimeline = url+"/home/reports/timeline/coccidia-timeline?report=Coccidia%20Timeline&id=18&code=0004&type=4";
 	public static String url_MPNSalmonellaLog = url+"/home/reports/log/mpn-log?report=MPN%20Salmonella%20Log&id=15&code=0006";
 	public static String url_LocalDashboard = url+"/home/reports/wireframe/wireframe?report=Local%20Dashboard&id=23&code=0009&type=9";
@@ -50,6 +57,7 @@ public class Constants {
 	public static String OrgManagementReportPath = "/Screenshots/Administration/OrganizationManagementScreenShot";
 	public static String ReportManagementReportPath = "/Screenshots/Administration/ReportsManagementScreenShot";
 	public static String AgreementManagementReportPath = "/Screenshots/Administration/AgreementManagementScreenShot";
+	public static String AlertManagementReportPath = "/Screenshots/Administration/AlertManagementScreenShot";
 	public static String BarcodeManagementReportPath = "/Screenshots/Administration/BarcodeManagementScreenShot";
 	public static String PiperManagementReportPath = "/Screenshots/Piper_Administration/PiperManagementScreenShot";
 	public static String PiperSoftwareReportPath = "/Screenshots/Piper_Administration/PiperSoftwareScreenShot";
@@ -67,6 +75,7 @@ public class Constants {
 	public static String InstallationRunReportPath = "/Screenshots/Reports/InstallationRunScreenShot";
 	public static String NormalIngestionReportPath = "/Screenshots/Reports/NormalIngestionScreenShot";
 	public static String PAConfigReportPath = "/Screenshots/Reports/PAConfigScreenShot";
+	public static String RawImageReportPath = "/Screenshots/Reports/RawImageScreenShot";
 	
 	public static String api_login = api+"/login";
 	public static String api_announcement = api+"/runfilelist";

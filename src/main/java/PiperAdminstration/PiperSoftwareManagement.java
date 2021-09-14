@@ -143,7 +143,7 @@ public class PiperSoftwareManagement {
 	public void FileUpload() throws InterruptedException, IOException {
 
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("02", "02");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-PSM-01: Upload valid .msi file", "This test case will verify that user can upload valid .msi file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);

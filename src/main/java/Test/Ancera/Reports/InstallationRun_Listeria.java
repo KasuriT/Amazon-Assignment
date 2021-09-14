@@ -168,11 +168,12 @@ public class InstallationRun_Listeria {
 						Response response3 = request_startAssay.post(Constants.api_StartAssay);
 
 						String data4 = response3.asString();
-						System.out.println(data4);			
+						System.out.println(data4);		
+						Thread.sleep(60000);
 					}
 					///////////////////////////////////////////////////////////////////////	
 
-					Thread.sleep(2000);
+					
 					RequestSpecification request_fileupload = RestAssured.given();
 
 					request_fileupload.header("Content-Type", "application/json");
@@ -201,7 +202,7 @@ public class InstallationRun_Listeria {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(210000);
+					Thread.sleep(180000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));

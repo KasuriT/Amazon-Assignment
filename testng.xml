@@ -1,10 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite_Salmonella" parallel="classes ">
-  <test thread-count="10" name="Coccidia" parallel="classes">
+<!-- <suite parallel="classes" name="Suite"> -->
+<!--   <test thread-count="5" parallel="classes" name="Test"> -->
+<!--     <classes> -->
+<!--       <class name="Test.Ancera.Login.ForgotPassword"/> -->
+<!--     </classes> -->
+    
+<!--         <classes> -->
+<!--       <class name="Test.Ancera.Login.TestLogin"/> -->
+<!--     </classes> -->
+    
+<!--   </test> Test -->
+<!-- </suite> Suite -->
+
+
+
+
+
+<suite thread-count="50" verbose="5" name="Test.Ancera.Login" parallel="tests">
+<!--  <test thread-count="5" name="Test.Ancera.Login1" parallel="classes"> -->
+<!--     <classes> -->
+<!--     <class name="Test.Ancera.Login.ForgotPassword"/> -->
+<!--       <class name="Test.Ancera.Login.TestLogin"/> -->
+      
+<!--     </classes> -->
+<!--   </test>  -->
+
+<!--         <test name="Test.Ancera.Login1"> -->
+<!--     <classes> -->
+<!--     <class name="Test.Ancera.Login.TestLogin"/> -->
+<!--     <class name="Test.Ancera.Login.ForgotPassword"/> -->
+<!--     </classes> -->
+<!--   </test>  -->
+
+      <test name="Test.Ancera.Login1">
     <classes>
-      <class name="Test.Ancera.Reports.CoccidiaLog"/>
-      <class name="Test.Ancera.Reports.ExternalCoccidia"/>
+    <class name="Test.Ancera.Login.TestLogin"/>
     </classes>
   </test> 
+  
+    <test name="Test.Ancera.Login2">
+    <classes>
+    <class name="Test.Ancera.Login.ForgotPassword"/>
+    <class name="Test.Ancera.Login.TestLogin"/>
+    </classes>
+  </test> 
+  
 </suite> 

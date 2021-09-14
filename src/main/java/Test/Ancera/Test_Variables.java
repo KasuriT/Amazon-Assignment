@@ -13,6 +13,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import Models.APIModel;
 import Models.AccessModel;
 import Models.AgreementManagementModel;
+import Models.AlertManagementModel;
 import Models.AuditLogModel;
 import Models.AutoLoginModel;
 import Models.CoccidiaModel;
@@ -25,6 +26,7 @@ import Models.NormalIngestionModel;
 import Models.OrgModel;
 import Models.PAModel;
 import Models.PiperConfigurationModel;
+import Models.PiperManagementModel;
 import Models.PiperSoftwareModel;
 import Models.PoultryManagementModel;
 import Models.ProfileModel;
@@ -44,9 +46,11 @@ public class Test_Variables {
 	public static ExtentSparkReporter spark;
 	public static ExtentReports extent;
 
-	
-	public static String login_email = "junaid.alam@analytics.com.pk";
-	public static String login_password = "junaid123";
+	public static String login_email = "junnaid0005@gmail.com";
+	//public static String login_email = "junaid.alam@analytics.com.pk";
+	public static String login_password = "junaid123";	
+//	public static String login_email = "Faraz@tenx.ai";
+//	public static String login_password = "tenx01tenx";
 	
 	public static String forgotPassword_email = "ancera.test.user100@gmail.com";
 	public static String forgotPassword_password = "ancera123";
@@ -91,6 +95,14 @@ public class Test_Variables {
 	static DateFormat dateFormat1 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	static Date date11 = new Date();
 	public static String date100 = dateFormat1.format(date11);
+	
+	static DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+	static Date dateR = new Date();
+	public static String dateRIY = dateFormat2.format(dateR);
+	
+	static DateFormat dateFormat3 = new SimpleDateFormat("HH:mm:ss");
+	static Date dateRI = new Date();
+	public static String dateRIT = dateFormat3.format(dateRI);
 	
 	public static String PreConditions = "Pre-Conditions";
 	public static String Steps = "Steps";
@@ -329,6 +341,13 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////End Agreement Management Variables///////////////////////////////////////////////////////
 	
 	
+	/////////////////////////////////////////////////////Alert Management Screen////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<AlertManagementModel> lstAlertCreate = new ArrayList<>();
+	
+	///////////////////////////////////////////////////End Alert Management Screen////////////////////////////////////////////////////////////////////
+	
+	
 	//////////////////////////////////////////////////////Reports Management Screen Variables/////////////////////////////////////////////////////
 	
 	public static String RoleName = "Test Role"+date0;
@@ -366,6 +385,13 @@ public class Test_Variables {
 					new RMModel(ReportName, "Group created by automation script", false, "Fill all fields", true, "AN-RM-19: User should be able to save Report Details", "This test case will verify that user is able to create new report group", false, "The user was able to create Report Group after entering valid data in all fields", "The user was not able to create Report Group")));
 
 	//////////////////////////////////////////////////////End Reports Management Screen Variables////////////////////////////////////////////////
+	
+	
+	/////////////////////////////////////////////////////Piper Management Screen////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<PiperManagementModel> lstPiperManagementCreate = new ArrayList<>();
+	
+	///////////////////////////////////////////////////End Piper Management Screen////////////////////////////////////////////////////////////////////
 	
 	
 	/////////////////////////////////////////////////////Piper Software Management Screen////////////////////////////////////////////////////////////////
@@ -495,6 +521,7 @@ public class Test_Variables {
 	public static String RunType = "Normal"; 
 	public static String slImprocVersion = "4.0.8.2";
 	public static String slRunID = "Test"+lstSampleID.get(1);
+	public static String slCSiteID = "1001043";
 	
 	///////////Sample MetaData Upload Data//////////////////
 	public static String FlockID = "Flock Test";
@@ -604,11 +631,11 @@ public class Test_Variables {
 	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	//////////////////////////////////////////////////////////////Installation Run///////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////Raw Image///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<RawImageModel> lstRawImageCoccidia = new ArrayList<>();
 
-	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////End Raw Image////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	/////////////////////////////////////////////////////////////P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 

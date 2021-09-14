@@ -157,6 +157,7 @@ public class BarcodeManagement {
 
 					Robot r = new Robot();
 					r.keyPress(KeyEvent.VK_ENTER);
+					
 				}
 			}
 
@@ -180,8 +181,7 @@ public class BarcodeManagement {
 	}
 	
 	
-	
-	@Test (description="Test Case: Assign Sites Appearance",enabled= true, priority = 4) 
+	@Test (description="Test Case: Assign Sites Appearance",enabled= false, priority = 4) 
 	public void AssignedSiteAppearance() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-05: Verify only those sites appear which are assigned to user", "This test case will verify that only those sites appear which are assigned to user");
@@ -202,15 +202,17 @@ public class BarcodeManagement {
 				
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(Test_Variables.login_email)) {
 					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					Thread.sleep(3000);
+					
 					break;
 				}	
 			}
 			
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			int sitesCountUser = Helper.driver.findElements(By.cssSelector(".custom-site-name")).size();
 			
 			Helper.driver.get(Constants.url_barcodeManagement);
@@ -237,9 +239,8 @@ public class BarcodeManagement {
 		}
 	}
 	
-
 	
-	@Test (description="Test Case: Search Functionality",enabled= true, priority = 5) 
+	@Test (description="Test Case: Search Functionality",enabled= false, priority = 5) 
 	public void SearchFunctionality() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-07/08/09/10/11: Verify search bar functionality", "This test case will verify that search bar is fully functional");
@@ -306,19 +307,10 @@ public class BarcodeManagement {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		//Helper.driver.close();
 	}
 	
 }

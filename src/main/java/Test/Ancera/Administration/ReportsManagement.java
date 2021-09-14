@@ -450,24 +450,22 @@ public class ReportsManagement {
 			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(1000);
 			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("edit-user-1")).click();
-
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));
-			Thread.sleep(500);
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Helper.driver.findElement(By.cssSelector("#reportRoleId input")).sendKeys(Test_Variables.RoleName);
 			Thread.sleep(1000);
-			//	String actual = Helper.driver.findElement(By.cssSelector("//div[contains(text(), 'No items found')]")).getText();
-
 			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("div .ng-option-disabled")).isDisplayed());
-			//	Assert.assertEquals(actual, "No items found"); 
 			Test_Variables.test.pass("InActivated Role was not found in User Management screen");
 			Test_Variables.results.createNode("User was not able to see InActivated Role in dropdown list");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
@@ -1300,6 +1298,7 @@ public class ReportsManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 
 }

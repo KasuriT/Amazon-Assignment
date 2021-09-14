@@ -25,6 +25,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -101,15 +102,15 @@ public class SalmonellaLog {
 
 	
 	@SuppressWarnings("unused")
+	
 	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Functions.fieldLevelReset();
-		
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
-
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
-
+		SoftAssert softAssert = new SoftAssert();
+		
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaDateSearch) { 
 			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
@@ -130,9 +131,12 @@ public class SalmonellaLog {
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
 				Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Thread.sleep(1000);
+				Thread.sleep(1500);
+				String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
+				softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
+				
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-				Test_Variables.steps.createNode("2. Click on objFilter.FilterName");
+				Test_Variables.steps.createNode("2. Click on "+objFilter.FilterName);
 				Helper.driver.findElement(By.id("list-title_date-selection")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
@@ -164,9 +168,10 @@ public class SalmonellaLog {
 							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 						//	Assert.assertEquals(fromDateField, fromDate);
 						//	Assert.assertEquals(toDateField, toDate);
-							Assert.assertNotEquals(recordBefore, recordAfter);
+							softAssert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
+							softAssert.assertAll();
 
 						}catch(AssertionError er) {
 							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
@@ -200,12 +205,13 @@ public class SalmonellaLog {
 							Thread.sleep(1000);
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-							//		Assert.assertEquals(fromDateField, fromDate);
+							//Assert.assertEquals(fromDateField, fromDate);
 							//Assert.assertEquals(toDateField, toDate, "Please ingest data with current date to test this scenario successfully");
-							Assert.assertNotEquals(recordBefore, recordAfter);
+							softAssert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
-
+							softAssert.assertAll();
+							
 						}catch(AssertionError er) {
 							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
@@ -241,10 +247,11 @@ public class SalmonellaLog {
 							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
 							//Assert.assertEquals(fromDateField, fromDate);
 							//Assert.assertEquals(toDateField, toDate);
-							Assert.assertNotEquals(recordBefore, recordAfter);
+							softAssert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode("1. "+objFilter.FilterName+ " values verified successfully");
-
+							softAssert.assertAll();
+							
 						}catch(AssertionError er) {
 							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
@@ -286,6 +293,7 @@ public class SalmonellaLog {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-scanDateTime"))); 
 			Test_Variables.steps.createNode("1. Open date filter popup");
+			SoftAssert softAssert = new SoftAssert();
 			WebElement filter_scroll = Helper.driver.findElement(By.id("sort-scanDateTime"));
 			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
 			Thread.sleep(1000);
@@ -313,11 +321,12 @@ public class SalmonellaLog {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
 
-			Assert.assertEquals(recordsafterfilter, recordsbeforefilter);
+			softAssert.assertEquals(recordsafterfilter, recordsbeforefilter);
 			Test_Variables.test.pass("Filter locked functionality verified successfully on date filter");
 			Test_Variables.results.createNode("Filter lock remained applied on reopening the report on date filter");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+			softAssert.assertAll();
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Filer lock functionality failed on date filter");
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
@@ -439,6 +448,7 @@ public class SalmonellaLog {
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
 						Test_Variables.steps.createNode("1. Verify filter is applied and relevant results are displayed in table");
 
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i) +" .fa-filter")).click();
@@ -697,6 +707,8 @@ public class SalmonellaLog {
 
 								request_announcement.body(json1.toString());
 								Response response1 = request_announcement.post(Constants.api_announcement);
+								String data2 = response1.asString();
+								System.out.println(data2);
 								Thread.sleep(2000);
 								RequestSpecification request_fileupload = RestAssured.given();
 								request_fileupload.header("Content-Type", "application/json");
@@ -858,7 +870,8 @@ public class SalmonellaLog {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-
+				SoftAssert softAssert = new SoftAssert();
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -887,7 +900,7 @@ public class SalmonellaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						Assert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
+						softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
 						Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
@@ -897,6 +910,7 @@ public class SalmonellaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						softAssert.assertAll();
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
@@ -1195,7 +1209,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Sorting",enabled= true, priority = 11) 
+	@Test (enabled= true, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSorting = SalmonellaModel.sorting();
@@ -1268,17 +1282,19 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
 
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slLaneCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1CellCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1PCCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1MeanIntensityCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CellCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CPCCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2MeanIntensityCol+" .text-right")).isDisplayed() == true);
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slLaneCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1CellCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1PCCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1MeanIntensityCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CellCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CPCCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2MeanIntensityCol+" .text-right")).isDisplayed() == true);
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+			softAssert.assertAll();	
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Int data type columns are not right alligned");
 			Test_Variables.results.createNode("Int data type columns are not right alligned");
@@ -1493,7 +1509,8 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
+			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
+			//int getRowCount = Integer.parseInt(getRowText);
 			
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
@@ -1512,7 +1529,6 @@ public class SalmonellaLog {
 			SalmonellaLog fr= new SalmonellaLog();
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
 			String filename= newfile.getName();
-			System.out.println("Latest CSV file is = "+filename);
 			Assert.assertEquals(filename, Test_Variables.slCSVFileName+date+".csv");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
@@ -1522,13 +1538,16 @@ public class SalmonellaLog {
 			long lines = 0;
 			try {
 				lines = Files.lines(path).count();
-				//System.out.println(lines);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			long excludeHeader = lines - 1;
-			Assert.assertEquals(excludeHeader, getRowCount);
+			String s = String.valueOf(excludeHeader);
+			
+			String str = getRowText;
+			str = str.replace(",", "");
+			Assert.assertEquals(s, str);
 
 			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())

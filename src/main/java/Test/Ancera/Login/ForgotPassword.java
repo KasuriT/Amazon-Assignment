@@ -120,11 +120,19 @@ public class ForgotPassword {
 				Thread.sleep(1000);
 				Helper.driver.findElement(By.id("Email")).sendKeys(Keys.ENTER);			
 			}
-
+			
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.name("password")).sendKeys(Test_Variables.forgotPassword_password);
 			Helper.driver.findElement(By.name("password")).sendKeys(Keys.ENTER);	
+			
+			if (Helper.driver.findElements(By.cssSelector(".vxx8jf")).size() != 0) { 
+				Helper.driver.findElement(By.cssSelector(".vxx8jf")).click();
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("knowledge-preregistered-email-response")).sendKeys(Test_Variables.forgotPasswordSecurityEmail);
+				Helper.driver.findElement(By.id("knowledge-preregistered-email-response")).sendKeys(Keys.ENTER);
+			}
+			
 			
 			if (Helper.driver.findElements(By.xpath(Test_Elements.gmailSecurityCheck)).size() != 0) { 
 				Helper.driver.findElement(By.xpath(Test_Elements.gmailSecurityCheck)).click();

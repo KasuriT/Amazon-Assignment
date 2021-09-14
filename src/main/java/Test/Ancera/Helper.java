@@ -31,15 +31,12 @@ public class Helper {
 	public static void config() {
 
 	  	projectPath = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", projectPath+"/ChromeDriver/chromedriver.exe");
-		
-	
+		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
 		
 		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
 		
-	
 		Test_Variables.spark.config().setDocumentTitle("Ancera Test Report");
 		Test_Variables.spark.config().setTheme(Theme.DARK);
 		Test_Variables.extent = new ExtentReports();

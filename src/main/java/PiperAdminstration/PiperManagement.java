@@ -13,6 +13,8 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Models.PiperManagementModel;
+import Models.ReportFilters;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -24,7 +26,7 @@ public class PiperManagement {
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
 
-		Test_Variables.spark = new 	ExtentSparkReporter("target/Reports/Administration_Piper_Management"+Test_Variables.date+".html");
+		Test_Variables.spark = new 	ExtentSparkReporter("target/Reports/Piper_Management"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Piper Management Test Report"); 
 
 		Helper.config();
@@ -32,8 +34,8 @@ public class PiperManagement {
 	}
 
 	
-	@Test (description="Test Case: Navigate to Piper Management Screen",enabled=true, priority = 1) 
-	public void NavigateePM() throws InterruptedException, IOException {
+	@Test (description="Test Case: Navigate to Piper Management Screen",enabled= true, priority = 1) 
+	public void NavigatePM() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PM-01: Verify user can navigate to Piper Management Screen", "This test case will verify that user can navigate to Piper Managament screen");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, "Pre_Conditions");
@@ -67,8 +69,8 @@ public class PiperManagement {
 	}
 	
 
-	@Test (description="Test Case: All basic scenarios",enabled=true, priority = 2) 
-	public void NavigatePM() throws InterruptedException, IOException {
+	@Test (description="Test Case: All basic scenarios",enabled= true, priority = 2) 
+	public void BasicScenarios() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PM-02: Verify user can view sites", "This test case will verify that user can view sites");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, "Pre_Conditions");
@@ -123,6 +125,77 @@ public class PiperManagement {
 		}	
 	}
 	
+	
+	@Test (enabled= true, priority = 2) 
+	public void AlertSetting() throws InterruptedException, IOException {
+
+		Helper.driver.navigate().refresh();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Test_Variables.lstPiperManagementCreate = PiperManagementModel.FillData();
+		for (PiperManagementModel objModel : Test_Variables.lstPiperManagementCreate) { 
+			try{
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, "Pre_Conditions");
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, "Steps");
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, "Result");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Management", Constants.PiperManagementReportPath));
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login+ "and login with valid credentials");
+				Test_Variables.preconditions.createNode("2. Hover to sidebar to expand menu");
+				Test_Variables.preconditions.createNode("3. Expand Administration and click on Piper Managment");
+				Test_Variables.steps.createNode("1. Open Alert Setting popup");
+				Test_Variables.steps.createNode(objModel.passStep);
+
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(2000);
+				Helper.driver.findElement(By.xpath("//button[contains(text(),'Alert Setting')]")).click();
+		
+				for (ReportFilters objFilter : objModel.lstFilters) {	
+					try {
+						Thread.sleep(2000);
+						Helper.driver.findElement(By.id("emailsListId")).clear();
+						Helper.driver.findElement(By.id("emailsListId")).sendKeys(objModel.emailList);
+						Helper.driver.findElement(By.id("ThresholdTimeId")).clear();
+						Helper.driver.findElement(By.id("ThresholdTimeId")).sendKeys(objModel.hoursList);
+						Thread.sleep(2000);
+						Helper.driver.findElement(By.id("btn-save")).click();
+						if (objModel.negativeScenario) {
+						for (int i =0; i<objFilter.LstFilterValues.size(); i++) {
+							
+							Assert.assertEquals(Helper.driver.findElements(By.xpath(objFilter.LstFilterValues.get(i))).size(), 1);	
+						}
+
+						Helper.driver.findElement(By.id("close-popup-modal")).click();
+						Thread.sleep(2000);
+						}
+						
+						if (objModel.positiveScenario) {
+							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+							Thread.sleep(1000);
+							Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Alert Settings details updated.");
+						}
+
+						Test_Variables.test.pass(objModel.passStep);
+						Test_Variables.results.createNode(objModel.passStep);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Management", Constants.PiperManagementReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperManagementReportPath, null);
+					}catch(AssertionError er) {
+						Test_Variables.test.fail(objModel.failStep);
+						Test_Variables.results.createNode(objModel.failStep);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, new Exception(er));
+					}catch(Exception ex){
+						Test_Variables.test.fail(objModel.failStep);
+						Test_Variables.results.createNode(objModel.failStep);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperManagementReportPath, ex);
+					}
+				}
+			}	
+			catch(Exception ex) {
+			}
+		}
+	}
+
+
 
 	@AfterTest
 	public static void endreport() {

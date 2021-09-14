@@ -2,6 +2,9 @@ package Test.Ancera.Reports;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -93,7 +96,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 2) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -267,7 +270,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 3) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 3) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -337,7 +340,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 4) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();
@@ -458,7 +461,7 @@ public class CoccidiaLog {
 	}
 
 	
-	@Test (description="Test Case: Test Site Name Filter",enabled= false, priority = 5) 
+	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 5) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-57: Verify Site Name Filter Functionality", "This test case will test Site Name Filter Functionality");
@@ -510,7 +513,7 @@ public class CoccidiaLog {
 	}
 	
 	
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 6) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 6) 
 	public void wildcard() throws InterruptedException, IOException {
 
 		
@@ -609,7 +612,7 @@ public class CoccidiaLog {
 	}
 	
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= false, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);
@@ -820,7 +823,7 @@ public class CoccidiaLog {
 	}
 	
 
-	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= false, priority = 8) 
+	@Test (description="Test Case: Test Coccidia Lock Filter Functionality",enabled= true, priority = 8) 
 	public void CoccidiaLock() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -838,7 +841,8 @@ public class CoccidiaLog {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
-
+				SoftAssert softAssert = new SoftAssert();
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -867,7 +871,7 @@ public class CoccidiaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						Assert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
+						softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
 						Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -876,7 +880,8 @@ public class CoccidiaLog {
 						Helper.driver.findElement(By.id("remove-filters")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						softAssert.assertAll();
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
@@ -896,7 +901,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstCoccidiaPagination = CoccidiaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1045,7 +1050,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 10) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
@@ -1175,7 +1180,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Sorting",enabled= false, priority = 11) 
+	@Test (description="Sorting",enabled= true, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstCoccidiaSorting = CoccidiaModel.sorting();
@@ -1231,7 +1236,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (enabled= false, priority = 12) 
+	@Test (enabled= true, priority = 12) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-180: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
@@ -1246,17 +1251,18 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
-
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLaneCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalOPGCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallOPGCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumOPGCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeOPGCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeCountCol+" .text-right")).isDisplayed() == true);
-			Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMeanIntensityCol+" .text-right")).isDisplayed() == true);
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLaneCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clTotalCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clSmallCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMediumCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clLargeCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.clMeanIntensityCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertAll();
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -1389,7 +1395,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 15) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-215: Verify user can download Coccidia PNG file", "This test case will verify user can download Coccidia PNG file");
@@ -1456,7 +1462,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 16) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-216: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
@@ -1472,7 +1478,11 @@ public class CoccidiaLog {
 
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
+			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
+
+			
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
@@ -1490,12 +1500,26 @@ public class CoccidiaLog {
 			SalmonellaLog fr= new SalmonellaLog();
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
 			String filename= newfile.getName();
-			//System.out.println("Latest CSV file is = "+filename);
 			Assert.assertEquals(filename, Test_Variables.clCSVFileName+date+".csv");
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
 
+			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
+			long lines = 0;
+			try {
+				lines = Files.lines(path).count();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			long excludeHeader = lines - 1;
+			String s = String.valueOf(excludeHeader);
+
+			String str = getRowText;
+			str = str.replace(",", "");
+			Assert.assertEquals(s, str);
+			
 			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
 				System.out.println("CSV file deleted");
@@ -1514,7 +1538,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Audit Download",enabled= false, priority = 17) 
+	@Test (description="Test Case: Test Coccidia Audit Download",enabled= true, priority = 17) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-217: Verify user can download Coccidia Audit file", "This test case will verify that user can download Coccidia Audit file");
@@ -1574,7 +1598,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 18) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 18) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-218: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");
@@ -1668,6 +1692,7 @@ public class CoccidiaLog {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		//Helper.driver.close();
 	}
 
 }

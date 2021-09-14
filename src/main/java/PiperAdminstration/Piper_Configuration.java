@@ -258,10 +258,12 @@ public class Piper_Configuration {
 			Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("MinStdVal")).clear();
 			Helper.driver.findElement(By.id("MinStdVal")).sendKeys("500");
 			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Installation Run Configuration saved successfully");
 			Test_Variables.test.pass("Installation Run Configuration updated successfully");
 			Test_Variables.results.createNode("Installation Run Configuration updated successfully");
