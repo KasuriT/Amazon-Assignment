@@ -168,7 +168,7 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);	
-						Thread.sleep(60000);
+						Thread.sleep(45000);
 					}
 					///////////////////////////////////////////////////////////////////////	
 
@@ -201,7 +201,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(180000);
+					Thread.sleep(60000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -216,7 +216,15 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(3000);	
-					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+					
+					try {
+						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
+					}
+					catch (Exception ex) {
+						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+					}
+					
+				//	ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
 					System.out.println(z);
@@ -274,7 +282,7 @@ public class InstallationRun {
 	}
 
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Test (enabled= false, priority = 3) 
 	public void installationRunConfigCoccidia() throws InterruptedException, IOException {
 
@@ -434,7 +442,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(180000);
+					Thread.sleep(45000);
 
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -449,7 +457,15 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(3000);	
-					ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+					
+					try {
+						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
+					}
+					catch (Exception ex) {
+						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+					}
+						
+				//	ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
 					System.out.println(z);

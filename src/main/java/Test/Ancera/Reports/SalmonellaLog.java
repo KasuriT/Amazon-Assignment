@@ -132,8 +132,8 @@ public class SalmonellaLog {
 				Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1500);
-				String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
-				softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
+		//		String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
+		//		softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
 				
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				Test_Variables.steps.createNode("2. Click on "+objFilter.FilterName);
@@ -1439,6 +1439,7 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("1. Hover mouse towards barchart on top");
 			Test_Variables.steps.createNode("2. Export PNG button becomes visible");
 
+			Helper.driver.navigate().refresh();			
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(1000);	
 			Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();

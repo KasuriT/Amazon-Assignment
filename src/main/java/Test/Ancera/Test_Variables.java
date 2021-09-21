@@ -46,8 +46,8 @@ public class Test_Variables {
 	public static ExtentSparkReporter spark;
 	public static ExtentReports extent;
 
-	public static String login_email = "junnaid0005@gmail.com";
-	//public static String login_email = "junaid.alam@analytics.com.pk";
+	//public static String login_email = "junnaid0005@gmail.com";
+	public static String login_email = "junaid.alam@analytics.com.pk";
 	public static String login_password = "junaid123";	
 //	public static String login_email = "Faraz@tenx.ai";
 //	public static String login_password = "tenx01tenx";
@@ -514,14 +514,15 @@ public class Test_Variables {
 	///////////////////////////////////////////////////////////Salmonella Ingest//////////////////////////////////////////////////////////////////			
 	public static String CartridgeID = "TestCartridge"+date0;  //unique cartridge id used while ingestion
 	public static String InstrumentID = "PSN0009"; //instrument id used while ingestion
-	public static String UserID = "100"; //user id used for ingestion
+	public static String UserID = "100"; //user id used for qa ingestion
+	//public static String UserID = "98"; //user id used for uat ingestion
 	public static String RunID = "Test"+lstSampleID.get(0); //unique run id used while ingestion
 	public static String PiperUser = "Jalam"; //piper user name
 	public static String ImprocVersion = "9.7.1.5";  //version used while ingestion
 	public static String RunType = "Normal"; 
 	public static String slImprocVersion = "4.0.8.2";
 	public static String slRunID = "Test"+lstSampleID.get(1);
-	public static String slCSiteID = "1001043";
+	public static String slCSiteID = "1001001";
 	
 	///////////Sample MetaData Upload Data//////////////////
 	public static String FlockID = "Flock Test";
@@ -624,9 +625,13 @@ public class Test_Variables {
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreate = new ArrayList<>();
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreateCoccidia = new ArrayList<>();
 	
-	public static String installationImprocVersionSalm = "9.9.9.9";
-	public static String installationImprocVersionCocci = "5.2.1.0";
-	public static String installationImprocVersionListeria = "2.2.2";
+	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
+	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
+	public static String installationImprocVersionListeria = "2.2.2";   //qa
+	
+//	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
+//	public static String installationImprocVersionCocci = "2.10.3.3";  //uat
+//	public static String installationImprocVersionListeria = "4.0.20.2";  //uat
 	
 	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
 	

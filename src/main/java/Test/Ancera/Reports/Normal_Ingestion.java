@@ -211,7 +211,7 @@ public class Normal_Ingestion {
 
 							String data4 = response3.asString();
 							System.out.println(data4);
-							Thread.sleep(210000);
+							Thread.sleep(60000);
 
 							Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							Helper.driver.get(Constants.url_SalmonellaLog);
@@ -417,7 +417,7 @@ public class Normal_Ingestion {
 							Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 							Test_Variables.preconditions.createNode("5. Click on Salmonella Log");
 
-							Thread.sleep(210000);
+							Thread.sleep(30000);
 							Helper.driver.get(Constants.url_SalmonellaLog);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -429,7 +429,7 @@ public class Normal_Ingestion {
 							Thread.sleep(1000);
 							Helper.driver.findElement(By.id("sampleId_view-all")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);
+							Thread.sleep(2000);
 							Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
 							for(int j=0; j<4; j++)	{
@@ -437,13 +437,21 @@ public class Normal_Ingestion {
 								Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 								Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j));
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(2000);	
+								Thread.sleep(2500);	
+								try {
 								ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j));
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);	
+								}
+								catch (Exception ex) {
+									Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(2000);	
+								}
 							}
 
 							Test_Variables.steps.createNode("3. Click on Apply filter button");
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Helper.driver.findElement(By.id("sampleId_apply")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
@@ -721,17 +729,24 @@ public class Normal_Ingestion {
 								Thread.sleep(1500);
 								Helper.driver.findElement(By.id("sampleId_view-all")).click();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1000);
+								Thread.sleep(2000);
 
 								for(int j=0; j<4; j++)	{
 
 									Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 									Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j)+"Updt");
 									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-									Thread.sleep(2000);	
+									Thread.sleep(2000);
+									try {
 									ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j)+"Updt");
 									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 									Thread.sleep(2000);
+									}
+									catch (Exception ex) {
+										Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j)+"Updt")).click();
+										Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+										Thread.sleep(2000);
+									}
 								}
 								
 								Helper.driver.findElement(By.id("sampleId_apply")).click();
@@ -988,7 +1003,7 @@ public class Normal_Ingestion {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
-						Thread.sleep(210000);
+						Thread.sleep(45000);
 
 						Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Coccidia Report");
 						Helper.driver.get(Constants.url_CoccidiaLog);
@@ -1194,7 +1209,7 @@ public class Normal_Ingestion {
 					Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 					Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-					Thread.sleep(210000);
+					Thread.sleep(45000);
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1208,14 +1223,20 @@ public class Normal_Ingestion {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);
 					Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
-
+///////////////////////////alteration///////////////
 					for(int j=0; j<4; j++)	{
 
 						Helper.driver.findElement(By.id("sampleId_search-input")).clear();
 						Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j));
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);				
+						Thread.sleep(2000);	
+						try {
 						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
+						}
+						catch(Exception ex) {
+							Thread.sleep(1000);
+							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
+						}
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(800);
 					}
@@ -1268,7 +1289,7 @@ public class Normal_Ingestion {
 						Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane" +lane);
 						String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clInstrumentIDCol+" label")).getText();
 						softAssert.assertEquals(getInstrumentID, Test_Variables.InstrumentID);
-
+						
 						Test_Variables.steps.createNode("Verify Time for lane "+lane);
 						String getTime = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
 						

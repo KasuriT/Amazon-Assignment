@@ -43,5 +43,6 @@
 	<classpathentry kind="lib" path="D:/Softwares Setup Files/Rest_Assured/rest-assured-common-4.3.1.jar"/>
 	<classpathentry kind="lib" path="D:/Softwares Setup Files/Rest_Assured/tagsoup-1.2.1.jar"/>
 	<classpathentry kind="lib" path="D:/Softwares Setup Files/Rest_Assured/xml-path-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/jre8/sqljdbc42.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.Normal_Ingestion">
+      <class name="Test.Ancera.Reports.PAConfig">
         <methods>
-          <include name="NormalIngestionSalmonella"/>
           <include name="extent"/>
           <include name="endreport"/>
+          <include name="PAConfigurattion"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.Normal_Ingestion -->
+      </class> <!-- Test.Ancera.Reports.PAConfig -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

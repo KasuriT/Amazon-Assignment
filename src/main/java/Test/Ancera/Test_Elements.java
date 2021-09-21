@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,90);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -517,6 +517,7 @@ public class Test_Elements {
 	public static String slFieldAccessCol = "33";
 	public static String footerCount = ".filter-popup__footer--count";
 	
+	public static String slAuditLaneColCss = "5";
 	public static String slAuditLaneCol = "0";
 	public static String slAuditSampleIDCol = "1";
 	public static String slAuditQCCodeCol = "2";

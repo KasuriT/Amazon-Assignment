@@ -39,6 +39,7 @@ import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -99,9 +100,11 @@ public class CoccidiaLog {
 	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
+		Test_Functions.fieldLevelReset();
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 		Test_Variables.lstCoccidiaDateSearch = CoccidiaModel.FillDate();
-
+		SoftAssert softAssert = new SoftAssert();
+		
 		for (CoccidiaModel objModel : Test_Variables.lstCoccidiaDateSearch) { 
 			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
@@ -124,7 +127,10 @@ public class CoccidiaLog {
 				((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 				Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Thread.sleep(1000);
+				Thread.sleep(1500);
+				String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
+				softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
+				
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				Test_Variables.steps.createNode("2. Click on "+objFilter.FilterName);
 				Helper.driver.findElement(By.id("list-title_date-selection")).click();

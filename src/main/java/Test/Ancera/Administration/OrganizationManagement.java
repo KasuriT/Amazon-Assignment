@@ -859,6 +859,7 @@ public class OrganizationManagement{
 
 			Helper.driver.navigate().refresh();
 			Test_Functions.OrgSearch();
+			
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector(".btn-ok-fontawesom")).click();  
@@ -1170,7 +1171,7 @@ public class OrganizationManagement{
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));                      
 			Helper.driver.findElement(By.id("edit-orgn-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-next")));  
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(2000);
 

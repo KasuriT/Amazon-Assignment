@@ -31,10 +31,10 @@ public class Test_Functions {
 		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
 		//	Helper.driver.findElement(By.id("organSearchId")).sendKeys("Test Organization0447");
 		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgExpandAnceraTab)));
 		Helper.driver.findElement(By.xpath(Test_Elements.orgExpandAnceraTab)).click();
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 
 	}
 
