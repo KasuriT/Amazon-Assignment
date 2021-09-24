@@ -585,7 +585,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: User Management Access",enabled= true, priority = 8) 
+	@Test (description="Test Case: User Management Access",enabled= false, priority = 8) 
 	public void UserManagementAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-12/13/14: Verify create, update and view role of user", "This test case will verify that create, update and view role of user");
@@ -768,7 +768,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Organization Management Access",enabled= true, priority = 9) 
+	@Test (description="Test Case: Organization Management Access",enabled= false, priority = 9) 
 	public void OrganizationManagementAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-15/16/17: Verify create, update and view role of organization", "This test case will verify that create, update and view role of organization");
@@ -958,7 +958,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Organization Sites Management Access",enabled= true, priority = 10) 
+	@Test (description="Test Case: Organization Sites Management Access",enabled= false, priority = 10) 
 	public void OrganizationSitesManagementAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-18/19/20: Verify create, update and view role of organization sites", "This test case will verify that create, update and view role of organization sites");
@@ -1118,7 +1118,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Alert Configuration Access",enabled= true, priority = 11) 
+	@Test (description="Test Case: Alert Configuration Access",enabled= false, priority = 11) 
 	public void AlertConfigurationAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-24/25/26: Verify create, update and view role of alert configuration", "This test case will verify that create, update and view role of alert configuration");
@@ -1266,7 +1266,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Report Role Access",enabled= true, priority = 12) 
+	@Test (description="Test Case: Report Role Access",enabled= false, priority = 12) 
 	public void ReportRoleAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-27/28/29/30/31/32: Verify create, update and view role of report role and report group", "This test case will verify that create, update and view role of report role and report group");
@@ -1436,7 +1436,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Agreement Role Access",enabled= true, priority = 13) 
+	@Test (description="Test Case: Agreement Role Access",enabled= false, priority = 13) 
 	public void AgreeemntRoleAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -1581,7 +1581,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Barcode Role Access",enabled= true, priority = 14) 
+	@Test (description="Test Case: Barcode Role Access",enabled= false, priority = 14) 
 	public void BarcodeRoleAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -1724,7 +1724,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Piper Management Role Access",enabled= true, priority = 15) 
+	@Test (description="Test Case: Piper Management Role Access",enabled= false, priority = 15) 
 	public void PiperManagementRoleAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -1870,7 +1870,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Piper Software Management Role Access",enabled= true, priority = 16) 
+	@Test (description="Test Case: Piper Software Management Role Access",enabled= false, priority = 16) 
 	public void PiperSoftwareManagementRoleAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -2014,7 +2014,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Piper Config Management Role Access",enabled= true, priority = 17) 
+	@Test (description="Test Case: Piper Config Management Role Access",enabled= false, priority = 17) 
 	public void PiperConfigManagementRoleAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -2158,7 +2158,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Data Template Management Role Access",enabled= true, priority = 18) 
+	@Test (description="Test Case: Data Template Management Role Access",enabled= false, priority = 18) 
 	public void DataTemplateAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -2302,7 +2302,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Data Upload Role Access",enabled= true, priority = 19) 
+	@Test (description="Test Case: Data Upload Role Access",enabled= false, priority = 19) 
 	public void DataUploadAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -2400,7 +2400,7 @@ public class AccessManagement{
 
 
 
-	@Test (description="Test Case: Poultry Management Role Access",enabled= true, priority = 20) 
+	@Test (description="Test Case: Poultry Management Role Access",enabled= false, priority = 20) 
 	public void PoultryManagementAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();
@@ -2544,7 +2544,7 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Report, Help Contact Us Role Access",enabled= true, priority = 21) 
+	@Test (description="Test Case: Report, Help Contact Us Role Access",enabled= false, priority = 21) 
 	public void ReportHelpContactUsAccess() throws InterruptedException, IOException {
 		try{
 			SoftAssert softAssert = new SoftAssert();

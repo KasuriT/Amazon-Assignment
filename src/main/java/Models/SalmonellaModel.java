@@ -332,7 +332,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slTestSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -346,7 +346,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slTestSiteName));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -375,7 +375,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slFlockID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -389,7 +389,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slRunType));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -403,7 +403,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		

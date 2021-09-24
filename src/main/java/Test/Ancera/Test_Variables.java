@@ -508,7 +508,6 @@ public class Test_Variables {
 					"Automation9"+date0)); 
 	
 	//////////////////////////////////////////////////////End Announcement API Variables/////////////////////////////////////////////////////
-	
 
 	
 	///////////////////////////////////////////////////////////Salmonella Ingest//////////////////////////////////////////////////////////////////			
@@ -627,7 +626,7 @@ public class Test_Variables {
 	
 	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
 	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
-	public static String installationImprocVersionListeria = "2.2.2";   //qa
+	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
 	
 //	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
 //	public static String installationImprocVersionCocci = "2.10.3.3";  //uat

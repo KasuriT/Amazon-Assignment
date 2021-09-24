@@ -86,8 +86,6 @@ public class PAConfig {
 						}
 					}
 
-					////////////////////////////////////////////////////////////////////////////////////////
-
 					Test_Variables.steps.createNode("2. Ingest with runmode 3 and sample matrix id");
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
@@ -160,7 +158,7 @@ public class PAConfig {
 					String data4 = response3.asString();
 					System.out.println(data4);				
 					System.out.println(objModel.sampleID);	
-					Thread.sleep(60000);
+					Thread.sleep(10000);
 					RequestSpecification request_fileupload = RestAssured.given();
 
 					request_fileupload.header("Content-Type", "application/json");
@@ -189,9 +187,8 @@ public class PAConfig {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(180000);
+					Thread.sleep(20000);
 
-					/////////////////////////////////////////////////////////////////////////////////////////////
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("sampleId_show-filter")));
@@ -247,7 +244,7 @@ public class PAConfig {
 						String getTime = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTimeCol)).getText();
 
 						if (objModel.errorCode == false) {
-							
+
 							if (Integer.parseInt(str) <= Integer.parseInt(Test_Variables.PA_Threshold)) {
 								if (getResult.equals("Missing Sample Metadata") || getResult.equals("Invalid Result, Please Retest all Dilutions")) {
 									System.out.println("");
@@ -268,14 +265,13 @@ public class PAConfig {
 						}
 
 						if (objModel.errorCode) {
-							
+
 							if (Integer.parseInt(str) <= Integer.parseInt(Test_Variables.PA_Threshold) && !getLane.equals("1")) {
 								if (getResult.equals("Missing Sample Metadata") || getResult.equals("Invalid Result, Please Retest all Dilutions")) {
 									System.out.println("");
 								}
 								else {
 									softAssert.assertEquals(getResult, "Negative", "W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold);
-
 								}
 							}
 
@@ -298,7 +294,6 @@ public class PAConfig {
 								}
 							}
 						}
-
 
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
@@ -338,7 +333,7 @@ public class PAConfig {
 						if (objModel.errorCode == false) {
 							if (Integer.parseInt(str1) <= Integer.parseInt(Test_Variables.PA_Threshold)) {
 								if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-									System.out.println("Missing Sample Metadata");
+									System.out.println("");
 								}
 								else {
 									softAssert.assertEquals(getAuditResult, "Negative", "W2CellCount: "+str1+" | Threshold: "+Test_Variables.PA_Threshold);
@@ -347,7 +342,7 @@ public class PAConfig {
 
 							if (Integer.parseInt(str1) > Integer.parseInt(Test_Variables.PA_Threshold)) {
 								if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-									System.out.println("Missing Sample Metadata");
+									System.out.println("");
 								}
 								else {
 									softAssert.assertEquals(getAuditResult, "Positive", "W2CellCount: "+str1+" | Threshold: "+Test_Variables.PA_Threshold);
@@ -356,10 +351,10 @@ public class PAConfig {
 						}
 
 						if (objModel.errorCode) {
-							
+
 							if (Integer.parseInt(str1) <= Integer.parseInt(Test_Variables.PA_Threshold) && !getAuditLane.equals("1")) {
 								if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-									System.out.println("Missing Sample Metadata");
+									System.out.println("");
 								}
 								else {
 									softAssert.assertEquals(getAuditResult, "Negative", "W2CellCount: "+str1+" | Threshold: "+Test_Variables.PA_Threshold);
@@ -385,7 +380,6 @@ public class PAConfig {
 								}
 							}
 						}
-
 						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
 						Thread.sleep(800);
 					}
@@ -427,7 +421,6 @@ public class PAConfig {
 						FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.PA_fileName));
 						wb.write(output_file);
 						output_file.close();  
-
 
 						Test_Variables.steps.createNode("5. Upload sample matrix");
 						Helper.driver.get(Constants.url_dataUpload);
@@ -492,7 +485,7 @@ public class PAConfig {
 							String getResult = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slResultCol)).getText();
 							String getCount = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slW2CellCountCol)).getText();
 
-							String regex = "(?<=[\\d])(,)(?=[\\d])";
+							String regex = "(?<=[\\d])(,)(`?=[\\d])";
 							Pattern p = Pattern.compile(regex);
 							String str = getCount;
 							Matcher m = p.matcher(str);
@@ -500,12 +493,10 @@ public class PAConfig {
 
 							if (objModel.validSampleMatrix) {
 								if (Integer.parseInt(str) <= Integer.parseInt(objModel.ThresholdValue)) {
-									//System.out.println("W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue); 
 									softAssert.assertEquals(getResult, "Negative", "W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue);
 								}
 
 								if (Integer.parseInt(str) > Integer.parseInt(objModel.ThresholdValue)) {
-									//System.out.println("W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue); 
 									softAssert.assertEquals(getResult, "Positive", "W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue);
 								}
 							}
@@ -546,12 +537,10 @@ public class PAConfig {
 
 							if(objModel.validSampleMatrix) {
 								if (Integer.parseInt(str1) <= Integer.parseInt(objModel.ThresholdValue)) {
-									//System.out.println("W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue); 
 									softAssert.assertEquals(getAuditResult, "Negative", "W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue);
 								}
 
 								if (Integer.parseInt(str1) > Integer.parseInt(objModel.ThresholdValue)) {
-									//System.out.println("W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue); 
 									softAssert.assertEquals(getAuditResult, "Positive", "W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue);
 								}
 							}
@@ -563,9 +552,6 @@ public class PAConfig {
 							Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
 							Thread.sleep(800);
 						}
-
-
-						/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 						if (objModel.invalidSampleMatrix) {
 							Helper.driver.get(Constants.url_piperConfiguration);	
@@ -598,7 +584,6 @@ public class PAConfig {
 								Thread.sleep(1000);
 								Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
 							}
-
 
 							if (objModel.pathogen.equals("Salmonella")) {
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -641,39 +626,6 @@ public class PAConfig {
 								Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "MPN & P/A Configuration saved successfully.");
 							}		
 
-							/*
-							
-							for (int i=0; i<12; i++) {
-								cell=worksheet.getRow(i+1).createCell(5); 
-								cell.setCellValue(objModel.newSampleMatrix); 
-								fsIP.close();
-							}
-
-							wb.write(output_file);
-							output_file.close();  
-
-							Helper.driver.get(Constants.url_dataUpload);
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
-							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("OrgnTypeID")).click();
-							Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-							Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
-							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("DataFormatId")).click();
-							Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
-							Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
-
-							Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+Test_Variables.PA_fileName);
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-							Thread.sleep(2000);
-							Helper.driver.findElement(By.cssSelector(".fa-save")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-							Thread.sleep(1000);
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
-*/
 							Helper.driver.get(Constants.url_SalmonellaLog);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(3000);
@@ -760,7 +712,6 @@ public class PAConfig {
 								str1 = m1.replaceAll("");
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
 
-
 								if (Integer.parseInt(str1) <= Integer.parseInt(objModel.ThresholdValue)) {
 									softAssert.assertEquals(getAuditResult, "Negative", "W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue);
 								}
@@ -772,7 +723,6 @@ public class PAConfig {
 								Thread.sleep(800);
 							}
 						}
-						/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					}
 					else {
 						System.out.print("PA not ingested");
@@ -794,252 +744,6 @@ public class PAConfig {
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.PAConfigReportPath, ex);
 			}
 		}
-	}
-
-
-
-	@Test (enabled= false, priority = 1) 
-	public void PAConfigurattion() throws InterruptedException, IOException {
-	//	SoftAssert softAssert = new SoftAssert();
-/*
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("sampleId_show-filter")));
-		Thread.sleep(2000);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-
-		Test_Variables.steps.createNode("3. Navigate to report and search for Ingested sample id");
-		Helper.driver.findElement(By.id("sampleId_show-filter")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-		Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys("20210921-TestAut-PA-11121");
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(2000);		
-		try {
-			Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_20210921-TestAut-PA-11121 b")).click();
-		}
-		catch (Exception ex) {
-			ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_20210921-TestAut-PA-11121");
-		}
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);
-
-		Test_Variables.steps.createNode("4. Compare the result column with w2 cell count; Threshold value is "+Test_Variables.PA_Threshold);
-		Helper.driver.findElement(By.id("sampleId_apply")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);	
-		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
-
-		for (int x=0; x<12; x++) {
-			String getResult = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slResultCol)).getText();
-			String getCount = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slW2CellCountCol)).getText();
-			String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slQCCodeCol)).getText();
-			String getLane = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slLaneCol)).getText();
-
-			String regex = "(?<=[\\d])(,)(?=[\\d])";
-			Pattern p = Pattern.compile(regex);
-			String str = getCount;
-			Matcher m = p.matcher(str);
-			str = m.replaceAll("");
-
-
-			String getSiteID = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slSiteIDCol)).getText();
-			softAssert.assertEquals(getSiteID, Test_Variables.SiteID);
-
-			String getAssay = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slAssayCol)).getText();
-			softAssert.assertTrue(getAssay.equalsIgnoreCase("Salmonella"));
-
-			String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slResultStatusCol)).getText();
-			softAssert.assertEquals(getResultStatus, "Completed");
-
-			String getTime = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slTimeCol)).getText();
-
-
-
-			if (Integer.parseInt(str) <= Integer.parseInt(Test_Variables.PA_Threshold) && !getLane.equals("1")) {
-				//System.out.println("W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold); 
-				if (getResult.equals("Missing Sample Metadata") || getResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("");
-				}
-				else {
-					softAssert.assertEquals(getResult, "Negative", "W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold);
-
-				}
-			}
-
-			if (Integer.parseInt(str) > Integer.parseInt(Test_Variables.PA_Threshold) && !getLane.equals("1")) {
-				//System.out.println("W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold); 
-				if (getResult.equals("Missing Sample Metadata") || getResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("");
-				}
-				else {
-					softAssert.assertEquals(getResult, "Positive", "W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold);
-				}
-			}		
-
-			if (getLane.equals("1")) {
-				//System.out.println("W2CellCount: "+str+" | Threshold: "+Test_Variables.PA_Threshold); 
-				if (getResult.equals("Missing Sample Metadata") || getResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("");
-				}
-				else {
-					System.out.println("asadsa");
-					softAssert.assertEquals(getResult, "QCFAIL");
-					softAssert.assertEquals(getQCCode, "E066");
-				}
-			}
-
-
-
-			WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-			Actions builder = new Actions(Helper.driver);
-			builder.moveToElement(hover).build().perform();
-			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-			Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
-			String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-			softAssert.assertEquals(getAuditRunType, "P/A");
-
-			String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
-			softAssert.assertTrue(getAuditTestSiteId.isEmpty() == false);
-
-			String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
-			softAssert.assertTrue(getAuditTestSiteName.isEmpty() == false);
-
-			String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
-			softAssert.assertEquals(getAuditAction, "Modified");
-
-			String getAuditTime = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTimeCol+".text-dark")).getText();
-			softAssert.assertEquals(getAuditTime, getTime);
-
-			String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditResultStatusCol+".text-dark")).getText();
-			softAssert.assertEquals(getAuditResultStatus, "Completed");
-
-			String getAuditCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditW2CellCountCol+".text-dark")).getText();
-			String getAuditResult = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditResultCol+".text-dark")).getText();
-			String str1 = getAuditCount;
-			Matcher m1 = p.matcher(str1);
-			str1 = m1.replaceAll("");
-
-			String getAuditLane = Helper.driver.findElement(By.cssSelector(".apl-resp-table td:nth-child("+Test_Elements.slAuditLaneColCss+")")).getText();
-			String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
-
-			if (Integer.parseInt(str1) <= Integer.parseInt(Test_Variables.PA_Threshold) && !getAuditLane.equals("1")) { 
-				if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("Missing Sample Metadata");
-				}
-				else {
-					softAssert.assertEquals(getAuditResult, "Negative", "W2CellCount: "+str1+" | Threshold: "+Test_Variables.PA_Threshold);
-				}
-			}
-
-			if (Integer.parseInt(str1) > Integer.parseInt(Test_Variables.PA_Threshold) && !getAuditLane.equals("1")) {
-				if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("Missing Sample Metadata");
-				}
-				else {
-					softAssert.assertEquals(getAuditResult, "Positive", "W2CellCount: "+str1+" | Threshold: "+Test_Variables.PA_Threshold);
-				}
-			}
-
-			if (getAuditLane.equals("1")) {
-				if (getAuditResult.equals("Missing Sample Metadata") || getAuditResult.equals("Invalid Result, Please Retest all Dilutions")) {
-					System.out.println("");
-				}
-				else {
-					System.out.println("asdvr");
-					softAssert.assertEquals(getAuditResult, "QCFAIL");
-					softAssert.assertEquals(getAuditQCCode, "E066");
-				}
-			}
-
-			Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
-			Thread.sleep(800);
-		}
-*/
-		
-		
-		Helper.driver.get(Constants.url_piperConfiguration);	
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(2000);
-		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Salmonella");
-		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("create-mpn")).click();
-
-//		if (objModel.pathogen.equals("Listeria")) {
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-//			Thread.sleep(2000);
-//			Helper.driver.findElement(By.id("dilution-factor-var")).click();
-//			Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys(objModel.SampleMatrix);
-//
-//			Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-//			Thread.sleep(1500);
-//			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(objModel.SampleMatrix);
-//			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
-//			Thread.sleep(750);
-//			Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.slImprocVersion);
-//			Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Keys.ENTER);
-//			Thread.sleep(750);
-//			Helper.driver.findElement(By.id("ThresholdId")).sendKeys(objModel.ThresholdValue);
-//
-//			Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
-//			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-//			Thread.sleep(1000);
-//			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
-//		}
-
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			Helper.driver.findElement(By.id("dilution-factor-var")).click();
-			Helper.driver.findElement(By.id("newSampleMatrix3LId")).sendKeys("Smmatrix1");
-
-			Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("Smmatrix1");
-			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
-			Thread.sleep(750);
-			Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.slImprocVersion);
-			Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Keys.ENTER);
-			Thread.sleep(750);
-			Helper.driver.findElement(By.id("ThresholdPAId")).sendKeys("1000");
-			Helper.driver.findElement(By.id("EAIUnit3LId")).sendKeys("100");
-
-			Helper.driver.findElement(By.cssSelector(".ml-1")).click();
-			Thread.sleep(750);
-			
-//			WebElement element = Helper.driver.findElement(By.cssSelector("#MicrobialItemsId1LCCV input"));
-//			((JavascriptExecutor) Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
-//			Thread.sleep(1000); 
-			
-			
-			Helper.driver.findElement(By.id("constIncolEq1Id")).sendKeys("10");
-			Helper.driver.findElement(By.cssSelector("#MicrobialItemsId1LCCV input")).sendKeys("Piper Count");
-			Thread.sleep(750);
-			Helper.driver.findElement(By.cssSelector("#MicrobialItemsId1LCCV input")).sendKeys(Keys.ENTER);
-			Thread.sleep(750);
-			Helper.driver.findElement(By.id("constMicrobialEq1Id")).sendKeys("10");
-			Thread.sleep(5000);
-			Helper.driver.findElement(By.cssSelector("#MicrobialItemsId1LMLCV input")).sendKeys("Piper Count");
-			Thread.sleep(3000);
-			Helper.driver.findElement(By.cssSelector("#MicrobialItemsId1LMLCV input")).sendKeys(Keys.ENTER);
-			Thread.sleep(5000);
-			Helper.driver.findElement(By.id("enrichVol1LId")).sendKeys("10");
-			Helper.driver.findElement(By.id("enrichDiluFactor1LId")).sendKeys("10");
-			Helper.driver.findElement(By.id("rinsateVol1LId")).sendKeys("10");
-			Thread.sleep(750);
-
-			Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
-		//	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			//Thread.sleep(1000);
-		//	Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "MPN & P/A Configuration saved successfully.");
-
 	}
 
 

@@ -57,7 +57,7 @@ public class Normal_Ingestion {
 	
 	
 	@SuppressWarnings("unchecked")
-	@Test (description="Test Case: Normal Ingestion for Salmonella/Listeria", enabled= false, priority= 1) 
+	@Test (description="Test Case: Normal Ingestion for Salmonella/Listeria", enabled= true, priority= 1) 
 	public void NormalIngestionSalmonella() throws InterruptedException, IOException	{
 		Test_Variables.lstNormalIngestion = NormalIngestionModel.FillData();
 		for (NormalIngestionModel objModel : Test_Variables.lstNormalIngestion) { 
@@ -70,7 +70,6 @@ public class Normal_Ingestion {
 				Test_Variables.steps.createNode("1. Enter valid piperid ("+Test_Variables.piperId+")");
 				Test_Variables.steps.createNode("2. Enter valid password (********)");
 				Test_Variables.steps.createNode("3. Run the API");
-
 
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
@@ -211,7 +210,7 @@ public class Normal_Ingestion {
 
 							String data4 = response3.asString();
 							System.out.println(data4);
-							Thread.sleep(60000);
+							Thread.sleep(15000);
 
 							Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							Helper.driver.get(Constants.url_SalmonellaLog);
@@ -231,7 +230,7 @@ public class Normal_Ingestion {
 							Thread.sleep(2000);			
 
 							if (Helper.driver.findElements(By.cssSelector("#cartridgeId_cust-cb-lst-txt_"+objModel.cartridgeID)).size() == 0) {
-								Thread.sleep(60000);
+								Thread.sleep(45000);
 								Helper.driver.navigate().refresh();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -268,7 +267,8 @@ public class Normal_Ingestion {
 
 								Test_Variables.steps.createNode("Verify Time is displayed same as that written in API body for lane "+lane);
 								String getTime = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slTimeCol+" label")).getText();
-								
+								softAssert.assertEquals(getTime.isEmpty(), false, "Time displayed blank");				
+												
 								Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
 								String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slCartridgeIDCol+" label")).getText();
 								softAssert.assertEquals(getCartridgeID, objModel.cartridgeID, "Cartridge ID not displayed in table");
@@ -309,6 +309,7 @@ public class Normal_Ingestion {
 								Test_Variables.steps.createNode("Verify Time is same as in Log");
 								String getAuditTime = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTimeCol+".text-dark")).getText(); 
 								softAssert.assertEquals(getAuditTime, getTime, "Action not displayed as 'Created 'in Audit Log");
+								softAssert.assertEquals(getAuditTime.isBlank(), false, "Time displayed blank in Audit Log");
 						
 								Test_Variables.steps.createNode("Verify Result Status as 'Pending' for lane "+lane);
 								String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditResultStatusCol+".text-dark")).getText(); 
@@ -489,8 +490,8 @@ public class Normal_Ingestion {
 								}
 
 								Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
-								//	String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slAssayCol+" label")).getText();
-								//	softAssert.assertEquals(getPathogen, "S​a​l​m​o​n​e​l​l​a​ ​P​r​e​s​e​n​c​e​/​A​b​s​e​n​c​e​");
+								String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slAssayCol+" label")).getText();
+								softAssert.assertTrue(objModel.pathogen.equalsIgnoreCase(getPathogen));
 
 								Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane" +lane);
 								String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slCartridgeIDCol+" label")).getText();
@@ -502,14 +503,15 @@ public class Normal_Ingestion {
 								
 								Test_Variables.steps.createNode("Verify Time is displayed same as that written in API body for lane "+lane);
 								String getTime = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slTimeCol+" label")).getText();
+								softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
 									
 								Test_Variables.steps.createNode("Verify Collection Site ID is same as that written in API body for lane" +lane);
 								String getCSiteID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSiteIDCol+" label")).getText();
 								softAssert.assertEquals(getCSiteID, Test_Variables.slCSiteID);
 
 								Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane" +lane);
-								//		String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slPiperUserCol+" label")).getText();
-								//		Assert.assertEquals(getPiperUser, Test_Variables.PiperUser);
+								String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slPiperUserCol+" label")).getText();
+								Assert.assertEquals(getPiperUser.isBlank(), false, "Piper User is blank");
 
 								Test_Variables.steps.createNode("Verify Run Type as "+Test_Variables.RunType+" in API body for lane" +lane);
 								String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
@@ -584,8 +586,8 @@ public class Normal_Ingestion {
 								softAssert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID);
 
 								Test_Variables.steps.createNode("Verify Piper User is displayed in Audit log for lane" +lane);
-								//			String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditPiperUserCol+".text-dark")).getText();
-								//			softAssert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser);
+								String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditPiperUserCol+".text-dark")).getText();
+								softAssert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User is blank");
 
 								Test_Variables.steps.createNode("Verify Run Type is displayed in Audit log for lane" +lane);
 								String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
@@ -797,7 +799,8 @@ public class Normal_Ingestion {
 									String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
 
 									Helper.driver.findElement(By.id("audit-trial-"+k)).click();
-									Thread.sleep(1000);		
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(1500);		
 
 									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 									
@@ -830,7 +833,6 @@ public class Normal_Ingestion {
 								}
 								Test_Variables.test.pass("Data Verified successfully on uploading Sample Metadata Template");
 								Test_Variables.results.createNode("Data Verified successfully on uploading Sample Metadata Template");
-							//	Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);
 
 							}
@@ -839,7 +841,14 @@ public class Normal_Ingestion {
 								System.out.println("12 records not displaying in table hence file upload method not executed");
 							}
 						}
-						catch(Exception ex){
+						catch(AssertionError er) {
+							Test_Variables.test.fail("File Upload Failed");
+							Test_Variables.results.createNode("File Upload Failed");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, new Exception(er));
+						}catch(Exception ex){
+							Test_Variables.test.fail("File Upload Failed");
+							Test_Variables.results.createNode("File Upload Failed");
+							Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, ex);
 						}
 						Thread.sleep(2000);	
 					}
@@ -1003,7 +1012,7 @@ public class Normal_Ingestion {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
-						Thread.sleep(45000);
+						Thread.sleep(10000);
 
 						Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Coccidia Report");
 						Helper.driver.get(Constants.url_CoccidiaLog);
@@ -1049,6 +1058,7 @@ public class Normal_Ingestion {
 
 							Test_Variables.steps.createNode("Verify Time for lane "+lane);
 							String getTime = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clTimeCol+" label")).getText();
+							softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
 							
 							Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
 							String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clCatridgeIDCol+" label")).getText();
@@ -1059,8 +1069,8 @@ public class Normal_Ingestion {
 							softAssert.assertEquals(getInstrumentID, Test_Variables.InstrumentID, "Instrument ID not displayed in table");
 
 							Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
-							//		String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
-							//		softAssert.assertEquals(getPiperUser, Test_Variables.PiperUser, "Piper User not displayed in table");
+							String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
+							softAssert.assertEquals(getPiperUser.isBlank(), false, "Piper User not displayed in table");
 
 							Test_Variables.steps.createNode("Verify Test Site ID is written  for lane "+lane);
 							String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
@@ -1111,8 +1121,8 @@ public class Normal_Ingestion {
 							softAssert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID, "Instrument ID not displayed in Audit Log");
 
 							Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
-							//			String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-							//			softAssert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser, "Piper User not displayed in Audit Log");
+							String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
+							softAssert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User not displayed in Audit Log");
 
 							Test_Variables.steps.createNode("Verify Test Site ID for lane "+lane);
 							String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteIDCol+".text-dark")).getText();
@@ -1209,7 +1219,7 @@ public class Normal_Ingestion {
 					Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 					Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-					Thread.sleep(45000);
+					Thread.sleep(15000);
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1223,7 +1233,7 @@ public class Normal_Ingestion {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);
 					Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
-///////////////////////////alteration///////////////
+
 					for(int j=0; j<4; j++)	{
 
 						Helper.driver.findElement(By.id("sampleId_search-input")).clear();
@@ -1292,11 +1302,11 @@ public class Normal_Ingestion {
 						
 						Test_Variables.steps.createNode("Verify Time for lane "+lane);
 						String getTime = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
-						
+						softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
 						
 						Test_Variables.steps.createNode("Verify Piper User is same as that written in API body for lane" +lane);
-						//String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
-						//Assert.assertEquals(getPiperUser, Test_Variables.PiperUser);
+						String getPiperUser = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clPiperUserCol+" label")).getText();
+						Assert.assertEquals(getPiperUser.isBlank(), false, "Piper User is Empty");
 
 						Test_Variables.steps.createNode("Verify Run Type as "+Test_Variables.RunType+" in API body for lane" +lane);
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
@@ -1377,8 +1387,8 @@ public class Normal_Ingestion {
 						softAssert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID, "Instrument ID not displayed in Audit Log");
 
 						Test_Variables.steps.createNode("Verify Piper User is displayed in Audit log for lane" +lane);
-						//String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-						//Assert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser);
+						String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
+						Assert.assertEquals(getAuditPiperUser.isEmpty(), false, "Piper User is Empty");
 
 						Test_Variables.steps.createNode("Verify Run Type is displayed in Audit log for lane" +lane);
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
@@ -1418,7 +1428,6 @@ public class Normal_Ingestion {
 
 					Test_Variables.test.pass("Ingested data verified successfully in log");
 					Test_Variables.results.createNode("Ingested data verified successfully in log");
-				//	Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
 					Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);
 				}catch(AssertionError er) {
 					Test_Variables.test.fail("Data ingestion verification failed");
@@ -1454,8 +1463,6 @@ public class Normal_Ingestion {
 						for (int z=0; z<12; z++) {
 
 							String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clSampleIDCol)).getText();
-							//System.out.println(getSampleID);
-							//	String updatedSampleID = getSampleID+"U";
 							cell=worksheet.getRow(z+1).createCell(17); 
 							cell.setCellValue(getSampleID+"Updt");  
 
@@ -1606,8 +1613,8 @@ public class Normal_Ingestion {
 							String getAuditInstrumentId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditInstrumentIDCol+".text-dark")).getText();
 							softAssert.assertEquals(getAuditInstrumentId, Test_Variables.InstrumentID);
 
-							//String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-							//Assert.assertEquals(getAuditPiperUser, Test_Variables.PiperUser);
+							String getAuditPiperUser = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
+							Assert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User is empty");
 
 							String getAuditImprocVersion = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditImprocIDCol+".text-dark")).getText();
 							softAssert.assertEquals(getAuditImprocVersion, Test_Variables.ImprocVersion);
@@ -1623,7 +1630,6 @@ public class Normal_Ingestion {
 						}
 						Test_Variables.test.pass("Data Verified successfully on uploading Sample Metadata Template");
 						Test_Variables.results.createNode("Data Verified successfully on uploading Sample Metadata Template");
-			//			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);
 					}
 					else {

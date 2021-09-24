@@ -1,5 +1,6 @@
 package Test.Ancera;
 
+import java.time.Duration;
 import java.util.Random;
 
 
@@ -7,7 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
+	//public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(180, 1));
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 

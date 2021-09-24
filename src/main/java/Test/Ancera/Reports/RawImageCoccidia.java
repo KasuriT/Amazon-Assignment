@@ -132,7 +132,7 @@ public class RawImageCoccidia {
 
 							String data4 = response3.asString();
 							System.out.println(data4);
-							Thread.sleep(45000);
+							Thread.sleep(150000);
 						}
 						catch(AssertionError er) {
 							Test_Variables.test.fail("Start Assay API failed");
@@ -181,7 +181,6 @@ public class RawImageCoccidia {
 						json3.put("cartridgeId", objModel.cartridgeID);
 						json3.put("lane", objModel.lane);
 						json3.put("dateTime", Test_Variables.dateRIY+"T"+date+".000Z");
-						//json3.put("dateTime", "2021-09-01T14:01:15.000Z");
 						json3.put("piperId", objModel.InstrumentID);
 						json3.put("runType", objModel.runMode);
 						json3.put("runId", objModel.run_id);
@@ -193,7 +192,7 @@ public class RawImageCoccidia {
 						json3.put("fileName", objModel.fileName);
 						json3.put("fileType", objModel.fileType);
 
-						if (objModel.isPositive) {
+						if (!objModel.isErrorCode) {
 							String TestFile = objModel.base64fileName;
 							FileReader FR = new FileReader(TestFile);
 							BufferedReader BR = new BufferedReader(FR);
@@ -295,7 +294,7 @@ public class RawImageCoccidia {
 								
 								Test_Variables.steps.createNode("Verify Time is updated in table for lane" +lane);
 								String getTime = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
-								softAssert.assertEquals(getTime, dateRIT);
+							//	softAssert.assertEquals(getTime, dateRIT);
 
 								Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
 								String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
@@ -327,7 +326,7 @@ public class RawImageCoccidia {
 								String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
 								softAssert.assertEquals(getTestSiteName.isEmpty(), false, "Test Site Name is not dislayed in table");
 
-								if (objModel.isPositive) {
+								if (!objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Total Count is displayed in table for lane" +lane);
 									String getTotalCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTotalCountCol+" label")).getText();
 									softAssert.assertEquals(getTotalCount.isEmpty(), false);
@@ -361,7 +360,7 @@ public class RawImageCoccidia {
 
 								Test_Variables.steps.createNode("Verify Time is displayed in Audit log for lane" +lane);
 								String getAuditTime = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTimeCol+".text-dark")).getText();
-								softAssert.assertEquals(getAuditTime, dateRIT);
+								softAssert.assertEquals(getAuditTime, getTime);
 								
 								Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
 								String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
@@ -379,7 +378,7 @@ public class RawImageCoccidia {
 								String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditRunType, objModel.runType);
 
-								if (objModel.isPositive) {
+								if (!objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Total Count is displayed in Audit log for lane" +lane);
 									String getAuditTotalCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTotalCountCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditTotalCount.isEmpty(), false);
@@ -403,9 +402,9 @@ public class RawImageCoccidia {
 								Test_Variables.steps.createNode("Verify Test Site Name is displayed in Audit log for lane" +lane);
 								String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTestSiteName.isEmpty(), false);
-								softAssert.assertAll();	
-								Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();   
+								Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();   			
 							}
+							softAssert.assertAll();	
 							Test_Variables.test.pass("Ingested Successfully");
 							Test_Variables.results.createNode("Data ingestion verified successfully");
 							Helper.saveResultNew(ITestResult.SUCCESS, Constants.RawImageReportPath, null);

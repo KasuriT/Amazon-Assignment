@@ -7,7 +7,7 @@
         <methods>
           <include name="extent"/>
           <include name="endreport"/>
-          <include name="PAConfigurattion"/>
+          <include name="PAConfiguration"/>
         </methods>
       </class> <!-- Test.Ancera.Reports.PAConfig -->
     </classes>

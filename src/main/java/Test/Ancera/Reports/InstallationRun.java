@@ -14,6 +14,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -43,10 +44,10 @@ public class InstallationRun {
 		ConfigureLogin.login();
 	}
 
-	
-	@SuppressWarnings("unchecked")
+
+	@SuppressWarnings("unchecked") 
 	@Test (enabled= true, priority = 1) 
-	public void installationRunConfigSalmonella() throws InterruptedException, IOException {
+	public void installationRunConfigSalmList() throws InterruptedException, IOException {
 
 		int z = 0;
 		Test_Variables.lstInstallationRunCreate = InstallationRunModel.FillData();
@@ -62,7 +63,8 @@ public class InstallationRun {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
-
+				SoftAssert softAssert = new SoftAssert();
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
 					Helper.driver.get(Constants.url_piperConfiguration);			
@@ -80,7 +82,7 @@ public class InstallationRun {
 							}
 						}
 					}
-					
+
 					Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
 					Test_Variables.steps.createNode("3. "+objModel.steps);
 					Helper.driver.findElement(By.id("MinMeanVal")).clear();
@@ -94,8 +96,6 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("MinStdVal")).click();
 					Helper.driver.findElement(By.id("btn-save")).click();
 					Thread.sleep(2000);
-
-					////////////////////////////////////////////////////////////////////////////////////////
 
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
@@ -112,13 +112,12 @@ public class InstallationRun {
 					System.out.println(data);
 					JsonPath jsonPathEvaluator = response.jsonPath();
 					String token = jsonPathEvaluator.get("token");		
-					System.out.println(token);	
+					//System.out.println(token);	
 
 					Thread.sleep(2000);
 					RequestSpecification request_announcement = RestAssured.given();
 					request_announcement.header("Content-Type", "application/json");
 					request_announcement.header("Authorization", "bearer " +token);
-
 					HttpGet postRequest = new HttpGet(Constants.api_announcement);
 					postRequest.addHeader("Content-Type", "application/json");
 					postRequest.addHeader("Authorization", "Bearer "+token);
@@ -138,14 +137,11 @@ public class InstallationRun {
 
 					list.add(json2);
 					json1.put("files", list);
-
 					request_announcement.body(json1.toString());
 					Response response1 = request_announcement.post(Constants.api_announcement);
-
 					String data1 = response1.asString();
 					System.out.println(data1);
 
-					///////////////////////////////////////////////////////////////////////////
 					if (objModel.runStartAssay) {
 						RequestSpecification request_startAssay = RestAssured.given();
 
@@ -161,20 +157,17 @@ public class InstallationRun {
 						json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
 						json4.put("CartridgeId", Test_Variables.lstStartAssaySalmonella.get(0).CartridgeID);
 						json4.put("RunId", objModel.sampleID);
-						json4.put("PathogenName", Test_Variables.lstStartAssaySalmonella.get(0).PathogenName);				
+						json4.put("PathogenName", objModel.pathogen);				
 
 						request_startAssay.body(json4.toString());
 						Response response3 = request_startAssay.post(Constants.api_StartAssay);
 
 						String data4 = response3.asString();
 						System.out.println(data4);	
-						Thread.sleep(45000);
+						Thread.sleep(10000);
 					}
-					///////////////////////////////////////////////////////////////////////	
 
-					
 					RequestSpecification request_fileupload = RestAssured.given();
-
 					request_fileupload.header("Content-Type", "application/json");
 					request_fileupload.header("Authorization", "bearer " +token);
 
@@ -192,7 +185,6 @@ public class InstallationRun {
 					json3.put("RunMode", "2");
 					json3.put("Pathogen", Test_Variables.lstSalmonellaIngest.get(0).pathogen);
 
-
 					request_fileupload.body(json3.toString());
 					Response response2 = request_fileupload.post(Constants.api_FileUpload);
 
@@ -201,7 +193,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(60000);
+					Thread.sleep(25000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -216,15 +208,14 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(3000);	
-					
+
 					try {
 						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
 					}
 					catch (Exception ex) {
 						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					}
-					
-				//	ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
 					System.out.println(z);
@@ -253,17 +244,29 @@ public class InstallationRun {
 						Thread.sleep(1500);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
-						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
-						
+						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
+
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-						Assert.assertEquals(getAuditRunType, "Installation");
+						softAssert.assertEquals(getAuditRunType, "Installation");
 						
+						if (objModel.runStartAssay) {
+							Test_Variables.steps.createNode("Verify Action as 'Modified' in Audit log");
+							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							softAssert.assertEquals(getAuditAction, "Modified");
+						}
+						else {
+							Test_Variables.steps.createNode("Verify Action as 'Created' in Audit log");
+							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							softAssert.assertEquals(getAuditAction, "Created");	
+						}
+
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
 						Thread.sleep(800);
 					}
-
+			
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
+					softAssert.assertAll();	
 					Test_Variables.test.pass(objModel.passStep);
 					Test_Variables.results.createNode(objModel.passStep);
 					Helper.saveResultNew(ITestResult.SUCCESS, Constants.InstallationRunReportPath, null);
@@ -290,7 +293,6 @@ public class InstallationRun {
 		Test_Variables.lstInstallationRunCreateCoccidia = InstallationRunModel.FillDataCoccidia();
 		for (InstallationRunModel objModel : Test_Variables.lstInstallationRunCreateCoccidia) { 
 			try{
-
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -301,7 +303,8 @@ public class InstallationRun {
 				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 				Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
-
+				SoftAssert softAssert = new SoftAssert();
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
 					Helper.driver.get(Constants.url_piperConfiguration);			
@@ -355,10 +358,8 @@ public class InstallationRun {
 
 					Thread.sleep(2000);
 					RequestSpecification request_announcement = RestAssured.given();
-
 					request_announcement.header("Content-Type", "application/json");
 					request_announcement.header("Authorization", "bearer " +token);
-
 					HttpGet postRequest = new HttpGet(Constants.api_announcement);
 					postRequest.addHeader("Content-Type", "application/json");
 					postRequest.addHeader("Authorization", "Bearer "+token);
@@ -378,18 +379,13 @@ public class InstallationRun {
 
 					list.add(json2);
 					json1.put("files", list);
-
 					request_announcement.body(json1.toString());
 					Response response1 = request_announcement.post(Constants.api_announcement);
-
 					String data1 = response1.asString();
 					System.out.println(data1);
 
-					///////////////////////////////////////////////////////////////////////////
-				
 					if (objModel.runStartAssay) {
 						RequestSpecification request_startAssay = RestAssured.given();
-
 						request_startAssay.header("Content-Type", "application/json");
 						request_startAssay.header("Authorization", "bearer " +token);
 
@@ -409,14 +405,10 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
-						Thread.sleep(60000);
+						Thread.sleep(15000);
 					}
-					
-					///////////////////////////////////////////////////////////////////////	
 
-					
 					RequestSpecification request_fileupload = RestAssured.given();
-
 					request_fileupload.header("Content-Type", "application/json");
 					request_fileupload.header("Authorization", "bearer " +token);
 
@@ -442,7 +434,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(45000);
+					Thread.sleep(25000);
 
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -457,15 +449,14 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(3000);	
-					
+
 					try {
 						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
 					}
 					catch (Exception ex) {
 						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					}
-						
-				//	ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1500);
 					System.out.println(z);
@@ -494,27 +485,38 @@ public class InstallationRun {
 						Thread.sleep(1500);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
-						Assert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
-						
+						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
+
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
-						Assert.assertEquals(getAuditRunType, "Installation");
+						softAssert.assertEquals(getAuditRunType, "Installation");
 
 						if (objModel.runStartAssay) {
-							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 1);
-							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-2")).size(), 0);
+							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 1);
+							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-2")).size(), 0);
 						}
 						else {
-							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-0")).size(), 1);
-							Assert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 0);
+							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-0")).size(), 1);
+							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 0);
 						}
 						
-						
+						if (objModel.runStartAssay) {
+							Test_Variables.steps.createNode("Verify Action as 'Modified' in Audit log");
+							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							softAssert.assertEquals(getAuditAction, "Modified");
+						}
+						else {
+							Test_Variables.steps.createNode("Verify Action as 'Created' in Audit log");
+							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							softAssert.assertEquals(getAuditAction, "Created");	
+						}
+
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
 						Thread.sleep(800);
 					}
-
+					
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
+					softAssert.assertAll();
 					Test_Variables.test.pass(objModel.passStep);
 					Test_Variables.results.createNode(objModel.passStep);
 					Helper.saveResultNew(ITestResult.SUCCESS, Constants.InstallationRunReportPath, null);

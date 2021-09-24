@@ -3,7 +3,9 @@ package Test.Ancera.MetaData;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -91,7 +93,7 @@ public class PoultryManagement {
 			//softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(1) label")).getText(), "Management Type"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(2) label")).getText(), "Start Date"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(3) label")).getText(), "End Date"); 
-			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(4) label")).getText(), "Notes"); 
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(4) label")).getText(), "Note"); 
 			Test_Variables.test.pass("Table contents verified successfully");
 			Test_Variables.results.createNode("Table contents verified successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -335,6 +337,9 @@ public class PoultryManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.xpath("//input[@placeholder='Brand Name']")).sendKeys(Keys.ENTER);		
 			Thread.sleep(500);
+			
+			Helper.driver.findElement(By.id("Note")).sendKeys("Treatment Notes #"+Test_Variables.date0);
+			Thread.sleep(500);
 			Helper.driver.findElement(By.id("btn-save")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -360,7 +365,7 @@ public class PoultryManagement {
 	@Test (enabled= true, priority = 8) 
 	public void HeartbeatTreatment() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-08: Verify user can update treatment intervention", "This test case will verify heartbeat icon next to active treatment");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-08: Verify heartbeat icon appears next to created treatment", "This test case will verify heartbeat icon next to active treatment");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -407,10 +412,27 @@ public class PoultryManagement {
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
 			Test_Variables.steps.createNode("1. Click on edit icon next to created Treatment and update it");
-			Helper.driver.findElement(By.id("edit-treatment-1")).click();
+			
+			if (Helper.driver.findElements(By.cssSelector("button.close span")).size() != 0 ) {
+				Helper.driver.findElement(By.cssSelector("button.close span")).click();
+				Thread.sleep(1000);
+			}
+			
+			
+			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
+			
+			for (int i = 1; i<=rows; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) ")).getText().equals("Treatment Notes #"+Test_Variables.date0)) {
+					Helper.driver.findElement(By.id("edit-treatment-"+i)).click();
+					break;
+				}
+			}
+			
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
-			Thread.sleep(3000);
-			Helper.driver.findElement(By.id("Note")).sendKeys("Test treatment");;
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("Note")).clear();
+			Helper.driver.findElement(By.id("Note")).sendKeys("Update treatment"+Test_Variables.date0);
 			Helper.driver.findElement(By.id("btn-save")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -438,7 +460,7 @@ public class PoultryManagement {
 	public void VerifyFilter() throws InterruptedException, IOException {
 
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-11: Verify Management Type Filter", "This test case will verify management type filter functionality");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-10: Verify Management Type Filter", "This test case will verify management type filter functionality");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -481,6 +503,57 @@ public class PoultryManagement {
 	}
 
 
+	@Test (enabled= true, priority = 11) 
+	public void DeleteTreatment() throws InterruptedException, IOException {
+
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-11: Verify user can delete Treatment intervention", "This test case will verify that user can update delete Treatment intervention");			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
+			Test_Variables.preconditions.createNode("5. Create Treatment intervention");
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
+
+			Test_Variables.preconditions.createNode("1. Click on delete icon next to created Treatment and delete it");
+
+			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
+			
+			for (int i = 1; i<=rows; i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) ")).getText().equals("Update treatment"+Test_Variables.date0)) {
+					Helper.driver.findElement(By.id("delete-treatment-"+i)).click();
+					break;
+				}
+			}
+			
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-yes")).click();
+
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Treatment details deleted.");
+			Test_Variables.test.pass("Treatment details deleted successfully");
+			Test_Variables.results.createNode("Treatment details deleted successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
+		}
+
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Treatment details failed to delete");
+			Test_Variables.results.createNode("Treatment details failed to delete");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Treatment details failed to delete");
+			Test_Variables.results.createNode("Treatment details failed to delete");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
+		}
+	}
+	
 	@Test (enabled= true, priority = 12) 
 	public void DeleteFeed() throws InterruptedException, IOException {
 
@@ -500,6 +573,10 @@ public class PoultryManagement {
 
 			Test_Variables.preconditions.createNode("1. Click on delete icon next to created feed and delete it");
 
+			WebElement element = Helper.driver.findElement(By.id("delete-treatment-1"));
+			((JavascriptExecutor) Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+			Thread.sleep(500); 
+			
 			Helper.driver.findElement(By.id("delete-treatment-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
 			Thread.sleep(1000);
@@ -521,49 +598,6 @@ public class PoultryManagement {
 		catch(Exception ex) {
 			Test_Variables.test.fail("Feed details failed to delete");
 			Test_Variables.results.createNode("Feed details failed to delete");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
-		}
-	}
-
-	@Test (enabled= true, priority = 11) 
-	public void DeleteTreatment() throws InterruptedException, IOException {
-
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-11: Verify user can delete Treatment intervention", "This test case will verify that user can update delete Treatment intervention");			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
-			Test_Variables.preconditions.createNode("5. Create Treatment intervention");
-
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
-
-			Test_Variables.preconditions.createNode("1. Click on delete icon next to created Treatment and delete it");
-
-			Helper.driver.findElement(By.id("delete-treatment-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-yes")).click();
-
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Treatment details deleted.");
-			Test_Variables.test.pass("Treatment details deleted successfully");
-			Test_Variables.results.createNode("Treatment details deleted successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
-		}
-
-		catch(AssertionError er) {
-			Test_Variables.test.fail("Treatment details failed to delete");
-			Test_Variables.results.createNode("Treatment details failed to delete");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("Treatment details failed to delete");
-			Test_Variables.results.createNode("Treatment details failed to delete");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
 		}
 	}
