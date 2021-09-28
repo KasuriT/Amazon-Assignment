@@ -286,7 +286,7 @@ public class InstallationRun {
 
 
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Test (enabled= false, priority = 3) 
+	@Test (enabled= true, priority = 3) 
 	public void installationRunConfigCoccidia() throws InterruptedException, IOException {
 
 		int z = 0;

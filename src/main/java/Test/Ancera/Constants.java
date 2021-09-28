@@ -21,6 +21,7 @@ public class Constants {
 	public static String url_alert = url+"/home/admin/alerts";
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
+	public static String url_cyclingConfig = url+"/home/admin/complex-cycling-config";
 	public static String url_piperManagement = url+"/home/admin/piper";
 	public static String url_piperSoftware = url+"/home/admin/piper-software-management";
 	public static String url_piperConfiguration = url+"/home/admin/piper-configuration";
@@ -59,6 +60,7 @@ public class Constants {
 	public static String AgreementManagementReportPath = "/Screenshots/Administration/AgreementManagementScreenShot";
 	public static String AlertManagementReportPath = "/Screenshots/Administration/AlertManagementScreenShot";
 	public static String BarcodeManagementReportPath = "/Screenshots/Administration/BarcodeManagementScreenShot";
+	public static String CyclingConfigReportPath = "/Screenshots/Administration/ComplexCyclingConfigScreenShot";
 	public static String PiperManagementReportPath = "/Screenshots/Piper_Administration/PiperManagementScreenShot";
 	public static String PiperSoftwareReportPath = "/Screenshots/Piper_Administration/PiperSoftwareScreenShot";
 	public static String PiperConfigurationReportPath = "/Screenshots/Piper_Administration/PiperConfigurationScreenShot";

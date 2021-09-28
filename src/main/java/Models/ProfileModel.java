@@ -15,14 +15,16 @@ public class ProfileModel {
 	public String phoneNo;
 	public String testCaseMandatoryCheck;
 	public Boolean CheckS1;
+	public String pageTitle;
 	
-	public ProfileModel( String _url, String _testCase, String _testCaseDescription, String _stepPage)
+	public ProfileModel( String _url, String _testCase, String _testCaseDescription, String _stepPage, String _pageTitle)
 	
 	{
 		this.url = _url;
 		this.testCaseNavigate = _testCase;
 		this.testCaseDescription = _testCaseDescription;
 		this.stepPage = _stepPage;
+		this.pageTitle = _pageTitle;
 }
 	
 	

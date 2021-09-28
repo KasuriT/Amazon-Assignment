@@ -709,12 +709,11 @@ public class CoccidiaLog {
 								request_fileupload.body(json3.toString());
 								Response response2 = request_fileupload.post(Constants.api_FileUpload);
 								String data3 = response2.asString();
-								//System.out.println(data3);
 								JsonPath jsonPathEvaluator1 = response.jsonPath();
 								jsonPathEvaluator1.get("statusCode");
 								Thread.sleep(1000);
 								
-								Thread.sleep(60000);
+								Thread.sleep(20000);
 								Helper.driver.navigate().refresh();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);
@@ -877,7 +876,7 @@ public class CoccidiaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
+						softAssert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), recordsafterfilter);
 						Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
@@ -1419,8 +1418,9 @@ public class CoccidiaLog {
 			Test_Variables.steps.createNode("2. Export PNG button becomes visible");
 			Test_Variables.steps.createNode("3. Click on the button");
 
+			Helper.driver.navigate().refresh();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Thread.sleep(1000);	
+			Thread.sleep(2000);	
 			Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(1000);

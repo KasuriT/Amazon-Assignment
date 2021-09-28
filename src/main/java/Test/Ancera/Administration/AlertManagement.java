@@ -49,7 +49,7 @@ public class AlertManagement {
 	}
 
 
-	@Test (description="Test Case: Navigate to Alert Management Screen",enabled= false, priority = 1) 
+	@Test (description="Test Case: Navigate to Alert Management Screen",enabled= true, priority = 1) 
 	public void NavigateAlertManagement() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-License-01: Verify user can navigate to Alert Management screen", "This test case will verify that user can navigate to Alert Management screen");
@@ -107,8 +107,10 @@ public class AlertManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.name("password")).sendKeys(Test_Variables.forgotPassword_password);
 			Helper.driver.findElement(By.name("password")).sendKeys(Keys.ENTER);	
-			Thread.sleep(2000);
-			if (Helper.driver.findElements(By.cssSelector((".vxx8jf"))).size() !=  0) {
+			Thread.sleep(6000);
+			System.out.println(Helper.driver.findElements(By.id(("headingText"))).size());
+			
+			if (Helper.driver.findElements(By.id(("headingText"))).size() !=  0) {
 				Helper.driver.findElement(By.cssSelector((".vxx8jf"))).click();
 				Thread.sleep(2000);
 				Helper.driver.findElement(By.id("knowledge-preregistered-email-response")).sendKeys(Test_Variables.forgotPasswordSecurityEmail);
@@ -313,7 +315,7 @@ public class AlertManagement {
 					}	
 				}
 
-
+				if (objModel.isGenerate) {
 				RequestSpecification request = RestAssured.given();
 				request.header("Content-Type", "application/json");
 				JSONObject json = new JSONObject();   
@@ -390,12 +392,13 @@ public class AlertManagement {
 				JsonPath jsonPathEvaluator1 = response.jsonPath();
 				jsonPathEvaluator1.get("statusCode");
 				Thread.sleep(1000);
-
+				}
 
 				ArrayList<String> tabs2 = new ArrayList<String> (Helper.driver.getWindowHandles());
 				Helper.driver.switchTo().window(tabs2.get(1));
 				Thread.sleep(2000);	
 
+				Helper.driver.navigate().refresh();
 				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
 				Thread.sleep(2000);
 				List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
