@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -78,7 +79,7 @@ public class OrganizationManagement{
 
 
 
-	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 3) 
+	@Test (description="Exceptional Flow: Mandatory field check", enabled= false, priority= 3) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
 		String orgNameError;
@@ -265,7 +266,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Exceptional Flow: Close Popup", enabled= true, priority= 4) 
+	@Test (description="Exceptional Flow: Close Popup", enabled= false, priority= 4) 
 	public void ClosePopup() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-OM-16: Verify user can close create Organization popup", "This test case will verify that user can close create organization popup");
@@ -300,7 +301,7 @@ public class OrganizationManagement{
 	}
 	
 
-	@Test (description="Exceptional Flow: Reset fields", enabled= true, priority= 5) 
+	@Test (description="Exceptional Flow: Reset fields", enabled= false, priority= 5) 
 	public void ResetButton() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-OM-17: Verify user can send reset fields", "This test case will verify that user can reset fields");
@@ -345,7 +346,7 @@ public class OrganizationManagement{
 
 
 
-	@Test (description="Test Case: Create New Organization",enabled= true, priority= 6) 
+	@Test (description="Test Case: Create New Organization",enabled= false, priority= 6) 
 	public void CreateOrganization() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -460,7 +461,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Search Created Organization ",enabled= true, priority= 7) 
+	@Test (description="Test Case: Search Created Organization ",enabled= false, priority= 7) 
 	public void SearchOrganization() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -532,7 +533,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Update New Organization ",enabled= true, priority= 8) 
+	@Test (description="Test Case: Update New Organization ",enabled= false, priority= 8) 
 	public void UpdateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-24: Verify user can update Created Organization", "This test case will verify that user can update created organization");	
@@ -590,7 +591,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Verify Updated Organization ",enabled= true, priority= 9) 
+	@Test (description="Test Case: Verify Updated Organization ",enabled= false, priority= 9) 
 	public void SearchUpdateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-25: Verify Organization remained updated after updating it", "This test case will verify that updated changes are saved by reopening updated organization");	
@@ -638,7 +639,7 @@ public class OrganizationManagement{
 	
 
 	
-	@Test (description="Test Case: Organization Site Check",enabled= true, priority= 10) 
+	@Test (description="Test Case: Organization Site Check",enabled= false, priority= 10) 
 	public void OrganizationSitesCheck() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
@@ -653,20 +654,20 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("1. Click on site button next to created Organization; Organization Site popup appears");
 			Test_Variables.steps.createNode("2. Verify Site Type is Organization");
 
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest");
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("orgnType-1")).click();
-//			Thread.sleep(3000);
-//			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
-//			Thread.sleep(5000);
-//	//		Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i")).click();
-//			Thread.sleep(3000);	
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest1256");
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("orgnType-1")).click();
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
+			Thread.sleep(5000);
+
+			Thread.sleep(3000);	
 						
-			Test_Functions.OrgSearch();
-			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
+	//		Test_Functions.OrgSearch();
+	//		Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(3000);
 			Helper.driver.findElement(By.cssSelector("li .text-ellipsis")).click(); 
@@ -857,10 +858,21 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Leave all fields empty and click on save button");
 
-			Helper.driver.navigate().refresh();
-			Test_Functions.OrgSearch();
+			//Helper.driver.navigate().refresh();
+			//Test_Functions.OrgSearch();
 			
-			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();    
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest1256");
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("orgnType-1")).click();
+			Thread.sleep(3000);
+			
+			
+			
+			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector(".btn-ok-fontawesom")).click();  
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-save"))); 
@@ -956,11 +968,11 @@ public class OrganizationManagement{
 			WebElement stAddress = Helper.driver.findElement(By.id("streetAddressId"));
 			stAddress.sendKeys("2428 Carriage Lane"); stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
 			Thread.sleep(8000);
-			
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] span[class='ng-value-label ng-star-inserted']")).getText(), "USA");
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
 			Helper.driver.findElement(By.cssSelector("#stateId input")).click();
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId .ng-value-label")).getText(), "North Carolina");
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='form-group pull-left pl-0 pr-1 col-md-8'] span[class='ng-value-label ng-star-inserted']")).getText(), "Lincolnton");
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId input")).getText(), "North Carolina");
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("ng-select[id='cellCodeId'] div[class='ng-select-container'] input[role='combobox']")).getText(), "Lincolnton");
 
 			//Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#zipCodeId")).getText(), "28092");
 //			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#LatId")).getText(), "35.529122");
@@ -975,7 +987,8 @@ public class OrganizationManagement{
 			String expected = Test_Variables.lstOrgAlertMessages.get(2) ;
 			Thread.sleep(1000);
 
-			Assert.assertEquals(actual, expected); 
+			softAssert.assertEquals(actual, expected);
+			softAssert.assertAll();
 			Test_Variables.test.pass("New Organization site created successfully");
 			Test_Variables.results.createNode("New Organization site created successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
@@ -1013,14 +1026,14 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Make changes and click on save button");
 
 			Test_Variables.test.createNode("Click on update button next to created site");
-			Helper.driver.findElement(By.xpath(Test_Elements.orgCreatedSite)).click(); 
+			Helper.driver.findElement(By.cssSelector("li:last-child li:last-child span")).click(); 
 			Thread.sleep(4000);
 			Helper.driver.findElement(By.id("SiteNameId")).clear();
 			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Lab Updated");  
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] span[class='ng-value-label ng-star-inserted']")).getText(), "USA");
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId .ng-value-label")).getText(), "North Carolina");
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='form-group pull-left pl-0 pr-1 col-md-8'] span[class='ng-value-label ng-star-inserted']")).getText(), "Lincolnton");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId input")).getText(), "North Carolina");
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("ng-select[id='cellCodeId'] div[class='ng-select-container'] input[role='combobox']")).getText(), "Lincolnton");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click(); 
 			Thread.sleep(1000);
@@ -1074,7 +1087,7 @@ public class OrganizationManagement{
 			Thread.sleep(2000);
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-			Helper.driver.findElement(By.xpath(Test_Elements.orgCreatedSite)).click(); 
+			Helper.driver.findElement(By.cssSelector("li:last-child li:last-child span")).click(); 
 			Thread.sleep(2000);
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("streetAddressId")));
@@ -1151,7 +1164,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: InActive Organization",enabled= true, priority= 17) 
+	@Test (description="Test Case: InActive Organization",enabled= false, priority= 17) 
 	public void InActiveOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-32: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
@@ -1202,7 +1215,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 18) 
+	@Test (description="Test Case: Verify InActive Organization",enabled= false, priority= 18) 
 	public void VerifyInActiveOrganization() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-33: Verify inactive Organization Site is not displayed in create user popup", "This test case will verify that inactive organization is not displayed in create new user popup");
@@ -1264,7 +1277,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Delete Organization",enabled= true, priority= 19) 
+	@Test (description="Test Case: Delete Organization",enabled= false, priority= 19) 
 	public void DeleteOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-34: Verify Organization can be deleted", "This test case will verify that organization can be deleted");
@@ -1317,7 +1330,7 @@ public class OrganizationManagement{
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		Helper.driver.close();
+	//	Helper.driver.close();
 	}
 
 }

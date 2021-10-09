@@ -33,6 +33,7 @@ import Models.ProfileModel;
 import Models.RMModel;
 import Models.RawImageModel;
 import Models.SalmonellaModel;
+import Models.SitesLogModel;
 import Models.StartAssayModel;
 import Models.UserModel;
 
@@ -591,6 +592,25 @@ public class Test_Variables {
 	////////////////////////////////////////////////////////////////End Coccidia Variables/////////////////////////////////////////////////////////////////////////////////////
 	
 	
+	////////////////////////////////////////////////////////////////////Sites Log Variables///////////////////////////////////////////////////////////////////////////////////			
+
+	public static ArrayList<SitesLogModel> lstSitesLogSearch = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSiteLogWildcardSearch = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogDateSearch = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogDateEnter = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogRowCount = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogPagination = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogSorting = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogFieldAccess = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogContexualCheck = new ArrayList<>();
+	public static ArrayList<SitesLogModel> lstSitesLogLock = new ArrayList<>();
+	
+	public static String sitesCSVFileName = "Sites Log - ";
+	public static String sitesCSVAuditFileName = "Sites Audit Log- ";
+	
+	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
+
+	
 	//////////////////////////////////////////////////////////////Coccidia Timeline Variables////////////////////////////////////////////////////////////////////////////////////
 
 	public static String ctlTimelineFileName = "Coccidia Run Timeline - ";
@@ -638,8 +658,10 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////////////Raw Image///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<RawImageModel> lstRawImageCoccidia = new ArrayList<>();
+	public static ArrayList<RawImageModel> lstRawImageSalmonella = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////End Raw Image////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	
 	/////////////////////////////////////////////////////////////P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -683,7 +705,8 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_CoccidiaLog, "AN-PS-17: Navigate to Profile Setting from Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select Coccidia Log", "Coccidia Log"),
 					new ProfileModel(Constants.url_CoccidiaTimeline, "AN-PS-18: Navigate to Profile Setting from Coccidia Timeline Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Timeline Screen", "1. Hover to sidebar; click on Reports and select Coccidia Timeline", "Coccidia Timeline"),
 				//	new ProfileModel(Constants.url_ExternalCoccidiaLog, "AN-PS-18: Navigate to Profile Setting from External Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from External Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select External Coccidia Log"),
-					new ProfileModel(Constants.url_LocalDashboard, "AN-PS-19: Navigate to Profile Setting from Local Dashboard Screen", "This test case will verify user can navigate to Profile Setting page from Local Dashboard Screen", "1. Hover to sidebar; click on Reports and select Local Dashboard", "Local Dashboard")
+					new ProfileModel(Constants.url_LocalDashboard, "AN-PS-19: Navigate to Profile Setting from Local Dashboard Screen", "This test case will verify user can navigate to Profile Setting page from Local Dashboard Screen", "1. Hover to sidebar; click on Reports and select Local Dashboard", "Local Dashboard"),
+					new ProfileModel(Constants.url_SitesLog, "AN-PS-20: Navigate to Profile Setting from Sites Log Screen", "This test case will verify user can navigate to Profile Setting page from Sites Log Screen", "1. Hover to sidebar; click on Reports and select Sites Log", "Sites Log")
 					));
 	
 	

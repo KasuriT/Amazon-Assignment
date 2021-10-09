@@ -35,6 +35,7 @@ public class Constants {
 	
 	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
 	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
 	
 //	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=18&code=0002&type=2";   //dev
 	
@@ -78,6 +79,7 @@ public class Constants {
 	public static String NormalIngestionReportPath = "/Screenshots/Reports/NormalIngestionScreenShot";
 	public static String PAConfigReportPath = "/Screenshots/Reports/PAConfigScreenShot";
 	public static String RawImageReportPath = "/Screenshots/Reports/RawImageScreenShot";
+	public static String SitesLogReportPath = "/Screenshots/Reports/SitesLogScreenShot";
 	
 	public static String api_login = api+"/login";
 	public static String api_announcement = api+"/runfilelist";

@@ -28,7 +28,6 @@ public class TestLogin{
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Login"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Login Test Report"); // Name of the report
 		Helper.config();
-
 	}
 
 	@Test(enabled=true, priority= 1)
@@ -167,7 +166,6 @@ public class TestLogin{
 		catch(Exception ex){
 			Test_Variables.test.fail("User remained logout failed");
 			Test_Variables.results.createNode("User is again redirected into the application");
-
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.LoginReportPath, ex);
 		}	
 	}
@@ -177,7 +175,5 @@ public class TestLogin{
 	public static void endreport() {
 		Test_Variables.extent.flush();
 		Helper.driver.close();
-
 	}
-
 }

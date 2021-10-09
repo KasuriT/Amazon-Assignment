@@ -165,20 +165,20 @@ public class Test_Elements {
 
 	public static String orgSiteTypeexpected = "Site type is required";
 	public static String orgSiteNameexpected = "Site name is required";
-	public static String orgSiteNameValidation = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[2]/div";
-	public static String orgSiteTypeValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/div";
-	public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
-	public static String orgSiteDelete = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li[1]/div/div[4]/i[2]";
-	
+	public static String orgSiteNameValidation = "//div[contains(text(), ' Site name is required')]";
+	public static String orgSiteTypeValidation = "//div[contains(text(), ' Site type is required')]";
+	//public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
+	public static String orgSiteDelete = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[2]";
+										  
 	
 	public static String orgSite1Text = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[2]/span";
-	public static String orgSite1Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i";
-	public static String orgSite2Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite3Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite4Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite5Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite6Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/i[1]";
-	public static String orgSite7Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/i[1]";
+	public static String orgSite1Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/i";
+	public static String orgSite2Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite3Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite4Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite5Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
+	public static String orgSite6Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/i[1]";
+	public static String orgSite7Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/i[1]";
 	
 	public static String orgPopupCloseButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]/p";
 	public static String orgMaxUser = "//*[@id=\"idMaxUsers\"]";
@@ -650,11 +650,13 @@ public class Test_Elements {
 	public static String clImprocIDCol = "26";
 	public static String clTestSiteIDCol = "27";
 	public static String clTestSiteNameCol = "28";
+	public static String clCollectionSiteTypeCol = "29";
 	public static String clRequestedAssayCol = "30";
 	public static String clFlockIDCol = "31";
 	public static String clRunTypeCol = "32";
 	public static String clCollectionDateCol = "33";
-	public static String clFieldAccessCol = "34";
+	public static String clCollectionSiteIDCol = "34";
+	public static String clFieldAccessCol = "35";
 	
 	public static String clAuditLaneCol = "0";
 	public static String clAuditSampleIDCol = "1";
@@ -684,6 +686,7 @@ public class Test_Elements {
 	public static String clAuditFlockIDCol = "30";
 	public static String clAuditRunTypeCol = "31";
 	public static String clAuditCollectionDateCol = "32";
+	public static String clAuditCollectionSiteIDCol = "33";
 	
 	public static String clShowFilter = "_show-filter";
 	public static String clSortFilter = "sort-";
@@ -700,9 +703,9 @@ public class Test_Elements {
 	public static String clLargeOPG = "totalLargeOPG";
 	public static String clResult = "outcome";
 	public static String clAssay = "pathogen";
+	public static String clResultID = "runId";
 	public static String clResultTime = "time";
 	public static String clResultDate = "scanDateTime";
-	public static String clCollectionSiteID = "collection_site_id";
 	public static String clCollectionSiteName = "site_id";
 	public static String clSampleMatrix = "sample_matrix";
 	public static String clCustomerSampleID = "customer_sample_id";
@@ -719,11 +722,12 @@ public class Test_Elements {
 	public static String clImprocVersion = "version";
 	public static String clTestSiteID = "testSiteId";
 	public static String clTestSiteName = "testSiteName";
+	public static String clCollectionSiteType = "collection_site_type";
 	public static String clRequestedAssay = "requested_assay";
 	public static String clFlockID = "flock_id";
 	public static String clRunType = "runType";
 	public static String clCollectionDate = "collectionDate";
-
+	public static String clCollectionSiteID = "collection_site_id";
 	
 	public static String clToday = "#list-title_range-0";
 	public static String clLast24Hours = "#list-title_range-1";
@@ -746,6 +750,67 @@ public class Test_Elements {
 
 	//////////////////////////////////////////////////End Coccidia Log Elements///////////////////////////////////////////////////////
 
+	
+	///////////////////////////////////////////////Sites Log Elements/////////////////////////////////////////////////////////
+
+	public static String sitesSiteIDCol = "0";
+	public static String sitesSiteNameCol = "1";
+	public static String sitesSiteTypeCol = "2";
+	public static String sitesStreetAddressCol = "3";
+	public static String sitesStateCol = "4";
+	public static String sitesZipCodeCol = "5";
+	public static String sitesCountryCol = "6";
+	public static String sitesLatitudeCol = "7";
+	public static String sitesLongitudeCol = "8";
+	public static String sitesDateCreatedCol = "9";
+	public static String sitesCreatedByCol = "10";
+	public static String sitesFieldAccessCol = "11";
+	
+	public static String sitesAuditSiteIDCol = "0";
+	public static String sitesAuditSiteNameCol = "0";
+	public static String sitesAuditSiteTypeCol = "1";
+	public static String sitesAuditStreetAddressCol = "2";
+	public static String sitesAuditStateCol = "3";
+	public static String sitesAuditZipCodeCol = "4";
+	public static String sitesAuditCountryCol = "5";
+	public static String sitesAuditLatitudeCol = "6";
+	public static String sitesAuditLongitudeCol = "7";
+	public static String sitesAuditDateCreatedCol = "8";
+	public static String sitesAuditCreatedByCol = "9";
+	
+	public static String sitesShowFilter = "_show-filter";
+	public static String sitesSortFilter = "sort-";
+	public static String sitesApplyFilter = "_apply";
+	public static String sitesClearFilter = "_clear-filter";
+
+	public static String sitesSiteID = "siteId";
+	public static String sitesSiteName = "siteName";
+	public static String sitesSiteType = "siteType"; 
+	public static String sitesStreetAddress = "streetAddress";
+	public static String sitesState = "state";
+	public static String sitesZipCode = "zipCode"; 
+	public static String sitesCountry = "country";
+	public static String sitesLatitude = "latitude";
+	public static String sitesLongitude = "longitude"; 
+	public static String sitesDateCreated = "createdDate"; 
+	public static String sitesCreatedBy = "createdBy"; 
+	
+	public static String sitesTotalPages = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
+
+	public static String sitesPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
+	public static String sitesCsvHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]";
+	public static String sitesPng = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]/span/app-custom-export-png/i";
+	public static String sitesDownloadButton = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";
+	public static String sitesCsv = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/span/i";	
+	public static String sitesExportDataTemplate = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/div/li/label";
+	public static String sitesSampleMetaDataExport = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
+
+
+	/////////////////////////////////////////////////End Sites Log Elements////////////////////////////////////////////////////////////
+	
+	
+	
+	
 
 	///////////////////////////////////////////////Coccidia Timeline Log Elements/////////////////////////////////////////////////////////
 

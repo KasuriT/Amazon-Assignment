@@ -210,7 +210,7 @@ public class Normal_Ingestion {
 
 							String data4 = response3.asString();
 							System.out.println(data4);
-							Thread.sleep(15000);
+							Thread.sleep(25000);
 
 							Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							Helper.driver.get(Constants.url_SalmonellaLog);
@@ -418,7 +418,7 @@ public class Normal_Ingestion {
 							Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 							Test_Variables.preconditions.createNode("5. Click on Salmonella Log");
 
-							Thread.sleep(30000);
+							Thread.sleep(45000);
 							Helper.driver.get(Constants.url_SalmonellaLog);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1012,7 +1012,7 @@ public class Normal_Ingestion {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
-						Thread.sleep(10000);
+						Thread.sleep(15000);
 
 						Test_Variables.steps.createNode("4. Verify 12 lanes are ingested in Coccidia Report");
 						Helper.driver.get(Constants.url_CoccidiaLog);
@@ -1219,7 +1219,7 @@ public class Normal_Ingestion {
 					Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 					Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-					Thread.sleep(15000);
+					Thread.sleep(45000);
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));

@@ -26,37 +26,23 @@ public class Helper {
 
 	public static WebDriver driver; // to declare globally
 	public static String projectPath;
-	
+
 	@BeforeSuite
 	public static void config() {
 
-	  	projectPath = System.getProperty("user.dir");
+		projectPath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriverr.exe");
-		
+
 		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
-		
+
 		Test_Variables.spark.config().setDocumentTitle("Ancera Test Report");
 		Test_Variables.spark.config().setTheme(Theme.DARK);
 		Test_Variables.extent = new ExtentReports();
-		Test_Variables.extent.attachReporter(Test_Variables.spark);
-		
-			
-//		String downloadFilepath = "D:\\a";
-//		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-//		chromePrefs.put("profile.default_content_settings.popups", 0);
-//		chromePrefs.put("download.default_directory", downloadFilepath);
-//		ChromeOptions options = new ChromeOptions();
-//		options.setExperimentalOption("prefs", chromePrefs);
-//		DesiredCapabilities cap = DesiredCapabilities.chrome();
-//		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-//		cap.setCapability(ChromeOptions.CAPABILITY, options);
-	//	@SuppressWarnings("deprecation")
-	//	WebDriver driver = new ChromeDriver(cap);
-		
+		Test_Variables.extent.attachReporter(Test_Variables.spark);		
 	}
-	
+
 	public static void saveResult(ITestResult result, String reportPath) throws IOException {
 		System.out.println(Reporter.getCurrentTestResult());
 		if (result.getStatus() == ITestResult.FAILURE) {
@@ -71,20 +57,20 @@ public class Helper {
 			Test_Variables.test.log(Status.PASS, "Test Case Passed");
 		}
 	}
-	
+
 	public static void saveResultNew(int testResult, String reportPath, Exception e) throws IOException {
 		ITestResult objResult = Reporter.getCurrentTestResult();
 		if (testResult == ITestResult.SUCCESS) {
 			objResult.setStatus(ITestResult.SUCCESS);
 			Test_Variables.test.log(Status.PASS, "Test Case Passed");
-			//Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));// adding screen shot
+		  //Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath)); // adding screen shot
 		}
 		else if (testResult == ITestResult.FAILURE) {
 			objResult.setStatus(ITestResult.FAILURE);
 			objResult.setThrowable(e);
 			Test_Variables.test.log(Status.FAIL, "Test Case Failed"); // to add name in extent report
 			Test_Variables.test.log(Status.FAIL, "Issue -> " + e); // to add error/exception in extent report
-	//		String screenshotPath = getScreenshot(result.getName(), reportPath);
+		  //String screenshotPath = getScreenshot(result.getName(), reportPath);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));// adding screen shot
 		} else if (testResult == ITestResult.SKIP) {
 			Test_Variables.test.log(Status.SKIP, "Test Case SKIPPED IS " + objResult.getName());
@@ -95,22 +81,21 @@ public class Helper {
 		String dateName = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss").format(new Date());
 		TakesScreenshot ts = (TakesScreenshot) Helper.driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-	//	String destination = System.getProperty("user.dir") + reportPath +dateName+".png";
+		//	String destination = System.getProperty("user.dir") + reportPath +dateName+".png";
 		String destination = Constants.ReportFilePath + reportPath +dateName+".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
 		return "." + reportPath + dateName+".png";
-
 	}
-	
-	
+
+
 	private static ChromeOptions getChromeOptions() {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("disable-infobars");
 		options.setHeadless(false);
 		return options;
 	}
-	
+
 
 	@AfterTest
 	public static void endreport() {
@@ -123,5 +108,4 @@ public class Helper {
 		driver.close();
 		driver.quit();
 	}
-
 }

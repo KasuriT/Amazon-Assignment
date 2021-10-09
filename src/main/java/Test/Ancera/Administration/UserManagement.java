@@ -2,7 +2,6 @@ package Test.Ancera.Administration;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -80,7 +79,7 @@ public class UserManagement {
 	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 2) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Thread.sleep(1000);
 
 		String userFirstNameError;
@@ -109,7 +108,8 @@ public class UserManagement {
 
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 					Helper.driver.findElement(By.id("create-user")).click();
-					Thread.sleep(1000);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(2000);
 
 
 					Assert.assertTrue(Helper.driver.findElement(By.id("firstNameId")).isDisplayed()); 
@@ -143,6 +143,8 @@ public class UserManagement {
 
 				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 				Helper.driver.findElement(By.id("btn-reset")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(1000);
 				Helper.driver.findElement(By.id("firstNameId")).clear();
 				Helper.driver.findElement(By.id("firstNameId")).sendKeys(objModel.userFirstName);
 				Helper.driver.findElement(By.id("lastNameId")).clear();
@@ -269,20 +271,22 @@ public class UserManagement {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
 			Test_Variables.preconditions.createNode("4. Click on create new button; popup opens");
 			Test_Variables.steps.createNode("1. Click on cross button on top right of popup");
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
 
 			if (Helper.driver.findElements(By.id("close-popup-modal")).size() != 0) {
 				Helper.driver.findElement(By.id("close-popup-modal")).click();
 			}
 
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("create-user")).click();
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Helper.driver.findElement(By.id("close-popup-modal")).click();	
-
-
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Assert.assertEquals(Helper.driver.findElement(By.id("User Management")).getText(), "User Management"); 
 			Test_Variables.test.pass("User popup window closed successfully");
 			Test_Variables.results.createNode("User popup window closed successfully");	
@@ -318,11 +322,12 @@ public class UserManagement {
 			Test_Variables.steps.createNode("1. Enter data in all fields");
 			Test_Variables.steps.createNode("2. Click on reset button");
 
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("create-user")));
 			Helper.driver.findElement(By.id("create-user")).click();
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2500);
 
 			WebElement usrFirstName = Helper.driver.findElement(By.id("firstNameId"));
 			String firstNameReset = usrFirstName.getAttribute("value");
@@ -330,6 +335,7 @@ public class UserManagement {
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("btn-reset")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 
 			Assert.assertTrue(firstNameReset.isEmpty());
@@ -356,7 +362,7 @@ public class UserManagement {
 	@Test (enabled= true, priority= 4) 
 	public void CreateUser() throws InterruptedException, IOException {
 		try{
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//	Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(500);
 			WebElement search = Helper.driver.findElement(By.xpath(Test_Elements.userSearch));
 			search.sendKeys(Test_Variables.lstUserCreate.get(0));
@@ -378,9 +384,9 @@ public class UserManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("create-user")).click();     
-
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstNameId")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("firstNameId")).sendKeys(Test_Variables.lstUserCreate.get(0));    
 			Helper.driver.findElement(By.id("lastNameId")).sendKeys(Test_Variables.lstUserCreate.get(1));  
 			Helper.driver.findElement(By.id("phoneCodeId")).click();      
@@ -389,8 +395,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.id("PhoneNumberId")).sendKeys(Test_Variables.lstUserCreate.get(2));
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
-
-
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-09: Verify user cannot create a user with invalid email", "This test case will create a user with invalid email");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -449,7 +454,8 @@ public class UserManagement {
 			Helper.driver.findElement(By.xpath(Test_Elements.userOrganizationSelect)).click();
 			Thread.sleep(2000);
 
-			Helper.driver.findElement(By.id("btn-next")).click();   
+			Helper.driver.findElement(By.id("btn-next")).click(); 
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 			ClickElement.clickById(Helper.driver, "rolesId");  
 			Thread.sleep(1000);
@@ -503,7 +509,7 @@ public class UserManagement {
 
 
 		Helper.driver.get(Constants.url_GmailSignin);
-		Helper.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);	
+	//	Helper.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);	
 		Thread.sleep(12000);
 
 		if (Helper.driver.findElements(By.xpath(Test_Elements.gmailEmail)).size() != 0) {
@@ -517,7 +523,6 @@ public class UserManagement {
 			Helper.driver.findElement(By.id("Email")).sendKeys(Test_Variables.createUserEmail);    
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("Email")).sendKeys(Keys.ENTER);			
-
 		}
 
 		//	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.gmailEmail)));
@@ -548,8 +553,6 @@ public class UserManagement {
 		}
 
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Create Password")));
-
-
 
 		if (Helper.driver.findElement(By.linkText("Create Password")).getText().equals("Create Password")) {
 
@@ -594,7 +597,7 @@ public class UserManagement {
 			Test_Variables.steps.createNode("1. Click on the reset password link;  user redirects to application to set new password");
 			Test_Variables.steps.createNode("2. Enter email and newly set password; user should be logged in");
 
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//	Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordId")));
 			Helper.driver.findElement(By.id("passwordId")).sendKeys(Test_Variables.createUserPassword);

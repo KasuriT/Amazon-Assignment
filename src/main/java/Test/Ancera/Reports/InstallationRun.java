@@ -46,7 +46,7 @@ public class InstallationRun {
 
 
 	@SuppressWarnings("unchecked") 
-	@Test (enabled= true, priority = 1) 
+	@Test (enabled= false, priority = 1) 
 	public void installationRunConfigSalmList() throws InterruptedException, IOException {
 
 		int z = 0;

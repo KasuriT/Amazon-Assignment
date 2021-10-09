@@ -29,7 +29,7 @@ public class InstallationRunModel {
 		ArrayList<InstallationRunModel> lstInstallationRunModel = new ArrayList<InstallationRunModel>();	
 		InstallationRunModel objTmp;
 		ReportFilters objFilter;
-/*
+
 		objTmp = new InstallationRunModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-IR-01: Verify QC Code is Blank against all lanes when there is Error Code in Count Outcome for Salmonella";
@@ -147,10 +147,10 @@ public class InstallationRunModel {
 		objTmp.failStep = "QC Code was not Pass when Mean and Standard Deviation were in range";
 		objTmp.lstFilters.add(objFilter);
 		lstInstallationRunModel.add(objTmp);
-		*/
-		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
 		
+		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
+	/*	
 		objTmp = new InstallationRunModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-IR-07: Verify QC Code is Blank against all lanes when there is Error Code in Count Outcome for Listeria";
@@ -268,7 +268,7 @@ public class InstallationRunModel {
 		objTmp.failStep = "QC Code was not Pass when Mean and Standard Deviation were in range";
 		objTmp.lstFilters.add(objFilter);
 		lstInstallationRunModel.add(objTmp);
-
+*/
 		return lstInstallationRunModel;
 	}
 	

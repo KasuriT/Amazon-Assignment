@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
+<testng-results ignored="11" total="18" passed="4" failed="3" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-09-28T13:16:15 PKT" name="Default suite" finished-at="2021-09-28T13:18:17 PKT" duration-ms="121783">
+  <suite started-at="2021-10-08T19:15:24 PKT" name="Default suite" finished-at="2021-10-08T19:21:17 PKT" duration-ms="353165">
     <groups>
     </groups>
-    <test started-at="2021-09-28T13:16:15 PKT" name="Default test" finished-at="2021-09-28T13:18:17 PKT" duration-ms="121783">
-      <class name="Test.Ancera.Reports.PAConfig">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Reports.PAConfig@4803b726]" started-at="2021-09-28T13:16:15 PKT" name="extent" finished-at="2021-09-28T13:16:36 PKT" duration-ms="20997" status="PASS">
+    <test started-at="2021-10-08T19:15:24 PKT" name="Default test" finished-at="2021-10-08T19:21:17 PKT" duration-ms="353165">
+      <class name="Test.Ancera.Administration.OrganizationManagement">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:15:24 PKT" name="extent" finished-at="2021-10-08T19:16:11 PKT" duration-ms="46616" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="PAConfigurationTesttttttttttttt()[pri:1, instance:Test.Ancera.Reports.PAConfig@4803b726]" started-at="2021-09-28T13:16:36 PKT" name="PAConfigurationTesttttttttttttt" finished-at="2021-09-28T13:18:17 PKT" duration-ms="100467" status="PASS">
+        <test-method signature="NavigateOM()[pri:2, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:16:11 PKT" name="NavigateOM" description="Test Case: Navigate to Organization Management Screen" finished-at="2021-10-08T19:16:22 PKT" duration-ms="11586" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NavigateOM -->
+        <test-method signature="OrganizationSiteMandatoryCheck()[pri:11, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:16:22 PKT" name="OrganizationSiteMandatoryCheck" description="Test Case: Organization Site Mandatory Check" finished-at="2021-10-08T19:16:42 PKT" duration-ms="19715" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- OrganizationSiteMandatoryCheck -->
+        <test-method signature="SiteResetButton()[pri:12, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:16:42 PKT" name="SiteResetButton" description="Exceptional Flow: Site Reset fields" finished-at="2021-10-08T19:16:44 PKT" duration-ms="2192" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SiteResetButton -->
+        <test-method signature="CreateOrganizationSite()[pri:13, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:16:44 PKT" name="CreateOrganizationSite" description="Test Case: Create Organization Site" finished-at="2021-10-08T19:17:21 PKT" duration-ms="36569" status="FAIL">
           <exception class="java.lang.Exception">
             <message>
               <![CDATA[java.lang.AssertionError: The following asserts failed:
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false]]]>
+expected [USA] but found [],
+expected [North Carolina] but found [],
+expected [Lincolnton] but found []]]>
             </message>
             <full-stacktrace>
               <![CDATA[java.lang.Exception: java.lang.AssertionError: The following asserts failed:
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false]
-at Test.Ancera.Reports.PAConfig.PAConfigurationTesttttttttttttt(PAConfig.java:1286)
+expected [USA] but found [],
+expected [North Carolina] but found [],
+expected [Lincolnton] but found []
+at Test.Ancera.Administration.OrganizationManagement.CreateOrganizationSite(OrganizationManagement.java:999)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -72,33 +66,132 @@ at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 Caused by: java.lang.AssertionError: The following asserts failed:
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false],
-expected [true] but found [false]
+expected [USA] but found [],
+expected [North Carolina] but found [],
+expected [Lincolnton] but found []
 at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
 at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-at Test.Ancera.Reports.PAConfig.PAConfigurationTesttttttttttttt(PAConfig.java:1277)
+at Test.Ancera.Administration.OrganizationManagement.CreateOrganizationSite(OrganizationManagement.java:991)
 ... 28 more
 ]]>
             </full-stacktrace>
           </exception> <!-- java.lang.Exception -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PAConfigurationTesttttttttttttt -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Reports.PAConfig@4803b726]" started-at="2021-09-28T13:18:17 PKT" name="endreport" finished-at="2021-09-28T13:18:17 PKT" duration-ms="299" status="PASS">
+        </test-method> <!-- CreateOrganizationSite -->
+        <test-method signature="UpdateOrganizationSites()[pri:14, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:17:21 PKT" name="UpdateOrganizationSites" description="Test Case: Update Organization Sites " finished-at="2021-10-08T19:17:28 PKT" duration-ms="7509" status="FAIL">
+          <exception class="java.lang.Exception">
+            <message>
+              <![CDATA[java.lang.AssertionError: expected [USA] but found []]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Exception: java.lang.AssertionError: expected [USA] but found []
+at Test.Ancera.Administration.OrganizationManagement.UpdateOrganizationSites(OrganizationManagement.java:1053)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:764)
+at org.testng.TestRunner.run(TestRunner.java:585)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+at org.testng.TestNG.runSuites(TestNG.java:1069)
+at org.testng.TestNG.run(TestNG.java:1037)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.AssertionError: expected [USA] but found []
+at org.testng.Assert.fail(Assert.java:99)
+at org.testng.Assert.failNotEquals(Assert.java:1037)
+at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+at org.testng.Assert.assertEquals(Assert.java:122)
+at org.testng.Assert.assertEquals(Assert.java:629)
+at org.testng.Assert.assertEquals(Assert.java:639)
+at Test.Ancera.Administration.OrganizationManagement.UpdateOrganizationSites(OrganizationManagement.java:1034)
+... 28 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Exception -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UpdateOrganizationSites -->
+        <test-method signature="VerifyUpdateOrganizationSites()[pri:15, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:17:28 PKT" name="VerifyUpdateOrganizationSites" description="Test Case: Verify Update Organization Sites " finished-at="2021-10-08T19:20:29 PKT" duration-ms="180524" status="FAIL">
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for visibility of element located by By.xpath: /html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span (tried for 180 second(s) with 500 milliseconds interval)
+Build info: version: '4.0.0-alpha-7', revision: 'de8579b6d5'
+System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.56.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.support.events.EventFiringWebDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 94.0.4606.71, chrome: {chromedriverVersion: 93.0.4577.63 (ff5c0da2ec0ad..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:53400}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9893d68e0f61ad44e6b8a566d45016de]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: /html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span (tried for 180 second(s) with 500 milliseconds interval)
+Build info: version: '4.0.0-alpha-7', revision: 'de8579b6d5'
+System info: host: 'DESKTOP-K0SFL7M', ip: '192.168.56.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.support.events.EventFiringWebDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 94.0.4606.71, chrome: {chromedriverVersion: 93.0.4577.63 (ff5c0da2ec0ad..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:53400}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9893d68e0f61ad44e6b8a566d45016de
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+at Test.Ancera.Administration.OrganizationManagement.VerifyUpdateOrganizationSites(OrganizationManagement.java:1086)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:764)
+at org.testng.TestRunner.run(TestRunner.java:585)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+at org.testng.TestNG.runSuites(TestNG.java:1069)
+at org.testng.TestNG.run(TestNG.java:1037)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyUpdateOrganizationSites -->
+        <test-method signature="DeleteOrganizationSites()[pri:16, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:20:29 PKT" name="DeleteOrganizationSites" description="Test Case: Delete Organization Sites " finished-at="2021-10-08T19:21:17 PKT" duration-ms="47939" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeleteOrganizationSites -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.OrganizationManagement@3c7f66c4]" started-at="2021-10-08T19:21:17 PKT" name="endreport" finished-at="2021-10-08T19:21:17 PKT" duration-ms="452" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Reports.PAConfig -->
+      </class> <!-- Test.Ancera.Administration.OrganizationManagement -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
