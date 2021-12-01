@@ -64,7 +64,6 @@ public class SalmonellaLog {
 
 	@Test (description="Test Case: Navigate to Salmonella Log Screen",enabled= true, priority = 1) 
 	public void NavigateSalmonella() throws InterruptedException, IOException {
-
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-03: Verify user can navigate to Salmonella Log Screen", "This test case will verify user can navigate to Salmonella Log Screen");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -100,9 +99,8 @@ public class SalmonellaLog {
 		}
 	}
 
-	
+
 	@SuppressWarnings("unused")
-	
 	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
 	public void DateFilter() throws InterruptedException, IOException {
 
@@ -110,7 +108,7 @@ public class SalmonellaLog {
 		Test_Variables.lstSalmonellaDateSearch = SalmonellaModel.FillDate();
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 		SoftAssert softAssert = new SoftAssert();
-		
+
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaDateSearch) { 
 			Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
@@ -127,14 +125,14 @@ public class SalmonellaLog {
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(Helper.driver);
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-scanDateTime"))); 
+				Thread.sleep(1000);
 				Test_Variables.steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				Helper.driver.findElement(By.id("scanDateTime_show-filter")).click();
+				Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1500);
-		//		String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
-		//		softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
-				
+				String dateFrom = Helper.driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
+				//	softAssert.assertEquals(dateFrom, Test_Variables.dateMMDDYYYY1);
+
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				Test_Variables.steps.createNode("2. Click on "+objFilter.FilterName);
 				Helper.driver.findElement(By.id("list-title_date-selection")).click();
@@ -144,7 +142,7 @@ public class SalmonellaLog {
 					actions.moveToElement(Helper.driver.findElement(By.cssSelector(objFilter.FilterListXPathSearch))).click().perform();	
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(750);
-					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();
+					Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();
 					Thread.sleep(750);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));	
 
@@ -166,8 +164,8 @@ public class SalmonellaLog {
 							Thread.sleep(1000);
 							Test_Variables.steps.createNode("3. Verify the dates in To and From field"); 
 							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();
-						//	Assert.assertEquals(fromDateField, fromDate);
-						//	Assert.assertEquals(toDateField, toDate);
+							//	Assert.assertEquals(fromDateField, fromDate);
+							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
@@ -211,7 +209,6 @@ public class SalmonellaLog {
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values verified successfully");
 							softAssert.assertAll();
-							
 						}catch(AssertionError er) {
 							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
@@ -230,7 +227,7 @@ public class SalmonellaLog {
 							cal.set(Calendar.DATE, Integer.parseInt(value1));
 							Date fromdate1 = cal.getTime();    
 							String fromDate = dateFormat.format(fromdate1);
-							Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();
+							Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();
 
 							String value3 =objFilter.toMonth;   
 							cal = Calendar.getInstance();
@@ -239,7 +236,7 @@ public class SalmonellaLog {
 							Date todate2 = cal.getTime();    
 							String toDate = dateFormat.format(todate2);
 							System.out.println(toDate);
-							Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();
+							Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();
 							String fromDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
 							String toDateField = Helper.driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
@@ -250,8 +247,7 @@ public class SalmonellaLog {
 							softAssert.assertNotEquals(recordBefore, recordAfter);
 							Test_Variables.test.pass(objFilter.FilterName+ " values verified successfully");
 							Test_Variables.results.createNode("1. "+objFilter.FilterName+ " values verified successfully");
-							softAssert.assertAll();
-							
+							softAssert.assertAll();	
 						}catch(AssertionError er) {
 							Test_Variables.test.fail(objFilter.FilterName+ " values failed to verify");
 							Test_Variables.results.createNode(objFilter.FilterName+ " values failed to verify");
@@ -262,7 +258,7 @@ public class SalmonellaLog {
 							Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 						}
 					}
-					Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();	
+					Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();	
 				}
 				else {
 					Test_Variables.test.skip("Unable to test the scenario because button is disabled");
@@ -291,13 +287,13 @@ public class SalmonellaLog {
 			Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-scanDateTime"))); 
+			Thread.sleep(1000);
 			Test_Variables.steps.createNode("1. Open date filter popup");
 			SoftAssert softAssert = new SoftAssert();
-			WebElement filter_scroll = Helper.driver.findElement(By.id("sort-scanDateTime"));
+			WebElement filter_scroll = Helper.driver.findElement(By.id(Test_Elements.slSortFilter+""+Test_Elements.slResultDate));
 			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .fa-filter")).click();	
+			Helper.driver.findElement(By.id(Test_Elements.slResultDate+""+Test_Elements.slShowFilter)).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
 
@@ -305,7 +301,7 @@ public class SalmonellaLog {
 			Helper.driver.findElement(By.id("list-title_date-selection")).click();
 			Thread.sleep(1000);
 
-			Helper.driver.findElement(By.cssSelector("body app-root p:nth-child(5)")).click();	
+			Helper.driver.findElement(By.cssSelector(Test_Elements.slLast30Days)).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 			Test_Variables.steps.createNode("3. Click on Lock button");
@@ -336,16 +332,12 @@ public class SalmonellaLog {
 			Test_Variables.results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 		}
-
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Helper.driver.findElement(By.id("remove-filters")).click();
-		WebElement filter_scroll = Helper.driver.findElement(By.cssSelector("sort-scanDateTime"));
-		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-		Thread.sleep(800);
-		Helper.driver.findElement(By.cssSelector("#sort-scanDateTime .log-header__clear-filter")).click();
+		Helper.driver.findElement(By.id("reset-all-filters")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
-	
+
 
 
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
@@ -374,53 +366,60 @@ public class SalmonellaLog {
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)));
+							WebElement filter_scroll = Helper.driver.findElement(By.id(Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)));
 							((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 							Thread.sleep(800);	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-							Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");				
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .fa-filter")).click();		
+							Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");					
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slShowFilter)).click();	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);						
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__footer--view-all")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);
+							Thread.sleep(800);	
 
-							for (int j = 0; j < objFilter.LstFilterValues.size(); j++) {
-								Test_Variables.steps.createNode("2. Select the checkbox");
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+								Assert.assertTrue(true, "No records available to test filter");
+								Test_Variables.test.skip("No records available to test filter");
+								Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slShowFilter)).click();	
+							}
+
+							else {
+								for (int j = 0; j < objFilter.LstFilterValues.size(); j++) {                 
+									Test_Variables.steps.createNode("2. Select the checkbox");
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									WebElement checkbox_scroll = Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label"));
+									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 		
+									Thread.sleep(1000);
+									ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label");
+								}
+
+								Test_Variables.steps.createNode("3. Click on apply filter button");	
+								ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+""+Test_Elements.slApplyFilter);
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								WebElement checkbox_scroll = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .checkbox-sm:nth-child("+objFilter.LstFilterValues.get(j)+") label"));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 										
-								Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .checkbox-sm:nth-child("+objFilter.LstFilterValues.get(j)+") label")).click();
-							}
-
-							Test_Variables.steps.createNode("3. Click on apply filter button");	
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__action--apply")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);
-							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
-
-							if(NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() != 0 && objFilter.FilterName == "Load Filter") {	
-								WebElement filter_scrollStart = Helper.driver.findElement(By.id("select-runId-0"));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollStart); 
 								Thread.sleep(800);
-								if (NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() > 100) {
-									Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), 100);
-								}
-								else {
-									Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue());	
-								}
-								WebElement filter_scrollBack = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollBack); 	
-							}
+								String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 
-							Assert.assertNotEquals(recordBefore, recordAfter);
-							Test_Variables.test.pass("Checkbox selected successfully");
-							Test_Variables.results.createNode("Checkbox selected successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-						}	
+								if(NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() != 0 && objFilter.FilterName == "Load Filter") {	
+									WebElement filter_scrollStart = Helper.driver.findElement(By.id("select-runId-0"));
+									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollStart); 
+									Thread.sleep(800);
+									if (NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() > 100) {
+										Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), 100);
+									}
+									else {
+										Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue());	
+									}
+									WebElement filter_scrollBack = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)));
+									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollBack); 	
+								}
+
+								Assert.assertNotEquals(recordBefore, recordAfter);
+								Test_Variables.test.pass("Checkbox selected successfully");
+								Test_Variables.results.createNode("Checkbox selected successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+							}	
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName + "checkbox failed to apply");
@@ -448,22 +447,31 @@ public class SalmonellaLog {
 						Test_Variables.preconditions.createNode("7. Select the checkbox and click on apply filter icon");
 						Test_Variables.steps.createNode("1. Verify filter is applied and relevant results are displayed in table");
 
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i) +" .fa-filter")).click();
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.slShowFilter)).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-							Test_Variables.test.pass("Filter was applied successfully");
-							Test_Variables.results.createNode("Filter was applied successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__action--clear-all")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);		
-						}
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+								Test_Variables.test.skip("No records available to test filter");
+								Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.slShowFilter)).click();
+							}
+							else {
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Thread.sleep(500);
+								Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
+								Test_Variables.test.pass("Filter was applied successfully");
+								Test_Variables.results.createNode("Filter was applied successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
+
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slClearFilter)).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Thread.sleep(1000);		
+							}
+						}    
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail("Filter failed to apply");
@@ -482,7 +490,7 @@ public class SalmonellaLog {
 		}
 	}
 
-	
+
 	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 5) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
@@ -499,18 +507,17 @@ public class SalmonellaLog {
 
 			Helper.driver.navigate().refresh();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-laneNum"))); 
 			Thread.sleep(1000);	
 			String recordsBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
-			
-			WebElement filter_scroll = Helper.driver.findElement(By.id("sample_matrix_sort"));
+
+			WebElement filter_scroll = Helper.driver.findElement(By.id(Test_Elements.slCollectionSiteName+""+Test_Elements.slShowFilter));
 			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 			Thread.sleep(800);	
-			
-			Helper.driver.findElement(By.id("site_id_show-filter")).click();
+
+			Helper.driver.findElement(By.id(Test_Elements.slCollectionSiteName+""+Test_Elements.slShowFilter)).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Thread.sleep(1500);	
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-salmonella-log-v2/div[1]/div[2]/div[2]/div[1]/div/table/thead/tr/th[12]/div[1]/app-sites-filter-popup/div/div/div[2]/div/div/div/tr[1]/td/div/div/label[1]")).click();
+			Thread.sleep(1000);	
+			Helper.driver.findElement(By.cssSelector("#sort-site_id tr:nth-child(1) td:nth-child(1) .custom-control.custom-checkbox")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector("#sort-site_id #list-title_apply")).click();
@@ -533,15 +540,14 @@ public class SalmonellaLog {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
 		}	
 	}
-	
-	
-	
-	@Test (description="Test Case: Wildcard",enabled= true, priority = 6) 
+
+
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 6) 
 	public void wildcard() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
-		
+
 		Test_Variables.lstSalmonellaWildcardSearch = SalmonellaModel.Wildcard(); 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaWildcardSearch) { 	
 			try {
@@ -562,41 +568,40 @@ public class SalmonellaLog {
 						Test_Variables.steps.createNode("1. Click on Salmonella Log");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-						WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.FilterID));
+						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 	
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .fa-filter")).click();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-
-						if (Helper.driver.findElements(By.cssSelector(objFilter.FilterID+" .data-log-radio")).size() == 0) {
-							Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__wildcard")).click();
+						if (Helper.driver.findElements(By.cssSelector("#sort-"+objFilter.FilterID+" .data-log-radio")).size() == 0) {
+							Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.FilterID+" .filter-popup__action--wildcard")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						}
 
 						if(objModel.startWith) {
-							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option1")).click();
+							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option1")).click();
 						}
 
 						if(objModel.endsWith) {
-							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option3")).click();
+							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option3")).click();
 						}
 
 						if(objModel.contains) {
-							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option2")).click();
+							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option2")).click();
 						}
 
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).clear();
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).sendKeys(objModel.input);
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).clear();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).sendKeys(objModel.input);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__action--apply")).click();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slApplyFilter)).click();
 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
 						int count = rows.size();
-						Thread.sleep(1500);
+						Thread.sleep(1000);
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
@@ -628,15 +633,15 @@ public class SalmonellaLog {
 						Test_Variables.results.createNode("Wildcards failed to test successfully");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 					}
-					Helper.driver.findElement(By.id(objFilter.FilterXPath+"_clear-filter")).click();
+					Helper.driver.findElement(By.id(objFilter.FilterXPath+""+Test_Elements.slClearFilter)).click();
 				}
 			}
 			catch(Exception ex) {
 			}
 		}
 	}
-	
-	
+
+
 	@SuppressWarnings({ "unused", "unchecked" })
 	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
@@ -665,7 +670,7 @@ public class SalmonellaLog {
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(800);
-						
+
 						if (objModel.firstCase) {
 							if (objModel.runIngestion) {
 								RequestSpecification request = RestAssured.given();
@@ -734,51 +739,51 @@ public class SalmonellaLog {
 								JsonPath jsonPathEvaluator1 = response.jsonPath();
 								jsonPathEvaluator1.get("statusCode");
 								Thread.sleep(1000);
-								
+
 								Thread.sleep(120000);
 								Helper.driver.navigate().refresh();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);
 							}
-									
+
 							Test_Variables.steps.createNode("1. Apply "+objFilter.FilterName);
-							WebElement filter_scroll2 = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_show-filter"));
+							WebElement filter_scroll2 = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slApplyFilter));
 							((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
 							Thread.sleep(800);
-							
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_show-filter")).click();		
+
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slShowFilter)).click();		
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);						
 
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_search-input")).sendKeys(objFilter.LstFilterValues.get(0));
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);
 							Helper.driver.findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
 
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_apply")).click();
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slApplyFilter)).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(2000);
-							
 							Test_Variables.steps.createNode("2. Verify all filter behaves contexually");
+
 							for (int l=0; l<objFilter.LstFilterSearch.size(); l++) {
-								
-								WebElement filter_scroll3 = Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+"_show-filter"));
+
+								WebElement filter_scroll3 = Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+Test_Elements.slShowFilter));
 								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll3); 
-								
-								Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+"_show-filter")).click();		
+
+								Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+Test_Elements.slShowFilter)).click();		
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(1000);	
 
 								String b = Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+Test_Elements.footerCount)).getText();
 								Assert.assertEquals(b, "Showing 1 - 1 Results");														
 							}
-							
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_clear-filter")).click();
+
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slClearFilter)).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(750);	
 						}
-						
+
 						if (objModel.secondCase) {
 							String[] array;
 							array = new String[objFilter.LstFilterSearch.size()];
@@ -787,45 +792,44 @@ public class SalmonellaLog {
 								for(int k = 0; k<objFilter.LstFilterSearch.size(); k++) {
 
 									Test_Variables.steps.createNode("1. Apply "+objFilter.FilterName);				
-									Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(k)+"_show-filter")).click();		
+									Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(k)+""+Test_Elements.slShowFilter)).click();		
 									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 									Thread.sleep(1000);						
 									String a = Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(k)+" "+Test_Elements.footerCount)).getText();
 									array[t] = a;
-						//			System.out.println("array: "+array[t]);
+									//			System.out.println("array: "+array[t]);
 									t++;
 									Test_Variables.steps.createNode("2. Verify all filter behaves contexually");
 									if(k==objFilter.LstFilterSearch.size() - 1) {
-										WebElement filter_scroll2 = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_show-filter"));
+										WebElement filter_scroll2 = Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slShowFilter));
 										((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
 										Thread.sleep(800);
-										
-										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_show-filter")).click();		
+
+										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slShowFilter)).click();		
 										Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 										Thread.sleep(1000);						
-										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_search-input")).sendKeys(objFilter.LstFilterValues.get(0));
+										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
 										Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 										Thread.sleep(1000);
 										Helper.driver.findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
 
-										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_apply")).click();
+										Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slApplyFilter)).click();
 										Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 										Thread.sleep(2000);
 
 										for (int l=0; l<objFilter.LstFilterSearch.size(); l++) {
 
-											Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+"_show-filter")).click();		
+											Helper.driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+Test_Elements.slShowFilter)).click();		
 											Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 											Thread.sleep(1000);	
 
 											String b = Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+Test_Elements.footerCount)).getText();
-									//		System.out.println("array result: "+array[l]+" -> "+b);
 											Assert.assertNotEquals(array[l], b);
 										}
 									}
 								}
 							}
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+"_clear-filter")).click();
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+Test_Elements.slClearFilter)).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(750);	
 						}
@@ -850,8 +854,8 @@ public class SalmonellaLog {
 			}
 		}
 	}
-	
-	
+
+
 	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
@@ -871,7 +875,7 @@ public class SalmonellaLog {
 				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 				SoftAssert softAssert = new SoftAssert();
-				
+
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -881,8 +885,15 @@ public class SalmonellaLog {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
 						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" .checkbox-sm:nth-child(2) label")).click();
+						Thread.sleep(2000);
+						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							Test_Variables.test.skip("Values not enough to test lock filter functionality");
+							Test_Variables.results.createNode("Values not enough to test lock filter functionality");
+							Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+							Helper.driver.findElement(By.id(objFilter.FilterID)).click();
+						}
+						else {
+						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
 						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
 						Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
@@ -911,6 +922,7 @@ public class SalmonellaLog {
 						Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						softAssert.assertAll();
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
@@ -929,7 +941,7 @@ public class SalmonellaLog {
 		}
 	}
 
-	
+
 	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
@@ -1120,7 +1132,7 @@ public class SalmonellaLog {
 							List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] tr"));
 
 							int count = rows.size();
-							int new_count = count - 1;
+							int new_count = count - 2;
 							System.out.println("ROW COUNT : "+new_count);
 							Assert.assertEquals(new_count, Integer.parseInt(objFilter.count));
 							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
@@ -1175,7 +1187,7 @@ public class SalmonellaLog {
 							Thread.sleep(1000);
 							List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] tr"));
 							int count = rows.size();
-							int new_count = count - 1;
+							int new_count = count - 2;
 							System.out.println("ROW COUNT : "+new_count);
 							Assert.assertEquals(new_count, Integer.parseInt(objFilter.count));
 							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
@@ -1228,32 +1240,36 @@ public class SalmonellaLog {
 				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {
-
+					try {						
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 
 						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
-						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Helper.driver.findElement(By.id("objFilter.ColumnID")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));					
 						Thread.sleep(500);
-						Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#"+objFilter.ColumnID+".sort_desc")).isDisplayed());
+
+						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_desc")).size(), 1, "Did not sorted in descending order");
+						Assert.assertEquals(Helper.driver.findElements(By.id("message")).size(), 0, "Exception message occured");
+
 						Test_Variables.test.pass(objFilter.FilterName+" column sorted successfully");
 						Test_Variables.results.createNode(objFilter.FilterName+" column sorted successfully");
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
-						Assert.assertTrue(Helper.driver.findElement(By.cssSelector("#"+objFilter.ColumnID+".sort_desc")).isDisplayed());
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+						//ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Helper.driver.findElement(By.id("objFilter.ColumnID")).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));					
+						Thread.sleep(1000);
+						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_asc")).size(), 1, "Did not sorted in ascending order");
+						Assert.assertEquals(Helper.driver.findElements(By.id("message")).size(), 0, "Exception message occured");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName+" column failed to sort");
 						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
 					}
-
 					catch(StaleElementReferenceException s) {
 						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1283,13 +1299,13 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
 
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slLaneCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1CellCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1PCCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1MeanIntensityCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CellCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CPCCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2MeanIntensityCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slLaneCol+" .text-right")).isDisplayed() == true, "Lane column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1CellCountCol+" .text-right")).isDisplayed() == true, "W1CellCount column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1PCCountCol+" .text-right")).isDisplayed() == true, "W1PCCount column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW1MeanIntensityCol+" .text-right")).isDisplayed() == true, "W1MeanIntensity column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CellCountCol+" .text-right")).isDisplayed() == true, "W2CellCount column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2CPCCountCol+" .text-right")).isDisplayed() == true, "W2PCCount column is not right alligned");
+			softAssert.assertTrue(Helper.driver.findElement(By.cssSelector("#col-"+Test_Elements.slW2MeanIntensityCol+" .text-right")).isDisplayed() == true, "W2MeanIntensity column is not right alligned");
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
@@ -1307,12 +1323,12 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (enabled= true, priority = 13) 
+	@Test (enabled= false, priority = 13) 
 	public void FieldAccess() throws InterruptedException, IOException {
-		
+
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		
+
 		Test_Variables.lstSalmonellaFieldAccess = SalmonellaModel.FieldAccess();
 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaFieldAccess) { 	
@@ -1338,10 +1354,10 @@ public class SalmonellaLog {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(2000);
 						Test_Variables.steps.createNode("2. Unselect "+objFilter.FilterName+" column and Select previously unselected filter column and click on save button");
-									
+
 						if(objModel.viewAccess) {
 							if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
-							Helper.driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
+								Helper.driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}	
@@ -1349,7 +1365,7 @@ public class SalmonellaLog {
 						if(objModel.unviewAccess) {
 							int inc = Integer.parseInt(objFilter.FilterID) + 1;
 							if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
-							Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
+								Helper.driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}
@@ -1405,22 +1421,36 @@ public class SalmonellaLog {
 			}
 		}
 	}
-	
 
-	 public File getTheNewestFile(String filePath, String ext) {
-	     File theNewestFile = null;
-	     File dir = new File(filePath);
-	     FileFilter fileFilter = new WildcardFileFilter("*." + ext);
-	     File[] files = dir.listFiles(fileFilter);
+	@Test (enabled= true, priority = 14) 
+	public void FieldAccessResetDefault() throws InterruptedException, IOException {
 
-	     if (files.length > 0) {
-	         Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-	         theNewestFile = files[0];
-	     }
+		Helper.driver.findElement(By.id("edit-field-access")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("btn-reset")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("btn-save")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+	}
 
-	     return theNewestFile;
-	 }
-	
+
+	public File getTheNewestFile(String filePath, String ext) {
+		File theNewestFile = null;
+		File dir = new File(filePath);
+		FileFilter fileFilter = new WildcardFileFilter("*." + ext);
+		File[] files = dir.listFiles(fileFilter);
+
+		if (files.length > 0) {
+			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			theNewestFile = files[0];
+		}
+
+		return theNewestFile;
+	}
+
 	@SuppressWarnings("unused")
 	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
@@ -1490,7 +1520,7 @@ public class SalmonellaLog {
 		}
 		Thread.sleep(1000);
 	}
-	
+
 
 	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =16) 
 	public void CSVExport() throws InterruptedException, IOException {
@@ -1512,7 +1542,7 @@ public class SalmonellaLog {
 
 			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
 			//int getRowCount = Integer.parseInt(getRowText);
-			
+
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Test_Variables.steps.createNode("5. Click on Export as CSV");	
@@ -1545,7 +1575,7 @@ public class SalmonellaLog {
 
 			long excludeHeader = lines - 1;
 			String s = String.valueOf(excludeHeader);
-			
+
 			String str = getRowText;
 			str = str.replace(",", "");
 			Assert.assertEquals(s, str);
@@ -1584,11 +1614,11 @@ public class SalmonellaLog {
 
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
-			ClickElement.clickByCss(Helper.driver, "#select-runId-0 .checkbox");
+			ClickElement.clickByCss(Helper.driver, "#select-runId-0 .data-log-checkbox");
 			Thread.sleep(1000);
 
 			//String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
-			
+
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
@@ -1602,7 +1632,7 @@ public class SalmonellaLog {
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 			Thread.sleep(1500);
-			
+
 			SalmonellaLog fr= new SalmonellaLog();
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
 			String filename= newfile.getName();
@@ -1611,7 +1641,7 @@ public class SalmonellaLog {
 			Test_Variables.test.pass("CSV file downloaded successfully");
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-	
+
 			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
 				System.out.println("CSV Audit file deleted");
@@ -1658,7 +1688,7 @@ public class SalmonellaLog {
 			ClickElement.clickById(Helper.driver, "Sample-Metadata-Upload-Template");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
-			
+
 			SalmonellaLog fr= new SalmonellaLog();
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
 			String filename= newfile.getName();

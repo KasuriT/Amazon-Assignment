@@ -3,13 +3,15 @@ package Test.Ancera;
 public class Constants {
 
 	public static String url = "https://ie-qa.ancera.com"; 
-	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
+//	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
+	public static String api = "hipir-1.anceralabs.com/api/ancerainput/v1";
 	
-//	public static String url = "https://ie-dev.ancera.com";
+	//public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
 	
 //	public static String url = "https://ie-uat.ancera.com";   
 //	public static String api = "https://disapi-uat.ancera.com/api/ancerainput/v1"; 
+	
 	
 	public static String url_login = url+"/auth/sign-in";
 	public static String url_fp = url+"/auth/forgot-password";
@@ -22,6 +24,7 @@ public class Constants {
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
 	public static String url_cyclingConfig = url+"/home/admin/complex-cycling-config";
+	public static String url_flockRegistration = url+"/home/admin/flock-registration";
 	public static String url_piperManagement = url+"/home/admin/piper";
 	public static String url_piperSoftware = url+"/home/admin/piper-software-management";
 	public static String url_piperConfiguration = url+"/home/admin/piper-configuration";
@@ -33,11 +36,13 @@ public class Constants {
 //	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat
 //	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";   //uat
 	
-	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
-	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
+//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
+//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+//	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
 	
-//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=18&code=0002&type=2";   //dev
+	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=17&code=0001&type=1";  //dev
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=9&code=0002&type=2";   //dev
+	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=19&code=0012&type=12";   //dev
 	
 	public static String url_CoccidiaTimeline = url+"/home/reports/timeline/coccidia-timeline?report=Coccidia%20Timeline&id=18&code=0004&type=4";
 	public static String url_MPNSalmonellaLog = url+"/home/reports/log/mpn-log?report=MPN%20Salmonella%20Log&id=15&code=0006";
@@ -62,6 +67,7 @@ public class Constants {
 	public static String AlertManagementReportPath = "/Screenshots/Administration/AlertManagementScreenShot";
 	public static String BarcodeManagementReportPath = "/Screenshots/Administration/BarcodeManagementScreenShot";
 	public static String CyclingConfigReportPath = "/Screenshots/Administration/ComplexCyclingConfigScreenShot";
+	public static String FlockRegistrationReportPath = "/Screenshots/Administration/FlockRegistrationScreenShot";
 	public static String PiperManagementReportPath = "/Screenshots/Piper_Administration/PiperManagementScreenShot";
 	public static String PiperSoftwareReportPath = "/Screenshots/Piper_Administration/PiperSoftwareScreenShot";
 	public static String PiperConfigurationReportPath = "/Screenshots/Piper_Administration/PiperConfigurationScreenShot";

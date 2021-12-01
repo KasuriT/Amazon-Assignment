@@ -79,7 +79,7 @@ public class BarcodeManagement {
 	@Test (description="Test Case: Error Opening Print Screen",enabled= true, priority = 2 ) 
 	public void ErrorOpeningPrintScreen() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-03: Verify user cannot open print screen without selecting a site", "This test case will verify that user cannot open print screen without selecting a site");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-02: Verify user cannot open print screen without selecting a site", "This test case will verify that user cannot open print screen without selecting a site");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -119,10 +119,10 @@ public class BarcodeManagement {
 	}
 	
 	
-	@Test (description="Test Case: Open print screen",enabled= true, priority = 3) 
+	@Test (description="Test Case: Open print screen",enabled= false, priority = 3) 
 	public void OpenPrintScreen() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-04: Verify user can open print screen on clicking print icon after selecting a site", "This test case will verify that user can open print screen on clicking print icon after selecting a site");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-03: Verify user can open print screen on clicking print icon after selecting a site", "This test case will verify that user can open print screen on clicking print icon after selecting a site");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -181,7 +181,7 @@ public class BarcodeManagement {
 	}
 	
 	
-	@Test (description="Test Case: Assign Sites Appearance",enabled= false, priority = 4) 
+	@Test (description="Test Case: Assign Sites Appearance",enabled= true, priority = 4) 
 	public void AssignedSiteAppearance() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-05: Verify only those sites appear which are assigned to user", "This test case will verify that only those sites appear which are assigned to user");
@@ -240,7 +240,7 @@ public class BarcodeManagement {
 	}
 	
 	
-	@Test (description="Test Case: Search Functionality",enabled= false, priority = 5) 
+	@Test (description="Test Case: Search Functionality",enabled= true, priority = 5) 
 	public void SearchFunctionality() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-07/08/09/10/11: Verify search bar functionality", "This test case will verify that search bar is fully functional");
@@ -254,8 +254,8 @@ public class BarcodeManagement {
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Barcode Management");
 			Test_Variables.steps.createNode("1. Enter valid site in search bar");
 
-			if(Helper.driver.findElements(By.cssSelector("tr:nth-child(2) td:nth-child(1) .custom-control-label")).size() != 0) {
-				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(1) .custom-control-label")).getText();
+			if(Helper.driver.findElements(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).size() != 0) {
+				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).getText();
 
 				Test_Variables.steps.createNode("2. Click on backspace and verify backspace is working");
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
@@ -273,11 +273,11 @@ public class BarcodeManagement {
 				Thread.sleep(1000);
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ARROW_DOWN);
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ENTER);
-				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1) .custom-control-label")).getText(), siteName);
+				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), siteName);
 			}
 
 			else {
-				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1) .custom-control-label")).getText();
+				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).getText();
 				Test_Variables.steps.createNode("2. Click on backspace and verify backspace is working");
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.BACK_SPACE);

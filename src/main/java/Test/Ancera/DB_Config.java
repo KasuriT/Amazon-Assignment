@@ -16,7 +16,7 @@ public class DB_Config {
 	
 		
 	@BeforeTest
-	public void test() {
+	public static void test() {
 		try{
 			String UserName="vminnocci";
 			String Password="Vico123!";
@@ -31,18 +31,21 @@ public class DB_Config {
 		}
 	}
 
-
+/*
 	@Test
-	public void test1() {
+	public static void test1() {
 		try{
 		//	String selectQuery = "select Count(*) from Alert_output";
-			String selectQuery = "select status from salmonella_output where RUN_ID = '20210920-TestAut-PA-34218'";
+		//	String selectQuery = "select status from salmonella_output where RUN_ID = '20210920-TestAut-PA-34218'";
+			
+			String selectQuery = "Select status, w2_cell_count from SALMONELLA_OUTPUT where RUN_ID between '20211121_LT_HIPIR_100' and '20211121_LT_HIPIR_104'";
 			
 			
 			ResultSet rs = getStmt().executeQuery(selectQuery);
 			while (rs.next()) {
 			//	System.out.println("ID: "+rs.getInt(""));
 				System.out.println("Status: "+rs.getString("status"));
+				System.out.println("W2 Cell Count: "+rs.getString("w2_cell_count"));
 			}
 			getStmt().close();
 		}
@@ -51,10 +54,10 @@ public class DB_Config {
 			e.printStackTrace();
 		}
 	}
-
+*/
 
 	@AfterTest
-	public void tearDown() throws Exception {
+	public static void tearDown() throws Exception {
 		if (con != null) {
 			con.close();
 		}

@@ -402,7 +402,7 @@ public class RawImageCoccidia {
 								Test_Variables.steps.createNode("Verify Test Site Name is displayed in Audit log for lane" +lane);
 								String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTestSiteName.isEmpty(), false);
-								Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();   			
+								Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();   			
 							}
 							softAssert.assertAll();	
 							Test_Variables.test.pass("Ingested Successfully");

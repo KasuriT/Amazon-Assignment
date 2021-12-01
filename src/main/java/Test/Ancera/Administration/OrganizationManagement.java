@@ -1,12 +1,17 @@
 package Test.Ancera.Administration;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -18,7 +23,9 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Models.DataUploadModel;
 import Models.OrgModel;
+import Models.ReportFilters;
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
@@ -40,7 +47,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Navigate to Organization Management Screen",enabled=true, priority = 2) 
+	@Test (description="Test Case: Navigate to Organization Management Screen",enabled=true, priority = 1) 
 	public void NavigateOM() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-01: Navigate to Organization Management Screen", "This test case will navigate to Organization Managment Screen");
@@ -79,7 +86,7 @@ public class OrganizationManagement{
 
 
 
-	@Test (description="Exceptional Flow: Mandatory field check", enabled= false, priority= 3) 
+	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 3) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
 		String orgNameError;
@@ -87,7 +94,7 @@ public class OrganizationManagement{
 		String orgEmailError;
 		String orgMaxUserError;
 
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
 
 		for (OrgModel objModel : Test_Variables.lstOrgMandatoryCheck) {
@@ -266,7 +273,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Exceptional Flow: Close Popup", enabled= false, priority= 4) 
+	@Test (description="Exceptional Flow: Close Popup", enabled= true, priority= 4) 
 	public void ClosePopup() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-OM-16: Verify user can close create Organization popup", "This test case will verify that user can close create organization popup");
@@ -301,7 +308,7 @@ public class OrganizationManagement{
 	}
 	
 
-	@Test (description="Exceptional Flow: Reset fields", enabled= false, priority= 5) 
+	@Test (description="Exceptional Flow: Reset fields", enabled= true, priority= 5) 
 	public void ResetButton() throws InterruptedException, IOException {
 
 		Test_Variables.test = Test_Variables.extent.createTest("AN-OM-17: Verify user can send reset fields", "This test case will verify that user can reset fields");
@@ -317,8 +324,8 @@ public class OrganizationManagement{
 		Test_Variables.steps.createNode("2. Click on reset button");
 			
 		Helper.driver.get(Constants.url_organization);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(2000);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		Helper.driver.findElement(By.xpath(Test_Elements.orgCreateButton)).click();
 		Thread.sleep(1500);
@@ -346,15 +353,12 @@ public class OrganizationManagement{
 
 
 
-	@Test (description="Test Case: Create New Organization",enabled= false, priority= 6) 
+	@Test (description="Test Case: Create New Organization",enabled= true, priority= 6) 
 	public void CreateOrganization() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		WebDriverWait wait = new WebDriverWait(Helper.driver,30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgCreateButton)));
-
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
 		Helper.driver.findElement(By.xpath(Test_Elements.orgCreateButton)).click();  
 		Thread.sleep(2000);
 		Helper.driver.findElement(By.xpath(Test_Elements.orgType)).click();
@@ -438,8 +442,8 @@ public class OrganizationManagement{
 			Helper.driver.findElement(By.xpath(Test_Elements.orgSaveButton)).click();;
 			Thread.sleep(1000);
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstOrgAlertMessages.get(0) ;
 			Thread.sleep(1000);
 
@@ -461,7 +465,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Search Created Organization ",enabled= false, priority= 7) 
+	@Test (description="Test Case: Search Created Organization ",enabled= true, priority= 7) 
 	public void SearchOrganization() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -533,7 +537,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Update New Organization ",enabled= false, priority= 8) 
+	@Test (description="Test Case: Update New Organization ",enabled= true, priority= 8) 
 	public void UpdateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-24: Verify user can update Created Organization", "This test case will verify that user can update created organization");	
@@ -591,7 +595,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Verify Updated Organization ",enabled= false, priority= 9) 
+	@Test (description="Test Case: Verify Updated Organization ",enabled= true, priority= 9) 
 	public void SearchUpdateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-25: Verify Organization remained updated after updating it", "This test case will verify that updated changes are saved by reopening updated organization");	
@@ -639,7 +643,7 @@ public class OrganizationManagement{
 	
 
 	
-	@Test (description="Test Case: Organization Site Check",enabled= false, priority= 10) 
+	@Test (description="Test Case: Organization Site Check",enabled= true, priority= 10) 
 	public void OrganizationSitesCheck() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
@@ -858,19 +862,8 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Leave all fields empty and click on save button");
 
-			//Helper.driver.navigate().refresh();
-			//Test_Functions.OrgSearch();
-			
-			Thread.sleep(3000);
-			Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest1256");
-			Thread.sleep(3000);
-			Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
-			Thread.sleep(3000);
-			Helper.driver.findElement(By.id("orgnType-1")).click();
-			Thread.sleep(3000);
-			
-			
-			
+			Helper.driver.navigate().refresh();
+			Test_Functions.OrgSearch();
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
@@ -967,7 +960,7 @@ public class OrganizationManagement{
 			
 			WebElement stAddress = Helper.driver.findElement(By.id("streetAddressId"));
 			stAddress.sendKeys("2428 Carriage Lane"); stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
-			Thread.sleep(8000);
+			Thread.sleep(6000);
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
 			Helper.driver.findElement(By.cssSelector("#stateId input")).click();
@@ -1024,16 +1017,16 @@ public class OrganizationManagement{
 			Test_Variables.preconditions.createNode("7. Create a site");
 			Test_Variables.steps.createNode("1. Click on created site to reopen it");
 			Test_Variables.steps.createNode("2. Make changes and click on save button");
-
+			SoftAssert softAssert = new SoftAssert();
 			Test_Variables.test.createNode("Click on update button next to created site");
 			Helper.driver.findElement(By.cssSelector("li:last-child li:last-child span")).click(); 
 			Thread.sleep(4000);
 			Helper.driver.findElement(By.id("SiteNameId")).clear();
 			Helper.driver.findElement(By.id("SiteNameId")).sendKeys("Lab Updated");  
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId input")).getText(), "North Carolina");
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("ng-select[id='cellCodeId'] div[class='ng-select-container'] input[role='combobox']")).getText(), "Lincolnton");
+	//		softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
+	//		softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId input")).getText(), "North Carolina");
+	//		softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("ng-select[id='cellCodeId'] div[class='ng-select-container'] input[role='combobox']")).getText(), "Lincolnton");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click(); 
 			Thread.sleep(1000);
@@ -1042,7 +1035,8 @@ public class OrganizationManagement{
 			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstOrgAlertMessages.get(3) ;
 			Thread.sleep(1000);
-			Assert.assertEquals(actual, expected); 
+			softAssert.assertEquals(actual, expected); 
+			softAssert.assertAll();
 			Test_Variables.test.pass("Organization site updated successfully");
 			Test_Variables.results.createNode("Organization site updated successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
@@ -1083,8 +1077,9 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("3. Reopen ithe updated site to verify the cahnges were saved or not");
 
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();  
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgCreatedSite)));
-			Thread.sleep(2000);
+		//	Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgCreatedSite)));
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(3000);
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(By.cssSelector("li:last-child li:last-child span")).click(); 
@@ -1164,7 +1159,171 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: InActive Organization",enabled= false, priority= 17) 
+	@Test (enabled= true, priority = 10) 
+	public void Bulk() throws InterruptedException, IOException {
+		
+		Test_Variables.lstOrgBulkSiteUpload = OrgModel.BulkSiteFillData();
+		Helper.driver.navigate().refresh();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+//		Test_Functions.OrgSearch();
+		
+				
+		Thread.sleep(3000);
+		Helper.driver.findElement(By.id("organSearchId")).sendKeys("orgTest1256");
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
+		Thread.sleep(3000);
+		Helper.driver.findElement(By.id("orgnType-1")).click();
+		Thread.sleep(3000);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.cssSelector("li:nth-child(1) div span")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(5000);
+		Helper.driver.findElement(By.id("SiteIDId")).click();
+		Thread.sleep(5000);
+		String SiteID = Helper.driver.findElement(By.id("SiteIDId")).getAttribute("value");
+		
+		for (OrgModel objModel : Test_Variables.lstOrgBulkSiteUpload) { 
+			try {
+				Thread.sleep(2000);
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.testCaseTitle, objModel.testCaseDesc);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.steps.createNode("1. Navigate to Data Upload screen");
+				Test_Variables.steps.createNode("2. Select Ancera from 'Upload For' dropdown and Flock Metadata from 'Data Template'");
+
+
+				for (ReportFilters objFilter : objModel.lstFilters) {	
+//					try {
+//						FileInputStream fsIP= new FileInputStream(new File("./BulkSiteUpload/"+objModel.fileName));
+//						@SuppressWarnings("resource")
+//						XSSFWorkbook wb = new XSSFWorkbook(fsIP);
+//						XSSFSheet worksheet = wb.getSheetAt(0);
+//						Cell cell = null;
+//						int chkCounter = 0;
+//						for (int i = 0; chkCounter < objFilter.LstColumnID.size() && i < 100; i++) {
+//
+//			
+//						if (objModel.getParentSiteID) {
+//							cell=worksheet.getRow(1).createCell(0); 
+//							cell.setCellValue(SiteID);
+//						}
+//						
+//						cell=worksheet.getRow(1).createCell(objFilter.LstColumnID.get(i)); 
+//						cell.setCellValue(objFilter.LstColumnValues.get(i));   
+//						fsIP.close();
+//						chkCounter++;
+//							
+//						}
+//						FileOutputStream output_file =new FileOutputStream(new File("./BulkSiteUpload/"+objModel.fileName));
+//						wb.write(output_file);
+//						output_file.close();  
+						
+						
+						
+						try {
+							int chkCounter = 1;
+							
+							FileInputStream fsIP= new FileInputStream(new File("./BulkSiteUpload/"+OrgModel.BulkSitefileName));
+							@SuppressWarnings("resource")
+							XSSFWorkbook wb = new XSSFWorkbook(fsIP);
+							XSSFSheet worksheet = wb.getSheetAt(0);
+							
+							for (int i = 0; i < objFilter.LstColumnID.size() && i < 100; i++) {
+							
+							System.out.println("Size: "+objFilter.LstColumnID.size());
+								
+
+//							Cell cell = null;
+//								
+//							int j =1;
+//							
+//							if (objModel.getParentSiteID) {
+//								System.out.println(SiteID+"-"+objFilter.LstRowID.get(i));
+//								cell=worksheet.getRow(objFilter.LstRowID.get(i)).createCell(0); 
+//								cell.setCellValue(SiteID);
+//							}
+//							
+//						
+//							j=j+1;
+//							cell=worksheet.getRow(objFilter.LstRowID.get(i)).createCell(objFilter.LstColumnID.get(i)); 
+//							cell.setCellValue(objFilter.LstColumnValues.get(i));   
+//							fsIP.close();
+//							
+//							FileOutputStream output_file =new FileOutputStream(new File("./BulkSiteUpload/"+objModel.fileName));
+//							wb.write(output_file);
+//							output_file.close();  				
+//							chkCounter++;
+							Row row = null;
+							Cell cell = null;
+							///////////////////////////
+							
+					         row = worksheet.getRow(objFilter.LstRowID.get(i));
+			
+							 cell = row.createCell(objFilter.LstColumnID.get(i));
+							cell.setCellValue(objFilter.LstColumnValues.get(i));
+							///////////////////////////
+							
+//					        Row row1 = worksheet.createRow(objFilter.LstRowID.get(0));
+//							Cell cell1 = row1.createCell(objFilter.LstColumnID.get(0));
+//							cell1.setCellValue(objFilter.LstColumnValues.get(1));
+//							
+//							
+							if (objModel.getParentSiteID) {
+								//System.out.println(SiteID+"-"+objFilter.LstRowID.get(i));
+						        row = worksheet.getRow(objFilter.LstRowID.get(i));
+						      	cell = row.createCell(0);
+								cell.setCellValue(SiteID);
+							}
+													
+							chkCounter++;
+							}
+						
+							
+							FileOutputStream output_file =new FileOutputStream(new File("./BulkSiteUpload/"+OrgModel.BulkSitefileName));
+							wb.write(output_file);
+							output_file.close(); 
+
+					//	Test_Variables.steps.createNode("3. "+objModel.steps);
+						Helper.driver.findElement(By.id("file-input")).sendKeys(System.getProperty("user.dir")+"/BulkSiteUpload/"+OrgModel.BulkSitefileName);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
+		
+						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+						Test_Variables.test.pass(objModel.passStep);
+						Test_Variables.results.createNode(objModel.passStep);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
+					}
+					catch(AssertionError er) {
+						Test_Variables.test.fail(objModel.failStep);
+						Test_Variables.results.createNode(objModel.failStep);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, new Exception(er));
+					}
+					catch(Exception ex) {
+						Test_Variables.test.fail(objModel.failStep);
+						Test_Variables.results.createNode(objModel.failStep);
+						Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, ex);
+					}
+				}
+			}	
+			catch(Exception ex) {
+			}
+		}
+	}
+
+	
+	
+	@Test (description="Test Case: InActive Organization",enabled= true, priority= 17) 
 	public void InActiveOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-32: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
@@ -1215,7 +1374,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: Verify InActive Organization",enabled= false, priority= 18) 
+	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 18) 
 	public void VerifyInActiveOrganization() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-33: Verify inactive Organization Site is not displayed in create user popup", "This test case will verify that inactive organization is not displayed in create new user popup");
@@ -1277,7 +1436,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Delete Organization",enabled= false, priority= 19) 
+	@Test (description="Test Case: Delete Organization",enabled= true, priority= 19) 
 	public void DeleteOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-34: Verify Organization can be deleted", "This test case will verify that organization can be deleted");

@@ -40,7 +40,7 @@ public class RawImageSalmonella {
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 
-		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Raw Image"+Test_Variables.date+".html");
+		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Raw Image Salmonella"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Salmonella Raw Image Test Report"); 
 
 		Helper.config();
@@ -339,7 +339,7 @@ public class RawImageSalmonella {
 									softAssert.assertEquals(getMediumCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Large Count is displayed in table for lane" +lane);
-									String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slW2PCCount+" label")).getText();
+									String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slW2CPCCountCol+" label")).getText();
 									softAssert.assertEquals(getLargeCount.isEmpty(), false);
 								}
 								String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
@@ -401,7 +401,7 @@ public class RawImageSalmonella {
 								Test_Variables.steps.createNode("Verify Test Site Name is displayed in Audit log for lane" +lane);
 								String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteNameCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTestSiteName.isEmpty(), false);
-								Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();   			
+								Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();   			
 							}
 							softAssert.assertAll();	
 							Test_Variables.test.pass("Ingested Successfully");

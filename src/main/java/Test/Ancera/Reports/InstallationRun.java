@@ -46,7 +46,7 @@ public class InstallationRun {
 
 
 	@SuppressWarnings("unchecked") 
-	@Test (enabled= false, priority = 1) 
+	@Test (enabled= true, priority = 1) 
 	public void installationRunConfigSalmList() throws InterruptedException, IOException {
 
 		int z = 0;
@@ -240,7 +240,7 @@ public class InstallationRun {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
 						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(Test_Elements.closeAudit)));
 						Thread.sleep(1500);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditQCCodeCol+".text-dark")).getText();
@@ -261,7 +261,7 @@ public class InstallationRun {
 						}
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
-						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+						Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 						Thread.sleep(800);
 					}
 			
@@ -481,7 +481,7 @@ public class InstallationRun {
 						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
 						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".u-report-modal-close-icon")));
+						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(Test_Elements.closeAudit)));
 						Thread.sleep(1500);
 
 						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
@@ -511,7 +511,7 @@ public class InstallationRun {
 						}
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
-						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+						Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 						Thread.sleep(800);
 					}
 					

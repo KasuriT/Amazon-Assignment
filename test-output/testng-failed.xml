@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.OrganizationManagement">
+      <class name="Test.Ancera.Administration.FlockRegistration">
         <methods>
-          <include name="CreateOrganizationSite"/>
-          <include name="UpdateOrganizationSites"/>
-          <include name="endreport"/>
+          <include name="CSVExport"/>
           <include name="extent"/>
-          <include name="VerifyUpdateOrganizationSites"/>
+          <include name="endreport"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.OrganizationManagement -->
+      </class> <!-- Test.Ancera.Administration.FlockRegistration -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

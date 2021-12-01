@@ -64,7 +64,7 @@ public class DataTemplateManagement{
 		Thread.sleep(2000);
 		
 		try{
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText(), "Data Template Management"); 
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#screen-header p")).getText(), "Data Template Management"); 
 			Test_Variables.test.pass("User navigated successfully");
 			Test_Variables.results.createNode("User navigated to Data Template Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));

@@ -44,4 +44,5 @@ public class ReportFilters {
 	
 	public ArrayList<String> LstColumnValues;
 	public ArrayList<Integer> LstColumnID;
+	public ArrayList<Integer> LstRowID;
 }

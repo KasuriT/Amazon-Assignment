@@ -31,7 +31,7 @@ public class Helper {
 	public static void config() {
 
 		projectPath = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriverr.exe");
+		System.setProperty("webdriver.chrome.driver", projectPath+"/ChromeDriver/chromedriver.exe");
 
 		driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions())); 
 		driver.manage().window().maximize();

@@ -18,21 +18,17 @@ public class DataUploadModel {
 	public String AlertMessage;
 	public ArrayList<ReportFilters> lstFilters;
 	
-//	public static String OrganizationSiteID = "1001001";
-//	public static String RegionSiteID = "1001043";
-//	public static String SubRegionSiteID = "1001052";
-//	public static String ComplexSiteID = "1001159";
-//	public static String HouseSiteID = "1001066";
-//	public static String ProcessingPlantSiteID = "1001078";
-//	public static String FarmSiteID = "1033011";
-	
 	public static String OrganizationSiteID = "1001001";
-	public static String RegionSiteID = "1001023";
-	public static String SubRegionSiteID = "1001037";
+	public static String RegionSiteID = "1001043";
+	public static String SubRegionSiteID = "1001052";
 	public static String ComplexSiteID = "1001159";
 	public static String HouseSiteID = "1001066";
 	public static String ProcessingPlantSiteID = "1001078";
 	public static String FarmSiteID = "1033011";
+	
+//	public static String OrganizationSiteID = "1001001";
+//	public static String RegionSiteID = "1001023";
+//	public static String SubRegionSiteID = "1001037";
 	
 	public DataUploadModel() {
 

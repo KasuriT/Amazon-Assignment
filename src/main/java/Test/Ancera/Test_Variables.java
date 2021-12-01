@@ -20,6 +20,7 @@ import Models.CoccidiaModel;
 import Models.CoccidiaTimelineModel;
 import Models.DataTemplateModel;
 import Models.DataUploadModel;
+import Models.FlockRegistrationModel;
 import Models.InstallationRunModel;
 import Models.LoginModel;
 import Models.NormalIngestionModel;
@@ -31,6 +32,7 @@ import Models.PiperSoftwareModel;
 import Models.PoultryManagementModel;
 import Models.ProfileModel;
 import Models.RMModel;
+import Models.RawImageCompareCountModel;
 import Models.RawImageModel;
 import Models.SalmonellaModel;
 import Models.SitesLogModel;
@@ -50,8 +52,8 @@ public class Test_Variables {
 	//public static String login_email = "junnaid0005@gmail.com";
 	public static String login_email = "junaid.alam@analytics.com.pk";
 	public static String login_password = "junaid123";	
-//	public static String login_email = "Faraz@tenx.ai";
-//	public static String login_password = "tenx01tenx";
+	//public static String login_email = "Faraz@tenx.ai";
+	//public static String login_password = "tenx01tenx";
 	
 	public static String forgotPassword_email = "ancera.test.user100@gmail.com";
 	public static String forgotPassword_password = "ancera123";
@@ -258,14 +260,12 @@ public class Test_Variables {
 							"This testcase will verify that user cannot create organization with leaving only role field empty", "User was not able to create organization with leaving only role field empty successfully", "User was able to create organization with leaving only role field empty")
 					));
 
-
 	public static ArrayList<String> lstOrganizationCreate = new ArrayList<>(
 			Arrays.asList("Test Organization"+date0,
 					"(666) 666-6666",
 					"ancera",  //invalid email
 					"ancera"+date0+"@ancera.com",  //valid email
 					"100"));
-
 
 	public static ArrayList<OrgModel> lstOrgSearch = new ArrayList<>(
 			Arrays.asList(
@@ -279,6 +279,17 @@ public class Test_Variables {
 					"Site details updated.",
 					"Site details deleted successfully.",
 					"Organization details deleted."));
+	
+	public static ArrayList<OrgModel> lstOrgBulkSite = new ArrayList<>(
+			Arrays.asList(
+					new OrgModel("AN-OM-02: Verify user cannot upload pdf file", "This test case will verify that user can upload pdf file", "User was able to upload pdf file successfully", "User was not able to upload pdf file", "/EULA/sample.pdf", "PNG file", "New user agreement created."),
+					new OrgModel("AN-OM-03: Verify user cannot upload docx file", "This test case will verify that user cannot upload docx file", "User was not able to upload docx file successfully", "User was able to upload docx file", "/EULA/sample.docx", "DOCX file", "Please select pdf file."),
+					new OrgModel("AN-OM-04: Verify user cannot upload xlsx file", "This test case will verify that user cannot upload xlsx file", "User was not able to upload xlsx file successfully", "User was able to upload xlsx file", "/EULA/sample.xlsx", "XLSX file", "Please select pdf file."),
+					new OrgModel("AN-OM-05: Verify user cannot upload csv file", "This test case will verify that user cannot upload csv file", "User was not able to upload csv file successfully", "User was able to upload csv file", "/EULA/sample.csv", "CSV file", "Please select pdf file."),
+					new OrgModel("AN-OM-06: Verify user cannot upload png file", "This test case will verify that user cannot upload png file", "User was not able to upload png file successfully", "User was able to upload png file", "/EULA/sample.png", "PNG file", "Please select pdf file.")
+					));
+	
+	public static ArrayList<OrgModel> lstOrgBulkSiteUpload = new ArrayList<>();
 
 	////////////////////////////////////////////////////End Organization Management Screen Variables////////////////////////////////////////////
 	
@@ -611,6 +622,26 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
 
 	
+	////////////////////////////////////////////////////////////////////Sites Log Variables///////////////////////////////////////////////////////////////////////////////////			
+
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationSearch = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationWildcardSearch = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationDateSearch = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationDateEnter = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationRowCount = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationPagination = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationSorting = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationLock = new ArrayList<>();
+	
+	public static String flockCSVFileName = "Flock Registration Log - ";
+	public static String flockCSVAuditFileName = "Flock Registration Audit Log- ";
+	public static String flockSampleMetaData = "FLOCK METADATA";
+	
+	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
+	
+	
 	//////////////////////////////////////////////////////////////Coccidia Timeline Variables////////////////////////////////////////////////////////////////////////////////////
 
 	public static String ctlTimelineFileName = "Coccidia Run Timeline - ";
@@ -659,10 +690,11 @@ public class Test_Variables {
 	
 	public static ArrayList<RawImageModel> lstRawImageCoccidia = new ArrayList<>();
 	public static ArrayList<RawImageModel> lstRawImageSalmonella = new ArrayList<>();
+	public static ArrayList<RawImageCompareCountModel> lstRawImageComparison = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////End Raw Image////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	
+	 
 	
 	/////////////////////////////////////////////////////////////P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 
 	

@@ -56,9 +56,8 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Helper.driver.get(Constants.url_piperConfiguration);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-installation-run")));
 			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("PIPER Configuration Management")).getText();
+			String actual = Helper.driver.findElement(By.cssSelector("#screen-header p")).getText();
 			String expected = "PIPER Configuration Management";
 
 			Assert.assertEquals(actual, expected); 
@@ -171,8 +170,10 @@ public class Piper_Configuration {
 								!Helper.driver.findElement(By.id("MaxMeanVal")).getAttribute("value").isEmpty())
 						{
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+							Thread.sleep(1500);
 							String message = Helper.driver.findElement(By.id("message")).getText();
 							Assert.assertEquals(message, "Installation Run Configuration saved successfully");
+							Helper.driver.findElement(By.cssSelector(".close span")).click();
 						}
 
 						Thread.sleep(1000);

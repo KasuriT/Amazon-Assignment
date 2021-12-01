@@ -10,9 +10,6 @@ import java.util.Locale;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -28,6 +25,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 
 import Models.SitesLogModel;
 import Models.ReportFilters;
@@ -79,67 +78,6 @@ public class Sites_Log {
 			String expected = "Sites Log";
 
 			Assert.assertEquals(actual, expected); 
-
-
-			//			    WebElement table = Helper.driver.findElement(By.id("dc-table-graph"));
-			//			    List<WebElement> rows = table.findElements(By.tagName("tr"));
-			//			    List<WebElement> column = table.findElements(By.tagName("td"));
-			//			    List<String> value = new ArrayList<String>();
-			//
-			//			    System.out.println(rows.size());
-			//
-			//			        for (int j=0; j<column.size(); j++){
-			//			         //   System.out.println(column.get(j).getText());
-			//			            value.add(column.get(j).getText());
-			//			        }
-			//System.out.println(value);
-
-
-			// To locate table.
-			WebElement mytable = Helper.driver.findElement(By.id("dc-table-graph"));
-			// To locate rows of table.
-			List<WebElement> rows_table = mytable.findElements(By.tagName("tr"));
-			// To calculate no of rows In table.
-			int rows_count = rows_table.size();
-			// Loop will execute till the last row of table.
-			for (int row = 0; row < rows_count; row++) {
-				// To locate columns(cells) of that specific row.
-				List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
-				// To calculate no of columns (cells). In that specific row.
-				int columns_count = Columns_row.size();
-				System.out.println("Number of cells In Row " + row + " are " + columns_count);
-				// Loop will execute till the last cell of that specific row.
-				for (int column = 0; column < columns_count; column++) {
-					// To retrieve text from that specific cell.
-					String celtext = Columns_row.get(column).getText();
-					System.out
-					.println("Cell Value of row number " + row + " and column number " + column + " Is " + celtext);
-				}
-			}
-
-			FileInputStream fsIP= new FileInputStream(new File("./Excel/"+Test_Variables.fileName));
-			@SuppressWarnings("resource")
-			XSSFWorkbook wb = new XSSFWorkbook(fsIP);
-			XSSFSheet worksheet = wb.getSheetAt(0);
-			XSSFCell cell = null;
-
-			if (Helper.driver.findElement(By.id("results-found-count")).getText().equals("12")) {
-
-				for (int z=0; z<12; z++) {
-
-					cell=worksheet.getRow(z+1).createCell(3); 
-					cell.getStringCellValue();   
-
-					fsIP.close();
-				}
-
-				FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.fileName));
-				wb.write(output_file);
-				output_file.close();  
-			}
-
-
-
 			Test_Variables.test.pass("User navigated successfully to Sites Log screen");
 			Test_Variables.results.createNode("Sites Log report opens successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
@@ -156,7 +94,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 2) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 2) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();
@@ -182,62 +120,54 @@ public class Sites_Log {
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)));
+							WebElement filter_scroll = Helper.driver.findElement(By.id(Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)));
 							((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 							Thread.sleep(800);	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 							Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");				
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .fa-filter")).click();		
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesShowFilter)).click();	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(800);						
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__footer--view-all")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+								Assert.assertTrue(true, "No records available to test filter");
+								Test_Variables.test.skip("No records available to test filter");
+								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.clShowFilter)).click();	
+							}
 
-							for (int j = 0; j < objFilter.LstFilterValues.size(); j++) {
-								Test_Variables.steps.createNode("2. Select the checkbox");
+							else {
+								for (int j = 0; j < objFilter.LstFilterValues.size(); j++) {
+									Test_Variables.steps.createNode("2. Select the checkbox");
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									WebElement checkbox_scroll = Helper.driver.findElement(By.cssSelector("#"+Test_Elements.sitesSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label"));
+									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 		
+									Thread.sleep(1000);
+									ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label");
+								}
+
+								Test_Variables.steps.createNode("3. Click on apply filter button");	
+								ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesApplyFilter);
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								WebElement checkbox_scroll = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .checkbox-sm:nth-child("+objFilter.LstFilterValues.get(j)+") label"));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 										
-								Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .checkbox-sm:nth-child("+objFilter.LstFilterValues.get(j)+") label")).click();
-							}
-
-							Test_Variables.steps.createNode("3. Click on apply filter button");	
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__action--apply")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);
-							String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
-
-							if(NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() != 0 && objFilter.FilterName == "Load Filter") {	
-								WebElement filter_scrollStart = Helper.driver.findElement(By.id("select-runId-0"));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollStart); 
 								Thread.sleep(800);
-								if (NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue() > 100) {
-									Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), 100);
-								}
-								else {
-									Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.rowValueExpected)).size(), NumberFormat.getNumberInstance(Locale.US).parse(recordAfter).intValue());	
-								}
-								WebElement filter_scrollBack = Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)));
-								((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scrollBack); 	
-							}
+								String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();		
 
-							Assert.assertNotEquals(recordBefore, recordAfter);
-							Test_Variables.test.pass("Checkbox selected successfully");
-							Test_Variables.results.createNode("Checkbox selected successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-						}	
+								Assert.assertNotEquals(recordBefore, recordAfter);
+								Test_Variables.test.pass("Filter applied successfully");
+								Test_Variables.results.createNode("Filter applied successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
+							}
+						}
 					}
 					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + "checkbox failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + "checkbox failed to apply");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, new Exception(er));
 					}
 					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + "checkbox failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + "checkbox failed to apply");
+						Test_Variables.test.fail(objFilter.FilterName + " failed to apply");
+						Test_Variables.results.createNode(objFilter.FilterName + " failed to apply");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, ex);
 					}
 
@@ -258,29 +188,44 @@ public class Sites_Log {
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i) +" .fa-filter")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							
+							if (Helper.driver.findElements(By.cssSelector("#"+Test_Elements.sitesSortFilter+""+objFilter.LstFilterXpath.get(i)+" .active-filter")).size() != 0) {			
+							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesShowFilter)).click();	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
-							Assert.assertEquals(Helper.driver.findElements(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-							Test_Variables.test.pass("Filter was applied successfully");
-							Test_Variables.results.createNode("Filter was applied successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-
-							Helper.driver.findElement(By.cssSelector(objFilter.LstFilterXpath.get(i)+" .filter-popup__action--clear-all")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);		
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+								Test_Variables.test.skip("No records available to test filter");
+								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
+							}
+							else {	
+								Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
+								Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
+								Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);	
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesClearFilter)).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Thread.sleep(1000);	
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
+							}
+						}
+							else {
+								Test_Variables.results.createNode("Test case skipped because filter was not applied");
+								Test_Variables.test.skip("Test case skipped because filter was not applied");
+								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+							}			
 						}
 					}
 					catch(AssertionError er) {
-						Test_Variables.test.fail("Filter failed to apply");
-						Test_Variables.results.createNode("Filter failed to apply");
+						Test_Variables.test.fail("Applied checkbox failed to bubble to top");
+						Test_Variables.results.createNode("Applied checkbox failed to bubble to top");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, new Exception(er));
 					}
 					catch(Exception ex) {
-						Test_Variables.test.fail("Filter failed to apply");
-						Test_Variables.results.createNode("Filter failed to apply");
+						Test_Variables.test.fail("Applied checkbox failed to bubble to top");
+						Test_Variables.results.createNode("Applied checkbox failed to bubble to top");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, ex);
 					}	
 				}
@@ -292,7 +237,7 @@ public class Sites_Log {
 
 
 
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 3) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 3) 
 	public void wildcard() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -318,15 +263,14 @@ public class Sites_Log {
 						Test_Variables.steps.createNode("1. Click on Sites Log");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-						WebElement filter_scroll = Helper.driver.findElement(By.cssSelector(objFilter.FilterID));
+						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 	
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .fa-filter")).click();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-
-						if (Helper.driver.findElements(By.cssSelector(objFilter.FilterID+" .data-log-radio")).size() == 0) {
-							Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__wildcard")).click();
+						if (Helper.driver.findElements(By.cssSelector("#sort-"+objFilter.FilterID+" .data-log-radio")).size() == 0) {
+							Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.FilterID+" .filter-popup__action--wildcard")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						}
 
@@ -342,17 +286,17 @@ public class Sites_Log {
 							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterXPath+"_wildcard-option2")).click();
 						}
 
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).clear();
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .form-control")).sendKeys(objModel.input);
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).clear();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).sendKeys(objModel.input);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .filter-popup__action--apply")).click();
+						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slApplyFilter)).click();
 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
 						int count = rows.size();
-						Thread.sleep(1500);
+						Thread.sleep(1000);
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
@@ -384,7 +328,7 @@ public class Sites_Log {
 						Test_Variables.results.createNode("Wildcards failed to test successfully");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
 					}
-					Helper.driver.findElement(By.id(objFilter.FilterXPath+"_clear-filter")).click();
+					Helper.driver.findElement(By.id(objFilter.FilterXPath+""+Test_Elements.slClearFilter)).click();
 				}
 			}
 			catch(Exception ex) {
@@ -393,7 +337,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (description="Test Case: Test Sites Lock Filter Functionality",enabled= false, priority = 4) 
+	@Test (description="Test Case: Test Sites Lock Filter Functionality",enabled= true, priority = 4) 
 	public void SitesLock() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -423,7 +367,7 @@ public class Sites_Log {
 						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" .checkbox-sm:nth-child(2) label")).click();
+						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
 						Thread.sleep(500);
 						Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
 						Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
@@ -471,7 +415,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 5) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 5) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSitesLogPagination = SitesLogModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -618,7 +562,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 6) 
+	@Test (description="Test Case: Test Table Rows",enabled= true, priority = 6) 
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
@@ -750,7 +694,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (enabled= false, priority =7) 
+	@Test (enabled= true, priority =7) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSitesLogSorting = SitesLogModel.sorting();
@@ -770,13 +714,12 @@ public class Sites_Log {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 
 						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
-						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+						Helper.driver.findElement(By.id("objFilter.ColumnID")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));					
 						Thread.sleep(500);
 						if (objModel.sortDescFirst) {
@@ -822,7 +765,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (enabled= false, priority =8) 
+	@Test (enabled= true, priority =8) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Sites-72: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
@@ -839,8 +782,8 @@ public class Sites_Log {
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
 
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.sitesLatitudeCol+" .text-right")).size(), 100, "Latitude column is not right alligned");
-			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.sitesLongitudeCol+" .text-right")).size(), 100, "Longitude column is not right alligned");
+			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.sitesLatitudeCol+" .text-right")).size(), 0, "Latitude column is not right alligned");
+			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.sitesLongitudeCol+" .text-right")).size(), 0, "Longitude column is not right alligned");
 
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
@@ -859,7 +802,7 @@ public class Sites_Log {
 	}
 
 
-	@Test (enabled= false, priority = 9) 
+	@Test (enabled= true, priority = 9) 
 	public void FieldAccess() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();
@@ -973,10 +916,11 @@ public class Sites_Log {
 		return theNewestFile;
 	}
 
-	@Test (description="Test Case: Test Sites CSV Download",enabled= false, priority =10) 
+	@SuppressWarnings("unused")
+	@Test (description="Test Case: Test Sites CSV Download",enabled= true, priority =10) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Sites-83: Verify user can download Sites CSV file", "This test case will verify that user can download Sites CSV file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Sites-83: Verify user can download Sites CSV file and verify the records", "This test case will verify that user can download Sites CSV file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -991,12 +935,27 @@ public class Sites_Log {
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
+			Helper.driver.findElement(By.id(Test_Elements.sitesSiteID+""+Test_Elements.sitesShowFilter)).click();	
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(800);						
+			ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.clSortFilter+""+Test_Elements.sitesSiteID+" li:nth-child(3) label");
+
+			ClickElement.clickById(Helper.driver, Test_Elements.sitesSiteID+""+Test_Elements.sitesApplyFilter);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(800);
+			
 			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
-			//int getRowCount = Integer.parseInt(getRowText);
 
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Test_Variables.steps.createNode("5. Click on Export as CSV");	
+			Test_Variables.steps.createNode("6. Verify Site ID is same in table and CSV");
+			Test_Variables.steps.createNode("7. Verify Site Name is same in table and CSV");
+			Test_Variables.steps.createNode("8. Verify Site Type is same in table and CSV");
+			Test_Variables.steps.createNode("9. Verify Address is same in table and CSV");
+			Test_Variables.steps.createNode("10. Verify Date Created is same in table and CSV");
+			Test_Variables.steps.createNode("11. Verify Created By is same in table and CSV");
+			
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
 			Thread.sleep(1000);
@@ -1016,6 +975,43 @@ public class Sites_Log {
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
 
+			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename);
+			if(file.exists()){
+				System.out.println("File Exists");
+			}	
+
+			SoftAssert softAssert = new SoftAssert();
+			FileReader filereader = new FileReader(file);
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			StringBuffer buffer = new StringBuffer();
+			String data[];		    
+			int j = 0;
+			int k = 1;
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+
+					int a = Helper.driver.findElements(By.cssSelector("tr")).size();
+					if (k < a) {
+						System.out.print(data[i] + " ");
+
+						int l = j+3;
+						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).size() != 0 && l<=14) {
+						//	System.out.print(Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
+							softAssert.assertEquals(data[i], Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
+						}
+						else {
+							k = k+1;
+							l =0;
+							j = -1;
+						}
+						j++;
+					}
+				}
+				System.out.println(" ");
+
+			}
+
 			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
 			long lines = 0;
 			try {
@@ -1031,9 +1027,10 @@ public class Sites_Log {
 			str = str.replace(",", "");
 			Assert.assertEquals(s, str);
 
-			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
-			if(file.delete())
-				System.out.println("CSV file deleted");
+			if(file.delete()) {
+				System.out.println("CSV file deleted");  
+			}
+			softAssert.assertAll();
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("CSV file failed to download");
@@ -1049,7 +1046,8 @@ public class Sites_Log {
 		Thread.sleep(1000);
 	}
 
-	@Test (description="Test Case: Test Sites Audit Download",enabled= false, priority = 11) 
+	
+	@Test (description="Test Case: Test Sites Audit Download",enabled= true, priority = 11) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Sites-84: Verify user can download Sites Audit file", "This test case will verify that user can download Sites Audit file");
@@ -1065,7 +1063,7 @@ public class Sites_Log {
 
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
-			ClickElement.clickByCss(Helper.driver, "#select-site-0 .checkbox");
+			ClickElement.clickByCss(Helper.driver, "#select-site-0 .custom-checkbox");
 			Thread.sleep(1000);
 
 			//String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();

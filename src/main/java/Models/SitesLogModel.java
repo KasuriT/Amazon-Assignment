@@ -77,11 +77,11 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteID));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
-		
+	
 		objTmp = new SitesLogModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site Name Filter";
@@ -91,8 +91,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteName));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
 
@@ -105,8 +105,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteType));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
 		
@@ -119,8 +119,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesState));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesState));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
 		
@@ -133,8 +133,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesZipCode));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
 		
@@ -147,8 +147,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesDateCreated));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesDateCreated));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
 		
@@ -161,11 +161,11 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesCreatedBy));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "2"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesCreatedBy));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4", "3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
-			
+		
 		objTmp = new SitesLogModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Two Filters";
@@ -175,8 +175,8 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteID, "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteID,Test_Elements.sitesSiteName));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp);
 
@@ -186,14 +186,16 @@ public class SitesLogModel {
 	
 	public static ArrayList<SitesLogModel> Wildcard() {
 		ArrayList<SitesLogModel> lstSitesLogModel = new ArrayList<SitesLogModel>();
-		SitesLogModel objTmp = new SitesLogModel();
-
-		ReportFilters objFilter = new ReportFilters();
+		SitesLogModel objTmp; 
+		ReportFilters objFilter;
+		
+		objTmp = new SitesLogModel();
+		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
 		objTmp.TestCaseName = "AN-Sites-20: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteID;
+		objFilter.FilterID = Test_Elements.sitesSiteID;
 		objFilter.FilterXPath = Test_Elements.sitesSiteID;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -210,7 +212,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-21: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteID;
+		objFilter.FilterID = Test_Elements.sitesSiteID;
 		objFilter.FilterXPath = Test_Elements.sitesSiteID;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -227,7 +229,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-22: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteID;
+		objFilter.FilterID = Test_Elements.sitesSiteID;
 		objFilter.FilterXPath = Test_Elements.sitesSiteID;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -244,7 +246,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-23: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName;
+		objFilter.FilterID = Test_Elements.sitesSiteName;
 		objFilter.FilterXPath = Test_Elements.sitesSiteName;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -261,7 +263,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-24: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName;
+		objFilter.FilterID = Test_Elements.sitesSiteName;
 		objFilter.FilterXPath = Test_Elements.sitesSiteName;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -278,7 +280,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-25: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName;
+		objFilter.FilterID = Test_Elements.sitesSiteName;
 		objFilter.FilterXPath = Test_Elements.sitesSiteName;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -295,7 +297,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-26: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType;
+		objFilter.FilterID = Test_Elements.sitesSiteType;
 		objFilter.FilterXPath = Test_Elements.sitesSiteType;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -312,7 +314,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-27: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType;
+		objFilter.FilterID = Test_Elements.sitesSiteType;
 		objFilter.FilterXPath = Test_Elements.sitesSiteType;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -329,7 +331,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-28: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType;
+		objFilter.FilterID = Test_Elements.sitesSiteType;
 		objFilter.FilterXPath = Test_Elements.sitesSiteType;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -339,14 +341,14 @@ public class SitesLogModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp); 
-		
+	
 		objTmp = new SitesLogModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "State Filter";
 		objTmp.TestCaseName = "AN-Sites-29: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesState;
+		objFilter.FilterID = Test_Elements.sitesState;
 		objFilter.FilterXPath = Test_Elements.sitesState;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -363,7 +365,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-30: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesState;
+		objFilter.FilterID = Test_Elements.sitesState;
 		objFilter.FilterXPath = Test_Elements.sitesState;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -380,7 +382,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-31: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesState;
+		objFilter.FilterID = Test_Elements.sitesState;
 		objFilter.FilterXPath = Test_Elements.sitesState;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -391,14 +393,13 @@ public class SitesLogModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp);
 		
-		
 		objTmp = new SitesLogModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Zip Code Filter";
 		objTmp.TestCaseName = "AN-Sites-32: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode;
+		objFilter.FilterID = Test_Elements.sitesZipCode;
 		objFilter.FilterXPath = Test_Elements.sitesZipCode;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -415,7 +416,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-33: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode;
+		objFilter.FilterID = Test_Elements.sitesZipCode;
 		objFilter.FilterXPath = Test_Elements.sitesZipCode;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -432,7 +433,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-34: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode;
+		objFilter.FilterID = Test_Elements.sitesZipCode;
 		objFilter.FilterXPath = Test_Elements.sitesZipCode;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -450,7 +451,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-35: Verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesCreatedBy;
+		objFilter.FilterID = Test_Elements.sitesCreatedBy;
 		objFilter.FilterXPath = Test_Elements.sitesCreatedBy;
 		objTmp.startWith = true;
 		objTmp.contains = false;
@@ -467,7 +468,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-36: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesCreatedBy;
+		objFilter.FilterID = Test_Elements.sitesCreatedBy;
 		objFilter.FilterXPath = Test_Elements.sitesCreatedBy;
 		objTmp.startWith = false;
 		objTmp.contains = true;
@@ -484,7 +485,7 @@ public class SitesLogModel {
 		objTmp.TestCaseName = "AN-Sites-37: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = "#"+Test_Elements.sitesSortFilter+""+Test_Elements.sitesCreatedBy;
+		objFilter.FilterID = Test_Elements.sitesCreatedBy;
 		objFilter.FilterXPath = Test_Elements.sitesCreatedBy;
 		objTmp.startWith = false;
 		objTmp.contains = false;
@@ -892,7 +893,7 @@ public class SitesLogModel {
 		objTmp.viewAccess = false;
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp);
-			
+	
 		objTmp = new SitesLogModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Street Address Filter";
@@ -1028,7 +1029,7 @@ public class SitesLogModel {
 		objTmp.viewAccess = true;
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp);
-		
+	
 		return lstSitesLogModel;
 	}
 }

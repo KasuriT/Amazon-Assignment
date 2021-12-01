@@ -390,9 +390,6 @@ public class Test_Elements {
 
 	/////////////////////////////////////////Agreement Management Elements////////////////////////////////////////////////////
 	
-
-	
-	
 	public static String amBeforelist = "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[2]/div[2]/form/div/div/div/div/table/tbody/tr[";
 	public static String amAfterList = "]/td[1]";
 	public static String amAfterList2 = "]/td[2]/label";
@@ -564,6 +561,7 @@ public class Test_Elements {
 	public static String slSortFilter = "sort-";
 	public static String slApplyFilter = "_apply";
 	public static String slClearFilter = "_clear-filter";
+	public static String slSearchInput = "_search-input";
 	
 	public static String slLane = "laneNum";
 	public static String slSampleID = "sampleId";
@@ -571,6 +569,7 @@ public class Test_Elements {
 	public static String slResultStatus = "result_status";
 	public static String slResult = "outcome";
 	public static String slAssay = "pathogen";
+	public static String slResultID = "runId";
 	public static String slResultTime = "time";
 	public static String slResultDate = "scanDateTime";
 	public static String slCollectionSiteID = "collection_site_id";
@@ -605,7 +604,7 @@ public class Test_Elements {
 
 	public static String slTotalPages = "/html/body/app-root/div/app-salmonella-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
-	public static String closeAudit = ".u-report-modal-close-icon";
+	public static String closeAudit = "#close-gen-modal";
 	
 	public static String slPngHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[1]/div[1]";
 	public static String slCsvHover = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]";
@@ -692,6 +691,7 @@ public class Test_Elements {
 	public static String clSortFilter = "sort-";
 	public static String clApplyFilter = "_apply";
 	public static String clClearFilter = "_clear-filter";
+	public static String clSearchInput = "_search-input";
 	
 	public static String clLane = "laneNum";
 	public static String clSampleID = "sampleId";
@@ -735,7 +735,7 @@ public class Test_Elements {
 	public static String clLast30Days = "#list-title_range-3";
 	public static String clThisMonth = "#list-title_range-4";
 	public static String clLastMonth = "#list-title_range-5";	
-	
+
 	
 	
 //	public static String clToday = "div[class='table-responsive apl-data-log-table apl-scrollbar'] p:nth-child(1)";
@@ -807,6 +807,136 @@ public class Test_Elements {
 
 
 	/////////////////////////////////////////////////End Sites Log Elements////////////////////////////////////////////////////////////
+	
+	
+	///////////////////////////////////////////////Flock Registration Elements/////////////////////////////////////////////////////////
+
+	public static String flockIntegratorIDCol = "0";
+	public static String flockSiteIDCol = "1";
+	public static String flockHatchDateCol = "2";
+	public static String flockPlacementDateCol = "3";
+	public static String flockNumBirdsPlacedCol = "4";
+	public static String flockBirdTypeCol = "5";
+	public static String flockBirdSexCol = "6";
+	public static String flockBirdBreedCol = "7";
+	public static String flockProcessingDateCol = "8";
+	public static String flockProcessingSiteIDCol = "9";
+	public static String flockNumBirdsDOACol = "10";
+	public static String flockNumBirdsProcessedCol = "11";
+	public static String flockTotalWeightProcessedLBCol = "12";
+	public static String flockTotalWeightProcessedKGCol = "13";
+	public static String flockTotalFeedWeightLBCol = "14";
+	public static String flockTotalFeedWeightKGCol = "15";
+	public static String flockTotalWeightCondemnedLBCol = "16";
+	public static String flockTotalWeightCondemnedKGCol = "17";
+	public static String flockNumBirdsCondemnedWholeCol = "18";
+	public static String flockBirdsWeightCondemnedLBCol = "19";
+	public static String flockBirdsWeightCondemnedKGCol = "20";
+	public static String flockPartsWeightCondemnedLBCol = "21";
+	public static String flockPartsWeightCondemnedKGCol = "22";
+	public static String flockTotalAmountPaidCol = "23";
+	public static String flockTotalAmountPaidWeightLBCol = "24";
+	public static String flockTotalCostPerWeightCol = "25";
+	public static String flockLiveabilityCol = "26";
+	public static String flockMortalityCol = "27";
+	public static String flockAvgDailyWeightGainLBCol = "28";
+	public static String flockAvgAgeBirdsProcessedCol = "29";
+	public static String flockAvgBirdWeightLBCol = "30";
+	public static String flockAvgBirdWeightKGCol = "31";
+	public static String flockFCRCol = "32";
+	public static String flockNumBirdsSoldCol = "33";
+	public static String flockAdjFCRCol = "34";
+	public static String flockAGradePawsCol = "35";
+	public static String flockLast7DaysCol = "36";
+	public static String flockOutTimeDaysCol = "37";
+	public static String flockFieldAccessCol = "38";
+	
+	
+	public static String flockAuditIntegratorIDCol = "";
+	public static String flockAuditSiteIDCol = "0";
+	public static String flockAuditHatchDateCol = "1";
+	public static String flockAuditPlacementDateCol = "2";
+	public static String flockAuditNumBirdsPlacedCol = "3";
+	public static String flockAuditBirdTypeCol = "4";
+	public static String flockAuditBirdSexCol = "5";
+	public static String flockAuditBirdBreedCol = "6";
+	public static String flockAuditProcessingDateCol = "7";
+	public static String flockAuditProcessingSiteIDCol = "8";
+	public static String flockAuditNumBirdsDOACol = "9";
+	public static String flockAuditNumBirdsProcessedCol = "10";
+	public static String flockAuditTotalWeightProcessedLBCol = "11";
+	public static String flockAuditTotalWeightProcessedKGCol = "12";
+	public static String flockAuditTotalFeedWeightLBCol = "13";
+	public static String flockAuditTotalFeedWeightKGCol = "14";
+	public static String flockAuditTotalWeightCondemnedLBCol = "15";
+	public static String flockAuditTotalWeightCondemnedKGCol = "16";
+	public static String flockAuditNumBirdsCondemnedWholeCol = "17";
+	public static String flockAuditBirdsWeightCondemnedLBCol = "18";
+	public static String flockAuditBirdsWeightCondemnedKGCol = "19";
+	public static String flockAuditPartsWeightCondemnedLBCol = "20";
+	public static String flockAuditPartsWeightCondemnedKGCol = "21";
+	public static String flockAuditTotalAmountPaidCol = "22";
+	public static String flockAuditTotalAmountPaidWeightLBCol = "23";
+	public static String flockAuditTotalCostPerWeightCol = "24";
+	public static String flockAuditLiveabilityCol = "25";
+	public static String flockAuditMortalityCol = "26";
+	public static String flockAuditAvgDailyWeightGainLBCol = "27";
+	public static String flockAuditAvgAgeBirdsProcessedCol = "28";
+	public static String flockAuditAvBirdWeightLBCol = "29";
+	public static String flockAuditAvBirdWeightKGCol = "30";
+	public static String flockAuditFCRCol = "31";
+	public static String flockAuditNumBirdsSoldCol = "32";
+	public static String flockAuditAdjFCRCol = "33";
+	public static String flockAuditAGradePawsCol = "34";
+	public static String flockAuditLast7DaysCol = "35";
+	public static String flockAuditOutTimeDaysCol = "36";
+	
+	public static String flockShowFilter = "_show-filter";
+	public static String flockSortFilter = "sort-";
+	public static String flockApplyFilter = "_apply";
+	public static String flockClearFilter = "_clear-filter";
+
+	public static String flockIntegratorID = "integratorFlockId";
+	public static String flockSiteID = "siteId";
+	public static String flockHatchDate = "hatchDate";
+	public static String flockPlacementDate = "placementDate";
+	public static String flockNumBirdsPlaced = "numOfBirdsPlaced";
+	public static String flockBirdType = "birdType";
+	public static String flockBirdSex = "birdSex";
+	public static String flockBirdBreed = "birdBreed";
+	public static String flockProcessingDate = "processingDate";
+	public static String flockProcessingSiteID = "processingSiteId";
+	public static String flockNumBirdsDOA = "numBirdsDoaPlant";
+	public static String flockNumBirdsProcessed = "numBirdsProcessed";
+	public static String flockTotalWeightProcessedLB = "totalWeightProcessedLB";
+	public static String flockTotalWeightProcessedKG = "totalWeightProcessedKG";
+	public static String flockTotalFeedWeightLB = "totalFeedWeightLB";
+	public static String flockTotalFeedWeightKG = "totalFeedWeightKG";
+	public static String flockTotalWeightCondemendLB  = "totalWeightCondemnedLB";
+	public static String flockTotalWeightCondemendKG  = "totalWeightCondemnedKG";
+	public static String flockNumBirdsCondemnedWhole = "numBirdsCondemnedWhole";
+	public static String flockBirdsWeightCondemnedLB = "birdWeightCondemnedLB";
+	public static String flockBirdsWeightCondemnedKG = "birdWeightCondemnedKG";
+	public static String flockPartsWeightCondemnedLB = "partsWeightCondemnedLB";
+	public static String flockPartsWeightCondemnedKG = "partsWeightCondemnedKG";
+	public static String flockTotalAmountPaid = "totalAmountPaidUSD";
+	public static String flockTotalAmountPaidWeightLB = "totalAmountPaidUSDWeightLB";
+	public static String flockTotalCostPerWeight = "totalCostUSDPerWeightLB";
+	public static String flockLiveability = "livabilityPerc";
+	public static String flockMortality = "mortalityPerc";
+	public static String flockAvgDailyWeightGainLB = "avgDailyWeightGainLB";
+	public static String flockAvgAgeBirdsProcessed = "avgAgeOfBirdProcessedDays";
+	public static String flockAvgBirdWeightLB = "avgBirdWeightLB";
+	public static String flockAvgBirdWeightKG = "avgBirdWeightKG";
+	public static String flockFCR = "fcr";
+	public static String flockNumBirdsSold = "numBirdsSold";
+	public static String flockAdjFCR = "adjFcr";
+	public static String flockAGradePaws = "aGradePawsPerc";
+	public static String flockLast7Days = "lastSvnDayMortalityPerc";
+	public static String flockOutTimeDays = "outTimeDays";
+	
+
+	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
 	
 	
 	

@@ -45,7 +45,7 @@ public class PiperManagement {
 
 			Helper.driver.get(Constants.url_piperManagement);
 			Thread.sleep(2000);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText();
+			String actual = Helper.driver.findElement(By.cssSelector("#screen-header p")).getText();
 			String expected = "PIPER Management";
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login+ "and login with valid credentials");
 			Test_Variables.steps.createNode("1. Hover to sidebar to expand menu");

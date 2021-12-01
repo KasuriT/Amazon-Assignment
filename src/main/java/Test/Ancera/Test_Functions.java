@@ -34,7 +34,8 @@ public class Test_Functions {
 		Thread.sleep(3000);
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgExpandAnceraTab)));
 		Helper.driver.findElement(By.xpath(Test_Elements.orgExpandAnceraTab)).click();
-		Thread.sleep(4000);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(3000);
 
 	}
 

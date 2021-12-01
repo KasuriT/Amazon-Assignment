@@ -396,7 +396,7 @@ public class PAConfig {
 								}
 							}
 						}
-						Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+						Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 						Thread.sleep(800);
 					}
 			//		softAssert.assertAll();
@@ -586,7 +586,7 @@ public class PAConfig {
 								softAssert.assertEquals(getResult, "Missing Sample Metadata", "W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue);
 							}
 
-							Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+							Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 							Thread.sleep(800);
 				//			softAssert.assertAll();
 						}
@@ -770,7 +770,7 @@ public class PAConfig {
 								if (Integer.parseInt(str1) > Integer.parseInt(objModel.ThresholdValue)) {
 									softAssert.assertEquals(getAuditResult, "Positive", "W2CellCount: "+str1+" | Threshold: "+objModel.ThresholdValue);
 								}
-								Helper.driver.findElement(By.cssSelector(".u-report-modal-close-icon")).click();
+								Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
 								Thread.sleep(800);
 						//		softAssert.assertAll();
 							}
