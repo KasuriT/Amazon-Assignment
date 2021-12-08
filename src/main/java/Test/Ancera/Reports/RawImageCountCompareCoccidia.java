@@ -214,7 +214,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 
 			SoftAssert softAssert = new SoftAssert();
 
-			for (int x = 0;x<=30;x++) {
+			for (int x = 0;x<=100;x++) {
 
 				String query1 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID like '%"+Test_Variables.date0+"' and Sample_ID like '"+Test_Variables.dateYYYYMMDD+"%'";
 				// query1 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID like '20211126_Cocci_%'";
@@ -240,7 +240,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 								String removeDecimal =	a.replaceAll("\\.0*$", "")	;							
 								System.out.println(removeDecimal);
 								
-								String path = "C:\\Users\\User\\Desktop\\comparecountCocci.xlsx";
+								String path = System.getProperty("user.dir")+"\\CountComparison\\CountComparisonCocci.xlsx";
 								FileInputStream fs = new FileInputStream(path);
 								XSSFWorkbook workbook = new XSSFWorkbook(fs);
 								XSSFSheet sheet = workbook.getSheetAt(0);
@@ -257,6 +257,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 								int lastRow = sheet1.getLastRowNum();
 								Row row1 = sheet1.getRow(i);
 								Cell cell1 = row1.createCell(2);
+								cell1.setCellValue("");
 								cell1.setCellValue(removeDecimal);
 
 								if (val != null && removeDecimal != null) {
@@ -264,7 +265,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 
 									Row row2 = sheet1.getRow(i);
 									Cell cell2 = row2.createCell(3);
-
+									cell2.setCellValue("");
 									cell2.setCellValue(difference);
 									softAssert.assertEquals(val, difference);
 

@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.MetaData.DataUpload;
 
 public class FlockRegistrationModel {
 
@@ -46,6 +47,8 @@ public class FlockRegistrationModel {
 	public boolean viewAccess;
 	public boolean unviewAccess;
 	public boolean sortDescFirst;
+	public boolean errorCase;
+	public String steps;
 	public String FilterHideID;
 	public String FilterUnHideID;
 	public String input;
@@ -61,12 +64,12 @@ public class FlockRegistrationModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	
+
 	public static ArrayList<FlockRegistrationModel> FillData() {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp; 
 		ReportFilters  objFilter;
-		
+
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -78,10 +81,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -92,7 +95,7 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
 
@@ -106,10 +109,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockHatchDate));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Placement Date Filter";
@@ -120,10 +123,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockPlacementDate));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type Filter";
@@ -134,10 +137,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockBirdType));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex Filter";
@@ -148,10 +151,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockBirdSex));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -162,10 +165,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockBirdBreed));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Date Filter";
@@ -176,10 +179,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockProcessingDate));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID Filter";
@@ -190,10 +193,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockProcessingSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Two Filters";
@@ -204,19 +207,19 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID,Test_Elements.flockSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
 		return lstFlockRegistrationModel;
 	}
 
-	
+
 	public static ArrayList<FlockRegistrationModel> Wildcard() {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp; 
 		ReportFilters objFilter;
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Integrator Site ID Filter";
@@ -233,7 +236,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("T", "t"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-			
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -250,7 +253,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -284,7 +287,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-			
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -301,7 +304,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("V", "v"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -318,7 +321,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type Filter";
@@ -335,7 +338,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);  
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type Filter";
@@ -352,7 +355,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type Filter";
@@ -369,7 +372,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex Filter";
@@ -403,7 +406,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex Filter";
@@ -420,7 +423,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -454,7 +457,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -471,8 +474,8 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID Filter";
@@ -489,7 +492,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("B", "b"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID Filter";
@@ -506,7 +509,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID Filter";
@@ -531,7 +534,7 @@ public class FlockRegistrationModel {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp;
 		ReportFilters objFilter;
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Integrator Flock ID Filter";
@@ -544,7 +547,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockIntegratorID+""+Test_Elements.flockClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID Filter";
@@ -557,7 +560,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.sitesSiteID+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Hatch Date Filter";
@@ -570,7 +573,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockHatchDate+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Placement Date Filter";
@@ -583,7 +586,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockPlacementDate+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type Filter";
@@ -596,7 +599,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockBirdType+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex Filter";
@@ -609,7 +612,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockBirdSex+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -622,7 +625,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockBirdBreed+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Date Filter";
@@ -635,7 +638,7 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockProcessingDate+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID Filter";
@@ -648,11 +651,11 @@ public class FlockRegistrationModel {
 		objFilter.FilterClear = Test_Elements.flockProcessingSiteID+""+Test_Elements.sitesClearFilter;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		return lstFlockRegistrationModel;
 	}
 
-	
+
 	public static ArrayList<FlockRegistrationModel> pagination() {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp = new FlockRegistrationModel();
@@ -792,7 +795,7 @@ public class FlockRegistrationModel {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp;
 		ReportFilters objFilter;
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Integrator Flock ID";
@@ -801,10 +804,10 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockIntegratorID;           
 		objFilter.count = Test_Elements.flockIntegratorIDCol;
-		objTmp.sortDescFirst = true;
+		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Site ID";
@@ -840,7 +843,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Num. Birds Placed";
@@ -852,7 +855,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type";
@@ -864,7 +867,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex";
@@ -876,7 +879,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed";
@@ -888,7 +891,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Date";
@@ -900,7 +903,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Processing Site ID";
@@ -912,7 +915,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Num Birds DOA Plant ID";
@@ -924,8 +927,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Num Birds Processed LB";
@@ -937,7 +940,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Weight Processed KG";
@@ -949,7 +952,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Feed Weight LB";
@@ -961,7 +964,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Weight Condemned LB";
@@ -973,7 +976,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Weight Condemned KG";
@@ -985,7 +988,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Num Birds Condemned Whole";
@@ -997,7 +1000,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Weight Condemned LB";
@@ -1009,7 +1012,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Weight Condemned KG";
@@ -1021,7 +1024,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Parts Weight Condemned LB";
@@ -1033,7 +1036,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Parts Weight Condemned KG";
@@ -1045,7 +1048,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Amount Paid";
@@ -1057,7 +1060,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Amount Paid Weight LB";
@@ -1069,7 +1072,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Total Cost Per Weight LB";
@@ -1081,7 +1084,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Livability Percentage";
@@ -1093,7 +1096,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Mortality Percentage";
@@ -1105,8 +1108,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Avg Daily Weight Gain LB";
@@ -1118,7 +1121,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Avg Age of Bird Processed";
@@ -1130,8 +1133,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Avg Bird Weight LB";
@@ -1143,8 +1146,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Avg Bird Weight KG";
@@ -1156,8 +1159,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "FCR";
@@ -1169,7 +1172,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Num Birds Sold";
@@ -1181,8 +1184,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "ADJ. FCR";
@@ -1194,8 +1197,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "A Grade Paws Perc";
@@ -1207,7 +1210,7 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Last 7 Days Mortality Perc";
@@ -1219,8 +1222,8 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		
+
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Out Time Days";
@@ -1232,169 +1235,445 @@ public class FlockRegistrationModel {
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		return lstFlockRegistrationModel;	
 	}	
-	
 
-	public static ArrayList<FlockRegistrationModel> FieldAccess() {
+
+	public static ArrayList<FlockRegistrationModel> EditFlock() {
 		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
 		FlockRegistrationModel objTmp;
 		ReportFilters objFilter;			
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Site Type Filter";
-		objTmp.TestCaseName = "AN-FR-73: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objFilter.FilterName = "Integrator Site ID";
+		objTmp.TestCaseName = "AN-FR-73: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesSiteTypeCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteName;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = false;
+		objFilter.FilterID = Test_Elements.flockIntegratorID;
+		objFilter.ColumnID = Test_Elements.flockIntegratorIDCol;
+		objTmp.input = "IntegratorID_TA";
+		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-	
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Street Address Filter";
-		objTmp.TestCaseName = "AN-FR-74: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objFilter.FilterName = "Bird Type";
+		objTmp.TestCaseName = "AN-FR-74: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesStreetAddressCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesStreetAddress;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesSiteType;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
+		objFilter.FilterID = Test_Elements.flockBirdType;
+		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
+		objTmp.input = "Chicken";
+		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "State Filter";
-		objTmp.TestCaseName = "AN-FR-75: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objFilter.FilterName = "Bird Sex";
+		objTmp.TestCaseName = "AN-FR-75: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesStateCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesState;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesStreetAddress;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
+		objFilter.FilterID = Test_Elements.flockBirdSex;
+		objFilter.ColumnID = Test_Elements.flockBirdSexCol;
+		objTmp.input = "Male";
+		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Zip Code Filter";
-		objTmp.TestCaseName = "AN-FR-76: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
+		objFilter.FilterName = "Bird Breed";
+		objTmp.TestCaseName = "AN-FR-76: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesZipCodeCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesState;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
+		objFilter.FilterID = Test_Elements.flockBirdBreed;
+		objFilter.ColumnID = Test_Elements.flockBirdBreedCol;
+		objTmp.input = "Australorp";
+		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Country Filter";
-		objTmp.TestCaseName = "AN-FR-77: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesCountryCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesCountry;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesZipCode;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Latitude Filter";
-		objTmp.TestCaseName = "AN-FR-78: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesLatitudeCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesLatitude;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesCountry;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Longitude Filter";
-		objTmp.TestCaseName = "AN-FR-79: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesLongitudeCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesLongitude;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesLatitude;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Date Created Filter";
-		objTmp.TestCaseName = "AN-FR-80: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesDateCreatedCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesDateCreated;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesLongitude;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Created By Filter";
-		objTmp.TestCaseName = "AN-FR-81: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesCreatedByCol;
-		objTmp.FilterHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesCreatedBy;
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesDateCreated;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Select back all columns";
-		objTmp.TestCaseName = "AN-FR-82: Select back all unselected columns";
-		objTmp.TestCaseDescription = "This testcase will select back all unselected columns";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.sitesFieldAccessCol;
-		objTmp.FilterHideID = "";
-		objTmp.FilterUnHideID = Test_Elements.sitesSortFilter+""+Test_Elements.sitesDateCreated;
-		objTmp.unviewAccess = false;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-	
+
 		return lstFlockRegistrationModel;
 	}
+
+
+	public static ArrayList<FlockRegistrationModel> FlockValidation() {
+		ArrayList<FlockRegistrationModel> lstFlockRegistrationModel = new ArrayList<FlockRegistrationModel>();
+		FlockRegistrationModel objTmp;
+		ReportFilters objFilter;		
+
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-47: Verify that error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("200", "2000"));
+		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedKGCol;
+		objTmp.errorCase = true;
+		objTmp.steps = "Enter total weight condemned kg less than birds weight and parts weights";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-48: Verify that error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2500", "300"));
+		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedKGCol;
+		objTmp.errorCase = false;
+		objTmp.steps = "Enter total weight condemned kg less than birds weight and parts weights";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-49: Verify that error appears when total weight condemend lb is less than birds weight and parts weights";
+		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend lb is less than birds weight and parts weights";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("200", "2000"));
+		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedLBCol;
+		objTmp.errorCase = true;
+		objTmp.steps = "Enter total weight condemned kg less than birds weight and parts weights";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-50: Verify that error appears when total weight condemend lb is less than birds weight and parts weights";
+		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend lbis less than birds weight and parts weights";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2500", "300"));
+		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedLBCol;
+		objTmp.errorCase = false;
+		objTmp.steps = "Enter total weight condemned lb less than birds weight and parts weights";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-50: Verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(4, 11));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("10", "20"));
+		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+		objTmp.errorCase = true;
+		objTmp.steps = "Enter Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-51: Verify that system accept Number of Birds Processed less than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that system should accept Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(4, 11));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("20", "10"));
+		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+		objTmp.errorCase = false;
+		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-52: Verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "10"));
+		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+		objTmp.errorCase = true;
+		objTmp.steps = "Enter Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-FR-53: Verify that system accept Number of Birds Processed less than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that system should accept Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("10", "50"));
+		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+		objTmp.errorCase = false;
+		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+/*
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-48: Verify that user can upload Flock Metadata with Hatch Date less than Placement Date";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Hatch Date less than Placement Date";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(2, 3));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-01", "2021-06-05"));
+		objTmp.steps = "Enter Hatch Date less than Placement Date and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Hatch Date less than Placement Date successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Hatch Date less than Placement Date";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-49: Verify that user cannot upload Flock Metadata with Placement Date greater than Processing Date";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Placement Date greater than Processing Date";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(8, 3));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-01", "2021-06-10"));
+		objTmp.steps = "Enter Placement Date greater than Processing Date and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Placement Date greater than Processing Date successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Placement Date greater than Processing Date";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-50: Verify that user can upload Flock Metadata with Placement Date less than Processing Date";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Placement Date less than Processing Date";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(8, 3, 2));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-10", "2021-06-01", "2021-05-25"));
+		objTmp.steps = "Enter Placement Date less than Processing Date and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Placement Date less than Processing Date successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Placement Date less than Processing Date";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-51: Verify that user cannot upload Flock Metadata with Organization Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Organization Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(OrganizationSiteID));
+		objTmp.steps = "Enter Organization Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Organization Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Organization Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-52: Verify that user cannot upload Flock Metadata with Region Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Region Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(RegionSiteID));
+		objTmp.steps = "Enter Region Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Region Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Region Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-53: Verify that user cannot upload Flock Metadata with Sub-Region Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Sub-Region Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(SubRegionSiteID));
+		objTmp.steps = "Enter Sub-Region Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Sub-Region Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Sub-Region Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-54: Verify that user cannot upload Flock Metadata with Complex Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Complex Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ComplexSiteID));
+		objTmp.steps = "Enter Complex Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Complex Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Complex Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-55: Verify that user cannot upload Flock Metadata with House Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with House Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(HouseSiteID));
+		objTmp.steps = "Enter House Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with House Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with House Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-56: Verify that user cannot upload Flock Metadata with Farm Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Farm Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID));
+		objTmp.steps = "Enter Farm Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Farm Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Farm Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-57: Verify that user can upload Flock Metadata with Processing Plant Site ID in Processing Site ID field";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Processing Plant Site ID in Processing Site ID field";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ProcessingPlantSiteID));
+		objTmp.steps = "Enter Processing Plant Site ID in Processing Site ID field and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Processing Plant Site ID in Processing Site ID field successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Processing Plant Site ID in Processing Site ID field";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-58: Verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
+		objTmp.steps = "Enter Number of Birds DOA at Plant greater than Number of Birds Placed and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-59: Verify that user can upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("80", "100"));
+		objTmp.steps = "Enter Number of Birds DOA at Plant less than Number of Birds Placed and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-60: Verify that user cannot upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
+		objTmp.steps = "Enter Number of Birds DOA at Plant greater than Number of Birds Processed and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-61: Verify that user can upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 4));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("80", "100"));
+		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-62: Verify that user cannot upload Flock Metadata with Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19, 21));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "100", "100"));
+		objTmp.steps = "Enter Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-63: Verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19, 21));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "80", "40"));
+		objTmp.steps = "Enter Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-64: Verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20, 22));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "100", "100"));
+		objTmp.steps = "Enter Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-65: Verify that user can upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20, 22));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "80", "40"));
+		objTmp.steps = "Enter Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+*/
+		return lstFlockRegistrationModel;
+	}
+
+
+
+
 }
 
 

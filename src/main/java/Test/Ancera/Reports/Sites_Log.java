@@ -189,28 +189,28 @@ public class Sites_Log {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							
+
 							if (Helper.driver.findElements(By.cssSelector("#"+Test_Elements.sitesSortFilter+""+objFilter.LstFilterXpath.get(i)+" .active-filter")).size() != 0) {			
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesShowFilter)).click();	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Thread.sleep(500);
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
-								Test_Variables.test.skip("No records available to test filter");
-								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesShowFilter)).click();	
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Thread.sleep(500);
+								if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+									Test_Variables.test.skip("No records available to test filter");
+									Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
+								}
+								else {	
+									Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
+									Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
+									Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+									Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);	
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesClearFilter)).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(1000);	
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
+								}
 							}
-							else {	
-								Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-								Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
-								Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);	
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.sitesClearFilter)).click();
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1000);	
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
-							}
-						}
 							else {
 								Test_Variables.results.createNode("Test case skipped because filter was not applied");
 								Test_Variables.test.skip("Test case skipped because filter was not applied");
@@ -367,35 +367,43 @@ public class Sites_Log {
 						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
-						Thread.sleep(500);
-						Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
-						Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.steps.createNode("2. Click on lock button");	
-						Helper.driver.findElement(By.id("save-filters")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-						Thread.sleep(1000);
-						String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
-						Test_Variables.steps.createNode("3. Close Sites Log Report");
-						Test_Variables.steps.createNode("4. Reopen Sites Log Report");
-						Helper.driver.navigate().refresh();
+						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							Test_Variables.test.skip("Values not enough to test lock filter functionality");
+							Test_Variables.results.createNode("Values not enough to test lock filter functionality");
+							Helper.saveResultNew(ITestResult.SKIP, Constants.SitesLogReportPath, null);
+							Helper.driver.findElement(By.id(objFilter.FilterID)).click();
+						}
+						else {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
+							Thread.sleep(500);
+							Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
+							Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Test_Variables.steps.createNode("2. Click on lock button");	
+							Helper.driver.findElement(By.id("save-filters")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+							Thread.sleep(1000);
+							String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
+							Test_Variables.steps.createNode("3. Close Sites Log Report");
+							Test_Variables.steps.createNode("4. Reopen Sites Log Report");
+							Helper.driver.navigate().refresh();
 
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
-						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
-						Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-						Thread.sleep(1000);
-						Helper.driver.findElement(By.id("remove-filters")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						softAssert.assertAll();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(1000);
+							Test_Variables.steps.createNode("5. Verify lock filter remains applied");
+							softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
+							Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
+							Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
+							Thread.sleep(1000);
+							Helper.driver.findElement(By.id("remove-filters")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							softAssert.assertAll();
+						}
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
@@ -943,7 +951,7 @@ public class Sites_Log {
 			ClickElement.clickById(Helper.driver, Test_Elements.sitesSiteID+""+Test_Elements.sitesApplyFilter);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(800);
-			
+
 			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 			Test_Variables.steps.createNode("3. Click on the button");
@@ -955,7 +963,7 @@ public class Sites_Log {
 			Test_Variables.steps.createNode("9. Verify Address is same in table and CSV");
 			Test_Variables.steps.createNode("10. Verify Date Created is same in table and CSV");
 			Test_Variables.steps.createNode("11. Verify Created By is same in table and CSV");
-			
+
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
 			Thread.sleep(1000);
@@ -997,7 +1005,7 @@ public class Sites_Log {
 
 						int l = j+3;
 						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).size() != 0 && l<=14) {
-						//	System.out.print(Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
+							//	System.out.print(Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
 							softAssert.assertEquals(data[i], Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
 						}
 						else {
@@ -1046,7 +1054,7 @@ public class Sites_Log {
 		Thread.sleep(1000);
 	}
 
-	
+
 	@Test (description="Test Case: Test Sites Audit Download",enabled= true, priority = 11) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {

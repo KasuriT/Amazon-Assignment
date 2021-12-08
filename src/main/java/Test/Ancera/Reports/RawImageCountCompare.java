@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +34,6 @@ import Models.RawImageCompareCountModel;
 import Models.ReportFilters;
 import Test.Ancera.Constants;
 import Test.Ancera.DB_Config;
-import Test.Ancera.Helper;
 import Test.Ancera.Test_Variables;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -136,9 +136,7 @@ public class RawImageCountCompare extends DB_Config {
 						}
 					}
 					
-					
 					/////////////////////////////////////////////////////////End Start Assay////////////////////////////////////////////////////////////////////////////////	
-
 
 					/////////////////////////////////////////////////////////Raw Image API////////////////////////////////////////////////////////////////////////////////
 
@@ -217,35 +215,32 @@ public class RawImageCountCompare extends DB_Config {
 			}
 		}
 
-
 		try{
-
 			SoftAssert softAssert = new SoftAssert();
-
-			for (int x = 0;x<=30;x++) {
+			for (int x = 0;x<=40;x++) {
 
 				String query1 = "Select count(status) as count from SALMONELLA_OUTPUT where Sample_ID like '%"+Test_Variables.date0+"' and Sample_ID like '"+Test_Variables.dateYYYYMMDD+"%'";
-			//	String query1 = "Select count(status) as columnName from SALMONELLA_OUTPUT where Sample_ID like '%"+Test_Variables.date0+"'";
-
+			//	String query1 = "Select count(status) as count from SALMONELLA_OUTPUT where Sample_ID like '20211201%' and Sample_ID like '%1503'";
 				ResultSet rs1 = getStmt().executeQuery(query1);
 
 				while (rs1.next()) {
-					System.out.println("Count: "+rs1.getString("columnName"));
-					if (rs1.getString("columnName").equals(totalImages)) {
+					System.out.println("Count: "+rs1.getString("count"));
+					if (rs1.getString("count").equals(totalImages)) {
 
 						int i = 1;
 						while (i<=Integer.parseInt(totalImages)) {
 							System.out.println("'"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_"+Test_Variables.date0+"'");
-							String query2 = "Select w2_cell_count from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_"+Test_Variables.date0+"'";
+							String query2 = "Select w2_cell_count, lane_noise_ratio_percent, count_outcome from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_"+Test_Variables.date0+"'";
+						//	String query2 = "Select w2_cell_count, lane_noise_ratio_percent, count_outcome from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_1503'";
 
 							ResultSet rs = getStmt().executeQuery(query2);
 							while (rs.next()) {
-	
 								System.out.println("W2 Cell Count: "+rs.getString("w2_cell_count"));
 								String a = rs.getString("w2_cell_count");
-								
-								String path = Helper.projectPath+"/CountComparison/CountComparison"+totalImages+".xlsx";
-								//String path = "C:\\Users\\anc_admin\\Downloads\\comparecount.xlsx";
+								String b = rs.getString("lane_noise_ratio_percent");
+								String c = rs.getString("count_outcome");
+												
+								String path = System.getProperty("user.dir")+"\\CountComparison\\CountComparison"+totalImages+".xlsx";
 								FileInputStream fs = new FileInputStream(path);
 								XSSFWorkbook workbook = new XSSFWorkbook(fs);
 								XSSFSheet sheet = workbook.getSheetAt(0);
@@ -255,33 +250,59 @@ public class RawImageCountCompare extends DB_Config {
 								DataFormatter formatter = new DataFormatter();
 								String val = formatter.formatCellValue(sheet.getRow(i).getCell(1));
 								System.out.println("Value: "+val);
-
+								
+								String noiseCount = formatter.formatCellValue(sheet.getRow(i).getCell(4));
+												
 								FileInputStream fs1 = new FileInputStream(path);
 								Workbook wb = new XSSFWorkbook(fs1);
 								Sheet sheet1 = wb.getSheetAt(0);
 								int lastRow = sheet1.getLastRowNum();
 								Row row1 = sheet1.getRow(i);
 								Cell cell1 = row1.createCell(2);
+								cell1.setCellValue("");
 								cell1.setCellValue(a);
-
+								
+								DecimalFormat df = new DecimalFormat("#.##");
+								
+								if (b != null) {
+								float convert = Float.parseFloat(b);
+								Cell cell3 = row1.createCell(5);
+								cell3.setCellValue("");
+								cell3.setCellValue(df.format(convert));
+								}
+								
+								Cell cell4 = row1.createCell(8);
+								cell4.setCellValue("");
+								cell4.setCellValue(c);
+								
 								if (val != null && a != null) {
 									int difference = Integer.parseInt(val) - Integer.parseInt(a);
-
 									Row row2 = sheet1.getRow(i);
 									Cell cell2 = row2.createCell(3);
-
+									cell2.setCellValue("");
 									cell2.setCellValue(difference);
 									softAssert.assertEquals(val, difference);
-
 								}
 								else {
-									System.out.println("Column was Null; cannot find difference");
+									System.out.println("Column was Null; cannot find difference in w2 cell count");
 								}
+								
+								if (noiseCount != null && b != null) {
+									double difference = Float.parseFloat(noiseCount) - Float.parseFloat(b);
+									Row row2 = sheet1.getRow(i);
+									Cell cell2 = row2.createCell(6);
 
+									cell2.setCellValue("");
+									cell2.setCellValue(df.format(difference));
+									softAssert.assertEquals(val, difference);
+								}
+								else {
+									System.out.println("Column was Null; cannot find difference in noise count");
+								}
+								
 								FileOutputStream fos = new FileOutputStream(path);
 								wb.write(fos);
 								fos.close();
-
 								i++;
 							}
 						}			
@@ -293,7 +314,6 @@ public class RawImageCountCompare extends DB_Config {
 			}
 			softAssert.assertAll();
 			getStmt().close();		
-
 		}
 
 		catch (Exception e)

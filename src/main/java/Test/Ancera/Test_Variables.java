@@ -634,6 +634,8 @@ public class Test_Variables {
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationLock = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationEdit = new ArrayList<>();
+	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationValidation = new ArrayList<>();
 	
 	public static String flockCSVFileName = "Flock Registration Log - ";
 	public static String flockCSVAuditFileName = "Flock Registration Audit Log- ";

@@ -8,6 +8,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.gherkin.model.Scenario;
 
 public class Test_Functions {
 
@@ -136,5 +141,48 @@ public class Test_Functions {
 		}
 		return flag;
 	}
+	
+	
+	public void Navigate(String url, String id, String expectedid) throws InterruptedException, IOException {
+
+		try{
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.get(url);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			String actual = Helper.driver.findElement(By.id(id)).getText();
+			String expected = expectedid;
+
+			Assert.assertEquals(actual, expected); 
+		}catch(AssertionError er) {
+			Test_Variables.test.fail("User navigation failed");
+			Test_Variables.results.createNode("Flock Registration report failed to open");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
+		}catch(Exception ex){
+			Test_Variables.test.fail("User navigation failed");
+			Test_Variables.results.createNode("Flock Registration report failed to open");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
