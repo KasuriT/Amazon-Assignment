@@ -5,7 +5,7 @@
     <classes>
       <class name="Test.Ancera.Administration.FlockRegistration">
         <methods>
-          <include name="FlockValidation"/>
+          <include name="CreateFlock"/>
           <include name="extent"/>
           <include name="endreport"/>
         </methods>

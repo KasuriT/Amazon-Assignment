@@ -20,6 +20,8 @@ import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class Helper {
@@ -73,9 +75,15 @@ public class Helper {
 		  //String screenshotPath = getScreenshot(result.getName(), reportPath);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));// adding screen shot
 		} else if (testResult == ITestResult.SKIP) {
-			Test_Variables.test.log(Status.SKIP, "Test Case SKIPPED IS " + objResult.getName());
+			Test_Variables.test.log(Status.SKIP, "Test Case Skipped " + objResult.getName());
+			Test_Variables.test.skip(MarkupHelper.createLabel(objResult.getName() + " - Test Case Skipped", ExtentColor.YELLOW));
+			Test_Variables.test.log(Status.SKIP, objResult.getThrowable());
+			Test_Variables.test.log(Status.SKIP, objResult.getMethod().getDescription());
+			Test_Variables.extent.flush();
 		}
 	}
+	
+	
 
 	public static String getScreenshot(String screenshotName, String reportPath) throws IOException {
 		String dateName = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss").format(new Date());
