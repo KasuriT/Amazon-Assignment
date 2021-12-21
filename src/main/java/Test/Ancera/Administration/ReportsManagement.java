@@ -932,8 +932,8 @@ public class ReportsManagement {
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 		Helper.driver.findElement(By.xpath(Test_Elements.rmEditRightsSaveButton)).click();
 		Thread.sleep(1000);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-		String actual =	Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+		String actual =	Helper.driver.findElement(By.id("message")).getText();
 		String expected = "Report access rights saved successfully.";
 
 		try{
@@ -942,7 +942,6 @@ public class ReportsManagement {
 			Test_Variables.results.createNode("Edit Rights saved successfully; displays an alert message 'Report access rights saved successfully'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 		}catch(AssertionError e){
 			Test_Variables.test.fail("Edit Rights failed to save");
 			Test_Variables.results.createNode("Edit Rights failed to saved;did not displayed an alert message 'Report access rights saved successfully'");
@@ -998,8 +997,8 @@ public class ReportsManagement {
 		Helper.driver.findElement(By.xpath(Test_Elements.rmReportGroupsConfigDeleteCnfrm)).click();
 		Thread.sleep(1000);
 
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
-		String actual = Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText();
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+		String actual =	Helper.driver.findElement(By.id("message")).getText();
 		String expected = "Report Configuration details deleted.";
 
 		try{
@@ -1008,7 +1007,6 @@ public class ReportsManagement {
 			Test_Variables.results.createNode("User should receive an alert message that 'Report Configuration details deleted.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 		}catch(AssertionError e){
 			Test_Variables.test.fail("Report Configuration details deletion failed");
 			Test_Variables.results.createNode("User did not receive an alert message that 'Report Confguration details deleted.'");

@@ -213,7 +213,7 @@ public class ForgotPassword {
 			Helper.driver.findElement(By.xpath(("/html/body/app-root/div/app-reset-password/div/div[3]/form/button"))).click(); 
 			Thread.sleep(1500);
 
-			if (Helper.driver.findElements(By.xpath(Test_Elements.alertbox)).size() != 0) {
+			if (Helper.driver.findElements(By.id("message")).size() != 0) {
 				Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 			}
 

@@ -23,91 +23,48 @@ public class Test_Elements {
 
 	public static String gmailEmail = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input";
 	public static String gmailPassword = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input";
-	public static String gmailSecurityCheck = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div/div[2]";
-	public static String gmailSecurityEmail = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[2]/div[1]/div/div[1]/div/div[1]/input";
+	public static String gmailSecurityCheck = "//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div/div[2]";
+	public static String gmailSecurityEmail = "//*[@id=\"view_container\"]/div";
 
 	///////////////////////////////////////////End ForgotPassword Elements////////////////////////////////////////////////////
 
 
 	/////////////////////////////////////////////User Management Elements////////////////////////////////////////////////////
 
-	public static String userCreateButton = "/html/body/app-root/div/app-manage-user-component/button";
-	public static String userPopupNextButton1Update = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[2]/div/button";
-	public static String userPopupNextButton2Update = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[2]/div/button[2]";
-	public static String userPopupSaveButtonUpdate = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[2]/div/button[2]";
-	public static String userPopupNextButton1 = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[2]";
-	public static String userPopupNextButton2 = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[3]";
-	public static String userPopupSaveButton = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[2]";
-	public static String userPopupCloseButton = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[1]/p";
-	public static String userPopupResetButton = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[1]";
-	public static String userPopupGetTitle = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[2]/div";
-
-	public static String firstNameValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[1]/div";
-	public static String lastNameValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[2]/div";
-	public static String phoneCodeValidation= "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[1]/div/div";
-	public static String phoneNumberValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[2]/div/div";
-	public static String emailValidation = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[1]/div";
-	public static String piperValidation = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div[2]";
-
-	public static String firstnameexpected = "First name is required";
-	public static String lastnameexpected = "Last name is required";
-	public static String phonecodeexpected = "Select country code";
-	public static String phonenoexpected = "Phone number is required";
-	public static String emailexpected = "Email is required";
-	public static String organizationTypeexpected = "Select organization type";
-	public static String organizationexpected = "Select organization";
-	public static String invalidemailexpected = "Invalid email";
-	public static String piperexpected = "Select PIPER";
-
-	public static String userFirstName = "//*[@id=\"firstNameId\"]";
-	public static String userLastName = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[2]/input";
-	public static String userLastNameUpdate = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[1]/div[2]/input";
-	public static String userPhoneCode = "//*[@id=\"phoneCodeId\"]/div";
-	public static String userPhoneCodeSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[1]/ng-select/ng-dropdown-panel/div/div[2]/div";
-	public static String userOrganizationInActiveText = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/ng-dropdown-panel/div/div[2]/div";
-	public static String userPhoneNo = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[1]/div[5]/div/div[2]/input";
-	public static String userSearch = "/html/body/app-root/div/app-manage-user-v2/div/div[1]/div[2]/app-search-grid/div/form/input";
-	public static String userSearchResult = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div/div[2]/div/label/span[1]";
-	public static String userCloseSearch = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[1]/div[3]/span/i";   
-	public static String userExpandAnceraTab = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div/div[1]/label";
-	public static String userExpandAnceraSite = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div[2]/div/div/ul/li[1]/div[1]/label";
-	public static String userDeleteIcon = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div[2]/div/div/ul/li[1]/div[2]/div/div/table/tbody/tr/td[6]/img[2]";
-	public static String userDeletePopup = "/html/body/app-root/div[1]/app-manage-user-component/app-confirmation-component/div/div/div[3]/div/button[1]";
-	public static String userEmail = "//*[@id=\"emailId\"]";
-	public static String userUpdateRoleInput = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[3]/div/div/ng-select/div/div/div[6]/input";
-	public static String userUpdateRoleResult = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[3]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div";
-	public static String userResetButton2 = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[2]/div/button[2]";
-
-	public static String userOrganizationType = "//*[@id=\"orgTypeId\"]/div/span";
-	public static String userOrganizationTypeSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[2]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String userOrganization = "//*[@id=\"organizationId\"]/div/span";
-	public static String userOrganizationInput = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/div/div/div[2]/input";
-	public static String userOrganizationSelect = "/html/body/app-root/div/app-manage-user-v2/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[2]/div[3]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String userPiperUser = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[1]/div/app-custom-radio-button";
-	public static String userPiperUserDD = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div/div/ng-select/div/span";
-	public static String userPiperUserSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[5]/div[2]/div/div[1]/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]/div"; 
-	public static String userAssignRole = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[1]/div/div/ng-select/div";
-	public static String userAssignRoleSelect = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[1]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]";
-	public static String userCloseDropdown = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-create-user-component/form/div[1]/div[2]/div/div[3]/div[1]/div/div/ng-select/div/span[2]";
-	public static String userEnterPassword = "/html/body/app-root/div[1]/app-reset-password/div/div[3]/form/div[1]/div[1]/input";
-	public static String userReEnterPassword = "/html/body/app-root/div[1]/app-reset-password/div/div[3]/form/div[2]/div/input";
-	public static String userSubmitButton = "/html/body/app-root/div[1]/app-reset-password/div/div[3]/form/button";
-
-	public static String userNextBtn = "btn-next";
-	public static String userClientInput = "#clientId > div > div > div.ng-input > input[type=text]";
-	public static String userClientInputSelect = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[2]/div/div[1]/ng-select/ng-dropdown-panel/div[2]/div[2]/div";
-	public static String userClientSiteBtn = "btn-show-tree";
-	public static String userClientInput2 = "#clientId2 > div > div > div.ng-input > input[type=text]";
-	public static String userClientInput2Select = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[3]/div/div[2]/ng-select/ng-dropdown-panel/div/div[2]/div";
-	public static String userClientCheckbox = "#sites-tree > div > div > div > ngx-treeview > div:nth-child(2) > div > ngx-treeview-item > div > div.form-inline.row-item.ng-star-inserted > div > label";
-	public static String userClientOKBtn = "btn-ok-sites";
-	public static String userSaveBtn = "btn-save";
-
-	public static String alertbox = "/html/body/app-root/app-notification-component/ngb-alert/label[2]";
-	public static String alertCloseButton = "/html/body/app-root/app-notification-component/ngb-alert/button/span";
-	public static String userEditIcon = "/html/body/app-root/div[1]/app-manage-user-component/div/div/div[2]/div[1]/div[2]/div/div/ul/li/div[2]/div/div/table/tbody/tr[1]/td[6]/img[1]";
-	public static String alertClose = "//*[@id=\"alrt\"]/button";
-
+	public static String userFirstNameCol = "0";
+	public static String userLastNameCol = "1";
+	public static String userMobileNoCol = "2";
+	public static String userEmailCol = "3";
+	public static String userOrgTypeCol = "4";
+	public static String userOrgCol = "5";
+	public static String userRoleCol = "6";
+	public static String userReportingCol = "7";
+	public static String userSiteAccessCol = "8";
+	public static String userFieldAccessCol = "9";
+	
+	public static String userFirstName = "userFirstName";
+	public static String userLastName = "userLastName";
+	public static String userMobileNo = "cfCellPhoneNo";
+	public static String userEmail = "userEmail";
+	public static String userOrgType = "orgnTypeName";
+	public static String userOrg = "orgnName";
+	public static String userRole = "cfRoles";
+	public static String userReporting = "reportingRole";
+	public static String userSiteAccess = "sites";
+	
+	public static String ShowFilter = "_show-filter";
+	public static String SortFilter = "sort-";
+	public static String ApplyFilter = "_apply";
+	public static String ClearFilter = "_clear-filter";
+	public static String SearchInput = "_search-input";
+	public static String LockFilter = "save-filters";
+	public static String UnlockFilter = "remove-filters";
+	public static String ResultsCount = "results-found-count";
+	public static String ResetFilters = "reset-all-filters";
+	public static String FieldAccess = "edit-field-access";
+	
+	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
+	
 	///////////////////////////////////////////End User Management Elements////////////////////////////////////////////////////
 
 
@@ -939,9 +896,6 @@ public class Test_Elements {
 	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
 	
 	
-	
-	
-
 	///////////////////////////////////////////////Coccidia Timeline Log Elements/////////////////////////////////////////////////////////
 
 	public static String ctlDateTo = "/html/body/app-root/div[1]/app-coccidia-timeline/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/form/div/div[2]/input";

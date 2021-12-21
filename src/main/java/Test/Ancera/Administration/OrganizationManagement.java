@@ -962,7 +962,7 @@ public class OrganizationManagement{
 			stAddress.sendKeys("2428 Carriage Lane"); stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
 			Thread.sleep(6000);
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "USA");
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("div[class='col-md-4 form-group d-block'] input[role='combobox']")).getText(), "United States");
 			Helper.driver.findElement(By.cssSelector("#stateId input")).click();
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#stateId input")).getText(), "North Carolina");
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("ng-select[id='cellCodeId'] div[class='ng-select-container'] input[role='combobox']")).getText(), "Lincolnton");
@@ -1159,7 +1159,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (enabled= true, priority = 10) 
+	@Test (enabled= false, priority = 10) 
 	public void Bulk() throws InterruptedException, IOException {
 		
 		Test_Variables.lstOrgBulkSiteUpload = OrgModel.BulkSiteFillData();
@@ -1231,6 +1231,7 @@ public class OrganizationManagement{
 						
 						
 						try {
+							@SuppressWarnings("unused")
 							int chkCounter = 1;
 							
 							FileInputStream fsIP= new FileInputStream(new File("./BulkSiteUpload/"+OrgModel.BulkSitefileName));
@@ -1323,7 +1324,7 @@ public class OrganizationManagement{
 
 	
 	
-	@Test (description="Test Case: InActive Organization",enabled= true, priority= 17) 
+	@Test (description="Test Case: InActive Organization",enabled= false, priority= 17) 
 	public void InActiveOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-32: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
@@ -1339,6 +1340,8 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on Inactive toggle button");
 			Test_Variables.steps.createNode("3. Click on save button");
 
+			Helper.driver.get(Constants.url_organization);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));                      
 			Helper.driver.findElement(By.id("edit-orgn-1")).click();
@@ -1374,7 +1377,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 18) 
+	@Test (description="Test Case: Verify InActive Organization",enabled= false, priority= 18) 
 	public void VerifyInActiveOrganization() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-33: Verify inactive Organization Site is not displayed in create user popup", "This test case will verify that inactive organization is not displayed in create new user popup");
@@ -1471,7 +1474,6 @@ public class OrganizationManagement{
 			Test_Variables.test.pass("Organization deleted successfully");
 			Test_Variables.results.createNode("Organization deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Organization failed to delete");

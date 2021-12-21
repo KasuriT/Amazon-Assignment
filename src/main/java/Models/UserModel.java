@@ -1,6 +1,9 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import Test.Ancera.Test_Elements;
 
 public class UserModel {
 
@@ -26,13 +29,29 @@ public class UserModel {
 	public String userType;
 	public String sortType;
 	public boolean search;
+	public String TestCaseName;
+	public String TestCaseDescription;
+	public String TestCaseNameSearch;
+	public String TestCaseDescriptionSearch;
+	public boolean startWith;
+	public boolean endsWith;
+	public boolean contains;
+	public boolean viewAccess;
+	public boolean unviewAccess;
+	public boolean errorCase;
+	public String steps;
+	public String input;
+	
+	public static String applyFilterTitle = "Verify user can select checkbox from ";
+	public static String applyFilterDesc = "This test case will verify that user can select checkbox from ";
+	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
+	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	public UserModel (boolean _isOpenPopup, String _userFirstName, String _userLastName, boolean _userPhoneCode, String _userPhoneNo, 
+	public UserModel (String _userFirstName, String _userLastName, boolean _userPhoneCode, String _userPhoneNo, 
 			boolean _chkMandatoryFieldsS1, String _userEmail, boolean _userOrganizationType, boolean _userOrganization, boolean _chkMandatoryFieldsS2, 
 			boolean _userAssignedRole, boolean _chkMandatoryFieldsS3, String _step1, String _passScenario, String _failScenario, String _testCaseTitle, String _testCaseDesc )
 
 	{
-		this.isOpenPopUp = _isOpenPopup;
 		this.userFirstName = _userFirstName;
 		this.userLastName = _userLastName;
 		this.userPhoneCode = _userPhoneCode;
@@ -76,520 +95,539 @@ public class UserModel {
 	
 	public UserModel() {
 	}
-
+	
+	
 	public static ArrayList<UserModel> FillData() {
 		ArrayList<UserModel> lstUserModel = new ArrayList<UserModel>();
-		UserModel objTmp = new UserModel();
-		
-		ReportFilters objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-53: Verify sorting functionality on First Name for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
+		UserModel objTmp; 
+		ReportFilters  objFilter;
+
+		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-54: Verify sorting functionality on Last Name for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for All Users type";
+		objFilter.FilterName = "First Name Filter";
+		objTmp.TestCaseName = "AN-UM-19: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-20: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-55: Verify sorting functionality on Cell# for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell# for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for All Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userFirstName));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-56: Verify sorting functionality on Email for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-57: Verify sorting functionality on Organization Type for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-58: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
+		lstUserModel.add(objTmp); 
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-59: Verify sorting functionality on First Name for Ancera Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for Ancera Users type";
+		objFilter.FilterName = "Last Name Filter";
+		objTmp.TestCaseName = "AN-UM-21: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-22: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Ancera Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-60: Verify sorting functionality on Last Name for Ancera Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for Ancera Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for Ancera Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userLastName));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
+		lstUserModel.add(objTmp); 
+
+		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-61: Verify sorting functionality on Cell # for Ancera Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell # for Ancera Users type";
+		objFilter.FilterName = "Mobile Number Filter";
+		objTmp.TestCaseName = "AN-UM-23: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-24: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for Ancera Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-62: Verify sorting functionality on Email for Ancera Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for Ancera Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for Ancera Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userMobileNo));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-63: Verify sorting functionality on Organization Type for Ancera Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for Ancera Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Ancera Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-64: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-1";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select Ancera Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for Ancera Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for Ancera Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
+		lstUserModel.add(objTmp); 
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-65: Verify sorting functionality on First Name for Client Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for Client Users type";
+		objFilter.FilterName = "Email Filter";
+		objTmp.TestCaseName = "AN-UM-25: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-26: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Client Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-66: Verify sorting functionality on Last Name for Client Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for Client Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for Client Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userEmail));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-67: Verify sorting functionality on Cell # for Client Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell # for Client Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for Client Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-68: Verify sorting functionality on Email for Client Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for Client Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for Client Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-69: Verify sorting functionality on Organization Type for Client Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for Client Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Client Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-70: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-2";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select Client Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for Client Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for Client Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
+		lstUserModel.add(objTmp); 
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-71: Verify sorting functionality on First Name for Partner Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for Partner Users type";
+		objFilter.FilterName = "Organization Type Filter";
+		objTmp.TestCaseName = "AN-UM-27: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-28: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Partner Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-72: Verify sorting functionality on Last Name for Partner Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for Partner Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for Partner Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userOrgType));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-73: Verify sorting functionality on Cell # for Partner Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell # for Partner Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for Partner Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-74: Verify sorting functionality on Email for Partner Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for Partner Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for Partner Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-75: Verify sorting functionality on Organization Type for Partner Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for Partner Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Partner Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-76: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-3";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select Partner Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for Partner Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for Partner Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
+		lstUserModel.add(objTmp); 
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-77: Verify sorting functionality on First Name for Consumer Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for Consumer Users type";
+		objFilter.FilterName = "Organization Filter";
+		objTmp.TestCaseName = "AN-UM-29: "+applyFilterTitle+objFilter.FilterName;
+		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+		objTmp.TestCaseNameSearch = "AN-UM-30: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Consumer Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-78: Verify sorting functionality on Last Name for Consumer Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for Consumer Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for Consumer Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userOrg));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
+		lstUserModel.add(objTmp); 
 		
-		objTmp = new UserModel();	
+		objTmp = new UserModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-79: Verify sorting functionality on Cell # for Consumer Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell # for Consumer Users type";
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseName = "AN-UM-31: Verify user can apply 2 filters at same time";
+		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
+		objTmp.TestCaseNameSearch = "AN-UM-32: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for Consumer Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-80: Verify sorting functionality on Email for Consumer Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for Consumer Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for Consumer Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-81: Verify sorting functionality on Organization Type for Consumer Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for Consumer Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for Consumer Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-82: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-4";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select Consumer Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for Consumer Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for Consumer Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-88: Verify sorting functionality on First Name for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on First Name for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-first-name";
-		objTmp.search = true;
-		objTmp.step1 = "Select All Users from tab above and click on First-Name column";
-		objTmp.passScenario = "Users sorted for firstname for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-89: Verify sorting functionality on Last Name for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Last Name for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-last-name";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Last-Name column";
-		objTmp.passScenario = "Users sorted for lastname for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for lastname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-90: Verify sorting functionality on Cell# for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Cell# for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-cell";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Cell # column";
-		objTmp.passScenario = "Users sorted for Cell # for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Cell # for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-91: Verify sorting functionality on Email for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Email for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-email";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Email column";
-		objTmp.passScenario = "Users sorted for Email for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Email for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-92: Verify sorting functionality on Organization Type for All Users type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization Type for All Users type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-orgn-type";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Organization Type column";
-		objTmp.passScenario = "Users sorted for Organization Type for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for firstname for All Users type";
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
-		
-		objTmp = new UserModel();	
-		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-UM-93: Verify sorting functionality on Organization for All User type";
-		objTmp.testCaseDesc = "This test case will verify sorting functionality on Organization for All User type";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.userType = "orgnType-all";
-		objTmp.sortType = "sort-orgn";
-		objTmp.search = false;
-		objTmp.step1 = "Select All Users from tab above and click on Organization column";
-		objTmp.passScenario = "Users sorted for Organization for All Users type successfully" ;
-		objTmp.failScenario = "Users failed to sort for Organization for All Users type";
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userOrgType,Test_Elements.userFirstName));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
 		objTmp.lstFilters.add(objFilter);
 		lstUserModel.add(objTmp);
 		
 		return lstUserModel;
+		}
+	
+	
+	public static ArrayList<UserModel> Wildcard() {
+		ArrayList<UserModel> lstUserModel = new ArrayList<UserModel>();
+		UserModel objTmp; 
+		ReportFilters  objFilter;
 
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "First Name Filter";
+		objTmp.TestCaseName = "AN-UM-33: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userFirstName;
+		objTmp.startWith = true;
+		objTmp.contains = false;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userFirstNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "First Name Filter";
+		objTmp.TestCaseName = "AN-UM-34: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userFirstName;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userFirstNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "First Name Filter";
+		objTmp.TestCaseName = "AN-UM-35: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userFirstName;
+		objTmp.startWith = false;
+		objTmp.contains = false;
+		objTmp.endsWith = true;
+		objFilter.ColumnID = Test_Elements.userFirstNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Last Name Filter";
+		objTmp.TestCaseName = "AN-UM-36: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userLastName;
+		objTmp.startWith = true;
+		objTmp.contains = false;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userLastNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Last Name Filter";
+		objTmp.TestCaseName = "AN-UM-37: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userLastName;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userLastNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Last Name Filter";
+		objTmp.TestCaseName = "AN-UM-38: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userLastName;
+		objTmp.startWith = false;
+		objTmp.contains = false;
+		objTmp.endsWith = true;
+		objFilter.ColumnID = Test_Elements.userLastNameCol;
+		objTmp.input = "A";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mobile Number Filter";
+		objTmp.TestCaseName = "AN-UM-39: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userMobileNo;
+		objTmp.startWith = true;
+		objTmp.contains = false;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userMobileNoCol;
+		objTmp.input = "+93";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("+93", "+93"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mobile Number Filter";
+		objTmp.TestCaseName = "AN-UM-40: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userMobileNo;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userMobileNoCol;
+		objTmp.input = "1";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1", "1"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mobile Number Filter";
+		objTmp.TestCaseName = "AN-UM-41: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userMobileNo;
+		objTmp.startWith = false;
+		objTmp.contains = false;
+		objTmp.endsWith = true;
+		objFilter.ColumnID = Test_Elements.userMobileNoCol;
+		objTmp.input = "2";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "2"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Email Filter";
+		objTmp.TestCaseName = "AN-UM-42: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userEmail;
+		objTmp.startWith = true;
+		objTmp.contains = false;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userEmailCol;
+		objTmp.input = "jun";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("jun", "jun"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Email Filter";
+		objTmp.TestCaseName = "AN-UM-43: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userEmail;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userEmailCol;
+		objTmp.input = "ancera";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("ancera", "ancera"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Email Filter";
+		objTmp.TestCaseName = "AN-UM-44: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userEmail;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userEmailCol;
+		objTmp.input = ".pk";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList(".pk", ".pk"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Organization Type Filter";
+		objTmp.TestCaseName = "AN-UM-45: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userOrgType;
+		objTmp.startWith = true;
+		objTmp.contains = false;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userOrgTypeCol;
+		objTmp.input = "cl";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("Cl", "cl"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Organization Type Filter";
+		objTmp.TestCaseName = "AN-UM-46: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userOrgType;
+		objTmp.startWith = false;
+		objTmp.contains = true;
+		objTmp.endsWith = false;
+		objFilter.ColumnID = Test_Elements.userOrgTypeCol;
+		objTmp.input = "ie";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("ie", "ie"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Organization Type Filter";
+		objTmp.TestCaseName = "AN-UM-47: Verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userOrgType;
+		objTmp.startWith = false;
+		objTmp.contains = false;
+		objTmp.endsWith = true;
+		objFilter.ColumnID = Test_Elements.userOrgTypeCol;
+		objTmp.input = "a";
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		return lstUserModel;
+	}
+	
+	
+	
+	public static ArrayList<UserModel> sorting() {
+		ArrayList<UserModel> lstUserModel = new ArrayList<UserModel>();
+		UserModel objTmp = new UserModel();
+		ReportFilters objFilter ;
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "First Name";
+		objTmp.testCaseTitle = "AN-UM-54: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userFirstName;           
+		objFilter.count = Test_Elements.userFirstNameCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Last Name";
+		objTmp.testCaseTitle = "AN-UM-55: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userLastName;           
+		objFilter.count = Test_Elements.userLastNameCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mobile Number";
+		objTmp.testCaseTitle = "AN-UM-56: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userMobileNo;           
+		objFilter.count = Test_Elements.userMobileNoCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Email";
+		objTmp.testCaseTitle = "AN-UM-57: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userEmail;           
+		objFilter.count = Test_Elements.userEmailCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Organazition Type";
+		objTmp.testCaseTitle = "AN-UM-58: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userOrgType;           
+		objFilter.count = Test_Elements.userOrgTypeCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Organazition";
+		objTmp.testCaseTitle = "AN-UM-59: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userOrg;           
+		objFilter.count = Test_Elements.userOrgCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Role";
+		objTmp.testCaseTitle = "AN-UM-60: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userRole;           
+		objFilter.count = Test_Elements.userRoleCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Reporting";
+		objTmp.testCaseTitle = "AN-UM-61: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userReporting;           
+		objFilter.count = Test_Elements.userReportingCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Site Access";
+		objTmp.testCaseTitle = "AN-UM-62: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.testCaseDesc = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.SortFilter+""+Test_Elements.userSiteAccess;           
+		objFilter.count = Test_Elements.userSiteAccessCol;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		return lstUserModel;
+	}
+	
+	
+	public static ArrayList<UserModel> Lock() {
+		ArrayList<UserModel> lstUserModel = new ArrayList<UserModel>();
+		UserModel objTmp = new UserModel();
+		ReportFilters objFilter ;
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "First Name Filter";
+		objTmp.TestCaseName = "AN-UM-48: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userFirstName;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Last Name Filter";
+		objTmp.TestCaseName = "AN-UM-49: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userLastName;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Mobile No Filter";
+		objTmp.TestCaseName = "AN-UM-50: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userMobileNo;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Email Filter";
+		objTmp.TestCaseName = "AN-UM-51: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userEmail;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Org Type Filter";
+		objTmp.TestCaseName = "AN-UM-52: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userOrgType;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		objTmp = new UserModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Org Filter";
+		objTmp.TestCaseName = "AN-UM-53: Verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.FilterID = Test_Elements.userOrg;
+		objTmp.lstFilters.add(objFilter);
+		lstUserModel.add(objTmp);
+		
+		return lstUserModel;
+		
 	}
 }

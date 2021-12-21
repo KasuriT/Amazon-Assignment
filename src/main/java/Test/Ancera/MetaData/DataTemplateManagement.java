@@ -5,14 +5,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -165,7 +162,7 @@ public class DataTemplateManagement{
 		String NameError;
 		String DescError;
 		Helper.driver.get(Constants.url_dataTemplate);	
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
 		Thread.sleep(1500);
 
 		for (DataTemplateModel objModel : Test_Variables.lstDTMMandatoryCheck) {
@@ -413,9 +410,8 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("3. Click on save button");
 		
 		Helper.driver.get(Constants.url_dataTemplate);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.dtmCreateButton)));
-		Thread.sleep(2000);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		String beforeXpath = "/html/body/app-root/div[1]/app-manage-dataformat/div[1]/div/div[2]/div/div/table/tbody/tr[";
 		String afterXpath = "]/td[1]";					
@@ -436,8 +432,8 @@ public class DataTemplateManagement{
 
 		}
 
-		WebDriverWait wait = new WebDriverWait(Helper.driver,10);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-field-1")));
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+		Thread.sleep(1000);
 		WebElement filter_scroll = Helper.driver.findElement(By.id("edit-field-1"));
 		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 		
@@ -484,9 +480,8 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("3. Confirmation popup appears");
 		Test_Variables.steps.createNode("4. Click on yes button");
 		
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-		Thread.sleep(2000);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		WebElement filter_scroll = Helper.driver.findElement(By.id("delete-field-1"));
 		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 		Helper.driver.findElement(By.id("delete-field-1")).click();  //click on edit template column
@@ -524,9 +519,8 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("2. Make changes in template name or description");
 		Test_Variables.steps.createNode("3. Click on save button");
 		
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		Thread.sleep(2000);
 		
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Helper.driver.findElement(By.id("ColNameID")).sendKeys("test");
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.id("ColTypeId")).click();
@@ -577,7 +571,7 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("1. Click on update icon next to created template to open template in update mode");
 		Test_Variables.steps.createNode("2. Click on export button");
 		
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
 		Helper.driver.get(Constants.url_dataTemplate);
 		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.dtmCreateButton)));
 		Thread.sleep(2000);
@@ -616,10 +610,6 @@ public class DataTemplateManagement{
 			Test_Variables.test.fail("Template failed to export");
 			Test_Variables.results.createNode("Template failed to export");
 		} 
-
-		Thread.sleep(2000);
-		Helper.driver.findElement(By.xpath("/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[1]/p")).click();
-
 	}
 
 	
@@ -641,8 +631,8 @@ public class DataTemplateManagement{
 		Test_Variables.steps.createNode("2. Click on yes button");
 		
 		Helper.driver.get(Constants.url_dataTemplate);
-		Thread.sleep(2000);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+		Thread.sleep(1000);
 	
 		String beforeXpath = "/html/body/app-root/div/app-manage-dataformat/div[1]/div/div[2]/div/div/table/tbody/tr[";
 		String afterXpath = "]/td[1]";
@@ -672,10 +662,10 @@ public class DataTemplateManagement{
 			Thread.sleep(1500);
 		}
 
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.alertbox)));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 
 	
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.alertbox)).getText(), "Data template details deleted."); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Data template details deleted."); 
 			Test_Variables.test.pass("Template deleted successfully");
 			Test_Variables.results.createNode("Template deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));		

@@ -201,19 +201,18 @@ public class ProfileSetting {
 		Test_Variables.steps.createNode("2. Again click on it");
 		Helper.driver.get(Constants.url_user);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Test_Elements.profileButton)));
-		//Thread.sleep(2000);
-		Helper.driver.findElement(By.xpath(Test_Elements.profileButton)).click();
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("open-profile")).click();
 		Test_Variables.test.createNode("Click on Profile Setting button");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));
-		Helper.driver.findElement(By.xpath(Test_Elements.profileBackButton)).click();
+		Helper.driver.findElement(By.id("close-profile")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 
 		try{
-			Assert.assertEquals(Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText(), "User Management"); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("User Management")).getText(), "User Management"); 
 			Test_Variables.test.pass("User successfully closed profile page");
 			Test_Variables.results.createNode("User successfully closed profile page");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Profile Setting", Constants.ProfileSettingReportPath));

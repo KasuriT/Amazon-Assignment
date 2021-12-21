@@ -3,9 +3,7 @@ package Test.Ancera.MetaData;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -415,9 +413,8 @@ public class PoultryManagement {
 			
 			if (Helper.driver.findElements(By.cssSelector("button.close span")).size() != 0 ) {
 				Helper.driver.findElement(By.cssSelector("button.close span")).click();
-				Thread.sleep(1000);
 			}
-			
+			Thread.sleep(1000);
 			
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
@@ -434,8 +431,8 @@ public class PoultryManagement {
 			Helper.driver.findElement(By.id("Note")).clear();
 			Helper.driver.findElement(By.id("Note")).sendKeys("Update treatment"+Test_Variables.date0);
 			Helper.driver.findElement(By.id("btn-save")).click();
-
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Treatment details saved successfully");
 			Test_Variables.test.pass("Treatment details updated successfully");
 			Test_Variables.results.createNode("Treatment details updated successfully");
@@ -569,13 +566,15 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
 			Test_Variables.preconditions.createNode("5. Create feed intervention");
 
+			Helper.driver.navigate().refresh();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
 
 			Test_Variables.preconditions.createNode("1. Click on delete icon next to created feed and delete it");
 
-			WebElement element = Helper.driver.findElement(By.id("delete-treatment-1"));
-			((JavascriptExecutor) Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
-			Thread.sleep(500); 
+//			WebElement element = Helper.driver.findElement(By.id("delete-treatment-1"));
+//			((JavascriptExecutor) Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+//			Thread.sleep(500); 
 			
 			Helper.driver.findElement(By.id("delete-treatment-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));

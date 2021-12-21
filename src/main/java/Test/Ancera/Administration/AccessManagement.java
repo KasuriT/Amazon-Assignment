@@ -1,6 +1,5 @@
 package Test.Ancera.Administration;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -52,7 +51,7 @@ public class AccessManagement{
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Helper.driver.get(Constants.url_access);
 			Thread.sleep(2000);
-			String actual = Helper.driver.findElement(By.xpath(Test_Elements.getHeadingTitle)).getText();
+			String actual = Helper.driver.findElement(By.id("Access Management")).getText();
 			String expected = "Access Management";
 
 			Assert.assertEquals(actual, expected); 
@@ -77,7 +76,7 @@ public class AccessManagement{
 	public void CreateAccess() throws InterruptedException, IOException
 	{
 		Thread.sleep(2000);
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-02: Verify user can open Create New Access Popup", "This test case will verify that user can open create new access popup");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -248,7 +247,6 @@ public class AccessManagement{
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
 			//	Helper.driver.get(Constants.url_access);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(1000);
 			Test_Functions.AccessFind();
 			Thread.sleep(2000);
@@ -279,7 +277,7 @@ public class AccessManagement{
 			Test_Variables.results.createNode("Role updated; user receives an alert message that 'Role details updated.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Role fails to update; user does not receive an alert message that 'Role details updated.'");
@@ -302,7 +300,6 @@ public class AccessManagement{
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(1000);		
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Test_Functions.AccessFind();
@@ -350,7 +347,6 @@ public class AccessManagement{
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);
 
 			Helper.driver.findElement(By.id("role-status")).click();
@@ -396,7 +392,6 @@ public class AccessManagement{
 	{
 		try{
 			Helper.driver.get(Constants.url_access);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);
 
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-09: Verify user can open Edit Rights screen", "This test case will verify that user can open Edit Rights screen");
@@ -501,7 +496,6 @@ public class AccessManagement{
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 			Helper.driver.get(Constants.url_access);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);
 
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
@@ -557,7 +551,6 @@ public class AccessManagement{
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 			Helper.driver.get(Constants.url_access);
-			Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);
 
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
@@ -2684,5 +2677,6 @@ public class AccessManagement{
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.quit();
 	}
 }

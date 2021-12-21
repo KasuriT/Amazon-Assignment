@@ -378,7 +378,7 @@ public class DataUpload {
 		}
 	}
 
-
+/*
 	@Test (description="Test Case: Client Dropdown List",enabled= false, priority = 6) 
 	public void ClientList() throws InterruptedException, IOException {
 		try {
@@ -549,7 +549,7 @@ public class DataUpload {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
 		}
 	}
-
+*/
 
 	@AfterTest
 	public static void endreport() {

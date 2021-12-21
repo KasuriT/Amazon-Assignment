@@ -11,6 +11,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.APIModel;
+import Models.APIVersionModel;
 import Models.AccessModel;
 import Models.AgreementManagementModel;
 import Models.AlertManagementModel;
@@ -169,10 +170,14 @@ public class Test_Variables {
 
 	public static ArrayList<UserModel> lstUserMandatoryCheck = new ArrayList<>(
 			Arrays.asList(
-					new UserModel(true, "", "", false, "", true, "", false, false, false, false, false, "Leave all fields empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-03: Verify mandatory field check with all fields empty", "This test case will verify that user cannot create user with mandatory fields empty"),
-					new UserModel(false, "firstname", "lastname", true, "", true, "", false, false, false, false, false, "Leave only 1 field empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-04: Verify mandatory field check with 1 field empty", "This test case will verify that user cannot create user leaving 1 mandatory field empty"),
-					new UserModel(false, "", "", false, "alpha", true, "", false, false, false, false, false, "Enter alpha data in phone number field", "User was not able to enter alpha data in phone number field successfully", "User was able to enter alpha data in phone number field successfully", "AN-UM-05: Verify user cannot enter alpha data in phone number field", "This test case will verify that user cannot enter alpha data in phone number field"),
-					new UserModel(false, "firstname", "lastname", true, "6666666666", true, "email@ancera.com", false, false, false, false, false, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-06: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
+					new UserModel("", "", false, "", true, "", false, false, false, false, false, "Leave all fields empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-03: Verify mandatory field check with all fields empty", "This test case will verify that user cannot create user with mandatory fields empty"),
+					new UserModel("firstname", "", true, "", true, "", false, false, false, false, false, "Leave Last Name empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-04: Verify mandatory field check with 1 field empty", "This test case will verify that user cannot create user leaving 1 mandatory field empty"),
+					new UserModel("", "", false, "alpha", true, "", false, false, false, false, false, "Enter alpha data in phone number field", "User was not able to enter alpha data in phone number field successfully", "User was able to enter alpha data in phone number field successfully", "AN-UM-05: Verify user cannot enter alpha data in phone number field", "This test case will verify that user cannot enter alpha data in phone number field"),
+				//	new UserModel("firstname", "lastname", false, "", true, "email@ancera.com", false, false, false, false, false, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-06: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
+					new UserModel("firstname", "lastname", false, "", true, "", false, false, true, false, false, "Leave all fields empty at page", "User was not able to navigate to step 3 of create user successfully", "User was not able to navigate to step 3 of create user successfully", "AN-UM-06: Verify user cannot proceed to step 3 of create user after leaving all mandatory fields empty in screen 2", "This test case will verify that user cannot proceed to next step after leaving all mandatory fields"),
+					new UserModel("firstname", "lastname", false, "", true, "email@ancera.", true, true, true, false, false, "Enter invalid email", "User was not able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-07: Verify user can proceed to step 3 with invalid email", "This test case will verify that user can proceed to next step with invalid email"),	
+					new UserModel("firstname", "lastname", false, "", true, "email@ancera.com", true, true, false, false, true, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-08: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
+
 	
 	public static ArrayList<String> lstUserCreate = new ArrayList<>(
 			Arrays.asList("Ancera Test", 
@@ -197,8 +202,21 @@ public class Test_Variables {
 
 			new UserModel(lstUserCreate.get(0), "AN-UM-14: Verify user can search for created user", "This test case will verify that user can search for created user", "1", "Search for created user", "User searched successfully for valid input", "User was not able to search for created user")));
 		//	new UserModel("invalid input", "AN-UM-16: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "0", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results")));
-
+	
+//	public static ArrayList<FlockRegistrationModel> lstUserSearch = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserWildcardSearch = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserDateSearch = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserDateEnter = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserRowCount = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserPagination = new ArrayList<>();
 	public static ArrayList<UserModel> lstUserSorting = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserFieldAccess = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserContexualCheck = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserLock = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserEdit = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserValidation = new ArrayList<>();
+	
+	public static String userCSVFileName = "Users Log - ";
 	
 	///////////////////////////////////////////////////////End User Management Screen Variables///////////////////////////////////////////////////
 
@@ -622,7 +640,7 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
 
 	
-	////////////////////////////////////////////////////////////////////Sites Log Variables///////////////////////////////////////////////////////////////////////////////////			
+	////////////////////////////////////////////////////////////////////Flock Registration Variables///////////////////////////////////////////////////////////////////////////////////			
 
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationSearch = new ArrayList<>();
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationWildcardSearch = new ArrayList<>();
@@ -638,10 +656,18 @@ public class Test_Variables {
 	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationValidation = new ArrayList<>();
 	
 	public static String flockCSVFileName = "Flock Registration Log - ";
-	public static String flockCSVAuditFileName = "Flock Registration Audit Log- ";
+	public static String flockCSVAuditFileName = "Flock Registration Audit Log - ";
 	public static String flockSampleMetaData = "FLOCK METADATA";
 	
-	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////End Flock Registration Variables////////////////////////////////////////////////////////////////////////////////
+	
+	
+	/////////////////////////////////////////////////////////////////API Version////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<APIVersionModel> lstTestAPIVersion = new ArrayList<>();
+	
+	/////////////////////////////////////////////////////////////////API Version////////////////////////////////////////////////////////////////
+	
 	
 	
 	//////////////////////////////////////////////////////////////Coccidia Timeline Variables////////////////////////////////////////////////////////////////////////////////////
@@ -725,20 +751,17 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_agreementManagement, "AN-PS-07: Navigate to Profile Setting from Agreement Management Screen", "This test case will verify user can navigate to Profile Setting page from Agreement Management Screen", "1. Hover to sidebar and click on Agreement Management", "Agreement Management"),
 					new ProfileModel(Constants.url_alert, "AN-PS-08: Navigate to Profile Setting from Alert Management Screen", "This test case will verify user can navigate to Profile Setting page from Alert Management Screen", "1. Hover to sidebar and click on Alert Management", "Alert Management"),
 					new ProfileModel(Constants.url_cyclingConfig, "AN-PS-08: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Complex Cycling Config Management Screen", "1. Hover to sidebar and click on Complex Cycling Config", "Complex Cycling Config"),
+					new ProfileModel(Constants.url_flockRegistration, "AN-PS-08: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Flock Registration Screen", "1. Hover to sidebar and click on Flock Registration", "Flock Registrations"),
 					new ProfileModel(Constants.url_piperManagement, "AN-PS-09: Navigate to Profile Setting from Piper Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Management", "PIPER Management"),
 					new ProfileModel(Constants.url_piperSoftware, "AN-PS-10: Navigate to Profile Setting from Piper Software Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Software Management", "PIPER Software Management"),
 					new ProfileModel(Constants.url_piperConfiguration, "AN-PS-11: Navigate to Profile Setting from Piper Configuration Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Config Management", "PIPER Configuration Management"),
 					new ProfileModel(Constants.url_dataTemplate, "AN-PS-12: Navigate to Profile Setting from Data Template Screen", "This test case will verify user can navigate to Profile Setting page from Data Template Screen", "1. Hover to sidebar and click on Data Template", "Data Template Management"),
-				new ProfileModel(Constants.url_dataUpload, "AN-PS-13: Navigate to Profile Setting from Data Upload Screen", "This test case will verify user can navigate to Profile Setting page from Data Upload Screen", "1. Hover to sidebar and click on Data Upload", "Data Upload"),
-					new ProfileModel(Constants.url_poultryManagement, "AN-PS-14: Navigate to Profile Setting from Poultry Management Screen", "This test case will verify user can navigate to Profile Setting page from Poultry Management Screen", "1. Hover to sidebar and click on Poultry Management", "Poultry Management"),
+					new ProfileModel(Constants.url_dataUpload, "AN-PS-13: Navigate to Profile Setting from Data Upload Screen", "This test case will verify user can navigate to Profile Setting page from Data Upload Screen", "1. Hover to sidebar and click on Data Upload", "Data Upload"),
+					new ProfileModel(Constants.url_poultryManagement, "AN-PS-14: Navigate to Profile Setting from Poultry Management Screen", "This test case will verify user can navigate to Profile Setting page from Poultry Management Screen", "1. Hover to sidebar and click on Poultry Management", "Logging and Managemenet"),
 					new ProfileModel(Constants.url_reports, "AN-PS-15: Navigate to Profile Setting from Reports Screen", "This test case will verify user can navigate to Profile Setting page from Reports Screen", "1. Hover to sidebar and click on Reports", "Reports"),
 					new ProfileModel(Constants.url_SalmonellaLog, "AN-PS-16: Navigate to Profile Setting from Salmoenella Screen", "This test case will verify user can navigate to Profile Setting page from Salmonella Screen", "1. Hover to sidebar; click on Reports and select Salmonella log Report", "Salmonella Log"),
-				//	new ProfileModel(Constants.url_ExternalSalmonellaLog, "AN-PS-13: Navigate to Profile Setting from External Salmonella Screen", "This test case will verify user can navigate to Profile Setting page from External Salmonella  Screen", "1. Hover to sidebar; click on Reports and select External Salmonella log Report"),
-				//	new ProfileModel(Constants.url_MPNSalmonellaLog, "AN-PS-14: Navigate to Profile Setting from MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select MPN Salmonella Log"),
-				//	new ProfileModel(Constants.url_ExternalMPNSalmonellaLog, "AN-PS-15: Navigate to Profile Setting from External MPN Salmonella Log Screen", "This test case will verify user can navigate to Profile Setting page from External MPN Salmonella Log Screen", "1. Hover to sidebar; click on Reports and select External MPN Salmonella Log"),
 					new ProfileModel(Constants.url_CoccidiaLog, "AN-PS-17: Navigate to Profile Setting from Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select Coccidia Log", "Coccidia Log"),
 					new ProfileModel(Constants.url_CoccidiaTimeline, "AN-PS-18: Navigate to Profile Setting from Coccidia Timeline Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Timeline Screen", "1. Hover to sidebar; click on Reports and select Coccidia Timeline", "Coccidia Timeline"),
-				//	new ProfileModel(Constants.url_ExternalCoccidiaLog, "AN-PS-18: Navigate to Profile Setting from External Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from External Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select External Coccidia Log"),
 					new ProfileModel(Constants.url_LocalDashboard, "AN-PS-19: Navigate to Profile Setting from Local Dashboard Screen", "This test case will verify user can navigate to Profile Setting page from Local Dashboard Screen", "1. Hover to sidebar; click on Reports and select Local Dashboard", "Local Dashboard"),
 					new ProfileModel(Constants.url_SitesLog, "AN-PS-20: Navigate to Profile Setting from Sites Log Screen", "This test case will verify user can navigate to Profile Setting page from Sites Log Screen", "1. Hover to sidebar; click on Reports and select Sites Log", "Sites Log")
 					));

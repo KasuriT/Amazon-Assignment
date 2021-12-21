@@ -75,11 +75,7 @@ public class Helper {
 		  //String screenshotPath = getScreenshot(result.getName(), reportPath);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));// adding screen shot
 		} else if (testResult == ITestResult.SKIP) {
-			Test_Variables.test.log(Status.SKIP, "Test Case Skipped " + objResult.getName());
-			Test_Variables.test.skip(MarkupHelper.createLabel(objResult.getName() + " - Test Case Skipped", ExtentColor.YELLOW));
-			Test_Variables.test.log(Status.SKIP, objResult.getThrowable());
-			Test_Variables.test.log(Status.SKIP, objResult.getMethod().getDescription());
-			Test_Variables.extent.flush();
+			Test_Variables.test.log(Status.SKIP, "Test Case Skipped ");
 		}
 	}
 	

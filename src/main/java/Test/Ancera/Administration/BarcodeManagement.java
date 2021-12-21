@@ -180,7 +180,7 @@ public class BarcodeManagement {
 		}
 	}
 	
-	
+
 	@Test (description="Test Case: Assign Sites Appearance",enabled= true, priority = 4) 
 	public void AssignedSiteAppearance() throws InterruptedException, IOException {
 		try {
@@ -188,44 +188,50 @@ public class BarcodeManagement {
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			
+
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Barcode Management");
 			Test_Variables.steps.createNode("1. Verify only those sites appear which are assigned to user");
-			
+
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			for (int i=1;i<=500;i++) {
-				
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(Test_Variables.login_email)) {
+
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-3 label")).getText().equals(Test_Variables.login_email)) {
 					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					
 					break;
 				}	
 			}
-			
+
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(2000);
-			int sitesCountUser = Helper.driver.findElements(By.cssSelector(".custom-site-name")).size();
-			
-			Helper.driver.get(Constants.url_barcodeManagement);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			int sitesCountBarcode = Helper.driver.findElements(By.cssSelector(".custom-control-label")).size();
-			
-			Assert.assertEquals(sitesCountBarcode, sitesCountUser);
-			
-			Test_Variables.test.pass("Only those sites appeared  which are assigned to user successfully");
-			Test_Variables.results.createNode("Only those sites appeared which are assigned to user successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
+
+			int collectionSitesSize = 0;
+			for (int i=1;i<=Helper.driver.findElements(By.cssSelector(".site-tree-card")).size();i++) {
+				if (!Helper.driver.findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
+					collectionSitesSize = collectionSitesSize+1;
+
+					if (i == Helper.driver.findElements(By.cssSelector(".site-tree-card")).size()) {
+						Helper.driver.get(Constants.url_barcodeManagement);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(2000);
+						int sitesCountBarcode = Helper.driver.findElements(By.cssSelector(".custom-control-label")).size();
+
+						Assert.assertEquals(sitesCountBarcode, collectionSitesSize);
+						Test_Variables.test.pass("Only those sites appeared  which are assigned to user successfully");
+						Test_Variables.results.createNode("Only those sites appeared which are assigned to user successfully");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
+					}
+				}
+			}
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Those sites did not appeared which are assigned to user");
@@ -243,6 +249,11 @@ public class BarcodeManagement {
 	@Test (description="Test Case: Search Functionality",enabled= true, priority = 5) 
 	public void SearchFunctionality() throws InterruptedException, IOException {
 		try {
+			
+			Helper.driver.get(Constants.url_barcodeManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-07/08/09/10/11: Verify search bar functionality", "This test case will verify that search bar is fully functional");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -255,6 +266,7 @@ public class BarcodeManagement {
 			Test_Variables.steps.createNode("1. Enter valid site in search bar");
 
 			if(Helper.driver.findElements(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).size() != 0) {
+				System.out.println("a");
 				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).getText();
 
 				Test_Variables.steps.createNode("2. Click on backspace and verify backspace is working");
@@ -274,26 +286,18 @@ public class BarcodeManagement {
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ARROW_DOWN);
 				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ENTER);
 				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), siteName);
+				Test_Variables.test.pass("Search bar is functional");
+				Test_Variables.results.createNode("Search bar is functional");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
 			}
 
 			else {
-				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).getText();
-				Test_Variables.steps.createNode("2. Click on backspace and verify backspace is working");
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.BACK_SPACE);
-				Assert.assertNotEquals(Helper.driver.findElement(By.id("search-bar")).getText().length(), siteName.length());	
-
-				Test_Variables.steps.createNode("2. Click on ESC and verify search string is cleared");
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
-				Thread.sleep(1000);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ESCAPE);
-				Assert.assertEquals(Helper.driver.findElement(By.id("search-bar")).getText(), "");
+				Test_Variables.test.skip("Search functionality cannot be tested because there is only 1 site");
+				Test_Variables.results.createNode("Search functionality cannot be tested because there is only 1 site");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
+				Helper.saveResultNew(ITestResult.SKIP, Constants.BarcodeManagementReportPath, null);	
 			}
-
-			Test_Variables.test.pass("Search bar is functional");
-			Test_Variables.results.createNode("Search bar is functional");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Search bar is not functional");
@@ -310,7 +314,7 @@ public class BarcodeManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		//Helper.driver.close();
+		Helper.driver.close();
 	}
 	
 }

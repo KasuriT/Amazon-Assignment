@@ -991,7 +991,7 @@ public class CoccidiaLog {
 								if (Helper.driver.findElements(By.id("message")).size() !=0) {
 									Thread.sleep(500);
 									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+								//	Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
 									Assert.fail("An error alert message displayed");
 								}
 
@@ -1011,7 +1011,7 @@ public class CoccidiaLog {
 								if (Helper.driver.findElements(By.id("message")).size() !=0) {
 									Thread.sleep(500);
 									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+								//	Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
 									Assert.fail("An error alert message displayed");
 								}
 								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
@@ -1029,7 +1029,7 @@ public class CoccidiaLog {
 								if (Helper.driver.findElements(By.id("message")).size() !=0) {
 									Thread.sleep(500);
 									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-									Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
+								//	Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();	
 									Assert.fail("An error alert message displayed");
 								}
 								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();

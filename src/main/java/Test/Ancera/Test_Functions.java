@@ -16,17 +16,7 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 
 public class Test_Functions {
 
-	public static void userSearch() throws InterruptedException {
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.userSearch)));
-		Thread.sleep(500);
-		WebElement search = Helper.driver.findElement(By.xpath(Test_Elements.userSearch));
-		search.clear();
-		search.sendKeys(Test_Variables.lstUserCreate.get(0));
-		Helper.driver.findElement(By.id("tag-0")).click();
-		Thread.sleep(1000);
-
-
-	}
+	
 
 	public static void OrgSearch() throws InterruptedException {
 
