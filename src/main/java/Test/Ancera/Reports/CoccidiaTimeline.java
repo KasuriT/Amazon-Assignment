@@ -924,10 +924,6 @@ public class CoccidiaTimeline {
 	}
 
 
-	@AfterMethod
-	public void saveResult(ITestResult result) throws IOException {
-		Helper.saveResult(result, Constants.CoccidiaTimelineReportPath);
-	}
 
 	@AfterTest
 	public static void endreport() {

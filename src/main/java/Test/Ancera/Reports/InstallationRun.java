@@ -94,9 +94,11 @@ public class InstallationRun {
 					Helper.driver.findElement(By.id("MaxStdVal")).clear();
 					Helper.driver.findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
 					Helper.driver.findElement(By.id("MinStdVal")).click();
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
 					Helper.driver.findElement(By.id("btn-save")).click();
 					Thread.sleep(2000);
-
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
+					
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
 					JSONObject json = new JSONObject();   
@@ -164,7 +166,7 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);	
-						Thread.sleep(10000);
+						Thread.sleep(1000);
 					}
 
 					RequestSpecification request_fileupload = RestAssured.given();
@@ -253,11 +255,14 @@ public class InstallationRun {
 							Test_Variables.steps.createNode("Verify Action as 'Modified' in Audit log");
 							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Modified");
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
 						}
-						else {
+
+						if (!objModel.runStartAssay) {
 							Test_Variables.steps.createNode("Verify Action as 'Created' in Audit log");
 							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Created");	
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
 						}
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));
@@ -503,11 +508,13 @@ public class InstallationRun {
 							Test_Variables.steps.createNode("Verify Action as 'Modified' in Audit log");
 							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Modified");
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
 						}
 						else {
 							Test_Variables.steps.createNode("Verify Action as 'Created' in Audit log");
 							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Created");	
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
 						}
 
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Installation Run", Constants.InstallationRunReportPath));

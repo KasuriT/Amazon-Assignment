@@ -22,8 +22,8 @@ public class APIVersionModel {
 
 		objTmp = new APIVersionModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-APIVersion-01: Login with higher version and verify response of other API's";
-		objTmp.TestCaseDescription = "This test case will verify the response of all api's after login with higher version";
+		objTmp.TestCaseName = "AN-APIVersion-01: Verify 'Successful Response' message on All API's on Loging in with higher version i.e. > 14.12";
+		objTmp.TestCaseDescription = "This test case will verify 'Successful Response' message on All API's on Loging in with higher version i.e. > 14.12";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.version = "14.13";
 		objTmp.versionUpgradeResponse = 0;
@@ -36,8 +36,8 @@ public class APIVersionModel {
 		
 		objTmp = new APIVersionModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-APIVersion-02: Login with same version and verify response of other API's";
-		objTmp.TestCaseDescription = "This test case will verify the response of all api's after login with higher version";
+		objTmp.TestCaseName = "AN-APIVersion-02: Verify 'Upgrade the App Version' message on All API's on Loging in with same version i.e. 14.12";
+		objTmp.TestCaseDescription = "This test case will verify 'Upgrade the App Version' message on All API's on Loging in with same version i.e. 14.12";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.version = "14.12";
 		objTmp.versionUpgradeResponse = 1;
@@ -50,8 +50,8 @@ public class APIVersionModel {
 		
 		objTmp = new APIVersionModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-APIVersion-03: Login with lower version and verify response of other API's";
-		objTmp.TestCaseDescription = "This test case will verify the response of all api's after login with lower version";
+		objTmp.TestCaseName = "AN-APIVersion-03: Verify 'Upgrade the App Version' message on All API's on Loging in with lower version i.e. < 14.12";
+		objTmp.TestCaseDescription = "This test case will verify 'Upgrade the App Version' message on All API's on Loging in with lower version i.e. < 14.12";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.version = "14.11";
 		objTmp.versionUpgradeResponse = 1;
@@ -64,21 +64,8 @@ public class APIVersionModel {
 		
 		objTmp = new APIVersionModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-APIVersion-04: Login with lower version and verify response of other API's";
-		objTmp.TestCaseDescription = "This test case will verify the response of all api's after login with lower version";
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.version = "14.11";
-		objTmp.versionUpgradeResponse = 1;
-		objTmp.statusCodeResponseLogin = 200;
-		objTmp.responseBody = true;
-		objTmp.messageResponse = "Please contact Administrator.";
-		objTmp.lstFilters.add(objFilter);
-		lstAPIVersionModel.add(objTmp);
-		
-		objTmp = new APIVersionModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-APIVersion-05: Login with lower version and verify response of other API's";
-		objTmp.TestCaseDescription = "This test case will verify the response of all api's after login with lower version";
+		objTmp.TestCaseName = "AN-APIVersion-04: Verify 'Please contact Administrator' message on Login API's on Loging in with lower version i.e. < 14.12 again";
+		objTmp.TestCaseDescription = "This test case will verify 'Please contact Administrator' message on Login API's on Loging in with lower version i.e. < 14.12 again";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.version = "14.11";
 		objTmp.versionUpgradeResponse = 1;

@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -769,19 +770,16 @@ public class AgreementManagement {
 			Test_Variables.steps.createNode("1. Go to user management page");
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-user")));
 			Thread.sleep(2500); 
 			
-			for(int j=1; j<100; j++) {
-				
-				if(Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(4) label")).getText().equals(Test_Variables.login_email)) {
-				
+			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
 					Helper.driver.findElement(By.id("edit-user-"+j)).click();
 					break;
 				}	
 			}
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(4000); 
+			Thread.sleep(8000); 
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(2000); 
 			Helper.driver.findElement(By.id("btn-next")).click(); 
@@ -790,15 +788,15 @@ public class AgreementManagement {
 			
 			ClickElement.clickById(Helper.driver, "euladdl");
 			Thread.sleep(1000);
-			
+			SoftAssert softAssert = new SoftAssert();
 			Helper.driver.findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(filename);
 			Thread.sleep(1000); 
 			
 			if (i==0) {
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), Test_Variables.lstAgreementManagementDeactivate.get(i).userStatus);
+				softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option-disabled")).size(), "1", "'No items found' did not displayed on deactivating the agreement");
 			}
 			if (i==1) {
-				Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option")).getText(), filename);
+				softAssert.assertEquals(Helper.driver.findElements(By.xpath("//*[contains(text(),'"+filename+"')]")).size(), 1, "Agreement did not displayed on deactivating the agreement");
 			}
 			Test_Variables.test.pass(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);
 			Test_Variables.results.createNode(Test_Variables.lstAgreementManagementDeactivate.get(i).passMessage);

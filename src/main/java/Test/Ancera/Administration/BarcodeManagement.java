@@ -198,10 +198,9 @@ public class BarcodeManagement {
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
-			for (int i=1;i<=500;i++) {
-
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-3 label")).getText().equals(Test_Variables.login_email)) {
-					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
+					Helper.driver.findElement(By.id("edit-user-"+j)).click();
 					break;
 				}	
 			}

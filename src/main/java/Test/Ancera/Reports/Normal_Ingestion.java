@@ -251,6 +251,7 @@ public class Normal_Ingestion {
 							Thread.sleep(2000);
 							Helper.driver.findElement(By.id("cartridgeId_apply")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(3000);
 							String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 							softAssert.assertEquals(records, "12"); 
 
@@ -417,7 +418,7 @@ public class Normal_Ingestion {
 							Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 							Test_Variables.preconditions.createNode("5. Click on Salmonella Log");
 
-							Thread.sleep(45000);
+							Thread.sleep(30000);
 							Helper.driver.get(Constants.url_SalmonellaLog);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -427,33 +428,28 @@ public class Normal_Ingestion {
 							ClickElement.clickById(Helper.driver, "sampleId_show-filter");			
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);
-//							Helper.driver.findElement(By.id("sampleId_view-all")).click();
-//							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-//							Thread.sleep(2000);
 							Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
-							for(int j=0; j<4; j++)	{
-
-								Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-								Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j));
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(2500);	
-								try {
-								ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j));
+							Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(2500);	
+							try {
+								Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);	
-								}
-								catch (Exception ex) {
-									Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-									Thread.sleep(2000);	
-								}
+							}
+							catch (Exception ex) {
+								ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0));
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								Thread.sleep(2000);	
 							}
 
 							Test_Variables.steps.createNode("3. Click on Apply filter button");
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Helper.driver.findElement(By.id("sampleId_apply")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(3000);	
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 							String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -465,28 +461,8 @@ public class Normal_Ingestion {
 								String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slResultStatusCol+" label")).getText();
 								softAssert.assertEquals(getResultStatus, "Completed", "Result Status is not displayed as Completed in table");
 
-								String laneGetText = Helper.driver.findElement(By.cssSelector("tr:nth-child("+lane+") td:nth-child(3) label")).getText();
-								int laneNumber = Integer.parseInt(laneGetText);
-
-								if (laneNumber == 1 || laneNumber == 2 || laneNumber == 3) {
-									String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-									softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0));
-								}
-
-								if (laneNumber == 4 || laneNumber == 5 || laneNumber == 6) {
-									String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-									softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(1));
-								}
-
-								if (laneNumber == 7 || laneNumber == 8 || laneNumber == 9) {
-									String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-									softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(2));
-								}
-
-								if (laneNumber == 10 || laneNumber == 11 || laneNumber == 12) {
-									String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-									softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(3));
-								}
+								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
+								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0));
 
 								Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
 								String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slAssayCol+" label")).getText();
@@ -661,36 +637,39 @@ public class Normal_Ingestion {
 								for (int z=0; z<12; z++) {
 
 									String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slSampleIDCol)).getText();
-									cell=worksheet.getRow(z+1).createCell(17); 
+									cell=worksheet.getRow(z+1).createCell(4); 
 									cell.setCellValue(getSampleID+"Updt");  
 
 									String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slResultIDCol)).getText();
-									cell=worksheet.getRow(z+1).createCell(3); 
+									cell=worksheet.getRow(z+1).createCell(0); 
 									cell.setCellValue(getResultID);  
 
-									cell=worksheet.getRow(z+1).createCell(2); 
+									cell=worksheet.getRow(z+1).createCell(19); 
 									cell.setCellValue(objModel.cartridgeID); 
 
-									cell=worksheet.getRow(z+1).createCell(5); 
+									cell=worksheet.getRow(z+1).createCell(3); 
 									cell.setCellValue(Test_Variables.SampleMatrix); 
 
-									cell=worksheet.getRow(z+1).createCell(11); 
+									cell=worksheet.getRow(z+1).createCell(9); 
 									cell.setCellValue(Test_Variables.FlockID); 
 
-									cell=worksheet.getRow(z+1).createCell(7); 
+									cell=worksheet.getRow(z+1).createCell(8); 
 									cell.setCellValue(Test_Variables.RequestedAssay); 
 
-									cell=worksheet.getRow(z+1).createCell(19); 
+									cell=worksheet.getRow(z+1).createCell(2); 
 									cell.setCellValue(Test_Variables.KitLot); 
 
+									cell=worksheet.getRow(z+1).createCell(23); 
+									cell.setCellValue(Test_Variables.CollectionDate); 
+									
 									cell=worksheet.getRow(z+1).createCell(6); 
 									cell.setCellValue(Test_Variables.CustomerSampleID); 
 
-									cell=worksheet.getRow(z+1).createCell(4); 
+									cell=worksheet.getRow(z+1).createCell(1); 
 									cell.setCellValue(Test_Variables.SiteID); 
 
 									String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slLaneCol)).getText();
-									cell=worksheet.getRow(z+1).createCell(1); 
+									cell=worksheet.getRow(z+1).createCell(16); 
 									cell.setCellValue(getLane);  
 
 									fsIP.close();
@@ -727,58 +706,39 @@ public class Normal_Ingestion {
 
 								Helper.driver.findElement(By.id("sampleId_show-filter")).click();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1500);
-								Helper.driver.findElement(By.id("sampleId_view-all")).click();
+								Thread.sleep(2000);
+								//		Helper.driver.findElement(By.id("sampleId_view-all")).click();
+								//		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								//		Thread.sleep(2000);
+
+								Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+								Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0)+"Updt");
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(2000);
-
-								for(int j=0; j<4; j++)	{
-
-									Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-									Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j)+"Updt");
+								try {
+									ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0)+"Updt");
 									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 									Thread.sleep(2000);
-									try {
-									ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j)+"Updt");
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-									Thread.sleep(2000);
-									}
-									catch (Exception ex) {
-										Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j)+"Updt")).click();
-										Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-										Thread.sleep(2000);
-									}
 								}
-								
+								catch (Exception ex) {
+									Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0)+"Updt")).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(2000);
+								}
+
+
 								Helper.driver.findElement(By.id("sampleId_apply")).click();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1000);	
+								Thread.sleep(3000);	
 								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
 
 								for (int k=0; k<12;k++) {
-									int lane = k+1;
-									String laneGetText = Helper.driver.findElement(By.cssSelector("tr:nth-child("+lane+") td:nth-child(3) label")).getText();
-									int laneNumber = Integer.parseInt(laneGetText);
+								//	int lane = k+1;
+								//	String laneGetText = Helper.driver.findElement(By.cssSelector("tr:nth-child("+lane+") td:nth-child(3) label")).getText();
+								//	int laneNumber = Integer.parseInt(laneGetText);
 
-									if (laneNumber == 1 || laneNumber == 2 || laneNumber == 3) {
-										String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-										softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0)+"Updt");
-									}
-
-									if (laneNumber == 4 || laneNumber == 5 || laneNumber == 6) {
-										String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-										softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(1)+"Updt");
-									}
-
-									if (laneNumber == 7 || laneNumber == 8 || laneNumber == 9) {
-										String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-										softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(2)+"Updt");
-									}
-
-									if (laneNumber == 10 || laneNumber == 11 || laneNumber == 12) {
-										String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
-										softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(3)+"Updt");
-									}
+									String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
+									softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0)+"Updt");
 									
 									String getRequestedAssay = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slRequestedAssayCol+" label")).getText();
 									softAssert.assertEquals(getRequestedAssay, Test_Variables.RequestedAssay);
@@ -794,6 +754,9 @@ public class Normal_Ingestion {
 
 									String getKitLot = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slKitLotCol+" label")).getText();
 									softAssert.assertEquals(getKitLot, Test_Variables.KitLot);
+									
+									String getCollectionDate = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slCollectionDateCol+" label")).getText();
+									softAssert.assertEquals(getCollectionDate, Test_Variables.CollectionDate);
 
 									String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
 
@@ -820,6 +783,9 @@ public class Normal_Ingestion {
 
 									String getAuditImprocVersion = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditImprocIDCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditImprocVersion, Test_Variables.slImprocVersion);
+									
+									String getAuditCollectionDate = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditCollectionDateCol+".text-dark")).getText();
+									softAssert.assertEquals(getAuditCollectionDate, Test_Variables.CollectionDate);
 
 									String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
 									softAssert.assertTrue(getAuditTestSiteId.isEmpty() == false);
@@ -1038,6 +1004,7 @@ public class Normal_Ingestion {
 
 						Helper.driver.findElement(By.id("cartridgeId_apply")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(4000);
 						String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 						softAssert.assertEquals(records, "12"); 
 
@@ -1218,7 +1185,7 @@ public class Normal_Ingestion {
 					Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 					Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-					Thread.sleep(45000);
+					Thread.sleep(40000);
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1233,26 +1200,26 @@ public class Normal_Ingestion {
 					Thread.sleep(1000);
 					Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
-					for(int j=0; j<4; j++)	{
 
-						Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-						Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j));
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(2000);	
-						try {
-						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
-						}
-						catch(Exception ex) {
-							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j))).click();
-						}
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(800);
+					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(2000);	
+					try {
+						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
 					}
+					catch(Exception ex) {
+						Thread.sleep(1000);
+						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
+					}
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(800);
+
 
 					Test_Variables.steps.createNode("3. Click on Apply filter button");
 					Helper.driver.findElement(By.id("sampleId_apply")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(4000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
 					String records = Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -1267,25 +1234,8 @@ public class Normal_Ingestion {
 						String laneGetText = Helper.driver.findElement(By.cssSelector("tr:nth-child("+lane+") td:nth-child(3) label")).getText();
 						int laneNumber = Integer.parseInt(laneGetText);
 
-						if (laneNumber == 1 || laneNumber == 2 || laneNumber == 3) {
-							String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-							softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0));
-						}
-
-						if (laneNumber == 4 || laneNumber == 5 || laneNumber == 6) {
-							String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-							softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(1));
-						}
-
-						if (laneNumber == 7 || laneNumber == 8 || laneNumber == 9) {
-							String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-							softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(2));
-						}
-
-						if (laneNumber == 10 || laneNumber == 11 || laneNumber == 12) {
-							String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-							softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(3));
-						}
+						String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
+						softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0));
 
 						Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
 						String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clAssayCol+" label")).getText();
@@ -1462,32 +1412,32 @@ public class Normal_Ingestion {
 						for (int z=0; z<12; z++) {
 
 							String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clSampleIDCol)).getText();
-							cell=worksheet.getRow(z+1).createCell(17); 
+							cell=worksheet.getRow(z+1).createCell(4); 
 							cell.setCellValue(getSampleID+"Updt");  
 
 							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clResultIDCol)).getText();
-							cell=worksheet.getRow(z+1).createCell(3); 
+							cell=worksheet.getRow(z+1).createCell(0); 
 							cell.setCellValue(getResultID);  
 
-							cell=worksheet.getRow(z+1).createCell(2); 
+							cell=worksheet.getRow(z+1).createCell(19); 
 							cell.setCellValue(Test_Variables.CartridgeID); 
 
-							cell=worksheet.getRow(z+1).createCell(5); 
+							cell=worksheet.getRow(z+1).createCell(3); 
 							cell.setCellValue(Test_Variables.SampleMatrix); 
 
-							cell=worksheet.getRow(z+1).createCell(11); 
+							cell=worksheet.getRow(z+1).createCell(9); 
 							cell.setCellValue(Test_Variables.FlockID); 
 
-							cell=worksheet.getRow(z+1).createCell(7); 
+							cell=worksheet.getRow(z+1).createCell(8); 
 							cell.setCellValue(Test_Variables.RequestedAssay); 
 
-							cell=worksheet.getRow(z+1).createCell(19); 
+							cell=worksheet.getRow(z+1).createCell(2); 
 							cell.setCellValue(Test_Variables.KitLot); 
 
 							cell=worksheet.getRow(z+1).createCell(6); 
 							cell.setCellValue(Test_Variables.CustomerSampleID); 
 
-							cell=worksheet.getRow(z+1).createCell(4); 
+							cell=worksheet.getRow(z+1).createCell(16); 
 							cell.setCellValue(Test_Variables.SiteID); 
 
 							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-0")).getText();
@@ -1532,21 +1482,23 @@ public class Normal_Ingestion {
 						Helper.driver.findElement(By.id("sampleId_view-all")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
+						Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+						Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0)+"Updt");
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(2000);				
 
-						for(int j=0; j<4; j++)	{
-
-							Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(j)+"Updt");
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);				
-							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(j)+"Updt")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(800);
+						try {
+							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0)+"Updt")).click();
+						}
+						catch (Exception ex) {
+							ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0)+"Updt");
 						}
 
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(2000);	
 						Helper.driver.findElement(By.id("sampleId_apply")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));		
 
 						for (int k=0; k<12;k++) {
@@ -1554,25 +1506,8 @@ public class Normal_Ingestion {
 							String laneGetText = Helper.driver.findElement(By.cssSelector("tr:nth-child("+lane+") td:nth-child(3) label")).getText();
 							int laneNumber = Integer.parseInt(laneGetText);
 
-							if (laneNumber == 1 || laneNumber == 2 || laneNumber == 3) {
-								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0)+"Updt");
-							}
-
-							if (laneNumber == 4 || laneNumber == 5 || laneNumber == 6) {
-								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(1)+"Updt");
-							}
-
-							if (laneNumber == 7 || laneNumber == 8 || laneNumber == 9) {
-								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(2)+"Updt");
-							}
-
-							if (laneNumber == 10 || laneNumber == 11 || laneNumber == 12) {
-								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
-								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(3)+"Updt");
-							}
+							String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
+							softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0)+"Updt");
 							
 							String getRequestedAssay = Helper.driver.findElement(By.cssSelector("#row-"+k+" #col-"+Test_Elements.clRequestedAssayCol+" label")).getText();
 							softAssert.assertEquals(getRequestedAssay, Test_Variables.RequestedAssay);

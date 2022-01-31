@@ -170,19 +170,19 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
 
-//		objTmp = new FlockRegistrationModel();
-//		objFilter = new ReportFilters();
-//		objFilter.FilterName = "Two Filters";
-//		objTmp.TestCaseName = "AN-FR-19: Verify user can apply 2 filters at same time";
-//		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
-//		objTmp.TestCaseNameSearch = "AN-FR-20: "+filterIndicatorTitle+objFilter.FilterName;
-//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-//		objTmp.lstFilters = new ArrayList<>();
-//		objFilter = new ReportFilters();
-//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID,Test_Elements.flockSiteID));
-//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "3"));
-//		objTmp.lstFilters.add(objFilter);
-//		lstFlockRegistrationModel.add(objTmp);
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Two Filters";
+		objTmp.TestCaseName = "AN-FR-19: Verify user can apply 2 filters at same time";
+		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
+		objTmp.TestCaseNameSearch = "AN-FR-20: "+filterIndicatorTitle+objFilter.FilterName;
+		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter = new ReportFilters();
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID,Test_Elements.flockSiteID));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "3"));
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
 
 		return lstFlockRegistrationModel;
 	}

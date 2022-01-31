@@ -10,13 +10,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -38,7 +38,7 @@ public class DataUpload {
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 
-		Test_Variables.spark = new ExtentSparkReporter("target/Reports/MetaData_Data_Upload"+Test_Variables.date+".html");
+		Test_Variables.spark = new ExtentSparkReporter("target/Reports/MetaData_Upload"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Data Upload Test Report"); 
 
 		Helper.config();
@@ -137,8 +137,9 @@ public class DataUpload {
 						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+flockFileName);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-		
-						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+						Thread.sleep(1000);
+						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage);
+						Helper.driver.findElement(By.cssSelector("#alrt button span")).click();
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
@@ -165,6 +166,10 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 3) 
 	public void SitePerformance() throws InterruptedException, IOException {
+		
+		Helper.driver.get(Constants.url_dataUpload);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
 		
 		Test_Variables.lstDataUploadSitePerformance = DataUploadModel.FillDataSitePerformance();
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
@@ -217,8 +222,10 @@ public class DataUpload {
 						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+sitePerformanceFileName);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-		
+						Thread.sleep(750);
 						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+						Helper.driver.findElement(By.cssSelector("#alrt button span")).click();
+						
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
@@ -244,6 +251,10 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 4) 
 	public void SampleMetaData() throws InterruptedException, IOException {
+		
+		Helper.driver.get(Constants.url_dataUpload);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
 		
 		Test_Variables.lstDataUploadSampleMetadata = DataUploadModel.FillDataSampleMetaData();
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
@@ -293,8 +304,10 @@ public class DataUpload {
 						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+sampleMetadataFileName);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-		
-						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+						Thread.sleep(2500);
+						SoftAssert softAssert = new SoftAssert();
+						softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+						softAssert.assertAll();
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
@@ -310,6 +323,7 @@ public class DataUpload {
 						Test_Variables.results.createNode(objModel.failStep);
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
 					}
+					Helper.driver.findElement(By.cssSelector("#alrt button span")).click();
 				}
 			}	
 			catch(Exception ex) {

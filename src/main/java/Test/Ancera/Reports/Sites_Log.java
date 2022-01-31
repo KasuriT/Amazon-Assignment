@@ -924,7 +924,7 @@ public class Sites_Log {
 		return theNewestFile;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	@Test (description="Test Case: Test Sites CSV Download",enabled= true, priority =10) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {

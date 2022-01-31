@@ -18,13 +18,21 @@ public class DataUploadModel {
 	public String AlertMessage;
 	public ArrayList<ReportFilters> lstFilters;
 	
+//	public static String OrganizationSiteID = "1001001";
+//	public static String RegionSiteID = "1001043";
+//	public static String SubRegionSiteID = "1001052";
+//	public static String ComplexSiteID = "1001159";
+//	public static String HouseSiteID = "1001066";
+//	public static String ProcessingPlantSiteID = "1001078";
+//	public static String FarmSiteID = "1033011";
+	
 	public static String OrganizationSiteID = "1001001";
 	public static String RegionSiteID = "1001043";
 	public static String SubRegionSiteID = "1001052";
 	public static String ComplexSiteID = "1001159";
-	public static String HouseSiteID = "1001066";
-	public static String ProcessingPlantSiteID = "1001078";
-	public static String FarmSiteID = "1033011";
+	public static String HouseSiteID = "1001188";
+	public static String ProcessingPlantSiteID = "1001186";
+	public static String FarmSiteID = "1001160";
 	
 //	public static String OrganizationSiteID = "1001001";
 //	public static String RegionSiteID = "1001023";
@@ -51,7 +59,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload Flock Metadata without Site ID";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-
+		
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Placement Date";
@@ -205,7 +213,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload Flock Metadata with Placement Date greater than Processing Date";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-50: Verify that user can upload Flock Metadata with Placement Date less than Processing Date";
@@ -464,7 +472,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was not able to upload Weekly Site Performance template with NUM_BIRDS_SOLD less than NUM_BIRDS_PLACED";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+			
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-68: Verify that user cannot upload Site Performance with DOA_PLANT_PERC greater than NUM_BIRDS_PLACED";
@@ -656,41 +664,41 @@ public class DataUploadModel {
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
 		
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-05: Verify that user cannot upload file with case sensitive duplicate values";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with case sensitive duplicate values";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2, 2));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("", "A", "a"));
-		objTmp.steps = "Enter duplicate values as case sensitive";
-		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
-		objTmp.passStep = "User was not able to upload file with case sensitive duplicate values successfully";
-		objTmp.failStep = "User was able to upload file with case sensitive duplicate values";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
-		
+//		objTmp = new DataUploadModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-DU-05: Verify that user cannot upload file with case sensitive duplicate values";
+//		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with case sensitive duplicate values";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2, 2));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "A", "a"));
+//		objTmp.steps = "Enter duplicate values as case sensitive";
+//		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
+//		objTmp.passStep = "User was not able to upload file with case sensitive duplicate values successfully";
+//		objTmp.failStep = "User was able to upload file with case sensitive duplicate values";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
+	
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-06: Verify that user can upload file with entering valid data in Key field/s";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload file with entering valid data in Key field/s";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2, 2));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "", ""));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", ""));
 		objTmp.steps = "Enter valid data in Key field/s";
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was able to upload file with entering valid data in Key field/s successfully";
 		objTmp.failStep = "User was not able to upload file with entering valid data in Key field/s";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+			
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-07: Verify that user cannot upload file with values in Key field/s not being unique";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with values in Key field/s not being unique";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "A0732302"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
 		objTmp.steps = "Enter same value in Key field/s for 2 rows";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with values in Key field/s not being unique successfully";
@@ -704,7 +712,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user can upload file with values in Key field/s being unique";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "A0732303"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A0732302"));
 		objTmp.steps = "Enter unique values for Key field";
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload file with values in Key field/s being unique successfully";
@@ -746,7 +754,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with site id that does not exist";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0781601", "100900112"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "100900112"));
 		objTmp.steps = "Enter invalid site id";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with site id that does not exist successfully";
@@ -760,14 +768,14 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with result id that does not exist";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A07323021", ""));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705789", ""));
 		objTmp.steps = "Enter invalid result id";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with result id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with result id that does not exist";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+	
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-13: Verify that user cannot upload file with result id being empty";
@@ -788,7 +796,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with duplicate result id";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0781601", "A0781601"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
 		objTmp.steps = "Enter duplicate result id";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with duplicate result id successfully";

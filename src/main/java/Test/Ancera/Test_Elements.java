@@ -1,15 +1,14 @@
 package Test.Ancera;
 
 import java.time.Duration;
-import java.util.Random;
 
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
 	//public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(180, 1));
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(150, 1));
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -29,8 +28,16 @@ public class Test_Elements {
 	///////////////////////////////////////////End ForgotPassword Elements////////////////////////////////////////////////////
 
 
-	/////////////////////////////////////////////User Management Elements////////////////////////////////////////////////////
+	/////////////////////////////////////////////User Management Elements////////////////////////////////////////////////////////////
 
+	public static By usercreateButton = By.id("create-user");
+	public static By userFirstNameInput = By.id("firstNameId");
+	public static By userLastNameInput = By.id("lastNameId");
+	public static By userOrgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
+	public static By userOrgTypeInput = By.cssSelector("#orgTypeId input");
+	public static By userOrgDropDownExpand = By.cssSelector("#organizationId .ng-arrow-wrapper");
+	public static By userOrgInput = By.cssSelector("#organizationId input");
+	
 	public static String userFirstNameCol = "0";
 	public static String userLastNameCol = "1";
 	public static String userMobileNoCol = "2";
@@ -40,7 +47,6 @@ public class Test_Elements {
 	public static String userRoleCol = "6";
 	public static String userReportingCol = "7";
 	public static String userSiteAccessCol = "8";
-	public static String userFieldAccessCol = "9";
 	
 	public static String userFirstName = "userFirstName";
 	public static String userLastName = "userLastName";
@@ -52,6 +58,25 @@ public class Test_Elements {
 	public static String userReporting = "reportingRole";
 	public static String userSiteAccess = "sites";
 	
+	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
+	
+	///////////////////////////////////////////End User Management Elements/////////////////////////////////////////////////////////
+
+	
+	///////////////////////////////////////////////////Static Elements//////////////////////////////////////////////////////////////
+	
+	public static By loader = By.id("notification-loading");
+	public static By popupNextButton = By.id("btn-next");
+	public static By popupResetButton = By.id("btn-reset");
+	public static By popupSaveButton = By.id("btn-save");
+	public static By popupYesButton = By.id("btn-yes");
+	public static By popupOKButton = By.id("btn-ok");
+	public static By popupCloseButton = By.id("close-popup-modal");
+	public static By alertMessage = By.id("message");
+//	public static By alertMessageClose = By.cssSelector("button.close span");
+	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
+	public static By confirmationYes = By.cssSelector("button.mr-4");
+	
 	public static String ShowFilter = "_show-filter";
 	public static String SortFilter = "sort-";
 	public static String ApplyFilter = "_apply";
@@ -62,107 +87,69 @@ public class Test_Elements {
 	public static String ResultsCount = "results-found-count";
 	public static String ResetFilters = "reset-all-filters";
 	public static String FieldAccess = "edit-field-access";
+	public static String CSVButton = "";
 	
-	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
+	//////////////////////////////////////////////Static Elements///////////////////////////////////////////////////////////
 	
-	///////////////////////////////////////////End User Management Elements////////////////////////////////////////////////////
-
-
 
 	/////////////////////////////////////////Organization Management Elements////////////////////////////////////////////////
 
-	public static String orgGetTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";
-	public static String orgCreateButton = "/html/body/app-root/div/app-manage-organization/button";
-	public static String orgPopupResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[3]/div/button[1]";
-	public static String orgType = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[2]/ng-select/div";
-	static Random rand = new Random();
-	static int index = rand.nextInt(4)+1;
-	public static String orgTypeSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[2]/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String orgCloseButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]";
-	public static String orgPopupGetTitle = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[2]/div";
-
-	public static String orgTypeId = "//*[@id=\"orgTypeId\"]/div/span";
-	public static String orgName = "//*[@id=\"nameId\"]";
-	public static String orgPhoneCode =  "//*[@id=\"phoneCodeId\"]/div";
-	public static String orgPhoneCodeSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[4]/div/div[1]/ng-select/ng-dropdown-panel/div/div[2]/div";
-	public static String orgPhoneNo = "//*[@id=\"PhoneNumberId\"]";
-	public static String orgEmail = "//*[@id=\"emailId\"]";
-	public static String orgPopupNextButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[3]/div/button[2]";
-	public static String orgRolesId = "//*[@id=\"rolesId\"]/div";
-	public static String orgRolesIdSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[2]/div/div[1]/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]";
-	public static String orgClickOut = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[2]/div/div[1]/ng-select/div/span";
-	public static String orgUpdateRoleInput = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[2]/div[2]/div/div/ng-select/div/div/div[5]/input";
-	public static String orgUpdateRoleResult = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[2]/div[2]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div"; 
-	public static String orgUserAgreement = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[3]/div/div[1]/ng-select/div/span";
-	public static String orgUserAgreementSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[3]/div/div[1]/ng-select/ng-dropdown-panel/div[2]/div[2]/div/div";
-
-	public static String orgSaveButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[3]/div/button[2]";
-	public static String orgUploadPhoto = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[1]/div/label/img";
-	public static String orgInActiveButton = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[2]/div[4]/div/div/app-custom-radio-button/div";
-	public static String orgRoles = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[2]/div/div[1]/ng-select/div/div/div[2]/input";
-	public static String orgCountryCode = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[4]/div/div[1]/ng-select/div/div/div[3]/input";
-	public static String orgtype = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[2]/ng-select/div/div/div[3]/input";
-
-	public static String orgTypeValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[2]/div";
-	public static String orgNameValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[3]/div";
-	public static String orgEmailValidation= "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[5]/div";
-	public static String orgPhoneCodeValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[4]/div/div[1]/div/div";
-	public static String orgPhoneNumberValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div";
-	public static String orgMaxUsersValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[1]/div";
-	public static String orgRoleValidation = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[2]/div/div[2]";
-
-	public static String orgTypeexpected = "Organization type is required.";
-	public static String orgNameexpected = "Organization name is required.";
-	public static String orgEmailexpected = "Email is required";
-	public static String orgInvalidEmailexpected = "Invalid email";
-	public static String orgPhoneCodeexpected = "Select country code";
-	public static String orgPhonenoexpected = "Phone number is required";
-	public static String orgMaxUsersexpected = "Maximum users value is required";
-	public static String orgRolesexpected = "Select assigned role";
-
-	public static String orgSiteTypeexpected = "Site type is required";
-	public static String orgSiteNameexpected = "Site name is required";
-	public static String orgSiteNameValidation = "//div[contains(text(), ' Site name is required')]";
-	public static String orgSiteTypeValidation = "//div[contains(text(), ' Site type is required')]";
-	//public static String orgSiteResetButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[2]";
-	public static String orgSiteDelete = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[2]";
-										  
+	public static By orgTitle = By.id("Organization Management");
+	public static By orgCreateButton = By.id("create-organization");
+	public static By orgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
+	public static By orgTypeInput = By.cssSelector("#orgTypeId input");
+	public static By orgTypeError = By.cssSelector("#orgTypeId.ng-invalid");
+	public static By orgNameInput = By.id("nameId");
+	public static By orgNameError = By.cssSelector("#num-nameId.has-error");
+	public static By orgPhoneCodeInput = By.id("phoneCodeId");
+	public static By orgPhoneNumberInput = By.id("cellNumberId");
+	public static By orgPhoneNumberError = By.cssSelector("#cellNumberId .has-error");
+	public static By orgEmailInput = By.id("emailId");
+	public static By orgEmailError = By.cssSelector("#emailId.has-error");
+	public static By orgMaxUsersInput = By.id("num-idMaxUsers");
+	public static By orgMaxUsersError = By.cssSelector("#num-idMaxUsers .has-error");
+	public static By orgAgreementDropDownExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");
+	public static By orgAgreementDropDownSelect = By.xpath("//label[contains(text(),'Select All')]");
 	
-	public static String orgSite1Text = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[2]/span";
-	public static String orgSite1Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/i";
-	public static String orgSite2Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite3Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite4Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite5Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li/ul/li/div/div[4]/i[1]";
-	public static String orgSite6Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/i[1]";
-	public static String orgSite7Add = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/i[1]";
+	public static By orgParentSiteClick = By.cssSelector("li .text-ellipsis");
+	public static By orgSiteIDField = By.id("num-SiteIDId");
+	public static By orgSiteTypeInput = By.id("SiteTypeId");  
+	public static By orgSiteTypeInputChild = By.id("SiteTypeId"); 
+	public static By orgSiteTypeDropDownValue = By.cssSelector("div .ng-dropdown-panel-items");
+	public static By orgSiteNameInput = By.id("SiteNameId");
+	public static By orgSiteNameError = By.cssSelector("#SiteNameId.has-error"); 
+	public static By orgSiteAddressInput = By.id("streetAddressId");
+	public static By orgSiteCountryInput = By.cssSelector("#countryId input");
+	public static By orgSiteStateInput = By.cssSelector("#stateId input");
+	public static By orgSiteCityInput = By.cssSelector("#cityId input");
+	public static By orgSiteZipCodeInput = By.id("num-zipCodeId");
+	public static By orgSiteLatitudeInput = By.id("num-LatId");
+	public static By orgSiteLongitudeInput = By.id("num-LonId");
 	
-	public static String orgPopupCloseButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]/p";
-	public static String orgMaxUser = "//*[@id=\"idMaxUsers\"]";
-	public static String orgSearch = "//*[@id=\"organSearchId\"]";
-	public static String orgSearchResult = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[1]/div[3]/label/span[1]";
-	public static String orgCloseSearch = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[1]/div[3]/span/i";
-	public static String orgExpandAnceraTab = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[2]/div[1]/div/div[1]";
-	public static String orgUpdateButton = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[2]/div[1]/div[2]/div/div/table/tbody/tr/td[7]/label/img[1]";
-	public static String orgUpdatePhoneNo = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[1]/div[5]/div/div[2]/input";
-	public static String orgUpdateNextButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[3]/div/button";
-	public static String orgUpdateSaveButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[3]/div/button[2]";
-	public static String orgSiteButton = "";
-	public static String orgCreateSiteButton = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/div[4]/i\r\n";
+	public static By orgAddSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/div/img");
+	public static By orgSite1Click = By.cssSelector("li:last-child ul:last-child li:last-child span");
+	public static By orgSite1Delete = By.cssSelector(".delete img");
+	public static By orgAddSite2 = By.xpath("//ul/div/li/ul/li/div/div[4]/div[1]/img");
+	public static By orgAddSite3 = By.xpath("//ul/li/ul/li//div[4]/div[1]/img");
+	public static By orgAddSite4 = By.xpath("//ul/li//li//li//div[4]/div[1]/img");
+	public static By orgAddSite5 = By.xpath("//ul/div/li//li//li/ul/li/ul/li/div/div[4]/div[1]/img");
+	public static By orgAddSite6 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/div[1]/img");
+	public static By orgAddSite7 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/div[1]/img");
+	public static By orgDeleteSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[2]/img");
 	
-	public static String orgNewSiteButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/div/i";
-	public static String orgSiteType = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/ng-select/div/span";
-	public static String orgSiteTypeSelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[1]/div/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String orgSiteCountry = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[4]/ng-select/div/span";
-	public static String orgSiteCountrySelect = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[4]/ng-select/ng-dropdown-panel/div/div[2]/div";
-	public static String orgSiteSaveButton = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[11]/button[1]";
-	public static String orgSiteClose = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[1]";
-	public static String orgCreatedSite = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span";
-	public static String orgStreetAddress = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[2]/div/div/div[3]/input";
-	public static String orgSiteDeleteButton = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[1]/div/div[1]/div/ul/div/li/ul/li[1]/div/i";
-	public static String orgSiteDeleteConfirm = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-create-site-component/app-confirmation-component/div/div/div[3]/div/button[1]";
-	public static String orgDeleteButton = "/html/body/app-root/div[1]/app-manage-organization/div/div/div[2]/div[1]/div[2]/div/div/table/tbody/tr/td[7]/label/img[2]";
-	public static String orgDeleteConfirm = "/html/body/app-root/div[1]/app-manage-organization/app-confirmation-component/div/div/div[3]/div/button[1]";
+	public static String orgNameCol = "0";
+	public static String orgPhoneNumberCol = "1";
+	public static String orgCityCol = "2";
+	public static String orgStateCol = "3";
+	public static String orgCountryCol = "4";
+	public static String orgOrganzationTypeCol = "5";
+	
+	public static String orgName = "orgnName";
+	public static String orgOrganzationType = "orgnTypeName";
+	public static String orgPhoneNumber = "phoneNo";
+	public static String orgCity = "cityName";
+	public static String orgState = "provinceName";
+	public static String orgCountry = "countryName";
 
 	////////////////////////////////////////End Organization Management Elements//////////////////////////////////////////////
 
@@ -365,48 +352,34 @@ public class Test_Elements {
 
 	/////////////////////////////////////////Data Template Management Elements////////////////////////////////////////////////////
 
-	public static String dtmGetTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";
-	public static String dtmCreateButton = "/html/body/app-root/div/app-manage-dataformat/div[1]/button[1]";
+	public static By dtmCreateButton = By.id("create-data-format");
 	public static String dtmCreatePopupGetTitle = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[2]/div";
 	public static String dtmResetButton = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[2]/div/button[1]";
 	public static String dtmSaveButton = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[2]/div/button[2]";
-	public static String dtmName = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[1]/div[1]/input";
-	public static String dtmDesc = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[1]/div[2]/input";
-
-	public static String dtmClmName = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[1]/div/input";
-	public static String dtmClmType = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div/ng-select/div/span";
-	public static String dtmClmTypeSelect = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String dtmClmFieldLength = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[4]/div/input";
-	public static String dtmClmDefaultValue = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[3]/div/input";
-	public static String dtmClmResetButton = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[2]/div[2]/button[1]";
-	public static String dtmClmSaveButton = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[2]/div[2]/button[2]";
-	public static String dtmUpdateButton = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[2]/div/button[1]";
-
-	public static String dtmClmUpdateButton = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[2]/div[2]/button[2]";
-	public static String dtmNameValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[1]/div[1]/div";
-	public static String dtmDescValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[1]/div[2]/div";
-	public static String dtmClmNameValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[1]/div[2]";
-	public static String dtmClmTypeValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div[2]";
-	public static String dtmClmLengthValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[4]/div[2]";
-	public static String dtmNameExpected = "Template name is required.";
-	public static String dtmDescExpected = "Template description is required.";
-	public static String dtmClmNameExpected = "Field name is required";
-	public static String dtmClmTypeExpected = "Field type is required";
-	public static String dtmClmLengthExpected = "Field length is required";
-	public static String dtmClmGetText = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[3]/div/table/tbody/tr[1]/td[2]";
-	public static String dtmClmUpdateGetText = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[3]/div/table/tbody/tr[1]/td[6]/label/span";
-
-	public static String dtmClmFieldNameUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[1]/div[1]/input";
-	public static String dtmClmFieldTypeUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div[1]/ng-select/div/span";
-	public static String dtmClmFieldTypeSelectUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[2]/div/ng-select/ng-dropdown-panel/div/div[2]/div[1]";
-	public static String dtmClmFieldLengthUpdate = "";
-	public static String dtmClmAddButtonUpdate = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[2]/div[2]/button[2]";
-	public static String dtmClmDeleteButton = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[2]/div/table/tbody/tr/td[11]/label/img[2]";
-	public static String dtmClmDeleteCnfrm = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/app-confirmation-component/div/div/div[3]/div/button[1]";
-	public static String dtmClmFieldLengthValidation = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[4]/div[2]";
-	public static String dtmClmEditIcon = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/div[2]/div/table/tbody/tr/td[11]/label/img[1]";
-	public static String dtmClmUpdateDefaultValue = "/html/body/app-root/div/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[1]/div/div/fieldset/div[1]/div[3]/div/input";
-
+	public static By dtmName = By.id("nameId");
+	public static By dtmDesc = By.id("DescId");
+	
+	
+	public static By dtmClmName = By.id("ColNameID");
+	public static By dtmClmType = By.id("ColTypeId");
+	public static By dtmClmDefaultValue = By.id("defaultValueId");
+	public static By dtmClmLength = By.id("num-colLengthId");
+	public static By dtmKeyField = By.cssSelector("#key-field div");
+	public static By dtmIdentificationField = By.id("identity-field");
+	public static By dtmClmReset = By.id("btn-reset-field");
+	public static By dtmClmAdd = By.id("btn-add-field");
+	public static By dtmClmSave = By.id("btn-save-field");
+	public static By dtmClmEdit = By.id("edit-field-1");
+	public static By dtmClmDelete = By.id("delete-field-1");
+	public static By dtmClientMappingOpenButton = By.id("create-client-mapping");
+	public static By dtmClientMappingClientDropdown = By.cssSelector("#ClientId .ng-arrow-wrapper");
+	public static By dtmInactivateTemplate = By.cssSelector("#status-data-format  div");
+	
+	public static By dtmNameValidation = By.id("nameId-error-container");
+	public static By dtmDescValidation = By.id("DescId-error-container");
+	public static By dtmClmNameValidation = By.id("ColNameID-error-container");
+	public static By dtmClmTypeValidation = By.cssSelector(".floating-error");
+	public static By dtmClmLengthValidation = By.cssSelector("colLengthId-error-container");
 
 	///////////////////////////////////////End Data Template Management Elements////////////////////////////////////////////////////
 
@@ -505,7 +478,7 @@ public class Test_Elements {
 	public static String slAuditRequestedAssayCol = "28";
 	public static String slAuditFlockIDCol = "29";
 	public static String slAuditRunTypeCol = "30";
-	public static String slAuditCollectionDate = "31";
+	public static String slAuditCollectionDateCol = "31";
 	
 	public static String slToday = "#list-title_range-0";
 	public static String slLast24Hours = "#list-title_range-1";

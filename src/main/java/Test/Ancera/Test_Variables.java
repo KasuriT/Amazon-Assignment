@@ -173,37 +173,16 @@ public class Test_Variables {
 					new UserModel("", "", false, "", true, "", false, false, false, false, false, "Leave all fields empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-03: Verify mandatory field check with all fields empty", "This test case will verify that user cannot create user with mandatory fields empty"),
 					new UserModel("firstname", "", true, "", true, "", false, false, false, false, false, "Leave Last Name empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-04: Verify mandatory field check with 1 field empty", "This test case will verify that user cannot create user leaving 1 mandatory field empty"),
 					new UserModel("", "", false, "alpha", true, "", false, false, false, false, false, "Enter alpha data in phone number field", "User was not able to enter alpha data in phone number field successfully", "User was able to enter alpha data in phone number field successfully", "AN-UM-05: Verify user cannot enter alpha data in phone number field", "This test case will verify that user cannot enter alpha data in phone number field"),
-				//	new UserModel("firstname", "lastname", false, "", true, "email@ancera.com", false, false, false, false, false, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-06: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
 					new UserModel("firstname", "lastname", false, "", true, "", false, false, true, false, false, "Leave all fields empty at page", "User was not able to navigate to step 3 of create user successfully", "User was not able to navigate to step 3 of create user successfully", "AN-UM-06: Verify user cannot proceed to step 3 of create user after leaving all mandatory fields empty in screen 2", "This test case will verify that user cannot proceed to next step after leaving all mandatory fields"),
 					new UserModel("firstname", "lastname", false, "", true, "email@ancera.", true, true, true, false, false, "Enter invalid email", "User was not able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-07: Verify user can proceed to step 3 with invalid email", "This test case will verify that user can proceed to next step with invalid email"),	
 					new UserModel("firstname", "lastname", false, "", true, "email@ancera.com", true, true, false, false, true, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-08: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
-
-	
-	public static ArrayList<String> lstUserCreate = new ArrayList<>(
-			Arrays.asList("Ancera Test", 
-					"User",
-					"(666) 666-6666"));
-	
-	public static ArrayList<String> lstUserEmails = new ArrayList<>(
-			Arrays.asList("anceraTest",
-					Test_Variables.createUserEmail));
 
 	public static ArrayList<String> lstUserAlertMessages = new ArrayList<>(
 			Arrays.asList("New user created.", 
 					"User details updated.",
 					"User details deleted."));
-	
-	public static ArrayList<String> lstUserUpdate = new ArrayList<>(
-			Arrays.asList("User updated"));
 
-	public static ArrayList<UserModel> lstUserSearch = new ArrayList<>(
-		Arrays.asList(
-				new UserModel("invalid input", "AN-UM-13: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "1", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results"),
-
-			new UserModel(lstUserCreate.get(0), "AN-UM-14: Verify user can search for created user", "This test case will verify that user can search for created user", "1", "Search for created user", "User searched successfully for valid input", "User was not able to search for created user")));
-		//	new UserModel("invalid input", "AN-UM-16: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "0", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results")));
-	
-//	public static ArrayList<FlockRegistrationModel> lstUserSearch = new ArrayList<>();
+	public static ArrayList<UserModel> lstUserSearch = new ArrayList<>();
 	public static ArrayList<UserModel> lstUserWildcardSearch = new ArrayList<>();
 	public static ArrayList<UserModel> lstUserDateSearch = new ArrayList<>();
 	public static ArrayList<UserModel> lstUserDateEnter = new ArrayList<>();
@@ -222,60 +201,69 @@ public class Test_Variables {
 
 	
 	////////////////////////////////////////////////////Organization Management Screen Variables///////////////////////////////////////////////////
+//	
+//	public static ArrayList<OrgModel> lsttest = new ArrayList<>(
+//			Arrays.asList(
+//					new OrgModel(Test_Variables.lstOrgSearch)
+//));
+//	
+	
+	
 	
 	public static ArrayList<OrgModel> lstOrgMandatoryCheck = new ArrayList<>(
 			Arrays.asList(
-					new OrgModel(true, false, "", false, "", "", "Leave all mandatory fields empty", true,
-							"Click on next button", "", false, false, "AN-OM-03: Verify user cannot create organization with leaving all fields empty", 
+					new OrgModel(false, "", false, "", "", "Leave all mandatory fields empty", true,
+							"Click on next button", "",  false, "AN-OM-03: Verify user cannot create organization with leaving all fields empty", 
 							"This testcase will verify that user cannot create organization with leaving all fields empty", "User was not able to create organization with all fields empty successfully", "User was able to create organization with all feilds empty"),
 
-					new OrgModel(false, false, "Ancera Test Org", false, "", "", "Enter only org name", true,
-							"Click on next button", "", false, false, "AN-OM-04: Verify user cannot create organization with only filling org name field",
+					new OrgModel( false, "Ancera Test Org", false, "", "", "Enter only org name", true,
+							"Click on next button", "",  false, "AN-OM-04: Verify user cannot create organization with only filling org name field",
 							"This testcase will verify that user cannot create organization with only filling org name field", "User was not able to create organization with only filling org name field", "User was able to create organization with only filling org name field"),
 
-					new OrgModel(false, false, "", false, "", "ancera"+date0+"@ancera.com", "Enter only email", true,
-							"Click on next button", "", false, false, "AN-OM-05: Verify user cannot create organization with only filling email field",
+					new OrgModel(false, "", false, "", "ancera"+date0+"@ancera.com", "Enter only email", true,
+							"Click on next button", "",  false, "AN-OM-05: Verify user cannot create organization with only filling email field",
 							"This testcase will verify that user cannot create organization with only filling email field", "User was not able to create organization with only filling email field", "User was able to create organization with only filling email field"),
 
-					new OrgModel(false, false, "", false, "6666666666", "", "Enter only phone number", true,
-							"Click on next button", "", false, false, "AN-OM-06: Verify user cannot create organization with only filling phone number field", 
-							"This testcase will verify that user cannot create organization with only filling phone number field", "User was not able to create organization with only filling phone number field successfully", "User was able to create organization with only filling phone number field"),
+					new OrgModel( false, "", true, "", "", "Enter phone code leaving phone number empty", true,
+							"Click on next button", "",  false, "AN-OM-06: Verify user cannot create organization with only filling phone code field", 
+							"This testcase will verify that user cannot create organization with only filling phone code field", "User was not able to create organization with only filling phone code field successfully", "User was able to create organization with only filling phone number field"),
 
-					new OrgModel(false, true, "", false, "", "", "Select any value from Org Type dropdown", true,
-							"Click on next button", "", false, false, "AN-OM-07: Verify user cannot create organization with only filling org type field", 
+					new OrgModel( true, "", false, "", "", "Select any value from Org Type dropdown", true,
+							"Click on next button", "",  false, "AN-OM-07: Verify user cannot create organization with only filling org type field", 
 							"This testcase will verify that user cannot create organization with only filling org type field", "User was not able to create organization with only filling org type field successfully", "User was able to create organization with only filling org type field"),
 
-					new OrgModel(false, true, "Ancera Test Org", false, "", "", "Select only Org Type and Name", true,
-							"Click on next button", "", false, false, "AN-OM-08: Verify user cannot create organization with only filling Org Type and Name field", 
+					new OrgModel( true, "Ancera Test Org", false, "", "", "Select only Org Type and Name", true,
+							"Click on next button", "",  false, "AN-OM-08: Verify user cannot create organization with only filling Org Type and Name field", 
 							"This testcase will verify that user cannot create organization with only filling Org Type and Name field", "User was not able to create organization with only filling Org Type and Name field successfully", "User was able to create organization with only filling Org Type and Name field"),
 
-					new OrgModel(false, false, "", false, "", "ancera"+date0+"@ancera.com", "Select only Org Type and Email", true,
-							"Click on next button", "", false, false, "AN-OM-09: Verify user cannot create organization with only filling Org Type and Email field", 
+					new OrgModel( false, "", false, "", "ancera"+date0+"@ancera.com", "Select only Org Type and Email", true,
+							"Click on next button", "",  false, "AN-OM-09: Verify user cannot create organization with only filling Org Type and Email field", 
 							"This testcase will verify that user cannot create organization with only filling Org Type and Email field", "User was not able to create organization with only filling Org Type and Email field successfully", "User was able to create organization with only filling Org Type and Email field"),
 
-					new OrgModel(false, true, "Ancera Test Org", true, "", "ancera"+date0+"@ancera.com", "Select Org Type, Country Code", true,
-							"Click on next button", "", false, false, "AN-OM-10: Verify user cannot create organization with only filling Org Type and Country Code field",
+					new OrgModel( true, "Ancera Test Org", true, "", "ancera"+date0+"@ancera.com", "Select Org Type, Country Code", true,
+							"Click on next button", "",  false, "AN-OM-10: Verify user cannot create organization with only filling Org Type and Country Code field",
 							"This testcase will verify that user cannot create organization with only filling Org Type and Country Code field", "User was not able to create organization with only filling Org Type and Country Code field successfully", "User was able to create organization with only filling Org Type and Country Code field"),
 
-					new OrgModel(false, true, "Ancera Test Org", false, "", "ancera"+date0+"@ancera.com", "Select Org Type, Name and Email", true,
-							"Click on next button", "", false, false, "AN-OM-11: Verify user cannot create organization with only filling Org Type, Email and Name field", 
+					new OrgModel( true, "Ancera Test Org", false, "", "ancera"+date0+"@ancera.com", "Select Org Type, Name and Email", true,
+							"Click on next button", "",  false, "AN-OM-11: Verify user cannot create organization with only filling Org Type, Email and Name field", 
 							"This testcase will verify that user cannot create organization with only filling Org Type, Email and Name field", "User was not able to create organization with only filling Org Type, Email and Name field successfully", "User was able to create organization with only filling Org Type, Email and Name field"),
 
-					new OrgModel(false, true, "Ancera Test Org", true, "6666666666", "", "Fill all fields and leave only email field empty", true,
-							"Click on next button", "", false, false, "AN-OM-12: Verify user cannot create organization with leaving only email field empty",
+					new OrgModel( true, "Ancera Test Org", true, "6666666666", "", "Fill all fields and leave only email field empty", true,
+							"Click on next button", "",  false, "AN-OM-12: Verify user cannot create organization with leaving only email field empty",
 							"This testcase will verify that user cannot create organization with leaving only email field empty", "User was not able to create organization with leaving only email field empty successfully", "User was able to create organization with leaving only email field empty"),
 
-					new OrgModel(false, true, "", true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields and leave only name field empty", true,
-							"Click on next button", "", false, false, "AN-OM-13: Verify user cannot create organization with leaving only name field empty", 
+					new OrgModel( true, "", true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields and leave only name field empty", true,
+							"Click on next button", "",  false, "AN-OM-13: Verify user cannot create organization with leaving only name field empty", 
 							"This testcase will verify that user cannot create organization with leaving only name field empty", "User was not able to create organization with leaving only name field empty successfully", "User was able to create organization with leaving only name field empty"),
 
-					new OrgModel(false, true, "Test Organization"+date0, true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields ", false,
-							"Click on next button", "", false, true, "AN-OM-14: Verify user navigates to step 2 of create organization popup after filling valid data in all fields",
-							"This testcase will verify that user navigates to step 2 of create organization popup after filling valid data in all fields", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields successfully", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields"),
-
-					new OrgModel(false, false, "Ancera Test Org", false, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields and leave role field empty", false,
-							"Click on save button", "5", false, true, "AN-OM-15: Verify user cannot create organization with leaving only role field empty",
-							"This testcase will verify that user cannot create organization with leaving only role field empty", "User was not able to create organization with leaving only role field empty successfully", "User was able to create organization with leaving only role field empty")
+					new OrgModel( true, "Test Organization"+date0, true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields ", false,
+							"Click on next button", "600000",  true, "AN-OM-15: Verify max user limit in Max Users Field",
+							"This testcase will verify max user limit in Max Users Field", "User was not able to create organization after exceeding max user limit in Max Users Field", "User was able to create organization after exceeding max user limit in Max Users Field"),
+					
+					
+					new OrgModel( true, "Test Organization"+date0, true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields ", false,
+							"Click on next button", "",  true, "AN-OM-16: Verify user navigates to step 2 of create organization popup after filling valid data in all fields",
+							"This testcase will verify that user navigates to step 2 of create organization popup after filling valid data in all fields", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields successfully", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields")
 					));
 
 	public static ArrayList<String> lstOrganizationCreate = new ArrayList<>(
@@ -285,18 +273,13 @@ public class Test_Variables {
 					"ancera"+date0+"@ancera.com",  //valid email
 					"100"));
 
-	public static ArrayList<OrgModel> lstOrgSearch = new ArrayList<>(
-			Arrays.asList(
-					new OrgModel("Test Organization"+date0, "AN-OM-21: Verify user can search for created organization", "This test case will verify that user can search for created organization", "1", "Search for created organization", "Organiation searched successfully for valid input", "User was not able to search for created organization"),
-					new OrgModel("invalid input", "AN-OM-22: Verify search using invalid input returns 0 results", "This test case will verify that search using invalid input returns 0 results", "0", "Search using invalid data", "Invalid input returned no result", "Invalid input returned results")));
-
 	public static ArrayList<String> lstOrgAlertMessages = new ArrayList<>(
-			Arrays.asList("New organization created.", 
-					"Organization details updated.",
+			Arrays.asList("New organization has been created successfully", 
+					"Organization details updated successfully",
 					"New site created.",
 					"Site details updated.",
 					"Site details deleted successfully.",
-					"Organization details deleted."));
+					"Organization details deleted successfully."));
 	
 	public static ArrayList<OrgModel> lstOrgBulkSite = new ArrayList<>(
 			Arrays.asList(
@@ -308,6 +291,21 @@ public class Test_Variables {
 					));
 	
 	public static ArrayList<OrgModel> lstOrgBulkSiteUpload = new ArrayList<>();
+	
+	public static ArrayList<OrgModel> lstOrgSearch = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgWildcardSearch = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgDateSearch = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgDateEnter = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgRowCount = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgPagination = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgSorting = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgFieldAccess = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgContexualCheck = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgLock = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgEdit = new ArrayList<>();
+	public static ArrayList<OrgModel> lstOrgValidation = new ArrayList<>();
+	
+	public static String orgCSVFileName = "Organizations Log - ";
 
 	////////////////////////////////////////////////////End Organization Management Screen Variables////////////////////////////////////////////
 	
@@ -342,7 +340,7 @@ public class Test_Variables {
 	
 	public static ArrayList<AgreementManagementModel> lstAgreementManagement = new ArrayList<>(
 			Arrays.asList(
-					new AgreementManagementModel("AN-License-02: Verify user can upload pdf file", "This test case will verify that user can upload pdf file", "User was able to upload pdf file successfully", "User was not able to upload pdf file", "/EULA/sample.pdf", "PNG file", "New user agreement created."),
+					new AgreementManagementModel("AN-License-02: Verify user can upload pdf file", "This test case will verify that user can upload pdf file", "User was able to upload pdf file successfully", "User was not able to upload pdf file", "/EULA/sampleAgreement.pdf", "PNG file", "New user agreement created."),
 					new AgreementManagementModel("AN-License-03: Verify user cannot upload docx file", "This test case will verify that user cannot upload docx file", "User was not able to upload docx file successfully", "User was able to upload docx file", "/EULA/sample.docx", "DOCX file", "Please select pdf file."),
 					new AgreementManagementModel("AN-License-04: Verify user cannot upload xlsx file", "This test case will verify that user cannot upload xlsx file", "User was not able to upload xlsx file successfully", "User was able to upload xlsx file", "/EULA/sample.xlsx", "XLSX file", "Please select pdf file."),
 					new AgreementManagementModel("AN-License-05: Verify user cannot upload csv file", "This test case will verify that user cannot upload csv file", "User was not able to upload csv file successfully", "User was able to upload csv file", "/EULA/sample.csv", "CSV file", "Please select pdf file."),
@@ -364,9 +362,9 @@ public class Test_Variables {
 							));	
 			
 	public static ArrayList<String> lstAgreemmentManagementFileName = new ArrayList<>(
-			Arrays.asList("sample.pdf", 
+			Arrays.asList("sampleAgreement.pdf", 
 					"file"+date0+".pdf",
-					"samplefile"+date0+".pdf"));
+					"sampleAgreementfile"+date0+".pdf"));
 	
 	//////////////////////////////////////////////////////End Agreement Management Variables///////////////////////////////////////////////////////
 	
@@ -561,6 +559,7 @@ public class Test_Variables {
 	public static String SampleMatrix = "AT_SampleMatrix";
 	public static String fileName = "MetaData RunMode1.xlsx";
 	public static String SiteID = "1001001";
+	public static String CollectionDate = "12/12/2021";
 	////////End Sample MetaData Upload Data/////////////////
 
 	public static ArrayList<APIModel> lstSalmonellaIngest = new ArrayList<>(
@@ -635,7 +634,7 @@ public class Test_Variables {
 	public static ArrayList<SitesLogModel> lstSitesLogLock = new ArrayList<>();
 	
 	public static String sitesCSVFileName = "Sites Log - ";
-	public static String sitesCSVAuditFileName = "Sites Audit Log- ";
+	public static String sitesCSVAuditFileName = "Sites Audit Log - ";
 	
 	//////////////////////////////////////////////////////////////////End Sites Log Variables////////////////////////////////////////////////////////////////////////////////
 
@@ -703,13 +702,21 @@ public class Test_Variables {
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreate = new ArrayList<>();
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreateCoccidia = new ArrayList<>();
 	
-	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
-	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
-	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
+//	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
+//	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
+//	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
+	
+	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
+	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
+	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
 	
 //	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
 //	public static String installationImprocVersionCocci = "2.10.3.3";  //uat
 //	public static String installationImprocVersionListeria = "4.0.20.2";  //uat
+	
+//	public static String installationImprocVersionSalm = "4.0.8.2";    //dev
+//	public static String installationImprocVersionCocci = "2.10.4.3";   //dev
+//	public static String installationImprocVersionListeria = "4.0.8.2";   //dev
 	
 	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -727,11 +734,13 @@ public class Test_Variables {
 	/////////////////////////////////////////////////////////////P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 
 	
 	public static ArrayList<PAModel> lstPASalmonella = new ArrayList<>();
-	public static String PA_SampleMatrixSalm = "AT_SampleMatrix";    //Sample Matrix used while ingestion for Salmonella
-	public static String PA_SampleMatrixList = "AT_SampleMatrixListeria"; //Sample Matrix used while ingestion for Listeria
+	public static String PA_SampleMatrixSalm = "AT_SampleMatrix";    //Sample Matrix used while ingestion for Salmonella case 1 (Make sure configuration is already made)
+	public static String PA_SampleMatrixList = "AT_SampleMatrixListeria"; //Sample Matrix used while ingestion for Listeria case 1 (Make sure configuration is already made)
 	public static String PA_SampleMatrixID = "201";   //Sample Matrix ID used while ingestion
-	public static String PA_SampleMatrixIDListeria = "41";
+	public static String PA_SampleMatrixIDListeria = "41";  //Sample Matrix ID used while ingestion
 	public static String PA_ImprocVersion = "4.0.8.2"; //Version set for Sample Matrix in Piper Configuration Setting
+//	public static String PA_ImprocVersionNew = "4.0.8.2"; //Version used for creating new Sample Matrix in Piper Configuration Setting for case 3  //dev
+	public static String PA_ImprocVersionNew = "4.0.26.0"; //Version used for creating new Sample Matrix in Piper Configuration Setting for case 3  //qa
 	public static String PA_Threshold = "1000";  //Sample Matrix threshold set while ingestion in Piper Configuartion Setting
 	public static String PA_fileName = "PA_Config_Sample_Metadata_Upload.xlsx"; //Name of file in directory used to upload Sample MAtrix
 
@@ -757,7 +766,7 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_piperConfiguration, "AN-PS-11: Navigate to Profile Setting from Piper Configuration Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Config Management", "PIPER Configuration Management"),
 					new ProfileModel(Constants.url_dataTemplate, "AN-PS-12: Navigate to Profile Setting from Data Template Screen", "This test case will verify user can navigate to Profile Setting page from Data Template Screen", "1. Hover to sidebar and click on Data Template", "Data Template Management"),
 					new ProfileModel(Constants.url_dataUpload, "AN-PS-13: Navigate to Profile Setting from Data Upload Screen", "This test case will verify user can navigate to Profile Setting page from Data Upload Screen", "1. Hover to sidebar and click on Data Upload", "Data Upload"),
-					new ProfileModel(Constants.url_poultryManagement, "AN-PS-14: Navigate to Profile Setting from Poultry Management Screen", "This test case will verify user can navigate to Profile Setting page from Poultry Management Screen", "1. Hover to sidebar and click on Poultry Management", "Logging and Managemenet"),
+					new ProfileModel(Constants.url_poultryManagement, "AN-PS-14: Navigate to Profile Setting from Poultry Management Screen", "This test case will verify user can navigate to Profile Setting page from Poultry Management Screen", "1. Hover to sidebar and click on Poultry Management", "Logging and Management"),
 					new ProfileModel(Constants.url_reports, "AN-PS-15: Navigate to Profile Setting from Reports Screen", "This test case will verify user can navigate to Profile Setting page from Reports Screen", "1. Hover to sidebar and click on Reports", "Reports"),
 					new ProfileModel(Constants.url_SalmonellaLog, "AN-PS-16: Navigate to Profile Setting from Salmoenella Screen", "This test case will verify user can navigate to Profile Setting page from Salmonella Screen", "1. Hover to sidebar; click on Reports and select Salmonella log Report", "Salmonella Log"),
 					new ProfileModel(Constants.url_CoccidiaLog, "AN-PS-17: Navigate to Profile Setting from Coccidia Log Screen", "This test case will verify user can navigate to Profile Setting page from Coccidia Log Screen", "1. Hover to sidebar; click on Reports and select Coccidia Log", "Coccidia Log"),

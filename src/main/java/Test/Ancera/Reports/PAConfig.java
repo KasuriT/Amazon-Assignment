@@ -18,6 +18,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -51,6 +52,53 @@ public class PAConfig {
 		ConfigureLogin.login();
 	}
 
+	
+	
+	@Test (enabled= false, priority = 1) 
+	public void PAConfigurationgfh() throws InterruptedException, IOException {
+
+		Helper.driver.get(Constants.url_piperConfiguration);	
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Listeria");
+		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);			
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.id("create-mpn")).click();
+
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(2000);
+		Helper.driver.findElement(By.id("dilution-factor-var")).click();
+		Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys("TestSampleMatrix567");
+
+		Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1500);
+		Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("TestSampleMatrix567");
+		Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Keys.ENTER);
+		Thread.sleep(750);
+		Helper.driver.findElement(By.id("ThresholdId")).sendKeys("1000");
+
+		Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+		Thread.sleep(1000);
+		Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
+		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
+
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Test (enabled= true, priority = 1) 
@@ -413,24 +461,24 @@ public class PAConfig {
 						for (int i=0; i<12; i++) {
 
 							String getResultDate = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slDateCol)).getText();
-							cell=worksheet.getRow(i+1).createCell(0); 
+							cell=worksheet.getRow(i+1).createCell(17); 
 							cell.setCellValue(getResultDate);  
 
 							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slLaneCol)).getText();
-							cell=worksheet.getRow(i+1).createCell(1); 
+							cell=worksheet.getRow(i+1).createCell(16); 
 							cell.setCellValue(getLane);  
 
-							cell=worksheet.getRow(i+1).createCell(2); 
+							cell=worksheet.getRow(i+1).createCell(19); 
 							cell.setCellValue(Test_Variables.CartridgeID);
 
 							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+Test_Elements.slResultIDCol)).getText();
-							cell=worksheet.getRow(i+1).createCell(3); 
+							cell=worksheet.getRow(i+1).createCell(0); 
 							cell.setCellValue(getResultID);
 
-							cell=worksheet.getRow(i+1).createCell(5); 
+							cell=worksheet.getRow(i+1).createCell(3); 
 							cell.setCellValue(objModel.SampleMatrix); 
 
-							cell=worksheet.getRow(i+1).createCell(17); 
+							cell=worksheet.getRow(i+1).createCell(4); 
 							cell.setCellValue(objModel.sampleID);  
 							fsIP.close();
 						}
@@ -525,7 +573,7 @@ public class PAConfig {
 					//		str = m.replaceAll("");
 							str = str.replaceAll(",", "");
 							
-							System.out.println("03"+str);
+						//	System.out.println("03"+str);
 							
 							if (objModel.validSampleMatrix) {
 								if (Integer.parseInt(str) <= Integer.parseInt(objModel.ThresholdValue)) {
@@ -541,7 +589,7 @@ public class PAConfig {
 								softAssert.assertEquals(getResult, "Missing Sample Metadata", "W2CellCount: "+str+" | Threshold: "+objModel.ThresholdValue);
 							}
 
-							System.out.println("02"+str);
+					//		System.out.println("02"+str);
 							
 							WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 							Actions builder = new Actions(Helper.driver);
@@ -599,10 +647,10 @@ public class PAConfig {
 							Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
 							Thread.sleep(1000);
 							Helper.driver.findElement(By.id("create-mpn")).click();
-
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(2000);
+							
 							if (objModel.pathogen.equals("Listeria")) {
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(2000);
 								Helper.driver.findElement(By.id("dilution-factor-var")).click();
 								Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys(objModel.SampleMatrix);
 
@@ -610,14 +658,17 @@ public class PAConfig {
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Thread.sleep(1500);
 								Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(objModel.SampleMatrix);
+								Thread.sleep(750);
 								Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
 								Thread.sleep(750);
-								Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.slImprocVersion);
+								Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Keys.ENTER);
-								Thread.sleep(750);
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.id("ThresholdId")).sendKeys(objModel.ThresholdValue);
-
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 								Thread.sleep(1000);
 								softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
@@ -626,8 +677,6 @@ public class PAConfig {
 							}
 
 							if (objModel.pathogen.equals("Salmonella")) {
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(2000);
 								Helper.driver.findElement(By.id("dilution-factor-var")).click();
 								Helper.driver.findElement(By.id("newSampleMatrix3LId")).sendKeys(objModel.SampleMatrix);
 
@@ -637,7 +686,8 @@ public class PAConfig {
 								Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(objModel.SampleMatrix);
 								Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
 								Thread.sleep(750);
-								Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.slImprocVersion);
+								Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Keys.ENTER);
 								Thread.sleep(750);
 								Helper.driver.findElement(By.id("ThresholdPAId")).sendKeys(objModel.ThresholdValue);
@@ -661,6 +711,7 @@ public class PAConfig {
 								Thread.sleep(750);
 
 								Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 								Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 								Thread.sleep(1000);
 								softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "MPN & P/A Configuration saved successfully.");
@@ -701,7 +752,7 @@ public class PAConfig {
 
 							Helper.driver.findElement(By.id("sampleId_apply")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1500);			
+							Thread.sleep(2000);			
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
 
 							for (int x=0; x<12; x++) {

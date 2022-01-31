@@ -10,28 +10,29 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.Test;
-
-import com.aventstack.extentreports.gherkin.model.Scenario;
 
 public class Test_Functions {
 
-	
-
-	public static void OrgSearch() throws InterruptedException {
-
-		Thread.sleep(2000);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgSearch)));
-		Helper.driver.findElement(By.id("organSearchId")).clear();
-		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
-		//	Helper.driver.findElement(By.id("organSearchId")).sendKeys("Test Organization0447");
-		Helper.driver.findElement(By.id("organSearchId")).sendKeys(Keys.ENTER);
-		Thread.sleep(3000);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.orgExpandAnceraTab)));
-		Helper.driver.findElement(By.xpath(Test_Elements.orgExpandAnceraTab)).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(3000);
-
+	public static void searchOrg() throws InterruptedException {
+		Helper.driver.get(Constants.url_user);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(1000);
+		Helper.driver.findElement(Test_Elements.usercreateButton).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(1500);
+		Helper.driver.findElement(Test_Elements.userFirstNameInput).sendKeys("Test");    
+		Helper.driver.findElement(Test_Elements.userLastNameInput).sendKeys("User");  
+		Helper.driver.findElement(Test_Elements.popupNextButton).click();
+		Thread.sleep(1000);
+		Helper.driver.findElement(Test_Elements.userOrgTypeDropDownExpand).click();
+		Thread.sleep(500);
+		Helper.driver.findElement(Test_Elements.userOrgTypeInput).sendKeys("Ancera");
+		Helper.driver.findElement(Test_Elements.userOrgTypeInput).sendKeys(Keys.ENTER);
+		
+		Helper.driver.findElement(Test_Elements.userOrgDropDownExpand).click();
+		Thread.sleep(500);			
+		Helper.driver.findElement(Test_Elements.userOrgInput).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
+		Thread.sleep(500);
 	}
 
 

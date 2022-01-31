@@ -56,6 +56,37 @@ public class RawImageCoccidia {
 			try{
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
+
+					if (objModel.isInstallationRunConfigure) {
+						Helper.driver.get(Constants.url_piperConfiguration);			
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(1000);
+						for (int i = 1; i<=100; i++) {
+							if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
+								if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(Test_Variables.installationImprocVersionCocci)) {
+									Thread.sleep(1000);
+									Helper.driver.findElement(By.id("edit-installation-"+i)).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(1500);
+									break;
+								}
+							}
+						}
+
+						Helper.driver.findElement(By.id("MinMeanVal")).clear();
+						Helper.driver.findElement(By.id("MinMeanVal")).sendKeys("1");
+						Helper.driver.findElement(By.id("MaxMeanVal")).clear();
+						Helper.driver.findElement(By.id("MaxMeanVal")).sendKeys("2000");
+						Helper.driver.findElement(By.id("MinStdVal")).clear();
+						Helper.driver.findElement(By.id("MinStdVal")).sendKeys("1");
+						Helper.driver.findElement(By.id("MaxStdVal")).clear();
+						Helper.driver.findElement(By.id("MaxStdVal")).sendKeys("2000");
+						Helper.driver.findElement(By.id("MinStdVal")).click();
+						Helper.driver.findElement(By.id("btn-save")).click();
+						Thread.sleep(2000);
+					}
+
+
 					DateFormat dateFormat = new SimpleDateFormat("mm.ss");
 					Date date1 = new Date();
 					dateFormat.format(date1);
@@ -132,7 +163,7 @@ public class RawImageCoccidia {
 
 							String data4 = response3.asString();
 							System.out.println(data4);
-							Thread.sleep(150000);
+							Thread.sleep(10000);
 						}
 						catch(AssertionError er) {
 							Test_Variables.test.fail("Start Assay API failed");
@@ -148,15 +179,15 @@ public class RawImageCoccidia {
 
 
 					/////////////////////////////////////////////////////////Raw Image API////////////////////////////////////////////////////////////////////////////////
-			
+
 					DateFormat dateFormat1 = new SimpleDateFormat("HH:mm:ss");
 					Date dateR = new Date();
 					String date = dateFormat1.format(dateR);
-					
+
 					DateFormat dateFormat3 = new SimpleDateFormat("hh:mm a");
 					Date dateRI = new Date();
 					String dateRIT = dateFormat3.format(dateRI);
-									
+
 					try{
 						Test_Variables.test = Test_Variables.extent.createTest("AN-RawImage-"+objModel.lane+": Ingest Coccidia Raw Image run for lane "+objModel.lane, "This test case will verify "+objModel.pathogen+" Raw Image");	
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -175,7 +206,7 @@ public class RawImageCoccidia {
 						HttpGet postRequest1 = new HttpGet(Constants.api_RawImage);
 						postRequest1.addHeader("Content-Type", "application/json");
 						postRequest1.addHeader("Authorization", "Bearer "+token);
-						
+
 						System.out.println("Cartridge-ID Raw Image: "+objModel.cartridgeID);
 						System.out.println("Run-ID Raw Image: "+objModel.run_id);
 						json3.put("cartridgeId", objModel.cartridgeID);
@@ -217,7 +248,7 @@ public class RawImageCoccidia {
 						Response response2 = request_fileupload.post(Constants.api_RawImage);
 						String data3 = response2.asString();
 						System.out.println(data3);
-						
+
 						Test_Variables.test.pass("Raw Image API ran successfully");
 						Test_Variables.results.createNode("Raw Image API ran successfully");
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.RawImageReportPath, null);
@@ -257,9 +288,6 @@ public class RawImageCoccidia {
 							ClickElement.clickById(Helper.driver, "sampleId_show-filter");			
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("sampleId_view-all")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);
 							Test_Variables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
 							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
@@ -291,14 +319,22 @@ public class RawImageCoccidia {
 								Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
 								String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clAssayCol+" label")).getText();
 								softAssert.assertEquals(getPathogen, objModel.pathogen);
-								
+
 								Test_Variables.steps.createNode("Verify Time is updated in table for lane" +lane);
 								String getTime = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
-							//	softAssert.assertEquals(getTime, dateRIT);
+								//	softAssert.assertEquals(getTime, dateRIT);
 
-								Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
-								String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
-								softAssert.assertEquals(getQCCode, objModel.countOutcome);
+								if (!objModel.isInstallationRunConfigure) {
+									Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
+									String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
+									softAssert.assertEquals(getQCCode, objModel.countOutcome);
+								}
+
+								if (objModel.isInstallationRunConfigure) {
+									Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
+									String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
+									softAssert.assertEquals(getQCCode, "PASS");
+								}
 
 								if (objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Result is displayed in table for lane" +lane);
@@ -361,10 +397,18 @@ public class RawImageCoccidia {
 								Test_Variables.steps.createNode("Verify Time is displayed in Audit log for lane" +lane);
 								String getAuditTime = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTimeCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTime, getTime);
-								
-								Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
-								String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
-								softAssert.assertEquals(getAuditQCCode, objModel.countOutcome);
+
+								if (!objModel.isInstallationRunConfigure) {
+									Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
+									String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
+									softAssert.assertEquals(getAuditQCCode, objModel.countOutcome);
+								}
+
+								if (objModel.isInstallationRunConfigure) {
+									Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
+									String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
+									softAssert.assertEquals(getAuditQCCode, "PASS");
+								}
 
 								Test_Variables.steps.createNode("Verify Cartridge ID is displayed in Audit log for lane" +lane);
 								String getAuditCartridgeId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditCartridgeIDCol+".text-dark")).getText();

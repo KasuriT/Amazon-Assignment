@@ -52,7 +52,7 @@ public class PoultryManagement {
 			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
 			Test_Variables.steps.createNode("2. Click on MetaData and select Poultry Management");
 
-			Assert.assertEquals(Helper.driver.findElement(By.id("Logging and Management")).getText(), "Logging and Management"); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("Logging and Management")).getText(), "Logging and Management"); 		
 			Test_Variables.test.pass("User navigated successfully");
 			Test_Variables.results.createNode("User navigates to Poultry Management Screen");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -88,10 +88,11 @@ public class PoultryManagement {
 
 			Test_Variables.steps.createNode("1. Verify table headings");
 
-			//softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(1) label")).getText(), "Management Type"); 
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(1) .d-flex label")).getText(), "Management Type"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(2) label")).getText(), "Start Date"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(3) label")).getText(), "End Date"); 
-			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(4) label")).getText(), "Note"); 
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(4) label")).getText(), "Sites"); 
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(5) label")).getText(), "Note"); 
 			Test_Variables.test.pass("Table contents verified successfully");
 			Test_Variables.results.createNode("Table contents verified successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -113,7 +114,6 @@ public class PoultryManagement {
 
 	@Test (enabled= true, priority = 3) 
 	public void CreateFeed() throws InterruptedException, IOException {
-
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-03: Verify user can create feed intervention", "This test case will verify that user can create feed intervention");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -133,9 +133,9 @@ public class PoultryManagement {
 			Helper.driver.findElement(By.cssSelector(".d-inline-block")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("create-treatment")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
 			Thread.sleep(3000);
-			//ClickElement.clickByCss(Helper.driver, "app-create-intervention:nth-child(1) > form:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > label:nth-child(2)");
 			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[1]/div[2]/div/div/label")).click();
 			Thread.sleep(2000);
 
@@ -143,16 +143,26 @@ public class PoultryManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.xpath(Test_Elements.poultryStartDateSelect)).click();
 			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("FeedNote")).sendKeys("Feed Notes - "+Test_Variables.date0);
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-save-feed")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Feed details saved successfully");
+			Thread.sleep(3500);
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					Assert.assertFalse(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), "Sites displayed empty");
+					break;
+				}
+			}
+	
 			Test_Variables.test.pass("Feed details saved successfully");
 			Test_Variables.results.createNode("Feed details saved successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 		}
-
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Feed details failed to save");
 			Test_Variables.results.createNode("Feed details failed to save");
@@ -181,7 +191,16 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("5. Create feed intervention");
 
 			Test_Variables.steps.createNode("1. Verify active heartbeat icon next to created feed");
-			Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
+			
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					int j=i-1;
+					Assert.assertEquals(Helper.driver.findElements(By.id("live-icon-"+j)).size(), 1);		
+					break;
+				}
+			}
+			
+		//	Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
 			Test_Variables.test.pass("Heartbeat icon displayed next to active feed successfully");
 			Test_Variables.results.createNode("Heartbeat icon displayed next to active feed successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -214,30 +233,34 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
 			Test_Variables.preconditions.createNode("5. Create feed intervention without adding End icon");
 
-			Test_Variables.steps.createNode("1. Verify End icon");
-			Assert.assertEquals(Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td:nth-child(3) img")).size(), 1);	
-			Test_Variables.steps.createNode("2. Verify current date appears on clicking end date");
-			Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
-			Test_Variables.test.pass("Heartbeat icon displayed next to active feed successfully");
-			Test_Variables.results.createNode("Heartbeat icon displayed next to active feed successfully");
+			Test_Variables.steps.createNode("1. Verify End icon appears when end date is not given");
+			
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					Assert.assertEquals(Helper.driver.findElements(By.cssSelector("tr:nth-child("+i+") td:nth-child(3) img")).size(), 1);	
+					break;
+				}
+			}
+			
+			Test_Variables.test.pass("End Icon displayed successfully");
+			Test_Variables.results.createNode("End Icon displayed successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
-			Test_Variables.test.fail("Heartbeat icon failed to display next to active feed");
-			Test_Variables.results.createNode("Heartbeat icon failed to display next to active feed");
+			Test_Variables.test.fail("End Icon failed to display");
+			Test_Variables.results.createNode("End Icon failed to display");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			Test_Variables.test.fail("Heartbeat icon failed to display next to active feed");
-			Test_Variables.results.createNode("Heartbeat icon failed to display next to active feed");
+			Test_Variables.test.fail("End Icon failed to display");
+			Test_Variables.results.createNode("End Icon failed to display");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
 		}
 	}
 
 	@Test (enabled= true, priority = 6) 
 	public void UpdateFeed() throws InterruptedException, IOException {
-
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-06: Verify user can update feed intervention", "This test case will verify that user can update feed intervention");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -254,20 +277,26 @@ public class PoultryManagement {
 
 			Test_Variables.steps.createNode("1. Click on edit icon next to created feed and update it");
 
-			Helper.driver.findElement(By.id("edit-treatment-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
-			Thread.sleep(3000);
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					Helper.driver.findElement(By.id("edit-treatment-"+i)).click();				
+					break;
+				}
+			}
+			
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("WD1Day")).sendKeys("100");;
 			Helper.driver.findElement(By.id("btn-save-feed")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Feed details saved successfully");
 			Test_Variables.test.pass("Feed details updated successfully");
 			Test_Variables.results.createNode("Feed details updated successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 		}
-
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Feed details failed to update");
 			Test_Variables.results.createNode("Feed details failed to update");
@@ -281,12 +310,10 @@ public class PoultryManagement {
 	}
 
 
-
 	@Test (enabled= true, priority = 7) 
 	public void CreateTreatment() throws InterruptedException, IOException {
-
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-07: Verify user can create feed intervention", "This test case will verify that user can create feed intervention");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-07: Verify user can create treatment intervention", "This test case will verify that user can create feed intervention");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -296,19 +323,16 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
 
-			Helper.driver.navigate().refresh();
+			Helper.driver.get(Constants.url_poultryManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector(".d-inline-block")).click();
 			Thread.sleep(1000);
-
 
 			Test_Variables.steps.createNode("1. Select site and click on create new button");
 			Test_Variables.steps.createNode("2. Select treatment from radio button");
 			Test_Variables.steps.createNode("3. Enter valid data in all mandatory fields and click on save button");
-			//	Helper.driver.findElement(By.id("site-1")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("create-treatment")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
@@ -334,14 +358,25 @@ public class PoultryManagement {
 			Helper.driver.findElement(By.xpath("//input[@placeholder='Brand Name']")).sendKeys(Keys.ARROW_DOWN);
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.xpath("//input[@placeholder='Brand Name']")).sendKeys(Keys.ENTER);		
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			
-			Helper.driver.findElement(By.id("Note")).sendKeys("Treatment Notes #"+Test_Variables.date0);
-			Thread.sleep(500);
+			Helper.driver.findElement(By.id("Note")).sendKeys("Treatment Notes - "+Test_Variables.date0);
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-save")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Treatment details saved successfully");
+			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
+			Thread.sleep(3500);
+		
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Notes - "+Test_Variables.date0)) {
+					Assert.assertFalse(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), "Sites displayed empty");
+					break;
+				}
+			}
+			
 			Test_Variables.test.pass("Treatment details saved successfully");
 			Test_Variables.results.createNode("Treatment details saved successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -375,7 +410,17 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("5. Create treatment intervention");
 
 			Test_Variables.steps.createNode("1. Verify active heartbeat icon next to created treatment");
-			Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
+			
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					int j=i-1;
+					Assert.assertEquals(Helper.driver.findElements(By.id("live-icon-"+j)).size(), 1);
+					break;
+				}
+			}
+			
+			
+			//Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
 			Test_Variables.test.pass("Heartbeat icon displayed next to active treatment successfully");
 			Test_Variables.results.createNode("Heartbeat icon displayed next to active treatment successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -419,7 +464,7 @@ public class PoultryManagement {
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
 			for (int i = 1; i<=rows; i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) ")).getText().equals("Treatment Notes #"+Test_Variables.date0)) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5) ")).getText().equals("Treatment Notes - "+Test_Variables.date0)) {
 					Helper.driver.findElement(By.id("edit-treatment-"+i)).click();
 					break;
 				}
@@ -429,7 +474,7 @@ public class PoultryManagement {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("Note")).clear();
-			Helper.driver.findElement(By.id("Note")).sendKeys("Update treatment"+Test_Variables.date0);
+			Helper.driver.findElement(By.id("Note")).sendKeys("Treatment Notes Updated - "+Test_Variables.date0);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
@@ -477,7 +522,7 @@ public class PoultryManagement {
 			Helper.driver.findElement(By.id("interventionName_apply")).click();
 
 			for (int i = 1; i< Helper.driver.findElements(By.id("#poultry-grid tr")).size(); i++) {
-				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid tr:nth-child(1) td:nth-child(1) label")).getText(), "feed");
+				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid tr:nth-child("+i+") td:nth-child(1) label")).getText(), "feed");
 			}
 			Helper.driver.findElement(By.id("interventionName}_clear-filter")).click();
 
@@ -521,7 +566,7 @@ public class PoultryManagement {
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
 			for (int i = 1; i<=rows; i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) ")).getText().equals("Update treatment"+Test_Variables.date0)) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5) ")).getText().equals("Treatment Notes Updated - "+Test_Variables.date0)) {
 					Helper.driver.findElement(By.id("delete-treatment-"+i)).click();
 					break;
 				}
@@ -572,11 +617,12 @@ public class PoultryManagement {
 
 			Test_Variables.preconditions.createNode("1. Click on delete icon next to created feed and delete it");
 
-//			WebElement element = Helper.driver.findElement(By.id("delete-treatment-1"));
-//			((JavascriptExecutor) Helper.driver).executeScript("arguments[0].scrollIntoView(true);", element);
-//			Thread.sleep(500); 
-			
-			Helper.driver.findElement(By.id("delete-treatment-1")).click();
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					Helper.driver.findElement(By.id("delete-treatment-"+i)).click();	
+					break;}
+			}
+				
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-yes")).click();

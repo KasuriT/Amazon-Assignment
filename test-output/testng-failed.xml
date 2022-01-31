@@ -3,13 +3,19 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.UserManagement">
+      <class name="Test.Ancera.Administration.AccessManagement">
         <methods>
-          <include name="ReportRole"/>
-          <include name="endreport"/>
+          <include name="EditRightsScreen"/>
+          <include name="RoleAssignScreen"/>
+          <include name="RoleAssignScfreen"/>
+          <include name="UpdateRole"/>
           <include name="extent"/>
+          <include name="InActivateRole"/>
+          <include name="endreport"/>
+          <include name="CreateAccess"/>
+          <include name="VerifyUpdateRole"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.UserManagement -->
+      </class> <!-- Test.Ancera.Administration.AccessManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

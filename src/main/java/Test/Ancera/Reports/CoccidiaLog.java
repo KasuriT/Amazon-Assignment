@@ -1,6 +1,7 @@
 package Test.Ancera.Reports;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,6 +32,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 
 import Models.ReportFilters;
 import Models.CoccidiaModel;
@@ -375,7 +378,7 @@ public class CoccidiaLog {
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.clShowFilter)).click();			
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(1000);						                    
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 								Assert.assertTrue(true, "No records available to test filter");
 								Test_Variables.test.skip("No records available to test filter");
 								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
@@ -437,7 +440,7 @@ public class CoccidiaLog {
 							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(1000);
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 								Test_Variables.test.skip("No records available to test filter");
 								Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
 								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.clShowFilter)).click();
@@ -864,7 +867,7 @@ public class CoccidiaLog {
 						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(1000);
-						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 							Test_Variables.test.skip("Values not enough to test lock filter functionality");
 							Test_Variables.results.createNode("Values not enough to test lock filter functionality");
 							Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
@@ -1490,6 +1493,7 @@ public class CoccidiaLog {
 	}
 
 
+	@SuppressWarnings({ "resource", "unused" })
 	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
@@ -1541,6 +1545,43 @@ public class CoccidiaLog {
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
 
+			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename);
+			if(file.exists()){
+				System.out.println("File Exists");
+			}	
+
+			SoftAssert softAssert = new SoftAssert();
+			FileReader filereader = new FileReader(file);
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			StringBuffer buffer = new StringBuffer();
+			String data[];		    				
+
+			int columnsCountTotal = 0;
+			int rowsCount = 1;
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+
+					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+					if (rowsCount < rows) {
+
+						int totalColumns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
+						
+						int columnsCount = columnsCountTotal+3;
+						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						}
+						else {
+							rowsCount = rowsCount+1;
+							columnsCount =0;
+							columnsCountTotal = -1;
+						}
+						columnsCountTotal++;
+					}
+				}
+			}
+			
+				
 			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
 			long lines = 0;
 			try {
@@ -1556,7 +1597,7 @@ public class CoccidiaLog {
 			str = str.replace(",", "");
 			Assert.assertEquals(s, str);
 
-			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
+			file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
 				System.out.println("CSV file deleted");
 		}

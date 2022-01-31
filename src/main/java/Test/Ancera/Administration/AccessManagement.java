@@ -276,8 +276,6 @@ public class AccessManagement{
 			Test_Variables.test.pass("Role updated successfully");
 			Test_Variables.results.createNode("Role updated; user receives an alert message that 'Role details updated.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Thread.sleep(1000);
-
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Role fails to update; user does not receive an alert message that 'Role details updated.'");
@@ -288,7 +286,8 @@ public class AccessManagement{
 			Test_Variables.test.fail("Role fails to update; user does not receive an alert message that 'Role details updated.'");
 			Test_Variables.results.createNode("Role fails to update; user does not receive an alert message that 'Role details updated.'");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
-		}			
+		}	
+		Helper.driver.findElement(By.cssSelector("button.close span")).click();
 	}
 
 
@@ -301,7 +300,6 @@ public class AccessManagement{
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 			Thread.sleep(1000);		
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Test_Functions.AccessFind();
 			Thread.sleep(1500);  
 
@@ -372,7 +370,6 @@ public class AccessManagement{
 			Test_Variables.results.createNode("User receives an alert message that 'Role details updated'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Thread.sleep(1000);
-			ClickElement.clickByCss(Helper.driver, ".close");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("User does not receives an alert message that 'Role details updated'");
@@ -383,7 +380,8 @@ public class AccessManagement{
 			Test_Variables.test.fail("User does not receives an alert message that 'Role details updated'");
 			Test_Variables.results.createNode("User does not receives an alert message that 'Role details updated'");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
-		}		
+		}	
+		Helper.driver.findElement(By.cssSelector("button.close span")).click();
 	}
 
 
@@ -1012,8 +1010,8 @@ public class AccessManagement{
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.xpath(Test_Elements.orgSite1Add)).size(), 0);
-			Helper.driver.findElement(By.xpath(Test_Elements.orgSite1Text)).click();
+			Assert.assertEquals(Helper.driver.findElements(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[1]/img")).size(), 0);
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[1]/img")).click();
 			Thread.sleep(2000);
 			Assert.assertEquals(Helper.driver.findElements(By.id("btn-save")).size(), 0);
 

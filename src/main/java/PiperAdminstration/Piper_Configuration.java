@@ -95,11 +95,14 @@ public class Piper_Configuration {
 		Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys(Keys.ENTER);
 		Helper.driver.findElement(By.id("create-installation-run")).click();
 		Thread.sleep(2000);
-		Helper.driver.findElement(By.cssSelector("#ImprocName .ng-arrow-wrapper")).click();
-		Helper.driver.findElement(By.cssSelector("#ImprocName input")).sendKeys(Keys.ENTER);
+		Helper.driver.findElement(By.cssSelector("#ImprocName img")).click();
 		Thread.sleep(1000);
-		Helper.driver.findElement(By.cssSelector("#ImprocVersion .ng-arrow-wrapper")).click();
-		Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Keys.ENTER);	
+		Helper.driver.findElement(By.cssSelector("#ImprocName ul")).click();
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.cssSelector("#ImprocVersion img")).click();
+		Thread.sleep(1000);
+		Helper.driver.findElement(By.cssSelector("#ImprocVersion ul li:nth-child(1)")).click();	
 		Thread.sleep(1000);
 
 		for (PiperConfigurationModel objModel : Test_Variables.lstPiperConfigurationCreate) { 
@@ -171,11 +174,12 @@ public class Piper_Configuration {
 						{
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 							Thread.sleep(1500);
-							String message = Helper.driver.findElement(By.id("message")).getText();
+							String message = Helper.driver.findElement(Test_Elements.alertMessage).getText();
 							Assert.assertEquals(message, "Installation Run Configuration saved successfully");
-							Helper.driver.findElement(By.cssSelector(".close span")).click();
+							System.out.println("1");
+							Helper.driver.findElement(Test_Elements.alertMessageClose).click();
+							System.out.println("2");
 						}
-
 						Thread.sleep(1000);
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);
@@ -200,8 +204,6 @@ public class Piper_Configuration {
 
 	@Test (enabled= true, priority = 3) 
 	public void UpdatePiperConfig() throws InterruptedException, IOException {
-
-
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-04: Verify dropdowns are disabled in update mode", "This testcase will verify that dropdowns are disabled in update mode");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -215,10 +217,7 @@ public class Piper_Configuration {
 			Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
 
-
 			for (int i = 1; i<=1000; i++) {
-				//	String a =	Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText();
-				//	System.out.println(a +" 1"+Test_Variables.date0);
 				Thread.sleep(1000);
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText().equals("1"+Test_Variables.date0)) {
 					Thread.sleep(1000);
@@ -230,12 +229,12 @@ public class Piper_Configuration {
 				}
 			}
 
-			Assert.assertTrue(Helper.driver.findElements(By.cssSelector(".disable-cursor-NgSelect ")).size() == 2);
+			Assert.assertTrue(Helper.driver.findElements(By.cssSelector("#ImprocName.cursor-not-allowed")).size() == 1);
+			Assert.assertTrue(Helper.driver.findElements(By.cssSelector("#ImprocVersion.cursor-not-allowed")).size() == 1);
 			Test_Variables.test.pass("Dropdowns were disabled in update mode");
 			Test_Variables.results.createNode("Dropdowns were disabled in update mode");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
-
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Dropdowns were not disabled in update mode");
 			Test_Variables.results.createNode("Dropdowns were not disabled in update mode");
@@ -266,6 +265,7 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Installation Run Configuration saved successfully");
+			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			Test_Variables.test.pass("Installation Run Configuration updated successfully");
 			Test_Variables.results.createNode("Installation Run Configuration updated successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
@@ -311,14 +311,14 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-yes")));
 			Helper.driver.findElement(By.id("btn-yes")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Thread.sleep(1500);
 			String message = Helper.driver.findElement(By.id("message")).getText();
 			Assert.assertEquals(message, "Installation Run Configuration details deleted.");
-
+			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			Test_Variables.test.pass("Piper configuration deleted successfully");
 			Test_Variables.results.createNode("Piper configuration deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
-
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Piper configuration failed to delete");
 			Test_Variables.results.createNode("Piper configuration failed to delete");
@@ -328,7 +328,6 @@ public class Piper_Configuration {
 			Test_Variables.results.createNode("Piper configuration failed to delete");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PiperConfigurationReportPath, ex);
 		}
-
 	}
 
 	@AfterTest
@@ -336,5 +335,4 @@ public class Piper_Configuration {
 		Test_Variables.extent.flush();
 		//	Helper.driver.close();
 	}
-
 }

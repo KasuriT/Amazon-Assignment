@@ -211,7 +211,6 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 
 
 		try{
-
 			SoftAssert softAssert = new SoftAssert();
 
 			for (int x = 0;x<=100;x++) {
@@ -225,10 +224,10 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 				while (rs1.next()) {
 					System.out.println("Count: "+rs1.getString("count"));
 
-					if (rs1.getString("count").equals("9")) {
+					if (rs1.getString("count").equals("16")) {
 
 						int i = 1;
-						while (i<=9) {
+						while (i<=16) {
 							System.out.println("'"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'");
 							String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'";
 							//String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_1457'";
@@ -295,6 +294,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 		{
 			e.printStackTrace();
 		}
+		
 	}
 
 

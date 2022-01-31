@@ -91,7 +91,7 @@ public class UserManagement {
 
 
 	@Test (enabled= true, priority= 2) 
-	public void OpenPopup() throws InterruptedException, IOException {
+	public void OpenClosePopup() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-02: Verify user can open and close Create New User Popup", "This test case will verify that user is able to open and close create new user popup");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -138,8 +138,8 @@ public class UserManagement {
 
 	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 3) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_user);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		//Helper.driver.get(Constants.url_user);
+	    //Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 
 		Helper.driver.findElement(By.id("create-user")).click();
@@ -163,10 +163,10 @@ public class UserManagement {
 				Helper.driver.findElement(By.id("btn-reset")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				Thread.sleep(1000);
-				Helper.driver.findElement(By.cssSelector("#firstNameId input:nth-child(1)")).clear();
-				Helper.driver.findElement(By.cssSelector("#firstNameId input:nth-child(1)")).sendKeys(objModel.userFirstName);
-				Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).clear();
-				Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).sendKeys(objModel.userLastName);	
+				Helper.driver.findElement(By.cssSelector("#firstNameId")).clear();
+				Helper.driver.findElement(By.cssSelector("#firstNameId")).sendKeys(objModel.userFirstName);
+				Helper.driver.findElement(By.cssSelector("#lastNameId")).clear();
+				Helper.driver.findElement(By.cssSelector("#lastNameId")).sendKeys(objModel.userLastName);	
 				Thread.sleep(1000);
 
 				if (objModel.userPhoneCode)
@@ -190,13 +190,13 @@ public class UserManagement {
 
 					if ( objModel.userFirstName.isEmpty())
 					{
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#firstNameId .anc-form-floating__error")).size(), 1); 
+						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#firstNameId .hide")).size(), 0); 
 					}
 
 
 					if ( objModel.userLastName.isEmpty())
 					{
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#lastNameId .anc-form-floating__error")).size(), 1); 
+						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#lastNameId .hide")).size(), 0); 
 					}			
 
 					Test_Variables.test.pass(objModel.passScenario);
@@ -229,7 +229,7 @@ public class UserManagement {
 
 				if (objModel.userOrganizationType)
 				{
-					Helper.driver.findElement(By.id("#orgTypeId .ng-arrow-wrapper")).click();
+					Helper.driver.findElement(By.cssSelector("#orgTypeId .ng-arrow-wrapper")).click();
 					Thread.sleep(500);
 					Helper.driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys("Ancera");
 					Helper.driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
@@ -237,7 +237,7 @@ public class UserManagement {
 
 				if (objModel.userOrganization)
 				{
-					Helper.driver.findElement(By.id("#organizationId .ng-arrow-wrapper")).click();
+					Helper.driver.findElement(By.cssSelector("#organizationId .ng-arrow-wrapper")).click();
 					Thread.sleep(500);
 					Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys("Ancera");
 					Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
@@ -296,7 +296,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Exceptional Flow: Reset fields", enabled= false, priority= 4, dependsOnMethods = {"MandatoryFieldCheck"}) 
+	@Test (description="Exceptional Flow: Reset fields", enabled= true, priority= 4, dependsOnMethods = {"MandatoryFieldCheck"}) 
 	public void ResetButton() throws InterruptedException, IOException {
 
 		try {
@@ -315,16 +315,16 @@ public class UserManagement {
 			Helper.driver.findElement(By.id("btn-reset")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			WebElement usrFirstName = Helper.driver.findElement(By.id("firstNameId"));
+			WebElement usrFirstName = Helper.driver.findElement(By.cssSelector("#firstNameId"));
 			String firstNameReset = usrFirstName.getAttribute("value");
-			usrFirstName.sendKeys(Test_Variables.lstUserCreate.get(0));
+			usrFirstName.sendKeys("Ancera Test");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-reset")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 
-			Assert.assertTrue(firstNameReset.isEmpty());
+			Assert.assertEquals(firstNameReset, "");
 			Test_Variables.test.pass("Fields reset successfully");
 			Test_Variables.results.createNode("Fields reset successfully");	
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
@@ -360,7 +360,7 @@ public class UserManagement {
 
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
+			Thread.sleep(1000);
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
 					Helper.driver.findElement(By.id("delete-user-"+i)).click();
@@ -373,16 +373,22 @@ public class UserManagement {
 
 			Helper.driver.findElement(By.id("create-user")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			Helper.driver.findElement(By.cssSelector("#firstNameId input:nth-child(1)")).sendKeys(Test_Variables.lstUserCreate.get(0));    
-			Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).sendKeys(Test_Variables.lstUserCreate.get(1));  
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#firstNameId")).sendKeys("Ancera Test");    
+			Helper.driver.findElement(By.cssSelector("#lastNameId")).sendKeys("User");  
 			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(750);
-			Helper.driver.findElement(By.cssSelector("#emailId input:nth-child(1)")).sendKeys(Test_Variables.createUserEmail);  
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#emailId")).sendKeys(Test_Variables.createUserEmail);  
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys("Ancera");
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys("Ancera");
+			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("btn-next")).click(); 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -392,7 +398,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.xpath("//*[@id=\"rolesId\"]//div[2]/input")).sendKeys(Keys.ENTER);
 			Helper.driver.findElement(By.id("btn-save")).click();    
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstUserAlertMessages.get(0)); 
 			Test_Variables.test.pass("New User created successfully");
 			Test_Variables.results.createNode("New User created successfully");
@@ -441,7 +447,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.id("Email")).sendKeys(Keys.ENTER);			
 		}
 
-		Thread.sleep(1500);
+		Thread.sleep(6500);
 		Helper.driver.findElement(By.xpath(Test_Elements.gmailPassword)).sendKeys(Test_Variables.createUserPassword);
 		Helper.driver.findElement(By.xpath(Test_Elements.gmailPassword)).sendKeys(Keys.ENTER);
 
@@ -465,7 +471,7 @@ public class UserManagement {
 		}
 
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Create Password")));
-
+		Thread.sleep(1000);
 		if (Helper.driver.findElement(By.linkText("Create Password")).getText().equals("Create Password")) {
 
 			Test_Variables.test.pass("Reset password email received successfully");
@@ -518,11 +524,17 @@ public class UserManagement {
 			Helper.driver.findElement(By.id("rePassordId")).sendKeys(Test_Variables.createUserPassword);
 			Helper.driver.findElement(By.cssSelector("button.apl-btn")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(4000);
+			Thread.sleep(3000);
+			
+			Helper.driver.findElement(By.id("logout")).click();
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
+			Helper.driver.findElement(By.id("email")).sendKeys(Test_Variables.createUserEmail);
+			Helper.driver.findElement(By.id("pwd")).sendKeys(Test_Variables.createUserPassword);
+			Helper.driver.findElement(By.id("btn-sign-in")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);	
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
-
-			Assert.assertTrue(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).isDisplayed());
+			Assert.assertTrue(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).isDisplayed(), "New user wa not able to login into application");
 			Test_Variables.test.pass("Password was reset; user logged in successfully");
 			Test_Variables.results.createNode("Password was reset; user logged in successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
@@ -573,6 +585,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ENTER);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User details updated.");
 			Helper.driver.get(Constants.url_reports);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -598,9 +611,9 @@ public class UserManagement {
 
 
 	@Test (enabled= true, priority= 9) 
-	public void VerifySitesAccess() throws InterruptedException, IOException {
+	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -609,8 +622,8 @@ public class UserManagement {
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
 			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
-			Test_Variables.steps.createNode("1. Assign sites to new user");
-			Test_Variables.steps.createNode("2. Verify Active in Sites column");
+			Test_Variables.steps.createNode("1. Assign All Collection Sites to the new user");
+			Test_Variables.steps.createNode("2. Verify user was able to assign All Testing Sites to the user");
 			SoftAssert softAssert = new SoftAssert();
 
 			Helper.driver.get(Constants.url_user);
@@ -624,6 +637,7 @@ public class UserManagement {
 				}
 			}	
 
+			Thread.sleep(6000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(750);
@@ -663,12 +677,80 @@ public class UserManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
 	}
+	
+	///////////////////////////////////////////////
+	@Test (enabled= false, priority= 10) 
+	public void VerifyCollectionSitesAccess() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-15: Verify Sites column displays Active after assigning All Collection Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
+			Test_Variables.steps.createNode("1. Assign sites to new user");
+			Test_Variables.steps.createNode("2. Verify user was able to assign All Collection Sites to the user");
+			SoftAssert softAssert = new SoftAssert();
+
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
+					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					break;
+				}
+			}	
+
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(750);
+			Helper.driver.findElement(By.cssSelector(".btn-sites")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(By.id("select-collection-sites")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-ok-sites")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1500);
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User details updated.");
+			Thread.sleep(3000);
+
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(Test_Variables.createUserEmail)) {
+					softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userSiteAccessCol+" label")).getText(), "Active");
+					Test_Variables.test.pass("Sites column displayed Active after assigning Sites to the user");
+					Test_Variables.results.createNode("Sites column displayed Active after assigning Sites to the user");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+					break;
+				}
+			}
+			softAssert.assertAll();
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Sites column failed to display Active after assigning Sites to the user");
+			Test_Variables.results.createNode("Sites column failed to display Active after assigning Sites to the user");  
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Sites column failed to display Active after assigning Sites to the user");
+			Test_Variables.results.createNode("Sites column failed to display Active after assigning Sites to the user");  	
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
+		}
+	}
 
 
-	@Test (enabled= true, priority= 10) 
+
+	@Test (enabled= true, priority= 11) 
 	public void VerifyAgreementAccess() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-15: Verify user can view assigned agreement", "This test case will verify that user can view assigned agreement");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-16: Verify user can view assigned agreement", "This test case will verify that user can view assigned agreement");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -690,12 +772,15 @@ public class UserManagement {
 				}
 			}	
 
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Helper.driver.findElement(By.cssSelector("#euladdl .ng-arrow-wrapper")).click();
 			Helper.driver.findElement(By.xpath("//*[@id=\"euladdl\"]//div[2]/input")).sendKeys(Keys.ENTER);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1500);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User details updated.");
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
@@ -727,10 +812,10 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Update User", enabled = true, priority= 11) 
+	@Test (description="Test Case: Update User", enabled = true, priority= 12) 
 	public void UpdateUser() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-16: Verify user can update a user and convert user to piper user", "This test case will verify that user can update a user");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-17: Verify user can update a user and convert user to piper user", "This test case will verify that user can update a user");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -754,17 +839,17 @@ public class UserManagement {
 				}
 			}	
 
-			Thread.sleep(2000);
-			Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).clear();
-			Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).sendKeys(Test_Variables.lstUserUpdate.get(0));
+			Thread.sleep(8000);
+			Helper.driver.findElement(By.cssSelector("#lastNameId")).clear();
+			Helper.driver.findElement(By.cssSelector("#lastNameId")).sendKeys("User Updated");
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
 
-			Helper.driver.findElement(By.cssSelector("#piper-user .wrapper-v2")).click();
-			Thread.sleep(500);
+		//	Helper.driver.findElement(By.cssSelector("#piper-user .wrapper-v2")).click();
+		//	Thread.sleep(500);
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -786,10 +871,10 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Update User", enabled = true, priority= 12) 
+	@Test (description="Test Case: Verify Update User", enabled = true, priority= 13) 
 	public void VerifyUpdateUser() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-17: Verify user is actually updated and user can reset pin for piper user", "This test case will verify that the user is actually updated by reopening the popup after updation");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user is actually updated and user can reset pin for piper user", "This test case will verify that the user is actually updated by reopening the popup after updation");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -810,14 +895,14 @@ public class UserManagement {
 				}
 			}	
 
-			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#lastNameId input:nth-child(1)")).getAttribute("value"), Test_Variables.lstUserUpdate.get(0)); 
+			Thread.sleep(10000);
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#lastNameId")).getAttribute("value"), "User Updated"); 
 
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("btn-reset-pin")).size(), 1); 
+	//		Assert.assertEquals(Helper.driver.findElements(By.id("btn-reset-pin")).size(), 1); 
 
 			Test_Variables.test.pass("User updation verified successfully");
 			Test_Variables.results.createNode("User was updated successfully; changes remained saved");
@@ -835,11 +920,74 @@ public class UserManagement {
 		Helper.driver.findElement(By.id("close-popup-modal")).click();
 	}
 
+	
+	@Test (enabled= true, priority= 14) 
+	public void EditAssignRolePopup() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be edited from assign roles and right popup", "This test case will verify that user can be edited from roles and right popup");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-	@Test (description="Test Case: Delete User", enabled= true, priority= 13) 
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
+			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
+			Test_Variables.steps.createNode("1. Click on assign roles and report button next to user");
+			Test_Variables.steps.createNode("2. Verify user is able to edit user from there");
+
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1500);
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
+					Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userRoleCol+" img")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					break;
+				}
+			}	
+
+			Thread.sleep(4000);
+			Helper.driver.findElement(By.cssSelector("#reportRoleId .ng-arrow-wrapper")).click();
+			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ARROW_DOWN);
+			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1000);
+			String Reporting = Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).getText();
+			Helper.driver.findElement(By.id("btn-save")).click();
+			Thread.sleep(750);
+			Helper.driver.findElement(Test_Elements.popupYesButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Roles and Rights has been updated successfully");
+			Thread.sleep(1000);
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
+					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userReportingCol+" label")).getText(), Reporting);
+					break;
+				}
+			}	
+
+			Test_Variables.test.pass("User was able to edit from assign roles and reports successfully");
+			Test_Variables.results.createNode("User was able to edit from assign roles and reports successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("User was not able to edit from assign roles and reports");
+			Test_Variables.results.createNode("User was not able to edit from assign roles and reports");  
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("User was not able to edit from assign roles and reports");
+			Test_Variables.results.createNode("User was not able to edit from assign roles and reports");  	
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
+		}
+	}
+
+	@Test (description="Test Case: Delete User", enabled= true, priority= 15) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be deleted", "This test case will verify that user can delete a user");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can be deleted", "This test case will verify that user can delete a user");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -876,7 +1024,7 @@ public class UserManagement {
 			Thread.sleep(1500);
 			Helper.driver.findElement(By.xpath("//app-confirmation-v3//button[1]")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstUserAlertMessages.get(2)); 
 			String postRecords = Helper.driver.findElement(By.id("results-found-count")).getText();
@@ -899,7 +1047,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 14) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 16) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1040,7 +1188,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= true, priority = 15) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 17) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1099,24 +1247,26 @@ public class UserManagement {
 						int count = rows.size();
 						Thread.sleep(1000);
 
+						SoftAssert softAssert = new SoftAssert();
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
 							}
 
 							if(objModel.endsWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();				
-								Assert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
 							}
 
 							if(objModel.contains) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
 							}
 						}
 
 						Thread.sleep(1000);
+						softAssert.assertAll();
 						Test_Variables.test.pass("Wildcards tested successfully");
 						Test_Variables.results.createNode("Wildcards tested successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.UserManagementReportPath));
@@ -1130,7 +1280,8 @@ public class UserManagement {
 						Test_Variables.results.createNode("Wildcards failed to test successfully");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 					}
-					Helper.driver.findElement(By.id(objFilter.FilterXPath+""+Test_Elements.ClearFilter)).click();
+					Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.ClearFilter)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 				}
 			}
 			catch(Exception ex) {
@@ -1139,7 +1290,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 16) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 18) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1233,7 +1384,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority =17) 
+	@Test (enabled= true, priority =19) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_user);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1299,7 +1450,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority =18) 
+	@Test (enabled= true, priority =20) 
 	public void AccessRoleCount() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-63: Verify count of assign role in popup is same as that in table", "This test case will verify that count of assign role in popup is same as that in table");
@@ -1357,69 +1508,8 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 19) 
-	public void EditAssignRolePopup() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-64: Verify user can be edited from assign roles and right popup", "This test case will verify that user can be edited from roles and right popup");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
-			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
-			Test_Variables.steps.createNode("1. Click on assign roles and report button next to user");
-			Test_Variables.steps.createNode("2. Verify user is able to edit user from there");
-
-			Helper.driver.get(Constants.url_user);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				//if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals("ancera@email.com")) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
-					Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userRoleCol+" img")).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					break;
-				}
-			}	
-
-			Helper.driver.findElement(By.cssSelector("#reportRoleId .ng-arrow-wrapper")).click();
-			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ARROW_DOWN);
-			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ENTER);
-			String Reporting = Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).getText();
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Thread.sleep(750);
-			Helper.driver.findElement(By.cssSelector(".anc-btn-solid")).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Roles and Rights has been updated successfully");
-			
-			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
-					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userReportingCol+" img")).getText(), Reporting);
-					break;
-				}
-			}	
-
-			Test_Variables.test.pass("User was able to edit from assign roles and reports successfully");
-			Test_Variables.results.createNode("User was able to edit from assign roles and reports successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("User was not able to edit from assign roles and reports");
-			Test_Variables.results.createNode("User was not able to edit from assign roles and reports");  
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("User was not able to edit from assign roles and reports");
-			Test_Variables.results.createNode("User was not able to edit from assign roles and reports");  	
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
-		}
-	}
-
-
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test User CSV Download",enabled= true, priority =20) 
+	@Test (description="Test Case: Test User CSV Download",enabled= true, priority =21) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-65: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");
@@ -1494,10 +1584,12 @@ public class UserManagement {
 
 					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
-
+						int totalColumns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
 						int columnsCount = columnsCountTotal+1;
-						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+rowsCount+")")).size() != 0 && columnsCount<=9) {
-							softAssert.assertEquals(data[i], Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText());
+					//	int columnsCount = columnsCountTotal;
+						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+						
+							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
 						}
 						else {
 							rowsCount = rowsCount+1;
@@ -1507,7 +1599,7 @@ public class UserManagement {
 						columnsCountTotal++;
 					}
 				}
-				System.out.println(" ");
+				//System.out.println(" ");
 			}
 
 			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);

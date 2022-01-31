@@ -49,12 +49,6 @@ public class TestVersion {
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
-
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
 					RequestSpecification request = RestAssured.given();
@@ -82,7 +76,7 @@ public class TestVersion {
 					softAssert.assertEquals(versionUpgrade, objModel.versionUpgradeResponse); 
 					softAssert.assertEquals(message, objModel.messageResponse);		
 					
-					//////////////////////////////////////////////////////////////////////
+					/////////////////////////////////FileRequest/////////////////////////////////////
 					Test_Variables.test = Test_Variables.extent.createTest("Response of FileRequest API");
 					
 					RequestSpecification request_filerequest = RestAssured.given();
@@ -103,12 +97,12 @@ public class TestVersion {
 					
 					if (!data1.isEmpty()) {
 						message = response1.jsonPath().get("message");
-						softAssert.assertEquals(message, objModel.messageResponseAPI);
+						softAssert.assertEquals(message, "Successful Response.");
 					}
 					softAssert.assertAll();
 					///////////////////////////////////////////////////////////////////////   
 					
-					//////////////////////////////////////////////////////////////////////
+					//////////////////////////////////MPNSettings////////////////////////////////////
 					Test_Variables.test = Test_Variables.extent.createTest("Response of MPNSetting API");
 					
 					RequestSpecification request_mpnrequest = RestAssured.given();
@@ -137,7 +131,7 @@ public class TestVersion {
 					softAssert.assertAll();
 					///////////////////////////////////////////////////////////////////////
 					
-					//////////////////////////////////////////////////////////////////////
+					//////////////////////////////////Userlist////////////////////////////////////
 					Test_Variables.test = Test_Variables.extent.createTest("Response of Userlist API");
 					
 					RequestSpecification request_userlistrequest = RestAssured.given();
@@ -164,7 +158,7 @@ public class TestVersion {
 					softAssert.assertAll();
 					///////////////////////////////////////////////////////////////////////
 					
-					//////////////////////////////////////////////////////////////////////
+					////////////////////////////////////Heartbeat//////////////////////////////////
 					Test_Variables.test = Test_Variables.extent.createTest("Response of Heartbeat API");
 					
 					RequestSpecification request_heartbeat = RestAssured.given();
@@ -218,23 +212,21 @@ public class TestVersion {
 					softAssert.assertAll();
 					///////////////////////////////////////////////////////////////////////////
 		
-					Test_Variables.test.pass("API Version test versuccessfully");
-					Test_Variables.results.createNode("Login API ran successfully; token was generated successfully");
+					Test_Variables.test.pass("API Version test verified successfully");
+					Test_Variables.results.createNode("API Version test verified successfully");
 					Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);			
 				}
 			}
 			catch(AssertionError er) {
-				Test_Variables.test.fail("Login Api failed");
-				Test_Variables.results.createNode("Login API failed to run; token was not generated");
+				Test_Variables.test.fail("API Version test failed");
+				Test_Variables.results.createNode("API Version test failed");
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, new Exception(er));
 			}catch(Exception ex){
-				Test_Variables.test.fail("Login Api failed");
-				Test_Variables.results.createNode("Login API failed to run; token was not generated");
+				Test_Variables.test.fail("API Version test failed");
+				Test_Variables.results.createNode("API Version test failed");
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, ex);
 			}
-
 		}
-
 	}
 	
 	@AfterTest

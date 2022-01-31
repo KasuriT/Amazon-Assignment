@@ -130,19 +130,19 @@ public class UserModel {
 		objTmp.lstFilters.add(objFilter);
 		lstUserModel.add(objTmp); 
 
-		objTmp = new UserModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Mobile Number Filter";
-		objTmp.TestCaseName = "AN-UM-23: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-UM-24: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userMobileNo));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp); 
+//		objTmp = new UserModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Mobile Number Filter";
+//		objTmp.TestCaseName = "AN-UM-23: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-UM-24: "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.userMobileNo));
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
+//		objTmp.lstFilters.add(objFilter);
+//		lstUserModel.add(objTmp); 
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();
@@ -587,15 +587,15 @@ public class UserModel {
 		objTmp.lstFilters.add(objFilter);
 		lstUserModel.add(objTmp);
 		
-		objTmp = new UserModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Mobile No Filter";
-		objTmp.TestCaseName = "AN-UM-50: Verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.userMobileNo;
-		objTmp.lstFilters.add(objFilter);
-		lstUserModel.add(objTmp);
+//		objTmp = new UserModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Mobile No Filter";
+//		objTmp.TestCaseName = "AN-UM-50: Verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterID = Test_Elements.userMobileNo;
+//		objTmp.lstFilters.add(objFilter);
+//		lstUserModel.add(objTmp);
 		
 		objTmp = new UserModel();
 		objFilter = new ReportFilters();

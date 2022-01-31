@@ -29,6 +29,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 
 import Models.SalmonellaModel;
 import Models.ReportFilters;
@@ -376,7 +378,7 @@ public class SalmonellaLog {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(800);	
 
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 								Assert.assertTrue(true, "No records available to test filter");
 								Test_Variables.test.skip("No records available to test filter");
 								Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
@@ -453,7 +455,7 @@ public class SalmonellaLog {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 							Thread.sleep(500);
 
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 								Test_Variables.test.skip("No records available to test filter");
 								Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
 								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.slShowFilter)).click();
@@ -886,7 +888,7 @@ public class SalmonellaLog {
 						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Thread.sleep(2000);
-						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") || Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 2 - 2 Results")) {
 							Test_Variables.test.skip("Values not enough to test lock filter functionality");
 							Test_Variables.results.createNode("Values not enough to test lock filter functionality");
 							Helper.saveResultNew(ITestResult.SKIP, Constants.CoccidiaReportPath, null);
@@ -1522,6 +1524,7 @@ public class SalmonellaLog {
 	}
 
 
+	@SuppressWarnings({ "resource", "unused" })
 	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority =16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
@@ -1539,7 +1542,7 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("1. Hover mouse towards table");
 			Test_Variables.steps.createNode("2. Export file button becomes visible");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
+			
 			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
 			//int getRowCount = Integer.parseInt(getRowText);
 
@@ -1565,6 +1568,42 @@ public class SalmonellaLog {
 			Test_Variables.results.createNode("CSV file downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
 
+			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename);
+			if(file.exists()){
+				System.out.println("File Exists");
+			}	
+
+			SoftAssert softAssert = new SoftAssert();
+			FileReader filereader = new FileReader(file);
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			StringBuffer buffer = new StringBuffer();
+			String data[];		    				
+
+			int columnsCountTotal = 0;
+			int rowsCount = 1;
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+
+					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+					if (rowsCount < rows) {
+
+						int totalColumns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
+						
+						int columnsCount = columnsCountTotal+3;
+						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						}
+						else {
+							rowsCount = rowsCount+1;
+							columnsCount =0;
+							columnsCountTotal = -1;
+						}
+						columnsCountTotal++;
+					}
+				}
+			}
+				
 			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
 			long lines = 0;
 			try {
@@ -1580,7 +1619,7 @@ public class SalmonellaLog {
 			str = str.replace(",", "");
 			Assert.assertEquals(s, str);
 
-			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
+		 file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
 			if(file.delete())
 				System.out.println("CSV file deleted");
 		}
@@ -1679,7 +1718,7 @@ public class SalmonellaLog {
 			Test_Variables.steps.createNode("3. Click on the button");
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 			ClickElement.clickByCss(Helper.driver, "#export-data-template label");
 			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));

@@ -332,7 +332,7 @@ public class FlockRegistration {
 						Test_Variables.results.createNode("Wildcards failed to test successfully");
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 					}
-					Helper.driver.findElement(By.id(objFilter.FilterXPath+""+Test_Elements.slClearFilter)).click();
+					Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.ClearFilter)).click();
 				}
 			}
 			catch(Exception ex) {
@@ -1479,32 +1479,28 @@ public class FlockRegistration {
 			CSVReader reader = new CSVReader(filereader);
 			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
 			StringBuffer buffer = new StringBuffer();
-			String data[];		    
-			int j = 0;
-			int k = 1;
+			String data[];	
+			
+			int columnsCountTotal = 0;
+			int rowsCount = 1;
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
-
-					int a = Helper.driver.findElements(By.cssSelector("tr")).size();
-					if (k < a) {
-					//	System.out.print(data[i] + " ");
-
-						int l = j+2;  
-					//	int columns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 2;
-						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).size() != 0 && l<=39) {
-						//	System.out.print(Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
-						//	System.out.println(data[i]+ " <--> "+ Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
-							softAssert.assertEquals(data[i], Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
+					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+					if (rowsCount < rows) {
+						int totalColumns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 2;
+						int columnsCount = columnsCountTotal+2;
+				
+						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
 						}
 						else {
-							k = k+1;
-							l =0;
-							j = 0;   
+							rowsCount = rowsCount+1;
+							columnsCount =0;
+							columnsCountTotal = 0;  
 						}
-						j++;
+						columnsCountTotal++;
 					}
 				}
-				System.out.println(" ");
 			}
 
 			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
@@ -1630,8 +1626,7 @@ public class FlockRegistration {
 			SalmonellaLog fr= new SalmonellaLog();
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
 			String filename= newfile.getName();
-			//System.out.println("Latest XLSX file is = "+filename);
-			Assert.assertEquals(filename, Test_Variables.flockSampleMetaData+".xlsx");
+			Assert.assertTrue(filename.startsWith("FLOCK METADATA.xlsx"), "File did not downloaded with name as FLOCK METADATA");
 			Test_Variables.test.pass("Sample MetaData template downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData template downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
