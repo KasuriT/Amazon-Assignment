@@ -2,9 +2,9 @@ package Test.Ancera;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,25 +37,22 @@ public class Test_Functions {
 
 
 
-	public static void AccessFind() throws InterruptedException, IOException
-	{
-
-		Helper.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		for (int i=2; i<=80; i++) {
-
-			int j = i-1;
-
-			String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
-			WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-
-			Thread.sleep(1000);
-
-			if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
-				//		if (element.getText().equals("Administrator5949")) {
-				Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath1)).click(); 
-				break;
-			}}}
+//	public static void AccessFind() throws InterruptedException, IOException
+//	{
+//		for (int i=2; i<=80; i++) {
+//
+//			int j = i-1;
+//
+//			String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
+//			WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
+//
+//			Thread.sleep(1000);
+//
+//			if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
+//				//		if (element.getText().equals("Administrator5949")) {
+//				Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath1)).click(); 
+//				break;
+//			}}}
 
 
 	public static void fieldLevelReset() throws InterruptedException, IOException {
@@ -90,14 +87,17 @@ public class Test_Functions {
 		Helper.driver.get(Constants.url_user);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
-		for(int i=1; i<=200; i++) {
-			if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)  label")).getText().equals(Test_Variables.login_email)) {
+		for(int i=1; i<=500; i++) {
+			if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(Test_Variables.login_email)) {
+				WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
+				((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+				Thread.sleep(1000);
 				Helper.driver.findElement(By.id("edit-user-"+i)).click();
 				break;
 			}
 		}
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
+		Thread.sleep(4000);
 		Helper.driver.findElement(By.id("btn-next")).click();
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.id("btn-next")).click();

@@ -85,7 +85,9 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 2) 
 	public void FlockMetadata() throws InterruptedException, IOException {
-		
+		Helper.driver.get(Constants.url_dataUpload);
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Data Upload")));
+		Thread.sleep(1000);
 		Test_Variables.lstDataUploadFlock = DataUploadModel.FillData();
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
 		Thread.sleep(1000);
@@ -197,7 +199,6 @@ public class DataUpload {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstColumnID.size() && i < 100; i++) {
 						
@@ -213,8 +214,7 @@ public class DataUpload {
 
 						FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+sitePerformanceFileName));
 						wb.write(output_file);
-						output_file.close();  
-						
+						output_file.close();  			
 						chkCounter++;
 						}
 						
@@ -251,11 +251,9 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 4) 
 	public void SampleMetaData() throws InterruptedException, IOException {
-		
 		Helper.driver.get(Constants.url_dataUpload);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-		
+		Thread.sleep(1000);		
 		Test_Variables.lstDataUploadSampleMetadata = DataUploadModel.FillDataSampleMetaData();
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
 		Thread.sleep(1000);

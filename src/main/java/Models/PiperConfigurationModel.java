@@ -6,24 +6,22 @@ import Test.Ancera.Test_Variables;
 
 public class PiperConfigurationModel {
 
-	
-
 	public String TestCaseName;
 	public String TestCaseDescription;
 	public String steps;
 	public String passStep;
 	public String failStep;
+	public String pathogen;
+	public String sampleMatrix;
 	public boolean GreaterLesserCheck;
 	public ArrayList<ReportFilters> lstFilters;
 	
 	public PiperConfigurationModel() {
-
 	}
 
 	public static String applyFilterTitle = "Verify user can apply ";
 	public static String applyFilterDesc = "This test case will verify that filtered records are displayed in table on applying ";
 
-	
 	public static ArrayList<PiperConfigurationModel> FillData() {
 		ArrayList<PiperConfigurationModel> lstPiperConfigurationModel = new ArrayList<PiperConfigurationModel>();
 		PiperConfigurationModel objTmp = new PiperConfigurationModel();
@@ -93,5 +91,27 @@ public class PiperConfigurationModel {
 		
 		return lstPiperConfigurationModel;
 	}
+	
+	
+	public static ArrayList<PiperConfigurationModel> CreatePA() {
+		ArrayList<PiperConfigurationModel> lstPiperConfigurationModel = new ArrayList<PiperConfigurationModel>();
+		PiperConfigurationModel objTmp = new PiperConfigurationModel();
+		
+		ReportFilters objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-PCM-02: Verify that user cannot create an installation run leaving all fields empty";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot create an installation run leaving all fields empty";
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Salmonella";
+		objTmp.sampleMatrix = "";
+		objTmp.steps = "Leave all fields empty";
+		objTmp.passStep = "User was not able to create installation run without filling all mandatory fields";
+		objTmp.failStep = "Installation run was created without filling all mandatory fields";
+		objTmp.GreaterLesserCheck = false;
+		objTmp.lstFilters.add(objFilter);
+		lstPiperConfigurationModel.add(objTmp);
+	
+		return lstPiperConfigurationModel;
+	}
+	
 	
 }

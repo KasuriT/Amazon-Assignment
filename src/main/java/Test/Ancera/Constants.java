@@ -12,7 +12,6 @@ public class Constants {
 //	public static String url = "https://ie-uat.ancera.com";   
 //	public static String api = "https://disapi-uat.ancera.com/api/ancerainput/v1"; 
 	
-	
 	public static String url_login = url+"/auth/sign-in";
 	public static String url_fp = url+"/auth/forgot-password";
 	public static String url_home = url+"/home";

@@ -195,16 +195,14 @@ public class PoultryManagement {
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
 					int j=i-1;
-					Assert.assertEquals(Helper.driver.findElements(By.id("live-icon-"+j)).size(), 1);		
+					Assert.assertEquals(Helper.driver.findElements(By.id("live-icon-"+j)).size(), 1);	
+					Test_Variables.test.pass("Heartbeat icon displayed next to active feed successfully");
+					Test_Variables.results.createNode("Heartbeat icon displayed next to active feed successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 					break;
 				}
 			}
-			
-		//	Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
-			Test_Variables.test.pass("Heartbeat icon displayed next to active feed successfully");
-			Test_Variables.results.createNode("Heartbeat icon displayed next to active feed successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Heartbeat icon failed to display next to active feed");
@@ -335,8 +333,8 @@ public class PoultryManagement {
 			Test_Variables.steps.createNode("3. Enter valid data in all mandatory fields and click on save button");
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("create-treatment")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1500);
 			Helper.driver.findElement(By.id("startDatebtn")).click();
 			Helper.driver.findElement(By.xpath(Test_Elements.poultryStartDateSelect1)).click();
 
@@ -415,16 +413,13 @@ public class PoultryManagement {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
 					int j=i-1;
 					Assert.assertEquals(Helper.driver.findElements(By.id("live-icon-"+j)).size(), 1);
+					Test_Variables.test.pass("Heartbeat icon displayed next to active treatment successfully");
+					Test_Variables.results.createNode("Heartbeat icon displayed next to active treatment successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 					break;
 				}
 			}
-			
-			
-			//Assert.assertNotEquals(Helper.driver.findElements(By.id("live-icon-0")).size(), 0);	
-			Test_Variables.test.pass("Heartbeat icon displayed next to active treatment successfully");
-			Test_Variables.results.createNode("Heartbeat icon displayed next to active treatment successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
 			Test_Variables.test.fail("Heartbeat icon failed to display next to active treatment");

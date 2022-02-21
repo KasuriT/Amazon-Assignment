@@ -52,54 +52,7 @@ public class PAConfig {
 		ConfigureLogin.login();
 	}
 
-	
-	
-	@Test (enabled= false, priority = 1) 
-	public void PAConfigurationgfh() throws InterruptedException, IOException {
 
-		Helper.driver.get(Constants.url_piperConfiguration);	
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(2000);
-		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Listeria");
-		Helper.driver.findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);			
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("create-mpn")).click();
-
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(2000);
-		Helper.driver.findElement(By.id("dilution-factor-var")).click();
-		Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys("TestSampleMatrix567");
-
-		Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);
-		Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("TestSampleMatrix567");
-		Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Keys.ENTER);
-		Thread.sleep(750);
-		Helper.driver.findElement(By.id("ThresholdId")).sendKeys("1000");
-
-		Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-		Thread.sleep(1000);
-		Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
-		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
-
-
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Test (enabled= true, priority = 1) 
 	public void PAConfiguration() throws InterruptedException, IOException {

@@ -52,7 +52,7 @@ public class FlockRegistration {
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 
-		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Flock_Registration"+Test_Variables.date+".html");
+		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Administration_Flock_Registration"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Flock Registration Test Report"); 
 
 		Helper.config();
@@ -62,7 +62,6 @@ public class FlockRegistration {
 
 	@Test (description="Test Case: Navigate to Flock Registration Screen",enabled= true, priority = 1) 
 	public void NavigateFlock() throws InterruptedException, IOException {
-
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-01: Verify user can navigate to Flock Registration Screen", "This test case will verify user can navigate to Flock Registration Screen");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
@@ -148,7 +147,7 @@ public class FlockRegistration {
 									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 		
 									Thread.sleep(1000);
 									Helper.driver.findElement(By.cssSelector("#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label")).click();
-							//		ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label");
+									//		ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label");
 								}
 
 								Test_Variables.steps.createNode("3. Click on apply filter button");	
@@ -194,28 +193,28 @@ public class FlockRegistration {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							
+
 							if (Helper.driver.findElements(By.cssSelector("#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" .active-filter")).size() != 0) {			
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockShowFilter)).click();	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Thread.sleep(500);
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
-								Test_Variables.test.skip("No records available to test filter");
-								Helper.saveResultNew(ITestResult.SKIP, Constants.FlockRegistrationReportPath, null);
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockShowFilter)).click();	
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Thread.sleep(500);
+								if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+									Test_Variables.test.skip("No records available to test filter");
+									Helper.saveResultNew(ITestResult.SKIP, Constants.FlockRegistrationReportPath, null);
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								}
+								else {	
+									Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
+									Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
+									Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+									Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockClearFilter)).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(1000);	
+									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								}
 							}
-							else {	
-								Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-								Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
-								Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockClearFilter)).click();
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1000);	
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
-							}
-						}
 							else {
 								Test_Variables.results.createNode("Test case skipped because filter was not applied");
 								Test_Variables.test.skip("Test case skipped because filter was not applied");
@@ -244,7 +243,7 @@ public class FlockRegistration {
 
 	@Test (description="Test Case: Wildcard",enabled= true, priority = 3) 
 	public void wildcard() throws InterruptedException, IOException {
-		Helper.driver.navigate().refresh();
+		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
 
@@ -297,24 +296,24 @@ public class FlockRegistration {
 						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slApplyFilter)).click();
 
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
+						Thread.sleep(1000);	
+
+						SoftAssert softAssert = new SoftAssert();		
 						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
 						int count = rows.size();
 						Thread.sleep(1000);
 						for (int i = 0; i<count; i++) {
 							if(objModel.startWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.toUpperCase().startsWith(objFilter.LstFilterValues.get(0)), "Wildcard failed to apply");
 							}
-
 							if(objModel.endsWith) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();				
-								Assert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.toUpperCase().endsWith(objFilter.LstFilterValues.get(0)), "Wildcard failed to apply");
 							}
-
 							if(objModel.contains) {
 								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
+								softAssert.assertTrue(str.toUpperCase().contains(objFilter.LstFilterValues.get(0)), "Wildcard failed to apply");
 							}
 						}
 
@@ -347,12 +346,12 @@ public class FlockRegistration {
 		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
-		
+
 		if (Helper.driver.findElements(By.cssSelector("#remove-filters.d-none")).size() == 0) {
 			Helper.driver.findElement(By.id("remove-filters")).click();
 			Thread.sleep(1000);
 		}
-		
+
 		Test_Variables.lstFlockRegistrationLock = FlockRegistrationModel.Lock(); 
 		for (FlockRegistrationModel objModel : Test_Variables.lstFlockRegistrationLock) { 	
 			try {
@@ -384,35 +383,35 @@ public class FlockRegistration {
 							Helper.driver.findElement(By.id(objFilter.FilterID)).click();
 						}
 						else {
-						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
-						Thread.sleep(500);
-						Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
-						Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.steps.createNode("2. Click on lock button");	
-						Helper.driver.findElement(By.id("save-filters")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-						Thread.sleep(1000);
-						String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
-						Test_Variables.steps.createNode("3. Close Flock Registration Report");
-						Test_Variables.steps.createNode("4. Reopen Flock Registration Report");
-						Helper.driver.navigate().refresh();
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
+							Thread.sleep(500);
+							Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
+							Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Test_Variables.steps.createNode("2. Click on lock button");	
+							Helper.driver.findElement(By.id("save-filters")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+							Thread.sleep(1000);
+							String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
+							Test_Variables.steps.createNode("3. Close Flock Registration Report");
+							Test_Variables.steps.createNode("4. Reopen Flock Registration Report");
+							Helper.driver.navigate().refresh();
 
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
-						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
-						Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-						Thread.sleep(1000);
-						Helper.driver.findElement(By.id("remove-filters")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						softAssert.assertAll();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(1000);
+							Test_Variables.steps.createNode("5. Verify lock filter remains applied");
+							softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
+							Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
+							Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+							Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
+							Thread.sleep(1000);
+							Helper.driver.findElement(By.id("remove-filters")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+							softAssert.assertAll();
 						}
 					}
 					catch(AssertionError er) {
@@ -782,16 +781,21 @@ public class FlockRegistration {
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-98: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
-
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Flock Registration; Flock Registration reports open");
 			Test_Variables.steps.createNode("1. Verify int data type columns are right alligned");
+
+			Helper.driver.findElement(By.id("edit-field-access")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(Test_Elements.popupResetButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockNumBirdsPlacedCol+" .text-right")).size(), 0, "Num birds placed is not right alligned");
@@ -810,7 +814,7 @@ public class FlockRegistration {
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockTotalCostPerWeightCol+" .text-right")).size(), 0, "Total Cost USDT per Weight column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockLiveabilityCol+" .text-right")).size(), 0, "Livability column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockMortalityCol+" .text-right")).size(), 0, "Mortality column is not right alligned");
-			
+
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
@@ -827,19 +831,18 @@ public class FlockRegistration {
 		}
 	}
 
-	
-	
+
+
 	@Test (description="Test Case: Filter Test Bulk",enabled= true, priority = 9) 
 	public void TestFilterBulk() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_flockRegistration);
-		//Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Helper.driver.findElement(By.id("create-flock")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Helper.driver.findElement(By.id("file-input")).sendKeys(System.getProperty("user.dir")+"\\Excel\\FlockMetaDataBulk.xlsx");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-		
+		Thread.sleep(2000);
 		Test_Variables.lstFlockRegistrationSearch = FlockRegistrationModel.FillData();
 		int recordBefore = Helper.driver.findElements(By.cssSelector(".bulk-flock-data tr")).size(); 
 		for (FlockRegistrationModel objModel : Test_Variables.lstFlockRegistrationSearch) { 	
@@ -868,7 +871,7 @@ public class FlockRegistration {
 
 							Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockShowFilter)).click();	
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					
+
 							Thread.sleep(800);						
 							if (Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
 								Assert.assertTrue(true, "No records available to test filter");
@@ -930,28 +933,28 @@ public class FlockRegistration {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							
+
 							if (Helper.driver.findElements(By.cssSelector(".bulk-flock-data #"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" .active-filter")).size() != 0) {			
-							Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockShowFilter)).click();	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Thread.sleep(500);
-							if (Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
-								Test_Variables.test.skip("No records available to test filter");
-								Helper.saveResultNew(ITestResult.SKIP, Constants.FlockRegistrationReportPath, null);
-								Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockShowFilter)).click();	
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+								Thread.sleep(500);
+								if (Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+Test_Elements.flockSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
+									Test_Variables.test.skip("No records available to test filter");
+									Helper.saveResultNew(ITestResult.SKIP, Constants.FlockRegistrationReportPath, null);
+									Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								}
+								else {	
+									Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".bulk-flock-data #"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
+									Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
+									Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
+									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+									Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+									Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockClearFilter)).click();
+									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									Thread.sleep(1000);	
+									Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
+								}
 							}
-							else {	
-								Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".bulk-flock-data #"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-								Test_Variables.test.pass("Applied checkbox bubbled to top successfully");
-								Test_Variables.results.createNode("Applied checkbox bubbled to top successfully");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
-								Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i)+""+Test_Elements.flockClearFilter)).click();
-								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								Thread.sleep(1000);	
-								Helper.driver.findElement(By.cssSelector(".bulk-flock-data #"+objFilter.LstFilterXpath.get(i) +""+Test_Elements.flockShowFilter)).click();
-							}
-						}
 							else {
 								Test_Variables.results.createNode("Test case skipped because filter was not applied");
 								Test_Variables.test.skip("Test case skipped because filter was not applied");
@@ -975,8 +978,8 @@ public class FlockRegistration {
 			}
 		}
 	}
-	
-	
+
+
 	@Test (enabled= true, priority =10) 
 	public void SortingBulk() throws InterruptedException, IOException {
 
@@ -1046,25 +1049,23 @@ public class FlockRegistration {
 			}
 		}
 	}
-	
-	
+
+
 	@Test (enabled= true, priority =11) 
 	public void CreateFlock() throws InterruptedException, IOException {
-	
-		Helper.driver.get(Constants.url_flockRegistration);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);
-		
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("retreter", "retertetet");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-98: Verify user can create Flock", "This test case will verify that user can crate flock");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Flock Registration; Flock Registration reports open");
+			SoftAssert softAssert = new SoftAssert();
+			Helper.driver.get(Constants.url_flockRegistration);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Helper.driver.findElement(By.id("create-flock")).click();
@@ -1073,8 +1074,9 @@ public class FlockRegistration {
 
 			Helper.driver.findElement(By.cssSelector("#siteId .toggle-list")).click();
 
-			if (Helper.driver.findElements(By.cssSelector("#siteId .fa-caret-right")).size() == 1) {
-				Helper.driver.findElement(By.cssSelector("#siteId .fa-caret-right")).click();
+			if (Helper.driver.findElements(By.cssSelector("#siteId .fa-caret-right")).size() >= 1) {
+				//	List<WebElement> sitelist = Helper.driver.findElements(By.cssSelector(".popup-content tr")); 
+				Helper.driver.findElement(By.xpath("//div[1]/app-hierarchy-select-box[1]/div[1]/div[3]/div[2]/table[1]/tr[1]/td[1]/div[1]/i[1]")).click();
 			}
 			else {
 				Test_Variables.test.skip("Assign site to user");
@@ -1095,7 +1097,16 @@ public class FlockRegistration {
 			Thread.sleep(1000);				
 			Helper.driver.findElement(By.xpath("//*[@id=\"hatchDate\"]/div/div[2]/div/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[2]/button[6]")).click();
 			Thread.sleep(2000);											      
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-flock-registration/div[2]/app-popup-component/div/div/div/div[3]/app-create-flock/div/div[1]/form/div/div[6]/app-suggestion-select-box/div/input")).sendKeys("IntegratorID_"+Test_Variables.date0);
+			Helper.driver.findElement(By.cssSelector("#integratorFlockId input")).sendKeys("IntegratorID_"+Test_Variables.date0);
+
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("button.disabled")).size(), 1);
+
+			Helper.driver.findElement(By.cssSelector("#birdSizeId img")).click();
+			List<WebElement> birdsizelist = Helper.driver.findElements(By.cssSelector("#birdSizeId li")); 
+			softAssert.assertEquals(birdsizelist.get(0).getText(), "Small");
+			softAssert.assertEquals(birdsizelist.get(0).getText(), "Medium");
+			softAssert.assertEquals(birdsizelist.get(0).getText(), "Large");
+			Helper.driver.findElement(By.cssSelector("#birdSizeId ul:nth-child(1) li:nth-child(1)")).click();
 
 			if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
 				Helper.driver.findElement(By.cssSelector("#integratorFlockId .list-item")).click();
@@ -1113,12 +1124,12 @@ public class FlockRegistration {
 			Helper.driver.findElement(By.id("integratorFlockId_apply")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			SoftAssert softAssert = new SoftAssert();
+
 			softAssert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), "1");
 
 			Helper.driver.findElement(By.id("audit-trial-0")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
+			Thread.sleep(2000);
 			String auditCheck =	Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1)#col-0")).getText();
 			softAssert.assertEquals(auditCheck, "IntegratorID_"+Test_Variables.date0);		
 			Helper.driver.findElement(By.id("#close-gen-modal")).click();
@@ -1135,13 +1146,13 @@ public class FlockRegistration {
 		}
 	}
 
-	
+
 
 	@Test (enabled= true, priority =12) 
 	public void EditFlock() throws InterruptedException, IOException {
-		
-	//	Helper.driver.get(Constants.url_flockRegistration);
-	//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+		//	Helper.driver.get(Constants.url_flockRegistration);
+		//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 		Test_Variables.lstFlockRegistrationEdit = FlockRegistrationModel.EditFlock();
 
@@ -1169,7 +1180,7 @@ public class FlockRegistration {
 						WebElement filter_scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 						Thread.sleep(800);	
-						
+
 						Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 						Helper.driver.findElement(By.id(objFilter.FilterID)).clear();
@@ -1204,20 +1215,17 @@ public class FlockRegistration {
 		}
 	}
 
-	
-	
+
+
 	@Test (enabled= true, priority = 13) 
 	public void FlockValidation() throws InterruptedException, IOException {
-
 		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		
 		String siteID = Helper.driver.findElement(By.id("tr:nth-child(1) #col-1")).getText();
-		
 		Helper.driver.findElement(By.id("create-flock")).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+		Test_Variables.lstFlockRegistrationValidation = FlockRegistrationModel.FlockValidation();	
 
-		Test_Variables.lstFlockRegistrationValidation = FlockRegistrationModel.FlockValidation();		
 		for (FlockRegistrationModel objModel : Test_Variables.lstFlockRegistrationValidation) { 
 			try {
 				Thread.sleep(2000);
@@ -1232,28 +1240,21 @@ public class FlockRegistration {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstColumnID.size() && i < 100; i++) {
-
 							String path = System.getProperty("user.dir")+"\\Excel\\FlockMetadataValidation.xlsx";
 							FileInputStream fsIP= new FileInputStream(new File(path));
 							@SuppressWarnings("resource")
 							XSSFWorkbook wb = new XSSFWorkbook(fsIP);
 							XSSFSheet worksheet = wb.getSheetAt(0);
 							Cell cell = null;
-							//
 							cell = worksheet.getRow(1).createCell(1);
 							cell.setCellValue(siteID);
-							//
 							cell=worksheet.getRow(1).createCell(objFilter.LstColumnID.get(i)); 
 							cell.setCellValue(objFilter.LstColumnValues.get(i));  
-							//fsIP.close();
-
 							FileOutputStream output_file =new FileOutputStream(new File(path));
 							wb.write(output_file);
 							output_file.close();  
-
 							chkCounter++;
 						}
 
@@ -1273,7 +1274,6 @@ public class FlockRegistration {
 						Test_Variables.results.createNode("Validation verified successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-
 					}
 					catch(AssertionError er) {
 						Test_Variables.test.fail("Validation Failed");
@@ -1296,7 +1296,7 @@ public class FlockRegistration {
 	@Test (enabled= true, priority = 14, dependsOnMethods = { "FlockValidation" }) 
 	public void FlockUploadBulk() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-100: Verify flocks are added through bulk upload", "This testcase will verify that flocks are added through bulk upload");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-103: Verify flocks are added through bulk upload", "This testcase will verify that flocks are added through bulk upload");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1324,80 +1324,80 @@ public class FlockRegistration {
 		}
 	}
 
-	
-	@Test (enabled= true, priority = 14, dependsOnMethods = { "FlockValidation" }) 
+
+	@Test (enabled= true, priority = 15, dependsOnMethods = { "FlockValidation" }) 
 	public void SiteAppearnace() throws InterruptedException, IOException {
 		try {
-		Test_Variables.test = Test_Variables.extent.createTest("AN-FR-100: Verify only those sites appear which are assigned to user", "This testcase will verify that only those sites are displayed to user which are assigned to him");
-		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-104: Verify only those sites appear which are assigned to user", "This testcase will verify that only those sites are displayed to user which are assigned to him");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-		Test_Variables.preconditions.createNode("4. Click on Administration and select Flock Registrations");
-		Test_Variables.steps.createNode("1. Verify only those sites appear which are assigned to user");
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Flock Registrations");
+			Test_Variables.steps.createNode("1. Verify only those sites appear which are assigned to user");
 
-		Helper.driver.get(Constants.url_user);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(2000);
-		for (int i=1;i<=500;i++) {
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(2000);
+			for (int i=1;i<=500;i++) {
 
-			if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-3 label")).getText().equals(Test_Variables.login_email)) {
-				Helper.driver.findElement(By.id("edit-user-"+i)).click();
-				break;
-			}	
-		}
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-3 label")).getText().equals(Test_Variables.login_email)) {
+					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					break;
+				}	
+			}
 
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(3000);
-		Helper.driver.findElement(By.id("btn-next")).click();
-		Thread.sleep(2000);
-		Helper.driver.findElement(By.id("btn-next")).click();
-		Thread.sleep(2000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(3000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(2000);
 
-		int collectionSitesSize = 0;
-		for (int i=1;i<=Helper.driver.findElements(By.cssSelector(".site-tree-card")).size();i++) {
-			if (!Helper.driver.findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
-				collectionSitesSize = collectionSitesSize+1;
+			int collectionSitesSize = 0;
+			for (int i=1;i<=Helper.driver.findElements(By.cssSelector(".site-tree-card")).size();i++) {
+				if (!Helper.driver.findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
+					collectionSitesSize = collectionSitesSize+1;
 
-				if (i == Helper.driver.findElements(By.cssSelector(".site-tree-card")).size()) {
-					Helper.driver.get(Constants.url_flockRegistration);
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(2000);
-					Helper.driver.findElement(By.id("create-flock")).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Helper.driver.findElement(By.cssSelector("#siteId .fa-chevron-down")).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					
-					int sitesCountflock = Helper.driver.findElements(By.cssSelector("#siteId tr")).size();
+					if (i == Helper.driver.findElements(By.cssSelector(".site-tree-card")).size()) {
+						Helper.driver.get(Constants.url_flockRegistration);
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(2000);
+						Helper.driver.findElement(By.id("create-flock")).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Helper.driver.findElement(By.cssSelector("#siteId .fa-chevron-down")).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-					Assert.assertEquals(sitesCountflock, collectionSitesSize);
-					Test_Variables.test.pass("Only those sites appeared  which are assigned to user successfully");
-					Test_Variables.results.createNode("Only those sites appeared which are assigned to user successfully");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registrations", Constants.FlockRegistrationReportPath));
-					Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+						int sitesCountflock = Helper.driver.findElements(By.cssSelector("#siteId tr")).size();
+
+						Assert.assertEquals(sitesCountflock, collectionSitesSize);
+						Test_Variables.test.pass("Only those sites appeared  which are assigned to user successfully");
+						Test_Variables.results.createNode("Only those sites appeared which are assigned to user successfully");
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registrations", Constants.FlockRegistrationReportPath));
+						Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+					}
 				}
 			}
 		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Those sites did not appeared which are assigned to user");
+			Test_Variables.results.createNode("Those sites did not appeared which are assigned to user");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Those sites did not appeared which are assigned to user");
+			Test_Variables.results.createNode("Those sites did not appeared which are assigned to user");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
+		}
 	}
-	catch(AssertionError er) {
-		Test_Variables.test.fail("Those sites did not appeared which are assigned to user");
-		Test_Variables.results.createNode("Those sites did not appeared which are assigned to user");
-		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
-	}
-	catch(Exception ex) {
-		Test_Variables.test.fail("Those sites did not appeared which are assigned to user");
-		Test_Variables.results.createNode("Those sites did not appeared which are assigned to user");
-		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
-	}
-}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public File getTheNewestFile(String filePath, String ext) {
 		File theNewestFile = null;
 		File dir = new File(filePath);
@@ -1411,12 +1411,12 @@ public class FlockRegistration {
 		return theNewestFile;
 	}
 
-	
+
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (description="Test Case: Test flock CSV Download",enabled= true, priority =15) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-83: Verify user can download Flock CSV file and verify the records", "This test case will verify that user can download Flock CSV file");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-105: Verify user can download Flock CSV file and verify the records", "This test case will verify that user can download Flock CSV file");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1433,7 +1433,7 @@ public class FlockRegistration {
 
 			Helper.driver.get(Constants.url_flockRegistration);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			
+
 			Helper.driver.findElement(By.id(Test_Elements.sitesSiteID+""+Test_Elements.flockShowFilter)).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(800);						
@@ -1442,14 +1442,14 @@ public class FlockRegistration {
 			ClickElement.clickById(Helper.driver, Test_Elements.flockSiteID+""+Test_Elements.sitesApplyFilter);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(800);
-			
+
 			String getRowText = Helper.driver.findElement(By.id("results-found-count")).getText();
 
 			Test_Variables.steps.createNode("3. Click on the button");
 			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
 			Test_Variables.steps.createNode("5. Click on Export as CSV");	
 			Test_Variables.steps.createNode("6. Verify the columns are same in table and CSV");
-			
+
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
 			Thread.sleep(1000);
@@ -1480,7 +1480,7 @@ public class FlockRegistration {
 			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
 			StringBuffer buffer = new StringBuffer();
 			String data[];	
-			
+
 			int columnsCountTotal = 0;
 			int rowsCount = 1;
 			while((data = reader.readNext()) != null) {
@@ -1489,7 +1489,7 @@ public class FlockRegistration {
 					if (rowsCount < rows) {
 						int totalColumns = Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 2;
 						int columnsCount = columnsCountTotal+2;
-				
+
 						if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
 							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
 						}
@@ -1534,124 +1534,124 @@ public class FlockRegistration {
 			Test_Variables.results.createNode("CSV file failed to download");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 		}
+	Thread.sleep(1000);
+}
+
+
+@Test (description="Test Case: Test Flock Audit Download",enabled= true, priority = 16) 
+public void CSVAuditExport() throws InterruptedException, IOException {
+	try {
+		Test_Variables.test = Test_Variables.extent.createTest("AN-FR-106: Verify user can download Flock Audit file", "This test case will verify that user can download Flock Audit file");
+		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+		Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+		Test_Variables.preconditions.createNode("5. Click on Flock Registration; Coccidia Log reports open");
+
+		Test_Variables.steps.createNode("1. Hover mouse towards table");
+		Test_Variables.steps.createNode("2. Export file button becomes visible");
 		Thread.sleep(1000);
+
+		//String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
+
+		Test_Variables.steps.createNode("3. Click on the button");
+		Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
+		Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
+		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+		Thread.sleep(1500);
+		Test_Variables.steps.createNode("5. Click on Export with Audit as CSV");
+		ClickElement.clickById(Helper.driver, "export-audit-csv");
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		Thread.sleep(3000);
+		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+		Date date1 = new Date();
+		String date= dateFormat.format(date1);
+		Thread.sleep(1500);
+
+		SalmonellaLog fr= new SalmonellaLog();
+		File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
+		String filename= newfile.getName();
+		//System.out.println("Latest CSV file is = "+filename);
+		Assert.assertEquals(filename, Test_Variables.flockCSVAuditFileName+date+".csv");
+		Test_Variables.test.pass("CSV file downloaded successfully");
+		Test_Variables.results.createNode("CSV file downloads successfully");
+		Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
+
+		File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
+		if(file.delete())
+			System.out.println("CSV Audit file deleted");
 	}
-
-	
-	@Test (description="Test Case: Test Flock Audit Download",enabled= true, priority = 16) 
-	public void CSVAuditExport() throws InterruptedException, IOException {
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-84: Verify user can download Flock Audit file", "This test case will verify that user can download Flock Audit file");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.preconditions.createNode("5. Click on Flock Registration; Coccidia Log reports open");
-
-			Test_Variables.steps.createNode("1. Hover mouse towards table");
-			Test_Variables.steps.createNode("2. Export file button becomes visible");
-			Thread.sleep(1000);
-
-			//String getRowCount = Helper.driver.findElement(By.id("results-found-count")).getText();
-
-			Test_Variables.steps.createNode("3. Click on the button");
-			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
-			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-			Thread.sleep(1500);
-			Test_Variables.steps.createNode("5. Click on Export with Audit as CSV");
-			ClickElement.clickById(Helper.driver, "export-audit-csv");
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(3000);
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
-			Date date1 = new Date();
-			String date= dateFormat.format(date1);
-			Thread.sleep(1500);
-
-			SalmonellaLog fr= new SalmonellaLog();
-			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
-			String filename= newfile.getName();
-			//System.out.println("Latest CSV file is = "+filename);
-			Assert.assertEquals(filename, Test_Variables.flockCSVAuditFileName+date+".csv");
-			Test_Variables.test.pass("CSV file downloaded successfully");
-			Test_Variables.results.createNode("CSV file downloads successfully");
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-
-			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
-			if(file.delete())
-				System.out.println("CSV Audit file deleted");
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("CSV file failed to download");
-			Test_Variables.results.createNode("CSV file failed to download");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			System.out.println("Failure");
-			Test_Variables.test.fail("CSV file failed to download");
-			Test_Variables.results.createNode("CSV file failed to download");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
-		}
+	catch(AssertionError er) {
+		Test_Variables.test.fail("CSV file failed to download");
+		Test_Variables.results.createNode("CSV file failed to download");
+		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
 	}
-
-
-	@Test (description="Test Case: Test Flock Template Download",enabled= true, priority = 17) 
-	public void TemplateExport() throws InterruptedException, IOException {
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-217: Verify user can download Flock Template file", "This test case will verify that user download Flock Template file");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.preconditions.createNode("5. Click on Flock Registration; Coccidia Log reports open");
-
-			Test_Variables.steps.createNode("1. Hover mouse towards table");
-			Test_Variables.steps.createNode("2. Export file button becomes visible");
-			Test_Variables.steps.createNode("3. Click on the button");
-			Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
-			Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
-			Thread.sleep(1000);
-			ClickElement.clickById(Helper.driver, "export-data-template");
-			Thread.sleep(1000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-			Test_Variables.steps.createNode("5. Click on Export Data Template");
-			SalmonellaLog fr= new SalmonellaLog();
-			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
-			String filename= newfile.getName();
-			Assert.assertTrue(filename.startsWith("FLOCK METADATA.xlsx"), "File did not downloaded with name as FLOCK METADATA");
-			Test_Variables.test.pass("Sample MetaData template downloaded successfully");
-			Test_Variables.results.createNode("Sample MetaData template downloaded successfully");
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-
-			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
-			if(file.delete())
-				System.out.println("Template file deleted");
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("Sample MetaData downoad failed");
-			Test_Variables.results.createNode("Sample MetaData failed to download");  
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("Sample MetaData downoad failed");
-			Test_Variables.results.createNode("Sample MetaData failed to download");  	
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
-		}
+	catch(Exception ex) {
+		System.out.println("Failure");
+		Test_Variables.test.fail("CSV file failed to download");
+		Test_Variables.results.createNode("CSV file failed to download");
+		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 	}
+}
 
-	@AfterTest
-	public static void endreport() {
-		Test_Variables.extent.flush();
-		//	Helper.driver.close();
+
+@Test (description="Test Case: Test Flock Template Download",enabled= true, priority = 17) 
+public void TemplateExport() throws InterruptedException, IOException {
+	try {
+		Test_Variables.test = Test_Variables.extent.createTest("AN-FR-107: Verify user can download Flock Template file", "This test case will verify that user download Flock Template file");
+		Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+		Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+		Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+		Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+		Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+		Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+		Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+		Test_Variables.preconditions.createNode("5. Click on Flock Registration; Coccidia Log reports open");
+
+		Test_Variables.steps.createNode("1. Hover mouse towards table");
+		Test_Variables.steps.createNode("2. Export file button becomes visible");
+		Test_Variables.steps.createNode("3. Click on the button");
+		Helper.driver.findElement(By.cssSelector("#csv-action img")).click();
+		Test_Variables.steps.createNode("4. Dropdown cloud pop ups");
+		Thread.sleep(1000);
+		ClickElement.clickById(Helper.driver, "export-data-template");
+		Thread.sleep(1000);
+		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+		Test_Variables.steps.createNode("5. Click on Export Data Template");
+		SalmonellaLog fr= new SalmonellaLog();
+		File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
+		String filename= newfile.getName();
+		Assert.assertTrue(filename.startsWith("FLOCK METADATA.xlsx"), "File did not downloaded with name as FLOCK METADATA");
+		Test_Variables.test.pass("Sample MetaData template downloaded successfully");
+		Test_Variables.results.createNode("Sample MetaData template downloaded successfully");
+		Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
+
+		File file = new File(Test_Variables.fileDownloadPath+"\\"+filename); 
+		if(file.delete())
+			System.out.println("Template file deleted");
 	}
+	catch(AssertionError er) {
+		Test_Variables.test.fail("Sample MetaData downoad failed");
+		Test_Variables.results.createNode("Sample MetaData failed to download");  
+		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
+	}
+	catch(Exception ex) {
+		Test_Variables.test.fail("Sample MetaData downoad failed");
+		Test_Variables.results.createNode("Sample MetaData failed to download");  	
+		Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
+	}
+}
+
+@AfterTest
+public static void endreport() {
+	Test_Variables.extent.flush();
+	//	Helper.driver.close();
+}
 
 }
 

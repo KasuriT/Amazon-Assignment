@@ -289,7 +289,7 @@ public class OrgModel {
 		objTmp.getParentSiteID = true;
 		objTmp.ErrorCase = true;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "Value in LATITUDE is not a valid decimal number.";
+		objTmp.ErrorMessage = "Value in LATITUDE is not valid.";
 		objTmp.passStep = "User was not able to upload Bulk Sites with value in not in decimal number for latitude and longitude successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites with value in not in decimal number for latitude and longitude";
 		objTmp.lstFilters.add(objFilter);
@@ -306,7 +306,7 @@ public class OrgModel {
 		objTmp.getParentSiteID = true;
 		objTmp.ErrorCase = true;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "Value in LONGITUDE is not a valid decimal number.";
+		objTmp.ErrorMessage = "Value in LONGITUDE is not valid.";
 		objTmp.passStep = "User was not able to upload Bulk Sites with value in not in decimal number for latitude and longitude successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites with value in not in decimal number for latitude and longitude";
 		objTmp.lstFilters.add(objFilter);

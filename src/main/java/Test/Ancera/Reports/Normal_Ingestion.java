@@ -1099,8 +1099,9 @@ public class Normal_Ingestion {
 							softAssert.assertTrue(getAuditTestSiteName.isEmpty() == false, "Test Site Name is not displaying in Audit Log");
 
 							Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();
-							softAssert.assertAll();
+					
 						}	
+						softAssert.assertAll();
 						Test_Variables.test.pass("Start Assay all scenarios passed successfully");
 						Test_Variables.results.createNode("Start Assay all scenarios passed successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
@@ -1185,7 +1186,7 @@ public class Normal_Ingestion {
 					Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 					Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-					Thread.sleep(40000);
+					Thread.sleep(60000);
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
@@ -1436,12 +1437,12 @@ public class Normal_Ingestion {
 
 							cell=worksheet.getRow(z+1).createCell(6); 
 							cell.setCellValue(Test_Variables.CustomerSampleID); 
-
-							cell=worksheet.getRow(z+1).createCell(16); 
+							
+							cell=worksheet.getRow(z+1).createCell(1); 
 							cell.setCellValue(Test_Variables.SiteID); 
 
 							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-0")).getText();
-							cell=worksheet.getRow(z+1).createCell(1); 
+							cell=worksheet.getRow(z+1).createCell(16); 
 							cell.setCellValue(getLane);  
 
 							fsIP.close();

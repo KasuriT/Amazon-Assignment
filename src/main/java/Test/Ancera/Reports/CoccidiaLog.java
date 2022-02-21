@@ -626,7 +626,7 @@ public class CoccidiaLog {
 	}
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= false, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);

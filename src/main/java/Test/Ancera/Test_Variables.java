@@ -19,6 +19,7 @@ import Models.AuditLogModel;
 import Models.AutoLoginModel;
 import Models.CoccidiaModel;
 import Models.CoccidiaTimelineModel;
+import Models.DataSecurityModel;
 import Models.DataTemplateModel;
 import Models.DataUploadModel;
 import Models.FlockRegistrationModel;
@@ -52,7 +53,7 @@ public class Test_Variables {
 
 	//public static String login_email = "junnaid0005@gmail.com";
 	public static String login_email = "junaid.alam@analytics.com.pk";
-	public static String login_password = "junaid123";	
+	public static String login_password = "junaid12345";	
 	//public static String login_email = "Faraz@tenx.ai";
 	//public static String login_password = "tenx01tenx";
 	
@@ -313,15 +314,6 @@ public class Test_Variables {
 	
 	////////////////////////////////////////////////////////Access Management Screen Variables//////////////////////////////////////////////////
 	
-	public static ArrayList<AccessModel> lstAccessMandatoryCheck = new ArrayList<>(
-			Arrays.asList(
-					new AccessModel(true, "", "", "Leave both fields empty", "AN-AM-04: Leave both fields empty", true),
-					new AccessModel(true, "Test", "", "Leave only desc field empty", "AN-AM-05: Leave only Description field empty", true),
-					new AccessModel(true, "", "desc", "Leave name field empty", "AN-AM-06: Leave 1 field empty", true)
-				//	new AccessModel(true, "Administrator"+date0, "Role Test Description", "Fill both fields; should create role", "AN-RM-06: Enter data in both fields; should create role", false)
-					));
-	
-	
 	public static ArrayList<String> lstAccessCreate = new ArrayList<>(
 			Arrays.asList("Administrator"+date0, 
 					"Role Description"));
@@ -329,7 +321,7 @@ public class Test_Variables {
 	
 	public static ArrayList<String> lstAccessAlertMessages = new ArrayList<>(
 			Arrays.asList("New Reporting role created.", 
-					"Reporting role details updated successfully."));
+					"Role has been updated successfully."));
 	
 	public static ArrayList<AccessModel> lstUserManagementAccessRole = new ArrayList<>();
 
@@ -337,10 +329,14 @@ public class Test_Variables {
 
 
 	/////////////////////////////////////////////////////Agreement Management Variables////////////////////////////////////////////////////////
+	public static ArrayList<String> lstAgreemmentManagementFileName = new ArrayList<>(
+			Arrays.asList("Agreement.pdf", 
+					"file"+date0+".pdf",
+					"Agreementfile"+date0+".pdf"));
 	
 	public static ArrayList<AgreementManagementModel> lstAgreementManagement = new ArrayList<>(
 			Arrays.asList(
-					new AgreementManagementModel("AN-License-02: Verify user can upload pdf file", "This test case will verify that user can upload pdf file", "User was able to upload pdf file successfully", "User was not able to upload pdf file", "/EULA/sampleAgreement.pdf", "PNG file", "New user agreement created."),
+					new AgreementManagementModel("AN-License-02: Verify user can upload pdf file", "This test case will verify that user can upload pdf file", "User was able to upload pdf file successfully", "User was not able to upload pdf file", "/EULA/"+lstAgreemmentManagementFileName.get(0), "PDF file", "New user agreement created."),
 					new AgreementManagementModel("AN-License-03: Verify user cannot upload docx file", "This test case will verify that user cannot upload docx file", "User was not able to upload docx file successfully", "User was able to upload docx file", "/EULA/sample.docx", "DOCX file", "Please select pdf file."),
 					new AgreementManagementModel("AN-License-04: Verify user cannot upload xlsx file", "This test case will verify that user cannot upload xlsx file", "User was not able to upload xlsx file successfully", "User was able to upload xlsx file", "/EULA/sample.xlsx", "XLSX file", "Please select pdf file."),
 					new AgreementManagementModel("AN-License-05: Verify user cannot upload csv file", "This test case will verify that user cannot upload csv file", "User was not able to upload csv file successfully", "User was able to upload csv file", "/EULA/sample.csv", "CSV file", "Please select pdf file."),
@@ -361,10 +357,7 @@ public class Test_Variables {
 					new AgreementManagementModel("", "AN-License-33: Verify that assigned and reactivated agreement is displayed in user agreement dropdown", "This testcase will verify that assigned and reactivated agreement is displayed in user agreement dropdown", "The assigned and reactivated agreement was displayed successfully", "The assigned and reactivated agreement was not displayed")
 							));	
 			
-	public static ArrayList<String> lstAgreemmentManagementFileName = new ArrayList<>(
-			Arrays.asList("sampleAgreement.pdf", 
-					"file"+date0+".pdf",
-					"sampleAgreementfile"+date0+".pdf"));
+
 	
 	//////////////////////////////////////////////////////End Agreement Management Variables///////////////////////////////////////////////////////
 	
@@ -378,39 +371,14 @@ public class Test_Variables {
 	
 	//////////////////////////////////////////////////////Reports Management Screen Variables/////////////////////////////////////////////////////
 	
-	public static String RoleName = "Test Role"+date0;
-//	public static String RoleName = "Test Role0051";
-	public static String ReportName = "Test Report Group"+date0;
-	public static int ReportGroupConfigLength = 35;
-	public static int ReportGroupLength = 35;
-
-
-	public static ArrayList<RMModel> lstRMMandatoryCheck = new ArrayList<>(
-			Arrays.asList(
-					new RMModel(true, "", "", "1. Leave all fields empty", false, "AN-RM-04: Verify Mandatory field check with all fields empty", "This test case will verify that user is not able to create role with all fields empty", true, "The user was not able to create Role leaving all fields empty", "User was able to create a Role leaving all fields empty"),
-					new RMModel(true, "", "desc", "1. Leave one field empty", false, "AN-RM-05: Verify Mandatory field check with one field empty","This test case will verify that user is not able to create role with one field empty", true, "The user was not able to create Role leaving all fields empty", "User was able to create a Role leaving all fields empty"),
-					new RMModel(true, RoleName, "Role Test Description", "1. Enter valid data in both fields", true, "AN-RM-06: Verify user is able to create a new Role", "This test case will verify that user is able to create new role", false, "The user was able to create a role successfully", "The user was not able to create a Role")));
-
-
-	public static ArrayList<String> lstRMtestCase = new ArrayList<>(
-			Arrays.asList("", 
-					""));
-	
-	public static ArrayList<String> lstRMtestCaseDesc = new ArrayList<>(
-			Arrays.asList(RoleName, 
-					"Role description updated"));
-	
-	public static ArrayList<String> lstRMUpdation = new ArrayList<>(
-			Arrays.asList(RoleName, 
-					"Role description updated"));
-
+	public static String RoleName = "Test Role - "+date0;
+	public static String ReportGroupName = "Test Report Group - "+date0;
 
 	public static ArrayList<RMModel> lstRGMandatoryCheck = new ArrayList<>(
 			Arrays.asList(
-					new RMModel("", "", false, "Leave all fields empty", false, "AN-RM-16: Leave all fields empty and click on save button", "This test case wll verify that user cannot create report group without filling all mandatory fields", true, "The user was not able to create Report Group leaving all fields empty", "User was able to create a Report Group leaving all fields empty"),
-					new RMModel("", "Lorem Ipsum", false, "Leave 2 fields empty", false, "AN-RM-17: Leave 2 field empty and click on save button", "This test case will verify that user is not able to create role with two field empty", true, "The user was not able to create Report Group leaving 2 fields empty", "User was able to create a Report Group leaving 2 fields empty"),
-					new RMModel("", "desc", true, "Leave 1 field empty", false, "AN-RM-18: Leave 1 field empty and click on save button", "This test case will verify that user is not able to create role with one field empty", true, "The user was not able to create Report Group leaving 1 field empty", "User was able to create a Report Group leaving 1 field empty"),
-					new RMModel(ReportName, "Group created by automation script", false, "Fill all fields", true, "AN-RM-19: User should be able to save Report Details", "This test case will verify that user is able to create new report group", false, "The user was able to create Report Group after entering valid data in all fields", "The user was not able to create Report Group")));
+					new RMModel("", "", false, "Leave all fields empty", false, "AN-RM-14: Leave all fields empty and click on save button", "This test case wll verify that user cannot create report group without filling all mandatory fields", true, "The user was not able to create Report Group leaving all fields empty", "User was able to create a Report Group leaving all fields empty"),
+					new RMModel("", "Lorem Ipsum", false, "Leave 2 fields empty", false, "AN-RM-15: Leave 2 field empty and click on save button", "This test case will verify that user is not able to create role with two field empty", true, "The user was not able to create Report Group leaving 2 fields empty", "User was able to create a Report Group leaving 2 fields empty"),
+					new RMModel(ReportGroupName, "Group created by automation script", true, "Fill all fields", true, "AN-RM-16: User should be able to save Report Details", "This test case will verify that user is able to create new report group", false, "The user was able to create Report Group after entering valid data in all fields", "The user was not able to create Report Group")));
 
 	//////////////////////////////////////////////////////End Reports Management Screen Variables////////////////////////////////////////////////
 	
@@ -458,6 +426,7 @@ public class Test_Variables {
 	/////////////////////////////////////////////////////Piper Configuration Screen////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<PiperConfigurationModel> lstPiperConfigurationCreate = new ArrayList<>();
+	public static ArrayList<PiperConfigurationModel> lstPiperConfigurationCreatePA = new ArrayList<>();
 	
 	///////////////////////////////////////////////////End Piper Configuration Screen////////////////////////////////////////////////////////////////////
 	
@@ -559,6 +528,8 @@ public class Test_Variables {
 	public static String SampleMatrix = "AT_SampleMatrix";
 	public static String fileName = "MetaData RunMode1.xlsx";
 	public static String SiteID = "1001001";
+//	public static String SiteID = "1267007";
+	public static String invalidSiteID = "1001001";  //siteid not assigned to user
 	public static String CollectionDate = "12/12/2021";
 	////////End Sample MetaData Upload Data/////////////////
 
@@ -747,6 +718,14 @@ public class Test_Variables {
 	///////////////////////////////////////////////////////////End P/A Configuration//////////////////////////////////////////////////////////////////////////////////////////////////// 
 	
 	
+	////////////////////////////////////////////////////////Data Security Ingestion/////////////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<DataSecurityModel> lstDataSecurity = new ArrayList<>(); 
+	
+	public static String templateFileNameDS = "MetaData DataSecurity.xlsx";
+	
+////////////////////////////////////////////////////////Data Security Ingestion/////////////////////////////////////////////////////////////////////////
+	
 	/////////////////////////////////////////////////////////////Profile Variables//////////////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<ProfileModel> lstProfileNavigate = new ArrayList<>(
@@ -759,7 +738,7 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_barcodeManagement, "AN-PS-06: Navigate to Profile Setting from barcode Management Screen", "This test case will verify user can navigate to Profile Setting page from Barcode Management Screen", "1. Hover to sidebar and click on Barcode Management", "Barcode Management"),
 					new ProfileModel(Constants.url_agreementManagement, "AN-PS-07: Navigate to Profile Setting from Agreement Management Screen", "This test case will verify user can navigate to Profile Setting page from Agreement Management Screen", "1. Hover to sidebar and click on Agreement Management", "Agreement Management"),
 					new ProfileModel(Constants.url_alert, "AN-PS-08: Navigate to Profile Setting from Alert Management Screen", "This test case will verify user can navigate to Profile Setting page from Alert Management Screen", "1. Hover to sidebar and click on Alert Management", "Alert Management"),
-					new ProfileModel(Constants.url_cyclingConfig, "AN-PS-08: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Complex Cycling Config Management Screen", "1. Hover to sidebar and click on Complex Cycling Config", "Complex Cycling Config"),
+					new ProfileModel(Constants.url_cyclingConfig, "AN-PS-08: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Complex Cycling Config Management Screen", "1. Hover to sidebar and click on Complex Cycling Config", "Complex OPG Range Config"),
 					new ProfileModel(Constants.url_flockRegistration, "AN-PS-08: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Flock Registration Screen", "1. Hover to sidebar and click on Flock Registration", "Flock Registrations"),
 					new ProfileModel(Constants.url_piperManagement, "AN-PS-09: Navigate to Profile Setting from Piper Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Management", "PIPER Management"),
 					new ProfileModel(Constants.url_piperSoftware, "AN-PS-10: Navigate to Profile Setting from Piper Software Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Software Management", "PIPER Software Management"),

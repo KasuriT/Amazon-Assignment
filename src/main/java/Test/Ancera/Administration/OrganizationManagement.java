@@ -1191,7 +1191,7 @@ public class OrganizationManagement{
 						if (!objModel.ErrorCase) {
 							Test_Variables.steps.createNode("2. Verify new tag next to sites on uploading valid bulk file");
 							Thread.sleep(3000);
-							softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector(".new-site-design")).size(), 0);
+							softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector(".new-site-design")).size(), 0, "Sites uploaded through bulk are not showing up in list with new tag");
 						}
 							
 						softAssert.assertAll();

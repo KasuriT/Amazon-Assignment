@@ -80,6 +80,19 @@ public class InstallationRun {
 								Thread.sleep(1000);
 								break;
 							}
+//							else {
+//								Helper.driver.findElement(By.id("PathogenName")).sendKeys("Salmonella");
+//								Helper.driver.findElement(By.id("PathogenName")).sendKeys(Keys.ENTER);
+//								Helper.driver.findElement(By.id("create-installation-run")).click();
+//								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+//								Thread.sleep(1000);
+//								Helper.driver.findElement(By.cssSelector("#ImprocName img")).click();
+//								Thread.sleep(800);
+//								Helper.driver.findElement(By.xpath("//*[contains(text(),'ImprocSalm01')]")).click();
+//								Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Test_Variables.installationImprocVersionSalm);
+//								Helper.driver.findElement(By.xpath("//*[contains(text(),'Add New +')]")).click();
+//								break;
+//							}
 						}
 					}
 

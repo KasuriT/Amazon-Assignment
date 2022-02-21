@@ -3,7 +3,8 @@ package Test.Ancera.Login;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -107,7 +108,16 @@ public class TestLogin{
 			Test_Variables.preconditions.createNode("2. Login with valid credentials");
 			Test_Variables.preconditions.createNode("3. User is redirected to home page");
 			Test_Variables.steps.createNode("1. Hover to expand sidebar");
-			Test_Variables.steps.createNode("2. Click on Logout button");
+			Test_Variables.steps.createNode("2. Verify the version in sidebar");
+			
+			WebElement hover = Helper.driver.findElement(By.id("menu-administration"));
+			Actions action = new Actions(Helper.driver);
+			action.moveToElement(hover).perform();
+			Thread.sleep(1000);
+			String version = Helper.driver.findElement(By.cssSelector(".version-text")).getText();
+			Assert.assertTrue(version.startsWith("Version: 4."), "Version not in side menu bar");
+			
+			Test_Variables.steps.createNode("3. Click on Logout button");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Login", Constants.LoginReportPath));
 			Helper.driver.findElement(By.id("logout")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));

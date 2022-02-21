@@ -104,7 +104,7 @@ public class PiperManagement {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Helper.driver.findElement(By.cssSelector(".p-point-625 #btn-ok-sites")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.cssSelector(".btn-ok#btn-ok-sites")).click();
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Testing sites details updated successfully.");
@@ -126,7 +126,7 @@ public class PiperManagement {
 	}
 	
 	
-	@Test (enabled= true, priority = 2) 
+	@Test (enabled= true, priority = 3) 
 	public void AlertSetting() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();

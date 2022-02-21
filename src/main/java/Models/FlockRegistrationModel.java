@@ -43,7 +43,6 @@ public class FlockRegistrationModel {
 		FlockRegistrationModel objTmp; 
 		ReportFilters  objFilter;
 
-
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Integrator ID Filter";
@@ -179,8 +178,8 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID,Test_Elements.flockSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "3"));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockIntegratorID, Test_Elements.flockSiteID));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
@@ -413,7 +412,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-
+/*
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -499,7 +498,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("c", "c"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-
+*/
 		return lstFlockRegistrationModel;
 	}	
 
@@ -1221,7 +1220,7 @@ public class FlockRegistrationModel {
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Integrator Site ID";
-		objTmp.TestCaseName = "AN-FR-73: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseName = "AN-FR-99: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1235,7 +1234,7 @@ public class FlockRegistrationModel {
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Type";
-		objTmp.TestCaseName = "AN-FR-74: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseName = "AN-FR-100: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1249,7 +1248,7 @@ public class FlockRegistrationModel {
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Sex";
-		objTmp.TestCaseName = "AN-FR-75: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseName = "AN-FR-101: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
@@ -1263,7 +1262,7 @@ public class FlockRegistrationModel {
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed";
-		objTmp.TestCaseName = "AN-FR-76: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+		objTmp.TestCaseName = "AN-FR-102: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();

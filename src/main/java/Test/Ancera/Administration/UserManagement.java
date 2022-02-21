@@ -855,6 +855,13 @@ public class UserManagement {
 			Thread.sleep(1000);
 
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstUserAlertMessages.get(1)); 
+			
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
+					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userLastNameCol+" label")).getText(), "User Updated"); 
+					break;
+				}
+			}
 			Test_Variables.test.pass("User updated successfully");
 			Test_Variables.results.createNode("User updated successfully; an alert message appears 'User details updated.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
@@ -871,56 +878,6 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Verify Update User", enabled = true, priority= 13) 
-	public void VerifyUpdateUser() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user is actually updated and user can reset pin for piper user", "This test case will verify that the user is actually updated by reopening the popup after updation");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
-			Test_Variables.preconditions.createNode("4. Click on create new button and create a new user");
-			Test_Variables.preconditions.createNode("5. Click on update button next to created user; Update user popup appears");
-			Test_Variables.steps.createNode("1. Update the user and click on  Save button");
-			Test_Variables.steps.createNode("2. Reopen the updated popup to verify that changes made were save or not");
-
-			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
-					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					break;
-				}
-			}	
-
-			Thread.sleep(10000);
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#lastNameId")).getAttribute("value"), "User Updated"); 
-
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
-	//		Assert.assertEquals(Helper.driver.findElements(By.id("btn-reset-pin")).size(), 1); 
-
-			Test_Variables.test.pass("User updation verified successfully");
-			Test_Variables.results.createNode("User was updated successfully; changes remained saved");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
-		}catch(AssertionError er) {
-			Test_Variables.test.fail("User updation failed");
-			Test_Variables.results.createNode("User updation failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
-		}catch(Exception ex) {
-			Test_Variables.test.fail("User updation failed");
-			Test_Variables.results.createNode("User updation failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
-		}
-		Helper.driver.findElement(By.id("close-popup-modal")).click();
-	}
-
-	
 	@Test (enabled= true, priority= 14) 
 	public void EditAssignRolePopup() throws InterruptedException, IOException {
 		try{
@@ -941,6 +898,9 @@ public class UserManagement {
 			Thread.sleep(1500);
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userRoleCol+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000); 
 					Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userRoleCol+" img")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					break;
@@ -952,7 +912,7 @@ public class UserManagement {
 			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ARROW_DOWN);
 			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1000);
-			String Reporting = Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).getText();
+			String Reporting = Helper.driver.findElement(By.cssSelector("#reportRoleId .ng-value-label")).getText();
 			Helper.driver.findElement(By.id("btn-save")).click();
 			Thread.sleep(750);
 			Helper.driver.findElement(Test_Elements.popupYesButton).click();

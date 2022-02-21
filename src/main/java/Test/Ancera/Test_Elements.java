@@ -157,33 +157,14 @@ public class Test_Elements {
 
 	//////////////////////////////////////////// Access Management Elements//////////////////////////////////////////////////
 
-	public static String accessCreateButton = "/html/body/app-root/div/app-manage-role/button";
-	public static String accessName = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[1]/div/div/div[1]/input";
-	public static String accessDesc = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[1]/div/div/div[2]/input";
-	public static String accessResetButton = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[2]/div/button[2]";
-	public static String accessSaveButton = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[2]/div/button[1]";
-	public static String accessGetTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";
-	public static String accessGetPopupTitle = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[2]/div";
+	public static By accessCreateButton = By.id("create-role");
+	public static By accessName = By.xpath("//div[1]/app-anc-input-box/div/input[1]");
+	public static By accessDesc = By.xpath("//div[2]/app-anc-input-box/div/input[1]");
 
-	public static String accessNameValidation = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[1]/div/div/div[1]/div";
-	public static String accessDescValidation = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-role/form/div[1]/div/div/div[2]/div";
-	public static String accessNameValidationExpected = "Role name is required";
-	public static String accessDescValidationExpected = "Role description is required";
+	public static By accessNameDescValidation = By.cssSelector(".has-error");
 	public static String accessInActive = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-update-role/form/div[1]/div/div/div[3]/div/app-custom-radio-button/div/div";
 
-	public static String accessBeforeXpath = "/html/body/app-root/div[1]/app-manage-role/div/div[2]/div/div/table/tbody/tr[";
-	public static String accessAfterXpath = "]/td[1]";					
-	public static String accessAfterXpath1 = "]/td[3]/img[1]";
-	public static String accessAfterXpath2 = "]/td[3]/img[2]";
-	public static String accessAfterXpath3 = "]/td[3]/img[3]";
 
-	public static String accessUpdateDesc = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-update-role/form/div[1]/div/div/div[2]/input";
-	public static String accessUpdateButton = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-update-role/form/div[2]/div/button";
-	public static String accessGetEditRightsTitle = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[2]/div";
-	public static String accessEditRights = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-rights/form/div[1]/div/div/table/tbody/tr[1]/td[2]/label/div";
-	public static String accessEditRightsSaveButton = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[3]/app-create-rights/form/div[2]/div/button";
-	public static String accessGetAssignRoleTitle = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[2]/div";
-	public static String accessCloseAssignRole = "/html/body/app-root/div[1]/app-manage-role/app-popup-component/div/div/div/div[1]";
 
 	//////////////////////////////////////////End Access Management Elements////////////////////////////////////////////////
 
@@ -260,75 +241,19 @@ public class Test_Elements {
 
 	//////////////////////////////////////////Report Management Elements////////////////////////////////////////////////////
 
-	public static String rmGetTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";
-	public static String rmCreateButton = "/html/body/app-root/div/app-manage-reportrole/button[1]";
-	public static String rmPopupGetTitle = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[2]/div";
-	public static String rmName = "nameId";
-	public static String rmDesc = "DescId";
-	public static String rmResetButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[2]/div/button[2]";
-	public static String rmSaveButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[2]/div/button[1]";
-	public static String rmUpdateButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-update-reportrole/form/div[2]/div/button";
-
-	public static String rmToggleInactive = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-update-reportrole/form/div[1]/div/div/div[3]/div[1]/div/app-custom-radio-button/div";
-	public static String rmToggleDataSecurity = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[3]/div[2]/div/app-custom-radio-button";
-	public static String rmNameValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[1]/div";
-	public static String rmDescValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrole/form/div[1]/div/div/div[2]/div";
+	public static By rmCreateButton = By.id("create-report-role");
+	public static By rmName = By.id("nameId");
+	public static By rmDesc = By.id("DescId");
+	public static By rmRoleFilterShow = By.id("reportRoleName_show-filter");
+	public static By rmRoleFilterApply = By.id("reportRoleName_apply");
+	public static By rmRoleFilterSearch = By.id("reportRoleName_search-input");
+	public static By rmRoleFilterWildcardToggle = By.cssSelector(".filter-popup__action--wildcard");
+	public static By rmReportGroupPopupOpen = By.id("manage-report-group");
+	public static By rmReportGroupsCreateButton = By.id("add-group");
+	public static By rmReportGroupsName = By.id("groupNameId");
+	public static By rmReportGroupsDesc = By.id("groupDescId");
+	public static By rmReportGroupsresetButton = By.id("btn-reset-2");
 	
-	
-	public static String rmbeforeXpath = "/html/body/app-root/div/app-manage-reportrole/div/div/div[2]/div/table/tbody/tr[";
-	public static String rmafterXpath = "]/td[1]";					
-	public static String rmafterXpath1 = "]/td[3]/img[1]";
-	public static String rmRoleFind = "/html/body/app-root/div/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[1]/div[2]/div/div[3]/div[3]/div/div/ng-select/div/div/div[6]/input";
-
-	public static String rmReportGroupsCreateButton =  "/html/body/app-root/div/app-manage-reportrole/button[2]";
-	public static String rmReportGroupsPopupGetTitle =  "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[2]/div";
-	public static String rmReportGroupsDetailsGetTitle = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/legend";
-	public static String rmReportGroupsAddbutton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div/div/fieldset/div[1]/i[2]";
-	public static String rmReportGroupsGrpName = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[1]/input";
-	public static String rmReportGroupsGrpDesc = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[2]/input";
-
-	public static String rmReportGroupsReports = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[3]/div[1]/ng-select/div/span";
-	public static String rmReportGroupsReportsSelect = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[3]/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]";
-	public static String rmReportGroupsReportsInput = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[3]/div/ng-select/div/div/div[2]/input";
-	public static String rmReportGroupsReportsClose = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[3]/div/ng-select/div/span[2]";
-	public static String rmReportGroupsInActive = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[4]/div[1]/div/app-custom-radio-button/div";
-	public static String rmReportGroupsUpdateDesc = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[2]/input";
-	public static String rmReportGroupsUpdateButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[4]/div[2]/div/button[1]";
-	public static String rmUserButton1 = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[2]/div/button";
-	public static String rmUserButton2 = "/html/body/app-root/div[1]/app-manage-user-component/app-popup-component/div/div/div/div[3]/app-update-user-component/form/div[2]/div/button[2]";
-	public static String rmorgButton1 = "/html/body/app-root/div[1]/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[3]/div/button";
-	public static String rmOrgUpdateRole = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[2]/div[2]/div/div/ng-select/div/div/div[5]/input";
-	public static String rmOrgUpdateRoleSelect = "/html/body/app-root/div/app-manage-organization/app-popup-component/div/div/div/div[3]/app-update-organization/form/div/div[2]/div/div[2]/div[2]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div";
-
-	public static String rmReportGroupsResetButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[4]/div[2]/div/button[2]";
-	public static String rmReportGroupsSaveButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[4]/div[2]/div/button[1]";
-
-	public static String rmReportGroupsGrpNameValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[1]/div";
-	public static String rmReportGroupsGrpDescValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[2]/div";
-	public static String rmReportGroupsGrpReportValidation = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div[2]/form/div/div/fieldset/div/div[3]/div[2]";
-
-	public static String rgbeforeXpath = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div/div/fieldset/div[2]/ul[";
-	public static String rgafterXpath = "]/li/label/span";					
-	public static String rgafterXpathExpand = "]/li/i[1]";
-	public static String rgafterXpathExpandDelete = "]/div/ul[";
-	public static String rgafterXpathExpandDelete2 = "]/li/label";
-	public static String rgafterXpathExpandDelete3 = "]/li/i";
-	public static String rgafterXpathDelete = "]/li/i[2]";
-
-	public static String rmReportGroupsConfigDeleteCnfrm = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/app-confirmation-component/div/div/div[3]/div/button[1]";
-	public static String rmReportGroupsDelete = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/div/div/div/div/fieldset/div[2]/ul[4]/li/i[2]";
-	public static String rmReportGroupsDeleteConfrm = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-manage-role/app-confirmation-component/div/div/div[3]/div/button[1]";
-
-	public static String rmEditRightsButton = "/html/body/app-root/div[1]/app-manage-reportrole/div/div/div[2]/div/table/tbody/tr[1]/td[3]/img[2]";	
-	public static String rmEditRightsGetTitle = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[2]/div"; 
-	public static String rmEditRightsReportName = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrights/form/div[1]/div/div[2]/div/fieldset/table/tbody/tr/td[1]/label";
-
-	public static String rmEditRightsbeforeXpath = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrights/form/div[1]/div/div[1]/div/fieldset/ul[";
-	public static String rmEditRightsafterXpath = "]/li/label[1]";					
-	public static String rmEditRightsafterXpath1 = "]/li/div/app-custom-radio-button/div";
-	public static String rmEditRightsSaveButton = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrights/form/div[2]/div/button";
-	public static String rmEditRightsView = "/html/body/app-root/div[1]/app-manage-reportrole/app-popup-component/div/div/div/div[3]/app-create-reportrights/form/div[1]/div/div[2]/div/fieldset/table/tbody/tr/td[4]/label/div";
-
 	/////////////////////////////////////////End Report Management Elements////////////////////////////////////////////////////
 
 

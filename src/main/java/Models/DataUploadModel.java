@@ -164,7 +164,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Farm Site ID";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 3));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID, "6/06/2021"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID, "2021-12-12"));
 		objTmp.steps = "Enter Farm Site ID and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload Flock Metadata with Farm Site ID successfully";
@@ -450,8 +450,8 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-66: Verify that user cannot upload Site Performance with Number of Birds Sold greater than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Site Performance with Number of Birds Sold greater than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(3, 2));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(3, 2, 1));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80", "2021-12-12"));
 		objTmp.steps = "Enter Number of Birds Sold greater than Number of Birds Placed";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sitePerformanceFileName;
 		objTmp.passStep = "User was not able to upload Weekly Site Performance template with Number of Birds Sold greater than Number of Birds Placed successfully";

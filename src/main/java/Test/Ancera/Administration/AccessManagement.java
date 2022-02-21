@@ -1,7 +1,9 @@
 package Test.Ancera.Administration;
 import java.io.IOException;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -72,62 +74,46 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Access Management",enabled= true, priority= 2) 
-	public void CreateAccess() throws InterruptedException, IOException
-	{
-		Thread.sleep(2000);
-	
+	@Test (enabled= true, priority= 2) 
+	public void OpenPopup() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-02: Verify user can open Create New Access Popup", "This test case will verify that user can open create new access popup");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.accessCreateButton)).click();
-			Thread.sleep(2000);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
 			Test_Variables.steps.createNode("1. Click on Create New button");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessGetPopupTitle)));
-			String getTitleActual = Helper.driver.findElement(By.xpath(Test_Elements.accessGetPopupTitle)).getText();
-			String getTitleExpected = "Create Role";
-
-			Assert.assertEquals(getTitleActual, getTitleExpected); 
-			Test_Variables.test.pass("Access Popup opened successfully");
-			Test_Variables.results.createNode("Create Access popup opens");
+			Helper.driver.findElement(Test_Elements.accessCreateButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(By.cssSelector(".popup-header")).getText(), "Create Role", "Create popup failed to open"); 
+			Test_Variables.test.pass("Popup opened successfully");
+			Test_Variables.results.createNode("Popup opened successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
-			Test_Variables.test.fail("Create Access popup failed to open");
-			Test_Variables.results.createNode("Create Access popup failed to open");
+			Test_Variables.test.fail("Popup failed to open");
+			Test_Variables.results.createNode("Popup failed to open");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
 		}	
 		catch(Exception ex){
-			Test_Variables.test.fail("Create Access popup failed to open");
-			Test_Variables.results.createNode("Create Access popup failed to open");
+			Test_Variables.test.fail("Popup failed to open");
+			Test_Variables.results.createNode("Popup failed to open");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}
-		Thread.sleep(1000);
+	}
 
+
+	@Test (enabled= true, priority= 3) 
+	public void MandatoryCheck() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-03: Verify Mandatory fields check", "This test case will verify madatory field check in create access popup");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.driver.findElement(By.xpath(Test_Elements.accessSaveButton)).click();
-			Thread.sleep(1000);
-			String nameValidationActual = Helper.driver.findElement(By.xpath(Test_Elements.accessNameValidation)).getText();
-			String nameValidationExpected = Test_Elements.accessNameValidationExpected;
-			String descValidationActual = Helper.driver.findElement(By.xpath(Test_Elements.accessDescValidation)).getText();
-			String descValidationExpected = Test_Elements.accessDescValidationExpected;
-			Thread.sleep(1000);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
@@ -136,8 +122,10 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("2. Leave description field empty");
 			Test_Variables.steps.createNode("3. Click on save button");
 
-			Assert.assertEquals(nameValidationActual, nameValidationExpected); 
-			Assert.assertEquals(descValidationActual, descValidationExpected); 
+			Helper.driver.findElement(Test_Elements.accessName).click();
+			Helper.driver.findElement(Test_Elements.accessDesc).click();
+			Helper.driver.findElement(Test_Elements.accessName).click();
+			Assert.assertEquals(Helper.driver.findElements(Test_Elements.accessNameDescValidation).size(), 4); 
 			Test_Variables.test.pass("Mandatory Field check verified successfully");
 			Test_Variables.results.createNode("Does not save Role; displays validation messages underneath name and description fields");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -152,22 +140,16 @@ public class AccessManagement{
 			Test_Variables.results.createNode("Saved Role; displayed validation messages underneath name and description fields");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}	
+	}
 
+
+	@Test (enabled= true, priority= 4) 
+	public void ResetAccess() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-04: Verify reset fields check", "This test case will verify field reset check in create new access popup");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Thread.sleep(1000);
-			WebElement accessName = Helper.driver.findElement(By.xpath(Test_Elements.accessName));
-			accessName.sendKeys(Test_Variables.lstAccessCreate.get(0));
-
-			WebElement accessDesc = Helper.driver.findElement(By.xpath(Test_Elements.accessDesc));
-			accessDesc.sendKeys(Test_Variables.lstAccessCreate.get(1));
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.driver.findElement(By.xpath(Test_Elements.accessResetButton)).click();
-			Thread.sleep(3000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
@@ -175,6 +157,16 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("1. Enter data in name field");
 			Test_Variables.steps.createNode("2. Enter data in description field");
 			Test_Variables.steps.createNode("3. Click on reset button");
+
+			WebElement accessName = Helper.driver.findElement(Test_Elements.accessName);
+			accessName.sendKeys(Test_Variables.lstAccessCreate.get(0));
+
+			WebElement accessDesc = Helper.driver.findElement(Test_Elements.accessDesc);
+			accessDesc.sendKeys(Test_Variables.lstAccessCreate.get(1));
+
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Helper.driver.findElement(Test_Elements.popupResetButton).click();
+			Thread.sleep(1000);
 
 			String nameActual = accessName.getAttribute("value");
 			String descActual = accessDesc.getAttribute("value");
@@ -184,7 +176,7 @@ public class AccessManagement{
 			Assert.assertEquals(descActual, expected); 
 			Test_Variables.test.pass("Access Reset successfully");
 			Test_Variables.results.createNode("Fields reset successfully");
-			//Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Fields failed to reset");
@@ -196,18 +188,16 @@ public class AccessManagement{
 			Test_Variables.results.createNode("Fields failed to reset");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}	
+	}
 
+
+	@Test (description="Test Case: Create Access",enabled= true, priority= 5) 
+	public void CreateAccess() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-05: Verify user can create Role", "This test case will verify that user can create a new role");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Helper.driver.findElement(By.id("nameId")).sendKeys(Test_Variables.lstAccessCreate.get(0));
-			Helper.driver.findElement(By.id("DescId")).sendKeys(Test_Variables.lstAccessCreate.get(1));
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Thread.sleep(1000);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
@@ -215,9 +205,28 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("1. Enter valid data in name field");
 			Test_Variables.steps.createNode("2. Enter valid data in description field");
 			Test_Variables.steps.createNode("3. Click on save button");
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstAccessAlertMessages.get(0)); 
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
+
+			SoftAssert softAssert = new SoftAssert();
+			int rows = Helper.driver.findElements(By.cssSelector("tr")).size()-1;
+			String resultsFound = Helper.driver.findElement(By.id("results-found-count")).getText();
+			softAssert.assertEquals(rows, Integer.parseInt(resultsFound), "Results count not showing correct number of access in table");
+
+			Helper.driver.findElement(Test_Elements.accessCreateButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+
+			Helper.driver.findElement(Test_Elements.accessName).sendKeys(Test_Variables.lstAccessCreate.get(0));
+			Helper.driver.findElement(Test_Elements.accessDesc).sendKeys(Test_Variables.lstAccessCreate.get(1));
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), Test_Variables.lstAccessAlertMessages.get(0)); 
+			softAssert.assertEquals(rows+1, Integer.parseInt(resultsFound)+1);
 			Test_Variables.test.pass("Role created successfully");
 			Test_Variables.results.createNode("New role created; displays alert message 'New role created.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -236,8 +245,7 @@ public class AccessManagement{
 	}
 
 
-
-	@Test (description="Test Case: Update Access ",enabled= true, priority= 3) 
+	@Test (description="Test Case: Update Access ",enabled= true, priority= 6) 
 	public void UpdateRole() throws InterruptedException, IOException
 	{
 		try{
@@ -245,34 +253,39 @@ public class AccessManagement{
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			//	Helper.driver.get(Constants.url_access);
-			Thread.sleep(1000);
-			Test_Functions.AccessFind();
-			Thread.sleep(2000);
-
-			WebElement desc = Helper.driver.findElement(By.id("DescId"));
-			desc.clear();
-			desc.sendKeys("Role Updated");
-			Thread.sleep(1000);
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Thread.sleep(1000);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
 			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-
 			Test_Variables.steps.createNode("1. Click on update button next to created role");
 			Test_Variables.steps.createNode("2. Update name and description of role");
 			Test_Variables.steps.createNode("3. Click on save button");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			String actual = Helper.driver.findElement(By.id("message")).getText();
-			String expected = Test_Variables.lstAccessAlertMessages.get(1) ;
+			Helper.driver.get(Constants.url_access);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
 
-			Assert.assertEquals(actual, expected); 
+			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+
+			for (int i=1; i<rows;i++) {
+					if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(Test_Variables.lstAccessCreate.get(0)) ) {
+			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals("Administrator5244") ) {
+					i = i-1;
+					Helper.driver.findElement(By.id("edit-role-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					break;
+				}
+			}
+			
+			WebElement desc = Helper.driver.findElement(Test_Elements.accessDesc);
+			desc.clear();
+			desc.sendKeys("Role created by automation script");
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstAccessAlertMessages.get(1)); 
 			Test_Variables.test.pass("Role updated successfully");
 			Test_Variables.results.createNode("Role updated; user receives an alert message that 'Role details updated.'");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -287,38 +300,37 @@ public class AccessManagement{
 			Test_Variables.results.createNode("Role fails to update; user does not receive an alert message that 'Role details updated.'");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}	
-		Helper.driver.findElement(By.cssSelector("button.close span")).click();
+		Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 	}
 
 
-	@Test (description="Test Case: Verify Update Access",enabled= true, priority= 4) 
-	public void VerifyUpdateRole() throws InterruptedException, IOException
-	{
+	@Test (description="Test Case: Verify Update Access",enabled= true, priority= 7) 
+	public void VerifyUpdateRole() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-07: Verify role remains updated on reopening the Role", "This test case will verify that changes made in role remains saved on reopening the role");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Thread.sleep(1000);		
-			Test_Functions.AccessFind();
-			Thread.sleep(1500);  
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
 			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
 			Test_Variables.preconditions.createNode("5. Update created role");
-
 			Test_Variables.steps.createNode("1. Reopen updated role by clicking on update button");
 			Test_Variables.steps.createNode("2. Verify the updation made in fields are saved");
+			
+			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+			for (int i=1; i<rows;i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(Test_Variables.lstAccessCreate.get(0)) ) {
+					i=i-1;
+					Helper.driver.findElement(By.id("edit-role-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(3000);
+					break;
+				}
+			}
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("DescId")));
-			Thread.sleep(1500);
-			String actual = Helper.driver.findElement(By.id("DescId")).getAttribute("value");
-			String expected = "Role Updated";
-			Thread.sleep(1000);
-
-			Assert.assertEquals(actual, expected); 
+			Assert.assertEquals(Helper.driver.findElement(By.id("descId")).getAttribute("value"), "Role created by automation script"); 
 			Test_Variables.test.pass("Role updation verified successfully");
 			Test_Variables.results.createNode("Changes remained saved");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -336,8 +348,7 @@ public class AccessManagement{
 	}
 
 
-
-	@Test (description="Test Case: InActivate Role",enabled= true, priority= 5) 
+	@Test (description="Test Case: InActivate Role",enabled= true, priority= 8) 
 	public void InActivateRole() throws InterruptedException, IOException
 	{
 		try{
@@ -345,11 +356,6 @@ public class AccessManagement{
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Thread.sleep(2000);
-
-			Helper.driver.findElement(By.id("role-status")).click();
-			Thread.sleep(1000);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
@@ -358,10 +364,10 @@ public class AccessManagement{
 			Test_Variables.steps.createNode("2. Click on InActive toggle button");
 			Test_Variables.steps.createNode("3. Click on save button");
 
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			Helper.driver.findElement(By.cssSelector("#role-status .toggle")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			String actual = Helper.driver.findElement(By.id("message")).getText();
 			String expected = Test_Variables.lstAccessAlertMessages.get(1) ;
 
@@ -385,194 +391,81 @@ public class AccessManagement{
 	}
 
 
-	@Test (description="Test Case: Edit Rights screen",enabled= true, priority= 6) 
-	public void EditRightsScreen() throws InterruptedException, IOException
-	{
-		try{
-			Helper.driver.get(Constants.url_access);
-			Thread.sleep(2000);
 
-			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-09: Verify user can open Edit Rights screen", "This test case will verify that user can open Edit Rights screen");
+
+
+	@Test (description="Test Case: Role Assign screen",enabled= true, priority= 9) 
+	public void RoleAssignScreen() throws InterruptedException, IOException{
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-11: Verify Role Assign screen contains names of user to which the role is assigned", "This test case will verify that Role Assign screen contains names of user to which the role is assigned");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
 			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-			Test_Variables.steps.createNode("1. Click on edit rights button next to created role");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-			Thread.sleep(2000);		
-
-			for (int i=2; i<=80; i++) {
-				int j = i-1;
-				String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-				Thread.sleep(1000);
-				if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
-					Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath2)).click(); 
-					break;
-				}}
-
-
-			Thread.sleep(2000);
-			String getTitleActual = Helper.driver.findElement(By.xpath(Test_Elements.accessGetPopupTitle)).getText();
-			String getTitleExpected = "Edit Rights";
-
-			Assert.assertEquals(getTitleActual, getTitleExpected); 
-			Test_Variables.test.pass("Edit Rights Popup opened successfully");
-			Test_Variables.results.createNode("Edits Rights popup opens successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
-		}catch(AssertionError er){
-			Test_Variables.test.fail("Edit Rights Popup opened failed");
-			Test_Variables.results.createNode("Edit Rights Popup opened failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
-		}	
-		catch(Exception ex){
-			Test_Variables.test.fail("Edit Rights Popup opened failed");
-			Test_Variables.results.createNode("Edit Rights Popup opened failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
-		}	
-		Thread.sleep(1000);	
-
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-10: Verify user can update Rights", "This test case will verify user can update Rights");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessEditRights)));
-
-			Helper.driver.findElement(By.xpath(Test_Elements.accessEditRights)).click();
-			Thread.sleep(1000);	
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-			Helper.driver.findElement(By.xpath(Test_Elements.accessEditRightsSaveButton)).click();
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
-			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-			Test_Variables.preconditions.createNode("5. Click on edit rights button next to created role; edit rights popup opens");		
-
-			Test_Variables.steps.createNode("1. Select rights from list");
-			Test_Variables.steps.createNode("2. Click on save button");
-
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			String actual = Helper.driver.findElement(By.id("message")).getText();
-			String expected = "Rights details updated." ;
-
-			Assert.assertEquals(actual, expected); 
-			Test_Variables.test.pass("Rights updated successfully");
-			Test_Variables.results.createNode("Rights updated; an alert message displays 'Rights details updated.'");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+			Test_Variables.steps.createNode("1. Go to user screen");	
+			Test_Variables.steps.createNode("2. Check role assigned to your user");	
+			Test_Variables.steps.createNode("3. Navigate back to access screen and verify that in system roles that user appears in list");	
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-			ClickElement.clickByCss(Helper.driver, ".close");
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
-		}catch(AssertionError er){
-			Test_Variables.test.fail("Rights failed to update");
-			Test_Variables.results.createNode("Rights failed to update");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
-		}	
-		catch(Exception ex){
-			Test_Variables.test.fail("Rights failed to update");
-			Test_Variables.results.createNode("Rights failed to update");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
-		}				
-	}
-
-
-
-	@Test (description="Test Case: Role Assign screen",enabled= true, priority= 7) 
-	public void RoleAssignScreen() throws InterruptedException, IOException
-	{
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-11: Verify user can open Role Assign screen", "This test case will verify that user can open Role Assign screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Helper.driver.get(Constants.url_access);
-			Thread.sleep(2000);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
-			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-			Test_Variables.steps.createNode("1. Click on role button next to created role");	
-
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-
-			for (int i=2; i<=80; i++) {
-				int j = i-1;
-				String actualXpath = Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath;
-				WebElement element = Helper.driver.findElement(By.xpath(actualXpath));
-				Thread.sleep(1000);
-				if (element.getText().equals(Test_Variables.lstAccessCreate.get(0))) {
-					Helper.driver.findElement(By.xpath(Test_Elements.accessBeforeXpath+j+Test_Elements.accessAfterXpath3)).click(); 
+			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
+					WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000); 
+					Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					break;
-				}}
+				}
+			}	
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Test_Elements.accessGetAssignRoleTitle)));
-			String getTitleActual = Helper.driver.findElement(By.xpath(Test_Elements.accessGetAssignRoleTitle)).getText();
-			String getTitleExpected = "Users";
+			Thread.sleep(5000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			List<WebElement> systemRoles = Helper.driver.findElements(By.cssSelector("#rolesId .ng-value-label"));
+			String systemRoleName = systemRoles.get(0).getText(); 
 
-
-			Assert.assertEquals(getTitleActual, getTitleExpected); 
-			Test_Variables.test.pass("Role Assign screen opened successfully");
-			Test_Variables.results.createNode("Role Assign screen opens successfully");	
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
-		}catch(AssertionError er){
-			Test_Variables.test.fail("Role Assign screen failed to open");
-			Test_Variables.results.createNode("Role Assign screen failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
-		}	
-		catch(Exception ex){
-			Test_Variables.test.fail("Role Assign screen failed to open");
-			Test_Variables.results.createNode("Role Assign screen failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
-		}
-		Thread.sleep(1000);	
-		Helper.driver.findElement(By.xpath(Test_Elements.accessCloseAssignRole)).click();
-	}
-
-
-
-	@Test (description="Test Case: Role Assign screen",enabled= true, priority= 7) 
-	public void RoleAssignScfreen() throws InterruptedException, IOException
-	{
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-11: Verify user can open Role Assign screen", "This test case will verify that user can open Role Assign screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 			Helper.driver.get(Constants.url_access);
-			Thread.sleep(2000);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+			for (int i=1; i<rows;i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(systemRoleName) ) {
+					i=i-1;
+					Helper.driver.findElement(By.id("view-role-user-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					break;
+				}
+			}
 
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar and click on Adminstration and select Access Management; Access Management screen opens");
-			Test_Variables.preconditions.createNode("4. Click on create new button and create a new role");
-			Test_Variables.steps.createNode("1. Click on role button next to created role");	
-
-
-
+			for (int j=1;j<rows;j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(5) label")).getText().equals(Test_Variables.login_email)) {
+					Assert.assertTrue(true, "System Role assigned to user does not contains the name of user");
+					Test_Variables.test.pass("Role Assign screen contains names of user to which the role is assigned successfully");
+					Test_Variables.results.createNode("Role Assign screen contains names of user to which the role is assigned successfully");	
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+				}				
+			}
 		}catch(AssertionError er){
-			Test_Variables.test.fail("Role Assign screen failed to open");
-			Test_Variables.results.createNode("Role Assign screen failed to open");
+			Test_Variables.test.fail("Role Assign screen did not contains names of user to which the role is assigned");
+			Test_Variables.results.createNode("Role Assign screen did not contains names of user to which the role is assigned");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, new Exception(er));
 		}	
 		catch(Exception ex){
-			Test_Variables.test.fail("Role Assign screen failed to open");
-			Test_Variables.results.createNode("Role Assign screen failed to open");
+			Test_Variables.test.fail("Role Assign screen did not contains names of user to which the role is assigned");
+			Test_Variables.results.createNode("Role Assign screen did not contains names of user to which the role is assigned");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}
 		Thread.sleep(1000);	
-		Helper.driver.findElement(By.xpath(Test_Elements.accessCloseAssignRole)).click();
+		Helper.driver.findElement(Test_Elements.popupCloseButton).click();
 	}
-
 
 
 
@@ -590,17 +483,23 @@ public class AccessManagement{
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
 			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
-
+			SoftAssert softAssert = new SoftAssert();
 			Test_Functions.getUserAccess();
-			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
+			List<WebElement> systemRoles = Helper.driver.findElements(By.cssSelector("#rolesId .ng-value-label"));
+			String getSystemRole = systemRoles.get(0).getText();
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(750);
-
-			for(int i=1; i<=200; i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			for(int i=1; i<=500; i++) {
+				System.out.println("0");
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -610,13 +509,13 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.cssSelector("#isCreateUsers")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -624,18 +523,20 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("create-user")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("create-user")).size(), 0, "User is able to create user");
 
 			////////////////////
 
 			Test_Variables.steps.createNode("4. Go to Access Management screen and unselect Edit radio button");
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(750);
+			Thread.sleep(2000);
 
-			for(int i=1; i<=200; i++) {
+			for(int i=1; i<=500; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -644,37 +545,41 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.cssSelector("#isCreateUsers")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) .custom-checkbox")).click();
 			}
 
+			Thread.sleep(1000);
 			if (Helper.driver.findElement(By.cssSelector("#isUpdateUsers")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
-
 			Test_Variables.steps.createNode("5. Go to User Management screen and verify that user is not able to edit any user");
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("edit-user-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-untouched#firstNameId")).size(), 1);
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-untouched#firstNameId")).size(), 1, "User is able to edit user");
 			////////////////////////////////////
 
 			Test_Variables.steps.createNode("6. Go to Access Management screen and unselect View radio button next to User Management");
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(750);
-
-			for(int i=1; i<=200; i++) {
+			Thread.sleep(1500);
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			for(int i=1; i<=500; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -683,21 +588,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.cssSelector("#isCreateUsers")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.cssSelector("#isUpdateUsers")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.cssSelector("#isViewUsers")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -708,15 +613,19 @@ public class AccessManagement{
 
 			Test_Variables.steps.createNode("7. Verify that User Management is not visible in side menu bar");
 			Helper.driver.findElement(By.id("menu-administration")).click();			
-			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageUsersMenu")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageUsersMenu")).size(), 0, "User Management is visible in sidebar");
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(750);
-
+			Thread.sleep(1500);
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -725,21 +634,22 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.cssSelector("#isCreateUsers")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.cssSelector("#isUpdateUsers")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.cssSelector("#isViewUsers")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
+			softAssert.assertAll();
 			Test_Variables.test.pass("Access Rights passed for User Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for User Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -776,17 +686,24 @@ public class AccessManagement{
 
 			Test_Functions.login();
 			Test_Functions.getUserAccess();
-			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
-
+			List<WebElement> systemRoles = Helper.driver.findElements(By.cssSelector("#rolesId .ng-value-label"));
+			String getSystemRole = systemRoles.get(0).getText(); 
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(750);
+			Thread.sleep(1000);
 
-			for(int i=1; i<=200; i++) {
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+	
+			
+			for(int i=1; i<=500; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
-					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+					Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img")).click();
 					break;
 				}
 			}
@@ -795,13 +712,13 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -818,10 +735,16 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
 
-			for(int i=1; i<=200; i++) {
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
+			for(int i=1; i<=500; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
-					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+					Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img")).click();
 					break;
 				}
 			}
@@ -829,17 +752,17 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -847,10 +770,6 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-
-			Helper.driver.findElement(By.id("orgnType-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));
-			Thread.sleep(2000);
 
 			Helper.driver.findElement(By.id("edit-orgn-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -862,10 +781,16 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
 
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
-					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+					Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img")).click();
 					break;
 				}
 			}
@@ -873,21 +798,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -904,10 +829,16 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
 
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
-					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+					Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img")).click();
 					break;
 				}
 			}
@@ -915,21 +846,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.id("isCreateOrganizations")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.id("isUpdateOrganizations")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.id("isViewOrganizations")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Organization Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Organization Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -953,21 +884,17 @@ public class AccessManagement{
 	public void OrganizationSitesManagementAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-18/19/20: Verify create, update and view role of organization sites", "This test case will verify that create, update and view role of organization sites");
-
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
 			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
-
+			SoftAssert  softAssert = new SoftAssert();
 			Test_Functions.getUserAccess();
 			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
-
-
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
@@ -975,6 +902,8 @@ public class AccessManagement{
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -985,17 +914,17 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateOrganization Sites']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateOrganization Sites']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1004,16 +933,13 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 
-			Helper.driver.findElement(By.id("orgnType-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));
-			Thread.sleep(2000);
 			Helper.driver.findElement(By.id("edit-orgn-sites-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[1]/img")).size(), 0);
-			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[1]/img")).click();
+			softAssert.assertEquals(Helper.driver.findElements(Test_Elements.orgAddSite1).size(), 0, "Add Org site button is not hidden");
+			Helper.driver.findElement(Test_Elements.orgSite1Click).click();
 			Thread.sleep(2000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("btn-save")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("btn-save")).size(), 0, "Edit Org Site button is not hidden");
 
 			////////////////////////////////////
 
@@ -1022,9 +948,15 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
 
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1033,21 +965,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateOrganization Sites']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateOrganization Sites']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewOrganization Sites']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1055,18 +987,21 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
-			Helper.driver.findElement(By.id("orgnType-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-orgn-1")));
-			Thread.sleep(2000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("edit-orgn-sites-1")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("edit-orgn-sites-1")).size(), 0, "Edit org site button is viewable");
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
 
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1075,21 +1010,22 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateOrganization Sites']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateOrganization Sites']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewOrganization Sites']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
+			softAssert.assertAll();
 			Test_Variables.test.pass("Access Rights passed for Organization Sites successfully");
 			Test_Variables.results.createNode("Access Rights passed for Organization Sites successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1113,28 +1049,29 @@ public class AccessManagement{
 	public void AlertConfigurationAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-AM-24/25/26: Verify create, update and view role of alert configuration", "This test case will verify that create, update and view role of alert configuration");
-
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
 			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
-
+			SoftAssert  softAssert = new SoftAssert();
 			Test_Functions.getUserAccess();
 			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
-
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1144,17 +1081,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateAlert Configurations']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateAlert Configurations']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1162,17 +1099,21 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_alert);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("create-role")).size(), 0);
-			Assert.assertEquals(Helper.driver.findElements(By.id("duplicate-active-alert-1")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("create-role")).size(), 0, "User is able to create alert");
+			softAssert.assertEquals(Helper.driver.findElements(By.id("duplicate-active-alert-1")).size(), 0, "User is able to edit alert");
 
 			Test_Variables.steps.createNode("4. Go to Access Management screen and unselect View radio button next to Alert Configuration");
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1181,24 +1122,23 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateAlert Configurations']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateAlert Configurations']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewAlert Configurations']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
-
 			Actions builder = new Actions(Helper.driver); 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("menu-administration")));
 			WebElement pngHover = Helper.driver.findElement(By.id("menu-administration"));
@@ -1206,15 +1146,19 @@ public class AccessManagement{
 
 			Test_Variables.steps.createNode("7. Verify that Alert Configuration is not visible in side menu bar");
 			Helper.driver.findElement(By.id("menu-administration")).click();			
-			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageAlertMenu")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageAlertMenu")).size(), 0, "User is able to view Alert");
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1223,21 +1167,22 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateAlert Configurations']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateAlert Configurations']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewAlert Configurations']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
+			softAssert.assertAll();
 			Test_Variables.test.pass("Access Rights passed for Alert Configuration Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Alert Configuration Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1271,7 +1216,7 @@ public class AccessManagement{
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Access Management");
 			Test_Variables.steps.createNode("1. Click on edit rights icon next to assigned role");
-
+			SoftAssert  softAssert = new SoftAssert();
 			///////////////////////////////
 			Test_Functions.getUserAccess();
 			String getSystemRole = Helper.driver.findElement(By.cssSelector("#rolesId .ng-value-label")).getText();
@@ -1279,10 +1224,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1292,25 +1241,25 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateReporting Roles']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateReporting Roles']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateReport Groups']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateReport Groups']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(2) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1318,12 +1267,12 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("create-report-role")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("create-report-role")).size(), 0, "Create button is visible");
 
 			Helper.driver.findElement(By.id("edit-report-role-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#nameId.ng-touched")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#nameId.ng-touched")).size(), 0, "User is able to edit report role");
 
 			Helper.driver.findElement(By.id("close-popup-modal")).click();
 			//////////////////////////////////////////
@@ -1331,10 +1280,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1343,21 +1296,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateReporting Roles']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateReporting Roles']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewReporting Roles']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1368,15 +1321,19 @@ public class AccessManagement{
 
 			Test_Variables.steps.createNode("7. Verify that Alert Configuration is not visible in side menu bar");
 			Helper.driver.findElement(By.id("menu-administration")).click();			
-			Assert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageReportRole")).size(), 0);
+			softAssert.assertEquals(Helper.driver.findElements(By.id("roleMGMTManageReportRole")).size(), 0, "User can view report managemenet");
 
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1385,29 +1342,30 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateReporting Roles']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateReporting Roles']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewReporting Roles']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(6) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateReport Groups']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateReport Groups']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(7) td:nth-child(3) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
+			softAssert.assertAll();
 			Test_Variables.test.pass("Access Rights passed for Alert Configuration Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Alert Configuration Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1449,10 +1407,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1462,17 +1424,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateAgreement Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateAgreement Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1488,10 +1450,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1501,13 +1467,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewAgreement Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1524,10 +1490,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1536,22 +1506,22 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateAgreement Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateAgreement Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewAgreement Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(8) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Agreement Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Agreement Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1594,10 +1564,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1607,17 +1581,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateBarcode Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateBarcode Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1632,10 +1606,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1645,13 +1623,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewBarcode Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1668,10 +1646,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1680,21 +1662,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateBarcode Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateBarcode Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewBarcode Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Barcode Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Barcode Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1737,10 +1719,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1750,17 +1736,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePiper Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(9) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePiper Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1779,10 +1765,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1792,13 +1782,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPiper Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1815,10 +1805,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1827,21 +1821,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePiper Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePiper Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPiper Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(10) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Piper Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Piper Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -1883,10 +1877,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1896,17 +1894,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);                                                  
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePiper Software Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePiper Software Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1922,10 +1920,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1935,13 +1937,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPiper Software Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -1958,10 +1960,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -1970,21 +1976,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePiper Software Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePiper Software Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPiper Software Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(11) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Piper Software Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Piper Software Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2027,10 +2033,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2040,17 +2050,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePIPER Configuration Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePIPER Configuration Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2065,10 +2075,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
-					int j = i-1;
+					int j = i-1;	
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2078,13 +2092,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPIPER Configuration Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2102,10 +2116,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2114,21 +2132,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePIPER Configuration Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePIPER Configuration Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPIPER Configuration Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(12) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Piper Configuration Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Piper Configuration Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2171,10 +2189,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2184,17 +2206,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateData Template']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateData Template']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2211,10 +2233,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2224,13 +2250,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewData Template']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2247,10 +2273,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2259,21 +2289,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateData Template']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdateData Template']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewData Template']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(13) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Data Template Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Data Template Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2315,10 +2345,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2328,13 +2362,13 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateData Upload']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(14) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(14) td:nth-child(2) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2351,10 +2385,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2364,13 +2402,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreateData Upload']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(14) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(14) td:nth-child(2) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Data Upload Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Data Upload Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2413,10 +2451,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2426,17 +2468,17 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePoultry Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePoultry Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(3) .custom-checkbox")).click();
 			}	
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2453,10 +2495,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2466,13 +2512,13 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPoultry Management']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2489,10 +2535,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2501,21 +2551,21 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isCreatePoultry Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(2) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(2) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isUpdatePoultry Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(3) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(3) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewPoultry Management']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(15) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Poultry Management Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Poultry Management Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2557,10 +2607,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2575,6 +2629,8 @@ public class AccessManagement{
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2584,25 +2640,25 @@ public class AccessManagement{
 			Thread.sleep(2000);
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewDashboard']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(16) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(16) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewReports']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(17) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(17) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewContact us']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(18) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(18) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewHelp']")).isSelected() == true) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(19) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(19) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 
 			Test_Functions.login();
 
@@ -2622,10 +2678,14 @@ public class AccessManagement{
 			Helper.driver.get(Constants.url_access);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(750);
-
+			Helper.driver.findElement(By.id("userRoleName_sort")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			for(int i=1; i<=200; i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1)  label")).getText().equals(getSystemRole)) {
 					int j = i-1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("#edit-role-rights-"+j+" img"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Helper.driver.findElement(By.id("edit-role-rights-"+j)).click();
 					break;
 				}
@@ -2634,25 +2694,25 @@ public class AccessManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewDashboard']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(16) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(16) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewReports']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(17) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(17) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewContact us']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(18) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(18) td:nth-child(4) .custom-checkbox")).click();
 			}
 
 			if (Helper.driver.findElement(By.xpath("//input[normalize-space(@id)='isViewHelp']")).isSelected() == false) {	
-				Helper.driver.findElement(By.cssSelector("tr:nth-child(19) td:nth-child(4) div:nth-child(1)")).click();
+				Helper.driver.findElement(By.cssSelector("tr:nth-child(19) td:nth-child(4) .custom-checkbox")).click();
 			}
 
-			Helper.driver.findElement(By.cssSelector(".btn-ok")).click();
+			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details updated.");
+			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Rights details has been updated successfully.");
 			Test_Variables.test.pass("Access Rights passed for Reports, Dashboard, Contact Us and Help Screen successfully");
 			Test_Variables.results.createNode("Access Rights passed for Reports, Dashboard, Contact Us and Help Screen successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
@@ -2675,6 +2735,6 @@ public class AccessManagement{
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		Helper.driver.quit();
+	//	Helper.driver.quit();
 	}
 }
