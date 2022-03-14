@@ -2,6 +2,7 @@ package Test.Ancera;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,15 +24,14 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class Helper {
 
-	public static WebDriver driver; // to declare globally
+	public static WebDriver driver; 
 	public static String projectPath;
 
 	@BeforeSuite
-	public static void config() {
+	public static void config() throws MalformedURLException {
 
 		projectPath = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");
-		
+		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");		
 		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("profile.default_content_settings.popups", 0);
 		prefs.put( "profile.content_settings.pattern_pairs.*.multiple-automatic-downloads", 1 );
@@ -39,10 +39,15 @@ public class Helper {
 		ChromeOptions options = new ChromeOptions();
 		options.setExperimentalOption("prefs", prefs);
 		options.addArguments("--disable-infobars");
-	//	options.addArguments("--headless");
-	//	options.addArguments("window-size=1920,1080");  
-		driver = new ChromeDriver(options);
-		//driver = new EventFiringWebDriver(new ChromeDriver(options)); 
+		options.addArguments("disable-popup-blocking");
+//		options.addArguments("--headless");
+//		options.addArguments("window-size=1920,1080"); 
+	
+		//	DesiredCapabilities cap = new DesiredCapabilities();
+		//	cap.setBrowserName(BrowserType.CHROME);
+		//	driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
+		
+		driver = new ChromeDriver(options); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
 
@@ -51,21 +56,7 @@ public class Helper {
 		Test_Variables.extent = new ExtentReports();
 		Test_Variables.extent.attachReporter(Test_Variables.spark);		
 	}
-
-//	public static void saveResult(ITestResult result, String reportPath) throws IOException {
-//		System.out.println(Reporter.getCurrentTestResult());
-//		if (result.getStatus() == ITestResult.FAILURE) {
-//			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getName());
-//			Test_Variables.test.log(Status.FAIL, "Test Case Failed is " + result.getThrowable());
-//			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(result.getName(), reportPath));
-//		} 
-//		else if (result.getStatus() == ITestResult.SKIP) {
-//			Test_Variables.test.log(Status.SKIP, "Test Case SKIPPED IS " + result.getName());
-//		}
-//		else if (result.getStatus() == ITestResult.SUCCESS) {
-//			Test_Variables.test.log(Status.PASS, "Test Case Passed");
-//		}
-//	}
+		
 
 	public static void saveResultNew(int testResult, String reportPath, Exception e) throws IOException {
 		ITestResult objResult = Reporter.getCurrentTestResult();
@@ -81,6 +72,7 @@ public class Helper {
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));
 		} else if (testResult == ITestResult.SKIP) {
 			Test_Variables.test.log(Status.SKIP, "Test Case Skipped ");
+			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));
 		}
 	}
 	
@@ -94,26 +86,4 @@ public class Helper {
 		FileUtils.copyFile(source, finalDestination);
 		return "." + reportPath + dateName+".png";
 	}
-
-
-//	@SuppressWarnings("unused")
-//	private static ChromeOptions getChromeOptions() {
-//		ChromeOptions options = new ChromeOptions();
-//		options.addArguments("disable-infobars");
-//		options.setHeadless(false);
-//		return options;
-//	}
-
-
-//	@AfterTest
-//	public static void endreport() {
-//		Test_Variables.extent.flush();
-//	}
-//
-//
-//	@AfterSuite
-//	public void teardown() {
-//		driver.close();
-//		driver.quit();
-//	}
 }

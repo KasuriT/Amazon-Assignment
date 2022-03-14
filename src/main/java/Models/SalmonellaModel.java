@@ -2339,7 +2339,7 @@ public class SalmonellaModel {
 		objTmp.secondCase = true;
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("laneNum"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("1"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId", "sample_matrix", "customer_sample_id", "metadata_date_recieved", "kit_lot", "requested_assay", "flock_id"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList("sampleId"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -2354,7 +2354,7 @@ public class SalmonellaModel {
 		objTmp.secondCase = true;
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("instrumentId"));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("PSN0001"));
-		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList( "sampleId", "pathogen", "collection_site_id", "sample_matrix", "customer_sample_id", "cartridgeId", "kit_lot", "version", "requested_assay", "flock_id"));
+		objFilter.LstFilterSearch = new ArrayList<>(Arrays.asList( "sampleId", "collection_site_id", "sample_matrix", "cartridgeId", "kit_lot", "version"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 			

@@ -10,6 +10,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -196,7 +198,6 @@ public class DataUpload {
 				Test_Variables.steps.createNode("1. Navigate to Data Upload screen");
 				Test_Variables.steps.createNode("2. Select Ancera from 'Upload For' dropdown and Sample Metadata from 'Data Template'");
 
-
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 						int chkCounter = 0;
@@ -251,23 +252,10 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 4) 
 	public void SampleMetaData() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_dataUpload);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1000);		
+	
 		Test_Variables.lstDataUploadSampleMetadata = DataUploadModel.FillDataSampleMetaData();
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("OrgnTypeID")).click();
-		Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-		Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("DataFormatId")).click();
-		Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
-		Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
-		
 		for (DataUploadModel objModel : Test_Variables.lstDataUploadSampleMetadata) { 
 			try {
-				Thread.sleep(2000);
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -275,10 +263,22 @@ public class DataUpload {
 				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 				Test_Variables.steps.createNode("1. Navigate to Data Upload screen");
-				Test_Variables.steps.createNode("2. Select Ancera from 'Upload For' dropdown and Sample Metadata from 'Data Template'");
-
+				Test_Variables.steps.createNode("2. Select Ancera from 'Upload For' dropdown and Sample Metadata from 'Data Template'");	
+				
+				Helper.driver.get(Constants.url_dataUpload);
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(1000);		
+				Helper.driver.findElement(By.id("OrgnTypeID")).click();
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("DataFormatId")).click();
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
+				
 						int chkCounter = 0;
 						for (int i = 0; chkCounter < objFilter.LstColumnID.size() && i < 100; i++) {
 						
@@ -301,10 +301,26 @@ public class DataUpload {
 						Test_Variables.steps.createNode("3. "+objModel.steps);
 						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+sampleMetadataFileName);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-						Thread.sleep(2500);
+						Thread.sleep(3500);
 						SoftAssert softAssert = new SoftAssert();
 						softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
+
+						if (objModel.ErrorCase) {
+							int i =1;
+							if (i==1) {
+							Helper.driver.findElement(By.id("ErrorBtn")).click();
+							Thread.sleep(2000);
+							}
+							i=i+1;
+							WebElement ele = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) .tooltipBlock"));
+							Actions action = new Actions(Helper.driver);
+							action.moveToElement(ele).perform();
+							Thread.sleep(1000);			
+							String tooltipText = Helper.driver.findElement(By.cssSelector(".tooltip-inner")).getText();
+							System.out.println(tooltipText);
+							softAssert.assertEquals(tooltipText, objModel.ErrorMessage);
+							}
+	
 						softAssert.assertAll();
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);

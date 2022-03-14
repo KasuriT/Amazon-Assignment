@@ -413,46 +413,52 @@ public class AccessManagement{
 			Thread.sleep(1000);
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
-					WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
-					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
-					Thread.sleep(1000); 
-					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					break;
-				}
-			}	
-
-			Thread.sleep(5000);
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(1000);
-			List<WebElement> systemRoles = Helper.driver.findElements(By.cssSelector("#rolesId .ng-value-label"));
-			String systemRoleName = systemRoles.get(0).getText(); 
-
-			Helper.driver.get(Constants.url_access);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
-			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
-			for (int i=1; i<rows;i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(systemRoleName) ) {
-					i=i-1;
-					Helper.driver.findElement(By.id("view-role-user-"+i)).click();
+				//	WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
+				//	((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+				//	Thread.sleep(1000); 
+				//	Helper.driver.findElement(By.id("edit-user-"+i)).click();
+					List<WebElement> systemRoles = Helper.driver.findElements(By.cssSelector("tr:nth-child("+i+") #col-6 label"));
+					String systemRoleName = systemRoles.get(0).getText(); 
+					System.out.println(systemRoleName);
+					Helper.driver.get(Constants.url_access);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(1000);
+					Helper.driver.findElement(By.id("userRoleName_sort")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					Helper.driver.findElement(By.id("userRoleName_sort")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+					System.err.println(rows);
+					for (int j=1; j<rows;j++) {
+						if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1) label")).getText().equals(systemRoleName) ) {
+							int l=j-1;
+							Helper.driver.findElement(By.id("view-role-user-"+l)).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							System.out.println("hello");
+							Thread.sleep(2000);
+						//	break;
+						
+						
+						int rows1 = Helper.driver.findElements(By.cssSelector("td:nth-child(5) label")).size();
+						for (int k=1;k<rows;k++) {
+							if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child(5) label")).getText().equals(Test_Variables.login_email)) {
+								Assert.assertTrue(true, "System Role assigned to user does not contains the name of user");
+								Test_Variables.test.pass("Role Assign screen contains names of user to which the role is assigned successfully");
+								Test_Variables.results.createNode("Role Assign screen contains names of user to which the role is assigned successfully");	
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
+								break;
+							}				
+						}
+						}
+						
+					}
 					break;
 				}
-			}
-
-			for (int j=1;j<rows;j++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(5) label")).getText().equals(Test_Variables.login_email)) {
-					Assert.assertTrue(true, "System Role assigned to user does not contains the name of user");
-					Test_Variables.test.pass("Role Assign screen contains names of user to which the role is assigned successfully");
-					Test_Variables.results.createNode("Role Assign screen contains names of user to which the role is assigned successfully");	
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Access Management", Constants.AccessManagementReportPath));
-					Helper.saveResultNew(ITestResult.SUCCESS, Constants.AccessManagementReportPath, null);
-				}				
-			}
+				
+			}	
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Role Assign screen did not contains names of user to which the role is assigned");
 			Test_Variables.results.createNode("Role Assign screen did not contains names of user to which the role is assigned");
@@ -464,7 +470,7 @@ public class AccessManagement{
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.AccessManagementReportPath, ex);
 		}
 		Thread.sleep(1000);	
-		Helper.driver.findElement(Test_Elements.popupCloseButton).click();
+	//	Helper.driver.findElement(Test_Elements.popupCloseButton).click();
 	}
 
 

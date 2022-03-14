@@ -3,7 +3,9 @@ package Test.Ancera.MetaData;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -93,6 +95,7 @@ public class PoultryManagement {
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(3) label")).getText(), "End Date"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(4) label")).getText(), "Sites"); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#poultry-grid th:nth-child(5) label")).getText(), "Note"); 
+			softAssert.assertTrue(Helper.driver.findElements(By.cssSelector("tr:nth-child(1) td:nth-child(4) label")).size() >=1, "Sites not displayed"); 
 			Test_Variables.test.pass("Table contents verified successfully");
 			Test_Variables.results.createNode("Table contents verified successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -459,7 +462,11 @@ public class PoultryManagement {
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
 			for (int i = 1; i<=rows; i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5) ")).getText().equals("Treatment Notes - "+Test_Variables.date0)) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Notes - "+Test_Variables.date0)) {
+					int j = i+2;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(5)"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000);
 					Helper.driver.findElement(By.id("edit-treatment-"+i)).click();
 					break;
 				}
@@ -561,7 +568,11 @@ public class PoultryManagement {
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
 			for (int i = 1; i<=rows; i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5) ")).getText().equals("Treatment Notes Updated - "+Test_Variables.date0)) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Notes Updated - "+Test_Variables.date0)) {
+					int j = i+2;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(5)"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000);
 					Helper.driver.findElement(By.id("delete-treatment-"+i)).click();
 					break;
 				}
@@ -638,6 +649,67 @@ public class PoultryManagement {
 		catch(Exception ex) {
 			Test_Variables.test.fail("Feed details failed to delete");
 			Test_Variables.results.createNode("Feed details failed to delete");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
+		}
+	}
+	
+	
+	@Test (enabled= false, priority = 3) 
+	public void CreateVaccine() throws InterruptedException, IOException {
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-03: Verify user can create vaccine intervention", "This test case will verify that user can create vaccine intervention");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
+			
+			Helper.driver.get(Constants.url_poultryManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+			Test_Variables.steps.createNode("1. Select site and click on create new button; select feed from radio button");
+			Test_Variables.steps.createNode("1. Enter valid data in all mandatory fields and click on save button");
+			Helper.driver.findElement(By.cssSelector(".d-inline-block")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("create-cocci-intervention")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
+
+			Helper.driver.findElement(By.id("startDatebtnVaccine")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.xpath(Test_Elements.poultryStartDateVaccine)).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.xpath("//input[@placeholder='Vaccine']")).sendKeys(Test_Variables.dateYYYYMMDD+"_Vaccine_"+Test_Variables.date0);
+			Thread.sleep(4000);
+			Helper.driver.findElement(By.id("btnAddNew-VaccineId")).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.id("btn-save-vaccine")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
+			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Feed details saved successfully");
+			Thread.sleep(3500);
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+					Assert.assertFalse(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), "Sites displayed empty");
+					break;
+				}
+			}
+	
+			Test_Variables.test.pass("Feed details saved successfully");
+			Test_Variables.results.createNode("Feed details saved successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PoultryManagementReportPath, null);	
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("Feed details failed to save");
+			Test_Variables.results.createNode("Feed details failed to save");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("Feed details failed to save");
+			Test_Variables.results.createNode("Feed details failed to save");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.PoultryManagementReportPath, ex);
 		}
 	}

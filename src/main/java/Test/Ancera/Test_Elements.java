@@ -119,9 +119,9 @@ public class Test_Elements {
 	public static By orgSiteNameInput = By.id("SiteNameId");
 	public static By orgSiteNameError = By.cssSelector("#SiteNameId.has-error"); 
 	public static By orgSiteAddressInput = By.id("streetAddressId");
-	public static By orgSiteCountryInput = By.cssSelector("#countryId input");
-	public static By orgSiteStateInput = By.cssSelector("#stateId input");
-	public static By orgSiteCityInput = By.cssSelector("#cityId input");
+	public static By orgSiteCountryInput = By.cssSelector("#countryId");
+	public static By orgSiteStateInput = By.cssSelector("#stateId");
+	public static By orgSiteCityInput = By.cssSelector("#cityId");
 	public static By orgSiteZipCodeInput = By.id("num-zipCodeId");
 	public static By orgSiteLatitudeInput = By.id("num-LatId");
 	public static By orgSiteLongitudeInput = By.id("num-LonId");
@@ -323,6 +323,7 @@ public class Test_Elements {
 	
 	public static String poultryStartDateSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[2]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[4]/button[4]";
 	public static String poultryStartDateSelect1 =  "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[4]/div[1]/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[4]/button[4]";
+	public static String poultryStartDateVaccine = "//app-create-cocci-intervention/div/div[3]/form/div/div/div/div[1]/div/div[1]/app-custom-date-picker/div/div[2]/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[4]/button[4]";
 	
 	public static String poultryBrandName = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/img";
 	public static String poultryBrandNameSelect = "/html/body/app-root/div/app-manage-poultry/div[3]/app-popup-component/div/div/div/div[3]/app-create-intervention/form[1]/div/div/div/div[6]/div[1]/div/app-custom-input-dropdown/div/div[2]/label[1]";
@@ -756,9 +757,9 @@ public class Test_Elements {
 	public static String flockHatchDate = "hatchDate";
 	public static String flockPlacementDate = "placementDate";
 	public static String flockNumBirdsPlaced = "numOfBirdsPlaced";
-	public static String flockBirdType = "birdType";
-	public static String flockBirdSex = "birdSex";
-	public static String flockBirdBreed = "birdBreed";
+	public static String flockBirdType = "#birdType";
+	public static String flockBirdSex = "#birdSex";
+	public static String flockBirdBreed = "#birdBreed";
 	public static String flockProcessingDate = "processingDate";
 	public static String flockProcessingSiteID = "processingSiteId";
 	public static String flockNumBirdsDOA = "numBirdsDoaPlant";

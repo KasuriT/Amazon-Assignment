@@ -1,6 +1,7 @@
 package Test.Ancera.Login;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,7 +25,7 @@ import Test.Ancera.Test_Variables;
 public class TestLogin{
 
 	@BeforeTest
-	public void extent() {
+	public void extent() throws MalformedURLException {
 
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Login"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Login Test Report"); // Name of the report

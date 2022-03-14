@@ -179,7 +179,7 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);	
-						Thread.sleep(1000);
+						Thread.sleep(5000);
 					}
 
 					RequestSpecification request_fileupload = RestAssured.given();
@@ -208,7 +208,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(25000);
+					Thread.sleep(60000);
 
 					Helper.driver.get(Constants.url_SalmonellaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -423,7 +423,7 @@ public class InstallationRun {
 
 						String data4 = response3.asString();
 						System.out.println(data4);
-						Thread.sleep(15000);
+						Thread.sleep(10000);
 					}
 
 					RequestSpecification request_fileupload = RestAssured.given();
@@ -452,7 +452,7 @@ public class InstallationRun {
 
 					JsonPath jsonPathEvaluator1 = response.jsonPath();
 					jsonPathEvaluator1.get("statusCode");
-					Thread.sleep(25000);
+					Thread.sleep(60000);
 
 					Helper.driver.get(Constants.url_CoccidiaLog);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));

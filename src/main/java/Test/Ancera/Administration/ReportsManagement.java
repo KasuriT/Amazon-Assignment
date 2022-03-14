@@ -351,29 +351,25 @@ public class ReportsManagement {
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("edit-user-1")).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(4000);
-			Helper.driver.findElement(Test_Elements.popupNextButton).click();
-			Thread.sleep(1500);
-			Helper.driver.findElement(Test_Elements.popupNextButton).click();
-			Thread.sleep(1500);
-			String roleName = Helper.driver.findElement(By.cssSelector("#reportRoleId input")).getAttribute("value");
-			System.out.println("----> "+roleName);
-			Thread.sleep(1000);
 
-			Helper.driver.get(Constants.url_reportsManagement);
+			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
+					String ReportRole = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userReportingCol+" label")).getText();
+					Helper.driver.get(Constants.url_reportsManagement);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);
+					for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+						if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ReportRole)) {
+							Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
+							break;
+						}	
+					}
+					break;
+				}	
+			}
+
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
-			for (int i=1; i<rows;i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(roleName) ) {
-					Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1000);
-					break;
-				}
-			}
 
 			if (!Helper.driver.findElement(By.cssSelector("#status-audit-trail .toggle")).isEnabled()) {
 				Helper.driver.findElement(By.cssSelector("#status-audit-trail .toggle")).click();
@@ -899,7 +895,7 @@ public class ReportsManagement {
 			}
 
 			Helper.driver.findElement(By.id("groupRprtId")).click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			List<WebElement> groupReports = Helper.driver.findElements(By.cssSelector("#groupRprtId .custom-control-label")); //get list of all reports assigned to report group
 
 			Helper.driver.findElement(Test_Elements.popupCloseButton).click();
@@ -910,7 +906,7 @@ public class ReportsManagement {
 
 					Helper.driver.findElement(By.id("edit-role-rights-"+i)).click();  //open edit rights popup
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					break;
 				}
 			}
@@ -918,15 +914,13 @@ public class ReportsManagement {
 
 			List<WebElement> reportGroups = Helper.driver.findElements(By.cssSelector("label.group-card-text"));
 			for (int i=0; i<reportGroups.size(); i++) {
-
 				if (reportGroups.get(i).getText().equals(Test_Variables.ReportGroupName)) {
-
 					int j=i+1;
 					Helper.driver.findElement(By.cssSelector("#status-report-right-"+j+" .row")).click();
 					break;
 				}
 			}
-			Thread.sleep(1500);
+			Thread.sleep(2000);
 			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-content tr")).size(), groupReports.size()); //verify all reports assigned to report group are vivsible in edit rights popup
 
 			Helper.driver.findElement(By.cssSelector(".fa-caret-down")).click();
@@ -934,11 +928,8 @@ public class ReportsManagement {
 
 			List<WebElement> viewCheckbox = Helper.driver.findElements(By.cssSelector(".custom-checkbox label"));
 			for (int j =0;j<viewCheckbox.size();j++) {
-				System.out.println("1");
 				Assert.assertTrue(viewCheckbox.get(j).isEnabled());
-				System.out.println("checkbox selected");
 			}
-
 			Test_Variables.test.pass("Reports in report groups displayed successfully");
 			Test_Variables.results.createNode("Displays list of reports that are present in that Report Group");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Report Management", Constants.ReportManagementReportPath));	
@@ -971,7 +962,7 @@ public class ReportsManagement {
 			Test_Variables.preconditions.createNode("5. Create a Report Group and add a new report into it");
 			Test_Variables.steps.createNode("1. Click on edit rights icon next to created role; popup appears");
 			Test_Variables.steps.createNode("2. Click on Save button");
-
+			Thread.sleep(2000);
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Thread.sleep(1000);
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -1117,7 +1108,6 @@ public class ReportsManagement {
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-
 			Helper.driver.findElement(Test_Elements.rmReportGroupPopupOpen).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(2000);

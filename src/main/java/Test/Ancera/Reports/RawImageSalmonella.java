@@ -299,7 +299,12 @@ public class RawImageSalmonella {
 								String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slQCCodeCol+" label")).getText();
 								softAssert.assertEquals(getQCCode, objModel.countOutcome);
 
-								if (objModel.isErrorCode) {
+								if (objModel.isErrorCode) {			
+									if (objModel.countOutcome.equals("E033")) {
+										String getQCCode1 = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slQCCodeCol+" label")).getText();
+										softAssert.assertEquals(getQCCode1, objModel.countOutcome);
+									}
+									
 									Test_Variables.steps.createNode("Verify Result is displayed in table for lane" +lane);
 									String getResult = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slResultCol+" label")).getText();
 									softAssert.assertEquals(getResult, "QCFail");

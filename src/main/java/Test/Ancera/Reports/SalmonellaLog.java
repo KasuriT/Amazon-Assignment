@@ -345,9 +345,9 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
 	public void TestFilter() throws InterruptedException, IOException {
 
-		Helper.driver.navigate().refresh();
+		Helper.driver.get(Constants.url_SalmonellaLog);;
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
+		Thread.sleep(1000);
 		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	
@@ -645,7 +645,7 @@ public class SalmonellaLog {
 
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= false, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);
@@ -860,7 +860,7 @@ public class SalmonellaLog {
 
 	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
-		Helper.driver.navigate().refresh();
+		Helper.driver.get(Constants.url_SalmonellaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
 		Test_Variables.lstSalmonellaLock = SalmonellaModel.Lock(); 
@@ -1732,7 +1732,8 @@ public class SalmonellaLog {
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
 			String filename= newfile.getName();
 			//System.out.println("Latest XLSX file is = "+filename);
-			Assert.assertEquals(filename, Test_Variables.slSampleMetaData+".xlsx");
+			//Assert.assertEquals(filename, Test_Variables.slSampleMetaData+".xlsx");
+			Assert.assertTrue(filename.startsWith(Test_Variables.slSampleMetaData));
 			Test_Variables.test.pass("Sample MetaData template downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData template downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);

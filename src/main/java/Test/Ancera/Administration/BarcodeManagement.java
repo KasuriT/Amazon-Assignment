@@ -7,9 +7,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -37,7 +36,7 @@ public class BarcodeManagement {
 		Helper.config();
 		ConfigureLogin.login();
 	}
-	
+
 	@Test (description="Test Case: Navigate to Barcode Management Screen",enabled= true, priority = 1) 
 	public void NavigateBarcodeManagement() throws InterruptedException, IOException {
 		try {
@@ -75,32 +74,27 @@ public class BarcodeManagement {
 		}
 	}
 
-	
-	@Test (description="Test Case: Error Opening Print Screen",enabled= true, priority = 2 ) 
+
+	@Test (description="Test Case: Error Opening Print Screen",enabled= true, priority = 4 ) 
 	public void ErrorOpeningPrintScreen() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-02: Verify user cannot open print screen without selecting a site", "This test case will verify that user cannot open print screen without selecting a site");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			
+
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Barcode Management");
 			Test_Variables.steps.createNode("1. Click on Print button without selecting a site");
-			
-			Actions builder = new Actions(Helper.driver); 
-			WebElement pngHover = Helper.driver.findElement(By.cssSelector(".fa-print"));
-			Test_Variables.steps.createNode("3. Click on the button");
-			builder.moveToElement(pngHover).build().perform();
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector(".fa-print")).click();	
+
+			Helper.driver.findElement(By.id("print-barcode")).click();	
 			Test_Variables.steps.createNode("2. Verify error message appears");
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Please select a collection site");
-					
+
 			Test_Variables.test.pass("Error message appeared successfully on clicking print icon");
 			Test_Variables.results.createNode("Error message appeared successfully on clicking print icon");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
@@ -117,25 +111,25 @@ public class BarcodeManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.BarcodeManagementReportPath, ex);
 		}
 	}
-	
-	
-	@Test (description="Test Case: Open print screen",enabled= false, priority = 3) 
+
+
+	@Test (description="Test Case: Open print screen",enabled= true, priority = 5) 
 	public void OpenPrintScreen() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-03: Verify user can open print screen on clicking print icon after selecting a site", "This test case will verify that user can open print screen on clicking print icon after selecting a site");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			
+
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Barcode Management");
 			Test_Variables.steps.createNode("1. Select a site and then click on Print button");
-			
-			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1) .custom-control-label")).click();
+
+			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2) .vertical-align-middle")).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector(".fa-print")).click();	
+			Helper.driver.findElement(By.id("print-barcode")).click();	
 			Thread.sleep(3000);
 
 			String parent=Helper.driver.getWindowHandle();
@@ -143,7 +137,7 @@ public class BarcodeManagement {
 			Iterator<String> I1= s.iterator();
 
 			Test_Variables.steps.createNode("2. Verify print window opens with selected site barcodes");
-			
+
 			while(I1.hasNext())
 			{
 				String child_window=I1.next();
@@ -157,7 +151,7 @@ public class BarcodeManagement {
 
 					Robot r = new Robot();
 					r.keyPress(KeyEvent.VK_ENTER);
-					
+
 				}
 			}
 
@@ -179,9 +173,9 @@ public class BarcodeManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.BarcodeManagementReportPath, ex);
 		}
 	}
-	
 
-	@Test (description="Test Case: Assign Sites Appearance",enabled= true, priority = 4) 
+
+	@Test (description="Test Case: Assign Sites Appearance",enabled= true, priority = 2) 
 	public void AssignedSiteAppearance() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-05: Verify only those sites appear which are assigned to user", "This test case will verify that only those sites appear which are assigned to user");
@@ -199,7 +193,12 @@ public class BarcodeManagement {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
+
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
+					int k = j+1;
+					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+k+") #col-"+Test_Elements.userEmailCol+" label"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000);
 					Helper.driver.findElement(By.id("edit-user-"+j)).click();
 					break;
 				}	
@@ -221,7 +220,7 @@ public class BarcodeManagement {
 						Helper.driver.get(Constants.url_barcodeManagement);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(2000);
-						int sitesCountBarcode = Helper.driver.findElements(By.cssSelector(".custom-control-label")).size();
+						int sitesCountBarcode = Helper.driver.findElements(By.cssSelector(".site-icon")).size();
 
 						Assert.assertEquals(sitesCountBarcode, collectionSitesSize);
 						Test_Variables.test.pass("Only those sites appeared  which are assigned to user successfully");
@@ -243,17 +242,16 @@ public class BarcodeManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.BarcodeManagementReportPath, ex);
 		}
 	}
-	
-	
-	@Test (description="Test Case: Search Functionality",enabled= true, priority = 5) 
-	public void SearchFunctionality() throws InterruptedException, IOException {
+
+
+	@Test (description="Test Case: Filter Functionality",enabled= true, priority = 3) 
+	public void FilterFunctionality() throws InterruptedException, IOException {
 		try {
-			
 			Helper.driver.get(Constants.url_barcodeManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-07/08/09/10/11: Verify search bar functionality", "This test case will verify that search bar is fully functional");
+			Thread.sleep(1000);
+
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Barcode-07/08/09/10/11: Verify filter, lock and reset button functionality", "This test case will verify filter, lock and reset button functionality");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -262,58 +260,53 @@ public class BarcodeManagement {
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Administration and select Barcode Management");
-			Test_Variables.steps.createNode("1. Enter valid site in search bar");
+			Test_Variables.steps.createNode("1. Select filter and apply filter");
 
-			if(Helper.driver.findElements(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).size() != 0) {
-				System.out.println("a");
-				String siteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(2) td:nth-child(3) label")).getText();
-
-				Test_Variables.steps.createNode("2. Click on backspace and verify backspace is working");
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.BACK_SPACE);
-				Assert.assertNotEquals(Helper.driver.findElement(By.id("search-bar")).getText().length(), siteName.length());	
-
-				Test_Variables.steps.createNode("3. Click on ESC and verify search string is cleared");
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
-				Thread.sleep(1000);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ESCAPE);
-				Assert.assertEquals(Helper.driver.findElement(By.id("search-bar")).getText(), "");
-
-				Test_Variables.steps.createNode("4. Click on Enter and verify site is search");
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(siteName);
-				Thread.sleep(1000);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ARROW_DOWN);
-				Helper.driver.findElement(By.id("search-bar")).sendKeys(Keys.ENTER);
-				Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), siteName);
-				Test_Variables.test.pass("Search bar is functional");
-				Test_Variables.results.createNode("Search bar is functional");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
-				Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
+			if (Helper.driver.findElements(By.cssSelector("#save-filters.d-none")).size() == 1) {
+				Helper.driver.findElement(By.id("save-filters")).click();
 			}
 
-			else {
-				Test_Variables.test.skip("Search functionality cannot be tested because there is only 1 site");
-				Test_Variables.results.createNode("Search functionality cannot be tested because there is only 1 site");
-				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
-				Helper.saveResultNew(ITestResult.SKIP, Constants.BarcodeManagementReportPath, null);	
-			}
+			Helper.driver.findElement(By.id("siteId_show-filter")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(2) .fas.fa-check-double")).click();
+			Helper.driver.findElement(By.id("list-title_apply")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			int rows_beforelock = Helper.driver.findElements(By.cssSelector("tr td:nth-child(3) label")).size();
+			Helper.driver.findElement(By.id("save-filters")).click();
+			Helper.driver.navigate().refresh();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			int rows_afterlock = Helper.driver.findElements(By.cssSelector("tr td:nth-child(3) label")).size();
+			Helper.driver.findElement(By.id("remove-filters")).click();
+			Assert.assertEquals(rows_afterlock, rows_beforelock);
+			Helper.driver.findElement(By.id("reset-all-filters")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Assert.assertNotEquals(Helper.driver.findElements(By.cssSelector("tr td:nth-child(3) label")).size(),rows_afterlock);
+
+			Test_Variables.test.pass("Filter and lock functionality verified successfully");
+			Test_Variables.results.createNode("Filter and lock functionality verified successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Barcode Management", Constants.BarcodeManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.BarcodeManagementReportPath, null);	
 		}
 		catch(AssertionError er) {
-			Test_Variables.test.fail("Search bar is not functional");
-			Test_Variables.results.createNode("Search bar is not functional");
+			Test_Variables.test.fail("Filter and lock functionality failed");
+			Test_Variables.results.createNode("Filter and lock functionality failed");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.BarcodeManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			Test_Variables.test.fail("Search bar is not functional");
-			Test_Variables.results.createNode("Search bar is not functional");
+			Test_Variables.test.fail("Filter and lock functionality failed");
+			Test_Variables.results.createNode("Filter and lock functionality failed");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.BarcodeManagementReportPath, ex);
 		}
 	}
-	
+
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
 		Helper.driver.close();
+		Helper.driver.quit();
 	}
-	
+
 }

@@ -626,7 +626,7 @@ public class CoccidiaLog {
 	}
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= false, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);
@@ -1718,7 +1718,8 @@ public class CoccidiaLog {
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
 			String filename= newfile.getName();
 			//System.out.println("Latest XLSX file is = "+filename);
-			Assert.assertEquals(filename, Test_Variables.clSampleMetaData+".xlsx");
+			Assert.assertTrue(filename.startsWith(Test_Variables.clSampleMetaData));
+		//	Assert.assertEquals(filename, Test_Variables.clSampleMetaData+".xlsx");
 			Test_Variables.test.pass("Sample MetaData template downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData template downloads successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);

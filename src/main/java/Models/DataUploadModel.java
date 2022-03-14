@@ -17,7 +17,8 @@ public class DataUploadModel {
 	public String failStep;
 	public String AlertMessage;
 	public ArrayList<ReportFilters> lstFilters;
-	
+	public boolean ErrorCase;
+	public String ErrorMessage;
 //	public static String OrganizationSiteID = "1001001";
 //	public static String RegionSiteID = "1001043";
 //	public static String SubRegionSiteID = "1001052";
@@ -658,6 +659,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("", "A"));
 		objTmp.steps = "Leave Key field empty";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "No value provided for Result ID.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file leaving Key field empty successfully";
 		objTmp.failStep = "User was able to upload file leaving Key field empty";
@@ -677,7 +680,7 @@ public class DataUploadModel {
 //		objTmp.failStep = "User was able to upload file with case sensitive duplicate values";
 //		objTmp.lstFilters.add(objFilter);
 //		lstDataUploadModel.add(objTmp);
-	
+		
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-06: Verify that user can upload file with entering valid data in Key field/s";
@@ -686,6 +689,7 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", ""));
 		objTmp.steps = "Enter valid data in Key field/s";
+		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was able to upload file with entering valid data in Key field/s successfully";
 		objTmp.failStep = "User was not able to upload file with entering valid data in Key field/s";
@@ -700,12 +704,14 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
 		objTmp.steps = "Enter same value in Key field/s for 2 rows";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Repetition found in Key Field.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with values in Key field/s not being unique successfully";
 		objTmp.failStep = "User was able to upload file with values in Key field/s not being unique";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+			
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-08: Verify that user can upload file with values in Key field/s being unique";
@@ -714,6 +720,7 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A0732302"));
 		objTmp.steps = "Enter unique values for Key field";
+		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload file with values in Key field/s being unique successfully";
 		objTmp.failStep = "User was able to upload file with values in Key field/s being unique";
@@ -728,6 +735,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A"));
 		objTmp.steps = "Enter string value in decimal field";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Value in Run Lane is not valid.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with String datatype in Decimal datatype successfully";
 		objTmp.failStep = "User was able to upload file with String datatype in Decimal datatype";
@@ -742,6 +751,7 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("1"));
 		objTmp.steps = "Enter string value in decimal field";
+		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload file with String datatype in Decimal datatype successfully";
 		objTmp.failStep = "User was able to upload file with String datatype in Decimal datatype";
@@ -754,8 +764,10 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with site id that does not exist";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "100900112"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "100900112"));
 		objTmp.steps = "Enter invalid site id";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Repetition found in Key Field.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with site id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with site id that does not exist";
@@ -770,6 +782,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705789", ""));
 		objTmp.steps = "Enter invalid result id";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "ResultId in Result ID does not exist in system.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with result id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with result id that does not exist";
@@ -784,6 +798,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("", ""));
 		objTmp.steps = "Leave result id empty";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "No value provided for Result ID.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with result id being empty successfully";
 		objTmp.failStep = "User was able to upload file with result id being empty";
@@ -798,6 +814,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
 		objTmp.steps = "Enter duplicate result id";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Repetition found in Key Field.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with duplicate result id successfully";
 		objTmp.failStep = "User was able to upload file with duplicate result id";
@@ -812,6 +830,7 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "1.5"));
 		objTmp.steps = "Enter decimal value in Decimal datatype";
+		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload file with decimal value in Decimal datatype successfully";
 		objTmp.failStep = "User was able to upload file with decimal value in Decimal datatype";

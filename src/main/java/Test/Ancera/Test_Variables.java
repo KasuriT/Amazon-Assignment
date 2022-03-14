@@ -372,8 +372,11 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////Reports Management Screen Variables/////////////////////////////////////////////////////
 	
 	public static String RoleName = "Test Role - "+date0;
+	//public static String RoleName = "Test Role - 2533";
+		
 	public static String ReportGroupName = "Test Report Group - "+date0;
-
+	//public static String ReportGroupName = "new group";
+	
 	public static ArrayList<RMModel> lstRGMandatoryCheck = new ArrayList<>(
 			Arrays.asList(
 					new RMModel("", "", false, "Leave all fields empty", false, "AN-RM-14: Leave all fields empty and click on save button", "This test case wll verify that user cannot create report group without filling all mandatory fields", true, "The user was not able to create Report Group leaving all fields empty", "User was able to create a Report Group leaving all fields empty"),
@@ -529,7 +532,7 @@ public class Test_Variables {
 	public static String fileName = "MetaData RunMode1.xlsx";
 	public static String SiteID = "1001001";
 //	public static String SiteID = "1267007";
-	public static String invalidSiteID = "1001001";  //siteid not assigned to user
+	public static String invalidSiteID = "1267002";  //siteid not assigned to user
 	public static String CollectionDate = "12/12/2021";
 	////////End Sample MetaData Upload Data/////////////////
 

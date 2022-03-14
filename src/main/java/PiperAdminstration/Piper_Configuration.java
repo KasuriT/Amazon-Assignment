@@ -433,6 +433,10 @@ public class Piper_Configuration {
 	@Test (enabled= true, priority = 6) 
 	public void DeletePiperConfigCocci() throws InterruptedException, IOException {
 		try{
+			
+			Helper.driver.get(Constants.url_piperConfiguration);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-10: Verify user can delete Coccidia piper configuration", "This testcase will verify that user can delete piper configuration");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -444,7 +448,7 @@ public class Piper_Configuration {
 			Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-
+			Thread.sleep(2000);
 			for (int i = 1; i<=1000; i++) {
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(6)")).getText().equals(Test_Variables.date0)) {
 					int j= i-2;
@@ -515,7 +519,7 @@ public class Piper_Configuration {
 					Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001);
 					Thread.sleep(1000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
-					Assert.assertEquals(Helper.driver.findElements(By.cssSelector("ng-option-disabled")).size(), 0);
+					Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
 					Helper.driver.findElement(Test_Elements.popupCloseButton).click();
 				}
 				if (i==2) {
@@ -531,9 +535,9 @@ public class Piper_Configuration {
 					Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
 					Thread.sleep(1000);
 					Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001);
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
-					Assert.assertEquals(Helper.driver.findElements(By.cssSelector("ng-option-disabled")).size(), 0);
+					Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
 					Helper.driver.findElement(Test_Elements.popupCloseButton).click();
 				}
 			}
@@ -553,7 +557,7 @@ public class Piper_Configuration {
 	}
 
 
-	@Test (enabled= false, priority = 8) 
+	@Test (enabled= true, priority = 8) 
 	public void CreatePAConfigSalm() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-12: Verify user can create P/A MPN Configuration for Salmonella", "This test case will verify that user can create P/A MPN Configuration");
@@ -653,7 +657,7 @@ public class Piper_Configuration {
 	}	 
 
 
-	@Test (enabled= false, priority = 9) 
+	@Test (enabled= true, priority = 9) 
 	public void DeletePAConfigSalm() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-13: Verify user can delete P/A MPN Configuration for Salmonella", "This test case will verify that user can create P/A MPN Configuration");
@@ -683,7 +687,7 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1500);
 			String message = Helper.driver.findElement(By.id("message")).getText();
-			Assert.assertEquals(message, "Salmonella Configuration details deleted");
+			Assert.assertEquals(message, "MPN & P/A Configuration details deleted.");
 			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			Test_Variables.test.pass("P/A MPN configuration deleted successfully");
 			Test_Variables.results.createNode("P/A MPN configuration deleted successfully");
@@ -703,7 +707,7 @@ public class Piper_Configuration {
 	}	 
 
 	
-	@Test (enabled= false, priority = 10) 
+	@Test (enabled= true, priority = 10) 
 	public void CreatePAConfigList() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-14: Verify user can create P/A MPN Configuration for Listeria", "This test case will verify that user can create P/A MPN Configuration");
@@ -781,7 +785,7 @@ public class Piper_Configuration {
 	}	 
 
 
-	@Test (enabled= false, priority = 11) 
+	@Test (enabled= true, priority = 11) 
 	public void DeletePAConfigList() throws InterruptedException, IOException {	
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-PCM-15: Verify user can delete P/A MPN Configuration for Listeria", "This test case will verify that user can create P/A MPN Configuration");
@@ -812,7 +816,7 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1500);
 			String message = Helper.driver.findElement(By.id("message")).getText();
-			Assert.assertEquals(message, "MPN & P/A Configuration details deleted.");
+			Assert.assertEquals(message, "Listeria Configuration details deleted");
 			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			Test_Variables.test.pass("P/A MPN configuration deleted successfully");
 			Test_Variables.results.createNode("P/A MPN configuration deleted successfully");

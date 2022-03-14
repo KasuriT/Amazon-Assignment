@@ -44,5 +44,14 @@
 	<classpathentry kind="lib" path="D:/Softwares Setup Files/Rest_Assured/tagsoup-1.2.1.jar"/>
 	<classpathentry kind="lib" path="D:/Softwares Setup Files/Rest_Assured/xml-path-4.3.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/User/Downloads/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/jre8/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.1.2/selenium-remote-driver-4.1.2.jar" sourcepath="C:/Users/User/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.1.2/selenium-remote-driver-4.1.2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.seleniumhq.selenium"/>
+			<attribute name="maven.artifactId" value="selenium-remote-driver"/>
+			<attribute name="maven.version" value="4.1.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

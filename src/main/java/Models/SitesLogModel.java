@@ -175,7 +175,7 @@ public class SitesLogModel {
 		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteID,Test_Elements.sitesSiteName));
+		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.sitesSiteType,Test_Elements.sitesSiteID));
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSitesLogModel.add(objTmp);

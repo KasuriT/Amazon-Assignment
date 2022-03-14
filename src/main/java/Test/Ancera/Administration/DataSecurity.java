@@ -12,9 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -43,91 +41,60 @@ public class DataSecurity {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Administration_Agreement_Management"+Test_Variables.date+".html");
-		Test_Variables.spark.config().setReportName("Agreement Management Test Report"); 
+		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Data_Security"+Test_Variables.date+".html");
+		Test_Variables.spark.config().setReportName("Data Security Test Report"); 
 		Helper.config();
 		ConfigureLogin.login();
 	}
 
 
 	@Test (enabled= true, priority = 1) 
-	public void turnOnDataSecurity() throws InterruptedException, IOException {
+	public void turnonDataSecurity() throws InterruptedException, IOException {
 		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-License-01: Verify user can turn on data security", "This test case will verify that user can turn on data security");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
-			Test_Variables.steps.createNode("2. Click on Administration and select Agreement Management");
-
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 
 			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
-					WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+j));
-					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
-					Thread.sleep(1000); 
-					Helper.driver.findElement(By.id("edit-user-"+j)).click();
+					String ReportRole = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userReportingCol+" label")).getText();
+					Helper.driver.get(Constants.url_reportsManagement);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);
+					for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+						if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ReportRole)) {
+							Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
+							break;
+						}	
+					}
 					break;
 				}	
 			}
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(8000); 
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(2000); 
-			Helper.driver.findElement(By.id("btn-next")).click(); 
-			Thread.sleep(2000); 
 
-			String ReportRole = Helper.driver.findElement(By.cssSelector("#reportRoleId input")).getText();
-
-			Helper.driver.get(Constants.url_reportsManagement);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-
-			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(1) label")).getText().equals(ReportRole)) {
-					Helper.driver.findElement(By.id("edit-report-role-"+j)).click();
-					break;
-				}	
-			}
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
-			if(Helper.driver.findElements(By.cssSelector("#status-data-security .wrapper-true")).size() == 1) {
-				Helper.driver.findElement(By.cssSelector("#status-data-security row")).click();
+			if(Helper.driver.findElements(By.cssSelector("#status-data-security .wrapper-true")).size() == 0) {
+				Helper.driver.findElement(By.cssSelector("#status-data-security .row")).click();
 			}
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
-
-
-			Assert.assertEquals(Helper.driver.findElement(By.id("Agreement Management")).getText(), "Agreement Management"); 
-			Test_Variables.test.pass("User navigated successfully");
-			Test_Variables.results.createNode("User navigates to Agreement MAnagement Screen");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Agreement Management", Constants.AgreementManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.AgreementManagementReportPath, null);	
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Role has been updated successfully."); 	
 		}
 		catch(AssertionError er) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to Agreement Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to Agreement Management Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.AgreementManagementReportPath, ex);
 		}
 	}
 
 
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Test (enabled= true, priority = 1) 
+	@Test (enabled= true, priority = 2) 
 	public void positive() throws InterruptedException, IOException {
 		Test_Variables.lstDataSecurity = DataSecurityModel.FillData();
 		for (DataSecurityModel objModel : Test_Variables.lstDataSecurity) { 
 			try{
-				Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 				SoftAssert softAssert = new SoftAssert();
@@ -211,9 +178,17 @@ public class DataSecurity {
 						Thread.sleep(45000);
 						Helper.driver.get(Constants.url_SalmonellaLog);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
-
-						ClickElement.clickById(Helper.driver, "sampleId_show-filter");			
+						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+						Thread.sleep(2000);
+						System.out.println("1");
+					//	ClickElement.clickById(Helper.driver, "sampleId_show-filter");		
+						try {
+							Helper.driver.findElement(By.id("sampleId_show-filter")).click();
+						}
+						catch (Exception ex) {
+							ClickElement.clickById(Helper.driver, "sampleId_show-filter");		
+						}
+						System.out.println("2");
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(1000);
 
@@ -241,62 +216,81 @@ public class DataSecurity {
 						}
 
 						if (!objModel.validCase) {
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).size(), 1);
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).size(), 0, "Run displayed in report even when data security was on");
+							turnoffDataSecurity();
+							Helper.driver.get(Constants.url_SalmonellaLog);
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(3000);
+							Helper.driver.findElement(By.id("sampleId_show-filter")).click();		
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(2000);
+							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(3000);	
+							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
+							Thread.sleep(2000);
+							Helper.driver.findElement(By.id("sampleId_apply")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(1500);	
+							String records = Helper.driver.findElement(By.id("results-found-count")).getText();
+							softAssert.assertEquals(records, "12"); 
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.DataSecurityReportPath));
 						}	
 
+						FileInputStream fsIP= new FileInputStream(new File("./Excel/"+Test_Variables.templateFileNameDS));
+						@SuppressWarnings("resource")
+						XSSFWorkbook wb = new XSSFWorkbook(fsIP);
+						XSSFSheet worksheet = wb.getSheetAt(0);
+						Cell cell = null;
 
-						if (objModel.validCase) {
-							FileInputStream fsIP= new FileInputStream(new File("./Excel/"+Test_Variables.templateFileNameDS));
-							@SuppressWarnings("resource")
-							XSSFWorkbook wb = new XSSFWorkbook(fsIP);
-							XSSFSheet worksheet = wb.getSheetAt(0);
-							Cell cell = null;
+						for (int z=0; z<12; z++) {
 
-							for (int z=0; z<12; z++) {
+							String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slSampleIDCol)).getText();
+							cell=worksheet.getRow(z+1).createCell(4); 
+							cell.setCellValue(getSampleID);  
 
-								String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slSampleIDCol)).getText();
-								cell=worksheet.getRow(z+1).createCell(4); 
-								cell.setCellValue(getSampleID);  
+							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slResultIDCol)).getText();
+							cell=worksheet.getRow(z+1).createCell(0); 
+							cell.setCellValue(getResultID);  
 
-								String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slResultIDCol)).getText();
-								cell=worksheet.getRow(z+1).createCell(0); 
-								cell.setCellValue(getResultID);  
+							cell=worksheet.getRow(z+1).createCell(19); 
+							cell.setCellValue(objModel.cartridgeID); 
 
-								cell=worksheet.getRow(z+1).createCell(19); 
-								cell.setCellValue(objModel.cartridgeID); 
+							cell=worksheet.getRow(z+1).createCell(3); 
+							cell.setCellValue(Test_Variables.SampleMatrix); 
 
-								cell=worksheet.getRow(z+1).createCell(3); 
-								cell.setCellValue(Test_Variables.SampleMatrix); 
+							cell=worksheet.getRow(z+1).createCell(9); 
+							cell.setCellValue(Test_Variables.FlockID); 
 
-								cell=worksheet.getRow(z+1).createCell(9); 
-								cell.setCellValue(Test_Variables.FlockID); 
+							cell=worksheet.getRow(z+1).createCell(8); 
+							cell.setCellValue(Test_Variables.RequestedAssay); 
 
-								cell=worksheet.getRow(z+1).createCell(8); 
-								cell.setCellValue(Test_Variables.RequestedAssay); 
+							cell=worksheet.getRow(z+1).createCell(2); 
+							cell.setCellValue(Test_Variables.KitLot); 
 
-								cell=worksheet.getRow(z+1).createCell(2); 
-								cell.setCellValue(Test_Variables.KitLot); 
+							cell=worksheet.getRow(z+1).createCell(23); 
+							cell.setCellValue(Test_Variables.CollectionDate); 
 
-								cell=worksheet.getRow(z+1).createCell(23); 
-								cell.setCellValue(Test_Variables.CollectionDate); 
+							cell=worksheet.getRow(z+1).createCell(6); 
+							cell.setCellValue(Test_Variables.CustomerSampleID); 
 
-								cell=worksheet.getRow(z+1).createCell(6); 
-								cell.setCellValue(Test_Variables.CustomerSampleID); 
+							cell=worksheet.getRow(z+1).createCell(1); 
+							cell.setCellValue(objModel.collectionSiteID); 
 
-								cell=worksheet.getRow(z+1).createCell(1); 
-								cell.setCellValue(Test_Variables.SiteID); 
+							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slLaneCol)).getText();
+							cell=worksheet.getRow(z+1).createCell(16); 
+							cell.setCellValue(getLane);  
 
-								String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.slLaneCol)).getText();
-								cell=worksheet.getRow(z+1).createCell(16); 
-								cell.setCellValue(getLane);  
-
-								fsIP.close();
-							}
-							FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.templateFileNameDS));
-							wb.write(output_file);
-							output_file.close();  
+							fsIP.close();
 						}
+						FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.templateFileNameDS));
+						wb.write(output_file);
+						output_file.close();  
 					}
+
+					if (!objModel.validCase) {
+						turnonDataSecurity();
+					}	
 
 					if (objModel.uploadTemplate) {
 						FileInputStream fsIP= new FileInputStream(new File("./Excel/"+Test_Variables.templateFileNameDS));
@@ -326,90 +320,134 @@ public class DataSecurity {
 						Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
 						Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
 						Thread.sleep(1000);
-						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+Test_Variables.fileName);
+						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+Test_Variables.templateFileNameDS);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
 						Thread.sleep(4000);		
-						
+
 						if (!objModel.validCase) {
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage)); 
 							softAssert.assertTrue(Helper.driver.findElement(Test_Elements.alertMessage).getText().startsWith("Errors found in"), "Error message did not appear");
 						}
-						
+
 						if (objModel.validCase) {
-						Helper.driver.findElement(By.cssSelector(".fa-save")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-						Thread.sleep(2000);
-						
-						Helper.driver.get(Constants.url_SalmonellaLog);
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
-						Thread.sleep(1000);
-
-						Helper.driver.findElement(By.id("sampleId_show-filter")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(2000);
-
-						Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-						Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(2000);
-						
-						try {
-							ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0));
+							Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(2000);
-						}
-						catch (Exception ex) {
-							Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.DataSecurityReportPath));
+							softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), Test_Variables.templateFileNameDS+" saved successfully.", "Error message appeared");
+							Helper.driver.get(Constants.url_SalmonellaLog);
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+							Thread.sleep(2000);
+
+							Helper.driver.findElement(By.id("sampleId_show-filter")).click();
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Thread.sleep(2000);
-						}
 
+							Helper.driver.findElement(By.id("sampleId_search-input")).clear();
+							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objFilter.LstSampleID.get(0));
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(2000);
 
-						Helper.driver.findElement(By.id("sampleId_apply")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(3000);	
-						
-						Helper.driver.findElement(By.id("audit-trial-0")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1500);		
+							try {
+								ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0));
+							}
+							catch (Exception ex) {
+								Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objFilter.LstSampleID.get(0))).click();
+							}
 
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(2000);
+							Helper.driver.findElement(By.id("sampleId_apply")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(3000);	
 
-						String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
-						softAssert.assertEquals(getAuditAction, "Modified");
-						
-						int getAuditRows = Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size();
-						softAssert.assertEquals(getAuditRows, 3);
-						
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.NormalIngestionReportPath));
+							Helper.driver.findElement(By.id("audit-trial-0")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							Thread.sleep(1500);		
+
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.DataSecurityReportPath));
+
+							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							softAssert.assertEquals(getAuditAction, "Modified");
+
+							int getAuditRows = Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size();
+
+							if (objModel.TestCaseName.startsWith("AN-DS-03:")) {
+								System.out.println("hello3");
+								softAssert.assertEquals(getAuditRows, 3);
+							}
+
+							if (objModel.TestCaseName.startsWith("AN-DS-05:")) {
+								System.out.println("hello4");
+								softAssert.assertEquals(getAuditRows, 4);
+							}
 						}
 					}
 					softAssert.assertAll();
 
-					Test_Variables.test.pass("Ingested Successfully");
-					Test_Variables.results.createNode("Data ingestion verified successfully");
-					Helper.saveResultNew(ITestResult.SUCCESS, Constants.NormalIngestionReportPath, null);
+					Test_Variables.test.pass("Scenario verified successfully");
+					Test_Variables.results.createNode("Scenario verified successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.DataSecurityReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataSecurityReportPath, null);
 				}
 			}catch(AssertionError er) {
 				Test_Variables.test.fail("Ingestion failed");
 				Test_Variables.results.createNode("Data ingestion verification failed");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, new Exception(er));
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.DataSecurityReportPath, new Exception(er));
 			}catch(Exception ex){
 				Test_Variables.test.fail("Ingestion failed");
 				Test_Variables.results.createNode("Data ingestion verification failed");
-				Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, ex);
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.DataSecurityReportPath, ex);
 			}
 		}
 	}
 
 
+	//@Test (enabled= true, priority = 3) 
+	public void turnoffDataSecurity() throws InterruptedException, IOException {
+		try {
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+
+			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
+					String ReportRole = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userReportingCol+" label")).getText();
+					Helper.driver.get(Constants.url_reportsManagement);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);
+					for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+						if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ReportRole)) {
+							Helper.driver.findElement(By.id("edit-report-role-"+i)).click();
+							break;
+						}	
+					}
+					break;
+				}	
+			}
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+			if(Helper.driver.findElements(By.cssSelector("#status-data-security .wrapper-true")).size() == 1) {
+				Helper.driver.findElement(By.cssSelector("#status-data-security .toggle")).click();
+			}
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
+			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Role has been updated successfully."); 
+		}
+		catch(AssertionError er) {
+		}
+		catch(Exception ex) {
+		}
+	}
+
 
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		Helper.driver.close();
+		//Helper.driver.close();
 	}
 }

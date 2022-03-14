@@ -18,7 +18,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -307,7 +306,7 @@ public class PAConfig {
 									System.out.print("");
 								}
 								else {
-									softAssert.assertEquals(getResult, "QCFAIL");
+									softAssert.assertEquals(getResult, "QCFail");
 									softAssert.assertEquals(getQCCode, "E066");
 								}
 							}
@@ -392,7 +391,7 @@ public class PAConfig {
 									System.out.print("");
 								}
 								else {
-									softAssert.assertEquals(getAuditResult, "QCFAIL");
+									softAssert.assertEquals(getAuditResult, "QCFail");
 									softAssert.assertEquals(getAuditQCCode, "E066");
 								}
 							}
@@ -642,8 +641,9 @@ public class PAConfig {
 								Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
 								Thread.sleep(1000);
 								Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Keys.ENTER);
-								Thread.sleep(750);
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.id("ThresholdPAId")).sendKeys(objModel.ThresholdValue);
+								Thread.sleep(1000);
 								Helper.driver.findElement(By.id("EAIUnit3LId")).sendKeys("100");
 
 								Helper.driver.findElement(By.cssSelector(".ml-1")).click();
@@ -661,7 +661,7 @@ public class PAConfig {
 								Helper.driver.findElement(By.id("enrichVol1LId")).sendKeys("10");
 								Helper.driver.findElement(By.id("enrichDiluFactor1LId")).sendKeys("10");
 								Helper.driver.findElement(By.id("rinsateVol1LId")).sendKeys("10");
-								Thread.sleep(750);
+								Thread.sleep(1000);
 
 								Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));

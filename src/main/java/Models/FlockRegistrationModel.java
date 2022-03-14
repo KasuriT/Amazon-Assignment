@@ -1217,19 +1217,19 @@ public class FlockRegistrationModel {
 		FlockRegistrationModel objTmp;
 		ReportFilters objFilter;			
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Integrator Site ID";
-		objTmp.TestCaseName = "AN-FR-99: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
-		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.flockIntegratorID;
-		objFilter.ColumnID = Test_Elements.flockIntegratorIDCol;
-		objTmp.input = "IntegratorID_TA";
-		objTmp.steps = "Edit "+objFilter.FilterName;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Integrator Site ID";
+//		objTmp.TestCaseName = "AN-FR-99: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+//		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterID = Test_Elements.flockIntegratorID;
+//		objFilter.ColumnID = Test_Elements.flockIntegratorIDCol;
+//		objTmp.input = "IntegratorID_TA";
+//		objTmp.steps = "Edit "+objFilter.FilterName;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();

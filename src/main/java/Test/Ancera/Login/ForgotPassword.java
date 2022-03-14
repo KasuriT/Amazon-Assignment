@@ -1,7 +1,7 @@
 package Test.Ancera.Login;
 
 import java.io.IOException;
-
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -30,7 +30,7 @@ public class ForgotPassword {
 	ConfigureLogin log = new ConfigureLogin();
 
 	@BeforeTest
-	public void extent() {
+	public void extent() throws MalformedURLException {
 
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Forgot_Password"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Forgot Password Test Report"); 

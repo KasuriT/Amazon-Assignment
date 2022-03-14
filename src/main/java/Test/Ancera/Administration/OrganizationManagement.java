@@ -72,13 +72,24 @@ public class OrganizationManagement{
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
 			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
-			Test_Variables.steps.createNode("2. Click on Adminstration and select Organization Management");
-
+			Test_Variables.steps.createNode("2. Click on Adminstration and select Organization Management");					
+			
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-
 			Assert.assertEquals(Helper.driver.findElement(Test_Elements.orgTitle).getText(), "Organization Management"); 			
+			
+//			Helper.driver.findElement(By.id("edit-orgn-sites-2")).click();
+//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+//			Thread.sleep(1000);
+//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span")).click();
+//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+//			Thread.sleep(8000);
+//			String a =		Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getText();
+//			String b =		Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value");
+//			System.out.println("a: "+a);
+//			System.out.println("b: "+b);
+			
 			Test_Variables.test.pass("User navigated successfully");
 			Test_Variables.results.createNode("User navigates to Organization Management Screen");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
@@ -516,8 +527,6 @@ public class OrganizationManagement{
 	}
 
 
-
-
 	@Test (description="Test Case: Organization Site Check",enabled= true, priority= 10) 
 	public void OrganizationSitesHierarchyCheck() throws InterruptedException, IOException {
 		try{
@@ -844,36 +853,44 @@ public class OrganizationManagement{
 			Thread.sleep(500);
 			SoftAssert softAssert = new SoftAssert();
 			WebElement stAddress = Helper.driver.findElement(Test_Elements.orgSiteAddressInput);
-//			stAddress.sendKeys("Lahore Pakistan"); 
-//			Thread.sleep(1000);
-//			stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
-//			Thread.sleep(1000);
-//			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".confirmation-message label")).getText(), "The specified address is outside of USA. Please enter a valid US address.");
-//			Helper.driver.findElement(Test_Elements.popupOKButton).click();
-//			Thread.sleep(750);
-//			stAddress.clear();
+			stAddress.clear(); 
+			stAddress.sendKeys("Lahore Pakistan"); 
+			Thread.sleep(2000);
+			stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
+			Thread.sleep(3000);
+			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".confirmation-message label")).getText(), "The specified address is outside USA. Please enter a valid US address.");
+			Helper.driver.findElement(Test_Elements.popupOKButton).click();
+			Thread.sleep(1000);
+			
+			Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).sendKeys("-74.32");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value"),"-65.32", "Longitude did not filled");
+			Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).sendKeys("-74.32");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getAttribute("value"),"-65.32", "Latitude did not filled");
+			
+			
+			
+			stAddress.clear();
 			stAddress.sendKeys("new york"); 
 			Thread.sleep(1000);
 			stAddress.sendKeys(Keys.DOWN); stAddress.sendKeys(Keys.ENTER);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(6000);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).click();  
 			Thread.sleep(2000);
-			Helper.driver.findElement(Test_Elements.orgSiteNameInput).click();
-			Thread.sleep(2000);
-
-		//	softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCountryInput).getText(), "United States");
-		//	softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteStateInput).getText(), "North Carolina");
-		//	softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCityInput).getAttribute("value"), "Lincolnton");
-		//	softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteZipCodeInput).getText(), "28092");
-		//	softAssert.assertTrue(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getText().startsWith("35"));
-		//	softAssert.assertTrue(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getText().startsWith("-81"));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCountryInput).getText(), "Country\nUnited States");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteStateInput).getText(), "State\nNew York");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCityInput).getText(), "City\nNew York");
+	//		softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteZipCodeInput).getText(), "28092");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getAttribute("value"),"40.7127753", "Latitude did not autofilled");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value"),"-74.0059728", "Longitude did not autofilled");
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click(); 
-			Thread.sleep(500);
-
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(1000);
 			String actual = Helper.driver.findElement(Test_Elements.alertMessage).getText();
 			String expected = Test_Variables.lstOrgAlertMessages.get(2) ;
-			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 
 			softAssert.assertEquals(actual, expected);
 			softAssert.assertAll();
@@ -891,7 +908,6 @@ public class OrganizationManagement{
 			Test_Variables.results.createNode("New Organization site failed to create");
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, ex);
 		}
-		Thread.sleep(1500);
 	}
 
 
@@ -914,17 +930,18 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Make changes and click on save button");
 			SoftAssert softAssert = new SoftAssert();
 			Test_Variables.test.createNode("Click on update button next to created site");
-			Helper.driver.findElement(Test_Elements.orgSite1Click).click(); 
 			Thread.sleep(2000);
+			Helper.driver.findElement(Test_Elements.orgSite1Click).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(8000);
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).clear();
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("Region Updated");  
-			Thread.sleep(3000);
-	//		softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCountryInput).getText(), "United States");
-	//		softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteStateInput).getText(), "North Carolina");
-	//		softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCityInput).getText(), "Lincolnton");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCountryInput).getText(), "Country\nUnited States");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteStateInput).getText(), "State\nNew York");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCityInput).getText(), "City\nNew York");
 	//		softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteZipCodeInput).getText(), "28092");
-	//		softAssert.assertTrue(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getText().startsWith("35"));
-	//		softAssert.assertTrue(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getText().startsWith("81"));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getAttribute("value"),"40.712775", "Latitude did not autofilled");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value"),"-74.005973", "Longitude did not autofilled");
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click(); 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
@@ -976,10 +993,10 @@ public class OrganizationManagement{
 					break;
 				}
 			}
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.orgSite1Click).click(); 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(2000);
+			Thread.sleep(8000);
 			Assert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteNameInput).getAttribute("value"), "Region Updated"); 
 			Test_Variables.test.pass("New Organization site updation verified successfully");
 			Test_Variables.results.createNode("New Organization site updation verified successfully");
@@ -1398,7 +1415,7 @@ public class OrganizationManagement{
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), Test_Variables.lstOrgAlertMessages.get(5)); 
-			Thread.sleep(1500);
+			Thread.sleep(3500);
 			String recordsCountAfter = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
 			softAssert.assertNotEquals(recordsCountBefore, recordsCountAfter);
 			
@@ -1562,23 +1579,9 @@ public class OrganizationManagement{
 			}
 		}
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 23) 
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 23) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1719,7 +1722,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= true, priority = 24) 
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 24) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1818,7 +1821,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 25) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= false, priority = 25) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1912,7 +1915,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= true, priority =26) 
+	@Test (enabled= false, priority =26) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -1979,7 +1982,7 @@ public class OrganizationManagement{
 
 
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test CSV Download",enabled= true, priority =27) 
+	@Test (description="Test Case: Test CSV Download",enabled= false, priority =27) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM103: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");

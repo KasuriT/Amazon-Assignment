@@ -831,7 +831,7 @@ public class UserManagement {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals("ancera@email.com")) {
+				//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals("ahxanryk@gmail.om")) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
 					Helper.driver.findElement(By.id("edit-user-"+i)).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -839,7 +839,7 @@ public class UserManagement {
 				}
 			}	
 
-			Thread.sleep(8000);
+			Thread.sleep(4000);
 			Helper.driver.findElement(By.cssSelector("#lastNameId")).clear();
 			Helper.driver.findElement(By.cssSelector("#lastNameId")).sendKeys("User Updated");
 			Thread.sleep(1000);
@@ -856,7 +856,12 @@ public class UserManagement {
 
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), Test_Variables.lstUserAlertMessages.get(1)); 
 			
+			Helper.driver.get(Constants.url_user);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals("ahxanryk@gmail.om")) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
 					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userLastNameCol+" label")).getText(), "User Updated"); 
 					break;
