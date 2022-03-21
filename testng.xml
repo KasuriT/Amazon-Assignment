@@ -37,11 +37,5 @@
     </classes>
   </test> 
   
-    <test name="Test.Ancera.Login2">
-    <classes>
-    <class name="Test.Ancera.Login.ForgotPassword"/>
-    <class name="Test.Ancera.Login.TestLogin"/>
-    </classes>
-  </test> 
   
 </suite> 
