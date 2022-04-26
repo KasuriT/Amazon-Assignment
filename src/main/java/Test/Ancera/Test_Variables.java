@@ -273,6 +273,12 @@ public class Test_Variables {
 					"ancera",  //invalid email
 					"ancera"+date0+"@ancera.com",  //valid email
 					"100"));
+	
+	
+	public static ArrayList<OrgModel> lstOrgPractice = new ArrayList<>(
+			Arrays.asList(
+					new OrgModel("OrgModel", Constants.url_organization)));
+
 
 	public static ArrayList<String> lstOrgAlertMessages = new ArrayList<>(
 			Arrays.asList("New organization has been created successfully", 
@@ -292,7 +298,7 @@ public class Test_Variables {
 					));
 	
 	public static ArrayList<OrgModel> lstOrgBulkSiteUpload = new ArrayList<>();
-	
+	public static ArrayList<OrgModel> lstOrgSearch1 = new ArrayList<>();
 	public static ArrayList<OrgModel> lstOrgSearch = new ArrayList<>();
 	public static ArrayList<OrgModel> lstOrgWildcardSearch = new ArrayList<>();
 	public static ArrayList<OrgModel> lstOrgDateSearch = new ArrayList<>();
@@ -518,7 +524,9 @@ public class Test_Variables {
 	public static String RunID = "Test"+lstSampleID.get(0); //unique run id used while ingestion
 	public static String PiperUser = "Jalam"; //piper user name
 	public static String ImprocVersion = "9.7.1.5";  //version used while ingestion
-	public static String RunType = "Normal"; 
+	public static String RunType = "Quantitation"; //normal ingestion
+	public static String InstallationRunType = "Verification";
+	public static String PARunType = "Presence/Absence";
 	public static String slImprocVersion = "4.0.8.2";
 	public static String slRunID = "Test"+lstSampleID.get(1);
 	public static String slCSiteID = "1001001";
@@ -676,13 +684,13 @@ public class Test_Variables {
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreate = new ArrayList<>();
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreateCoccidia = new ArrayList<>();
 	
-//	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
-//	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
-//	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
+	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
+	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
+	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
 	
-	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
-	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
-	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
+//	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
+//	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
+//	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
 	
 //	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
 //	public static String installationImprocVersionCocci = "2.10.3.3";  //uat
@@ -710,7 +718,8 @@ public class Test_Variables {
 	public static ArrayList<PAModel> lstPASalmonella = new ArrayList<>();
 	public static String PA_SampleMatrixSalm = "AT_SampleMatrix";    //Sample Matrix used while ingestion for Salmonella case 1 (Make sure configuration is already made)
 	public static String PA_SampleMatrixList = "AT_SampleMatrixListeria"; //Sample Matrix used while ingestion for Listeria case 1 (Make sure configuration is already made)
-	public static String PA_SampleMatrixID = "201";   //Sample Matrix ID used while ingestion
+	public static String PA_SampleMatrixID = "201";   //Sample Matrix ID used while ingestion (qa)
+//	public static String PA_SampleMatrixID = "201";   //Sample Matrix ID used while ingestion (dev)
 	public static String PA_SampleMatrixIDListeria = "41";  //Sample Matrix ID used while ingestion
 	public static String PA_ImprocVersion = "4.0.8.2"; //Version set for Sample Matrix in Piper Configuration Setting
 //	public static String PA_ImprocVersionNew = "4.0.8.2"; //Version used for creating new Sample Matrix in Piper Configuration Setting for case 3  //dev

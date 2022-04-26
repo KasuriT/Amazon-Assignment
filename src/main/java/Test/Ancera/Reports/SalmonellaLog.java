@@ -648,7 +648,10 @@ public class SalmonellaLog {
 	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
 	public void Contexual() throws InterruptedException, IOException {
 
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1500);
+
 		Test_Variables.lstSalmonellaContexualCheck = SalmonellaModel.ContexualCheck(); 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaContexualCheck) { 	
 			try {

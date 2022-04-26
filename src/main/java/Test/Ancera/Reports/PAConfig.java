@@ -504,7 +504,7 @@ public class PAConfig {
 						for (int x=0; x<12; x++) {
 
 							String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
-							softAssert.assertEquals(getRunType, "P/A", "Run Type is not displayed in table");
+							softAssert.assertEquals(getRunType, Test_Variables.PARunType, "Run Type is not displayed in table");
 
 							String getSampleMatrix = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slSampleMatrixCol+" label")).getText();
 							softAssert.assertEquals(getSampleMatrix, objModel.SampleMatrix);
@@ -711,7 +711,7 @@ public class PAConfig {
 							for (int x=0; x<12; x++) {
 
 								String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
-								softAssert.assertEquals(getRunType, "P/A", "Run Type is not displayed in table");
+								softAssert.assertEquals(getRunType, Test_Variables.PARunType, "Run Type is not displayed in table");
 
 								String getSampleMatrix = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slSampleMatrixCol+" label")).getText();
 								softAssert.assertEquals(getSampleMatrix, objModel.SampleMatrix);

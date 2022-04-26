@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class LoginModel {
 
 	public String email;

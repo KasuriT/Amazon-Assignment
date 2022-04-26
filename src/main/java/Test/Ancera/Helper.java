@@ -3,6 +3,7 @@ package Test.Ancera;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
@@ -32,25 +34,36 @@ public class Helper {
 
 		projectPath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");		
+		
 		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("profile.default_content_settings.popups", 0);
 		prefs.put( "profile.content_settings.pattern_pairs.*.multiple-automatic-downloads", 1 );
 		prefs.put("download.prompt_for_download", false);
+		prefs.put("profile.content_settings.exceptions.automatic_downloads.*.setting", 1 );
+
 		ChromeOptions options = new ChromeOptions();
 		options.setExperimentalOption("prefs", prefs);
 		options.addArguments("--disable-infobars");
 		options.addArguments("disable-popup-blocking");
-//		options.addArguments("--headless");
-//		options.addArguments("window-size=1920,1080"); 
+	//	options.addArguments("--headless");
+	//	options.addArguments("window-size=1920,1080"); 
 	
-		//	DesiredCapabilities cap = new DesiredCapabilities();
-		//	cap.setBrowserName(BrowserType.CHROME);
-		//	driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
+		
+		/*
+		options.addArguments("start-maximized"); // open Browser in maximized mode
+		options.addArguments("disable-infobars"); // disabling infobars
+		options.addArguments("--disable-extensions"); // disabling extensions
+		options.addArguments("--disable-gpu"); // applicable to windows os only
+		options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+		options.addArguments("--no-sandbox"); // Bypass OS security model
+		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+		*/
 		
 		driver = new ChromeDriver(options); 
 		driver.manage().window().maximize();
 		driver.get(Constants.url_login);
-
+	//	driver.get(Constants.url);
+		
 		Test_Variables.spark.config().setDocumentTitle("Ancera Test Report");
 		Test_Variables.spark.config().setTheme(Theme.DARK);
 		Test_Variables.extent = new ExtentReports();

@@ -5,26 +5,13 @@
     <classes>
       <class name="Test.Ancera.Login.TestLogin">
         <methods>
+          <include name="verifyLogout"/>
           <include name="login"/>
           <include name="logout"/>
           <include name="endreport"/>
           <include name="extent"/>
-          <include name="VerifyLogout"/>
         </methods>
       </class> <!-- Test.Ancera.Login.TestLogin -->
     </classes>
   </test> <!-- Test.Ancera.Login1(failed) -->
-  <test thread-count="50" parallel="tests" name="Test.Ancera.Login2(failed)" verbose="5">
-    <classes>
-      <class name="Test.Ancera.Login.ForgotPassword">
-        <methods>
-          <include name="endreport"/>
-          <include name="extent"/>
-          <include name="VerifyLogin"/>
-          <include name="VerifyEmailReceived"/>
-          <include name="SendEmailLink"/>
-        </methods>
-      </class> <!-- Test.Ancera.Login.ForgotPassword -->
-    </classes>
-  </test> <!-- Test.Ancera.Login2(failed) -->
 </suite> <!-- Failed suite [Test.Ancera.Login] -->

@@ -33,6 +33,11 @@ public class PAModel {
 
 	}
 	
+	
+	//To run on prod rehersal env, create a Sample Matrix with name AT_SampleMatrix and Improc Version 4.0.8.2 and set sample matrix ID (These values are set in variables class)
+	//Create Sample Matrix with AT_SampleMatrix2 and set threshold to 50
+
+	
 	public static ArrayList<PAModel> FillData() {
 		ArrayList<PAModel> lstPAModel = new ArrayList<PAModel>();	
 		PAModel objTmp;

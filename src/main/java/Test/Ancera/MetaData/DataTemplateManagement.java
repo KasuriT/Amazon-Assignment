@@ -709,18 +709,22 @@ public class DataTemplateManagement{
 			Helper.driver.findElement(By.id("DataFormatId")).click();
 			Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Test_Variables.TemplateName);
 			Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
-
+			SoftAssert softAssert = new SoftAssert();
 			Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\IndentificationFieldCheck.xlsx");
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(2000);
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "IndentificationFieldCheck.xlsx loaded successfully.");
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "IndentificationFieldCheck.xlsx loaded successfully.", "File failed to load");
 			Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "IndentificationFieldCheck.xlsx saved successfully.");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "IndentificationFieldCheck.xlsx saved successfully.", "File failed to save; message not appeared");
+			softAssert.assertAll();
 			Test_Variables.test.pass("Identification field check verified successfully");
 			Test_Variables.results.createNode("Identification field check verified successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataTemplateManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Identification field check failed to verify");
@@ -882,18 +886,19 @@ public class DataTemplateManagement{
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 			Thread.sleep(1000);
-
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 			int size = templateNamesClientMapping.size();
 			for(int i =0; i<size ; i++){
 				String options = templateNamesClientMapping.get(i).getText();
-				String options1 = templateNamesTable.get(i).getText();
+				String options1 = templateNamesTable.get(i+1).getText();		
+			//	System.out.println("Table: " +options1+" -- Popup: "+options);
+				
 				softAssert.assertEquals(options, options1);
 			}
 			softAssert.assertAll();
 			Test_Variables.test.pass("Client mapping popup opened successfully and displayed all templates");
-			Test_Variables.results.createNode("Client mapping popup opened successfully and displayed all templates");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
+			Test_Variables.results.createNode("Client mapping popup opened successfully and displayed all templates");	
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataTemplateManagementReportPath, null);
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Client mapping popup didnot opened successfully or did not displayed all templates");
@@ -943,7 +948,8 @@ public class DataTemplateManagement{
 			Thread.sleep(750);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(750);
-			int userClientSites = Helper.driver.findElements(By.cssSelector(".site-tree-card ")).size() - 1;
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
+			int userClientSites = Helper.driver.findElements(By.cssSelector(".site-tree-card")).size() - 1;
 			Helper.driver.get(Constants.url_dataTemplate);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -954,6 +960,7 @@ public class DataTemplateManagement{
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			int MappingClientSites =Helper.driver.findElements(By.cssSelector(".ng-option")).size();
 			//check if all clients displays in dropdown which are assign to user
 			softAssert.assertEquals(userClientSites, MappingClientSites);
@@ -968,7 +975,7 @@ public class DataTemplateManagement{
 				Thread.sleep(1000);
 				List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 				String options = templateNamesClientMapping.get(i).getText();
-				String options1 = templateNamesTable.get(i).getText();
+				String options1 = templateNamesTable.get(i+1).getText();
 				softAssert.assertEquals(options, options1);
 			}
 
@@ -1036,12 +1043,14 @@ public class DataTemplateManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 			Thread.sleep(1000);
 
-			for (int i=0; i< Integer.parseInt(rows); i++) {
+			int templateRows = Integer.parseInt(rows) - 1;
+			
+			for (int i=0; i< templateRows; i++) {
 				if (Helper.driver.findElement(By.id("isCreate"+i)).isSelected() == true) {
 					int count = 0;
 					count = count + 1;
 
-					if (i == Integer.parseInt(rows)-1) {
+					if (i == templateRows-1) {
 						Helper.driver.get(Constants.url_dataUpload);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 						Thread.sleep(1000);

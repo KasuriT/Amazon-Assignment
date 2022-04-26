@@ -39,16 +39,14 @@ public class DataUpload {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/MetaData_Upload"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Data Upload Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
 
 
-	@Test (description="Test Case: Navigate to Data Upload Screen",enabled= true, priority = 1) 
+	@Test (description="Test Case: Navigate to Data Upload Screen",enabled= false, priority = 1) 
 	public void NavigateDataUpload() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-DU-01: Verify user can navigate to Data Upload screen", "This test case will verify that user can navigate to Data Upload screen");
@@ -58,6 +56,7 @@ public class DataUpload {
 
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
 			Helper.driver.get(Constants.url_dataUpload);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Data Upload")));
 			Thread.sleep(1000);
 
@@ -87,20 +86,8 @@ public class DataUpload {
 
 	@Test (enabled= true, priority = 2) 
 	public void FlockMetadata() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_dataUpload);
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Data Upload")));
-		Thread.sleep(1000);
-		Test_Variables.lstDataUploadFlock = DataUploadModel.FillData();
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("OrgnTypeID")).click();
-		Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-		Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
-		Thread.sleep(1000);
-		Helper.driver.findElement(By.id("DataFormatId")).click();
-		Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Flock Metadata");
-		Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
 		
+		Test_Variables.lstDataUploadFlock = DataUploadModel.FillData();
 		for (DataUploadModel objModel : Test_Variables.lstDataUploadFlock) { 
 			try {
 				Thread.sleep(2000);
@@ -113,7 +100,17 @@ public class DataUpload {
 				Test_Variables.steps.createNode("1. Navigate to Data Upload screen");
 				Test_Variables.steps.createNode("2. Select Ancera from 'Upload For' dropdown and Flock Metadata from 'Data Template'");
 
-
+				Helper.driver.get(Constants.url_dataUpload);
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Thread.sleep(1000);	
+				Helper.driver.findElement(By.id("OrgnTypeID")).click();
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+				Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.id("DataFormatId")).click();
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Flock Metadata");
+				Helper.driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 
@@ -141,12 +138,30 @@ public class DataUpload {
 						Helper.driver.findElement(By.id("file-input")).sendKeys(Test_Variables.fileAbsolutePath+"Excel\\"+flockFileName);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-						Thread.sleep(1000);
-						Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage);
-						Helper.driver.findElement(By.cssSelector("#alrt button span")).click();
+						Thread.sleep(2000);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
+						SoftAssert softAssert = new SoftAssert();
+						softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), objModel.AlertMessage);
+						
+						if (objModel.ErrorCase) {
+							int i =1;
+							if (i==1) {
+							Helper.driver.findElement(By.id("ErrorBtn")).click();
+							Thread.sleep(2000);
+							}
+							i=i+1;
+							WebElement ele = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) .tooltipBlock"));
+							Actions action = new Actions(Helper.driver);
+							action.moveToElement(ele).perform();
+							Thread.sleep(1000);			
+							String tooltipText = Helper.driver.findElement(By.cssSelector(".tooltip-inner")).getText();
+					//		System.out.println(tooltipText);
+							softAssert.assertEquals(tooltipText, objModel.ErrorMessage);
+							}
+						
+						softAssert.assertAll();
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataUploadReportPath, null);
 					
 					}
@@ -160,6 +175,7 @@ public class DataUpload {
 						Test_Variables.results.createNode(objModel.failStep);
 						Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
 					}
+				//	Helper.driver.findElement(By.cssSelector("#alrt button span")).click();
 				}
 			}	
 			catch(Exception ex) {

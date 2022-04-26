@@ -22,6 +22,8 @@ public class Test_Functions {
 		Thread.sleep(1500);
 		Helper.driver.findElement(Test_Elements.userFirstNameInput).sendKeys("Test");    
 		Helper.driver.findElement(Test_Elements.userLastNameInput).sendKeys("User");  
+		Helper.driver.findElement(By.cssSelector("#emailId")).sendKeys("test@email.com");
+		Thread.sleep(1000);
 		Helper.driver.findElement(Test_Elements.popupNextButton).click();
 		Thread.sleep(1000);
 		Helper.driver.findElement(Test_Elements.userOrgTypeDropDownExpand).click();

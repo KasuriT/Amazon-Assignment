@@ -71,19 +71,19 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Hatch Date Filter";
-		objTmp.TestCaseName = "AN-FR-06: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-FR-07: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockHatchDate));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp); 
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Hatch Date Filter";
+//		objTmp.TestCaseName = "AN-FR-06: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-FR-07: "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockHatchDate));
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp); 
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -99,19 +99,19 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type Filter";
-		objTmp.TestCaseName = "AN-FR-10: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-FR-11: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockBirdType));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp); 
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Bird Type Filter";
+//		objTmp.TestCaseName = "AN-FR-10: "+applyFilterTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
+//		objTmp.TestCaseNameSearch = "AN-FR-11: "+filterIndicatorTitle+objFilter.FilterName;
+//		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.flockBirdType));
+//		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp); 
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -211,7 +211,7 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Site ID Filter";
+		objFilter.FilterName = "Integrator Site ID Filter";
 		objTmp.TestCaseName = "AN-FR-21: Verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
@@ -228,7 +228,7 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Site ID Filter";
+		objFilter.FilterName = "Integrator Site ID Filter";
 		objTmp.TestCaseName = "AN-FR-22: Verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
 		objTmp.lstFilters = new ArrayList<>();
@@ -293,57 +293,6 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type Filter";
-		objTmp.TestCaseName = "AN-FR-26: Verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Starts With search on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.flockBirdType;
-		objFilter.FilterXPath = Test_Elements.flockBirdType;
-		objTmp.startWith = true;
-		objTmp.contains = false;
-		objTmp.endsWith = false;
-		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
-		objTmp.input = "A";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);  
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type Filter";
-		objTmp.TestCaseName = "AN-FR-27: Verify wild card Contains search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Contains search on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.flockBirdType;
-		objFilter.FilterXPath = Test_Elements.flockBirdType;
-		objTmp.startWith = false;
-		objTmp.contains = true;
-		objTmp.endsWith = false;
-		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
-		objTmp.input = "A";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp); 
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type Filter";
-		objTmp.TestCaseName = "AN-FR-28: Verify wild card Ends With search on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify wild card Ends With search on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.flockBirdType;
-		objFilter.FilterXPath = Test_Elements.flockBirdType;
-		objTmp.startWith = false;
-		objTmp.contains = false;
-		objTmp.endsWith = true;
-		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
-		objTmp.input = "A";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp); 
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -412,7 +361,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("A", "a"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-/*
+
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Bird Breed Filter";
@@ -498,7 +447,7 @@ public class FlockRegistrationModel {
 		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("c", "c"));
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp); 
-*/
+
 		return lstFlockRegistrationModel;
 	}	
 
@@ -533,18 +482,18 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Hatch Date Filter";
-		objTmp.TestCaseName = "AN-FR-43: Verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.flockHatchDate+""+Test_Elements.sitesShowFilter;
-		objFilter.FilterSort = Test_Elements.sitesSortFilter+""+Test_Elements.flockHatchDate;
-		objFilter.FilterApply = Test_Elements.flockHatchDate+""+Test_Elements.sitesApplyFilter;
-		objFilter.FilterClear = Test_Elements.flockHatchDate+""+Test_Elements.sitesClearFilter;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Hatch Date Filter";
+//		objTmp.TestCaseName = "AN-FR-43: Verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterID = Test_Elements.flockHatchDate+""+Test_Elements.sitesShowFilter;
+//		objFilter.FilterSort = Test_Elements.sitesSortFilter+""+Test_Elements.flockHatchDate;
+//		objFilter.FilterApply = Test_Elements.flockHatchDate+""+Test_Elements.sitesApplyFilter;
+//		objFilter.FilterClear = Test_Elements.flockHatchDate+""+Test_Elements.sitesClearFilter;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -559,18 +508,18 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type Filter";
-		objTmp.TestCaseName = "AN-FR-45: Verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.flockBirdType+""+Test_Elements.sitesShowFilter;
-		objFilter.FilterSort = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdType;
-		objFilter.FilterApply = Test_Elements.flockBirdType+""+Test_Elements.sitesApplyFilter;
-		objFilter.FilterClear = Test_Elements.flockBirdType+""+Test_Elements.sitesClearFilter;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Bird Type Filter";
+//		objTmp.TestCaseName = "AN-FR-45: Verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.FilterID = Test_Elements.flockBirdType+""+Test_Elements.sitesShowFilter;
+//		objFilter.FilterSort = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdType;
+//		objFilter.FilterApply = Test_Elements.flockBirdType+""+Test_Elements.sitesApplyFilter;
+//		objFilter.FilterClear = Test_Elements.flockBirdType+""+Test_Elements.sitesClearFilter;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -794,18 +743,6 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Hatch Date";
-		objTmp.TestCaseName = "AN-FR-63: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
-		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockHatchDate;            
-		objFilter.count = Test_Elements.flockHatchDateCol;
-		objTmp.sortDescFirst = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
 		objFilter.FilterName = "Placement Date";
 		objTmp.TestCaseName = "AN-FR-65: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
@@ -824,18 +761,6 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockNumBirdsPlaced;           
 		objFilter.count = Test_Elements.flockNumBirdsPlacedCol;
-		objTmp.sortDescFirst = true;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type";
-		objTmp.TestCaseName = "AN-FR-67: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
-		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdType;           
-		objFilter.count = Test_Elements.flockBirdTypeCol;
 		objTmp.sortDescFirst = true;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
@@ -890,7 +815,7 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Num Birds DOA Plant ID";
+		objFilter.FilterName = "Num Birds DOA Plant";
 		objTmp.TestCaseName = "AN-FR-72: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
@@ -903,12 +828,24 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Num Birds Processed LB";
+		objFilter.FilterName = "Num Birds Processed";
 		objTmp.TestCaseName = "AN-FR-73: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockNumBirdsProcessed;           
 		objFilter.count = Test_Elements.flockNumBirdsProcessedCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Total Weight Processed LB";
+		objTmp.TestCaseName = "AN-FR-74: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalWeightProcessedLB;           
+		objFilter.count = Test_Elements.flockTotalWeightProcessedLBCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
@@ -933,6 +870,18 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalFeedWeightLB;           
 		objFilter.count = Test_Elements.flockTotalFeedWeightLBCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Total Feed Weight KG";
+		objTmp.TestCaseName = "AN-FR-75: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalFeedWeightKG;           
+		objFilter.count = Test_Elements.flockTotalFeedWeightKGCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
@@ -973,29 +922,29 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Weight Condemned LB";
-		objTmp.TestCaseName = "AN-FR-79: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
-		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdsWeightCondemnedLB;           
-		objFilter.count = Test_Elements.flockBirdsWeightCondemnedLBCol;
-		objTmp.sortDescFirst = false;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Weight Condemned KG";
-		objTmp.TestCaseName = "AN-FR-80: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
-		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdsWeightCondemnedKG;           
-		objFilter.count = Test_Elements.flockBirdsWeightCondemnedKGCol;
-		objTmp.sortDescFirst = false;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Bird Weight Condemned LB";
+//		objTmp.TestCaseName = "AN-FR-79: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+//		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdsWeightCondemnedLB;           
+//		objFilter.count = Test_Elements.flockBirdsWeightCondemnedLBCol;
+//		objTmp.sortDescFirst = false;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
+//
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Bird Weight Condemned KG";
+//		objTmp.TestCaseName = "AN-FR-80: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+//		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdsWeightCondemnedKG;           
+//		objFilter.count = Test_Elements.flockBirdsWeightCondemnedKGCol;
+//		objTmp.sortDescFirst = false;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -1021,26 +970,25 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
-		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Total Amount Paid";
+		objFilter.FilterName = "Total Grower Pay";
 		objTmp.TestCaseName = "AN-FR-83: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalAmountPaid;           
-		objFilter.count = Test_Elements.flockTotalAmountPaidCol;
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalGrowerPay;           
+		objFilter.count = Test_Elements.flockTotalGrowerPayCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Total Amount Paid Weight LB";
-		objTmp.TestCaseName = "AN-FR-84: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objFilter.FilterName = "Amount Paid Per Pound";
+		objTmp.TestCaseName = "AN-FR-83: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalAmountPaidWeightLB;           
-		objFilter.count = Test_Elements.flockTotalAmountPaidWeightLBCol;
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockAmountPaidPerPound;           
+		objFilter.count = Test_Elements.flockAmountPaidPePoundCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
@@ -1051,7 +999,7 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-85: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalCostPerWeight;           
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalCostUSDPerWeight;           
 		objFilter.count = Test_Elements.flockTotalCostPerWeightCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
@@ -1170,7 +1118,6 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
-
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "A Grade Paws Perc";
@@ -1185,17 +1132,16 @@ public class FlockRegistrationModel {
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Last 7 Days Mortality Perc";
-		objTmp.TestCaseName = "AN-FR-96: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objFilter.FilterName = "Out Time Days";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
 		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockLast7Days;           
-		objFilter.count = Test_Elements.flockLast7DaysCol;
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockOutTimeDays;           
+		objFilter.count = Test_Elements.flockOutTimeDaysCol;
 		objTmp.sortDescFirst = false;
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
-
-
+		
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
 		objFilter.FilterName = "Out Time Days";
@@ -1208,6 +1154,90 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Bird Size";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockBirdSize;           
+		objFilter.count = Test_Elements.flockBirdSizeCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Marketing Program";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockMarketingProgram;           
+		objFilter.count = Test_Elements.flockMarketingProgramCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "USDA Plant ID";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockUSDAPlantID;           
+		objFilter.count = Test_Elements.flockUSDAPlantIDCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+			
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "USDA Plant ID";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockDowngradePawsPerc;           
+		objFilter.count = Test_Elements.flockDowngradePawsPercCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Total Mortality";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTotalMortality;           
+		objFilter.count = Test_Elements.flockTotalMortalityCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Time Frame";
+		objTmp.TestCaseName = "AN-FR-97: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockTimeFrame;           
+		objFilter.count = Test_Elements.flockTimeFrameCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
+		objTmp = new FlockRegistrationModel();
+		objFilter = new ReportFilters();
+		objFilter.FilterName = "Unique Flock ID";
+		objTmp.TestCaseName = "AN-FR-98: Verify values are sorted on clicking on "+objFilter.FilterName+" column header";
+		objTmp.TestCaseDescription = "This testcase will verify that values are sorted on clicking "+objFilter.FilterName+" column header";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.ColumnID = Test_Elements.sitesSortFilter+""+Test_Elements.flockUniqueFlockID;           
+		objFilter.count = Test_Elements.flockUniqueFlockIDCol;
+		objTmp.sortDescFirst = false;
+		objTmp.lstFilters.add(objFilter);
+		lstFlockRegistrationModel.add(objTmp);
+		
 		return lstFlockRegistrationModel;	
 	}	
 
@@ -1231,19 +1261,19 @@ public class FlockRegistrationModel {
 //		objTmp.lstFilters.add(objFilter);
 //		lstFlockRegistrationModel.add(objTmp);
 
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Bird Type";
-		objTmp.TestCaseName = "AN-FR-100: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
-		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.flockBirdType;
-		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
-		objTmp.input = "Chicken";
-		objTmp.steps = "Edit "+objFilter.FilterName;
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Bird Type";
+//		objTmp.TestCaseName = "AN-FR-100: Verify user can edit "+objFilter.FilterName+" and it is reflected in audit log";
+//		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterID = Test_Elements.flockBirdType;
+//		objFilter.ColumnID = Test_Elements.flockBirdTypeCol;
+//		objTmp.input = "Chicken";
+//		objTmp.steps = "Edit "+objFilter.FilterName;
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
@@ -1287,8 +1317,8 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-47: Verify that error appears when total weight condemend is less than birds weight and parts weights";
 		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend is less than birds weight and parts weights";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("200", "2000"));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(18, 23, 1));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("200", "2000", DataUploadModel.FarmSiteID));
 		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedKGCol;
 		objTmp.errorCase = true;
 		objTmp.steps = "Enter total weight condemned kg less than birds weight and parts weights";
@@ -1297,10 +1327,10 @@ public class FlockRegistrationModel {
 		
 		objTmp = new FlockRegistrationModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-FR-48: Verify that error appears when total weight condemend is less than birds weight and parts weights";
-		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.TestCaseName = "AN-FR-48: Verify that no error appears when total weight condemend is less than birds weight and parts weights";
+		objTmp.TestCaseDescription = "This test case will verify that no error appears when total weight condemend is less than birds weight and parts weights";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(18, 23));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2500", "300"));
 		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedKGCol;
 		objTmp.errorCase = false;
@@ -1314,7 +1344,7 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-49: Verify that error appears when total weight condemend lb is less than birds weight and parts weights";
 		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend lb is less than birds weight and parts weights";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("200", "2000"));
 		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedLBCol;
 		objTmp.errorCase = true;
@@ -1327,7 +1357,7 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-50: Verify that error appears when total weight condemend lb is less than birds weight and parts weights";
 		objTmp.TestCaseDescription = "This test case will verify that error appears when total weight condemend lbis less than birds weight and parts weights";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 22));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2500", "300"));
 		objFilter.ColumnID = Test_Elements.flockTotalWeightCondemnedLBCol;
 		objTmp.errorCase = false;
@@ -1340,7 +1370,7 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-50: Verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(4, 11));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(5, 12));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("10", "20"));
 		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
 		objTmp.errorCase = true;
@@ -1353,7 +1383,7 @@ public class FlockRegistrationModel {
 		objTmp.TestCaseName = "AN-FR-51: Verify that system accept Number of Birds Processed less than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that system should accept Number of Birds Processed less than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(4, 11));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(5, 12));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("20", "10"));
 		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
 		objTmp.errorCase = false;
@@ -1361,31 +1391,31 @@ public class FlockRegistrationModel {
 		objTmp.lstFilters.add(objFilter);
 		lstFlockRegistrationModel.add(objTmp);
 		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-FR-52: Verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
-		objTmp.TestCaseDescription = "This test case will verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "10"));
-		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
-		objTmp.errorCase = true;
-		objTmp.steps = "Enter Number of Birds Processed greater than Number of Birds Placed";
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
-		
-		objTmp = new FlockRegistrationModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-FR-53: Verify that system accept Number of Birds Processed less than Number of Birds Placed";
-		objTmp.TestCaseDescription = "This test case will verify that system should accept Number of Birds Processed less than Number of Birds Placed";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("10", "50"));
-		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
-		objTmp.errorCase = false;
-		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed";
-		objTmp.lstFilters.add(objFilter);
-		lstFlockRegistrationModel.add(objTmp);
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-FR-52: Verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+//		objTmp.TestCaseDescription = "This test case will verify that system should not accept Number of Birds Processed greater than Number of Birds Placed";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(13, 5));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("10", "50"));
+//		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+//		objTmp.errorCase = true;
+//		objTmp.steps = "Enter Number of Birds Processed greater than Number of Birds Placed";
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
+//		
+//		objTmp = new FlockRegistrationModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-FR-53: Verify that system accept Number of Birds Processed less than Number of Birds Placed";
+//		objTmp.TestCaseDescription = "This test case will verify that system should accept Number of Birds Processed less than Number of Birds Placed";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(13, 5));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "20"));
+//		objFilter.ColumnID = Test_Elements.flockNumBirdsProcessedCol;
+//		objTmp.errorCase = false;
+//		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed";
+//		objTmp.lstFilters.add(objFilter);
+//		lstFlockRegistrationModel.add(objTmp);
 		
 		return lstFlockRegistrationModel;
 	}

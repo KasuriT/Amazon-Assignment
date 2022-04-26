@@ -100,12 +100,14 @@ public class OrgModel {
 	}	
 
 	//////////
-//	public ArrayList<OrgModel> orgSearch;
-//	public OrgModel (ArrayList<OrgModel> orgSearch)
-//	{
-//		this.orgSearch = orgSearch;
-//	}
-//	
+	public String orgSearch;
+	public String url;
+	public OrgModel (String _orgSearch, String _url)
+	{
+		this.orgSearch = _orgSearch;
+		this.url = _url;
+	}
+	
 	
 	
 	

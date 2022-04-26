@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.FlockRegistration">
+      <class name="Test.Ancera.Reports.InstallationRun">
         <methods>
-          <include name="EditFlock"/>
-          <include name="extent"/>
+          <include name="installationRunConfigSalmList"/>
           <include name="endreport"/>
+          <include name="extent"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.FlockRegistration -->
+      </class> <!-- Test.Ancera.Reports.InstallationRun -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

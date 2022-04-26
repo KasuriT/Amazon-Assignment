@@ -19,25 +19,32 @@ public class DataUploadModel {
 	public ArrayList<ReportFilters> lstFilters;
 	public boolean ErrorCase;
 	public String ErrorMessage;
-//	public static String OrganizationSiteID = "1001001";
-//	public static String RegionSiteID = "1001043";
-//	public static String SubRegionSiteID = "1001052";
-//	public static String ComplexSiteID = "1001159";
-//	public static String HouseSiteID = "1001066";
-//	public static String ProcessingPlantSiteID = "1001078";
-//	public static String FarmSiteID = "1033011";
+
 	
-	public static String OrganizationSiteID = "1001001";
+	public static String OrganizationSiteID = "1001001";   //qa
 	public static String RegionSiteID = "1001043";
 	public static String SubRegionSiteID = "1001052";
 	public static String ComplexSiteID = "1001159";
 	public static String HouseSiteID = "1001188";
 	public static String ProcessingPlantSiteID = "1001186";
-	public static String FarmSiteID = "1001160";
+	public static String FarmSiteID = "1001184";
+	public static String ResultID = "A1419201"; 
+	public static String ResultID2 = "A1419202";
+	public static String FlockID = "A02306";
+	public static String FlockID1 = "A02280";
 	
-//	public static String OrganizationSiteID = "1001001";
-//	public static String RegionSiteID = "1001023";
-//	public static String SubRegionSiteID = "1001037";
+	
+//	public static String OrganizationSiteID = "1001001";   //dev
+//	public static String RegionSiteID = "1001043";
+//	public static String SubRegionSiteID = "1001052";
+//	public static String ComplexSiteID = "1001159";
+//	public static String HouseSiteID = "1001188";
+//	public static String ProcessingPlantSiteID = "1001186";
+//	public static String FarmSiteID = "2002006";
+//	public static String ResultID = "A0921201"; 
+//	public static String ResultID2 = "A0921202";
+//	public static String FlockID = "";
+	
 	
 	public DataUploadModel() {
 
@@ -49,11 +56,13 @@ public class DataUploadModel {
 		DataUploadModel objTmp = new DataUploadModel();
 		
 		ReportFilters objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-36: Verify that user cannot upload Flock Metadata without Site ID";
+		objTmp.TestCaseName = "AN-DU-36: Verify that user cannot upload Flock Metadata without Farm Site ID";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Site ID";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(""));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "No value provided for FARM_SITE_ID.";
 		objTmp.steps = "Leave Site ID field empty and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata without Site ID successfully";
@@ -66,8 +75,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Placement Date";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Placement Date";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 3));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID, ""));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "No value provided for PLACEMENT_DATE.";
 		objTmp.steps = "Leave Placement Date field empty and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata without Site ID successfully";
@@ -77,11 +88,44 @@ public class DataUploadModel {
 		
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Flock ID";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Flock ID";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0, 2, 9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FlockID, FlockID, "2022-02-02", "2022-03-03"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Repetition found in Key Field.";
+		objTmp.steps = "Enter same flock id in 2 rows";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with duplicate Flock ID successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with duplicate Flock ID";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Placement Date";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Placement Date";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FlockID1));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Add unique flock id";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with unique flock id successfully";
+		objTmp.failStep = "User was able to upload Flock Metadata with unique flock id";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-40: Verify user cannot upload Flock Metadata with Organization Site ID";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Organization Site ID";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(OrganizationSiteID));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 9));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(OrganizationSiteID, "2022-02-02", "2022-03-03"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.steps = "Enter Organization Site ID and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Organization Site ID successfully";
@@ -97,6 +141,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(RegionSiteID));
 		objTmp.steps = "Enter Region Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Region Site ID successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with Region Site ID";
@@ -111,6 +157,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(SubRegionSiteID));
 		objTmp.steps = "Enter Sub-Region Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Sub-Region Site ID successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with Sub_Region Site ID";
@@ -125,6 +173,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ComplexSiteID));
 		objTmp.steps = "Enter Complex Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Complex Site ID successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with Complex Site ID";
@@ -139,6 +189,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(HouseSiteID));
 		objTmp.steps = "Enter House Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with House Site ID successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with House Site ID";
@@ -153,6 +205,8 @@ public class DataUploadModel {
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ProcessingPlantSiteID));
 		objTmp.steps = "Enter Processing Plant Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Processing Plant Site ID successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with Processing Plant Site ID";
@@ -164,40 +218,13 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-46: Verify user can upload Flock Metadata with Farm Site ID";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Farm Site ID";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 3));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID, "2021-12-12"));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID));
 		objTmp.steps = "Enter Farm Site ID and upload the Flock Metadata";
+		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload Flock Metadata with Farm Site ID successfully";
 		objTmp.failStep = "User failed to upload Flock Metadata with Farm Site ID";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
-				
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-47: Verify that user cannot upload Flock Metadata with Hatch Date greater than Placement Date";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Hatch Date greater than Placement Date";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(2, 3));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-10", "2021-06-01"));
-		objTmp.steps = "Enter Hatch Date greater than Placement Date and upload the Flock Metadata";
-		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
-		objTmp.passStep = "User was not able to upload Flock Metadata with Hatch Date greater than Placement Date successfully";
-		objTmp.failStep = "User was able to upload Flock Metadata with Hatch Date greater than Placement Date";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
-		
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-48: Verify that user can upload Flock Metadata with Hatch Date less than Placement Date";
-		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Hatch Date less than Placement Date";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(2, 3));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-01", "2021-06-05"));
-		objTmp.steps = "Enter Hatch Date less than Placement Date and upload the Flock Metadata";
-		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
-		objTmp.passStep = "User was able to upload Flock Metadata with Hatch Date less than Placement Date successfully";
-		objTmp.failStep = "User was not able to upload Flock Metadata with Hatch Date less than Placement Date";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
 
@@ -206,8 +233,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-49: Verify that user cannot upload Flock Metadata with Placement Date greater than Processing Date";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Placement Date greater than Processing Date";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(8, 3));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9, 2));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-01", "2021-06-10"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Date in PROCESSING_DATE is Lesser than or equal to the Placement Date.";
 		objTmp.steps = "Enter Placement Date greater than Processing Date and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Placement Date greater than Processing Date successfully";
@@ -220,8 +249,9 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-50: Verify that user can upload Flock Metadata with Placement Date less than Processing Date";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Placement Date less than Processing Date";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(8, 3, 2));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2021-06-10", "2021-06-01", "2021-05-25"));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9, 2));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("2022-03-03", "2022-02-02"));
+		objTmp.ErrorCase = false;
 		objTmp.steps = "Enter Placement Date less than Processing Date and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was able to upload Flock Metadata with Placement Date less than Processing Date successfully";
@@ -234,8 +264,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-51: Verify that user cannot upload Flock Metadata with Organization Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Organization Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(OrganizationSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter Organization Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Organization Site ID in Processing Site ID field successfully";
@@ -248,8 +280,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-52: Verify that user cannot upload Flock Metadata with Region Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Region Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(RegionSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter Region Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Region Site ID in Processing Site ID field successfully";
@@ -262,8 +296,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-53: Verify that user cannot upload Flock Metadata with Sub-Region Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Sub-Region Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(SubRegionSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter Sub-Region Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Sub-Region Site ID in Processing Site ID field successfully";
@@ -276,8 +312,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-54: Verify that user cannot upload Flock Metadata with Complex Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Complex Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ComplexSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter Complex Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Complex Site ID in Processing Site ID field successfully";
@@ -290,8 +328,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-55: Verify that user cannot upload Flock Metadata with House Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with House Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(HouseSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter House Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with House Site ID in Processing Site ID field successfully";
@@ -304,8 +344,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-56: Verify that user cannot upload Flock Metadata with Farm Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Farm Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FarmSiteID));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in PROCESSING_SITE_ID is not a processing plant type site.";
 		objTmp.steps = "Enter Farm Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Farm Site ID in Processing Site ID field successfully";
@@ -318,8 +360,9 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-57: Verify that user can upload Flock Metadata with Processing Plant Site ID in Processing Site ID field";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Processing Plant Site ID in Processing Site ID field";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(9));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ProcessingPlantSiteID));
+		objTmp.ErrorCase = false;
 		objTmp.steps = "Enter Processing Plant Site ID in Processing Site ID field and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was able to upload Flock Metadata with Processing Plant Site ID in Processing Site ID field successfully";
@@ -332,8 +375,10 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-58: Verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 5));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Value in NUM_BIRDS_DOA_PLANT is greater than or equal to Number of Birds Placed.";
 		objTmp.steps = "Enter Number of Birds DOA at Plant greater than Number of Birds Placed and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds DOA at Plant greater than Number of Birds Placed successfully";
@@ -346,7 +391,8 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-59: Verify that user can upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(10, 4));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 5));
+		objTmp.ErrorCase = false;
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("80", "100"));
 		objTmp.steps = "Enter Number of Birds DOA at Plant less than Number of Birds Placed and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
@@ -360,7 +406,9 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-60: Verify that user cannot upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 4));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(12, 5));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
 		objTmp.steps = "Enter Number of Birds DOA at Plant greater than Number of Birds Processed and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
@@ -374,8 +422,9 @@ public class DataUploadModel {
 		objTmp.TestCaseName = "AN-DU-61: Verify that user can upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 4));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(12, 5));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("80", "100"));
+		objTmp.ErrorCase = false;
 		objTmp.steps = "Enter Number of Birds Processed less than Number of Birds Placed and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds Processed less than Number of Birds Placed successfully";
@@ -383,62 +432,244 @@ public class DataUploadModel {
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
 		
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-62: Verify that user cannot upload Flock Metadata with Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19, 21));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "100", "100"));
-		objTmp.steps = "Enter Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
-		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
-		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
-		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
+//		objTmp = new DataUploadModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-DU-62: Verify that user cannot upload Flock Metadata with Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 21));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "100"));
+//		objTmp.steps = "Enter Total Weight_Condemned_LB <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
+//		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+//		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
+//		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
 		
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-63: Verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 19, 21));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "80", "40"));
-		objTmp.steps = "Enter Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
-		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
-		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
-		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
+//		objTmp = new DataUploadModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-DU-63: Verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(16, 21));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "40"));
+//		objTmp.steps = "Enter Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB and upload the Flock Metadata";
+//		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+//		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB successfully";
+//		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_LB + BIRD_CONDEMNED_LB";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
 	
-		objTmp = new DataUploadModel();
-		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-64: Verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20, 22));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "100", "100"));
-		objTmp.steps = "Enter Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
-		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
-		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
-		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
+//		objTmp = new DataUploadModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-DU-64: Verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20, 22));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "100", "100"));
+//		objTmp.steps = "Enter Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
+//		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+//		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
+//		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
+		
+//		objTmp = new DataUploadModel();
+//		objFilter = new ReportFilters();
+//		objTmp.TestCaseName = "AN-DU-64: Verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 22));
+//		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "200"));
+//		objTmp.steps = "Enter Total Weight_LB Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
+//		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+//		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
+//		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be <= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
 		
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-65: Verify that user can upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
 		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(17, 20, 22));
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(18, 21, 23));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("150", "80", "40"));
+		objTmp.ErrorCase = false;
 		objTmp.steps = "Enter Total Weight_LB Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
-		objTmp.passStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
-		objTmp.failStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
+		objTmp.passStep = "User was able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Total Weight_KG Condemned Must be >= PARTS_CONDEMNED_KG + BIRD_CONDEMNED_KG";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
 		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-66: Verify that user cannot upload Flock Metadata with Bird Sex other than Male, Female,Mixed";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Bird Sex other than Male, Female,Mixed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(7));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("test"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Value in BIRD_SEX is not allowed. Allowable values include Male,Female,Mixed.";
+		objTmp.steps = "Enter Bird Sex other than male,female, mixed";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Bird Sex other than male,female, mixed successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Sex other than male,female, mixed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-67: Verify that user can upload Flock Metadata with Bird Sex as Male";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Bird Sex as Male";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(7));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Male"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Bird Sex as Male";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Bird Sex as Male successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Sex as Male";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-68: Verify that user can upload Flock Metadata with Bird Sex as Female";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Bird Sex as female";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(7));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Female"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Bird Sex as female";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Bird Sex as female successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Sex as female";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-69: Verify that user can upload Flock Metadata with Bird Sex as Mixed";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Bird Sex as Mixed";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(7));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Mixed"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Bird Sex as Mixed";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Bird Sex as mixed successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Sex as Mixed";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-70: Verify that user cannot upload Flock Metadata with Marketing Program other than Conventional, No Human Antibiotics, no Anitbiotics Ever, Organic, Pastured, Others";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with Marketing Program other than Conventional, No Human Antibiotics, no Anitbiotics Ever, Organic, Pastured, Others";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Test"));
+		objTmp.ErrorCase = true;
+		objTmp.ErrorMessage = "Value in MARKETING_PROGRAM is not allowed. Allowable values include Conventional,No Human Antibiotics,No Antibiotics Ever,Organic,Pastured,Other.";
+		objTmp.steps = "Enter Marketing Program other than Conventional, No Human Antibiotics, no Anitbiotics Ever, Organic, Pastured, Others";
+		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
+		objTmp.passStep = "User was not able to upload Flock Metadata with Marketing Program other than Conventional, No Human Antibiotics, no Anitbiotics Ever, Organic, Pastured, Others successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program other than Conventional, No Human Antibiotics, no Anitbiotics Ever, Organic, Pastured, Others";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-71: Verify that user can upload Flock Metadata with Marketing Program as Conventional";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Marketing Program as Conventional";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Conventional"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Marketing Program as Conventional";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Marketing Program as Conventional successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program as Conventional";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-72: Verify that user can upload Flock Metadata with Marketing Program as No Antibiotics Ever";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Marketing Program as No Antibiotics Ever";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("No Antibiotics Ever"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Marketing Program as No Antibiotics Ever";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Marketing Program as No Antibiotics Ever successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program as No Antibiotics Ever";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-73: Verify that user can upload Flock Metadata with Marketing Program as Organic";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Marketing Program as Organic";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Organic"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Marketing Program as Organic";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Marketing Program as Organic successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program as Organic";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-74: Verify that user can upload Flock Metadata with Marketing Program as Pastured";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Marketing Program as Pastured";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Pastured"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Marketing Program as Pastured";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Marketing Program as Pastured successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program as Pastured";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-75: Verify that user can upload Flock Metadata with Marketing Program as Others";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Marketing Program as Others";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(39));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Other"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Marketing Program as Others";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Marketing Program as Others successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Marketing Program as Others";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+		
+		objTmp = new DataUploadModel();
+		objFilter = new ReportFilters();
+		objTmp.TestCaseName = "AN-DU-76: Verify that new Bird Size named Pullet can be uploaded through Metadata file.";
+		objTmp.TestCaseDescription = "This test case will verify that new Bird Size named Pullet can be uploaded through Metadata file.";
+		objTmp.lstFilters = new ArrayList<>();
+		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(38));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("Pullet"));
+		objTmp.ErrorCase = false;
+		objTmp.steps = "Enter Bird Size as Pullet";
+		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
+		objTmp.passStep = "User was able to upload Flock Metadata with Bird Size as Pullet successfully";
+		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Size as Pullet";
+		objTmp.lstFilters.add(objFilter);
+		lstDataUploadModel.add(objTmp);
+	
 		return lstDataUploadModel;
 	}
 	
@@ -687,7 +918,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user can upload file with entering valid data in Key field/s";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 2));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", ""));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, "A"));
 		objTmp.steps = "Enter valid data in Key field/s";
 		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
@@ -695,14 +926,14 @@ public class DataUploadModel {
 		objTmp.failStep = "User was not able to upload file with entering valid data in Key field/s";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-			
+		
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-07: Verify that user cannot upload file with values in Key field/s not being unique";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with values in Key field/s not being unique";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, ResultID));
 		objTmp.steps = "Enter same value in Key field/s for 2 rows";
 		objTmp.ErrorCase = true;
 		objTmp.ErrorMessage = "Repetition found in Key Field.";
@@ -718,7 +949,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user can upload file with values in Key field/s being unique";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A0732302"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, ResultID2));
 		objTmp.steps = "Enter unique values for Key field";
 		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
@@ -757,17 +988,17 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload file with String datatype in Decimal datatype";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+				
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-11: Verify that user cannot upload file with site id that does not exist";
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with site id that does not exist";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 1));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "100900112"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, "100900112"));
 		objTmp.steps = "Enter invalid site id";
 		objTmp.ErrorCase = true;
-		objTmp.ErrorMessage = "Repetition found in Key Field.";
+		objTmp.ErrorMessage = "SiteID in SITE_ID does not exist in system.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with site id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with site id that does not exist";
@@ -812,7 +1043,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with duplicate result id";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705", "A1286705"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID2, ResultID2));
 		objTmp.steps = "Enter duplicate result id";
 		objTmp.ErrorCase = true;
 		objTmp.ErrorMessage = "Repetition found in Key Field.";
@@ -828,7 +1059,7 @@ public class DataUploadModel {
 		objTmp.TestCaseDescription = "This test case will verify that user cannot upload file with decimal value in Decimal datatype";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 22));
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A0732302", "1.5"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, "1.5"));
 		objTmp.steps = "Enter decimal value in Decimal datatype";
 		objTmp.ErrorCase = false;
 		objTmp.AlertMessage = DataUpload.sampleMetadataFileName+" loaded successfully.";
@@ -836,7 +1067,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload file with decimal value in Decimal datatype";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+			
 		return lstDataUploadModel;
 	}
 	
@@ -876,7 +1107,7 @@ public class DataUploadModel {
 		objTmp.steps = "Upload Weekly Site Performance";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-	
+
 		return lstDataUploadModel;
 	}
 	

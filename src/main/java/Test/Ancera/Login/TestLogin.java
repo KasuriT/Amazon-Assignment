@@ -143,7 +143,7 @@ public class TestLogin{
 
 
 	@Test(enabled= true, priority= 3)
-	public void VerifyLogout() throws InterruptedException, IOException {
+	public void verifyLogout() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-LO-02: Verify clicking on back button does not take user back to application after logging out", "This testcase will verify user stays on login screen on clicking on browser back button after logging out");
 

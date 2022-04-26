@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -369,6 +370,15 @@ public class OrganizationManagement{
 			Helper.driver.findElement(Test_Elements.popupNextButton).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.orgMaxUsersInput).sendKeys("10");
+			
+			Helper.driver.findElement(Test_Elements.orgSystemRolesExpand).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.orgSystemRolesExpand).sendKeys(Keys.ENTER);
+			
+			Helper.driver.findElement(Test_Elements.orgReportRolesExpand).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.orgReportRolesExpand).sendKeys(Keys.ENTER);
+			
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();;
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
@@ -547,8 +557,11 @@ public class OrganizationManagement{
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			
+
+			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals("TestOrg-765")) {
+			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
 					Helper.driver.findElement(By.id("edit-orgn-sites-"+i)).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					break;
@@ -576,7 +589,7 @@ public class OrganizationManagement{
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
 			Thread.sleep(1000);
 			Test_Variables.steps.createNode("4. Verify Region Site can be saved");
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
 
 			Test_Variables.steps.createNode("5. Click on + icon to create new site and verify Site Type is Sub Region");
 			Helper.driver.findElement(Test_Elements.orgAddSite2).click();
@@ -604,9 +617,9 @@ public class OrganizationManagement{
 			String ele2 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(2)")).getText();
 			String ele3 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(3)")).getText();
 
-			Assert.assertEquals(ele1, "Complex");
-			Assert.assertEquals(ele2, "Processing Plant");			
-			Assert.assertEquals(ele3, "Testing Lab");
+			softAssert.assertEquals(ele1, "Complex");
+			softAssert.assertEquals(ele2, "Processing Plant");			
+			softAssert.assertEquals(ele3, "Testing Lab");
 
 			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("Test Complex Site");
@@ -636,7 +649,7 @@ public class OrganizationManagement{
 			Thread.sleep(2000);
 			Helper.driver.findElement(Test_Elements.orgSiteTypeInputChild).click();
 			String HouseType = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
-			Assert.assertEquals(HouseType, "House");
+			softAssert.assertEquals(HouseType, "House");
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("Test House");
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -656,7 +669,7 @@ public class OrganizationManagement{
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
 			Thread.sleep(1500);
 			Test_Variables.steps.createNode("13. Create Processing PLant Site");
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
 
 			Test_Variables.steps.createNode("14. Click on + icon to create new site and verify Site Type as Rehang, BIrd Wash, Bird Rinse, Chiller, Wing Dip");
 			Helper.driver.findElement(Test_Elements.orgAddSite6).click();
@@ -671,11 +684,11 @@ public class OrganizationManagement{
 			String elem4 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(4)")).getText();
 			String elem5 = Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(5)")).getText();
 
-			Assert.assertEquals(elem1, "Rehang");
-			Assert.assertEquals(elem2, "Bird Wash");			
-			Assert.assertEquals(elem3, "Bird Rinse");
-			Assert.assertEquals(elem4, "Chiller");			
-			Assert.assertEquals(elem5, "Wing Dip");	
+			softAssert.assertEquals(elem1, "Rehang");
+			softAssert.assertEquals(elem2, "Bird Wash");			
+			softAssert.assertEquals(elem3, "Bird Rinse");
+			softAssert.assertEquals(elem4, "Chiller");			
+			softAssert.assertEquals(elem5, "Wing Dip");	
 
 			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(4)")).click();
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("Test Chiller Site");
@@ -862,12 +875,10 @@ public class OrganizationManagement{
 			Helper.driver.findElement(Test_Elements.popupOKButton).click();
 			Thread.sleep(1000);
 			
-			Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).sendKeys("-74.32");
+			Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).sendKeys("-65.32");
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value"),"-65.32", "Longitude did not filled");
-			Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).sendKeys("-74.32");
-			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getAttribute("value"),"-65.32", "Latitude did not filled");
-			
-			
+			Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).sendKeys("-70.32");
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getAttribute("value"),"-70.32", "Latitude did not filled");
 			
 			stAddress.clear();
 			stAddress.sendKeys("new york"); 
@@ -934,6 +945,7 @@ public class OrganizationManagement{
 			Helper.driver.findElement(Test_Elements.orgSite1Click).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(8000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).clear();
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("Region Updated");  
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.orgSiteCountryInput).getText(), "Country\nUnited States");
@@ -1440,14 +1452,22 @@ public class OrganizationManagement{
 
 	
 	
+	
+	
 	@Test (description="Test Case: Filter Test",enabled= false, priority = 23) 
-	public void TestFiltertesttest() throws InterruptedException, IOException {
+	public void TestFilterPractice(ArrayList<OrgModel> a1, String b1, String c1, String d1, ArrayList<OrgModel> e1) throws InterruptedException, IOException {
+		
+	
 
-		Helper.driver.get(Constants.url_organization);
+	
+	//	Test_Variables.lstOrgSearch;
+		Helper.driver.get(d1);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 
-	//	Test_Variables.lsttest = OrgModel.FillData();
+		a1 = e1;
 		String recordBefore = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText(); 
+		
+
 		for (OrgModel objModel : Test_Variables.lstOrgSearch) { 	
 			try {
 				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
@@ -1500,8 +1520,8 @@ public class OrganizationManagement{
 								Assert.assertNotEquals(recordBefore, recordAfter);
 								Test_Variables.test.pass("Filter applied successfully");
 								Test_Variables.results.createNode("Filter applied successfully");
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-								Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
+								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(c1, Constants.OrgManagementReportPath));
+								Helper.saveResultNew(ITestResult.SUCCESS, b1, null);
 							}
 						}
 					}
@@ -1581,7 +1601,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 23) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 23) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1722,7 +1742,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 24) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 24) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1821,7 +1841,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= false, priority = 25) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 25) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1915,7 +1935,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= false, priority =26) 
+	@Test (enabled= true, priority =26) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -1982,7 +2002,7 @@ public class OrganizationManagement{
 
 
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test CSV Download",enabled= false, priority =27) 
+	@Test (description="Test Case: Test CSV Download",enabled= true, priority =27) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM103: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");

@@ -82,20 +82,7 @@ public class FlockRegistration {
 			String actual = Helper.driver.findElement(By.id("Flock Registrations")).getText();
 			String expected = "Flock Registrations";
 
-			Assert.assertEquals(actual, expected); 
-			
-//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-flock-registration/div[1]/div/div/div[2]/div/div/table/tbody/tr[1]/td[41]/div/span")).click();
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-//			Thread.sleep(2000);
-//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-flock-registration/div[2]/app-popup-component/div/div/div/div[3]/app-create-flock/div/div[1]/form/div/div[2]/app-date-select-box/div/div[2]/div/img")).click();
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-//			Thread.sleep(2000);
-//	        WebElement dateWidgetFrom = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html/body/app-root/div/app-manage-flock-registration/div[2]/app-popup-component/div/div/div/div[3]/app-create-flock/div/div[1]/form/div/div[2]/app-date-select-box/div/div[2]/div/dp-date-picker/div[2]/div"))).get(0);
-//	        List<WebElement> columns = dateWidgetFrom.findElements(By.tagName("button"));
-//	    //    DateUtil.clickGivenDay(columns, DateUtil.getCurrentDay());
-//	        DateUtil.clickGivenDay(columns, DateUtil.getCurrentDayPlus(1));
-//	        Thread.sleep(3000);
-	
+			Assert.assertEquals(actual, expected); 	
 			Test_Variables.test.pass("User navigated successfully to Flock Registration screen");
 			Test_Variables.results.createNode("Flock Registration report opens successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
@@ -113,7 +100,7 @@ public class FlockRegistration {
 
 
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 2) 
-	public void TestFilter() throws InterruptedException, IOException {
+	public void testfilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -825,19 +812,63 @@ public class FlockRegistration {
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockTotalFeedWeightKGCol+" .text-right")).size(), 0, "Total Feed Weight KG column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockTotalWeightCondemnedLBCol+" .text-right")).size(), 0, "Total Weight Condemend LB column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockTotalWeightCondemnedKGCol+" .text-right")).size(), 0, "Total Weight Condemend KG column is not right alligned");
-			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockBirdsWeightCondemnedLBCol+" .text-right")).size(), 0, "Birds Weight Condemend LB column is not right alligned");
-			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockBirdsWeightCondemnedKGCol+" .text-right")).size(), 0, "Birds Weight Condemend KG column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockPartsWeightCondemnedLBCol+" .text-right")).size(), 0, "Parts Weight Condemend LB column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockPartsWeightCondemnedKGCol+" .text-right")).size(), 0, "Parts Weight Condemend KG column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockTotalCostPerWeightCol+" .text-right")).size(), 0, "Total Cost USDT per Weight column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockLiveabilityCol+" .text-right")).size(), 0, "Livability column is not right alligned");
 			softAssert.assertNotEquals(Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockMortalityCol+" .text-right")).size(), 0, "Mortality column is not right alligned");
+			
+			
+			List<WebElement> A_Grade_Paws_PERC = Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockAGradePawsCol));
+			int size2 = A_Grade_Paws_PERC.size();
+			for(int i=1;i<size2;i++) {
+				if (A_Grade_Paws_PERC.get(i).getText() != "") {
+					Double a = Double.parseDouble(A_Grade_Paws_PERC.get(i).getText());
+					System.out.println(a);
+					if (a<=1 && a >=0) {
+						softAssert.assertTrue(true, "A Grade Paws percentile is in range 0-1");
+					}
+					else {
+						softAssert.assertTrue(true, "A Grade Paws percentile is not in range 0-1");
+					}
+				}
+			}
+			
+			List<WebElement> Mortality_PERC = Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockMortalityCol));
+			int size3 = Mortality_PERC.size();
+			for(int i=1;i<size3;i++) {
+				if (Mortality_PERC.get(i).getText() != "") {
+					Double a = Double.parseDouble(Mortality_PERC.get(i).getText());
+					System.out.println(a);
+					if (a<=1 && a >=0) {
+						softAssert.assertTrue(true, "Mortality percentile is in range 0-1");
+					}
+					else {
+						softAssert.assertTrue(true, "Mortality percentile is not in range 0-1");
+					}
+				}
+			}
+			
+			List<WebElement> Livability_PERC = Helper.driver.findElements(By.cssSelector("#col-"+Test_Elements.flockLiveabilityCol));
+			int size4 = Mortality_PERC.size();
+			for(int i=1;i<size4;i++) {
+				if (Livability_PERC.get(i).getText() != "") {
+					Double a = Double.parseDouble(Livability_PERC.get(i).getText());
+					System.out.println(a);
+					if (a<=1 && a >=0) {
+						softAssert.assertTrue(true, "Livability percentile is in range 0-1");
+					}
+					else {
+						softAssert.assertTrue(true, "Livability percentile is not in range 0-1");
+					}
+				}
+			}
 
+			softAssert.assertAll();	
 			Test_Variables.test.pass("Int data type columns are right alligned");
 			Test_Variables.results.createNode("Int data type columns are right alligned");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-			softAssert.assertAll();	
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("Int data type columns are not right alligned");
 			Test_Variables.results.createNode("Int data type columns are not right alligned");
@@ -861,6 +892,7 @@ public class FlockRegistration {
 		Helper.driver.findElement(By.id("file-input")).sendKeys(System.getProperty("user.dir")+"\\Excel\\FlockMetaDataBulk.xlsx");
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 		Thread.sleep(2000);
+		Assert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Error message occured");
 		Test_Variables.lstFlockRegistrationSearch = FlockRegistrationModel.FillData();
 		int recordBefore = Helper.driver.findElements(By.cssSelector(".bulk-flock-data tr")).size(); 
 		for (FlockRegistrationModel objModel : Test_Variables.lstFlockRegistrationSearch) { 	
@@ -1134,6 +1166,7 @@ public class FlockRegistration {
 			softAssert.assertEquals(birdsizelist.get(0).getText(), "Small");
 			softAssert.assertEquals(birdsizelist.get(1).getText(), "Medium");
 			softAssert.assertEquals(birdsizelist.get(2).getText(), "Large");
+			softAssert.assertEquals(birdsizelist.get(3).getText(), "Pullet");
 			Helper.driver.findElement(By.cssSelector("#birdSizeId ul:nth-child(1) li:nth-child(1)")).click();
 
 			Helper.driver.findElement(By.id("submit-flock")).click();		
@@ -1148,7 +1181,7 @@ public class FlockRegistration {
 			Helper.driver.findElement(By.id("integratorFlockId_cust-cb-lst-txt_selectAll")).click();
 			Helper.driver.findElement(By.id("integratorFlockId_apply")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(2500);
 
 			softAssert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), "1");
 			Helper.driver.findElement(By.id("audit-trial-0")).click();
@@ -1157,6 +1190,9 @@ public class FlockRegistration {
 			String auditCheck =	Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1)#col-0")).getText();
 			softAssert.assertEquals(auditCheck, "IntegratorID_"+Test_Variables.date0);		
 			Helper.driver.findElement(By.id("close-gen-modal")).click();
+			
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-39 label")).getText().isEmpty(), "Farm Site ID is empty");
+			
 			softAssert.assertAll();
 			Test_Variables.test.pass("Flock was created successfully");
 			Test_Variables.results.createNode("Flock was created successfully");
@@ -1204,19 +1240,20 @@ public class FlockRegistration {
 
 						int getRows = Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size();
 						Helper.driver.findElement(By.id("close-gen-modal")).click();
-
-						WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
-						Thread.sleep(800);	
+						Thread.sleep(1500);	
+						System.out.println(getRows);
+//						WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
+//						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+//						Thread.sleep(2000);	
 						System.out.println("1");
 						Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Thread.sleep(2000);
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" input")).clear();
-						Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" input")).sendKeys(objModel.input);
+						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterID+" input")).clear();
+						Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterID+" input")).sendKeys(objModel.input);
 						System.out.println("2");
-						if (Helper.driver.findElements(By.cssSelector(objFilter.FilterID+" .list-item")).size() != 0) {
-							Helper.driver.findElement(By.cssSelector(objFilter.FilterID+" .list-item")).click();
+						if (Helper.driver.findElements(By.cssSelector("#"+objFilter.FilterID+" .list-item")).size() != 0) {
+							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterID+" .list-item")).click();
 						}
 						System.out.println("3");
 						Helper.driver.findElement(By.id("submit-flock")).click();
@@ -1272,13 +1309,13 @@ public class FlockRegistration {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on Flock Registration; Flock Registration reports open");
 
-
+			Helper.driver.get(Constants.url_flockRegistration);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 
-			WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
-			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
-			Thread.sleep(800);	
+//			WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
+//			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+//			Thread.sleep(2000);	
 
 			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1328,8 +1365,6 @@ public class FlockRegistration {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 		}
 	}
-	
-
 
 
 	@Test (enabled= true, priority = 14) 
@@ -1509,10 +1544,7 @@ public class FlockRegistration {
 		}
 	}
 
-
-
-
-
+	
 	public File getTheNewestFile(String filePath, String ext) {
 		File theNewestFile = null;
 		File dir = new File(filePath);

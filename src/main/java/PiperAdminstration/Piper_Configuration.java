@@ -316,9 +316,11 @@ public class Piper_Configuration {
 				Thread.sleep(1000);
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText().equals("1"+Test_Variables.date0)) {
 					int j = i-2;
+					if (Helper.driver.findElements(By.id("edit-installation-"+j)).size() != 0) {
 					WebElement scroll = Helper.driver.findElement(By.id("edit-installation-"+j));
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Thread.sleep(1000);
+					}
 					Helper.driver.findElement(By.id("edit-installation-"+i)).click();
 					break;
 				}
@@ -400,8 +402,10 @@ public class Piper_Configuration {
 				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(3)")).getText().equals("1"+Test_Variables.date0)) {
 					Thread.sleep(1000);
 					int j= i-2;
+					if (Helper.driver.findElements(By.id("edit-installation-"+j)).size() != 0) {
 					WebElement scroll = Helper.driver.findElement(By.id("edit-installation-"+j));
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
+					}
 					Helper.driver.findElement(By.id("delete-installation-"+i)).click();
 					break;
 				}
@@ -513,10 +517,13 @@ public class Piper_Configuration {
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(1000);
 					Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).click();
+					Thread.sleep(1000);
 					Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
-
+					Thread.sleep(1000);
 					Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).click();
 					Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001);
+				//	Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys("59.59.59.59");
+
 					Thread.sleep(1000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 					Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
@@ -529,16 +536,16 @@ public class Piper_Configuration {
 					Thread.sleep(1000);
 					Helper.driver.findElement(By.id("create-mpn")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).click();
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
 					Thread.sleep(1000);
 					Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001);
+				//	Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys("59.59.59.59");
 					Thread.sleep(2000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 					Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
-					Helper.driver.findElement(Test_Elements.popupCloseButton).click();
 				}
 			}
 
@@ -732,13 +739,15 @@ public class Piper_Configuration {
 			Thread.sleep(1500);
 			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_0");
 			Thread.sleep(1500);
+			SoftAssert softAssert = new SoftAssert();
 			if (Helper.driver.findElements(By.cssSelector(".fa-trash")).size() == 1) {
 			Helper.driver.findElement(By.cssSelector(".fa-trash")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.popupYesButton).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Sample Matrix details deleted.");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Sample Matrix details deleted.");
 			}
 			
 			Helper.driver.findElement(By.id("dilution-factor-var")).click();
@@ -747,10 +756,10 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
+			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New Sample Matrix created.");
 			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_0");
 			Thread.sleep(750);
-			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
-			
 			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1500);
 			//Helper.driver.findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
@@ -763,13 +772,13 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.cssSelector(".m-l-10px#btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			SoftAssert softAssert = new SoftAssert();
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Listeria Configuration saved successfully");
 			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			softAssert.assertAll();
 			Test_Variables.test.pass("P/A MPN configuration created successfully");
 			Test_Variables.results.createNode("P/A MPN configuration created successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
+		
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
 		}
 		catch(AssertionError er) {
@@ -798,7 +807,6 @@ public class Piper_Configuration {
 			Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			Test_Variables.steps.createNode("1. Create P/A config");
 			Test_Variables.steps.createNode("2. Delete that config");
-			
 			for (int i = 1; i<=1000; i++) {
 				if (Helper.driver.findElement(By.cssSelector("#mpn-"+i+" td:nth-child(4) label")).getText().equals("AT_SMatrix_0")) {
 					Thread.sleep(1000);

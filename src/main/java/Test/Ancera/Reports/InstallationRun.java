@@ -247,7 +247,7 @@ public class InstallationRun {
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
 
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.slRunTypeCol+" label")).getText();
-						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
+						Assert.assertEquals(getRunType, Test_Variables.InstallationRunType, "Run Type is not displayed in table");
 
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
@@ -491,7 +491,7 @@ public class InstallationRun {
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
 
 						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
-						Assert.assertEquals(getRunType, "Installation", "Run Type is not displayed in table");
+						Assert.assertEquals(getRunType, Test_Variables.InstallationRunType, "Run Type is not displayed in table");
 
 						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
 						Actions builder = new Actions(Helper.driver);
