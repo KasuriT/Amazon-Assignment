@@ -389,7 +389,9 @@ public class UserManagement {
 			Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(3000);
-			Assert.assertEquals(Helper.driver.findElements(By.id("site-administrator")).size(), 1, "Site Administrator button is not displayed");		
+			Assert.assertEquals(Helper.driver.findElements(By.id("site-administrator")).size(), 1, "Site Administrator button is not displayed");
+			Helper.driver.findElement(By.cssSelector("#site-administrator .row")).click();
+			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click(); 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
@@ -653,7 +655,7 @@ public class UserManagement {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
 			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "User details updated.");
-			Thread.sleep(3000);
+			Thread.sleep(6000);
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(Test_Variables.createUserEmail)) {
@@ -907,7 +909,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 14) 
+	@Test (enabled= true, priority= 13) 
 	public void EditAssignRolePopup() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-18: Verify user can be edited from assign roles and right popup", "This test case will verify that user can be edited from roles and right popup");
@@ -928,9 +930,11 @@ public class UserManagement {
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.createUserEmail)) {
 					int j = i-2;
+					if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userRoleCol+" img")).size() != 0) {
 					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userRoleCol+" img"));
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Thread.sleep(1000); 
+					}
 					Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userRoleCol+" img")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					break;
@@ -974,7 +978,7 @@ public class UserManagement {
 	}
 
 	
-	@Test (description="Test Case: Site Admin New User Create", enabled= false, priority= 15) 
+	@Test (description="Test Case: Site Admin New User Create", enabled= true, priority= 14) 
 	public void SiteAdminNewUserCreate() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify site admin is able to create new user", "This test case will verify that is able to create new user");
@@ -1039,10 +1043,10 @@ public class UserManagement {
 	}
 	
 	
-	@Test (description="Test Case: Site Admin Reports Assigned", enabled= false, priority= 15) 
+	@Test (description="Test Case: Site Admin Reports Assigned", enabled= true, priority= 15) 
 	public void SiteAdminReportAssigned() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can see reports that are assigned to him", "This test case will verify that user can see reports that are assigned to him");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-20: Verify user can see reports that are assigned to him", "This test case will verify that user can see reports that are assigned to him");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1076,10 +1080,10 @@ public class UserManagement {
 	}
 	
 	
-	@Test (description="Test Case: Site Admin Sites Assigned", enabled= false, priority= 15) 
+	@Test (description="Test Case: Site Admin Sites Assigned", enabled= true, priority= 16) 
 	public void SiteAdminSitesAssigned() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can only see sites that are assigned to him", "This test case will verify that user can only see sites that are assigned to him");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-21: Verify user can only see sites that are assigned to him", "This test case will verify that user can only see sites that are assigned to him");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1150,10 +1154,10 @@ public class UserManagement {
 	
 	
 	
-	@Test (enabled= false, priority= 15) 
+	@Test (enabled= true, priority= 17) 
 	public void OrgTypeColumn() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can only see organization that is assigned to him", "This test case will verify that user can only see organization that is assigned to him");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-22: Verify user can only see organization that is assigned to him", "This test case will verify that user can only see organization that is assigned to him");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1200,10 +1204,10 @@ public class UserManagement {
 	
 	
 	
-	@Test (enabled= false, priority= 15) 
+	@Test (enabled= true, priority= 18) 
 	public void ClientMappingSiteAdmin() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can only see organization that is assigned to him in client mapping", "This test case will verify that user can only see organization that is assigned to him in client mapping");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-23: Verify user can only see organization that is assigned to him in client mapping", "This test case will verify that user can only see organization that is assigned to him in client mapping");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1240,10 +1244,10 @@ public class UserManagement {
 	}
 	
 	
-	@Test (enabled= false, priority= 15) 
+	@Test (enabled= true, priority= 19) 
 	public void DataUploadSiteAdmin() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-19: Verify user can only see organization that is assigned to him in data upload screen", "This test case will verify that user can only see organization that is assigned to him in client mapping");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-24: Verify user can only see organization that is assigned to him in data upload screen", "This test case will verify that user can only see organization that is assigned to him in client mapping");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1276,10 +1280,10 @@ public class UserManagement {
 	}
 	
 	
-	@Test (description="Test Case: Delete User", enabled= true, priority= 15) 
+	@Test (description="Test Case: Delete User", enabled= true, priority= 20) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-20: Verify user can be deleted", "This test case will verify that user can delete a user");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-25: Verify user can be deleted", "This test case will verify that user can delete a user");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -1339,7 +1343,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 16) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 21) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1480,7 +1484,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 17) 
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 22) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1582,7 +1586,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 18) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 23) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_user);
@@ -1676,7 +1680,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority =19) 
+	@Test (enabled= true, priority =24) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_user);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1742,7 +1746,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority =20) 
+	@Test (enabled= true, priority =25) 
 	public void AccessRoleCount() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-63: Verify count of assign role in popup is same as that in table", "This test case will verify that count of assign role in popup is same as that in table");
@@ -1801,7 +1805,7 @@ public class UserManagement {
 
 
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test User CSV Download",enabled= true, priority =21) 
+	@Test (description="Test Case: Test User CSV Download",enabled= true, priority =26) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-65: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");

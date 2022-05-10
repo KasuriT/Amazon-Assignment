@@ -683,10 +683,8 @@ public class Test_Elements {
 
 	public static String flockIntegratorIDCol = "0";
 	public static String flockSiteIDCol = "1";
-//	public static String flockHatchDateCol = "2";
 	public static String flockPlacementDateCol = "2";
 	public static String flockNumBirdsPlacedCol = "3";
-//	public static String flockBirdTypeCol = "5";
 	public static String flockBirdSexCol = "4";
 	public static String flockBirdBreedCol = "5";
 	public static String flockProcessingDateCol = "6";

@@ -3,13 +3,18 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.InstallationRun">
+      <class name="Test.Ancera.Administration.UserManagement">
         <methods>
-          <include name="installationRunConfigSalmList"/>
+          <include name="SiteAdminNewUserCreate"/>
           <include name="endreport"/>
           <include name="extent"/>
+          <include name="SiteAdminSitesAssigned"/>
+          <include name="VerifyTestingSitesAccess"/>
+          <include name="DeleteUser"/>
+          <include name="OrgTypeColumn"/>
+          <include name="UpdateUser"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.InstallationRun -->
+      </class> <!-- Test.Ancera.Administration.UserManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

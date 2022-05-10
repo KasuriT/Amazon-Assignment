@@ -5,12 +5,15 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
@@ -46,7 +49,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+//import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 public class FlockRegistration {
 
@@ -1145,22 +1148,15 @@ public class FlockRegistration {
 			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
 			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
 			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(-1));
-			
-			
-	//		Helper.driver.findElement(By.xpath("//*[@id=\"placementDate\"]/div/div[2]/div/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[2]/button[7]")).click();
-			Thread.sleep(1000);	
-	//		Helper.driver.findElement(By.cssSelector("#hatchDate img")).click();
-			Thread.sleep(1000);				
-	//		Helper.driver.findElement(By.xpath("//*[@id=\"hatchDate\"]/div/div[2]/div/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[2]/button[6]")).click();
 			Thread.sleep(2000);											      
 			Helper.driver.findElement(By.cssSelector("#integratorFlockId input")).sendKeys("IntegratorID_"+Test_Variables.date0);
-
+			System.out.println("0");
 			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("button.disabled")).size(), 1);
-
+			System.out.println("1");
 			if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
 				Helper.driver.findElement(By.cssSelector("#integratorFlockId .list-item")).click();
 			}
-			
+			System.out.println("2");
 			Helper.driver.findElement(By.cssSelector("#birdSizeId img")).click();
 			List<WebElement> birdsizelist = Helper.driver.findElements(By.cssSelector("#birdSizeId li")); 
 			softAssert.assertEquals(birdsizelist.get(0).getText(), "Small");
@@ -1169,10 +1165,70 @@ public class FlockRegistration {
 			softAssert.assertEquals(birdsizelist.get(3).getText(), "Pullet");
 			Helper.driver.findElement(By.cssSelector("#birdSizeId ul:nth-child(1) li:nth-child(1)")).click();
 
+			Helper.driver.findElement(By.cssSelector("#marketingProgramId img")).click();
+			List<WebElement> marketingProgramList = Helper.driver.findElements(By.cssSelector("#marketingProgramId li")); 
+			softAssert.assertEquals(marketingProgramList.get(0).getText(), "Conventional");
+			softAssert.assertEquals(marketingProgramList.get(1).getText(), "No Human Antibiotics");
+			softAssert.assertEquals(marketingProgramList.get(2).getText(), "No Antibiotics Ever");
+			softAssert.assertEquals(marketingProgramList.get(3).getText(), "Organic");
+			softAssert.assertEquals(marketingProgramList.get(4).getText(), "Pastured");
+			Helper.driver.findElement(By.cssSelector("#marketingProgramId ul:nth-child(1) li:nth-child(1)")).click();
+			
+			Helper.driver.findElement(By.cssSelector("#birdSex img")).click();
+			List<WebElement> birdsexList = Helper.driver.findElements(By.cssSelector("#birdSex li")); 
+			softAssert.assertEquals(birdsexList.get(0).getText(), "Male");
+			softAssert.assertEquals(birdsexList.get(1).getText(), "Female");
+			softAssert.assertEquals(birdsexList.get(2).getText(), "Mixed");
+			Helper.driver.findElement(By.cssSelector("#birdSex ul:nth-child(1) li:nth-child(1)")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#birdBreed img")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#birdBreed ul:nth-child(1) li:nth-child(1)")).click();
+			
+			
+		//	WebElement birdBreed = Helper.driver.findElement(By.cssSelector("#birdBreed input"));
+		//	Helper.driver.findElement(with(By.tagName("input")).above(birdBreed)).sendKeys("hello");			
+			
+			Helper.driver.findElement(By.id("num-numBirdsDOAPlant")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-numBirdsProcessed")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalWeightProcessedLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalWeightProcessedKG")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalFeedWeightLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalFeedWeightKG")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalWeightCondemnedLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalWeightCondemnedKG")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-numBirdsCondemnedWhole")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-partsWeightCondemnedLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-partsWeightCondemnedKG")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalAmountPaid")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalAmountPaidLb")).sendKeys("10");
+			
+			Helper.driver.findElement(By.id("num-totalCostPerLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-livabilityPercentage")).sendKeys("1");
+			Helper.driver.findElement(By.id("num-mortalityPercentage")).sendKeys("1");
+			Helper.driver.findElement(By.id("num-avgDailyWeightGainLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-avgAgeOfBirdsProcessed")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-avgBirdWeightLb")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-avgBirdWeightKG")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-fcr")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-numBirdsSold")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-adjFcr")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-AGradePawsPercentage")).sendKeys("1");
+			
+			Helper.driver.findElement(By.cssSelector("#usdaPlantId img")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.cssSelector("#usdaPlantId ul:nth-child(1) li:nth-child(1)")).click();
+		
+			Helper.driver.findElement(By.id("num-downgradePawsPerc")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-totalMortality")).sendKeys("10");
+			Helper.driver.findElement(By.id("num-timeFrame")).sendKeys("10");
+			
+			
 			Helper.driver.findElement(By.id("submit-flock")).click();		
 			Helper.driver.findElement(By.cssSelector(".anc-btn-secondary")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 			Helper.driver.findElement(By.id("integratorFlockId_show-filter")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Helper.driver.findElement(By.id("integratorFlockId_search-input")).sendKeys("IntegratorID_"+Test_Variables.date0);
@@ -1184,16 +1240,88 @@ public class FlockRegistration {
 			Thread.sleep(2500);
 
 			softAssert.assertEquals(Helper.driver.findElement(By.id("results-found-count")).getText(), "1");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockBirdSexCol+" label")).getText().isEmpty(), "Bird Sex not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockMarketingProgramCol+" label")).getText().isEmpty(), "Marketing Program not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockBirdSizeCol+" label")).getText().isEmpty(), "Bird Size not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockUniqueFlockIDCol+" label")).getText().isEmpty(), "Unique Flock ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockSiteIDCol+" label")).getText().isEmpty(), "Farm Site ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTimeFrameCol+" label")).getText().isEmpty(), "Time Frame not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalMortalityCol+" label")).getText().isEmpty(), "Total Mortality not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockDowngradePawsPercCol+" label")).getText().isEmpty(), "Downgrade Paws not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockUSDAPlantIDCol+" label")).getText().isEmpty(), "USDA Plant ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAGradePawsCol+" label")).getText().isEmpty(), "A Grade Paws not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAdjFCRCol+" label")).getText().isEmpty(), "Adj FCR not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockNumBirdsSoldCol+" label")).getText().isEmpty(), "Num of Birds Solde not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockFCRCol+" label")).getText().isEmpty(), "FCR not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAvgBirdWeightKGCol+" label")).getText().isEmpty(), "Average Bird Weight kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAvgBirdWeightLBCol+" label")).getText().isEmpty(), "Average bird wieght lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAvgAgeBirdsProcessedCol+" label")).getText().isEmpty(), "Average birds processed not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAvgDailyWeightGainLBCol+" label")).getText().isEmpty(), "Daily weight gain not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockMortalityCol+" label")).getText().isEmpty(), "Mortality not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockLiveabilityCol+" label")).getText().isEmpty(), "Liveability not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalCostPerWeightCol+" label")).getText().isEmpty(), "total cost per weight not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAmountPaidPePoundCol+" label")).getText().isEmpty(), "Amount paid per pound not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalGrowerPayCol+" label")).getText().isEmpty(), "total grower pay not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockPartsWeightCondemnedKGCol+" label")).getText().isEmpty(), "Parts weigth ccondemned kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockPartsWeightCondemnedLBCol+" label")).getText().isEmpty(), "Parts weight condemned lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockNumBirdsCondemnedWholeCol+" label")).getText().isEmpty(), "Num of birds condemned whole not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalWeightCondemnedKGCol+" label")).getText().isEmpty(), "Total weight condemned kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalWeightCondemnedLBCol+" label")).getText().isEmpty(), "Total weigth condemned lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalFeedWeightKGCol+" label")).getText().isEmpty(), "Total feed weight kgnot displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalFeedWeightLBCol+" label")).getText().isEmpty(), "Total feed weight lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalWeightProcessedKGCol+" label")).getText().isEmpty(), "Total weigth processed kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockTotalWeightProcessedLBCol+" label")).getText().isEmpty(), "Total wieght processed lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockNumBirdsProcessedCol+" label")).getText().isEmpty(), "num of birds processed not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockNumBirdsDOACol+" label")).getText().isEmpty(), "Num of Birds DOA not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockUniqueFlockIDCol+" label")).getText().isEmpty(), "Unique Flock ID is not displayed");
+			
 			Helper.driver.findElement(By.id("audit-trial-0")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 			String auditCheck =	Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1)#col-0")).getText();
-			softAssert.assertEquals(auditCheck, "IntegratorID_"+Test_Variables.date0);		
+			softAssert.assertEquals(auditCheck, "IntegratorID_"+Test_Variables.date0);	
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditBirdSexCol+" label")).getText().isEmpty(), "Bird Sex not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditMarketingProgramCol+" label")).getText().isEmpty(), "Marketing Program not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditBirdSizeCol+" label")).getText().isEmpty(), "Bird Size not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditUniqueFlockIDCol+" label")).getText().isEmpty(), "Unique Flock ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditSiteIDCol+" label")).getText().isEmpty(), "Farm Site ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTimeFrameCol+" label")).getText().isEmpty(), "Time Frame not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalMortalityCol+" label")).getText().isEmpty(), "Total Mortality not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditDowngradePawsPercCol+" label")).getText().isEmpty(), "Downgrade Paws not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditUSDAPlantIDCol+" label")).getText().isEmpty(), "USDA Plant ID not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAGradePawsCol+" label")).getText().isEmpty(), "A Grade Paws not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAdjFCRCol+" label")).getText().isEmpty(), "Adj FCR not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditNumBirdsSoldCol+" label")).getText().isEmpty(), "Num of Birds Solde not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditFCRCol+" label")).getText().isEmpty(), "FCR not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAvBirdWeightKGCol+" label")).getText().isEmpty(), "Average Bird Weight kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAvBirdWeightLBCol+" label")).getText().isEmpty(), "Average bird wieght lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAvgAgeBirdsProcessedCol+" label")).getText().isEmpty(), "Average birds processed not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAvgDailyWeightGainLBCol+" label")).getText().isEmpty(), "Daily weight gain not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditMortalityCol+" label")).getText().isEmpty(), "Mortality not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditLiveabilityCol+" label")).getText().isEmpty(), "Liveability not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalCostPerWeightCol+" label")).getText().isEmpty(), "total cost per weight not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditAmountPaidPerPoundCol+" label")).getText().isEmpty(), "Amount paid per pound not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalGrowerPayCol+" label")).getText().isEmpty(), "total grower pay not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditPartsWeightCondemnedKGCol+" label")).getText().isEmpty(), "Parts weigth ccondemned kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditPartsWeightCondemnedLBCol+" label")).getText().isEmpty(), "Parts weight condemned lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditNumBirdsCondemnedWholeCol+" label")).getText().isEmpty(), "Num of birds condemned whole not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalWeightCondemnedKGCol+" label")).getText().isEmpty(), "Total weight condemned kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalWeightCondemnedLBCol+" label")).getText().isEmpty(), "Total weigth condemned lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalFeedWeightKGCol+" label")).getText().isEmpty(), "Total feed weight kgnot displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalFeedWeightLBCol+" label")).getText().isEmpty(), "Total feed weight lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalWeightProcessedKGCol+" label")).getText().isEmpty(), "Total weigth processed kg not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditTotalWeightProcessedLBCol+" label")).getText().isEmpty(), "Total wieght processed lb not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditNumBirdsProcessedCol+" label")).getText().isEmpty(), "num of birds processed not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditNumBirdsDOACol+" label")).getText().isEmpty(), "Num of Birds DOA not displayed");
+			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.flockAuditUniqueFlockIDCol+" label")).getText().isEmpty(), "Unique Flock ID is not displayed");
+
+			
 			Helper.driver.findElement(By.id("close-gen-modal")).click();
 			
 			softAssert.assertTrue(!Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-39 label")).getText().isEmpty(), "Farm Site ID is empty");
 			
 			softAssert.assertAll();
+			
 			Test_Variables.test.pass("Flock was created successfully");
 			Test_Variables.results.createNode("Flock was created successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
@@ -1219,6 +1347,7 @@ public class FlockRegistration {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
 		
+
 		Test_Variables.lstFlockRegistrationEdit = FlockRegistrationModel.EditFlock();
 		for (FlockRegistrationModel objModel : Test_Variables.lstFlockRegistrationEdit) { 	
 			try {
@@ -1270,6 +1399,18 @@ public class FlockRegistration {
 						System.out.println("5");
 						softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size(), getRows+1);
 						Helper.driver.findElement(By.id("close-gen-modal")).click();
+						
+						Set<String> uniqueProductName = new HashSet<String>();
+						Helper.driver.findElements(By.cssSelector("td:nth-child(8)"))
+						.stream()
+						.forEach(product -> uniqueProductName.add(product.getText()));
+
+						System.out.println("Total unique product found : "+uniqueProductName.size());
+						
+					//	System.out.println("All product names are : ");
+					//	uniqueProductName.forEach(name -> System.out.println(name));
+						
+						softAssert.assertEquals(uniqueProductName.size(), Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText(), "Did not displayed unique flock id");								
 						softAssert.assertAll();
 						Test_Variables.test.pass("Flock was edited successfully");
 						Test_Variables.results.createNode("Flock was edited successfully");
@@ -1293,6 +1434,7 @@ public class FlockRegistration {
 				Test_Variables.results.createNode("Flock failed to edit");
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 			}
+			
 		}
 	}
 	
@@ -1316,7 +1458,10 @@ public class FlockRegistration {
 //			WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock"));
 //			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 //			Thread.sleep(2000);	
-
+			Helper.driver.findElement(By.id("audit-trial-0")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			int auditRows = Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size();
+			
 			Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #edit-flock")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
@@ -1329,24 +1474,22 @@ public class FlockRegistration {
 		    DateUtil.clickGivenDay(columns, DateUtil.getCurrentDay());
 			Thread.sleep(2000);
 
-			Helper.driver.findElement(By.cssSelector("#processingDate img")).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(2000);
-			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#processingDate .dp-popup"))).get(0);
-			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
-			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(1));
-			Thread.sleep(2000);
+//			Helper.driver.findElement(By.cssSelector("#processingDate img")).click();
+//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+//			Thread.sleep(2000);
+//			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#processingDate .dp-popup"))).get(0);
+//			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
+//			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(1));
+//			Thread.sleep(2000);
 
 			Helper.driver.findElement(By.id("submit-flock")).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(By.cssSelector(".anc-btn-secondary")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText(), "2");
-
 			Helper.driver.findElement(By.id("audit-trial-0")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));		
-			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size(), 2);
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".audit-v2 tr")).size(), auditRows+1);
 			Helper.driver.findElement(By.id("close-gen-modal")).click();
 			softAssert.assertAll();
 			Test_Variables.test.pass("New Flock was created successfully");
@@ -1774,6 +1917,18 @@ public class FlockRegistration {
 			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "xlsx");
 			String filename= newfile.getName();
 			Assert.assertTrue(filename.startsWith("FLOCK METADATA"), "File did not downloaded with name as FLOCK METADATA");
+			
+			int colNumTable = Helper.driver.findElements(By.cssSelector("th")).size();
+			
+		       FileInputStream fis = new FileInputStream(Test_Variables.fileDownloadPath+"\\FLOCK METADATA.xlsx");
+		       XSSFWorkbook workbook = new XSSFWorkbook(fis);
+		       XSSFSheet sheet = workbook.getSheet("Sheet");
+		       XSSFRow row = sheet.getRow(0);
+		       int colNum = row.getLastCellNum();
+		       System.out.println("Total Number of Columns in the excel is : "+colNum);
+			
+			Assert.assertEquals(colNum, colNumTable);
+			
 			Test_Variables.test.pass("Sample MetaData template downloaded successfully");
 			Test_Variables.results.createNode("Sample MetaData template downloaded successfully");
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);

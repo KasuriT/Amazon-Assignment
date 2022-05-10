@@ -266,9 +266,10 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.id("MinStdVal")).clear();
 			Helper.driver.findElement(By.id("MinStdVal")).sendKeys("1");
 			Helper.driver.findElement(By.id("MaxStdVal")).clear();
-			Helper.driver.findElement(By.id("MaxStdVal")).sendKeys(Test_Variables.date0);
+			Helper.driver.findElement(By.id("MaxStdVal")).sendKeys("1"+Test_Variables.date0);
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("MinStdVal")).click();
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -454,7 +455,7 @@ public class Piper_Configuration {
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
 			Thread.sleep(2000);
 			for (int i = 1; i<=1000; i++) {
-				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(6)")).getText().equals(Test_Variables.date0)) {
+				if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(6)")).getText().equals("1"+Test_Variables.date0)) {
 					int j= i-2;
 					Thread.sleep(1000);
 					WebElement scroll = Helper.driver.findElement(By.id("edit-installation-"+j));

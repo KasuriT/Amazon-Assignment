@@ -265,7 +265,7 @@ public class PoultryManagement {
 
 	@Test (enabled= true, priority = 6) 
 	public void UpdateFeed() throws InterruptedException, IOException {
-		try {
+		try {		
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-06: Verify user can update feed intervention", "This test case will verify that user can update feed intervention");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -282,7 +282,8 @@ public class PoultryManagement {
 			Test_Variables.steps.createNode("1. Click on edit icon next to created feed and update it");
 
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
+		//		if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - 1244")) {
+			if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
 					Helper.driver.findElement(By.id("edit-treatment-"+i)).click();				
 					break;
 				}
@@ -555,7 +556,6 @@ public class PoultryManagement {
 
 	@Test (enabled= true, priority = 11) 
 	public void DeleteTreatment() throws InterruptedException, IOException {
-
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Poultry-11: Verify user can delete Treatment intervention", "This test case will verify that user can update delete Treatment intervention");			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -574,11 +574,14 @@ public class PoultryManagement {
 			int rows = Helper.driver.findElements(By.cssSelector("td:nth-child(4)")).size();
 			
 			for (int i = 1; i<=rows; i++) {
+			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Note - 1302")) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Notes Updated - "+Test_Variables.date0)) {
 					int j = i-2;
+					if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+j+") td:nth-child(5)")).size() != 0) {
 					WebElement scroll = Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(5)"));
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Thread.sleep(2000);
+					}
 					Helper.driver.findElement(By.id("delete-treatment-"+i)).click();
 					break;
 				}
