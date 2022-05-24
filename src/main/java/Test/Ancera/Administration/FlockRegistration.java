@@ -1147,7 +1147,9 @@ public class FlockRegistration {
 			
 			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
 			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
-			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(-1));
+	//		DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(-1));
+			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDay());
+
 			Thread.sleep(2000);											      
 			Helper.driver.findElement(By.cssSelector("#integratorFlockId input")).sendKeys("IntegratorID_"+Test_Variables.date0);
 			System.out.println("0");
@@ -1163,7 +1165,7 @@ public class FlockRegistration {
 			softAssert.assertEquals(birdsizelist.get(1).getText(), "Medium");
 			softAssert.assertEquals(birdsizelist.get(2).getText(), "Large");
 			softAssert.assertEquals(birdsizelist.get(3).getText(), "Pullet");
-			Helper.driver.findElement(By.cssSelector("#birdSizeId ul:nth-child(1) li:nth-child(1)")).click();
+			Helper.driver.findElement(By.cssSelector("#birdSizeId ul:nth-child(1) li:nth-child(4)")).click();
 
 			Helper.driver.findElement(By.cssSelector("#marketingProgramId img")).click();
 			List<WebElement> marketingProgramList = Helper.driver.findElements(By.cssSelector("#marketingProgramId li")); 
@@ -1185,7 +1187,7 @@ public class FlockRegistration {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#birdBreed ul:nth-child(1) li:nth-child(1)")).click();
 			
-			
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
 		//	WebElement birdBreed = Helper.driver.findElement(By.cssSelector("#birdBreed input"));
 		//	Helper.driver.findElement(with(By.tagName("input")).above(birdBreed)).sendKeys("hello");			
 			

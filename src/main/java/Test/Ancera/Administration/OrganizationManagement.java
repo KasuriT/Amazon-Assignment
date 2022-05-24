@@ -56,55 +56,13 @@ public class OrganizationManagement{
 
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Administration_Organization_Management"+Test_Variables.date+".html");	//	Test_Variables.spark.config().setReportName("Organization Management Test Report"); 
 		Test_Variables.spark.config().setReportName("Organization Management Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
-
-
-	@Test (description="Test Case: Navigate to Organization Management Screen",enabled=true, priority = 1) 
-	public void NavigateOM() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-01: Navigate to Organization Management Screen", "This test case will navigate to Organization Managment Screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
-			Test_Variables.steps.createNode("2. Click on Adminstration and select Organization Management");					
-			
-			Helper.driver.get(Constants.url_organization);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.orgTitle).getText(), "Organization Management"); 			
-			
-//			Helper.driver.findElement(By.id("edit-orgn-sites-2")).click();
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-//			Thread.sleep(1000);
-//			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[2]/span")).click();
-//			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-//			Thread.sleep(8000);
-//			String a =		Helper.driver.findElement(Test_Elements.orgSiteLatitudeInput).getText();
-//			String b =		Helper.driver.findElement(Test_Elements.orgSiteLongitudeInput).getAttribute("value");
-//			System.out.println("a: "+a);
-//			System.out.println("b: "+b);
-			
-			Test_Variables.test.pass("User navigated successfully");
-			Test_Variables.results.createNode("User navigates to Organization Management Screen");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
-		}catch(AssertionError er){
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User navigation failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, new Exception(er));
-		}	
-		catch(Exception ex){
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User navigation failed");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, ex);
-		}		
+	
+	@Test
+	public void navigate() throws InterruptedException, IOException {
+	Test_Functions.NavigateToScreen(Constants.url_organization, "Organization Management", Constants.OrgManagementReportPath, Test_Elements.orgTitle);
 	}
 
 
@@ -373,12 +331,13 @@ public class OrganizationManagement{
 			
 			Helper.driver.findElement(Test_Elements.orgSystemRolesExpand).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.orgSystemRolesExpand).sendKeys(Keys.ENTER);
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[2]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]/div/label")).click();
+			Helper.driver.findElement(Test_Elements.orgSystemRolesExpand).click();
 			
 			Helper.driver.findElement(Test_Elements.orgReportRolesExpand).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.orgReportRolesExpand).sendKeys(Keys.ENTER);
-			
+			Helper.driver.findElement(By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-organization/form/div/div[2]/div/div[2]/div[3]/div/div/ng-select/ng-dropdown-panel/div[2]/div[2]/div[1]/div/label")).click();
+			Helper.driver.findElement(Test_Elements.orgReportRolesExpand).click();
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();;
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
@@ -557,11 +516,9 @@ public class OrganizationManagement{
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			
-
-			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals("TestOrg-765")) {
-			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
+			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals("TestOrg-765")) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
 					Helper.driver.findElement(By.id("edit-orgn-sites-"+i)).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					break;
@@ -1601,7 +1558,7 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 23) 
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 23) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1742,7 +1699,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= true, priority = 24) 
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 24) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1841,7 +1798,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 25) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= false, priority = 25) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
@@ -1935,7 +1892,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= true, priority =26) 
+	@Test (enabled= false, priority =26) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -2002,7 +1959,7 @@ public class OrganizationManagement{
 
 
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test CSV Download",enabled= true, priority =27) 
+	@Test (description="Test Case: Test CSV Download",enabled= false, priority =27) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM103: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");

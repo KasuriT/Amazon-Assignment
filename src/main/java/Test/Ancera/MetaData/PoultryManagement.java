@@ -18,7 +18,6 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
-import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -150,20 +149,21 @@ public class PoultryManagement {
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("FeedNote")).sendKeys("Feed Notes - "+Test_Variables.date0);
 			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save-feed")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
 			Thread.sleep(1000);
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Feed details saved successfully");
 			Thread.sleep(1500);
-			//for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr td:nth-child(5)")).size(); i++) {
+
+			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr td:nth-child(5)")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
-					Assert.assertFalse(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), "Sites displayed empty");
+					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), false, "Sites displayed empty");
 					break;
 				}
 			}
-	
+
 			Test_Variables.test.pass("Feed details saved successfully");
 			Test_Variables.results.createNode("Feed details saved successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -367,6 +367,7 @@ public class PoultryManagement {
 			
 			Helper.driver.findElement(By.id("Note")).sendKeys("Treatment Notes - "+Test_Variables.date0);
 			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Helper.driver.findElement(By.id("btn-save")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
@@ -379,7 +380,7 @@ public class PoultryManagement {
 		
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Treatment Notes - "+Test_Variables.date0)) {
-					Assert.assertFalse(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), "Sites displayed empty");
+					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), false, "Sites displayed empty");
 					break;
 				}
 			}
@@ -567,7 +568,9 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
 			Test_Variables.preconditions.createNode("5. Create Treatment intervention");
 
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
+			Helper.driver.get(Constants.url_poultryManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);
 
 			Test_Variables.preconditions.createNode("1. Click on delete icon next to created Treatment and delete it");
 

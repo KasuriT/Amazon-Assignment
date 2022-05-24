@@ -3,18 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.UserManagement">
+      <class name="Test.Ancera.Administration.ProgramManagement">
         <methods>
-          <include name="SiteAdminNewUserCreate"/>
-          <include name="endreport"/>
           <include name="extent"/>
-          <include name="SiteAdminSitesAssigned"/>
-          <include name="VerifyTestingSitesAccess"/>
-          <include name="DeleteUser"/>
-          <include name="OrgTypeColumn"/>
-          <include name="UpdateUser"/>
+          <include name="endreport"/>
+          <include name="WildcardVaccine"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.UserManagement -->
+      </class> <!-- Test.Ancera.Administration.ProgramManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -262,7 +262,7 @@ public class InstallationRun {
 						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-						softAssert.assertEquals(getAuditRunType, "Installation");
+						softAssert.assertEquals(getAuditRunType, Test_Variables.InstallationRunType);
 						
 						if (objModel.runStartAssay) {
 							Test_Variables.steps.createNode("Verify Action as 'Modified' in Audit log");
@@ -506,7 +506,7 @@ public class InstallationRun {
 						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
-						softAssert.assertEquals(getAuditRunType, "Installation");
+						softAssert.assertEquals(getAuditRunType, Test_Variables.InstallationRunType);
 
 						if (objModel.runStartAssay) {
 							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 1);

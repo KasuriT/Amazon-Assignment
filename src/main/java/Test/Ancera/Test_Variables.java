@@ -33,6 +33,7 @@ import Models.PiperManagementModel;
 import Models.PiperSoftwareModel;
 import Models.PoultryManagementModel;
 import Models.ProfileModel;
+import Models.ProgramManagementModel;
 import Models.RMModel;
 import Models.RawImageCompareCountModel;
 import Models.RawImageModel;
@@ -392,6 +393,24 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////End Reports Management Screen Variables////////////////////////////////////////////////
 	
 	
+	//////////////////////////////////////////////////////////Program Management////////////////////////////////////////////////////////////////
+	
+	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementWildcardSearch = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementDateSearch = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementDateEnter = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementRowCount = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementPagination = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementSorting = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementFieldAccess = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementContexualCheck = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementLock = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementEdit = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementValidation = new ArrayList<>();
+
+	///////////////////////////////////////////////////////End Program Management////////////////////////////////////////////////////////////////
+	
+	
 	/////////////////////////////////////////////////////Piper Management Screen////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<PiperManagementModel> lstPiperManagementCreate = new ArrayList<>();
@@ -685,7 +704,7 @@ public class Test_Variables {
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreateCoccidia = new ArrayList<>();
 	
 	public static String installationImprocVersionSalm = "9.9.9.9";    //qa
-	public static String installationImprocVersionCocci = "5.2.1.0";   //qa
+	public static String installationImprocVersionCocci = "11.11.11.11";   //qa
 	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
 	
 //	public static String installationImprocVersionSalm = "22.22.22.22";    //qa

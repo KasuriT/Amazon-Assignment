@@ -27,7 +27,7 @@ public class DataUploadModel {
 	public static String ComplexSiteID = "1001159";
 	public static String HouseSiteID = "1001188";
 	public static String ProcessingPlantSiteID = "1001186";
-	public static String FarmSiteID = "1001184";
+	public static String FarmSiteID = "​1​0​0​1​1​9​0​";
 	public static String ResultID = "A1419201"; 
 	public static String ResultID2 = "A1419202";
 	public static String FlockID = "A02306";
@@ -88,8 +88,8 @@ public class DataUploadModel {
 		
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Flock ID";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Flock ID";
+		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata with same Flock ID";
+		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata with same";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0, 0, 2, 9));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FlockID, FlockID, "2022-02-02", "2022-03-03"));
@@ -101,11 +101,11 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload Flock Metadata with duplicate Flock ID";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		
+		/*
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-DU-37: Verify that user cannot upload Flock Metadata without Placement Date";
-		objTmp.TestCaseDescription = "This test case will verify that user cannot upload Flock Metadata without Placement Date";
+		objTmp.TestCaseName = "AN-DU-37: Verify that user can upload Flock Metadata with Unique Flock ID";
+		objTmp.TestCaseDescription = "This test case will verify that user can upload Flock Metadata with Unique Flock ID";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0));
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(FlockID1));
@@ -393,7 +393,7 @@ public class DataUploadModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(11, 5));
 		objTmp.ErrorCase = false;
-		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("80", "100"));
+		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("50", "100"));
 		objTmp.steps = "Enter Number of Birds DOA at Plant less than Number of Birds Placed and upload the Flock Metadata";
 		objTmp.AlertMessage = DataUpload.flockFileName+" loaded successfully.";
 		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds DOA at Plant less than Number of Birds Placed successfully";
@@ -408,9 +408,9 @@ public class DataUploadModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(12, 5));
 		objTmp.ErrorCase = true;
-		objTmp.ErrorMessage = "SiteID in FARM_SITE_ID is not a farm type site.";
+		objTmp.ErrorMessage = "Value in NUM_BIRDS_PROCESSED is greater than or equal to Number of Birds Placed.";
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("100", "80"));
-		objTmp.steps = "Enter Number of Birds DOA at Plant greater than Number of Birds Processed and upload the Flock Metadata";
+		objTmp.steps = "Enter Number of Birds Processed greater than Number of Birds Placed and upload the Flock Metadata";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.flockFileName;
 		objTmp.passStep = "User was not able to upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed successfully";
 		objTmp.failStep = "User was able to upload Flock Metadata with Number of Birds Processed greater than Number of Birds Placed";
@@ -669,7 +669,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Size as Pullet";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-	
+	*/
 		return lstDataUploadModel;
 	}
 	

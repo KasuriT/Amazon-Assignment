@@ -77,6 +77,8 @@ public class Test_Elements {
 	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
 	public static By confirmationYes = By.cssSelector("button.mr-4");
 	
+	public static String columnCount = "#table-header-vaccine-log th .log-header .mb-0";
+	
 	public static String ShowFilter = "_show-filter";
 	public static String SortFilter = "sort-";
 	public static String ApplyFilter = "_apply";
@@ -93,7 +95,7 @@ public class Test_Elements {
 	
 
 	/////////////////////////////////////////Organization Management Elements////////////////////////////////////////////////
-
+	public static By programManagementTitle = By.id("Program Management");
 	public static By orgTitle = By.id("Organization Management");
 	public static By orgCreateButton = By.id("create-organization");
 	public static By orgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
@@ -111,7 +113,9 @@ public class Test_Elements {
 	public static By orgAgreementDropDownExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");
 	public static By orgAgreementDropDownSelect = By.xpath("//label[contains(text(),'Select All')]");
 	public static By orgSystemRolesExpand = By.cssSelector("#rolesId .ng-arrow-wrapper");
-	public static By orgReportRolesExpand = By.cssSelector("rptRolesId .ng-arrow-wrapper");
+	public static By orgSystemRolesSelect = By.cssSelector("#rolesId .ng-input");
+	public static By orgReportRolesExpand = By.cssSelector("#rptRolesId .ng-arrow-wrapper");
+	public static By orgReportRolesSelect = By.cssSelector("#rptRolesId .ng-input");
 	
 	public static By orgParentSiteClick = By.cssSelector("li .text-ellipsis");
 	public static By orgSiteIDField = By.id("num-SiteIDId");
@@ -275,6 +279,44 @@ public class Test_Elements {
 	public static String amExpandOrgType = "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div/div[2]/label[1]";
 	
 	//////////////////////////////////////End Agreement Management Elements///////////////////////////////////////////////////
+	
+	
+	/////////////////////////////////////////Program Management Elements////////////////////////////////////////////////////
+	
+	public static By programCreateButton = By.id("create-program");
+	public static By programName = By.id("programNameId");
+	public static By programTargetPathogen = By.cssSelector("#targetPathogenId input");
+	public static By programProgramType = By.cssSelector("#programTypeId input");
+	public static By programSupplier = By.cssSelector("#supplierId input");
+	public static By programDescription = By.id("descriptionId");
+	public static By programNoApplicationFlock = By.id("num-numOfApplicationId");
+	public static String programDaysApplicationFlock = "num-flockDayApplicationId";
+	
+	public static By programFeedTypeDropdown = By.cssSelector("#feedTypeId-1 input");
+	public static By programFlockDayStart  = By.id("num-flockDayStartId-1");
+	public static By programFlockDayEnd  = By.id("num-flockDayEndId-1");
+	
+	public static By programAddFeedType = By.xpath("//*[text() = 'Add Feed Type'");
+	public static By programFeedType2Dropdown = By.cssSelector("#feedTypeId-2 input");
+	public static By programFlockDayStart2  = By.id("num-flockDayStartId-2");
+	public static By programFlockDayEnd2  = By.id("num-flockDayEndId-2");
+	public static By programFeedCategory = By.xpath("//*[text() = 'Feed Category']");
+	
+	public static By programFeedProgramTab = By.xpath("//*[text() = 'Feed Programs ']");
+	
+	public static String programEditVaccineButton = "edit-vaccine-program-";
+	public static String programEditFeedButton = "edit-feed-program-";
+	public static String programDeleteVaccineButton = "delete-vaccine-program-";
+	public static String programDeleteFeedButton = "delete-feed-program-";
+	
+	public static String programVaccineTable = "table-vaccine-log";
+	public static String programFeedTable = "table-header-feed-program-log";
+	
+//	public static String programVaccineName = "vaccine_programName";
+	public static String programVaccineCSVFileName = "Vaccine Log - ";
+	public static String programFeedCSVFileName = "Feed Program Log - ";
+	
+	//////////////////////////////////////End Program Management Elements///////////////////////////////////////////////////
 	
 
 	/////////////////////////////////////////Data Template Management Elements////////////////////////////////////////////////////

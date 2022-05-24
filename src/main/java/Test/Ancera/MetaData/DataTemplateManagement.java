@@ -950,11 +950,12 @@ public class DataTemplateManagement{
 			Thread.sleep(750);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			int userClientSites = Helper.driver.findElements(By.cssSelector(".site-tree-card")).size() - 1;
+			System.out.println("User client sites: "+userClientSites);
+			
 			Helper.driver.get(Constants.url_dataTemplate);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
 			List<WebElement> templateNamesTable = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
-
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 			Thread.sleep(1000);
@@ -963,19 +964,21 @@ public class DataTemplateManagement{
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			int MappingClientSites =Helper.driver.findElements(By.cssSelector(".ng-option")).size();
 			//check if all clients displays in dropdown which are assign to user
+			
 			softAssert.assertEquals(userClientSites, MappingClientSites);
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);
 
-			for (int i =1; i<=MappingClientSites; i++) {
+			for (int i =0; i<MappingClientSites; i++) {
 				Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 				Thread.sleep(1000);
-				Helper.driver.findElement(By.cssSelector(".ng-option:nth-child("+i+") .ng-option-label")).click();
+				int j = i+1;
+				Helper.driver.findElement(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 				Thread.sleep(1000);
 				List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 				String options = templateNamesClientMapping.get(i).getText();
-				String options1 = templateNamesTable.get(i+1).getText();
+				String options1 = templateNamesTable.get(j).getText();
 				softAssert.assertEquals(options, options1);
 			}
 
@@ -1044,17 +1047,15 @@ public class DataTemplateManagement{
 			Thread.sleep(1000);
 
 			int templateRows = Integer.parseInt(rows) - 1;
-			
+			int count = 0;
 			for (int i=0; i< templateRows; i++) {
-				if (Helper.driver.findElement(By.id("isCreate"+i)).isSelected() == true) {
-					int count = 0;
+				
+				if (Helper.driver.findElement(By.id("isCreate"+i)).isSelected() == true) {		
 					count = count + 1;
-
 					if (i == templateRows-1) {
 						Helper.driver.get(Constants.url_dataUpload);
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 						Thread.sleep(1000);
-
 						Helper.driver.findElement(By.id("OrgnTypeID")).click();
 						Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Client");
 						Helper.driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
@@ -1062,9 +1063,9 @@ public class DataTemplateManagement{
 						Helper.driver.findElement(By.id("ClientId")).click();
 						Helper.driver.findElement(By.cssSelector("#ClientId input")).sendKeys(clientName);
 						Helper.driver.findElement(By.cssSelector("#ClientId input")).sendKeys(Keys.ENTER);
-
 						Helper.driver.findElement(By.id("DataFormatId")).click();
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("ng-option")).size(), count);
+						
+						Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option")).size(), count);
 						Test_Variables.test.pass("Template assigned to user displayed in data upload screen successfully");
 						Test_Variables.results.createNode("Template assigned to user displayed in data upload screen successfully");
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	

@@ -321,7 +321,7 @@ public class PAConfig {
 						Thread.sleep(1000);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("PA Config", Constants.PAConfigReportPath));
 						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-						softAssert.assertEquals(getAuditRunType, "P/A");
+						softAssert.assertEquals(getAuditRunType, Test_Variables.PARunType);
 
 						String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditTestSiteIDCol+".text-dark")).getText();
 						softAssert.assertTrue(getAuditTestSiteId.isEmpty() == false);
@@ -552,7 +552,7 @@ public class PAConfig {
 							Thread.sleep(1000);
 
 							String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-							softAssert.assertEquals(getAuditRunType, "P/A");
+							softAssert.assertEquals(getAuditRunType, Test_Variables.PARunType);
 
 							String getAuditSampleMatrix = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditSampleMatrixCol+".text-dark")).getText();
 							softAssert.assertEquals(getAuditSampleMatrix, objModel.SampleMatrix);
@@ -747,7 +747,7 @@ public class PAConfig {
 								Thread.sleep(1000);
 
 								String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditRunTypeCol+".text-dark")).getText();
-								softAssert.assertEquals(getAuditRunType, "P/A");
+								softAssert.assertEquals(getAuditRunType, Test_Variables.PARunType);
 
 								String getAuditSampleMatrix = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.slAuditSampleMatrixCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditSampleMatrix, objModel.SampleMatrix);
