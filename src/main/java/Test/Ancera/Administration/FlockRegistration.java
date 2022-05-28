@@ -42,6 +42,7 @@ import Test.Ancera.Constants;
 import Test.Ancera.DateUtil;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 import Test.Ancera.Reports.SalmonellaLog;
 
@@ -64,44 +65,39 @@ public class FlockRegistration {
 	}
 
 
-	@Test (description="Test Case: Navigate to Flock Registration Screen",enabled= true, priority = 1) 
+	@Test (priority = 1) 
 	public void NavigateFlock() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-01: Verify user can navigate to Flock Registration Screen", "This test case will verify user can navigate to Flock Registration Screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Administration and select Flock Registration; page opens");
-			Test_Variables.steps.createNode("1. Click on Flock Registration");
-
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Helper.driver.get(Constants.url_flockRegistration);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("Flock Registrations")).getText();
-			String expected = "Flock Registrations";
-
-			Assert.assertEquals(actual, expected); 	
-			Test_Variables.test.pass("User navigated successfully to Flock Registration screen");
-			Test_Variables.results.createNode("Flock Registration report opens successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);
-		}catch(AssertionError er) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("Flock Registration report failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
-		}catch(Exception ex){
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("Flock Registration report failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
-		}
+		Test_Functions.NavigateToScreen(Constants.url_flockRegistration, "Flock Management", Constants.FlockRegistrationReportPath, Test_Elements.FlockRegistrationTitle);
 	}
 
 
+	@Test (priority = 2) 
+	public void LockFilter() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_flockRegistration);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath);
+	}
+	
+	
+	@Test (priority = 3) 
+	public void Wildcard() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_flockRegistration);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Wildcard(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath);
+	}
+
+	
+	@Test(priority= 4)
+	public void FilterSorting() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_flockRegistration);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Sorting(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath);
+	}
+	
+	
 	@Test (description="Test Case: Filter Test",enabled= true, priority = 2) 
 	public void testfilter() throws InterruptedException, IOException {
 

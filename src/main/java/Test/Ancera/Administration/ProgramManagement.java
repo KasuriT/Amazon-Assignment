@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -40,7 +41,7 @@ public class ProgramManagement {
 
 
 	@Test(priority= 1)
-	public void navigate() throws InterruptedException, IOException {
+	public void Navigate() throws InterruptedException, IOException {
 		Test_Functions.NavigateToScreen(Constants.url_programManagement, "Program Management", Constants.ProgramManagementReportPath, Test_Elements.programManagementTitle);
 	}
 
@@ -133,7 +134,6 @@ public class ProgramManagement {
 				if (Helper.driver.findElement(By.cssSelector("#table-vaccine-log tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ProgramManagementModel.VaccineProgramName)) {
 					for (int j=1; j<Helper.driver.findElements(By.cssSelector("#table-vaccine-log tr:nth-child(1) td")).size(); j++) {
 						softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child("+j+")")).getText().isEmpty(), false);
-
 					}
 					break;
 				}
@@ -214,6 +214,7 @@ public class ProgramManagement {
 		}
 	}
 
+
 	@Test (enabled= true, priority= 4) 
 	public void DeleteProgramVaccine() throws InterruptedException, IOException {
 		try {		
@@ -265,7 +266,6 @@ public class ProgramManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, ex);
 		}
 	}
-
 
 
 	@Test (enabled= true, priority= 5) 
@@ -340,15 +340,12 @@ public class ProgramManagement {
 			softAssert.assertEquals(ingredientCategories.get(2).getText(), "Natural");
 			ingredientCategories.get(0).click();
 
-
 			//			Helper.driver.findElement(Test_Elements.programFeedCategory).click();
 			//			String[] feedCategoriesExpected = {"Pre-stater", "Starter I", "Starter II", "Grower I", "Gower II", "Finisher", "Withdrawal", "Other"};
 			//			List<WebElement> feedCategoriesActual = Helper.driver.findElements(By.cssSelector(".ng-option-label"));
-			//			
 			//			for (int i=0;i<feedCategoriesExpected.length;i++) {
 			//				softAssert.assertEquals(feedCategoriesActual.get(i).getText(), feedCategoriesExpected[i]);
-			//			}
-			//			
+			//			}		
 			//			feedCategoriesActual.get(0).click();
 
 			Helper.driver.findElement(By.xpath(("//*[text()='Add Ingredient']"))).click();
@@ -358,8 +355,6 @@ public class ProgramManagement {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(5000);
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
-
-			//#manage-program ul li:nth-child(2)
 
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("#manage-feed-program-log tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("#manage-feed-program-log tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ProgramManagementModel.FeedProgramName)) {
@@ -385,7 +380,6 @@ public class ProgramManagement {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, ex);
 		}
 	}
-
 
 
 	@Test (enabled= true, priority= 6) 
@@ -425,7 +419,7 @@ public class ProgramManagement {
 			List<WebElement> feedTypes = Helper.driver.findElements(By.cssSelector(".ng-option-label"));
 			feedTypes.get(2).click();
 
-			Helper.driver.findElement(Test_Elements.programFlockDayStart).sendKeys("10");
+			//Helper.driver.findElement(Test_Elements.programFlockDayStart).sendKeys("10");
 
 			WebElement EndDay = Helper.driver.findElement(Test_Elements.programFlockDayStart2);
 			Helper.driver.findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("15");
@@ -448,7 +442,6 @@ public class ProgramManagement {
 					break;	
 				}
 			}
-
 			softAssert.assertAll();
 			Test_Variables.test.pass("Feed Program updated successfully");
 			Test_Variables.results.createNode("Feed updated successfully");
@@ -465,10 +458,11 @@ public class ProgramManagement {
 		}
 	}
 
+
 	@Test (enabled= true, priority= 7) 
 	public void DeleteProgramFeed() throws InterruptedException, IOException {
 		try {		
-			Test_Variables.test = Test_Variables.extent.createTest("AN-Program-07: Verify that user is able to delete Feed program", "This testcase will verify that user is able to delete Feed program");
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Program-08: Verify that user is able to delete Feed program", "This testcase will verify that user is able to delete Feed program");
 			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
@@ -480,11 +474,15 @@ public class ProgramManagement {
 			Test_Variables.preconditions.createNode("5. Create Feed Program");
 			Test_Variables.steps.createNode("1. Click on delete button next to created vaccine");
 
-			SoftAssert softAssert = new SoftAssert();
-
-			String CountBeforeDelete = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
+			Helper.driver.get(Constants.url_programManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(3000);
+			Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
 
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
+
 				if (Helper.driver.findElement(By.cssSelector("#manage-feed-program-log tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(ProgramManagementModel.FeedProgramName)) {				
 					Helper.driver.findElement(By.id(Test_Elements.programDeleteFeedButton+""+i)).click();
 					break;
@@ -492,16 +490,10 @@ public class ProgramManagement {
 			}
 
 			Thread.sleep(1000);
-
 			Helper.driver.findElement(Test_Elements.popupYesButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(3000);
-			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Program details deleted"); 
-
-			String CountAfterDelete = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
-			softAssert.assertEquals(Integer.parseInt(CountAfterDelete),Integer.parseInt(CountBeforeDelete)-1); 
-
-			softAssert.assertAll();
+			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Program details deleted", "Alert message did not displayed or matched"); 
 			Test_Variables.test.pass("Feed Program deleted successfully");
 			Test_Variables.results.createNode("New Program deleted successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
@@ -518,7 +510,72 @@ public class ProgramManagement {
 	}
 
 
-	@Test (priority = 8) 
+	@Test (enabled= true, priority= 8) 
+	public void VerifyColumns() throws InterruptedException, IOException {
+		try {		
+			Test_Variables.test = Test_Variables.extent.createTest("AN-Program-09: Verify that all columns appear", "This testcase will verify that all columns appear in table");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Administration and select Program Management; Program Management screen opens");
+			Test_Variables.preconditions.createNode("5. Create Feed Program");
+			Test_Variables.steps.createNode("1. Verify all columns appear and columns have filter icon with them");
+
+			SoftAssert softAssert = new SoftAssert();
+
+			Helper.driver.get(Constants.url_programManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1000);
+
+			String[] vaccineColumnNamesExpected = {"Program Name", "Supplier Name", "No. Of Applications On Flock", "Description", "Action"};
+			List<WebElement> vaccineColumnNamesActual = Helper.driver.findElements(By.cssSelector(Test_Elements.programVaccineTable+" th"));
+			int size = vaccineColumnNamesActual.size();
+			for(int i =0; i<size ; i++){
+				softAssert.assertEquals(vaccineColumnNamesActual.get(i).getText(), vaccineColumnNamesExpected[i]);
+			}
+
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.programVaccineTable+" #programName_show-filter")).size(), 1, "Program Name filter not displaying");
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.programVaccineTable+" #supplierName_show-filter")).size(), 1, "Supplier Name filter not displaying");
+
+			softAssert.assertEquals(Helper.driver.findElements(By.id("description_show-filter")).size(), 0, "Description showing filter");
+			softAssert.assertEquals(Helper.driver.findElements(By.id("noOfApplications_show-filter")).size(), 0, "No of Application showing filter");
+			softAssert.assertEquals(Helper.driver.findElements(By.id("feedName_show-filter")).size(), 0, "Feed Type column showing filter");
+
+			Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(3000);
+
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.programFeedTable+" #programName_show-filter")).size(), 1, "Program Name filter not displaying");
+			softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.programFeedTable+" #supplierName_show-filter")).size(), 1, "Supplier Name filter not displaying");
+
+			String[] feedColumnNamesExpected = {"Program Name", "Supplier Name", "Description", "Feed Types", "Action"};
+			List<WebElement> feedColumnNamesActual = Helper.driver.findElements(By.cssSelector(Test_Elements.programFeedTable+" th"));
+			int sizeFeedTable = vaccineColumnNamesActual.size();
+			for(int i =0; i<sizeFeedTable ; i++){
+				softAssert.assertEquals(feedColumnNamesActual.get(i).getText(), feedColumnNamesExpected[i]);
+			}
+			softAssert.assertAll();
+			Test_Variables.test.pass("All columns displayed successfully");
+			Test_Variables.results.createNode("All columns displayed successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
+		}catch(AssertionError er) {
+			Test_Variables.test.fail("All columns did not displayed");
+			Test_Variables.results.createNode("All columns did not displayed");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, new Exception(er));
+		}catch(Exception ex) {
+			Test_Variables.test.fail("All columns did not displayed");
+			Test_Variables.results.createNode("All columns did not displayed");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, ex);
+		}
+	}
+
+
+	@Test (priority = 9) 
 	public void LockVaccine() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -527,7 +584,7 @@ public class ProgramManagement {
 	}
 
 
-	@Test (priority = 9) 
+	@Test (priority = 10) 
 	public void LockFeed() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -539,7 +596,7 @@ public class ProgramManagement {
 	}
 
 
-	@Test (priority = 10) 
+	@Test (priority = 11) 
 	public void WildcardVaccine() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -547,9 +604,9 @@ public class ProgramManagement {
 
 		Test_Functions.Wildcard(Test_Elements.programVaccineTable, "Program Management", Constants.ProgramManagementReportPath);
 	}
-	
-	
-	@Test (priority = 11) 
+
+
+	@Test (priority = 12) 
 	public void WildcardFeed() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -560,55 +617,53 @@ public class ProgramManagement {
 		Test_Functions.Wildcard(Test_Elements.programFeedTable, "Program Management", Constants.ProgramManagementReportPath);
 	}
 
-	
-	@Test(priority= 12)
+
+	@Test(priority= 13)
 	public void sortingVaccine() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
-		Test_Functions.Sorting("Program Management", Test_Elements.programVaccineTable, Constants.ProgramManagementReportPath);
+		Thread.sleep(3000);
+		Test_Functions.Sorting(Test_Elements.programVaccineTable, "Program Management", Constants.ProgramManagementReportPath);
 	}
 
 
-	@Test(priority= 13)
+	@Test(priority= 14)
 	public void sortingFeed() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(1000);
-		Test_Functions.Sorting("Program Management", Test_Elements.programFeedTable, Constants.ProgramManagementReportPath);
+		Test_Functions.Sorting(Test_Elements.programFeedTable, "Program Management", Constants.ProgramManagementReportPath);
 	}
 
-	
-	@Test(priority= 14)
+
+	@Test(priority= 15)
 	public void ExportVaccineCSV() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
-		
+		Thread.sleep(3000);
+
 		Test_Functions.CSVExport("Program Management", Constants.ProgramManagementReportPath, Test_Elements.programVaccineCSVFileName, Test_Elements.programVaccineTable);
 	}
 
-	
-	@Test(priority= 15)
+
+	@Test(priority= 16)
 	public void ExportFeedCSV() throws InterruptedException, IOException {	
 		Helper.driver.get(Constants.url_programManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(1000);
 		Test_Functions.CSVExport("Program Management", Constants.ProgramManagementReportPath, Test_Elements.programFeedCSVFileName, Test_Elements.programFeedTable);
 	}
-	
-	
+
 
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
 		//	Helper.driver.close();
 	}
-
 }

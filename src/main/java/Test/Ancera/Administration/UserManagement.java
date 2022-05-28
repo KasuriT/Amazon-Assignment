@@ -988,6 +988,7 @@ public class UserManagement {
 					break;
 				}
 			}	
+			
 			Thread.sleep(4000);
 			Helper.driver.findElement(By.cssSelector("#reportRoleId .ng-arrow-wrapper")).click();
 			Helper.driver.findElement(By.xpath("//*[@id=\"reportRoleId\"]//input")).sendKeys(Keys.ARROW_DOWN);

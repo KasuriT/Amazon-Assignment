@@ -24,7 +24,7 @@ public class Constants {
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
 	public static String url_cyclingConfig = url+"/home/admin/complex-cycling-config";
-	public static String url_flockRegistration = url+"/home/admin/flock-registration";
+	public static String url_flockRegistration = url+"/home/admin/flock-management";
 	public static String url_programManagement = url+"/home/admin/program";
 	public static String url_piperManagement = url+"/home/admin/piper";
 	public static String url_piperSoftware = url+"/home/admin/piper-software-management";

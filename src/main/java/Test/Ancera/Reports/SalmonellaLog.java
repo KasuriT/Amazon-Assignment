@@ -993,7 +993,6 @@ public class SalmonellaLog {
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);		
 							}
 
-
 							if (objModel.paginationLastPage) {
 								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 								Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");

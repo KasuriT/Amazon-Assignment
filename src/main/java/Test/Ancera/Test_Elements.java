@@ -173,6 +173,13 @@ public class Test_Elements {
 
 
 	//////////////////////////////////////////End Access Management Elements////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////// Barcode Management Elements//////////////////////////////////////////////////
+
+	public static By barcodeManagmentTitle = By.id("Barcode Management");
+
+	//////////////////////////////////////////End BArcode Management Elements////////////////////////////////////////////////
 
 
 	/////////////////////////////////////////////Alert Management Elements/////////////////////////////////////////////////
@@ -296,7 +303,7 @@ public class Test_Elements {
 	public static By programFlockDayStart  = By.id("num-flockDayStartId-1");
 	public static By programFlockDayEnd  = By.id("num-flockDayEndId-1");
 	
-	public static By programAddFeedType = By.xpath("//*[text() = 'Add Feed Type'");
+	public static By programAddFeedType = By.xpath("//*[text() = 'Add Feed Type']");
 	public static By programFeedType2Dropdown = By.cssSelector("#feedTypeId-2 input");
 	public static By programFlockDayStart2  = By.id("num-flockDayStartId-2");
 	public static By programFlockDayEnd2  = By.id("num-flockDayEndId-2");
@@ -309,8 +316,8 @@ public class Test_Elements {
 	public static String programDeleteVaccineButton = "delete-vaccine-program-";
 	public static String programDeleteFeedButton = "delete-feed-program-";
 	
-	public static String programVaccineTable = "table-vaccine-log";
-	public static String programFeedTable = "table-header-feed-program-log";
+	public static String programVaccineTable = "vaccine-log";
+	public static String programFeedTable = "feed-program-log";
 	
 //	public static String programVaccineName = "vaccine_programName";
 	public static String programVaccineCSVFileName = "Vaccine Log - ";
@@ -380,6 +387,8 @@ public class Test_Elements {
 
 	///////////////////////////////////////////////Salmonella Log Elements/////////////////////////////////////////////////////////
 
+	public static By FlockRegistrationTitle = By.id("Flock Management");
+	public static String FlockRegistrationTable = "manage-flock-registration";
 	public static String slLaneCol = "0";
 	public static String slSampleIDCol = "1";
 	public static String slQCCodeCol = "2";

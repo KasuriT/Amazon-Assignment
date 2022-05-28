@@ -61,8 +61,24 @@ public class OrganizationManagement{
 	}
 	
 	@Test
-	public void navigate() throws InterruptedException, IOException {
+	public void Navigate() throws InterruptedException, IOException {
 	Test_Functions.NavigateToScreen(Constants.url_organization, "Organization Management", Constants.OrgManagementReportPath, Test_Elements.orgTitle);
+	
+	Thread.sleep(5000);
+	
+	Helper.driver.findElement(By.id("orgnName_show-filter")).click();
+	System.out.println("hello");
+	Thread.sleep(3000);
+	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) label")).click();
+	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) .filter-popup__footer--view-all")).click();
+	Thread.sleep(3000);
+	
+	
+	System.out.println("1. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) .ng-touched")).isSelected());
+	System.out.println("2. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(4) .ng-touched")).isSelected());
+
+	
+	
 	}
 
 
