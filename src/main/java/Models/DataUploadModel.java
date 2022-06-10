@@ -27,7 +27,7 @@ public class DataUploadModel {
 	public static String ComplexSiteID = "1001159";
 	public static String HouseSiteID = "1001188";
 	public static String ProcessingPlantSiteID = "1001186";
-	public static String FarmSiteID = "​1​0​0​1​1​9​0​";
+	public static String FarmSiteID = "​1001158​"; 
 	public static String ResultID = "A1419201"; 
 	public static String ResultID2 = "A1419202";
 	public static String FlockID = "A02306";
@@ -101,7 +101,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was able to upload Flock Metadata with duplicate Flock ID";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-		/*
+		
 		objTmp = new DataUploadModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-DU-37: Verify that user can upload Flock Metadata with Unique Flock ID";
@@ -669,7 +669,7 @@ public class DataUploadModel {
 		objTmp.failStep = "User was not able to upload Flock Metadata with Bird Size as Pullet";
 		objTmp.lstFilters.add(objFilter);
 		lstDataUploadModel.add(objTmp);
-	*/
+	
 		return lstDataUploadModel;
 	}
 	

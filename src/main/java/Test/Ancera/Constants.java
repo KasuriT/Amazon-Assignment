@@ -24,7 +24,7 @@ public class Constants {
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
 	public static String url_cyclingConfig = url+"/home/admin/complex-cycling-config";
-	public static String url_flockRegistration = url+"/home/admin/flock-management";
+	public static String url_flockRegistration = url+"/home/admin/flock-management"; 
 	public static String url_programManagement = url+"/home/admin/program";
 	public static String url_piperManagement = url+"/home/admin/piper";
 	public static String url_piperSoftware = url+"/home/admin/piper-software-management";
@@ -33,14 +33,14 @@ public class Constants {
 	public static String url_dataUpload = url+"/home/client/dataupload";
 	public static String url_poultryManagement = url+"/home/metadata/poultry";
 	public static String url_reports = url+"/home/reports/explore";
+
+	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
 	
-//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
-//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
-//	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
-	
-	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";   //uat
-	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=112&code=0012&type=12";   //uat
+//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat
+//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";   //uat
+//	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=112&code=0012&type=12";   //uat
 	
 //	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=13&code=0001&type=1";  //dev
 //	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=9&code=0002&type=2";   //dev

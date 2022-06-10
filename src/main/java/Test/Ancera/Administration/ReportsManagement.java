@@ -350,7 +350,8 @@ public class ReportsManagement {
 			Test_Variables.steps.createNode("3. Verify Audit trail button is shown in reports");
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
+			Thread.sleep(3000);
 
 			for (int j=1;j<Helper.driver.findElements(By.cssSelector("tr")).size(); j++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
@@ -378,7 +379,7 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_SalmonellaLog);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Assert.assertEquals(Helper.driver.findElements(By.id("audit-trial-0")).size(), 1);
 			Test_Variables.test.pass("Audit trail icon displayed in reports successfully");
 			Test_Variables.results.createNode("Audit trail icon displayed in reports successfully");
@@ -415,7 +416,7 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
 			for (int i=1; i<rows;i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(Test_Variables.RoleName) ) {
@@ -468,7 +469,8 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.id("edit-user-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(4000);
@@ -516,7 +518,7 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			SoftAssert softAssert = new SoftAssert();	
 			String recordsBefore = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
 
@@ -599,7 +601,8 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.rmCreateButton));
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.rmReportGroupPopupOpen).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
@@ -641,6 +644,9 @@ public class ReportsManagement {
 			Test_Variables.steps.createNode("1. Enter valid data in all fields");
 			Test_Variables.steps.createNode("2. Click on reset fields button");
 
+			
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.rmCreateButton));
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.rmReportGroupsCreateButton).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.rmReportGroupsName).sendKeys("Test");
@@ -771,6 +777,9 @@ public class ReportsManagement {
 			Test_Variables.steps.createNode("1. Click on created popup; report details screen shows up");
 			Test_Variables.steps.createNode("2. Update data and click on save button");
 
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.rmCreateButton));
+			Thread.sleep(3000);
+			
 			List<WebElement> op = Helper.driver.findElements(By.cssSelector(".popup-content ul"));
 			for (int i=0; i<op.size(); i++) {
 				if (op.get(i).getText().equals(Test_Variables.ReportGroupName)) {
@@ -880,7 +889,8 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.rmCreateButton));
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.rmReportGroupPopupOpen).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(2000);
@@ -1058,7 +1068,7 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(4000);
 
 			Helper.driver.findElement(By.id("edit-role-rights-1")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -1107,7 +1117,7 @@ public class ReportsManagement {
 
 			Helper.driver.get(Constants.url_reportsManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.rmReportGroupPopupOpen).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(2000);
@@ -1155,6 +1165,6 @@ public class ReportsManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		//	Helper.driver.close();
+		Helper.driver.close();
 	}
 }

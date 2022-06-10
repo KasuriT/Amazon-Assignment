@@ -44,7 +44,8 @@ public class Test_Functions {
 			
 			Helper.driver.get(url);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);	
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(id));
+			Thread.sleep(3000);	
 			Assert.assertEquals(Helper.driver.findElement(id).getText(), ""+name); 			
 			Test_Variables.test.pass("User navigated to "+name+" screen successfully");
 			Test_Variables.results.createNode("User navigated to "+name+" screen successfully");
@@ -66,13 +67,17 @@ public class Test_Functions {
 	@Test (enabled= true) 
 	public static void Lock(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
 		SoftAssert softAssert = new SoftAssert();
+		
+		try {
 		for (int i=1;i<=Helper.driver.findElements(By.cssSelector("#"+tablename+" th .log-header .mb-0")).size(); i++) {
-			try {	
+				
 	
 				String recordBefore = Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText(); 
 				if ( Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon")).size() != 0) {
 					WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon"));
 					WebElement columnName = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+					
+					
 					Test_Variables.test = Test_Variables.extent.createTest("AN-Lock-"+i+": Verify user can apply filter on "+columnName.getText()+" column", "This testcase will verify that user can apply filter on column");
 					Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 					Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -121,16 +126,20 @@ public class Test_Functions {
 						Test_Variables.steps.createNode("4. Reopen "+name+" screen");
 						Helper.driver.navigate().refresh();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-						Thread.sleep(2000);
+						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)));
+						Thread.sleep(3000);
 						
 						if (tablename.equals(Test_Elements.programFeedTable)) {
 						Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 						Thread.sleep(2000);
 						}
+						
+						System.out.println("1");
 						Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-						softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText(), recordsafterfilter);
-
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+						softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText(), recordsafterfilter, "Lock functionality failed");
+						System.out.println("2");
 						Thread.sleep(1000);
 						Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.UnlockFilter)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
@@ -142,16 +151,15 @@ public class Test_Functions {
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
 						Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
 					}
-	
 				}
-
+		}
 			}
 			catch(AssertionError er) {
 				Test_Variables.test.fail("Column failed to Lock");
 				Test_Variables.results.createNode("Column failed to Lock");
 				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
 			}
-		}
+		
 	}
 	
 	

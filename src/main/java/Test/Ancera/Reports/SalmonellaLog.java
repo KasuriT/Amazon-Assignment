@@ -342,7 +342,32 @@ public class SalmonellaLog {
 
 
 
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
+	@Test (priority = 4) 
+	public void Lock() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.slTable, "Salmonella Log", Constants.SalmonellaReportPath);
+	}
+	
+	@Test (priority = 5) 
+	public void Wildcard() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.slTable, "Salmonella Log", Constants.SalmonellaReportPath);
+	}
+	
+	@Test(priority= 6)
+	public void sorting() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.slTable, "Salmonella Log", Constants.SalmonellaReportPath);
+	}
+	
+	
+	@Test (description="Test Case: Filter Test",enabled= false, priority = 4) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_SalmonellaLog);;
@@ -861,7 +886,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
+	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= false, priority = 8) 
 	public void SalmonellaLock() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_SalmonellaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -1225,7 +1250,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (enabled= true, priority = 11) 
+	@Test (enabled= false, priority = 11) 
 	public void Sorting() throws InterruptedException, IOException {
 
 		Test_Variables.lstSalmonellaSorting = SalmonellaModel.sorting();

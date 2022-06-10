@@ -391,7 +391,7 @@ public class DataTemplateManagement{
 			int size = op.size();
 			for(int i =0; i<size ; i++){
 				String options = op.get(i).getText();
-				System.out.println("Options: "+options);
+			//	System.out.println("Options: "+options);
 				softAssert.assertEquals(options, stringArray[i]);
 			}
 
@@ -633,7 +633,7 @@ public class DataTemplateManagement{
 			File downloadFolder = new File(Test_Variables.fileDownloadPath);
 			List<String> namesOfFiles = Arrays.asList(downloadFolder.list());
 			if(namesOfFiles.contains(Test_Variables.TemplateName+".xlsx")) {	
-				System.out.println("Success");
+			//	System.out.println("Success");
 				Assert.assertTrue(true);
 				Test_Variables.test.pass("Template exported successfully");
 				Test_Variables.results.createNode("Template exporteed successfully");
@@ -932,6 +932,7 @@ public class DataTemplateManagement{
 			SoftAssert softAssert = new SoftAssert();
 			Helper.driver.get(Constants.url_user);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(4000);
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
 					WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
@@ -939,22 +940,23 @@ public class DataTemplateManagement{
 					Thread.sleep(1000); 
 					Helper.driver.findElement(By.id("edit-user-"+i)).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(6000);
+					Helper.driver.findElement(By.id("btn-next")).click();
+					Thread.sleep(1000);
+					Helper.driver.findElement(By.id("btn-next")).click();
+					Thread.sleep(750);
 					break;
 				}
 			}	
 
-			Thread.sleep(6000);
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(750);
-			Helper.driver.findElement(By.id("btn-next")).click();
-			Thread.sleep(750);
+	
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			int userClientSites = Helper.driver.findElements(By.cssSelector(".site-tree-card")).size() - 1;
 			System.out.println("User client sites: "+userClientSites);
 			
 			Helper.driver.get(Constants.url_dataTemplate);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			List<WebElement> templateNamesTable = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
@@ -1034,10 +1036,8 @@ public class DataTemplateManagement{
 
 			String rows = Helper.driver.findElement(By.id("results-found-count")).getText();
 
-
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-
 
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);
@@ -1073,8 +1073,6 @@ public class DataTemplateManagement{
 					}	
 				}
 			}
-
-
 		}catch(AssertionError er){
 			Test_Variables.test.fail("Template assigned to user failed to display in data upload screen");
 			Test_Variables.results.createNode("Template assigned to user failed to display in data upload screen");
@@ -1091,6 +1089,7 @@ public class DataTemplateManagement{
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 
 }

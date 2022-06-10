@@ -832,6 +832,7 @@ public class OrganizationManagement{
 			Test_Variables.steps.createNode("2. Click on + icon to open create new site window");
 			Test_Variables.steps.createNode("3. Enter valid data in fields");
 			Test_Variables.steps.createNode("4. Click on save button");
+			
 			Helper.driver.findElement(Test_Elements.orgSiteTypeInputChild).click();   
 			Thread.sleep(500);	
 			Helper.driver.findElement(Test_Elements.orgSiteTypeDropDownValue).click();  

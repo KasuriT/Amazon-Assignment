@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -775,19 +774,19 @@ public class AgreementManagement {
 					if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
 						WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+j));
 						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
-						Thread.sleep(1000); 
+						Thread.sleep(2000); 
 						Helper.driver.findElement(By.id("edit-user-"+j)).click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						Thread.sleep(8000); 
+						Helper.driver.findElement(By.id("btn-next")).click();
+						Thread.sleep(2000); 
+						Helper.driver.findElement(By.id("btn-next")).click(); 
+						Thread.sleep(2000); 
 						break;
 					}	
 				}
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-				Thread.sleep(8000); 
-				Helper.driver.findElement(By.id("btn-next")).click();
-				Thread.sleep(2000); 
-				Helper.driver.findElement(By.id("btn-next")).click(); 
-				Thread.sleep(2000); 
-				Test_Variables.steps.createNode("3. Search for the agreement in User Agreement dropdown");
 
+				Test_Variables.steps.createNode("3. Search for the agreement in User Agreement dropdown");
 				ClickElement.clickById(Helper.driver, "euladdl");
 				Thread.sleep(1000);
 				SoftAssert softAssert = new SoftAssert();

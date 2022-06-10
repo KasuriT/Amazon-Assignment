@@ -129,7 +129,13 @@ public class PoultryManagement {
 			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Poultry Management");
 
+			Helper.driver.get(Constants.url_poultryManagement);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
+			Thread.sleep(2000);
+			
+			
+			//Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("create-treatment")));
 
 			Test_Variables.steps.createNode("1. Select site and click on create new button; select feed from radio button");
 			Test_Variables.steps.createNode("1. Enter valid data in all mandatory fields and click on save button");
@@ -153,17 +159,18 @@ public class PoultryManagement {
 			Helper.driver.findElement(By.id("btn-save-feed")).click();
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
 			Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "Feed details saved successfully");
 			Thread.sleep(1500);
-
+			
 			for (int i=1; i<Helper.driver.findElements(By.cssSelector("tr td:nth-child(5)")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5)")).getText().equals("Feed Notes - "+Test_Variables.date0)) {
 					Assert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4)")).getText().isEmpty(), false, "Sites displayed empty");
 					break;
 				}
 			}
-
+	
 			Test_Variables.test.pass("Feed details saved successfully");
 			Test_Variables.results.createNode("Feed details saved successfully");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Poultry Management", Constants.PoultryManagementReportPath));
@@ -729,6 +736,6 @@ public class PoultryManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-	//	Helper.driver.close();
+		Helper.driver.close();
 	}
 }

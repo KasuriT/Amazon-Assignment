@@ -848,6 +848,6 @@ public class Piper_Configuration {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
-		//	Helper.driver.close();
+		Helper.driver.close();
 	}
 }

@@ -200,5 +200,6 @@ public class PiperManagement {
 	@AfterTest
 	public static void endreport() {
 		Test_Variables.extent.flush();
+		Helper.driver.close();
 	}
 }

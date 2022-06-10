@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Test_Elements {
 
 	//public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(120, 1));
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(150, 1));
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -48,6 +48,9 @@ public class Test_Elements {
 	public static String userReportingCol = "7";
 	public static String userSiteAccessCol = "8";
 	
+	public static String userManagementTable = "manage-user";
+	public static String userCSVFileName = "Users Log - ";
+	public static By userTitle = By.id("User Management");
 	public static String userFirstName = "userFirstName";
 	public static String userLastName = "userLastName";
 	public static String userMobileNo = "cfCellPhoneNo";
@@ -529,6 +532,8 @@ public class Test_Elements {
 	public static String slExportDataTemplate = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div/ul/div/li/label";
 	public static String slSampleMetaDataExport = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
 
+	public static String slTable = "salmonella-data-log";
+	
 
 	/////////////////////////////////////////////////End Salmonella Log Elements////////////////////////////////////////////////////////////
 
@@ -668,6 +673,7 @@ public class Test_Elements {
 	
 	public static String clTotalPages = "/html/body/app-root/div/app-coccidia-log/div/div/div[2]/div[2]/div[3]/app-pagination-component/div/div[2]/div[1]/div[15]/p";
 
+	public static String clTable = "coccidia-data-log";
 
 	//////////////////////////////////////////////////End Coccidia Log Elements///////////////////////////////////////////////////////
 
