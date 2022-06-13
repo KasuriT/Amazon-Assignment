@@ -20,6 +20,7 @@ public class RawImageCompareCountModel {
 	public String fileType;
 	public ArrayList<ReportFilters> lstFilters;
 	public boolean runStartAssay;
+	public String startAssay_runID;
 	public boolean checkLog;
 	public boolean isErrorCode;
 	public boolean isPositive;
@@ -1691,7 +1692,8 @@ public class RawImageCompareCountModel {
 		objTmp.checkLog = false;
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
-		objTmp.countOutcome = "";		
+		objTmp.countOutcome = "";	
+		objTmp.startAssay_runID = Test_Variables.dateYYYYMMDD+"_Cocci_1_"+Test_Variables.date0;
 		objTmp.run_id = Test_Variables.dateYYYYMMDD+"_Cocci_1_"+Test_Variables.date0+"_1";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"_Cocci_1_"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
@@ -1967,7 +1969,8 @@ public class RawImageCompareCountModel {
 		objTmp.checkLog = false;
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
-		objTmp.countOutcome = "";		
+		objTmp.countOutcome = "";	
+		objTmp.startAssay_runID = Test_Variables.dateYYYYMMDD+"_Cocci_2_"+Test_Variables.date0;
 		objTmp.run_id = Test_Variables.dateYYYYMMDD+"_Cocci_2_"+Test_Variables.date0+"_1";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"_Cocci_13_"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);

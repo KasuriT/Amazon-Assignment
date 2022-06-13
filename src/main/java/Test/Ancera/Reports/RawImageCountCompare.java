@@ -135,8 +135,8 @@ public class RawImageCountCompare extends DB_Config {
 						catch(Exception ex){
 						}
 					}
-
-
+					
+					
 					/////////////////////////////////////////////////////////End Start Assay////////////////////////////////////////////////////////////////////////////////	
 
 
@@ -207,7 +207,7 @@ public class RawImageCountCompare extends DB_Config {
 
 						Thread.sleep(3000);
 						String ty = objModel.totalImages;
-
+						
 					}
 					catch(Exception ex){
 					}	
@@ -223,7 +223,7 @@ public class RawImageCountCompare extends DB_Config {
 			for (int x = 0;x<=100;x++) {
 
 				String query1 = "Select count(status) as count from SALMONELLA_OUTPUT where Sample_ID like '%"+Test_Variables.date0+"' and Sample_ID like '"+Test_Variables.dateYYYYMMDD+"%'";
-				//	String query1 = "Select count(status) as count from SALMONELLA_OUTPUT where Sample_ID like '20211201%' and Sample_ID like '%1503'";
+			//	String query1 = "Select count(status) as count from SALMONELLA_OUTPUT where Sample_ID like '20211201%' and Sample_ID like '%1503'";
 				ResultSet rs1 = getStmt().executeQuery(query1);
 
 				while (rs1.next()) {
@@ -234,7 +234,7 @@ public class RawImageCountCompare extends DB_Config {
 						while (i<=Integer.parseInt(totalImages)) {
 							System.out.println("'"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_"+Test_Variables.date0+"'");
 							String query2 = "Select w2_cell_count, lane_noise_ratio_percent, count_outcome from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_"+Test_Variables.date0+"'";
-							//	String query2 = "Select w2_cell_count, lane_noise_ratio_percent, count_outcome from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_1503'";
+						//	String query2 = "Select w2_cell_count, lane_noise_ratio_percent, count_outcome from SALMONELLA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Salm_"+i+"_1503'";
 
 							ResultSet rs = getStmt().executeQuery(query2);
 							while (rs.next()) {
@@ -242,7 +242,7 @@ public class RawImageCountCompare extends DB_Config {
 								String a = rs.getString("w2_cell_count");
 								String b = rs.getString("lane_noise_ratio_percent");
 								String c = rs.getString("count_outcome");
-
+												
 								String path = System.getProperty("user.dir")+"\\CountComparison\\CountComparison"+totalImages+".xlsx";
 								FileInputStream fs = new FileInputStream(path);
 								XSSFWorkbook workbook = new XSSFWorkbook(fs);
@@ -253,9 +253,9 @@ public class RawImageCountCompare extends DB_Config {
 								DataFormatter formatter = new DataFormatter();
 								String val = formatter.formatCellValue(sheet.getRow(i).getCell(1));
 								System.out.println("Value: "+val);
-
+								
 								String noiseCount = formatter.formatCellValue(sheet.getRow(i).getCell(4));
-
+												
 								FileInputStream fs1 = new FileInputStream(path);
 								Workbook wb = new XSSFWorkbook(fs1);
 								Sheet sheet1 = wb.getSheetAt(0);
@@ -264,20 +264,20 @@ public class RawImageCountCompare extends DB_Config {
 								Cell cell1 = row1.createCell(2);
 								cell1.setCellValue("");
 								cell1.setCellValue(a);
-
+								
 								DecimalFormat df = new DecimalFormat("#.##");
-
+								
 								if (b != null) {
-									float convert = Float.parseFloat(b);
-									Cell cell3 = row1.createCell(5);
-									cell3.setCellValue("");
-									cell3.setCellValue(df.format(convert));
+								float convert = Float.parseFloat(b);
+								Cell cell3 = row1.createCell(5);
+								cell3.setCellValue("");
+								cell3.setCellValue(df.format(convert));
 								}
-
+								
 								Cell cell4 = row1.createCell(8);
 								cell4.setCellValue("");
 								cell4.setCellValue(c);
-
+								
 								if (val != null && a != null) {
 									int difference = Integer.parseInt(val) - Integer.parseInt(a);
 									Row row2 = sheet1.getRow(i);
@@ -289,7 +289,7 @@ public class RawImageCountCompare extends DB_Config {
 								else {
 									System.out.println("Column was Null; cannot find difference in w2 cell count");
 								}
-
+								
 								if (noiseCount != null && b != null) {
 									double difference = Float.parseFloat(noiseCount) - Float.parseFloat(b);
 									Row row2 = sheet1.getRow(i);
@@ -302,7 +302,7 @@ public class RawImageCountCompare extends DB_Config {
 								else {
 									System.out.println("Column was Null; cannot find difference in noise count");
 								}
-
+								
 								FileOutputStream fos = new FileOutputStream(path);
 								wb.write(fos);
 								fos.close();

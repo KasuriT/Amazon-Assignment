@@ -115,12 +115,12 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 							postRequest3.addHeader("Content-Type", "application/json");
 							postRequest3.addHeader("Authorization", "Bearer "+token);
 
-							System.out.println("Run-ID: "+objFilter.LstSampleID.get(0));
+							System.out.println("Run-ID: "+objModel.startAssay_runID);
 							json4.put("DateTime", Test_Variables.dateRIY+"T"+date+".000Z");
 							json4.put("InstrumentId", objModel.InstrumentID);
 							json4.put("UserId", Test_Variables.lstStartAssaySalmonella.get(0).UserID);
 							json4.put("CartridgeId", objModel.cartridgeID);
-							json4.put("RunId", objFilter.LstSampleID.get(0));
+							json4.put("RunId", objModel.startAssay_runID);
 							json4.put("PathogenName", objModel.pathogen);				
 
 							request_startAssay.body(json4.toString());
@@ -224,10 +224,10 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 				while (rs1.next()) {
 					System.out.println("Count: "+rs1.getString("count"));
 
-					if (rs1.getString("count").equals("16")) {
+					if (rs1.getString("count").equals("20")) {
 
 						int i = 1;
-						while (i<=16) {
+						while (i<=20) {
 							System.out.println("'"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'");
 							String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'";
 							//String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_1457'";
