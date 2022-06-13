@@ -20,6 +20,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import Models.ProgramManagementModel;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
+import Test.Ancera.DateUtil;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
 import Test.Ancera.Test_Functions;
@@ -99,6 +100,16 @@ public class ProgramManagement {
 			Helper.driver.findElement(Test_Elements.programDescription).clear();
 			Helper.driver.findElement(Test_Elements.programDescription).sendKeys("Vaccine Testing Program");
 
+			Helper.driver.findElement(By.cssSelector("#processingDate img")).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
+			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#processingDate .dp-popup"))).get(0);
+			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
+			DateUtil.clickGivenDay(columns1, DateUtil.getCurrentDayPlus(1));
+			Thread.sleep(2000);
+			
+			
+			
 			Helper.driver.findElement(Test_Elements.programTargetPathogen).click();
 			Thread.sleep(1000);
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option-label")).getText(), "Coccidia");
