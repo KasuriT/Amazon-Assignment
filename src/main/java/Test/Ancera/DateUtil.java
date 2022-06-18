@@ -10,19 +10,26 @@ public class DateUtil {
     public static String getCurrentDay() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         int todayInt = calendar.get(Calendar.DAY_OF_MONTH);
-    //    System.out.println("Today Int: " + todayInt + "\n");
         String todayStr = Integer.toString(todayInt);
-    //    System.out.println("Today Str: " + todayStr + "\n");
         return todayStr;
     }
     
     
     public static String getCurrentDayPlus(int days) {
         LocalDate currentDate = LocalDate.now();
-     //   System.out.println("1: "+currentDate);
         int dayOfWeekPlus = currentDate.getDayOfWeek().plus(days).getValue();
-     //   System.out.println("Today Int: " + dayOfWeekPlus + "\n");
         return Integer.toString(dayOfWeekPlus);
+    }
+    
+    
+    public static String getFirstDay() {
+        String todayStr = "01";
+        return todayStr;
+    }
+    
+    public static String getDay(String day) {
+      //  String todayStr = "01";
+        return day;
     }
 
     public static void clickGivenDay(List<WebElement> elementList, String day) {

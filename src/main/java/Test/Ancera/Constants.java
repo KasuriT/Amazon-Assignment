@@ -5,7 +5,7 @@ public class Constants {
 	public static String url = "https://ie-qa.ancera.com"; 
 	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
 //	public static String api = "http://hipir-1.anceralabs.com/api/ancerainput/v1";
-//	public static String url = "https://webapp-qa.ancera.com/#/";
+
 	
 //	public static String url = "https://ie-dev.ancera.com";
 //	public static String api = "https://ie-dev.ancera.com:5510/api/ancerainput/v1";
@@ -23,7 +23,7 @@ public class Constants {
 	public static String url_alert = url+"/home/admin/alerts";
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
-	public static String url_cyclingConfig = url+"/home/admin/complex-cycling-config";
+	public static String url_complexConfig = url+"/home/admin/complex-cycling-config";
 	public static String url_flockRegistration = url+"/home/admin/flock-management"; 
 	public static String url_programManagement = url+"/home/admin/program";
 	public static String url_piperManagement = url+"/home/admin/piper";
@@ -34,17 +34,17 @@ public class Constants {
 	public static String url_poultryManagement = url+"/home/metadata/poultry";
 	public static String url_reports = url+"/home/reports/explore";
 
-	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
-	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
+//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
+//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+//	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
 	
 //	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat
 //	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=4&code=0002&type=2";   //uat
 //	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=112&code=0012&type=12";   //uat
 	
-//	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=13&code=0001&type=1";  //dev
-//	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=9&code=0002&type=2";   //dev
-//	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=18&code=0012&type=12";   //dev
+	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=13&code=0001&type=1";  //dev
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=9&code=0002&type=2";   //dev
+	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=18&code=0012&type=12";   //dev
 	
 	public static String url_CoccidiaTimeline = url+"/home/reports/timeline/coccidia-timeline?report=Coccidia%20Timeline&id=18&code=0004&type=4";
 	public static String url_MPNSalmonellaLog = url+"/home/reports/log/mpn-log?report=MPN%20Salmonella%20Log&id=15&code=0006";
@@ -77,6 +77,7 @@ public class Constants {
 	public static String DataTemplateManagementReportPath = "/Screenshots/MetaData/DTManagementScreenShot";
 	public static String DataUploadReportPath = "/Screenshots/MetaData/DTUploadScreenShot";
 	public static String PoultryManagementReportPath = "/Screenshots/MetaData/PoultryManagementScreenShot";
+	public static String PreFlutterMobileReportPath = "/Screenshots/Flutter/PreFlutterMobileScreenShot";
 	
 	public static String SalmonellaReportPath = "/Screenshots/Reports/SalmonellaScreenShot";
 	public static String ExternalSalmonellaReportPath = "/Screenshots/Reports/ExternalSalmonellaScreenShot";

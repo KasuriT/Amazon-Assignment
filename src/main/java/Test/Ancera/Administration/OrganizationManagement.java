@@ -322,7 +322,7 @@ public class OrganizationManagement{
 	
 
 	@Test (description="Test Case: Create New Organization",enabled= true, priority= 6, dependsOnMethods = {"testInvalidEmail"}) 
-	public void CreateOrganization() throws InterruptedException, IOException {
+	public static void CreateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
 			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);

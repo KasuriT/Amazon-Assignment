@@ -60,6 +60,7 @@ public class Test_Elements {
 	public static String userRole = "cfRoles";
 	public static String userReporting = "reportingRole";
 	public static String userSiteAccess = "sites";
+	public static By userSitesSearch = By.xpath("//*[@placeholder='Filter']");
 	
 	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
 	
@@ -295,6 +296,7 @@ public class Test_Elements {
 	
 	public static By programCreateButton = By.id("create-program");
 	public static By programName = By.id("programNameId");
+	public static By programColumn1 = By.cssSelector("#col-0 label");
 	public static By programTargetPathogen = By.cssSelector("#targetPathogenId input");
 	public static By programProgramType = By.cssSelector("#programTypeId input");
 	public static By programSupplier = By.cssSelector("#supplierId input");
@@ -330,7 +332,29 @@ public class Test_Elements {
 	//////////////////////////////////////End Program Management Elements///////////////////////////////////////////////////
 	
 
-	/////////////////////////////////////////Data Template Management Elements////////////////////////////////////////////////////
+	/////////////////////////////////////Complex Configuration Elements////////////////////////////////////////////////////
+	
+	public static By complexTitle = By.id("Complex OPG Range Config");
+	public static By complexCreateButton = By.id("create-complex-cocci-intervention");
+	public static By complexSelectComplexDropdown = By.cssSelector("#compleSiteId .down");
+	public static By complexSearchComplex = By.id("compleSiteId_search");
+	public static By complexSelectComplexSite = By.cssSelector("#compleSiteId tr b");
+	public static By complexSelectVaccine = By.cssSelector("#vaccineId input");
+	public static By complexSelectFeed = By.cssSelector("#feedProgramId input");
+	public static By complexOPGType = By.id("opgTypeId");
+	public static By complexBirdSize = By.id("birdSizeId"); 
+	public static By complexSamplingInterval = By.id("cyclingIntervalId");
+	public static By complexSelectValueFromDropdown = By.cssSelector(".ng-option-label");
+	public static By complexComplexThreshold = By.id("complexCyclingThresholdId");
+	public static By complexHouseThreshold = By.id("houseCyclingThresholdId");
+	public static By complexLowerLimit = By.id("lowerLimitId");
+	public static By complexUpperLimit = By.id("upperLimitId");
+	public static By complexAddButton = By.xpath("//button[text() = 'Add']");
+	public static By complexSubmitButton = By.xpath("//button[text() = ' Submit']");
+	
+	/////////////////////////////////////End Complex Configuration Elements////////////////////////////////////////////////
+	
+	/////////////////////////////////////////Data Template Management Elements/////////////////////////////////////////////
 
 	public static By dtmCreateButton = By.id("create-data-format");
 	public static String dtmCreatePopupGetTitle = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[2]/div";
@@ -877,6 +901,19 @@ public class Test_Elements {
 	public static String flockTotalMortality = "totalMortality";
 	public static String flockTimeFrame = "timeFrame";
 	public static String flockUniqueFlockID = "uniqueFlockId";
+	
+	public static By flockCreateButton = By.id("create-flock");
+	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId input");
+	public static By flockBirdSizeExpandDropDown = By.cssSelector("#birdSizeId input");
+	public static By flockFarmExpandDropdown = By.cssSelector("#farmSiteId .down");
+	public static By flockFarmSeach = By.id("farmSiteId_search");
+	public static By flockHousePlacementDots = By.xpath("//div[7]/div[1]/div[2]/i[1]");
+	public static By flockProgramDetailsDots = By.xpath("//div[8]/div[1]/div[2]/i[1]");
+	public static By flockSelectHouses = By.xpath("//*[text() = 'Select Houses']");
+	public static By flockProgramExpandDropDown = By.cssSelector("#programId input");
+	public static By flockProgramStartDate = By.cssSelector("#startDate img");
+	public static By flockHouseSaveButton = By.id("#btn-save-house");
+	public static By flockAdministrationMethod = By.id("administrationMethodId");
 
 	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
 	

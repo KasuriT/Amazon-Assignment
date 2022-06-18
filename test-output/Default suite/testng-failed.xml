@@ -3,23 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.ProgramManagement">
+      <class name="Test.Ancera.Administration.PreFlutterMobile">
         <methods>
-          <include name="VerifyColumns"/>
-          <include name="extent"/>
-          <include name="ExportFeedCSV"/>
-          <include name="DeleteProgramFeed"/>
-          <include name="UpdateProgramVaccine"/>
-          <include name="LockFeed"/>
-          <include name="CreateProgramVaccine"/>
-          <include name="UpdateProgramFeed"/>
           <include name="endreport"/>
-          <include name="DeleteProgramVaccine"/>
-          <include name="LockVaccine"/>
-          <include name="CreateProgramFeed"/>
-          <include name="sortingVaccine"/>
+          <include name="extent"/>
+          <include name="VerifyTestingSitesAccess"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.ProgramManagement -->
+      </class> <!-- Test.Ancera.Administration.PreFlutterMobile -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
