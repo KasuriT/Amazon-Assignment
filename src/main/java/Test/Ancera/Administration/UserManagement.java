@@ -1,14 +1,6 @@
 package Test.Ancera.Administration;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +8,6 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -28,12 +19,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 
-import Models.ReportFilters;
 import Models.UserModel;
-import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
@@ -41,7 +28,6 @@ import Test.Ancera.RetryFailedCases;
 import Test.Ancera.Test_Elements;
 import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
-import Test.Ancera.Reports.SalmonellaLog;
 
 
 public class UserManagement {

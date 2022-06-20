@@ -103,7 +103,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slQCCode));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 		
@@ -117,7 +117,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slResultStatus));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -145,7 +145,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slCollectionSiteID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 
@@ -159,7 +159,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slCollectionSiteType));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 	
@@ -173,7 +173,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slSampleMatrix));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("4"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 
@@ -187,7 +187,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slCustomerSampleID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -201,7 +201,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slDateReceived));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -215,7 +215,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slCartridgeID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3")); 
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4")); 
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 			
@@ -229,7 +229,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slInstrumentID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 			
@@ -305,7 +305,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slkitLot));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -319,7 +319,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slImprocVersion));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "4"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 		
@@ -361,7 +361,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slRequestedAssay));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 
@@ -375,7 +375,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slFlockID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
@@ -409,34 +409,6 @@ public class SalmonellaModel {
 		
 		objTmp = new SalmonellaModel();
 		objFilter = new ReportFilters();
-		objFilter.FilterName = "Farm Filter";
-		objTmp.TestCaseName = "AN-SL-57: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-58: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slFarm));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Complex Filter";
-		objTmp.TestCaseName = "AN-SL-57: "+applyFilterTitle+objFilter.FilterName;
-		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;
-		objTmp.TestCaseNameSearch = "AN-SL-58: "+filterIndicatorTitle+objFilter.FilterName;
-		objTmp.TestCaseDescriptionSearch = filterIndicatorDesc+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slComplex));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2"));
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
 		objFilter.FilterName = "Two Filters";
 		objTmp.TestCaseName = "AN-SL-57: Verify user can apply 2 filters at same time";
 		objTmp.TestCaseDescription = "This testcase will verify that user can apply 2 filters at same time";
@@ -445,7 +417,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList(Test_Elements.slLane, Test_Elements.slSampleID));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("3", "3"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 
@@ -1442,33 +1414,7 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Farm Filter";
-		objTmp.TestCaseName = "AN-SL-133: Verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.slFarm+""+Test_Elements.slShowFilter;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slFarm;
-		objFilter.FilterApply = Test_Elements.slFarm+""+Test_Elements.slApplyFilter;
-		objFilter.FilterClear = Test_Elements.slFarm+""+Test_Elements.slClearFilter;
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Complex Filter";
-		objTmp.TestCaseName = "AN-SL-133: Verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will verify Lock Filter functionality on "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter.FilterID = Test_Elements.slComplex+""+Test_Elements.slShowFilter;
-		objFilter.FilterSort = Test_Elements.slSortFilter+""+Test_Elements.slComplex;
-		objFilter.FilterApply = Test_Elements.slComplex+""+Test_Elements.slApplyFilter;
-		objFilter.FilterClear = Test_Elements.slComplex+""+Test_Elements.slClearFilter;
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		return lstSalmonellaModel;
+		return lstSalmonellaModel;	
 	}
 
 	
@@ -1779,7 +1725,7 @@ public class SalmonellaModel {
 		objTmp.endsWith = true;
 		objFilter.ColumnID = Test_Elements.slSampleMatrixCol;
 		objTmp.input = "c";
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("c", "c"));
+		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("C", "c"));
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp); 
 
@@ -2940,50 +2886,20 @@ public class SalmonellaModel {
 		objTmp.lstFilters.add(objFilter);
 		lstSalmonellaModel.add(objTmp);
 		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Farm Filter";
-		objTmp.TestCaseName = "AN-SL-207: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.slFarmCol;
-		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slFarm;
-		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slFarm;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Complex Filter";
-		objTmp.TestCaseName = "AN-SL-207: Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.TestCaseDescription = "This testcase will Verify field level accessibility of "+objFilter.FilterName;
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.slComplexCol;
-		objTmp.FilterHideID = Test_Elements.slSortFilter+""+Test_Elements.slComplex;
-		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slComplex;
-		objTmp.unviewAccess = true;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
-		
-		objTmp = new SalmonellaModel();
-		objFilter = new ReportFilters();
-		objFilter.FilterName = "Select back all columns";
-		objTmp.TestCaseName = "AN-SL-208: Select back all unselected columns";
-		objTmp.TestCaseDescription = "This testcase will select back all unselected columns";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.slFieldAccessCol;
-		objTmp.FilterHideID = "";
-		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate;
-		objTmp.unviewAccess = false;
-		objTmp.viewAccess = true;
-		objTmp.lstFilters.add(objFilter);
-		lstSalmonellaModel.add(objTmp);
+//		objTmp = new SalmonellaModel();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterName = "Select back all columns";
+//		objTmp.TestCaseName = "AN-SL-208: Select back all unselected columns";
+//		objTmp.TestCaseDescription = "This testcase will select back all unselected columns";
+//		objTmp.lstFilters = new ArrayList<>();
+//		objFilter = new ReportFilters();
+//		objFilter.FilterID = Test_Elements.slFieldAccessCol;
+//		objTmp.FilterHideID = "";
+//		objTmp.FilterUnHideID = Test_Elements.slSortFilter+""+Test_Elements.slCollectionDate;
+//		objTmp.unviewAccess = false;
+//		objTmp.viewAccess = true;
+//		objTmp.lstFilters.add(objFilter);
+//		lstSalmonellaModel.add(objTmp);
 		
 		return lstSalmonellaModel;
 	}

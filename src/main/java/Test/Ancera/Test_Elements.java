@@ -558,6 +558,7 @@ public class Test_Elements {
 	public static String slSampleMetaDataExport = "/html/body/app-root/div[1]/app-salmonella-log/div/div/div[2]/div[2]/div[2]/app-custom-export-file-xlsx/div/div[1]/ul/li/label";
 
 	public static String slTable = "salmonella-data-log";
+	public static String slCSVFileName = "Salmonella Log - ";
 	
 
 	/////////////////////////////////////////////////End Salmonella Log Elements////////////////////////////////////////////////////////////
@@ -912,9 +913,10 @@ public class Test_Elements {
 	public static By flockSelectHouses = By.xpath("//*[text() = 'Select Houses']");
 	public static By flockProgramExpandDropDown = By.cssSelector("#programId input");
 	public static By flockProgramStartDate = By.cssSelector("#startDate img");
-	public static By flockHouseSaveButton = By.id("#btn-save-house");
+	public static By flockHouseSaveButton = By.id("btn-save-house");
 	public static By flockAdministrationMethod = By.id("administrationMethodId");
-
+	public static By flockProgramSaveButton = By.id("btn-save-program");
+	
 	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
 	
 	

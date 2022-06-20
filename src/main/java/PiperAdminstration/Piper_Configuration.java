@@ -135,7 +135,7 @@ public class Piper_Configuration {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(2000);
 						Helper.driver.findElement(By.id("MinMeanVal")).clear();
 						Helper.driver.findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
 						Helper.driver.findElement(By.id("MaxMeanVal")).clear();
@@ -145,7 +145,9 @@ public class Piper_Configuration {
 						Helper.driver.findElement(By.id("MaxStdVal")).clear();
 						Helper.driver.findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
 						Helper.driver.findElement(By.id("MinStdVal")).click();
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 						Helper.driver.findElement(By.id("btn-save")).click();
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 
 						Test_Variables.steps.createNode("3. "+objModel.steps);
 
@@ -230,7 +232,7 @@ public class Piper_Configuration {
 			Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown and click on save button");
 			Helper.driver.get(Constants.url_piperConfiguration);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(By.cssSelector("#PathogenName  .ng-arrow-wrapper")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.cssSelector("#PathogenName input")).sendKeys("Coccidia");
@@ -614,6 +616,7 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("AT_SMatrix_0");
 			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1500);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 		//	Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(Test_Variables.PA_ImprocVersionNew);
 			Helper.driver.findElement(By.cssSelector("#ImprocVersion3LId input")).click();
 			Thread.sleep(1000);
@@ -644,12 +647,13 @@ public class Piper_Configuration {
 			Thread.sleep(1000);
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "MPN & P/A Configuration saved successfully.");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 			softAssert.assertAll();
 			
 			Test_Variables.test.pass("P/A MPN configuration created successfully");
 			Test_Variables.results.createNode("P/A MPN configuration created successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
+		
 			Helper.saveResultNew(ITestResult.SUCCESS, Constants.PiperConfigurationReportPath, null);
 		}
 		catch(AssertionError er) {

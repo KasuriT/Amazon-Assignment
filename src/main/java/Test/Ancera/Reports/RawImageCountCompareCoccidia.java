@@ -217,21 +217,20 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 
 				String query1 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID like '%"+Test_Variables.date0+"' and Sample_ID like '"+Test_Variables.dateYYYYMMDD+"%'";
 				// query1 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID like '20211126_Cocci_%'";
-	
+				//Select *  from Coccida_output where run_id = '20220601-TestAut-12615';
 				
 				ResultSet rs1 = getStmt().executeQuery(query1);
 
 				while (rs1.next()) {
 					System.out.println("Count: "+rs1.getString("count"));
 
-					if (rs1.getString("count").equals("20")) {
+					if (rs1.getString("count").equals("12")) {
 
 						int i = 1;
 						while (i<=20) {
 							System.out.println("'"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'");
 							String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_"+Test_Variables.date0+"'";
-							//String query2 = "Select lane_Total_oocyst_count from COCCIDA_OUTPUT where Sample_ID = '"+Test_Variables.dateYYYYMMDD+"_Cocci_"+i+"_1457'";
-
+							
 							ResultSet rs = getStmt().executeQuery(query2);
 							while (rs.next()) {
 								System.out.println("Total Count: "+rs.getString("lane_Total_oocyst_count"));

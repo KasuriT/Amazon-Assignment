@@ -145,14 +145,16 @@ public class Test_Functions {
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 						Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResetFilters)).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-						softAssert.assertAll();
-						Test_Variables.test.pass("Lock functionality verified successfully");
-						Test_Variables.results.createNode("Lock functionality verified successfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+			
 					}
 				}
+
 		}
+		softAssert.assertAll();
+		Test_Variables.test.pass("Lock functionality verified successfully");
+		Test_Variables.results.createNode("Lock functionality verified successfully");
+		Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+		Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
 			}
 			catch(AssertionError er) {
 				Test_Variables.test.fail("Column failed to Lock");
@@ -441,7 +443,7 @@ public class Test_Functions {
 	public static void searchOrg() throws InterruptedException {
 		Helper.driver.get(Constants.url_user);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
+		Thread.sleep(4000);
 		Helper.driver.findElement(Test_Elements.usercreateButton).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(1500);

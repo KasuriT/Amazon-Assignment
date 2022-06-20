@@ -410,7 +410,7 @@ public class DataTemplateManagement{
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New data template created."); 
 			softAssert.assertEquals(Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), Test_Variables.dateMMDDYYYY1);
 			softAssert.assertAll();
@@ -967,20 +967,25 @@ public class DataTemplateManagement{
 			int MappingClientSites =Helper.driver.findElements(By.cssSelector(".ng-option")).size();
 			//check if all clients displays in dropdown which are assign to user
 			
+		//	System.out.println("Mapping: "+ MappingClientSites);
+			
 			softAssert.assertEquals(userClientSites, MappingClientSites);
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
-			Thread.sleep(1000);
-
-			for (int i =0; i<MappingClientSites; i++) {
+			Thread.sleep(1000);			
+			
+			for (int j =1; j<MappingClientSites; j++) {
 				Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 				Thread.sleep(1000);
-				int j = i+1;
+				
 				Helper.driver.findElement(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label")).click();
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 				Thread.sleep(1000);
 				List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
+				int i = j-1;
+		
 				String options = templateNamesClientMapping.get(i).getText();
 				String options1 = templateNamesTable.get(j).getText();
+				System.out.println(options+""+" :: "+options1);
 				softAssert.assertEquals(options, options1);
 			}
 

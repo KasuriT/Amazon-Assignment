@@ -64,20 +64,20 @@ public class OrganizationManagement{
 	public void Navigate() throws InterruptedException, IOException {
 	Test_Functions.NavigateToScreen(Constants.url_organization, "Organization Management", Constants.OrgManagementReportPath, Test_Elements.orgTitle);
 	
-	Thread.sleep(5000);
-	
-	Helper.driver.findElement(By.id("orgnName_show-filter")).click();
-	System.out.println("hello");
-	Thread.sleep(3000);
-	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) label")).click();
-	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) .filter-popup__footer--view-all")).click();
-	Thread.sleep(3000);
-	
-	
-	System.out.println("1. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) .ng-touched")).isSelected());
-	System.out.println("2. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(4) .ng-touched")).isSelected());
-
-	
+//	Thread.sleep(5000);
+//	
+//	Helper.driver.findElement(By.id("orgnName_show-filter")).click();
+//	System.out.println("hello");
+//	Thread.sleep(3000);
+//	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) label")).click();
+//	Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) .filter-popup__footer--view-all")).click();
+//	Thread.sleep(3000);
+//	
+//	
+//	System.out.println("1. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(3) .ng-touched")).isSelected());
+//	System.out.println("2. Checkbox: "+Helper.driver.findElement(By.cssSelector("#table-orgn-log th:nth-child(1) li:nth-child(4) .ng-touched")).isSelected());
+//
+//	
 	
 	}
 
@@ -133,7 +133,8 @@ public class OrganizationManagement{
 
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-
+		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.orgTitle));
+		Thread.sleep(2000);
 		Helper.driver.findElement(Test_Elements.orgCreateButton).click();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(1000);
@@ -293,7 +294,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Helper.driver.findElement(Test_Elements.orgCreateButton).click(); 
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 
@@ -426,7 +427,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			Test_Variables.test.createNode("Search for the created organization");  
 			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
@@ -531,6 +532,7 @@ public class OrganizationManagement{
 			
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(3000);
 			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 			//	if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals("TestOrg-765")) {
@@ -741,7 +743,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
@@ -1060,7 +1062,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);;
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
@@ -1221,7 +1223,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Assign Agreement to Organization",enabled= true, priority= 19) 
+	@Test (description="Test Case: Assign Agreement to Organization",enabled= false, priority= 19) 
 	public void AssignAgreement() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-58: Verify Organization can be assigned Agreement", "This test case will verify that organization can be assigned Agreement");
@@ -1239,7 +1241,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
@@ -1293,7 +1295,7 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(Test_Variables.lstOrganizationCreate.get(0))) {
@@ -1384,7 +1386,8 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.orgTitle));
+			Thread.sleep(4000);
 
 			String recordsCountBefore = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
 			
@@ -1575,12 +1578,13 @@ public class OrganizationManagement{
 	}
 
 	
-	@Test (description="Test Case: Filter Test",enabled= false, priority = 23) 
+	@Test (description="Test Case: Filter Test",enabled= true, priority = 23) 
 	public void TestFilter() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-
+		Thread.sleep(3000);
+		
 		Test_Variables.lstOrgSearch = OrgModel.FillData();
 		String recordBefore = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText(); 
 		for (OrgModel objModel : Test_Variables.lstOrgSearch) { 	
@@ -1716,12 +1720,12 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 24) 
+	@Test (description="Test Case: Wildcard",enabled= true, priority = 24) 
 	public void Wildcard() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
+		Thread.sleep(4000);
 
 		Test_Variables.lstOrgWildcardSearch = OrgModel.Wildcard(); 
 		for (OrgModel objModel : Test_Variables.lstOrgWildcardSearch) { 	
@@ -1815,12 +1819,12 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (description="Test Case: Test Lock Filter Functionality",enabled= false, priority = 25) 
+	@Test (description="Test Case: Test Lock Filter Functionality",enabled= true, priority = 25) 
 	public void Lock() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 
 		if (Helper.driver.findElements(By.cssSelector("#remove-filters.d-none")).size() == 0) {
 			Helper.driver.findElement(By.id(Test_Elements.UnlockFilter)).click();
@@ -1909,7 +1913,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= false, priority =26) 
+	@Test (enabled= true, priority =26) 
 	public void Sorting() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_organization);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -1976,7 +1980,7 @@ public class OrganizationManagement{
 
 
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test CSV Download",enabled= false, priority =27) 
+	@Test (description="Test Case: Test CSV Download",enabled= true, priority =27) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM103: Verify user can download User CSV file and verify the records", "This test case will verify that user can download User CSV file");
@@ -1996,7 +2000,8 @@ public class OrganizationManagement{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-
+			Thread.sleep(3000);
+			
 			Helper.driver.findElement(By.id(Test_Elements.userOrgType+""+Test_Elements.ShowFilter)).click();	
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 			Thread.sleep(800);						
