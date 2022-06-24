@@ -224,7 +224,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 				while (rs1.next()) {
 					System.out.println("Count: "+rs1.getString("count"));
 
-					if (rs1.getString("count").equals("12")) {
+					if (rs1.getString("count").equals("20")) {
 
 						int i = 1;
 						while (i<=20) {

@@ -61,7 +61,7 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-		
+/*		
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -319,7 +319,7 @@ public class RawImageModel {
 		lstRawImageModel.add(objTmp);
 					
 		/////////////////////////////Installation Run Cases//////////////////////////////////
-		
+	/*	
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -596,7 +596,7 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-2"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-		
+		*/
 		//////////////////////////////Error Code Cases///////////////////////////////////////
 			
 		objTmp = new RawImageModel();

@@ -2,12 +2,10 @@ package Test.Ancera;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 public class DB_Config {
 
@@ -18,10 +16,12 @@ public class DB_Config {
 	@BeforeTest
 	public static void test() {
 		try{
-			String UserName="vminnocci";
-			String Password="Vico123!";
+		//	String UserName="vminnocci";
+		//	String Password="Vico123!";
+			String UserName="akhan";
+			String Password="Ancer@123!";
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			String DB_URL ="jdbc:sqlserver://sql-ie-qa-001.database.windows.net;databaseName=IE-DW;user=vminnocci;Password=Vico123!";
+			String DB_URL ="jdbc:sqlserver://sql-ie-qa-001.database.windows.net;databaseName=IE-DW;user="+UserName+";Password="+Password;
 			Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
 		    setStmt(con.createStatement());
 		}

@@ -52,8 +52,8 @@ public class RawImageCountCompare extends DB_Config {
 	@Test (description="Test Case: Raw Image Ingestion", enabled= true, priority= 1) 
 	public void CountCompare() throws InterruptedException, IOException, SQLException	{
 
-		Test_Variables.lstRawImageComparison = RawImageCompareCountModel.FillData49();   //Change number to 20 to run for 20 images and 49 to run for 49 images
-		String totalImages = "49";   //change number based on total number of images to test; 20 or 49
+		Test_Variables.lstRawImageComparison = RawImageCompareCountModel.FillData20();   //Change number to 20 to run for 20 images and 49 to run for 49 images
+		String totalImages = "20";   //change number based on total number of images to test; 20 or 49
 		for (RawImageCompareCountModel objModel : Test_Variables.lstRawImageComparison) { 
 			try{
 				for (ReportFilters objFilter : objModel.lstFilters) {

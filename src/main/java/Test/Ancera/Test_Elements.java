@@ -61,6 +61,8 @@ public class Test_Elements {
 	public static String userReporting = "reportingRole";
 	public static String userSiteAccess = "sites";
 	public static By userSitesSearch = By.xpath("//*[@placeholder='Filter']");
+	public static By userSitesButton = By.cssSelector(".btn-sites");
+	public static By userSitesSaveButton = By.id("btn-ok-sites");
 	
 	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
 	
@@ -914,7 +916,7 @@ public class Test_Elements {
 	public static By flockProgramExpandDropDown = By.cssSelector("#programId input");
 	public static By flockProgramStartDate = By.cssSelector("#startDate img");
 	public static By flockHouseSaveButton = By.id("btn-save-house");
-	public static By flockAdministrationMethod = By.id("administrationMethodId");
+	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
 	public static By flockProgramSaveButton = By.id("btn-save-program");
 	
 	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
@@ -978,4 +980,30 @@ public class Test_Elements {
 	public static String profilePhoneNoExpected = "Phone number is required";
 
 	///////////////////////////////////////////////End Profile Setting Elements///////////////////////////////////////////////////////
+	
+	
+	/////////////////////////////////////////////////SampleMetadata Column////////////////////////////////////////////////////////////////
+	
+	public static int metadata_ResultID = 0;
+	public static int metadata_CollectionSiteID = 1;
+	public static int metadata_KitLot = 2;
+	public static int metadata_SampleMatrix = 3;
+	public static int metadata_LabSampleID = 4;
+	public static int metadata_DateReceived = 5;
+	public static int metadata_CustomerSampleID = 6;
+	public static int metadata_CollectedBy = 7;
+	public static int metadata_RequestedAssay = 8;
+	public static int metadata_FlockID = 9;
+	public static int metadata_Complex = 12;
+	public static int metadata_Farm = 13; 
+	public static int metadata_Lane = 16;
+	public static int metadata_ResultDate = 17;
+	public static int metadata_ResultTime = 18;
+	public static int metadata_CartridgeID = 19;
+	public static int metadata_InstrumentID = 20;
+	public static int metadata_PiperUser = 21;
+	public static int metadata_CollectionDate = 23;
+	
+
+	//////////////////////////////////////////////End SampleMetadata Column///////////////////////////////////////////////////////////////
 }

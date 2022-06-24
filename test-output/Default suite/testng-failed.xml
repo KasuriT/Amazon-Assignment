@@ -3,18 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.UserManagement">
+      <class name="Test.Ancera.Administration.PreFlutterMobile">
         <methods>
-          <include name="LockFilter"/>
-          <include name="SiteAdminNewUserCreate"/>
           <include name="endreport"/>
-          <include name="SiteAdminEditSites"/>
           <include name="extent"/>
-          <include name="SiteAdminSitesAssigned"/>
-          <include name="VerifyTestingSitesAccess"/>
-          <include name="DeleteUser"/>
+          <include name="tearDown"/>
+          <include name="test"/>
+          <include name="Ingestion"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.UserManagement -->
+      </class> <!-- Test.Ancera.Administration.PreFlutterMobile -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

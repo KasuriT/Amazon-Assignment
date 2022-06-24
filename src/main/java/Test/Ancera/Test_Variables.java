@@ -564,6 +564,7 @@ public class Test_Variables {
 	public static String CustomerSampleID = "CSampleID Test";
 	public static String SampleMatrix = "AT_SampleMatrix";
 	public static String fileName = "MetaData RunMode1.xlsx";
+	public static String fileName_Mobile = "SampleMetadata_Mobile.xlsx";
 	public static String SiteID = "1001001";
 //	public static String SiteID = "1267007";
 	public static String invalidSiteID = "1267002";  //siteid not assigned to user
@@ -584,6 +585,7 @@ public class Test_Variables {
 	public static String slSampleMetaData = "Sample Metadata Upload Template";
 
 	public static ArrayList<NormalIngestionModel> lstNormalIngestion = new ArrayList<>(); 
+	public static ArrayList<ComplexConfigModel> lstComplexConfig = new ArrayList<>(); 
 	public static ArrayList<SalmonellaModel> lstSalmonellaSearch = new ArrayList<>();
 	public static ArrayList<SalmonellaModel> lstSalmonellaWildcardSearch = new ArrayList<>();
 	public static ArrayList<SalmonellaModel> lstSalmonellaDateSearch = new ArrayList<>();
@@ -714,17 +716,17 @@ public class Test_Variables {
 //	public static String installationImprocVersionCocci = "11.11.11.11";   //qa
 //	public static String installationImprocVersionListeria = "9.9.9.9";   //qa
 	
-//	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
-//	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
-//	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
+	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
+	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
+	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
 	
 //	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
 //	public static String installationImprocVersionCocci = "2.10.3.3";  //uat
 //	public static String installationImprocVersionListeria = "4.0.20.2";  //uat
 	
-	public static String installationImprocVersionSalm = "4.0.8.2";    //dev
-	public static String installationImprocVersionCocci = "2.10.4.3";   //dev
-	public static String installationImprocVersionListeria = "4.0.8.2";   //dev
+//	public static String installationImprocVersionSalm = "4.0.8.2";    //dev
+//	public static String installationImprocVersionCocci = "2.10.4.3";   //dev
+//	public static String installationImprocVersionListeria = "4.0.8.2";   //dev
 	
 	////////////////////////////////////////////////////////////End Installation Run////////////////////////////////////////////////////////////////////////////////////////////////////
 	
