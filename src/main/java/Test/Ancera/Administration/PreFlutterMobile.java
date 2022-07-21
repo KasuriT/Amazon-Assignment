@@ -35,7 +35,6 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.ComplexConfigModel;
-import Models.NormalIngestionModel;
 import Models.ReportFilters;
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
@@ -65,8 +64,8 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (enabled = false, priority = 1) 
-	public void CreateOrg() throws InterruptedException, IOException {
+	@Test (enabled = true, priority = 1) 
+	public void CreateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
 		
@@ -120,8 +119,8 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (description="Test Case: Organization Site Check",enabled= false, priority= 2) 
-	public void OrganizationSitesHierarchyCheck() throws InterruptedException, IOException {
+	@Test (enabled= true, priority= 2) 
+	public void CreateOrganizationSitesHierarchy() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
 
@@ -177,7 +176,7 @@ public class PreFlutterMobile extends DB_Config{
 			Thread.sleep(1000);
 
 			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
-			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("TestComplexSite");
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("TestComplexSite_"+Test_Variables.dateYYYYMMDD);
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
@@ -195,11 +194,11 @@ public class PreFlutterMobile extends DB_Config{
 			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.organizationFarm1Name);
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Test_Variables.steps.createNode("10. Verify Farm Site can be saved");
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
 
-			Test_Variables.steps.createNode("11. Click on + icon to create new site and verify Site Type as House");
+			Test_Variables.steps.createNode("11. Create House 1");
 			Helper.driver.findElement(Test_Elements.orgAddSite5).click();
 			Thread.sleep(2000);
 			Helper.driver.findElement(Test_Elements.orgSiteTypeInputChild).click();
@@ -209,10 +208,49 @@ public class PreFlutterMobile extends DB_Config{
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			Test_Variables.steps.createNode("12. Verify House Site can be saved");
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New site created.");
-					
+			
+			Test_Variables.steps.createNode("13. Create house 2");
+			Helper.driver.findElement(Test_Elements.orgAddSite5).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse2Name);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(2000);
+			
+			Test_Variables.steps.createNode("14. Create house 3");
+			Helper.driver.findElement(Test_Elements.orgAddSite5).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse3Name);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(1000);
+			
+			Test_Variables.steps.createNode("15. Create house 4");
+			Helper.driver.findElement(Test_Elements.orgAddSite5).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse4Name);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(1000);
+			
+			Test_Variables.steps.createNode("16. Create house 5");
+			Helper.driver.findElement(Test_Elements.orgAddSite5).click();
+			Thread.sleep(2000);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse5Name);
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
+			Thread.sleep(1000);
+			
+			
+			
+			
 //			Helper.driver.findElement(By.cssSelector("li ul li ul li ul li ul li ul li ")).click();
 //			Thread.sleep(3000);
 //			name  = Helper.driver.findElement(By.cssSelector("#num-SiteIDId")).getAttribute("value");
@@ -237,7 +275,7 @@ public class PreFlutterMobile extends DB_Config{
 	
 	
 
-	@Test (enabled= false, priority= 3) 
+	@Test (enabled= true, priority= 3) 
 	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
@@ -299,7 +337,7 @@ public class PreFlutterMobile extends DB_Config{
 
 
 	@SuppressWarnings("unused")
-	@Test (enabled= false, priority= 4) 
+	@Test (enabled= true, priority= 4) 
 	public void CreateProgramVaccine() throws InterruptedException, IOException {
 		try {		
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Program-02: Verify that user is able to create new Vaccine program", "This testcase will verify that user is able to create new program");
@@ -396,7 +434,7 @@ public class PreFlutterMobile extends DB_Config{
 
 
 	@SuppressWarnings("unused")
-	@Test (enabled= false, priority= 5) 
+	@Test (enabled= true, priority= 5) 
 	public void CreateProgramFeed() throws InterruptedException, IOException {
 		try {		
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Program-05: Verify that user is able to create new Feed program", "This testcase will verify that user is able to create new program");
@@ -496,7 +534,7 @@ public class PreFlutterMobile extends DB_Config{
 
 
 
-	@Test (description="Test Case: Create complex Configurations",enabled= false, priority = 6) 
+	@Test (description="Test Case: Create complex Configurations",enabled= true, priority = 6) 
 	public void CreateComplexConfig() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-Complex: Create Complex Configuration");
@@ -520,7 +558,7 @@ public class PreFlutterMobile extends DB_Config{
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.complexSelectComplexDropdown).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.complexSearchComplex).sendKeys("TestComplex");
+			Helper.driver.findElement(Test_Elements.complexSearchComplex).sendKeys("TestComplexSite_"+Test_Variables.dateYYYYMMDD);
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.complexSelectComplexSite).click();
 
@@ -578,99 +616,126 @@ public class PreFlutterMobile extends DB_Config{
 		}
 	}
 
-
-
-	@Test (enabled= true, priority =7) 
-	public void CreateFlock() throws InterruptedException, IOException {
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-FR-98: Verify user can create Flock", "This test case will verify that user can crate flock");
-			Helper.driver.get(Constants.url_flockRegistration);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(2000);
-
-			Helper.driver.findElement(Test_Elements.flockCreateButton).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-
-			Helper.driver.findElement(Test_Elements.flockIntegratorFlockID).sendKeys(ComplexConfigModel.flockIntegratorID);
-			if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
-				Helper.driver.findElement(By.cssSelector("#integratorFlockId .list-item")).click();
-			}
-
-			Helper.driver.findElement(Test_Elements.flockBirdSizeExpandDropDown).click();
-			List<WebElement> birdSizeList = Helper.driver.findElements(By.cssSelector(".ng-option"));
-			birdSizeList.get(0).click();
-
-			Helper.driver.findElement(Test_Elements.flockFarmExpandDropdown).click();
-
-			Helper.driver.findElement(Test_Elements.flockFarmSeach).sendKeys(ComplexConfigModel.organizationFarm1Name);
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath("//b[text() = '"+ComplexConfigModel.organizationFarm1Name+"']")).click();
-
-			Helper.driver.findElement(Test_Elements.flockHousePlacementDots).click();
-
-			Helper.driver.findElement(By.cssSelector("#placementDate img")).click();
-			Thread.sleep(1000);		
-			WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
-			List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
-			DateUtil.clickGivenDay(columns1, DateUtil.getDay("03"));
-			Thread.sleep(2000);
-						
-			Helper.driver.findElement(By.xpath("//div[1]/div[3]/div[1]/ng-select[1]/div[1]/div[1]/div[2]/input[1]")).click();
-			//Helper.driver.findElement(Test_Elements.flockSelectHouses).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse1Name+"']")).click();
-			Helper.driver.findElement(Test_Elements.flockHouseSaveButton).click();
-
-			Helper.driver.findElement(Test_Elements.flockProgramDetailsDots).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(ComplexConfigModel.vaccineName);	
-			Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(Keys.ENTER);
-			Thread.sleep(1000);
-
-			Helper.driver.findElement(Test_Elements.flockAdministrationMethod).sendKeys("CmsAdminMethod");
-			if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-				Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
-			}
-			else {
-				Helper.driver.findElement(By.xpath("//*[text()='CmsAdminMethod']")).click();		
-			}
-
-			Helper.driver.findElement(Test_Elements.flockProgramSaveButton).click();
-			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Data saved successfully.");
-
-			Test_Variables.test.pass("Flock was created successfully");
-			Test_Variables.results.createNode("Flock was created successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("Flock failed to create");
-			Test_Variables.results.createNode("Flock failed to create");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("Flock failed to create");
-			Test_Variables.results.createNode("Flock failed to create");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
-		}
-	}
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Test (description="Test Case: Run Ingestion for Coccidia", enabled= true, priority= 8) 
-	public void Ingestion() throws InterruptedException, IOException, SQLException	{
+	@Test (enabled= true, priority= 8) 
+	public void Ingestion_Flock() throws InterruptedException, IOException, SQLException	{
 		Test_Variables.lstComplexConfig = ComplexConfigModel.FillDataCocci();
+		
 		for (ComplexConfigModel objModel : Test_Variables.lstComplexConfig) { 
+			
+			if(objModel.createFlock) {
+				try {
+					Test_Variables.test = Test_Variables.extent.createTest("AN-Flock: Verify user can create Flock", "This test case will verify that user can crate flock");
+					Helper.driver.get(Constants.url_flockRegistration);
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(2000);
+
+					Helper.driver.findElement(Test_Elements.flockCreateButton).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+
+					Helper.driver.findElement(Test_Elements.flockIntegratorFlockID).sendKeys(ComplexConfigModel.flockIntegratorID);
+					if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
+						Helper.driver.findElement(By.cssSelector("#integratorFlockId .list-item")).click();
+					}
+					else {
+						Helper.driver.findElement(By.xpath("//*[text()='"+ComplexConfigModel.flockIntegratorID+"']")).click();		
+					}
+
+					Helper.driver.findElement(Test_Elements.flockBirdSizeExpandDropDown).click();
+					List<WebElement> birdSizeList = Helper.driver.findElements(By.cssSelector(".ng-option"));
+					birdSizeList.get(objModel.birdSize).click();
+
+					Helper.driver.findElement(Test_Elements.flockFarmExpandDropdown).click();
+
+					Helper.driver.findElement(Test_Elements.flockFarmSeach).sendKeys(ComplexConfigModel.organizationFarm1Name);
+					Thread.sleep(1000);
+					Helper.driver.findElement(By.xpath("//b[text() = '"+ComplexConfigModel.organizationFarm1Name+"']")).click();
+
+					Helper.driver.findElement(Test_Elements.flockHousePlacementDots).click();
+
+					Helper.driver.findElement(By.cssSelector("#placementDate img")).click();
+					Thread.sleep(1000);		
+					WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
+					List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
+					DateUtil.clickGivenDay(columns1, DateUtil.getDay("01"));
+					Thread.sleep(2000);
+
+					Helper.driver.findElement(By.xpath("//div[1]/div[3]/div[1]/ng-select[1]/div[1]/div[1]/div[2]/input[1]")).click();
+					//Helper.driver.findElement(Test_Elements.flockSelectHouses).click();
+					Thread.sleep(1000);
+					
+					
+					for(int i = 0; i<objModel.LstHouses.size(); i++) {
+						Helper.driver.findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']"));
+					}
+					
+					
+//					if (objModel.birdSizeName.equals("Small")) {						
+//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse1Name+"']")).click();
+//					}
+//					if (objModel.birdSizeName.equals("Medium")) {
+//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse2Name+"']")).click();
+//					}
+//					if (objModel.birdSizeName.equals("Large")) {
+//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
+//					}
+//					if (objModel.birdSizeName.equals("Pullets")) {
+//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
+//					}
+//					if (objModel.birdSizeName.equals("Broiler")) {
+//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
+//					}
+					
+					Helper.driver.findElement(Test_Elements.flockHouseSaveButton).click();
+
+					Helper.driver.findElement(Test_Elements.flockProgramDetailsDots).click();
+					Thread.sleep(1000);
+					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(ComplexConfigModel.vaccineName);	
+					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(Keys.ENTER);
+					Thread.sleep(1000);
+
+					Helper.driver.findElement(Test_Elements.flockAdministrationMethod).sendKeys("CmsAdminMethod");
+					if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+						Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+					}
+					else {
+						Helper.driver.findElement(By.xpath("//*[text()='CmsAdminMethod']")).click();		
+					}
+
+					Helper.driver.findElement(Test_Elements.flockProgramSaveButton).click();
+					Thread.sleep(1000);
+					Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Data saved successfully.");
+
+					Test_Variables.test.pass("Flock was created successfully");
+					Test_Variables.results.createNode("Flock was created successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+				}
+				catch(AssertionError er) {
+					Test_Variables.test.fail("Flock failed to create");
+					Test_Variables.results.createNode("Flock failed to create");
+					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
+				}
+				catch(Exception ex) {
+					Test_Variables.test.fail("Flock failed to create");
+					Test_Variables.results.createNode("Flock failed to create");
+					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
+				}
+			}
+			
+			
 			Test_Variables.test = Test_Variables.extent.createTest("AN-API_Login-01: Verify Login API", "This test case will run login api and verify that token is generated or not");
 
 			SoftAssert softAssert = new SoftAssert();
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
-
+				
 				DateFormat dateFormat = new SimpleDateFormat("mm.ss");
 				Date date1 = new Date();
 				dateFormat.format(date1);
@@ -726,7 +791,7 @@ public class PreFlutterMobile extends DB_Config{
 				Thread.sleep(2000);
 
 				///////////////////////////////////////////////////////////////////File Upload API////////////////////////////////////////////////////////////////////////////////
-
+				
 				Test_Variables.test = Test_Variables.extent.createTest("AN-Coccidia-01: Ingest Coccidia run", "This test case will run and verify  ingestion");				
 			
 				
@@ -752,14 +817,16 @@ public class PreFlutterMobile extends DB_Config{
 				Response response2 = request_fileupload.post(Constants.api_FileUpload);
 				String data3 = response2.asString();
 				System.out.println(data3);
-				Thread.sleep(60000);
+				Thread.sleep(10000);
+				
+				System.out.println("Run ID: "+objModel.SampleID);
 				
 				try{
 					first:
-					for (int x = 0;x<=10;x++) {
+					for (int x = 0;x<=100;x++) {
 
 						String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '"+objModel.SampleID+"'";
-					//	String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '20220622-Cocci-11513'";
+					//	String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '20220714-Cocci-10535'";
 
 						ResultSet rs2 = getStmt().executeQuery(query2);
 
@@ -809,16 +876,14 @@ public class PreFlutterMobile extends DB_Config{
 								Test_Variables.test.pass("Run ingested successfully");
 								Test_Variables.results.createNode("Run ingested successfully");
 								Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataUploadReportPath, null);
-								break first;
-								
+								break first;	
 							}
 							else {
 								Thread.sleep(10000);
 							}					
 						}						
 					}
-					softAssert.assertAll();
-		//			getStmt().close();		
+					softAssert.assertAll();	
 				}
 			
 					catch(Exception ex){
@@ -833,7 +898,6 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, new Exception(er));
 				}
 
-
 				////////////////////////////////////////////////////////////End File Upload//////////////////////////////////////////////////////////////////////
 
 				try {	
@@ -847,8 +911,6 @@ public class PreFlutterMobile extends DB_Config{
 					XSSFWorkbook wb = new XSSFWorkbook(fsIP);
 					XSSFSheet worksheet = wb.getSheetAt(0);
 					Cell cell = null;
-
-				//	System.out.println("here");
 					
 					if (Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText().equals("12")) {
 						for (int z=0; z<12; z++) {
@@ -857,6 +919,14 @@ public class PreFlutterMobile extends DB_Config{
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultID); 
 							cell.setCellValue(getResultID);  
 
+//							String selectQuerySite = "Select siteUniqueNumber from dbo.Site where sitename = 'TestHouse1_'"+Test_Variables.dateYYYYMMDD;
+//							ResultSet rs1 = getStmt().executeQuery(selectQuerySite);
+//							while (rs1.next()) {
+//								System.out.println("Unique Site ID: "+rs1.getString("siteUniqueNumber"));
+//								cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_CollectionSiteID); 
+//								cell.setCellValue(rs1.getString("siteUniqueNumber")); 
+//							}
+							
 							String getCollectionSiteID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clCollectionSiteIDCol)).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_CollectionSiteID); 
 							cell.setCellValue(getCollectionSiteID); 
@@ -865,13 +935,15 @@ public class PreFlutterMobile extends DB_Config{
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_LabSampleID); 
 							cell.setCellValue(getSampleID);  
 							
-							
-							String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"'";
+							String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"' and Bird_Size = '"+objModel.birdSizeName+"'";
+					//		String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"'";
+					//		String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = 'IntegratorID_0535_20220714'";
 							ResultSet rs = getStmt().executeQuery(selectQuery);
 							while (rs.next()) {
-							//	System.out.println("Unique Flock ID: "+rs.getString("unique_flock_id"));
+								String flockID = rs.getString("unique_flock_id");
+								System.out.println("Unique Flock ID: "+flockID);
 								cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_FlockID); 
-								cell.setCellValue(rs.getString("unique_flock_id")); 
+								cell.setCellValue(flockID); 
 							}
 	
 							String getComplex = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clComplexCol)).getText();
@@ -905,11 +977,11 @@ public class PreFlutterMobile extends DB_Config{
 							cell.setCellValue(getPiperUser);
 
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_CollectionDate); 
-							cell.setCellValue(ComplexConfigModel.collectionDate);
+							cell.setCellValue(objModel.CollectionDatee);
 
 							fsIP.close();
 						}
-						getStmt().close();	
+					//	getStmt().close();	
 
 						FileOutputStream output_file =new FileOutputStream(new File("./Excel/"+Test_Variables.fileName_Mobile));
 						wb.write(output_file);
@@ -959,8 +1031,10 @@ public class PreFlutterMobile extends DB_Config{
 				Thread.sleep(2000);	
 			}
 		}
+		getStmt().close();	
 	}
 
+	
 
 	@AfterTest
 	public static void endreport() {

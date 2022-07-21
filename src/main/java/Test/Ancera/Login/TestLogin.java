@@ -116,7 +116,7 @@ public class TestLogin{
 			action.moveToElement(hover).perform();
 			Thread.sleep(1000);
 			String version = Helper.driver.findElement(By.cssSelector(".version-text")).getText();
-			Assert.assertTrue(version.startsWith("Version: 4."), "Version not in side menu bar");
+			Assert.assertTrue(version.startsWith("Version: 5."), "Version not in side menu bar");
 			
 			Test_Variables.steps.createNode("3. Click on Logout button");
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Login", Constants.LoginReportPath));

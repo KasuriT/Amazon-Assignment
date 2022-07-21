@@ -9,7 +9,8 @@
           <include name="extent"/>
           <include name="tearDown"/>
           <include name="test"/>
-          <include name="Ingestion"/>
+          <include name="CreateComplexConfig"/>
+          <include name="VerifyTestingSitesAccess"/>
         </methods>
       </class> <!-- Test.Ancera.Administration.PreFlutterMobile -->
     </classes>

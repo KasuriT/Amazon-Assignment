@@ -51,7 +51,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\User\AppData\Local\Temp\testng-eclipse--2121469667\testng-customsuite.xml</span>
+                    <span>C:\Users\User\AppData\Local\Temp\testng-eclipse--1058367326\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -93,7 +93,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods,   2 passed</span>
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -104,12 +104,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.PreFlutterMobile" class="method navigator-link" hash-for-method="CreateFlock">CreateFlock</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.PreFlutterMobile" class="method navigator-link" hash-for-method="Ingestion">Ingestion</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.PreFlutterMobile" class="method navigator-link" hash-for-method="Ingestion_Flock">Ingestion_Flock</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -132,18 +127,9 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="CreateFlock">
-                  </a> <!-- CreateFlock -->
-                  <span class="method-name">CreateFlock</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="Ingestion">
-                  </a> <!-- Ingestion -->
-                  <span class="method-name">Ingestion</span>
-                  <em>
-(Test Case: Run Ingestion for Coccidia)                  </em>
+                  <a name="Ingestion_Flock">
+                  </a> <!-- Ingestion_Flock -->
+                  <span class="method-name">Ingestion_Flock</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -151,7 +137,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\User\AppData\Local\Temp\testng-eclipse--2121469667\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\User\AppData\Local\Temp\testng-eclipse--1058367326\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -160,7 +146,11 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Test.Ancera.Administration.PreFlutterMobile&quot;/&gt;
+      &lt;class name=&quot;Test.Ancera.Administration.PreFlutterMobile&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;Ingestion_Flock&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- Test.Ancera.Administration.PreFlutterMobile --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -200,20 +190,16 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'Ingestion')
+data.setCell(0, 1, 'Ingestion_Flock')
 data.setCell(0, 2, 'Test.Ancera.Administration.PreFlutterMobile')
-data.setCell(0, 3, 213277);
-data.setCell(1, 0, 1)
-data.setCell(1, 1, 'CreateFlock')
-data.setCell(1, 2, 'Test.Ancera.Administration.PreFlutterMobile')
-data.setCell(1, 3, 29777);
+data.setCell(0, 3, 188913);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 minutes</span>
+              <span class="suite-total-time">Total running time: 3 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -234,9 +220,9 @@ return data;
             <div class="ignored-class-div">
               <span class="ignored-class-name">Test.Ancera.Administration.PreFlutterMobile</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">OrganizationSitesHierarchyCheck</span>
+                <span class="ignored-method-name">CreateOrganizationSitesHierarchy</span>
                 <br/>
-                <span class="ignored-method-name">CreateOrg</span>
+                <span class="ignored-method-name">CreateOrganization</span>
                 <br/>
                 <span class="ignored-method-name">VerifyTestingSitesAccess</span>
                 <br/>
@@ -263,23 +249,19 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="configuration-test before">
                 <span class="method-name">extent</span>
-                <span class="method-start">1973 ms</span>
+                <span class="method-start">2432 ms</span>
               </div> <!-- configuration-test before -->
               <div class="test-method">
-                <span class="method-name">CreateFlock</span>
-                <span class="method-start">26951 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">Ingestion</span>
-                <span class="method-start">56732 ms</span>
+                <span class="method-name">Ingestion_Flock</span>
+                <span class="method-start">31795 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">endreport</span>
-                <span class="method-start">270018 ms</span>
+                <span class="method-start">220713 ms</span>
               </div> <!-- configuration-test after -->
               <div class="configuration-test after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">270533 ms</span>
+                <span class="method-start">221178 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

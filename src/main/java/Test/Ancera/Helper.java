@@ -24,6 +24,8 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class Helper {
 
 	public static WebDriver driver; 
@@ -33,7 +35,8 @@ public class Helper {
 	public static void config() throws MalformedURLException {
 
 		projectPath = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");		
+	//	System.setProperty("webdriver.chrome.driver", projectPath+"/CDriver/chromedriver.exe");		
+		WebDriverManager.chromedriver().setup();
 		
 		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("profile.default_content_settings.popups", 0);

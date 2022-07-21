@@ -486,7 +486,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= true, priority = 6) 
+	@Test (description="Test Case: Wildcard",enabled= false, priority = 6) 
 	public void wildcard() throws InterruptedException, IOException {
 		Helper.driver.navigate().refresh();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
