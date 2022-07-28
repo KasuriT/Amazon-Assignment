@@ -10,7 +10,8 @@
           <include name="tearDown"/>
           <include name="test"/>
           <include name="CreateComplexConfig"/>
-          <include name="VerifyTestingSitesAccess"/>
+          <include name="CreateProgramVaccine"/>
+          <include name="CreateProgramFeed"/>
         </methods>
       </class> <!-- Test.Ancera.Administration.PreFlutterMobile -->
     </classes>

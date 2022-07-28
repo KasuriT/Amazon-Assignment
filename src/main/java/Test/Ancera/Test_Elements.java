@@ -317,6 +317,7 @@ public class Test_Elements {
 	public static By programFlockDayEnd2  = By.id("num-flockDayEndId-2");
 	public static By programFeedCategory = By.xpath("//*[text() = 'Feed Category']");
 	
+	public static By programVaccineProgramTab = By.xpath("//*[text() = 'Vaccine Programs ']");
 	public static By programFeedProgramTab = By.xpath("//*[text() = 'Feed Programs ']");
 	
 	public static String programEditVaccineButton = "edit-vaccine-program-";

@@ -64,7 +64,7 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (enabled = true, priority = 1) 
+	@Test (enabled = false, priority = 1) 
 	public void CreateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
@@ -119,7 +119,7 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (enabled= true, priority= 2) 
+	@Test (enabled= false, priority= 2) 
 	public void CreateOrganizationSitesHierarchy() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
@@ -128,7 +128,8 @@ public class PreFlutterMobile extends DB_Config{
 
 			Helper.driver.get(Constants.url_organization);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-
+			Thread.sleep(1500);
+			
 			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.orgNameCol+" label")).getText().equals(ComplexConfigModel.organizationName)) {
 					Helper.driver.findElement(By.id("edit-orgn-sites-"+i)).click();
@@ -275,7 +276,7 @@ public class PreFlutterMobile extends DB_Config{
 	
 	
 
-	@Test (enabled= true, priority= 3) 
+	@Test (enabled= false, priority= 3) 
 	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
@@ -344,29 +345,22 @@ public class PreFlutterMobile extends DB_Config{
 
 			Helper.driver.get(Constants.url_programManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			
+			Thread.sleep(2000);
+
+			Helper.driver.findElement(Test_Elements.programVaccineProgramTab).click();
 			Thread.sleep(1500);
-
-
-
-			//			List<WebElement> allProducts = Helper.driver.findElements(Test_Elements.programColumn1);
-			//			for (WebElement product: allProducts) {
-			//				System.out.println(product.getText());
-			//			    if(!product.getText().equals(ComplexConfigModel.vaccineName)) 
-			//			        return; // or break or whatever
-			//			}
-
-
-
+			
 			for (int j=1;j<Helper.driver.findElements(Test_Elements.programColumn1).size();j++) {
 				if (Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-0 label")).getText().equals(ComplexConfigModel.vaccineName)) {
 					break;
 				}
 
 				else {
+					Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(Test_Elements.programCreateButton));
 					Helper.driver.findElement(Test_Elements.programCreateButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1500);
-
+					Thread.sleep(3000);
 					Helper.driver.findElement(Test_Elements.programName).sendKeys(ComplexConfigModel.vaccineName);
 
 					Helper.driver.findElement(Test_Elements.programTargetPathogen).click();
@@ -651,9 +645,9 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.driver.findElement(Test_Elements.flockFarmExpandDropdown).click();
 
 					Helper.driver.findElement(Test_Elements.flockFarmSeach).sendKeys(ComplexConfigModel.organizationFarm1Name);
-					Thread.sleep(1000);
+					Thread.sleep(2500);
 					Helper.driver.findElement(By.xpath("//b[text() = '"+ComplexConfigModel.organizationFarm1Name+"']")).click();
-
+					Thread.sleep(3000);	
 					Helper.driver.findElement(Test_Elements.flockHousePlacementDots).click();
 
 					Helper.driver.findElement(By.cssSelector("#placementDate img")).click();
@@ -669,25 +663,9 @@ public class PreFlutterMobile extends DB_Config{
 					
 					
 					for(int i = 0; i<objModel.LstHouses.size(); i++) {
-						Helper.driver.findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']"));
+						Helper.driver.findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']")).click();;
 					}
 					
-					
-//					if (objModel.birdSizeName.equals("Small")) {						
-//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse1Name+"']")).click();
-//					}
-//					if (objModel.birdSizeName.equals("Medium")) {
-//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse2Name+"']")).click();
-//					}
-//					if (objModel.birdSizeName.equals("Large")) {
-//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
-//					}
-//					if (objModel.birdSizeName.equals("Pullets")) {
-//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
-//					}
-//					if (objModel.birdSizeName.equals("Broiler")) {
-//						Helper.driver.findElement(By.xpath("//*[text() = '"+ComplexConfigModel.organizationHouse3Name+"']")).click();
-//					}
 					
 					Helper.driver.findElement(Test_Elements.flockHouseSaveButton).click();
 
@@ -823,7 +801,7 @@ public class PreFlutterMobile extends DB_Config{
 				
 				try{
 					first:
-					for (int x = 0;x<=100;x++) {
+					for (int x = 0;x<=120;x++) {
 
 						String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '"+objModel.SampleID+"'";
 					//	String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '20220714-Cocci-10535'";
@@ -879,7 +857,7 @@ public class PreFlutterMobile extends DB_Config{
 								break first;	
 							}
 							else {
-								Thread.sleep(10000);
+								Thread.sleep(15000);
 							}					
 						}						
 					}
@@ -1030,8 +1008,11 @@ public class PreFlutterMobile extends DB_Config{
 				}
 				Thread.sleep(2000);	
 			}
+			
 		}
 		getStmt().close();	
+		
+		
 	}
 
 	
