@@ -23,6 +23,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -64,7 +65,7 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (enabled = false, priority = 1) 
+	@Test (enabled = true, priority = 1) 
 	public void CreateOrganization() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
@@ -119,7 +120,7 @@ public class PreFlutterMobile extends DB_Config{
 	}
 
 
-	@Test (enabled= false, priority= 2) 
+	@Test (enabled= true, priority= 2) 
 	public void CreateOrganizationSitesHierarchy() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
@@ -276,7 +277,7 @@ public class PreFlutterMobile extends DB_Config{
 	
 	
 
-	@Test (enabled= false, priority= 3) 
+	@Test (enabled= true, priority= 3) 
 	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
@@ -556,13 +557,26 @@ public class PreFlutterMobile extends DB_Config{
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.complexSelectComplexSite).click();
 
-			Helper.driver.findElement(Test_Elements.complexSelectVaccine).sendKeys(ComplexConfigModel.vaccineName);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramType).sendKeys("Vaccine");
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.complexSelectVaccine).sendKeys(Keys.ENTER);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramType).sendKeys(Keys.ENTER);
 
-			Helper.driver.findElement(Test_Elements.complexSelectFeed).sendKeys(ComplexConfigModel.feedName);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramId).sendKeys(ComplexConfigModel.vaccineName);
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.complexSelectFeed).sendKeys(Keys.ENTER);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramId).sendKeys(Keys.ENTER);
+			
+			By addProgramButton = RelativeLocator.with(By.tagName("button")).toRightOf(Test_Elements.complexSelectProgramId);
+			Helper.driver.findElement(addProgramButton).click();
+			
+			Helper.driver.findElement(Test_Elements.complexSelectProgramType).sendKeys("Feed");
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramType).sendKeys(Keys.ENTER);
+
+			Helper.driver.findElement(Test_Elements.complexSelectProgramId).sendKeys(ComplexConfigModel.feedName);
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.complexSelectProgramId).sendKeys(Keys.ENTER);
+			
+			Helper.driver.findElement(addProgramButton).click();
 
 			for (ComplexConfigModel objModel : Test_Variables.lstCreateComplexConfig) { 	
 
@@ -586,7 +600,8 @@ public class PreFlutterMobile extends DB_Config{
 				Helper.driver.findElement(Test_Elements.complexLowerLimit).sendKeys(objModel.LowerLimit);
 				Helper.driver.findElement(Test_Elements.complexUpperLimit).sendKeys(objModel.UpperLimit);
 				Thread.sleep(1000);
-				Helper.driver.findElement(Test_Elements.complexAddButton).click();
+				By addConfigButton = RelativeLocator.with(By.tagName("button")).toRightOf(Test_Elements.complexUpperLimit);
+				Helper.driver.findElement(addConfigButton).click();
 			}
 
 			Helper.driver.findElement(Test_Elements.complexSubmitButton).click();
@@ -671,7 +686,7 @@ public class PreFlutterMobile extends DB_Config{
 
 					Helper.driver.findElement(Test_Elements.flockProgramDetailsDots).click();
 					Thread.sleep(1000);
-					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(ComplexConfigModel.vaccineName);	
+					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(objModel.program);	
 					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(Keys.ENTER);
 					Thread.sleep(1000);
 
@@ -705,6 +720,7 @@ public class PreFlutterMobile extends DB_Config{
 					Test_Variables.results.createNode("Flock failed to create");
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 				}
+				
 			}
 			
 			
@@ -893,7 +909,8 @@ public class PreFlutterMobile extends DB_Config{
 					if (Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText().equals("12")) {
 						for (int z=0; z<12; z++) {
 
-							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clResultIDCol)).getText();
+							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-9")).getText();
+							//System.out.println("1: "+getResultID);
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultID); 
 							cell.setCellValue(getResultID);  
 
@@ -905,7 +922,7 @@ public class PreFlutterMobile extends DB_Config{
 //								cell.setCellValue(rs1.getString("siteUniqueNumber")); 
 //							}
 							
-							String getCollectionSiteID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clCollectionSiteIDCol)).getText();
+							String getCollectionSiteID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-34 label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_CollectionSiteID); 
 							cell.setCellValue(getCollectionSiteID); 
 
@@ -914,12 +931,10 @@ public class PreFlutterMobile extends DB_Config{
 							cell.setCellValue(getSampleID);  
 							
 							String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"' and Bird_Size = '"+objModel.birdSizeName+"'";
-					//		String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"'";
-					//		String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = 'IntegratorID_0535_20220714'";
 							ResultSet rs = getStmt().executeQuery(selectQuery);
 							while (rs.next()) {
 								String flockID = rs.getString("unique_flock_id");
-								System.out.println("Unique Flock ID: "+flockID);
+								//System.out.println("Unique Flock ID: "+flockID);
 								cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_FlockID); 
 								cell.setCellValue(flockID); 
 							}
@@ -936,11 +951,11 @@ public class PreFlutterMobile extends DB_Config{
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_Lane); 
 							cell.setCellValue(getLane);  
 
-							String getResultDate = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clDateCol)).getText();
+							String getResultDate = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-10")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultDate); 
 							cell.setCellValue(getResultDate);
 
-							String getresultTime = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clTimeCol)).getText();
+							String getresultTime = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-11")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultTime); 
 							cell.setCellValue(getresultTime); 
 
