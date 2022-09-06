@@ -56,10 +56,8 @@ public class FlockRegistration {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Administration_Flock_Registration"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Flock Registration Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
@@ -76,7 +74,7 @@ public class FlockRegistration {
 		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(3000);
-		Test_Functions.Lock(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath);
+		Test_Functions.Lock(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath, 0);
 	}
 	
 	
@@ -85,7 +83,7 @@ public class FlockRegistration {
 		Helper.driver.get(Constants.url_flockRegistration);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(3000);
-		Test_Functions.Wildcard(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath);
+		Test_Functions.Wildcard(Test_Elements.FlockRegistrationTable, "Flock Management", Constants.FlockRegistrationReportPath, 0);
 	}
 
 	

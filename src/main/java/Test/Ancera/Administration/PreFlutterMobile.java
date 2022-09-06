@@ -645,6 +645,10 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.driver.findElement(Test_Elements.flockCreateButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 
+					Helper.driver.findElement(By.id("add-flock")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+					Thread.sleep(1000);
+					
 					Helper.driver.findElement(Test_Elements.flockIntegratorFlockID).sendKeys(ComplexConfigModel.flockIntegratorID);
 					if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
 						Helper.driver.findElement(By.cssSelector("#integratorFlockId .list-item")).click();
@@ -662,9 +666,12 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.driver.findElement(Test_Elements.flockFarmSeach).sendKeys(ComplexConfigModel.organizationFarm1Name);
 					Thread.sleep(2500);
 					Helper.driver.findElement(By.xpath("//b[text() = '"+ComplexConfigModel.organizationFarm1Name+"']")).click();
-					Thread.sleep(3000);	
+					Thread.sleep(1500);
+					WebElement scroll = Helper.driver.findElement(Test_Elements.flockProgramDetailsDots);
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.flockHousePlacementDots).click();
-
+					
 					Helper.driver.findElement(By.cssSelector("#placementDate img")).click();
 					Thread.sleep(1000);		
 					WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
@@ -683,27 +690,30 @@ public class PreFlutterMobile extends DB_Config{
 					
 					
 					Helper.driver.findElement(Test_Elements.flockHouseSaveButton).click();
-
+					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.flockProgramDetailsDots).click();
 					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(objModel.program);	
 					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(Keys.ENTER);
 					Thread.sleep(1000);
-
-					Helper.driver.findElement(Test_Elements.flockAdministrationMethod).sendKeys("CmsAdminMethod");
-					if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-						Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+				
+					if (objModel.program.equals(ComplexConfigModel.vaccineName)) {
+						Helper.driver.findElement(Test_Elements.flockAdministrationMethod).sendKeys("CmsAdminMethod");
+						if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+							Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+						}
+						else {
+							Helper.driver.findElement(By.xpath("//*[text()='CmsAdminMethod']")).click();		
+						}
 					}
-					else {
-						Helper.driver.findElement(By.xpath("//*[text()='CmsAdminMethod']")).click();		
-					}
-
+		
 					Helper.driver.findElement(Test_Elements.flockProgramSaveButton).click();
 					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(1000);
 					Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Data saved successfully.");
+					System.out.println("Flock created successfully");
 
 					Test_Variables.test.pass("Flock was created successfully");
 					Test_Variables.results.createNode("Flock was created successfully");
@@ -788,7 +798,7 @@ public class PreFlutterMobile extends DB_Config{
 				
 				Test_Variables.test = Test_Variables.extent.createTest("AN-Coccidia-01: Ingest Coccidia run", "This test case will run and verify  ingestion");				
 			
-				
+			
 				RequestSpecification request_fileupload = RestAssured.given();
 				request_fileupload.header("Content-Type", "application/json");
 				request_fileupload.header("Authorization", "bearer " +token);
@@ -909,7 +919,7 @@ public class PreFlutterMobile extends DB_Config{
 					if (Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText().equals("12")) {
 						for (int z=0; z<12; z++) {
 
-							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-9")).getText();
+							String getResultID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clResultIDCol+" label")).getText();
 							//System.out.println("1: "+getResultID);
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultID); 
 							cell.setCellValue(getResultID);  
@@ -922,11 +932,11 @@ public class PreFlutterMobile extends DB_Config{
 //								cell.setCellValue(rs1.getString("siteUniqueNumber")); 
 //							}
 							
-							String getCollectionSiteID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-34 label")).getText();
+							String getCollectionSiteID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clCollectionSiteIDCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_CollectionSiteID); 
 							cell.setCellValue(getCollectionSiteID); 
 
-							String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clSampleIDCol)).getText();
+							String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_LabSampleID); 
 							cell.setCellValue(getSampleID);  
 							
@@ -939,23 +949,23 @@ public class PreFlutterMobile extends DB_Config{
 								cell.setCellValue(flockID); 
 							}
 	
-							String getComplex = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clComplexCol)).getText();
+							String getComplex = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clComplexCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_Complex); 
 							cell.setCellValue(getComplex); 
 
-							String getFarm = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clFarmCol)).getText();
+							String getFarm = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clFarmCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_Farm); 
 							cell.setCellValue(getFarm); 
 
-							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-0")).getText();
+							String getLane = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clLaneCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_Lane); 
 							cell.setCellValue(getLane);  
 
-							String getResultDate = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-10")).getText();
+							String getResultDate = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clDateCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultDate); 
 							cell.setCellValue(getResultDate);
 
-							String getresultTime = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-11")).getText();
+							String getresultTime = Helper.driver.findElement(By.cssSelector("#row-"+z+" #col-"+Test_Elements.clTimeCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(Test_Elements.metadata_ResultTime); 
 							cell.setCellValue(getresultTime); 
 
@@ -998,9 +1008,10 @@ public class PreFlutterMobile extends DB_Config{
 						Helper.driver.findElement(By.cssSelector(".fa-save")).click();
 						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 						Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
-						Thread.sleep(2000);
+						Thread.sleep(6000);
 						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.NormalIngestionReportPath));
 						Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), Test_Variables.fileName_Mobile+" saved successfully.");
+						System.out.println("Template created successfully");
 						Test_Variables.test.pass("Template saved successfully");
 						Test_Variables.results.createNode("Template saved successfully");
 						Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataUploadReportPath, null);
@@ -1024,10 +1035,9 @@ public class PreFlutterMobile extends DB_Config{
 				Thread.sleep(2000);	
 			}
 			
+			
 		}
 		getStmt().close();	
-		
-		
 	}
 
 	

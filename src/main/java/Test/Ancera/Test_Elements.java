@@ -101,7 +101,7 @@ public class Test_Elements {
 	
 
 	/////////////////////////////////////////Organization Management Elements////////////////////////////////////////////////
-	public static By programManagementTitle = By.id("Program Management");
+	
 	public static By orgTitle = By.id("Organization Management");
 	public static By orgCreateButton = By.id("create-organization");
 	public static By orgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
@@ -295,7 +295,7 @@ public class Test_Elements {
 	
 	
 	/////////////////////////////////////////Program Management Elements////////////////////////////////////////////////////
-	
+	public static By programManagementTitle = By.id("Program Management");
 	public static By programCreateButton = By.id("create-program");
 	public static By programName = By.id("programNameId");
 	public static By programColumn1 = By.cssSelector("#col-0 label");
@@ -359,8 +359,16 @@ public class Test_Elements {
 	
 	/////////////////////////////////////End Complex Configuration Elements////////////////////////////////////////////////
 	
+	
+	/////////////////////////////////////Piper Management Elements////////////////////////////////////////////////////////7
+	public static By piperManagementTitle = By.id("PIPER Management");
+	public static String piperManagementTable = "vaccine-log";
+	/////////////////////////////////////End Piper Management Elements/////////////////////////////////////////////////////
+	
+	
 	/////////////////////////////////////////Data Template Management Elements/////////////////////////////////////////////
 
+	public static By dataTemplateTitle = By.id("Data Template Management");
 	public static By dtmCreateButton = By.id("create-data-format");
 	public static String dtmCreatePopupGetTitle = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[2]/div";
 	public static String dtmResetButton = "/html/body/app-root/div[1]/app-manage-dataformat/app-popup-component/div/div/div/div[3]/app-create-dataformat/form/div/div[2]/div/button[1]";
@@ -395,6 +403,7 @@ public class Test_Elements {
 
 	/////////////////////////////////////////////////Data Upload////////////////////////////////////////////////////////////////////
 	
+	public static By dataUploadTitle = By.id("Data Upload");
 	public static String duUploadDropdown = "#OrgnTypeID > div > span";
 	public static String duUploadDropdownSelectClient = "/html/body/app-root/div/app-manage-dataupload/div[1]/form/div/div[2]/div[1]/div/div[1]/ng-select/ng-dropdown-panel/div/div[2]/div[2]";
 	public static String duClientInput = "#ClientId > div > div > div.ng-input > input[type=text]";
@@ -420,8 +429,7 @@ public class Test_Elements {
 
 	///////////////////////////////////////////////Salmonella Log Elements/////////////////////////////////////////////////////////
 
-	public static By FlockRegistrationTitle = By.id("Flock Management");
-	public static String FlockRegistrationTable = "manage-flock-registration";
+
 	public static String slLaneCol = "0";
 	public static String slSampleIDCol = "1";
 	public static String slQCCodeCol = "2";
@@ -570,7 +578,9 @@ public class Test_Elements {
 
 
 	//////////////////////////////////////////////////Coccidia Log Elements/////////////////////////////////////////////////////////
-
+	
+	public static By coccidiaLogTitle = By.id("Coccidia Log");
+	public static String coccidiaLogTable = "coccidia-data-log";
 	public static String clLaneCol = "0";
 	public static String clSampleIDCol = "1";
 	public static String clQCCodeCol = "2";
@@ -608,7 +618,10 @@ public class Test_Elements {
 	public static String clCollectionSiteIDCol = "34";
 	public static String clFarmCol = "35";
 	public static String clComplexCol = "36";
-	public static String clFieldAccessCol = "37";
+	public static String clVaccinceProgramCol = "37";
+	public static String clFeedProgramCol = "38";
+	public static String clFlockDayCol = "39";
+	public static String clFieldAccessCol = "40";
 	
 	public static String clAuditLaneCol = "0";
 	public static String clAuditSampleIDCol = "1";
@@ -641,6 +654,9 @@ public class Test_Elements {
 	public static String clAuditCollectionSiteIDCol = "33";
 	public static String clAuditFarmCol = "34";
 	public static String clAuditComplexCol = "35";
+	public static String clAuditVaccinceProgramCol = "36";
+	public static String clAuditFeedProgramCol = "37";
+	public static String clAuditFlockDayCol = "38";
 	
 	public static String clShowFilter = "_show-filter";
 	public static String clSortFilter = "sort-";
@@ -685,6 +701,9 @@ public class Test_Elements {
 	public static String clCollectionSiteID = "collection_site_id";
 	public static String clFarm = "farm";
 	public static String clComplex = "complex";
+	public static String clVaccineProgram = "vaccineProgram";
+	public static String clFeedProgram = "feedProgram";
+	public static String clFlockDay = "flockDay";
 	
 	public static String clToday = "#list-title_range-0";
 	public static String clLast24Hours = "#list-title_range-1";
@@ -768,7 +787,8 @@ public class Test_Elements {
 	
 	
 	///////////////////////////////////////////////Flock Registration Elements/////////////////////////////////////////////////////////
-
+	public static By FlockRegistrationTitle = By.id("Flock Management");
+	public static String FlockRegistrationTable = "manage-flock-registration";
 	public static String flockIntegratorIDCol = "0";
 	public static String flockSiteIDCol = "1";
 	public static String flockPlacementDateCol = "2";
@@ -913,8 +933,8 @@ public class Test_Elements {
 	public static By flockBirdSizeExpandDropDown = By.cssSelector("#birdSizeId input");
 	public static By flockFarmExpandDropdown = By.cssSelector("#farmSiteId .down");
 	public static By flockFarmSeach = By.id("farmSiteId_search");
-	public static By flockHousePlacementDots = By.xpath("//div[7]/div[1]/div[2]/i[1]");
-	public static By flockProgramDetailsDots = By.xpath("//div[8]/div[1]/div[2]/i[1]");
+	public static By flockHousePlacementDots = By.xpath("//div[8]/div/div[2]/i");
+	public static By flockProgramDetailsDots = By.xpath("//div[9]/div/div[2]/i");
 	public static By flockSelectHouses = By.xpath("//*[text() = 'Select Houses']");
 	public static By flockProgramExpandDropDown = By.cssSelector("#programId input");
 	public static By flockProgramStartDate = By.cssSelector("#startDate img");

@@ -30,6 +30,7 @@ public class PiperManagementModel {
 		PiperManagementModel objTmp = new PiperManagementModel();
 		
 		ReportFilters objFilter = new ReportFilters();
+		/*
 		objTmp.TestCaseName = "AN-PM-13: Verify validation on entering invalid hours";
 		objTmp.TestCaseDescription = "This test case will verify validation on entering invalid hours";
 		objTmp.lstFilters = new ArrayList<>();
@@ -79,14 +80,14 @@ public class PiperManagementModel {
 		objTmp.failStep = "User was able to create an alert setting with duplicate email";
 		objTmp.lstFilters.add(objFilter);
 		lstPiperManagementModel.add(objTmp);
-		
+		*/
 		objTmp = new PiperManagementModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-PCM-18: Verify that user can create an alert setting with mulitple valid emails";
 		objTmp.TestCaseDescription = "This test case will verify that user can create an alert setting with mulitple valid emails";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.steps = "Enter valid emails seperated by commas";
-		objTmp.emailList = "ahmad.saud@analytics.com.pk,junaid.alam@analytics.com.pk";
+		objTmp.emailList = "mahnoor.hashmi@analytics.com.pk, junaid.alam@analytics.com";
 		objTmp.hoursList = "1";
 		objTmp.negativeScenario = false;
 		objTmp.positiveScenario = true;
@@ -95,6 +96,7 @@ public class PiperManagementModel {
 		objTmp.failStep = "User was not able to create an alert setting";
 		objTmp.lstFilters.add(objFilter);
 		lstPiperManagementModel.add(objTmp);
+		
 		
 		return lstPiperManagementModel;
 	}

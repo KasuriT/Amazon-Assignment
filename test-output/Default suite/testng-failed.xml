@@ -3,13 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Reports.Normal_Ingestion">
+      <class name="Test.Ancera.Reports.CoccidiaLog">
         <methods>
-          <include name="NormalIngestionCoccidia"/>
           <include name="extent"/>
           <include name="endreport"/>
+          <include name="Wildcard"/>
+          <include name="FilterSorting"/>
+          <include name="RowsPerPage"/>
         </methods>
-      </class> <!-- Test.Ancera.Reports.Normal_Ingestion -->
+      </class> <!-- Test.Ancera.Reports.CoccidiaLog -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -23,15 +23,15 @@ public class DataUploadModel {
 	
 	public static String OrganizationSiteID = "1001001";   //qa
 	public static String RegionSiteID = "1001043";
-	public static String SubRegionSiteID = "1001052";
+	public static String SubRegionSiteID = "1001055";
 	public static String ComplexSiteID = "1001159";
-	public static String HouseSiteID = "1001188";
+	public static String HouseSiteID = "10011009";
 	public static String ProcessingPlantSiteID = "1001186";
-	public static String FarmSiteID = "​1001158​"; 
-	public static String ResultID = "A1419201"; 
-	public static String ResultID2 = "A1419202";
-	public static String FlockID = "A02306";
-	public static String FlockID1 = "A02280";
+	public static String FarmSiteID = "​1001160"; 
+	public static String ResultID = "A1521312"; 
+	public static String ResultID2 = "A1521311";
+	public static String FlockID = "A02491";
+	public static String FlockID1 = "A02493";
 	
 	
 //	public static String OrganizationSiteID = "1001001";   //dev

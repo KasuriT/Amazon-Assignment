@@ -22,6 +22,10 @@ import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.gherkin.model.Scenario;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -74,7 +78,7 @@ public class Helper {
 	}
 		
 
-	public static void saveResultNew(int testResult, String reportPath, Exception e) throws IOException {
+	public static void saveResultNew(int testResult, String reportPath, Exception e) throws IOException {		
 		ITestResult objResult = Reporter.getCurrentTestResult();
 		if (testResult == ITestResult.SUCCESS) {
 			objResult.setStatus(ITestResult.SUCCESS);
@@ -88,6 +92,8 @@ public class Helper {
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));
 		} else if (testResult == ITestResult.SKIP) {
 			Test_Variables.test.log(Status.SKIP, "Test Case Skipped ");
+			 Markup m = MarkupHelper.createLabel("Skipped", ExtentColor.YELLOW);
+	         Test_Variables.test.skip(m);
 			Test_Variables.test.addScreenCaptureFromPath(getScreenshot(objResult.getName(), reportPath));
 		}
 	}

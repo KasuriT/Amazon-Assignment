@@ -31,6 +31,7 @@ import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 
 
@@ -39,47 +40,18 @@ public class DataTemplateManagement{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/MetaData_Template_Management"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Data TemplateManagement Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
 
-
-	@Test (description="Test Case: Navigate to Data Template Management Template",enabled=true, priority= 1) 
+	
+	@Test(priority= 1, enabled = true)
 	public void Navigate() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-01: Verify user can navigate to Data Template Management Template Screen", "This test case will verify user can navigate to Data Template Management Template Screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
-			Test_Variables.steps.createNode("2. Click on MetaData and select Data Template Management");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-			Helper.driver.get(Constants.url_dataTemplate);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElement(By.cssSelector("#screen-header p")).getText(), "Data Template Management"); 
-			Test_Variables.test.pass("User navigated successfully");
-			Test_Variables.results.createNode("User navigated to Data Template Management Screen successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataTemplateManagementReportPath, null);
-		}catch(AssertionError er) {
-			Test_Variables.test.fail("User failed to navigate");
-			Test_Variables.results.createNode("User failed to navigate");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataTemplateManagementReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("User failed to navigate");
-			Test_Variables.results.createNode("User failed to navigate");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataTemplateManagementReportPath, ex);
-		}
+		Test_Functions.NavigateToScreen(Constants.url_dataTemplate, "Data Template Management", Constants.DataTemplateManagementReportPath, Test_Elements.dataTemplateTitle);
 	}
+	
 
 
 	@Test (description="Exceptional Flow: Reset field check", enabled= true, priority= 2) 
@@ -858,9 +830,81 @@ public class DataTemplateManagement{
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataTemplateManagementReportPath, ex);
 		}
 	}
-
-
+	
+	
+	
 	@Test (enabled= true, priority= 13) 
+	public void EndOfFlockColumnsVerification() throws InterruptedException, IOException {
+		try{
+			Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-17: Verify user can delete Template", "This test case will verify that user can delete a Template");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
+			Test_Variables.steps.createNode("1. Open EOF Template");
+			Test_Variables.steps.createNode("2. Verify columns and template names");
+
+			SoftAssert softAssert = new SoftAssert();
+			
+			Helper.driver.get(Constants.url_dataTemplate);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+			Thread.sleep(1000);
+			
+			for(int i=1; i<=Integer.parseInt(Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText()); i++) {
+
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals("End of Flock Template")) {
+					Helper.driver.findElement(By.id("edit-data-format-"+i)).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+					Thread.sleep(2000);
+				}
+			}
+
+			List<String> columnName = Arrays.asList("", "UNIQUE_FLOCK_ID", "INTEGRATOR_FLOCK_ID", "FARM_NAME", "FARM_SITE_ID", "WEEKLY_FARM_RANK", 
+					"HISTORICAL_FARM_COST_VARIANCE", "WEEKLY_FARM_COST_VARIANCE", "HATCH_DATE", "PLACEMENT_DATE", "DAYS_OUT", "AGE_OF_LITTER", 
+					"AVG_SOLD_AGE", "NUM_BIRDS_SOLD", "PLACEMENT_DENSITY", "PROCESSING_DATE", "PROCESSING_SITE_ID", "USDA_PLANT_ID", "PLANT_LOCATION", 
+					"NUM_BIRDS_PROCESSED", "AVG_BIRD_WEIGHT_LBS", "AVG_BIRD_WEIGHT_KGS", "AVG_DAILY_WEIGHT_GAIN_LB", "AVG_DAILY_WEIGHT_GAIN_KG", 
+					"TOTAL_WEIGHT_PROCESSED_LB", "TOTAL_WEIGHT_PROCESSED_KG", "TOTAL_FEED_WEIGHT_LB", "TOTAL_FEED_WEIGHT_KG", "FCR", "FCR_ADJ",
+					"FEED_COST_PER_LIVE_POUND", "MEDICATION_COST_PER_LIVE_POUND", "GROWER_COST_PER_LIVE_POUND", "LIVABILITY_PERCENTAGE", 
+					"OVERALL_MORTALITY_PERCENTAGE", "WEEK_1_MORTALITY", "WEEK_2_MORTALITY", "WEEK_3_MORTALITY", "WEEK_4_MORTALITY", "WEEK_5_MORTALITY",
+					"WEEK_6_MORTALITY", "WEEK_7_MORTALITY", "WEEK_8_MORTALITY", "WEEK_9_MORTALITY", "NUM_BIRDS_DOA_PLANT", "TOTAL_WEIGHT_CONDEMNED_LB",
+					"TOTAL_WEIGHT_CONDEMNED_KG", "NUM_BIRDS_CONDEMNED_WHOLE", "PARTS_WEIGHT_CONDEMNED_LB", "PARTS_WEIGHT_CONDEMNED_KG", "kCAL_PER_POUND",
+					"A_GRADE_PAWS_PERC", "AIRSAC_PERCENTAGE", "IP_PERCENTAGE", "LEUKOSIS_PERCENTAGE", "SEPTOX_PERCENTAGE", "TUMOR_PERCENTAGE");
+			
+			List<String> columnType = Arrays.asList("", "String", "String", "String","Integer", "Integer", "Decimal", "Decimal", "Date", "Date", "Integer",
+					  "Integer", "Integer", "Integer", "Integer", "Date", "Integer", "String", "String", "Integer", "Decimal", "Decimal", "Decimal",
+					  "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal",
+					  "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Integer", "Decimal", "Decimal",
+					  "Integer", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal");
+		    
+			for(int i=1;i<columnName.size(); i++) {
+				softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(3)  label")).getText(), columnName.get(i));
+				softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(4)  label")).getText(), columnType.get(i));
+			}
+
+			Helper.driver.findElement(Test_Elements.popupCloseButton).click();
+			softAssert.assertAll();
+			Test_Variables.test.pass("EOF template columns verified successfully");
+			Test_Variables.results.createNode("EOF template columns verified successfully");
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
+			Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataTemplateManagementReportPath, null);
+		}catch(AssertionError er){
+			Test_Variables.test.fail("EOF template columns failed to verify successfully");
+			Test_Variables.results.createNode("EOF template columns failed to verify successfully");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataTemplateManagementReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			Test_Variables.test.fail("EOF template columns failed to verify successfully");
+			Test_Variables.results.createNode("EOF template columns failed to verify successfully");
+			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataTemplateManagementReportPath, ex);
+		}
+	}
+
+
+	@Test (enabled= true, priority= 14) 
 	public void VerifyClientMappingPopup() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-18: Verify client mapping popup opens and user is able to see all template list", "This test case will verify that client mapping popup opens and user is able to see all template list");
@@ -877,25 +921,17 @@ public class DataTemplateManagement{
 			Test_Variables.steps.createNode("2. Verify created template along with all other template are displayed in the list");
 
 			SoftAssert softAssert = new SoftAssert();
-			Helper.driver.get(Constants.url_dataTemplate);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-			Thread.sleep(1000);
 
 			List<WebElement> templateNamesTable = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
+			int excludeBulkSiteTemplate = templateNamesTable.size() - 1;
 
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
-			int size = templateNamesClientMapping.size();
-			for(int i =0; i<size ; i++){
-				String options = templateNamesClientMapping.get(i).getText();
-				String options1 = templateNamesTable.get(i+1).getText();		
-			//	System.out.println("Table: " +options1+" -- Popup: "+options);
-				
-				softAssert.assertEquals(options, options1);
-			}
+			
+			softAssert.assertEquals(templateNamesClientMapping.size(), excludeBulkSiteTemplate);
 			softAssert.assertAll();
 			Test_Variables.test.pass("Client mapping popup opened successfully and displayed all templates");
 			Test_Variables.results.createNode("Client mapping popup opened successfully and displayed all templates");	
@@ -913,7 +949,7 @@ public class DataTemplateManagement{
 	}
 
 
-	@Test (enabled= true, priority= 14) 
+	@Test (enabled= true, priority= 15) 
 	public void VerifyClientMappingList() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-19: Verify client dropdown in client mapping displays all clients assigned to user", "This test case will verify that client dropdown in client mapping displays all clients assigned to user");
@@ -927,36 +963,23 @@ public class DataTemplateManagement{
 			Test_Variables.preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
 			Test_Variables.preconditions.createNode("5. Create a new template");
 			Test_Variables.steps.createNode("1. Open Client mapping popup");
-			Test_Variables.steps.createNode("2. Verify client dropdown in client mapping displays all clients assigned to user");
+			Test_Variables.steps.createNode("2. Verify client dropdown in client mapping displays all clients assigned to user");		
 
 			SoftAssert softAssert = new SoftAssert();
-			Helper.driver.get(Constants.url_user);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Thread.sleep(4000);
-			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
-					WebElement scroll = Helper.driver.findElement(By.id("edit-user-"+i));
-					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
-					Thread.sleep(1000); 
-					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-					Thread.sleep(6000);
-					Helper.driver.findElement(By.id("btn-next")).click();
-					Thread.sleep(1000);
-					Helper.driver.findElement(By.id("btn-next")).click();
-					Thread.sleep(750);
-					break;
-				}
-			}	
 
-	
+			Test_Functions.openEditUserPopup();
+			Helper.driver.findElement(By.id("btn-next")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(By.id("btn-next")).click();
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
 			int userClientSites = Helper.driver.findElements(By.cssSelector(".site-tree-card")).size() - 1;
 			System.out.println("User client sites: "+userClientSites);
+			Thread.sleep(1000);
 			
 			Helper.driver.get(Constants.url_dataTemplate);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(3000);
+			
 			List<WebElement> templateNamesTable = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
 			Helper.driver.findElement(Test_Elements.dtmClientMappingOpenButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
@@ -964,16 +987,16 @@ public class DataTemplateManagement{
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Template Management", Constants.DataTemplateManagementReportPath));	
-			int MappingClientSites =Helper.driver.findElements(By.cssSelector(".ng-option")).size();
+			int MappingClientSites = Helper.driver.findElements(By.cssSelector(".ng-option")).size();
 			//check if all clients displays in dropdown which are assign to user
 			
-		//	System.out.println("Mapping: "+ MappingClientSites);
+			System.out.println("Mapping: "+ MappingClientSites);
+		//	softAssert.assertEquals(userClientSites, MappingClientSites);
 			
-			softAssert.assertEquals(userClientSites, MappingClientSites);
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);			
 			
-			for (int j =1; j<MappingClientSites; j++) {
+			for (int j =1; j<=MappingClientSites; j++) {
 				Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
 				Thread.sleep(1000);
 				
@@ -981,12 +1004,16 @@ public class DataTemplateManagement{
 				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 				Thread.sleep(1000);
 				List<WebElement> templateNamesClientMapping = Helper.driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
-				int i = j-1;
+				int i = templateNamesClientMapping.size()+1;
 		
-				String options = templateNamesClientMapping.get(i).getText();
-				String options1 = templateNamesTable.get(j).getText();
-				System.out.println(options+""+" :: "+options1);
-				softAssert.assertEquals(options, options1);
+			//	String options = templateNamesClientMapping.get(i).getText();
+			//	String options1 = templateNamesTable.get(j).getText();
+			//	System.out.println(options+""+" :: "+options1);
+			//	softAssert.assertEquals(options, options1);
+				System.out.println(templateNamesTable.size()+""+" :: "+i);
+				
+				softAssert.assertEquals(templateNamesTable.size(), i);
+				
 			}
 
 			if (Helper.driver.findElement(By.id("isCreate0")).isSelected() == false) {
@@ -1018,7 +1045,7 @@ public class DataTemplateManagement{
 	}
 
 
-	@Test (enabled= true, priority= 15) 
+	@Test (enabled= true, priority= 16) 
 	public void VerifyClientUploadScreen() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-DTM-20: Verify templates assigned to client are displayed in data upload screen", "This test case will verify that templates assigned to client are displayed in data upload screen");

@@ -29,6 +29,7 @@ import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Constants;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 
 public class DataUpload {
@@ -43,44 +44,6 @@ public class DataUpload {
 		Test_Variables.spark.config().setReportName("Data Upload Test Report"); 
 		Helper.config();
 		ConfigureLogin.login();
-	}
-
-
-	@Test (description="Test Case: Navigate to Data Upload Screen",enabled= false, priority = 1) 
-	public void NavigateDataUpload() throws InterruptedException, IOException {
-		try {
-			Test_Variables.test = Test_Variables.extent.createTest("AN-DU-01: Verify user can navigate to Data Upload screen", "This test case will verify that user can navigate to Data Upload screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
-			Helper.driver.get(Constants.url_dataUpload);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Data Upload")));
-			Thread.sleep(1000);
-
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.steps.createNode("1. Hover to sidebar to expand the menu");
-			Test_Variables.steps.createNode("2. Click on MetaData and select Data Upload");
-
-			Assert.assertEquals(Helper.driver.findElement(By.id("Data Upload")).getText(), "Data Upload"); 
-			Test_Variables.test.pass("User navigated successfully");
-			Test_Variables.results.createNode("User navigates to Data Upload Screen");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Data Upload", Constants.DataUploadReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.DataUploadReportPath, null);	
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to Data Upload Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, new Exception(er));
-		}
-		catch(Exception ex) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("User did not navigate to Data Upload Screen");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.DataUploadReportPath, ex);
-		}
 	}
 
 

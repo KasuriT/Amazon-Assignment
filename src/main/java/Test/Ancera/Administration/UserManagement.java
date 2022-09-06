@@ -470,7 +470,7 @@ public class UserManagement {
 
 		List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
 		for(int i=0;i<a.size();i++){
-			if(a.get(i).getText().equals("ancera.org") || a.get(i).getText().equals("support")){  
+			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
 				a.get(i).click();
 			}
 		}
@@ -1462,7 +1462,7 @@ public class UserManagement {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
 		Thread.sleep(3000);
-		Test_Functions.Lock(Test_Elements.userManagementTable, "User Management", Constants.UserManagementReportPath);
+		Test_Functions.Lock(Test_Elements.userManagementTable, "User Management", Constants.UserManagementReportPath, 0);
 	}
 	
 	@Test (priority = 27) 
@@ -1471,7 +1471,7 @@ public class UserManagement {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
 		Thread.sleep(3000);
-		Test_Functions.Wildcard(Test_Elements.userManagementTable, "User Management", Constants.UserManagementReportPath);
+		Test_Functions.Wildcard(Test_Elements.userManagementTable, "User Management", Constants.UserManagementReportPath, 0);
 	}
 
 	
@@ -1491,7 +1491,7 @@ public class UserManagement {
 		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
 		Thread.sleep(5000);
 
-		Test_Functions.CSVExport("User Management", Constants.UserManagementReportPath, Test_Elements.userCSVFileName, Test_Elements.userManagementTable);
+		Test_Functions.CSVExport("User Management", Constants.UserManagementReportPath, Test_Elements.userCSVFileName, Test_Elements.userManagementTable, 1);
 	}
 
 

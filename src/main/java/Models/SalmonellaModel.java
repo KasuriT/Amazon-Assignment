@@ -66,7 +66,7 @@ public class SalmonellaModel {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();
 		SalmonellaModel objTmp = new SalmonellaModel();
 		ReportFilters  objFilter = new ReportFilters();
-
+		
 		objFilter.FilterName = "Lane Filter";
 		objTmp.TestCaseName = "AN-SL-11: "+applyFilterTitle+objFilter.FilterName;
 		objTmp.TestCaseDescription = applyFilterDesc+objFilter.FilterName;

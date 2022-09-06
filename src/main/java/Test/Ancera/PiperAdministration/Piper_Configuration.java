@@ -1,5 +1,7 @@
-package PiperAdminstration;
+package Test.Ancera.PiperAdministration;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
@@ -86,7 +88,7 @@ public class Piper_Configuration {
 		String maxMeanError = null;
 		String minStdError = null;
 		String maxStdError = null;
-
+		
 		Test_Variables.lstPiperConfigurationCreate = PiperConfigurationModel.FillData();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 		Thread.sleep(1000);
@@ -106,6 +108,7 @@ public class Piper_Configuration {
 		Helper.driver.findElement(By.xpath("//*[contains(text(),'Add New +')]")).click();
 		Thread.sleep(1000);
 		Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Invalid Version. Please enter a valid 4-digit version i.e. 11.22.33.44");
+		Helper.driver.findElement(Test_Elements.alertMessageClose).click();
 		Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).clear();
 		Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001+"."+Test_Variables.date1001);
 		
@@ -132,7 +135,8 @@ public class Piper_Configuration {
 				Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				Test_Variables.steps.createNode("1. Click on create new button next to Installation Run Config");
 				Test_Variables.steps.createNode("2. Select improc name and improc version from dropdown");
-
+				SoftAssert softAssert = new SoftAssert();
+				
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 						Thread.sleep(2000);
@@ -154,33 +158,33 @@ public class Piper_Configuration {
 						if (Helper.driver.findElement(By.id("MinMeanVal")).getAttribute("value").isEmpty())
 						{
 							minMeanError = Helper.driver.findElement(By.xpath("//div[contains(text(), ' Min. mean is required ')]")).getText();
-							Assert.assertEquals(minMeanError, " Min. mean is required "); 
+							softAssert.assertEquals(minMeanError, " Min. mean is required "); 
 						}
 
 						if (Helper.driver.findElement(By.id("MaxMeanVal")).getAttribute("value").isEmpty())
 						{
 							maxMeanError = Helper.driver.findElement(By.xpath("//div[contains(text(), ' Max. mean is required ')]")).getText();
-							Assert.assertEquals(maxMeanError, " Max. mean is required "); 
+							softAssert.assertEquals(maxMeanError, " Max. mean is required "); 
 						}
 
 						if (Helper.driver.findElement(By.id("MinStdVal")).getAttribute("value").isEmpty())
 						{
 							minStdError = Helper.driver.findElement(By.xpath("//div[contains(text(), ' Min. Std. deviation is required ')]")).getText();
-							Assert.assertEquals(minStdError, " Min. Std. deviation is required "); 
+							softAssert.assertEquals(minStdError, " Min. Std. deviation is required "); 
 						}
 
 						if (Helper.driver.findElement(By.id("MaxStdVal")).getAttribute("value").isEmpty())
 						{
 							maxStdError = Helper.driver.findElement(By.xpath("//div[contains(text(), ' Max. Std. deviation is required ')]")).getText();
-							Assert.assertEquals(maxStdError, " Max. Std. deviation is required ");
+							softAssert.assertEquals(maxStdError, " Max. Std. deviation is required ");
 						}
 
 						if(objModel.GreaterLesserCheck) {
 							maxMeanError = Helper.driver.findElement(By.xpath("//div[contains(text(), 'Max. mean must be greater than Min. mean')]")).getText();
-							Assert.assertEquals(maxMeanError, " Max. mean must be greater than Min. mean "); 
+							softAssert.assertEquals(maxMeanError, " Max. mean must be greater than Min. mean "); 
 
 							maxStdError = Helper.driver.findElement(By.xpath("//div[contains(text(), 'Max. Std. deviation must be greater than Min. Std. deviation')]")).getText();
-							Assert.assertEquals(maxStdError, " Max. Std. deviation must be greater than Min. Std. deviation ");
+							softAssert.assertEquals(maxStdError, " Max. Std. deviation must be greater than Min. Std. deviation ");
 						}
 
 						else if (!Helper.driver.findElement(By.id("MinMeanVal")).getAttribute("value").isEmpty() && 
@@ -193,8 +197,9 @@ public class Piper_Configuration {
 							String message = Helper.driver.findElement(Test_Elements.alertMessage).getText();
 							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 							Helper.driver.findElement(Test_Elements.alertMessageClose).click();				
-							Assert.assertEquals(message, "Installation Run Configuration saved successfully");							
+							softAssert.assertEquals(message, "Installation Run Configuration saved successfully");							
 						}
+						softAssert.assertAll();
 						Thread.sleep(1000);
 						Test_Variables.test.pass(objModel.passStep);
 						Test_Variables.results.createNode(objModel.passStep);					
@@ -592,7 +597,7 @@ public class Piper_Configuration {
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(2000);
 
-			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("AT_SMatrix_Salm_"+Test_Variables.date0);
 			Thread.sleep(1000);
 			
 			if (Helper.driver.findElements(By.cssSelector(".fa-trash")).size() == 1) {
@@ -607,13 +612,13 @@ public class Piper_Configuration {
 			
 			Helper.driver.findElement(By.id("dilution-factor-var")).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("newSampleMatrix3LId")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.id("newSampleMatrix3LId")).sendKeys("AT_SMatrix_Salm_"+Test_Variables.date0);
 			
 			
 			Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys("AT_SMatrix_Salm_"+Test_Variables.date0);
 			Helper.driver.findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1500);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
@@ -684,7 +689,7 @@ public class Piper_Configuration {
 			Test_Variables.steps.createNode("2. Delete that config");
 			
 			for (int i = 1; i<=1000; i++) {
-				if (Helper.driver.findElement(By.cssSelector("#mpn-"+i+" td:nth-child(4) label")).getText().equals("AT_SMatrix_0")) {
+				if (Helper.driver.findElement(By.cssSelector("#mpn-"+i+" td:nth-child(4) label")).getText().equals("AT_SMatrix_Salm_"+Test_Variables.date0)) {
 					Thread.sleep(1000);
 					int j = i-2;
 					WebElement filter_scroll = Helper.driver.findElement(By.id("delete-mpn-"+j));
@@ -742,7 +747,7 @@ public class Piper_Configuration {
 			Helper.driver.findElement(By.id("create-mpn")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
-			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_List_"+Test_Variables.date0);
 			Thread.sleep(1500);
 			SoftAssert softAssert = new SoftAssert();
 			if (Helper.driver.findElements(By.cssSelector(".fa-trash")).size() == 1) {
@@ -757,13 +762,13 @@ public class Piper_Configuration {
 			
 			Helper.driver.findElement(By.id("dilution-factor-var")).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.id("newSampleMatrixId")).sendKeys("AT_SMatrix_List_"+Test_Variables.date0);
 			Helper.driver.findElement(By.cssSelector(".m-l-5px#btn-save")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 			Thread.sleep(1500);
 			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Piper Configuration", Constants.PiperConfigurationReportPath));
 			softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New Sample Matrix created.");
-			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_0");
+			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys("AT_SMatrix_List_"+Test_Variables.date0);
 			Thread.sleep(750);
 			Helper.driver.findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1500);
@@ -812,8 +817,22 @@ public class Piper_Configuration {
 			Test_Variables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			Test_Variables.steps.createNode("1. Create P/A config");
 			Test_Variables.steps.createNode("2. Delete that config");
+			
+			 for(int i=0; i<2; i++){
+				   Helper.driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
+				  }
+			 
+			 Robot robot = new Robot();
+			 for (int i = 0; i < 4; i++) {
+				   robot.keyPress(KeyEvent.VK_CONTROL);
+				   robot.keyPress(KeyEvent.VK_SUBTRACT);
+				   robot.keyRelease(KeyEvent.VK_SUBTRACT);
+				   robot.keyRelease(KeyEvent.VK_CONTROL);
+				  }
+			 Thread.sleep(3000);			 
+			
 			for (int i = 1; i<=1000; i++) {
-				if (Helper.driver.findElement(By.cssSelector("#mpn-"+i+" td:nth-child(4) label")).getText().equals("AT_SMatrix_0")) {
+				if (Helper.driver.findElement(By.cssSelector("#mpn-"+i+" td:nth-child(4) label")).getText().equals("AT_SMatrix_List_"+Test_Variables.date0)) {
 					Thread.sleep(1000);
 					int j = i-2;
 					WebElement scroll = Helper.driver.findElement(By.id("delete-mpn-"+j));
