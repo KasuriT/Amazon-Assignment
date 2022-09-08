@@ -194,7 +194,7 @@ public class Test_Functions {
 					Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" page opens");
 					
 					SoftAssert softAssert = new SoftAssert();
-					WebElement filter_scroll = column;				
+					WebElement filter_scroll = columnName;				
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 					Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
@@ -239,12 +239,10 @@ public class Test_Functions {
 						
 						List<WebElement> rows2 = Helper.driver.findElements(By.cssSelector("#"+tablename+" [id='dc-table-graph'] td:nth-child(1) label"));
 						int count2 = rows2.size();
-						System.out.println("%45");
 						//int count2 = Helper.driver.findElements(By.cssSelector("#coccidia-data-log tr")).size() - 1;						Thread.sleep(1000);
 						for (int j = 0; j<count2; j++) {
 							int k = i-1;
 							int l = k-skipColumns;
-							System.out.println("%4534");
 							String str = Helper.driver.findElement(By.cssSelector("#"+tablename+" #row-"+j+" #col-"+l+" label")).getText();
 							softAssert.assertTrue(str.endsWith("h") || str.endsWith("H"), "WildCard Ends With failed");
 						}
@@ -269,6 +267,12 @@ public class Test_Functions {
 						String recordAfter = Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText(); 
 						softAssert.assertNotEquals(recordAfter, recordBefore);					
 					}	
+					else {
+						Test_Variables.test.skip("Filter does not have wildcard option");
+						Test_Variables.results.createNode("Filter does not have wildcard option");
+						Helper.saveResultNew(ITestResult.SKIP, ReportPath, null);
+					}
+					
 					Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResetFilters)).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 					Thread.sleep(1000);
@@ -290,53 +294,56 @@ public class Test_Functions {
 
 	@Test (enabled= true) 
 	public static void Sorting(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
-		try {		
-			SoftAssert softAssert = new SoftAssert();
+		for (int i=1;i<=Helper.driver.findElements(By.cssSelector("#"+tablename+" th")).size(); i++) {
+			try {
+				SoftAssert softAssert = new SoftAssert();
 
-			for (int i=1;i<=Helper.driver.findElements(By.cssSelector("#"+tablename+" th .log-header .mb-0")).size(); i++) {
-				WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
-				Test_Variables.test = Test_Variables.extent.createTest("AN-Sorting-"+i+": Apply Sorting on "+column.getText()+" column", "This test case will verify that user can apply sorting on "+column.getText()+ " column");
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0")).size() !=0) {
+					if (!Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Time")) {
+						WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+						Test_Variables.test = Test_Variables.extent.createTest("AN-Sorting-"+i+": Apply Sorting on "+column.getText()+" column", "This test case will verify that user can apply sorting on "+column.getText()+ " column");
+						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" screen opens");
+						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+						Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" screen opens");
 
-				WebElement filter_scroll = column;
-				((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-				Test_Variables.steps.createNode("1. Click on "+column.getText()+" column header");
+						WebElement filter_scroll = column;
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+						Test_Variables.steps.createNode("1. Click on "+column.getText()+" column header");
 
-				column.click();
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
-				Thread.sleep(1000);
-				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
-					softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_desc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
-					softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));			
+						column.click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
+						Thread.sleep(1000);
+						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_desc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
+							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));			
+						}
+
+						column.click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
+						Thread.sleep(1000);
+						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_asc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
+							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+						}
+					}
+					softAssert.assertAll();
+					Test_Variables.test.pass("Column sorted successfully");
+					Test_Variables.results.createNode("Column sorted successfully");
+					Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
 				}
-
-				column.click();
-				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
-				Thread.sleep(1000);
-				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
-					softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_asc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
-					softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
-				}
-
-				softAssert.assertAll();
-				Test_Variables.test.pass(column.getText()+" column sorted successfully");
-				Test_Variables.results.createNode(column.getText()+" column sorted successfully");
-				Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
 			}
-		}
-		catch(AssertionError er) {
-			Test_Variables.test.fail("Column failed to sort");
-			Test_Variables.results.createNode("Column failed to sort");
-			Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+			catch(AssertionError er) {
+				Test_Variables.test.fail("Column failed to sort");
+				Test_Variables.results.createNode("Column failed to sort");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+			}
 		}
 	}
 

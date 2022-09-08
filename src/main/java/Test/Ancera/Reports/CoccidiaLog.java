@@ -64,7 +64,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (priority = 2, enabled = false) 
+	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_CoccidiaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -90,7 +90,7 @@ public class CoccidiaLog {
 		Test_Functions.Sorting(Test_Elements.coccidiaLogTable, "Coccidia Log", Constants.CoccidiaReportPath);
 	}
 	
-	@Test(priority= 5)
+	@Test(priority= 5, enabled = true)
 	public void RowsPerPage() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_CoccidiaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -100,7 +100,7 @@ public class CoccidiaLog {
 	
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= false, priority = 6) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 6) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Functions.fieldLevelReset();
@@ -275,7 +275,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= false, priority = 7) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 7) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -361,8 +361,8 @@ public class CoccidiaLog {
 			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			Helper.driver.navigate().refresh();
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			Helper.driver.get(Constants.url_CoccidiaLog);;
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);	
 			String recordsBefore = Helper.driver.findElement(By.id("results-found-count")).getText();
 
@@ -399,7 +399,7 @@ public class CoccidiaLog {
 
 	
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= false, priority = 9) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 9) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);
@@ -611,7 +611,7 @@ public class CoccidiaLog {
 
 
 
-	@Test (description="Test Case: Test Pagination",enabled= false, priority = 10) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 10) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstCoccidiaPagination = CoccidiaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
@@ -761,7 +761,7 @@ public class CoccidiaLog {
 
 	
 
-	@Test (enabled= false, priority = 11) 
+	@Test (enabled= true, priority = 11) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-180: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
@@ -804,7 +804,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (enabled= false, priority = 12) 
+	@Test (enabled= true, priority = 12) 
 	public void FieldAccess() throws InterruptedException, IOException {
 
 		Helper.driver.navigate().refresh();
@@ -904,7 +904,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (enabled= false, priority = 13) 
+	@Test (enabled= true, priority = 13) 
 	public void FieldAccessResetDefault() throws InterruptedException, IOException {
 
 		Helper.driver.findElement(By.id("edit-field-access")).click();
@@ -920,7 +920,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Test Coccidia PNG Download",enabled= false, priority = 14) 
+	@Test (description="Test Case: Test Coccidia PNG Download",enabled= true, priority = 14) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-215: Verify user can download Coccidia PNG file", "This test case will verify user can download Coccidia PNG file");
@@ -991,7 +991,7 @@ public class CoccidiaLog {
 
 
 	@SuppressWarnings({ "resource", "unused" })
-	@Test (description="Test Case: Test Coccidia CSV Download",enabled= false, priority = 15) 
+	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 15) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-216: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
@@ -1109,7 +1109,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Audit Download",enabled= false, priority = 16) 
+	@Test (description="Test Case: Test Coccidia Audit Download",enabled= true, priority = 16) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-217: Verify user can download Coccidia Audit file", "This test case will verify that user can download Coccidia Audit file");
@@ -1180,7 +1180,7 @@ public class CoccidiaLog {
 	}
 
 
-	@Test (description="Test Case: Test Coccidia Template Download",enabled= false, priority = 17) 
+	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 17) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-CL-218: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");

@@ -346,6 +346,7 @@ public class SalmonellaLog {
 		Helper.driver.get(Constants.url_SalmonellaLog);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(1000);	
+		
 		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
 		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
 		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	

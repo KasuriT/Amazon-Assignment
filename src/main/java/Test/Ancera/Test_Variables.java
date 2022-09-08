@@ -34,6 +34,7 @@ import Models.PiperManagementModel;
 import Models.PiperSoftwareModel;
 import Models.PoultryManagementModel;
 import Models.ProfileModel;
+import Models.ProgramManagementModel;
 import Models.RMModel;
 import Models.RawImageCompareCountModel;
 import Models.RawImageModel;
@@ -402,7 +403,7 @@ public class Test_Variables {
 
 	//////////////////////////////////////////////////////////Program Management////////////////////////////////////////////////////////////////
 	
-//	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
+	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
 //	public static ArrayList<ProgramManagementModel> lstProgramManagementWildcardSearch = new ArrayList<>();
 //	public static ArrayList<ProgramManagementModel> lstProgramManagementDateSearch = new ArrayList<>();
 //	public static ArrayList<ProgramManagementModel> lstProgramManagementDateEnter = new ArrayList<>();

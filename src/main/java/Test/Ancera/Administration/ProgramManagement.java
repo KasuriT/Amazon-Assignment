@@ -33,7 +33,6 @@ public class ProgramManagement {
 
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Administration_Program_Management"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Program Management Test Report"); 
 		Helper.config();
@@ -45,6 +44,212 @@ public class ProgramManagement {
 	public void Navigate() throws InterruptedException, IOException {
 		Test_Functions.NavigateToScreen(Constants.url_programManagement, "Program Management", Constants.ProgramManagementReportPath, Test_Elements.programManagementTitle);
 	}	
+	
+	
+
+	@Test (priority = 2, enabled = false) 
+	public void LockFilter() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_programManagement);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.programFeedTable, "Program Management", Constants.ProgramManagementReportPath, 0);
+	}
+	
+	
+	@Test (enabled= true, priority= 2) 
+	public void CreatePrograms() throws InterruptedException, IOException {
+		Test_Variables.lstProgramManagementSearch = ProgramManagementModel.FillData();
+		
+		Helper.driver.get(Constants.url_programManagement);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(1000);
+		
+		for (ProgramManagementModel objModel : Test_Variables.lstProgramManagementSearch) { 	
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName);
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Administration and select Program Management; Program Management screen opens");
+				Test_Variables.steps.createNode("1. Click on Create New Program button");
+				Test_Variables.steps.createNode("2. Add valid data in all fields");
+				Test_Variables.steps.createNode("3. Click on save button");
+
+				SoftAssert softAssert = new SoftAssert();
+
+				Helper.driver.findElement(By.xpath("//*[text()= 'Vaccine Programs ']")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+				Helper.driver.findElement(By.xpath("//*[text()=' Register New Program']")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+
+				//Program Name
+				softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				Helper.driver.findElement(Test_Elements.programName).sendKeys(objModel.ProgramName);
+				softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+
+				//Target Pathogen
+				Helper.driver.findElement(Test_Elements.programTargetPathogen).click();
+				Thread.sleep(500);
+				softAssert.assertEquals(Helper.driver.findElement(By.cssSelector(".ng-option-label")).getText(), "Coccidia");
+				Helper.driver.findElement(Test_Elements.programTargetPathogen).sendKeys(Keys.ENTER);
+				Thread.sleep(500);
+				softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				
+				//Program Type
+				Helper.driver.findElement(Test_Elements.programProgramType).sendKeys(objModel.ProgramType);
+				Thread.sleep(500);	
+				softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				Helper.driver.findElement(Test_Elements.programProgramType).sendKeys(Keys.ENTER);
+				
+				//Supplier
+				Helper.driver.findElement(Test_Elements.programSupplier).sendKeys(ProgramManagementModel.SupplierName);
+				Thread.sleep(500);
+				if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+					Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+				}
+				else {
+					Helper.driver.findElement(By.cssSelector(".list-item")).click();		
+				}
+				Thread.sleep(500);
+				
+				//Complex
+				Helper.driver.findElement(By.cssSelector("#compleSiteId .toggle-list")).click();
+				if (Constants.url.contains("qa")) {
+					Helper.driver.findElement(By.id("compleSiteId_search")).sendKeys(ProgramManagementModel.ComplexNameQA);
+				}
+				if (Constants.url.contains("uat")) {
+					Helper.driver.findElement(By.id("compleSiteId_search")).sendKeys(ProgramManagementModel.ComplexNameUAT);
+				}
+				if (Constants.url.contains("dev")) {
+					Helper.driver.findElement(By.id("compleSiteId_search")).sendKeys(ProgramManagementModel.ComplexNameDEV);
+				}
+				Thread.sleep(1000);
+				Helper.driver.findElement(By.cssSelector("label b")).click();
+				
+				//Start Date
+				Helper.driver.findElement(By.cssSelector("#startDate img")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+				Thread.sleep(500);
+				WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
+				List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
+				DateUtil.clickGivenDay(columns1, DateUtil.getFirstDay());
+				Thread.sleep(500);
+
+				//End Date
+				Helper.driver.findElement(By.cssSelector("#endDate img")).click();
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+				Thread.sleep(500);
+				WebElement dateWidgetToEnd = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#endDate .dp-popup"))).get(0);
+				List<WebElement> columns2 = dateWidgetToEnd.findElements(By.tagName("button"));
+				DateUtil.clickGivenDay(columns2, DateUtil.getDay("07"));
+				Thread.sleep(700);
+				
+				//Program Description
+				Helper.driver.findElement(Test_Elements.programDescription).sendKeys("Vaccine Testing Program");
+
+				//Vaccine Number of Applications on Flock
+				if (objModel.ProgramType.startsWith("Vaccine")) {
+					Helper.driver.findElement(Test_Elements.programNoApplicationFlock).sendKeys("64");
+					softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#numOfApplicationId-error-container svg")).size(), 1, "Mandatory check failed on No of Application Flock");
+					Helper.driver.findElement(Test_Elements.programNoApplicationFlock).clear();
+
+					String NoApplicationFlock = "4";
+					Helper.driver.findElement(Test_Elements.programNoApplicationFlock).sendKeys(NoApplicationFlock);
+					Thread.sleep(500);
+
+					for(int i=1; i<=Integer.parseInt(NoApplicationFlock); i++) {
+						Helper.driver.findElement(By.id(Test_Elements.programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
+					}
+				}
+				
+				//Feed Details
+				if (objModel.ProgramType.equals("Feed")) {
+					Helper.driver.findElement(Test_Elements.programFeedTypeDropdown).click();
+					Thread.sleep(500);	
+					Helper.driver.findElement(Test_Elements.programFeedTypeDropdown).sendKeys(Keys.ENTER);
+
+					Helper.driver.findElement(Test_Elements.programFlockDayStart).sendKeys("1");
+
+					WebElement EndDay = Helper.driver.findElement(Test_Elements.programFlockDayStart);
+					Helper.driver.findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("10");
+
+					WebElement ingredient = Helper.driver.findElement(Test_Elements.programFeedTypeDropdown);
+					Helper.driver.findElement(with(By.tagName("input")).below(ingredient)).sendKeys("Sugar");
+
+					WebElement ingredientCategory = Helper.driver.findElement(Test_Elements.programFlockDayStart);
+					Helper.driver.findElement(with(By.tagName("input")).below(ingredientCategory)).click();
+					List<WebElement> ingredientCategories = Helper.driver.findElements(By.cssSelector(".ng-option-label"));
+					softAssert.assertEquals(ingredientCategories.get(0).getText(), "Antibiotic");
+					softAssert.assertEquals(ingredientCategories.get(1).getText(), "Coccidia Stat");
+					softAssert.assertEquals(ingredientCategories.get(2).getText(), "Natural");
+					ingredientCategories.get(0).click();
+					Helper.driver.findElement(By.xpath(("//*[text()='Add Ingredient']"))).click();
+				}
+				
+				//Treatment Details
+				if(objModel.ProgramType.equals("Treatment")) {
+					System.out.println("22");
+					
+					Helper.driver.findElement(By.xpath("//div[2]/div[1]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("Treatment Program");
+				//	Helper.driver.findElement(By.xpath("//label[text() = ' Treatment Name ']")).sendKeys("Treatment Program");
+				}
+				
+				//Bioshuttle Details
+				if(objModel.ProgramType.equals("Vaccine with Bioshuttle")) {
+				//  Helper.driver.findElement(By.cssSelector("[formcontrolname = 'fcBioshuttleName'] input.ng-touched")).sendKeys("BioShuttle Vaccine");
+					Helper.driver.findElement(By.xpath("//div[2]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("BioShuttle Vaccine");	
+				//	Helper.driver.findElement(By.xpath("//*[text() = ' Bioshuttle Name ']")).sendKeys("BioShuttle Vaccine");
+				}
+				
+			
+				
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+				Helper.driver.findElement(By.xpath(("//*[text()=' Submit ']"))).click();
+				
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+				Thread.sleep(1000);
+				
+				softAssert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
+				
+				
+				//Feed Verification
+				if (objModel.ProgramType.equals("Feed")) {
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedDescriptionCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedFeedTypesCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedStartDateCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(Helper.driver.findElement(By.id(Test_Elements.programFeedEndDateCol)).getText(), ProgramManagementModel.FeedProgramName);
+					
+				}
+				
+				
+				
+				
+				
+				
+				softAssert.assertAll();
+				Test_Variables.test.pass("New Program created successfully");
+				Test_Variables.results.createNode("New Program created successfully");
+				Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+				Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
+			}
+			catch(AssertionError er) {
+				Test_Variables.test.fail("New Program failed to create");
+				Test_Variables.results.createNode("New Program failed to create");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, new Exception(er));
+			}catch(Exception ex) {
+				Test_Variables.test.fail("New Program failed to create");
+				Test_Variables.results.createNode("New Program failed to create");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.ProgramManagementReportPath, ex);
+			}
+		}
+	}
+
 	
 	
 	

@@ -325,8 +325,20 @@ public class Test_Elements {
 	public static String programDeleteVaccineButton = "delete-vaccine-program-";
 	public static String programDeleteFeedButton = "delete-feed-program-";
 	
-	public static String programVaccineTable = "vaccine-log";
+
 	public static String programFeedTable = "feed-program-log";
+	public static String programTreatmentTable = "treatment-log";
+	public static String programVaccineTable = "vaccine-log";
+	public static String programBioshuttleTable = "vaccine-bio-log";
+	
+	public static String programFeedProgramNameCol = "col-0-feedprogram";
+	public static String programFeedSupplierNameCol = "col-1-feedprogram";
+	public static String programFeedDescriptionCol = "col-2-feedprogram";
+	public static String programFeedFeedTypesCol = "col-3-feedprogram";
+	public static String programFeedStartDateCol = "col-4-feedprogram";
+	public static String programFeedEndDateCol = "col-5-feedprogram";
+	public static String programFeedComplexCol = "col-6-feedprogram";
+	
 	
 //	public static String programVaccineName = "vaccine_programName";
 	public static String programVaccineCSVFileName = "Vaccine Log - ";
