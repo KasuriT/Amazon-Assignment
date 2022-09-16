@@ -7,36 +7,100 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	//public static WebDriverWait wait = new WebDriverWait(Helper.driver,180);
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(150, 1));
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(90, 1));
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
-	public static String getTitle = "/html/body/app-root/app-layout-component/div[3]/div[1]/p";
-	public static String getHeadingTitle = "/html/body/app-root/app-layout-component/div[3]/div[3]/p";  
+	public static By loginEmail = By.id("email");
+	public static By loginPassword = By.id("pwd");
+	public static By loginButton = By.id("btn-sign-in");
+	public static By logoutButton = By.id("logout");
 
 	///////////////////////////////////////////////End Login Elements/////////////////////////////////////////////////////////
 
-
+	
 	/////////////////////////////////////////////ForgotPassword Elements//////////////////////////////////////////////////////
 
-	public static String gmailEmail = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input";
-	public static String gmailPassword = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input";
+	public static String gmailEmail = "//input[@type = 'email']";
+	public static String gmailPassword = "//input[@type = 'password']";
 	public static String gmailSecurityCheck = "//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div/div[2]";
 	public static String gmailSecurityEmail = "//*[@id=\"view_container\"]/div";
 
 	///////////////////////////////////////////End ForgotPassword Elements////////////////////////////////////////////////////
 
 
-	/////////////////////////////////////////////User Management Elements////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////Static Elements//////////////////////////////////////////////////////////////
+	
+	public static String loading_cursor = "notification-loading";
+	public static By loader = By.id("notification-loading");
+	public static By popupNextButton = By.id("btn-next");
+	public static By popupResetButton = By.id("btn-reset");
+	public static By popupSaveButton = By.id("btn-save");
+	public static By popupYesButton = By.id("btn-yes");
+	public static By popupOKButton = By.id("btn-ok");
+	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
+	public static By alertMessage = By.id("message");
+	//public static By alertMessageClose = By.cssSelector("button.close span");
+	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
+	public static By confirmationYes = By.cssSelector("button.mr-4");
+	
+	public static String columnCount = "#table-header-vaccine-log th .log-header .mb-0";
+	
+	public static String ShowFilter = "_show-filter";
+	public static String SortFilter = "sort-";
+	public static String ApplyFilter = "_apply";
+	public static String ClearFilter = "_clear-filter";
+	public static String SearchInput = "_search-input";
+	public static String SelectAll = "_cust-cb-lst-txt_selectAll";
+	public static String LockFilter = "save-filters";
+	public static String UnlockFilter = "remove-filters";
+	public static String ResultsCount = "results-found-count";
+	public static String ResetFilters = "reset-all-filters";
+	public static String FieldAccess = "edit-field-access";
+	public static String CSVButton = "";
+	
+	public static String lastPagePagination = "last-page";
+	public static String previousPagePagination ="previous-page";
+	public static String firstPagePagination = "first-page";
+	public static String nextPagePagination = "next-page";
+	
+	//////////////////////////////////////////////Static Elements///////////////////////////////////////////////////////////
+		
+	/////////////////////////////////////////////User Management Elements///////////////////////////////////////////////////
 
 	public static By usercreateButton = By.id("create-user");
 	public static By userFirstNameInput = By.id("firstNameId");
 	public static By userLastNameInput = By.id("lastNameId");
+	public static By userEmailInput = By.id("emailId");
 	public static By userOrgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
 	public static By userOrgTypeInput = By.cssSelector("#orgTypeId input");
 	public static By userOrgDropDownExpand = By.cssSelector("#organizationId .ng-arrow-wrapper");
 	public static By userOrgInput = By.cssSelector("#organizationId input");
+	public static By siteAdministratorToggle = By.cssSelector("#site-administrator .row");
+	public static By systemRolesExpand = By.cssSelector("#rolesId .ng-arrow-wrapper");
+	public static By systemRoleSelect1 = By.cssSelector(".ng-dropdown-panel .ng-option:nth-child(2) label");
+	public static By systemRolesSelect = By.xpath("//*[@id=\"rolesId\"]//div[2]/input");
+	public static By systemRolesSelected = By.cssSelector("#rolesId .ng-option-selected");
+	public static By reportRoleExpand = By.cssSelector("#reportRoleId .ng-arrow-wrapper");
+	public static By reportRoleSelect = By.xpath("//*[@id=\"reportRoleId\"]//input");
+	public static By reportRoleGetValue = By.cssSelector("#reportRoleId .ng-value-label");
+	public static By AgreeementExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");
+	public static By AgreementSelect = By.xpath("//*[@id=\"euladdl\"]//div[2]/input");
+	
+	
+	public static By openUserSites = By.cssSelector(".btn-sites");
+	public static By selectTestingSites = By.id("select-testing-sites");
+	public static By selectColletionSites = By.id("select-collection-sites");
+	
+	public static By saveUserSites = By.id("btn-ok-sites");
+	
+	public static By editSearchedUser = By.id("edit-user-1");
+	public static By deleteSearchedUser = By.cssSelector("#delete-user-1 img");
+	public static By agreeementSearchedUser = By.id("view-agreements-1");
+	public static By agreementList = By.xpath("//*[@id=\"manage-user\"]//app-user-license-log//tbody/tr[1]");
+	public static By enterNewPassword = By.id("passwordId");
+	public static By enterConfirmPassword = By.id("rePassordId");
+	public static By clickPasswordButton = By.cssSelector("button.apl-btn");
 	
 	public static String userFirstNameCol = "0";
 	public static String userLastNameCol = "1";
@@ -64,41 +128,9 @@ public class Test_Elements {
 	public static By userSitesButton = By.cssSelector(".btn-sites");
 	public static By userSitesSaveButton = By.id("btn-ok-sites");
 	
-	public static String alertClose = "//*[@id=\"alrt\"]/button/span";
+	public static By alertClose = By.xpath("//*[@id=\"alrt\"]/button/span");
 	
-	///////////////////////////////////////////End User Management Elements/////////////////////////////////////////////////////////
-
-	
-	///////////////////////////////////////////////////Static Elements//////////////////////////////////////////////////////////////
-	
-	public static By loader = By.id("notification-loading");
-	public static By popupNextButton = By.id("btn-next");
-	public static By popupResetButton = By.id("btn-reset");
-	public static By popupSaveButton = By.id("btn-save");
-	public static By popupYesButton = By.id("btn-yes");
-	public static By popupOKButton = By.id("btn-ok");
-	public static By popupCloseButton = By.id("close-popup-modal");
-	public static By alertMessage = By.id("message");
-//	public static By alertMessageClose = By.cssSelector("button.close span");
-	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
-	public static By confirmationYes = By.cssSelector("button.mr-4");
-	
-	public static String columnCount = "#table-header-vaccine-log th .log-header .mb-0";
-	
-	public static String ShowFilter = "_show-filter";
-	public static String SortFilter = "sort-";
-	public static String ApplyFilter = "_apply";
-	public static String ClearFilter = "_clear-filter";
-	public static String SearchInput = "_search-input";
-	public static String LockFilter = "save-filters";
-	public static String UnlockFilter = "remove-filters";
-	public static String ResultsCount = "results-found-count";
-	public static String ResetFilters = "reset-all-filters";
-	public static String FieldAccess = "edit-field-access";
-	public static String CSVButton = "";
-	
-	//////////////////////////////////////////////Static Elements///////////////////////////////////////////////////////////
-	
+	///////////////////////////////////////////End User Management Elements//////////////////////////////////////////////////
 
 	/////////////////////////////////////////Organization Management Elements////////////////////////////////////////////////
 	
@@ -137,6 +169,8 @@ public class Test_Elements {
 	public static By orgSiteZipCodeInput = By.id("num-zipCodeId");
 	public static By orgSiteLatitudeInput = By.id("num-LatId");
 	public static By orgSiteLongitudeInput = By.id("num-LonId");
+	
+	public static By editSearchedOrg = By.cssSelector("#edit-orgn-sites-1 img");
 	
 	public static By orgAddSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/div/img");
 	public static By orgSite1Click = By.cssSelector("li:last-child ul:last-child li:last-child span");
@@ -296,6 +330,7 @@ public class Test_Elements {
 	
 	/////////////////////////////////////////Program Management Elements////////////////////////////////////////////////////
 	public static By programManagementTitle = By.id("Program Management");
+	
 	public static By programCreateButton = By.id("create-program");
 	public static By programName = By.id("programNameId");
 	public static By programColumn1 = By.cssSelector("#col-0 label");
@@ -317,8 +352,11 @@ public class Test_Elements {
 	public static By programFlockDayEnd2  = By.id("num-flockDayEndId-2");
 	public static By programFeedCategory = By.xpath("//*[text() = 'Feed Category']");
 	
-	public static By programVaccineProgramTab = By.xpath("//*[text() = 'Vaccine Programs ']");
 	public static By programFeedProgramTab = By.xpath("//*[text() = 'Feed Programs ']");
+	public static By programTreatmentProgramTab = By.xpath("//*[text() = 'Treatment ']");
+	public static By programVaccineProgramTab = By.xpath("//*[text() = 'Vaccine Programs ']");
+	public static By programBioshuttleProgramTab = By.xpath("//*[text() = 'Vaccine with Bioshuttle ']");
+	public static By programProgramUtilizationTab = By.xpath("//*[text() = 'Program Utilization ']");
 	
 	public static String programEditVaccineButton = "edit-vaccine-program-";
 	public static String programEditFeedButton = "edit-feed-program-";
@@ -329,16 +367,67 @@ public class Test_Elements {
 	public static String programFeedTable = "feed-program-log";
 	public static String programTreatmentTable = "treatment-log";
 	public static String programVaccineTable = "vaccine-log";
-	public static String programBioshuttleTable = "vaccine-bio-log";
+	public static String programBioshuttleTable = "vaccine-bio-log"; 
+	public static String programUtilizationTable = "program-util-log";
 	
-	public static String programFeedProgramNameCol = "col-0-feedprogram";
-	public static String programFeedSupplierNameCol = "col-1-feedprogram";
-	public static String programFeedDescriptionCol = "col-2-feedprogram";
-	public static String programFeedFeedTypesCol = "col-3-feedprogram";
-	public static String programFeedStartDateCol = "col-4-feedprogram";
-	public static String programFeedEndDateCol = "col-5-feedprogram";
-	public static String programFeedComplexCol = "col-6-feedprogram";
+	public static String programFeed_ID = "feedprogram";
+	public static String programTreatment_ID = "treatment";
+	public static String programVaccine_ID = "vaccine";
+	public static String programBioshuttle_ID = "vaccinebio";
 	
+	public static String programFeedEdit = "edit-feed-program-";
+	public static String programTreatmentEdit = "edit-treatment-program-";
+	public static String programVaccineEdit = "edit-vaccine-program-";
+	public static String programBioshuttleEdit = "edit-vaccine-bio-program-";
+	
+	public static String programFeedDelete = "delete-feed-program-";
+	public static String programTreatmentDelete = "delete-treatment-program-";
+	public static String programVaccineDelete = "delete-vaccine-program-";
+	public static String programBioshuttleDelete = "delete-vaccine-bio-program-";
+	
+	public static String programVaccineProgramTab_XPATH = "//*[text() = 'Vaccine Programs ']";
+	public static String programFeedProgramTab_XPATH = "//*[text() = 'Feed Programs ']";
+	public static String programVaccine_ProgramName_FilterIcon_CSS = "#"+programVaccineTable+" #programName_show-filter";
+	
+	public static String programFeedProgramNameCol = "#col-0-feedprogram label";
+	public static String programFeedSupplierNameCol = "#col-1-feedprogram label";
+	public static String programFeedDescriptionCol = "#col-2-feedprogram label";
+	public static String programFeedFeedTypesCol = "#col-3-feedprogram label";
+	public static String programFeedStartDateCol = "#col-4-feedprogram label";
+	public static String programFeedEndDateCol = "#col-5-feedprogram label";
+	public static String programFeedComplexCol = "#col-6-feedprogram label";
+	
+	public static String programTreatmentProgramNameCol = "#col-0-treatment label";
+	public static String programTreatmentSupplierNameCol = "#col-1-treatment label";
+	public static String programTreatmentDescriptionCol = "#col-2-treatment label";
+	public static String programTreatmentStartDateCol = "#col-3-treatment label";
+	public static String programTreatmentEndDateCol = "#col-4-treatment label";
+	public static String programTreatmentNameCol = "#col-5-treatment label";
+	public static String programTreatmentFlockDayStartCol = "#col-6-treatment label";
+	public static String programTreatmentFlockDayEndCol = "#col-7-treatment label";
+	public static String programTreatmentRouteCol = "#col-8-treatment label";
+	public static String programTreatmentTreatmentDescriptionCol = "#col-9-treatment label";
+	public static String programTreatmentComplexCol = "#col-10-treatment label";
+	
+	public static String programVaccineProgramNameCol = "#col-0-vaccine label";
+	public static String programVaccineSupplierNameCol = "#col-1-vaccine label";
+	public static String programVaccineNumberOfApplicationFlockCol = "#col-1-vaccine label";
+	public static String programVaccineDescriptionCol = "#col-2-vaccine label";
+	public static String programVaccineStartDateCol = "#col-3-vaccine label";
+	public static String programVaccineEndDateCol = "#col-4-vaccine label";
+	public static String programVaccineFlockDayApplicationCol = "#col-5-vaccine label";
+
+	public static String programBioshuttleProgramNameCol = "#col-0-vaccine-bio label";
+	public static String programBioshuttleSupplierNameCol = "#col-1-vaccine-bio label";
+	public static String programBioshuttleNumberOfApplicationFlockCol = "#col-1-vaccine-bio label";
+	public static String programBioshuttleDescriptionCol = "#col-2-vaccine-bio label";
+	public static String programBioshuttleStartDateCol = "#col-3-vaccine-bio label";
+	public static String programBioshuttleEndDateCol = "#col-4-vaccine-bio label";
+	public static String programBioshuttleFlockDayApplicationCol = "#col-5-vaccine-bio label";
+	public static String programBioshuttleNameCol = "#col-6-vaccine-bio label";
+	public static String programBioshuttleFlockDayStartCol = "#col-7-vaccine-bio label";
+	public static String programBioshuttleFlockDayEndCol = "#col-8-vaccine-bio label";
+
 	
 //	public static String programVaccineName = "vaccine_programName";
 	public static String programVaccineCSVFileName = "Vaccine Log - ";
@@ -374,7 +463,7 @@ public class Test_Elements {
 	
 	/////////////////////////////////////Piper Management Elements////////////////////////////////////////////////////////7
 	public static By piperManagementTitle = By.id("PIPER Management");
-	public static String piperManagementTable = "vaccine-log";
+	public static String piperManagementTable = "manage-piper-log";
 	/////////////////////////////////////End Piper Management Elements/////////////////////////////////////////////////////
 	
 	
@@ -441,7 +530,9 @@ public class Test_Elements {
 
 	///////////////////////////////////////////////Salmonella Log Elements/////////////////////////////////////////////////////////
 
-
+	public static By salmonellaLogTitle = By.id("Salmonella Log");
+	public static String salmonellaLogTable = "salmonella-data-log";
+	
 	public static String slLaneCol = "0";
 	public static String slSampleIDCol = "1";
 	public static String slQCCodeCol = "2";
@@ -742,6 +833,9 @@ public class Test_Elements {
 	
 	///////////////////////////////////////////////Sites Log Elements/////////////////////////////////////////////////////////
 
+	public static By sitesLogTitle = By.id("Sites Log");
+	public static String sitesLogTable = "sites-data-log";
+	
 	public static String sitesSiteIDCol = "0";
 	public static String sitesSiteNameCol = "1";
 	public static String sitesSiteTypeCol = "2";

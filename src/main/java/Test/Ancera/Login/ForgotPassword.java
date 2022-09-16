@@ -86,7 +86,7 @@ public class ForgotPassword {
 				Helper.saveResultNew(ITestResult.FAILURE, Constants.ForgotPasswordReportPath, ex);
 			}
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+			Helper.driver.findElement(Test_Elements.alertClose).click();
 		}
 	}
 
@@ -214,7 +214,7 @@ public class ForgotPassword {
 			Thread.sleep(1500);
 
 			if (Helper.driver.findElements(By.id("message")).size() != 0) {
-				Helper.driver.findElement(By.xpath(Test_Elements.alertClose)).click();
+				Helper.driver.findElement(Test_Elements.alertClose).click();
 			}
 
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));

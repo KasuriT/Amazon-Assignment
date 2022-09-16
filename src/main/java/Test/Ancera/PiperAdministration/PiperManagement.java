@@ -43,16 +43,13 @@ public class PiperManagement {
 	}
 	
 	
-	@Test (priority = 2) 
+	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_piperManagement);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(3000);
 		Test_Functions.Lock(Test_Elements.piperManagementTable, "PIPER Management", Constants.PiperManagementReportPath, 0);
 	}
 	
 	
-	@Test (priority = 3) 
+	@Test (priority = 3, enabled = true) 
 	public void Wildcard() throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_piperManagement);
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -63,9 +60,6 @@ public class PiperManagement {
 	
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_piperManagement);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(3000);
 		Test_Functions.Sorting(Test_Elements.piperManagementTable, "PIPER Management", Constants.PiperManagementReportPath);
 	}
 	
@@ -145,12 +139,12 @@ public class PiperManagement {
 			SoftAssert softAssert = new SoftAssert();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(1000);
-			String piperName = Helper.driver.findElement(By.cssSelector("#vaccine-log #row-0 #col-0 label")).getText();
+			String piperName = Helper.driver.findElement(By.cssSelector("#"+Test_Elements.piperManagementTable+" #row-0 #col-0 label")).getText();
 			
-			WebElement scroll = Helper.driver.findElement(By.id("edit-vaccine-program-1"));
+			WebElement scroll = Helper.driver.findElement(By.id("#edit-piper-1 img"));
 			((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("edit-vaccine-program-1")).click();
+			Helper.driver.findElement(By.cssSelector("#edit-piper-1 img")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Thread.sleep(2000);
 			softAssert.assertEquals(Helper.driver.findElement(By.id("descId")).getText(), piperName, "Piper Name does not appear in text field");

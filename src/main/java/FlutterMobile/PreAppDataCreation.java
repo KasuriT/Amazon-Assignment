@@ -1,5 +1,6 @@
-package Test.Ancera.Administration;
+package FlutterMobile;
 
+import static Test.Ancera.Helper.driver;
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 import java.io.File;
@@ -44,13 +45,14 @@ import Test.Ancera.DB_Config;
 import Test.Ancera.DateUtil;
 import Test.Ancera.Helper;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Functions;
 import Test.Ancera.Test_Variables;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class PreFlutterMobile extends DB_Config{
+public class PreAppDataCreation extends DB_Config{
 
 	String name = "none";
 	
@@ -58,7 +60,6 @@ public class PreFlutterMobile extends DB_Config{
 	public void extent() throws InterruptedException, IOException {
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Pre_Flutter_Mobile"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Pre Flutter Mobile Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 		DB_Config.test();
@@ -178,7 +179,7 @@ public class PreFlutterMobile extends DB_Config{
 			Thread.sleep(1000);
 
 			Helper.driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
-			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys("TestComplexSite_"+Test_Variables.dateYYYYMMDD);
+			Helper.driver.findElement(Test_Elements.orgSiteNameInput).sendKeys(ComplexConfigModel.complexName);
 			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.alertMessage));
@@ -277,48 +278,31 @@ public class PreFlutterMobile extends DB_Config{
 	
 	
 
-	@Test (enabled= true, priority= 3) 
-	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
+	@Test (enabled= false, priority= 3) 
+	public void AssignTestingSites() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user", "This test case will verify Sites column displays Active after assigning sites to the user");
 
-			Helper.driver.get(Constants.url_user);
+			Test_Functions.openEditUserPopup(Test_Variables.login_email);
+			Helper.driver.findElement(Test_Elements.popupNextButton).click();
+			Helper.driver.findElement(Test_Elements.popupNextButton).click();
+			Thread.sleep(750);
+			Helper.driver.findElement(Test_Elements.userSitesButton).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(Test_Elements.usercreateButton));
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 
-			for (int i=1;i<Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+Test_Elements.userEmailCol+" label")).getText().equals(Test_Variables.login_email)) {
-					WebElement filter_scroll = Helper.driver.findElement(By.id("edit-user-"+i));
-					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
-					Thread.sleep(2000);
-
-					Helper.driver.findElement(By.id("edit-user-"+i)).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(4000);
-
-					Helper.driver.findElement(Test_Elements.popupNextButton).click();
-					Helper.driver.findElement(Test_Elements.popupNextButton).click();
-					Thread.sleep(750);
-
-					Helper.driver.findElement(Test_Elements.userSitesButton).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(2000);
-
-					Helper.driver.findElement(Test_Elements.userSitesSearch).sendKeys(ComplexConfigModel.organizationName);
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(2000);
-					Helper.driver.findElement(By.xpath("//*[text()='"+ComplexConfigModel.organizationName+"']")).click();
-					Thread.sleep(1000);
-					Helper.driver.findElement(Test_Elements.userSitesSaveButton).click();
-					Thread.sleep(1000);
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
-					Helper.driver.findElement(Test_Elements.popupSaveButton).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1500);
-					break;
-				}
-			}
+			Helper.driver.findElement(Test_Elements.userSitesSearch).sendKeys(ComplexConfigModel.organizationName);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(2000);
+			Helper.driver.findElement(By.xpath("//*[text()='"+ComplexConfigModel.organizationName+"']")).click();
+			Thread.sleep(1000);
+			Helper.driver.findElement(Test_Elements.userSitesSaveButton).click();
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", Constants.UserManagementReportPath));
+			Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+			Thread.sleep(1500);
+			
 			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "User details updated.");	
 			Test_Variables.test.pass("Site Assigned to user successfully");
 			Test_Variables.results.createNode("Site Assigned to user successfully");
@@ -346,14 +330,17 @@ public class PreFlutterMobile extends DB_Config{
 
 			Helper.driver.get(Constants.url_programManagement);
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-			
 			Thread.sleep(2000);
 
 			Helper.driver.findElement(Test_Elements.programVaccineProgramTab).click();
 			Thread.sleep(1500);
 			
-			for (int j=1;j<Helper.driver.findElements(Test_Elements.programColumn1).size();j++) {
-				if (Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-0 label")).getText().equals(ComplexConfigModel.vaccineName)) {
+			for (int j=1;j<Helper.driver.findElements(By.id("col-0-vaccine")).size();j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-0-vaccine label")).getText().equals(ComplexConfigModel.vaccineName)) {
+					Test_Variables.test.skip("Program already created");
+					Test_Variables.results.createNode("Program already created");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+					Helper.saveResultNew(ITestResult.SKIP, Constants.ProgramManagementReportPath, null);
 					break;
 				}
 
@@ -377,10 +364,18 @@ public class PreFlutterMobile extends DB_Config{
 					if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
 						Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
 					}
-
 					else {
 						Helper.driver.findElement(By.cssSelector(".list-item")).click();		
 					}
+					
+					//Complex
+					driver.findElement(By.cssSelector("#compleSiteId .toggle-list")).click();
+					driver.findElement(By.id("compleSiteId_search")).sendKeys(ComplexConfigModel.complexName);
+					Thread.sleep(1000);
+					WebElement filter_scroll = Helper.driver.findElement(By.cssSelector("label b"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+					Thread.sleep(1000);
+					driver.findElement(By.cssSelector("label b")).click();
 
 					Helper.driver.findElement(Test_Elements.programDescription).sendKeys("Vaccine Testing Program");
 
@@ -401,21 +396,21 @@ public class PreFlutterMobile extends DB_Config{
 					for(int i=1; i<=Integer.parseInt(NoApplicationFlock); i++) {
 						Helper.driver.findElement(By.id(Test_Elements.programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
 					}
-					Thread.sleep(1500);
-
+					
+					Thread.sleep(2000);
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
-					Helper.driver.findElement(By.xpath(("//*[text()=' Submit ']"))).click();
+					Helper.driver.findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(1000);
-
+					Thread.sleep(2000);
+					Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
+					Test_Variables.test.pass("New Program created successfully");
+					Test_Variables.results.createNode("New Program created successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
 					break;
 				}
 			}
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
-			Test_Variables.test.pass("New Program created successfully");
-			Test_Variables.results.createNode("New Program created successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
+
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("New Program failed to create");
 			Test_Variables.results.createNode("New Program failed to create");
@@ -440,10 +435,13 @@ public class PreFlutterMobile extends DB_Config{
 
 			Helper.driver.findElement(Test_Elements.programFeedProgramTab).click();
 			Thread.sleep(1500);
-			String rowCount = Helper.driver.findElement(By.cssSelector("#"+Test_Elements.programFeedTable+" #"+Test_Elements.ResultsCount)).getText();
 
-			for (int j=1;j<Integer.parseInt(rowCount);j++) {
-				if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.programFeedTable+" #row-"+j+" #col-0 label")).getText().equals(ComplexConfigModel.feedName)) {
+			for (int j=1;j<Helper.driver.findElements(By.id("col-0-feedprogram")).size();j++) {
+				if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-0-feedprogram label")).getText().equals(ComplexConfigModel.vaccineName)) {
+					Test_Variables.test.skip("Program already created");
+					Test_Variables.results.createNode("Program already created");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+					Helper.saveResultNew(ITestResult.SKIP, Constants.ProgramManagementReportPath, null);
 					break;
 				}
 
@@ -460,22 +458,31 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.driver.findElement(Test_Elements.programTargetPathogen).sendKeys(Keys.ENTER);
 
 					Helper.driver.findElement(Test_Elements.programProgramType).sendKeys("Feed");
-					Thread.sleep(1000);	
+					Thread.sleep(700);	
 					Helper.driver.findElement(Test_Elements.programProgramType).sendKeys(Keys.ENTER);
 
 					Helper.driver.findElement(Test_Elements.programSupplier).sendKeys("China");
-					Thread.sleep(1000);
+					Thread.sleep(700);
 					if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
 						Helper.driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
 					}
 					else {
 						Helper.driver.findElement(By.cssSelector(".list-item")).click();		
 					}
-					Thread.sleep(1000);
+					Thread.sleep(700);
 
 					Helper.driver.findElement(Test_Elements.programDescription).sendKeys("Feed Testing Program");
 
-
+					//Complex
+					driver.findElement(By.cssSelector("#compleSiteId .toggle-list")).click();
+					driver.findElement(By.id("compleSiteId_search")).sendKeys(ComplexConfigModel.complexName);
+					Thread.sleep(1200);			
+					WebElement filter_scroll = Helper.driver.findElement(By.cssSelector("label b"));
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+					Thread.sleep(1000);
+					driver.findElement(By.cssSelector("label b")).click();
+					Thread.sleep(700);
+					
 					Helper.driver.findElement(By.cssSelector("#startDate img")).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(2000);
@@ -504,17 +511,18 @@ public class PreFlutterMobile extends DB_Config{
 					ingredientCategories.get(0).click();
 
 					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
-					Helper.driver.findElement(By.xpath(("//*[text()=' Submit ']"))).click();
+					Helper.driver.findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-					Thread.sleep(5000);
+					Thread.sleep(2000);
+					Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
+					Test_Variables.test.pass("New Program created successfully");
+					Test_Variables.results.createNode("New Program created successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
 					break;
 				}
 			}
-			Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "New program has been created successfully"); 
-			Test_Variables.test.pass("New Program created successfully");
-			Test_Variables.results.createNode("New Program created successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Program Management", Constants.ProgramManagementReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.ProgramManagementReportPath, null);
+
 
 		}catch(AssertionError er) {
 			Test_Variables.test.fail("New Program failed to create");
@@ -553,7 +561,7 @@ public class PreFlutterMobile extends DB_Config{
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.complexSelectComplexDropdown).click();
 			Thread.sleep(1000);
-			Helper.driver.findElement(Test_Elements.complexSearchComplex).sendKeys("TestComplexSite_"+Test_Variables.dateYYYYMMDD);
+			Helper.driver.findElement(Test_Elements.complexSearchComplex).sendKeys(ComplexConfigModel.complexName);
 			Thread.sleep(1000);
 			Helper.driver.findElement(Test_Elements.complexSelectComplexSite).click();
 
@@ -645,9 +653,9 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.driver.findElement(Test_Elements.flockCreateButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 
-					Helper.driver.findElement(By.id("add-flock")).click();
-					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-					Thread.sleep(1000);
+				//	Helper.driver.findElement(By.id("add-flock")).click();
+				//	Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+					Thread.sleep(2000);
 					
 					Helper.driver.findElement(Test_Elements.flockIntegratorFlockID).sendKeys(ComplexConfigModel.flockIntegratorID);
 					if (Helper.driver.findElements(By.cssSelector("#integratorFlockId .list-item")).size() != 0) {
@@ -709,7 +717,7 @@ public class PreFlutterMobile extends DB_Config{
 		
 					Helper.driver.findElement(Test_Elements.flockProgramSaveButton).click();
 					Thread.sleep(1000);
-					Helper.driver.findElement(Test_Elements.popupSaveButton).click();
+				//	Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(1000);
 					Assert.assertEquals(Helper.driver.findElement(Test_Elements.alertMessage).getText(), "Data saved successfully.");
@@ -885,9 +893,12 @@ public class PreFlutterMobile extends DB_Config{
 							else {
 								Thread.sleep(15000);
 							}					
-						}						
+						}	
+						
+											
 					}
 					softAssert.assertAll();	
+					
 				}
 			
 					catch(Exception ex){
@@ -1033,6 +1044,8 @@ public class PreFlutterMobile extends DB_Config{
 					Helper.saveResultNew(ITestResult.FAILURE, Constants.NormalIngestionReportPath, ex);	
 				}
 				Thread.sleep(2000);	
+				
+				
 			}
 			
 			

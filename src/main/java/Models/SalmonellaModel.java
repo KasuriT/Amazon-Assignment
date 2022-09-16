@@ -423,6 +423,9 @@ public class SalmonellaModel {
 
 		return lstSalmonellaModel;
 	}
+	
+	
+	
 
 	public static ArrayList<SalmonellaModel> FillDate() {
 		ArrayList<SalmonellaModel> lstSalmonellaModel = new ArrayList<SalmonellaModel>();

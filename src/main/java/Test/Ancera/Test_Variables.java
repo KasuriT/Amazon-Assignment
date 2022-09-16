@@ -41,7 +41,6 @@ import Models.RawImageModel;
 import Models.SalmonellaModel;
 import Models.SitesLogModel;
 import Models.StartAssayModel;
-import Models.UserModel;
 
 public class Test_Variables {
 
@@ -71,7 +70,7 @@ public class Test_Variables {
 	public static String piperId = "PSN0023";
 	public static String piperPassword = "piperdemo";
 	
-	public static String fileDownloadPath = "C:\\Users\\User\\Downloads";
+	public static String fileDownloadPath = "C:\\Users\\junaid.alam\\Downloads";
 	
 	public static String fileAbsolutePath = "D:\\Eclipse-WorkSpace\\eclipse-workspace\\IEQACode\\";
 	
@@ -111,6 +110,14 @@ public class Test_Variables {
 	static Date dateRI = new Date();
 	public static String dateRIT = dateFormat3.format(dateRI);
 	
+	static DateFormat dateFormatM = new SimpleDateFormat("MM");
+	static Date dateM = new Date();
+	public static String dateMM = dateFormatM.format(dateM);
+	
+	static DateFormat dateFormatY = new SimpleDateFormat("yyyy");
+	static Date dateY = new Date();
+	public static String dateYYYY = dateFormatY.format(dateY);
+	
 	public static String PreConditions = "Pre-Conditions";
 	public static String Steps = "Steps";
 	public static String Results = "Results";
@@ -121,13 +128,13 @@ public class Test_Variables {
 
 	public static ArrayList<LoginModel> lstLogin = new ArrayList<>(
 			Arrays.asList(
-					new LoginModel(login_email,"junaid","1. Enter valid username in Email Address field ("+login_email+")",  "2. Enter invalid password in Password field", "AN-Login-01: Verify user is not able to login with valid username and invalid password", "This test will verify that user is not able to login with valid username and invalid password", Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel("junaid.alam@analytics.com", login_password, "1. Enter invalid username in Email Address field", "2. Enter valid password in Password field", "AN-Login-02: Verify user is not able to login with invalid username and valid password", "This test will verify that user is not able to login with invalid username and valid password", Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel("junaid.alam@analytics.com", "junaid", "1. Enter invalid username in Email Address field", "2. Enter invalid password in Password field", "AN-Login-03: Verify user is not able to login with invalid username and invalid password", "This test will verify that user is not able to login with invalid username and invalid password", Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel("", "", "1. Enter empty username in Email Address field in Email Address field", "2. Enter empty password in Password field", "AN-Login-04: Verify user is not able to login with empty username and empty password",  "This test will verify that user is not able to login with empty username and empty password", Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel("", login_password, "1. Enter empty username in Email Address field", "2. Enter valid password in Password field", "AN-Login-05: Verify user is not able to login with empty username and valid password",  "This test will verify that user is not able to login with empty username and valid password",Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel("junaid.alam@analytics.com", "", "1. Enter valid username in Email Address field ("+login_email+")", "2. Enter empty password in Password field", "AN-Login-06: Verify user is not able to login with valid username and empty password", "This test will verify that user is not able to login with valid username and empty password",  Constants.url_login, "User receives an alert message 'Sorry, we don't recognize these credentials.'", "User logged into the application", true, false),
-					new LoginModel(login_email, login_password, "1. Enter valid username in Email Address field ("+login_email+")", "2. Enter valid password in Password field", "AN-Login-07: Verify user is able to login with valid username and valid password", "This test will verify that user is able to login with valid username and valid password", Constants.url_home, "User logged in successfully to home page", "User did not logged into the application", false, true)));
+					new LoginModel(login_email,"junaid","1. Enter valid username in Email Address field ("+login_email+")",  "2. Enter invalid password in Password field", "AN-Login-01: Verify user is not able to login with valid username and invalid password", true),
+					new LoginModel("junaid.alam@analytics.com", login_password, "1. Enter invalid username in Email Address field", "2. Enter valid password in Password field", "AN-Login-02: Verify user is not able to login with invalid username and valid password", true),
+					new LoginModel("junaid.alam@analytics.com", "junaid", "1. Enter invalid username in Email Address field", "2. Enter invalid password in Password field", "AN-Login-03: Verify user is not able to login with invalid username and invalid password",  true),
+					new LoginModel("", "", "1. Enter empty username in Email Address field in Email Address field", "2. Enter empty password in Password field", "AN-Login-04: Verify user is not able to login with empty username and empty password", true),
+					new LoginModel("", login_password, "1. Enter empty username in Email Address field", "2. Enter valid password in Password field", "AN-Login-05: Verify user is not able to login with empty username and valid password", true),
+					new LoginModel("junaid.alam@analytics.com", "", "1. Enter valid username in Email Address field ("+login_email+")", "2. Enter empty password in Password field", "AN-Login-06: Verify user is not able to login with valid username and empty password", true),
+					new LoginModel(login_email, login_password, "1. Enter valid username in Email Address field ("+login_email+")", "2. Enter valid password in Password field", "AN-Login-07: Verify user is able to login with valid username and valid password", false)));
 	
 	/////////////////////////////////////////////////////End Login Screen Variables////////////////////////////////////////////////////////
 	
@@ -169,48 +176,11 @@ public class Test_Variables {
 	//////////////////////////////////////////////////////End Forgot Passwprd Screen Variables////////////////////////////////////////////////
 	
 	
-	///////////////////////////////////////////////////////User Management Screen Variables///////////////////////////////////////////////////	
-
-	public static ArrayList<UserModel> lstUserMandatoryCheck = new ArrayList<>(
-			Arrays.asList(
-					new UserModel("", "", false, "", true, "", false, false, false, false, false, "Leave all fields empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-03: Verify mandatory field check with all fields empty", "This test case will verify that user cannot create user with mandatory fields empty"),
-					new UserModel("firstname", "", true, "", true, "", false, false, false, false, false, "Leave Last Name empty and click on next button", "User was not able to navigate to step 2 of create user successfully", "User was able to navigate to step 2 of create user", "AN-UM-04: Verify mandatory field check with 1 field empty", "This test case will verify that user cannot create user leaving 1 mandatory field empty"),
-					new UserModel("", "", false, "alpha", true, "", false, false, false, false, false, "Enter alpha data in phone number field", "User was not able to enter alpha data in phone number field successfully", "User was able to enter alpha data in phone number field successfully", "AN-UM-05: Verify user cannot enter alpha data in phone number field", "This test case will verify that user cannot enter alpha data in phone number field"),
-					new UserModel("firstname", "lastname", false, "", true, "", false, false, true, false, false, "Leave all fields empty at page", "User was not able to navigate to step 3 of create user successfully", "User was not able to navigate to step 3 of create user successfully", "AN-UM-06: Verify user cannot proceed to step 3 of create user after leaving all mandatory fields empty in screen 2", "This test case will verify that user cannot proceed to next step after leaving all mandatory fields"),
-					new UserModel("firstname", "lastname", false, "", true, "email@ancera.", true, true, true, false, false, "Enter invalid email", "User was not able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-07: Verify user can proceed to step 3 with invalid email", "This test case will verify that user can proceed to next step with invalid email"),	
-					new UserModel("firstname", "lastname", false, "", true, "email@ancera.com", true, true, false, false, true, "Enter valid data in all mandatory fields", "User was able to navigate to step 2 of create user successfully", "User was not able to navigate to step 2 of create user successfully", "AN-UM-08: Verify user can proceed to step 2 of create user after filling all mandatory fields", "This test case will verify that user can proceed to next step after filling all mandatory fields")));	
-
-	public static ArrayList<String> lstUserAlertMessages = new ArrayList<>(
-			Arrays.asList("New user created.", 
-					"User details updated.",
-					"User details deleted."));
-
-	public static ArrayList<UserModel> lstUserSearch = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserWildcardSearch = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserDateSearch = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserDateEnter = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserRowCount = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserPagination = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserSorting = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserFieldAccess = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserContexualCheck = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserLock = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserEdit = new ArrayList<>();
-	public static ArrayList<UserModel> lstUserValidation = new ArrayList<>();
-	
-	public static String userCSVFileName = "Users Log - ";
-	
-	///////////////////////////////////////////////////////End User Management Screen Variables///////////////////////////////////////////////////
+	///////////////////////////////////////////////////////User Management Screen Variables///////////////////////////////////////////////////
+	/////////////////////////////////////////////////////End User Management Screen Variables/////////////////////////////////////////////////
 
 	
-	////////////////////////////////////////////////////Organization Management Screen Variables///////////////////////////////////////////////////
-//	
-//	public static ArrayList<OrgModel> lsttest = new ArrayList<>(
-//			Arrays.asList(
-//					new OrgModel(Test_Variables.lstOrgSearch)
-//));
-//	
-	
+	////////////////////////////////////////////////////Organization Management Screen Variables//////////////////////////////////////////////
 	
 	
 	public static ArrayList<OrgModel> lstOrgMandatoryCheck = new ArrayList<>(

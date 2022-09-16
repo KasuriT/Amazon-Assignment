@@ -53,7 +53,6 @@ public class DataTemplateManagement{
 	}
 	
 
-
 	@Test (description="Exceptional Flow: Reset field check", enabled= true, priority= 2) 
 	public void ResetFieldCheck() throws InterruptedException, IOException {
 		try {
@@ -967,7 +966,7 @@ public class DataTemplateManagement{
 
 			SoftAssert softAssert = new SoftAssert();
 
-			Test_Functions.openEditUserPopup();
+			Test_Functions.openEditUserPopup(Test_Variables.login_email);
 			Helper.driver.findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
 			Helper.driver.findElement(By.id("btn-next")).click();
@@ -1072,7 +1071,7 @@ public class DataTemplateManagement{
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 
 			Helper.driver.findElement(Test_Elements.dtmClientMappingClientDropdown).click();
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 			String clientName = Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).getText();
 			Helper.driver.findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).click();
 			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	

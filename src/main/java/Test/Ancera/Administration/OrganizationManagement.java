@@ -1913,70 +1913,70 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= true, priority =26) 
-	public void Sorting() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_organization);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Test_Variables.lstUserSorting = UserModel.sorting();
-
-		for (OrgModel objModel : Test_Variables.lstOrgSorting) { 	
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.testCaseTitle, objModel.testCaseDesc);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Organization Management; Organization Management open");
-
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-
-						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
-						Helper.driver.findElement(By.id("objFilter.ColumnID")).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));						
-						Thread.sleep(500);
-
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_desc")).size(), 1, "Did not sorted in descending order");
-
-						Assert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-
-						Test_Variables.test.pass(objFilter.FilterName+" column sorted descending successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" column sorted descending successfully");
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
-						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));						
-						Thread.sleep(1000);
-
-						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_asc")).size(), 1, "Did not sorted in ascending order");
-
-						Assert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Variables.test.pass(objFilter.FilterName+" column sorted ascending successfully");
-						Test_Variables.results.createNode(objFilter.FilterName+" column sorted ascending successfully");
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+" column failed to sort");
-						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, new Exception(er));
-					}
-					catch(StaleElementReferenceException s) {
-						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-					}
-				}
-			}
-			catch(Exception ex) {
-			}
-		}
-	}
+//	@Test (enabled= true, priority =26) 
+//	public void Sorting() throws InterruptedException, IOException {
+//		Helper.driver.get(Constants.url_organization);
+//		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+//		Test_Variables.lstUserSorting = UserModel.sorting();
+//
+//		for (OrgModel objModel : Test_Variables.lstOrgSorting) { 	
+//			try {
+//				Test_Variables.test = Test_Variables.extent.createTest(objModel.testCaseTitle, objModel.testCaseDesc);
+//				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+//				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+//				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+//
+//				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+//				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+//				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+//				Test_Variables.preconditions.createNode("4. Click on Organization Management; Organization Management open");
+//
+//				for (ReportFilters objFilter : objModel.lstFilters) {	
+//					try {
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+//
+//						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.ColumnID));
+//						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+//						Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" column header");
+//						Helper.driver.findElement(By.id("objFilter.ColumnID")).click();
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));						
+//						Thread.sleep(500);
+//
+//						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_desc")).size(), 1, "Did not sorted in descending order");
+//
+//						Assert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+//
+//						Test_Variables.test.pass(objFilter.FilterName+" column sorted descending successfully");
+//						Test_Variables.results.createNode(objFilter.FilterName+" column sorted descending successfully");
+//						Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
+//						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Organization Management", Constants.OrgManagementReportPath));
+//						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));						
+//						Thread.sleep(1000);
+//
+//						Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+objFilter.ColumnID+".sort_asc")).size(), 1, "Did not sorted in ascending order");
+//
+//						Assert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+//						Test_Variables.test.pass(objFilter.FilterName+" column sorted ascending successfully");
+//						Test_Variables.results.createNode(objFilter.FilterName+" column sorted ascending successfully");
+//						Helper.saveResultNew(ITestResult.SUCCESS, Constants.OrgManagementReportPath, null);
+//					}
+//					catch(AssertionError er) {
+//						Test_Variables.test.fail(objFilter.FilterName+" column failed to sort");
+//						Test_Variables.results.createNode(objFilter.FilterName+" column failed to sort");
+//						Helper.saveResultNew(ITestResult.FAILURE, Constants.OrgManagementReportPath, new Exception(er));
+//					}
+//					catch(StaleElementReferenceException s) {
+//						ClickElement.clickById(Helper.driver, objFilter.ColumnID);
+//						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+//					}
+//				}
+//			}
+//			catch(Exception ex) {
+//			}
+//		}
+//	}
 
 
 	@SuppressWarnings({ "unused", "resource" })

@@ -45,6 +45,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static Test.Ancera.Test_Variables.*;
+import static Test.Ancera.Helper.*;
+import static Test.Ancera.Test_Elements.*;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -54,55 +58,50 @@ public class SalmonellaLog {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Salmonella_Log"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Salmonella Log Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
-
-
-	@Test (description="Test Case: Navigate to Salmonella Log Screen",enabled= true, priority = 1) 
+	
+	
+	@Test (priority = 1) 
 	public void NavigateSalmonella() throws InterruptedException, IOException {
-		try{
-			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-03: Verify user can navigate to Salmonella Log Screen", "This test case will verify user can navigate to Salmonella Log Screen");
-			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+		Test_Functions.NavigateToScreen(Constants.url_SalmonellaLog, "Salmonella Log", Constants.SalmonellaReportPath, Test_Elements.salmonellaLogTitle);
+	}
 
-			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			Test_Variables.steps.createNode("1. Click on Salmonella Log");
 
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Helper.driver.get(Constants.url_SalmonellaLog);
-			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("Salmonella Log")).getText();
-			String expected = "Salmonella Log";
+	@Test (priority = 2, enabled = true) 
+	public void LockFilter() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Lock(Test_Elements.salmonellaLogTable, "Salmonella Log", Constants.SalmonellaReportPath, 2);
+	}
+	
 
-			Assert.assertEquals(actual, expected); 
-			Test_Variables.test.pass("User navigated successfully to Salmonella Log screen");
-			Test_Variables.results.createNode("Salmonella Log report opens successfully");
-			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-			Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-		}catch(AssertionError er) {
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("Salmonella Log report failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-		}catch(Exception ex){
-			Test_Variables.test.fail("User navigation failed");
-			Test_Variables.results.createNode("Salmonella Log report failed to open");
-			Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-		}
+	@Test (priority = 3) 
+	public void Wildcard() throws InterruptedException, IOException {
+		Helper.driver.get(Constants.url_SalmonellaLog);
+		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		Thread.sleep(3000);
+		Test_Functions.Wildcard(Test_Elements.salmonellaLogTable, "Salmonella Log", Constants.SalmonellaReportPath, 2);
+	}
+	
+	
+	@Test(priority= 4)
+	public void FilterSorting() throws InterruptedException, IOException {
+		Test_Functions.Sorting(Test_Elements.salmonellaLogTable, "Salmonella Log", Constants.SalmonellaReportPath);
+	}
+	
+	@Test(priority= 5, enabled = true)
+	public void RowsPerPage() throws InterruptedException, IOException {
+		Test_Functions.RowsPerPage();
 	}
 
 
 	@SuppressWarnings("unused")
-	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 2) 
+	@Test (description="Test Case: Date Filter Test",enabled= true, priority = 6) 
 	public void DateFilter() throws InterruptedException, IOException {
 
 		Test_Functions.fieldLevelReset();
@@ -272,7 +271,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 3) 
+	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 7) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-10: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
@@ -339,109 +338,10 @@ public class SalmonellaLog {
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 	}
 
-
-	@Test (description="Test Case: Filter Test",enabled= true, priority = 4) 
-	public void TestFilter() throws InterruptedException, IOException {
-
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1000);	
-		
-		Test_Variables.lstSalmonellaSearch = SalmonellaModel.FillData();
-		String recordBefore = Helper.driver.findElement(By.id("results-found-count")).getText(); 
-		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaSearch) { 	
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {	
-						for(int i = 0; i<objFilter.LstFilterXpath.size(); i++) {
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-							Thread.sleep(500);
-							WebElement filter_scroll = Helper.driver.findElement(By.id(Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)));
-							((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-							Thread.sleep(800);	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-
-							Test_Variables.steps.createNode("1. Click on "+objFilter.FilterName+" to expand it");
-							
-							Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slShowFilter)).click();	
-							
-							
-							
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-							Thread.sleep(1000);						
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							if (Helper.driver.findElement(By.cssSelector("#"+Test_Elements.clSortFilter+""+objFilter.LstFilterXpath.get(i)+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
-								Assert.assertTrue(true, "No records available to test filter");
-								Test_Variables.test.skip("No records available to test filter");
-								Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
-								Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slShowFilter)).click();	
-							}
-
-							else {
-								for (int j = 0; j < objFilter.LstFilterValues.size(); j++) {
-									Test_Variables.steps.createNode("2. Select the checkbox");
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-									WebElement checkbox_scroll = Helper.driver.findElement(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label"));
-									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", checkbox_scroll); 		
-									Thread.sleep(1000);
-
-									ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" li:nth-child("+objFilter.LstFilterValues.get(j)+") label");
-									Test_Variables.steps.createNode("3. Click on apply filter button");	
-									ClickElement.clickById(Helper.driver, objFilter.LstFilterXpath.get(i)+""+Test_Elements.slApplyFilter);
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-									Thread.sleep(1000);
-									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-									String recordAfter = Helper.driver.findElement(By.id("results-found-count")).getText();			
-
-									Assert.assertNotEquals(recordBefore, recordAfter);
-
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i) +""+Test_Elements.slShowFilter)).click();
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
-									Thread.sleep(500);
-									Assert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+Test_Elements.slSortFilter+""+objFilter.LstFilterXpath.get(i)+" .divider")).size(), 1);
-									Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-									Helper.driver.findElement(By.id(objFilter.LstFilterXpath.get(i)+""+Test_Elements.slClearFilter)).click();
-									Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-									Thread.sleep(1000);	
-
-									Test_Variables.test.pass("Checkbox selected successfully");
-									Test_Variables.results.createNode("Checkbox selected successfully");
-									Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-								}
-							}
-						}	
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + "checkbox failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + "checkbox failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + "checkbox failed to apply");
-						Test_Variables.results.createNode(objFilter.FilterName + "checkbox failed to apply");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-					}
-				}
-			}
-			catch(Exception ex) {
-			}
-		}
-	}
+	
 
 
-
-	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 5) 
+	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 8) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
 			Test_Variables.test = Test_Variables.extent.createTest("AN-SL-59: Verify Site Name Filter Functionality", "This test case will test Site Name Filter Functionality");
@@ -492,108 +392,9 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Wildcard",enabled= false, priority = 6) 
-	public void wildcard() throws InterruptedException, IOException {
-		Helper.driver.navigate().refresh();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);
-
-		Test_Variables.lstSalmonellaWildcardSearch = SalmonellaModel.Wildcard(); 
-		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaWildcardSearch) { 	
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
-
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {	
-
-						Test_Variables.steps.createNode("1. Click on Salmonella Log");
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
-						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 	
-						Thread.sleep(1000);
-						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slShowFilter)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-
-						if (Helper.driver.findElements(By.cssSelector("#sort-"+objFilter.FilterID+" .data-log-radio")).size() == 0) {
-							Helper.driver.findElement(By.cssSelector("#sort-"+objFilter.FilterID+" .filter-popup__action--wildcard")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						}
-
-						if(objModel.startWith) {
-							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option1")).click();
-						}
-
-						if(objModel.endsWith) {
-							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option3")).click();
-						}
-
-						if(objModel.contains) {
-							Helper.driver.findElement(By.id(objFilter.FilterXPath+"_wildcard-option2")).click();
-						}
-
-						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).clear();
-						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slSearchInput)).sendKeys(objModel.input);
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
-						Helper.driver.findElement(By.id(objFilter.FilterID+""+Test_Elements.slApplyFilter)).click();
-
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Thread.sleep(1000);
-						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] td:nth-child(4) label"));
-						int count = rows.size();
-						Thread.sleep(1000);
-						for (int i = 0; i<count; i++) {
-							if(objModel.startWith) {
-								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.startsWith(objFilter.LstFilterValues.get(0)) || str.startsWith(objFilter.LstFilterValues.get(1)));
-							}
-
-							if(objModel.endsWith) {
-								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();				
-								Assert.assertTrue(str.endsWith(objFilter.LstFilterValues.get(0)) || str.endsWith(objFilter.LstFilterValues.get(1)));
-							}
-
-							if(objModel.contains) {
-								String str = Helper.driver.findElement(By.cssSelector("#row-"+i+" #col-"+objFilter.ColumnID+" label")).getText();
-								Assert.assertTrue(str.contains(objFilter.LstFilterValues.get(0)) || str.contains(objFilter.LstFilterValues.get(1)));
-							}
-						}
-
-						Thread.sleep(1000);
-						Test_Variables.test.pass("Wildcards tested successfully");
-						Test_Variables.results.createNode("Wildcards tested successfully");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
-						Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
-					}catch(AssertionError er) {
-						Test_Variables.test.fail("Wildcards failed to test successfully");
-						Test_Variables.results.createNode("Wildcards failed to test successfully");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
-					}catch(Exception ex){
-						Test_Variables.test.fail("Wildcards failed to test successfully");
-						Test_Variables.results.createNode("Wildcards failed to test successfully");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
-					}
-					Helper.driver.findElement(By.id(objFilter.FilterXPath+""+Test_Elements.slClearFilter)).click();
-				}
-			}
-			catch(Exception ex) {
-			}
-		}
-	}
-
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= true, priority = 7) 
+	@Test (description="Test Case: Contextual",enabled= true, priority = 9) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		Helper.driver.get(Constants.url_SalmonellaLog);
@@ -809,98 +610,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Lock Filter Functionality",enabled= true, priority = 8) 
-	public void SalmonellaLock() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(1500);
-		Test_Variables.lstSalmonellaLock = SalmonellaModel.Lock(); 
-		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaLock) { 	
-			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-				SoftAssert softAssert = new SoftAssert();
-
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(1000);	
-						WebElement filter_scroll = Helper.driver.findElement(By.id(objFilter.FilterID));
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-						Helper.driver.findElement(By.id(objFilter.FilterID)).click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Thread.sleep(2000);
-						if (Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results") ) {
-							Test_Variables.test.skip("Values not enough to test lock filter functionality");
-							Test_Variables.results.createNode("Values not enough to test lock filter functionality");
-							Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
-							Helper.driver.findElement(By.id(objFilter.FilterID)).click();
-						}
-//						else if	(Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(2) label")).getText().equals("") && Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" "+Test_Elements.footerCount)).getText().equals("Showing 1 - 1 Results")) {
-//							Helper.driver.findElement(By.id(objFilter.FilterID)).click();
-//							Test_Variables.test.skip("Cannot test lock functionlaity on blank filter");
-//							Helper.saveResultNew(ITestResult.SKIP, Constants.SalmonellaReportPath, null);
-//						}
-						else {
-							Helper.driver.findElement(By.cssSelector("#"+objFilter.FilterSort+" li:nth-child(3) label")).click();
-							Thread.sleep(500);
-							Test_Variables.steps.createNode("1. Select any filter and click on apply filter button");
-							Helper.driver.findElement(By.id(objFilter.FilterApply)).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Test_Variables.steps.createNode("2. Click on lock button");	
-							Helper.driver.findElement(By.id("save-filters")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Thread.sleep(1000);
-							String recordsafterfilter = Helper.driver.findElement(By.id("results-found-count")).getText();
-							Test_Variables.steps.createNode("3. Close Salmonella Log Report");
-							Test_Variables.steps.createNode("4. Reopen Salmonella Log Report");
-							Helper.driver.navigate().refresh();
-
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);
-							Test_Variables.steps.createNode("5. Verify lock filter remains applied");
-							softAssert.assertEquals(recordsafterfilter, Helper.driver.findElement(By.id("results-found-count")).getText());
-							Test_Variables.test.pass(objFilter.FilterName+" lock functionality verified successfully");
-							Test_Variables.results.createNode(objFilter.FilterName+" lock functionality verified successfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("remove-filters")).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Helper.driver.findElement(By.id(objFilter.FilterClear)).click();
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							softAssert.assertAll();
-						}
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to remain locked");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName + " failed to remain locked");
-						Test_Variables.results.createNode(objFilter.FilterName + " failed to remain locked");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-					}
-				}	
-			}
-			catch(Exception ex) {
-			}
-		}
-	}
-
-
-	@Test (description="Test Case: Test Pagination",enabled= true, priority = 9) 
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 10) 
 	public void Pagination() throws InterruptedException, IOException {
 		Test_Variables.lstSalmonellaPagination = SalmonellaModel.pagination();
 		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
@@ -1046,146 +756,93 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Table Rows",enabled= false, priority = 10) 
-	public void RowsPerPage() throws InterruptedException, IOException {
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-		Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
-		Thread.sleep(500);
-
-		Test_Variables.lstSalmonellaRowCount = SalmonellaModel.searchRows();
-
-		for (SalmonellaModel objModel : Test_Variables.lstSalmonellaRowCount) { 	
+	
+	
+	@Test (description="Test Case: Test Pagination",enabled= true, priority = 10) 
+	public void PaginationNew(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
+		for (int i=1; i<=3;i++) {
 			try {
-				Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+				test = extent.createTest("Test pagination "+i);
+				preconditions = test.createNode(Scenario.class, PreConditions);
+				steps = test.createNode(Scenario.class, Steps);
+				results = test.createNode(Scenario.class, Results);
 
-				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
+				SoftAssert softAssert = new SoftAssert();
+				String recordBefore = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
+				test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+				test.addScreenCaptureFromPath(getScreenshot(name, ReportPath));
+				String[] paginationButtons = {lastPagePagination, previousPagePagination, firstPagePagination, nextPagePagination};
 
-				Actions actions = new Actions(Helper.driver);
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-						Test_Elements.wait.until(ExpectedConditions.elementToBeClickable(By.id("rows")));
+				String removeComma = recordBefore.replace(",", "");
+				double x = Double.parseDouble(removeComma);
+				double y = 100;
+				double divide = Math.ceil(Math.abs(x/y));
+				final int totalPages = (int)divide;
+				waitElementInvisible(loading_cursor);
+				String results = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
+
+				waitElementInvisible(loading_cursor);	
+				steps.createNode("1. Verify pagination exists");
+				Assert.assertTrue(Helper.driver.findElements(By.cssSelector("#"+tablename+" #activePageNumber")).size() != 0, "Pagination not displaying");
+
+				if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
+					driver.findElement(By.cssSelector("#"+tablename+" #"+paginationButtons[i])).click();
+					waitElementInvisible(loading_cursor);
+					String pageCount =	Helper.driver.findElement(By.cssSelector("#"+tablename+" #activePageNumber")).getText();
+
+					if (Helper.driver.findElements(By.id("message")).size() !=0) {
 						Thread.sleep(500);
-						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
-						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
-
-						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > Integer.parseInt(objFilter.count)) {
-							WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
-							actions.moveToElement(expandFilter).click().perform();	
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.driver.findElement(By.id(objFilter.FilterListXPathSearch)).click();
-
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-							Thread.sleep(1000);
-							List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] tr"));
-
-							int count = rows.size();
-							int new_count = count - 2;
-							System.out.println("ROW COUNT : "+new_count);
-							Assert.assertEquals(new_count, Integer.parseInt(objFilter.count));
-							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully");
-							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);
-						}
-
-						else {
-							Assert.assertTrue(true, "Records are less then "+objFilter.count);
-							Test_Variables.test.pass("Records are less then "+objFilter.count);
-							Test_Variables.results.createNode("Rcords are less then "+objFilter.count);
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
-						}
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+" failed to display");
-						Test_Variables.results.createNode(objFilter.FilterName+" failed to display");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName+" failed to display");
-						Test_Variables.results.createNode(objFilter.FilterName+" failed to display");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
-					}
-
-					try {
-						Test_Variables.test = Test_Variables.extent.createTest(objModel.TestCaseNameSearch, objModel.TestCaseDescriptionSearch);
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-						Test_Variables.preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-
-						Test_Variables.steps.createNode("1. Select "+objFilter.FilterName+" from dropdown below");
-						Test_Variables.steps.createNode("2. Go to next page from pagination");
-						Test_Variables.steps.createNode("3. Verify that still "+objFilter.FilterName+" is selected");
-
-						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
-						int sum = Integer.parseInt(objFilter.count) + Integer.parseInt(objFilter.count);
-
-						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > sum) {
-
-							ClickElement.clickById(Helper.driver, "next-page");
-							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Thread.sleep(1000);
-							List<WebElement> rows = Helper.driver.findElements(By.cssSelector("[id='dc-table-graph'] tr"));
-							int count = rows.size();
-							int new_count = count - 2;
-							System.out.println("ROW COUNT : "+new_count);
-							Assert.assertEquals(new_count, Integer.parseInt(objFilter.count));
-							Test_Variables.test.pass(objFilter.FilterName+" displayed succcessfully on next page");
-							Test_Variables.results.createNode(objFilter.FilterName+" displayed succcessfully on next page");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
-						}
-						else {
-							Assert.assertTrue(true, "Records are less then "+sum);
-							Test_Variables.test.pass("Records are less then "+sum);
-							Test_Variables.results.createNode("Rcords are less then "+sum);
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Salmonella Log", Constants.SalmonellaReportPath));
-							Helper.saveResultNew(ITestResult.SUCCESS, Constants.SalmonellaReportPath, null);	
-						}
-					}
-					catch(AssertionError er) {
-						Test_Variables.test.fail(objFilter.FilterName+" failed to display on next page");
-						Test_Variables.results.createNode(objFilter.FilterName+" failed to display on next page");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						Test_Variables.test.fail(objFilter.FilterName+" failed to display on next page");
-						Test_Variables.results.createNode(objFilter.FilterName+" failed to display on next page");
-						Helper.saveResultNew(ITestResult.FAILURE, Constants.SalmonellaReportPath, ex);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));	
+						softAssert.fail("An error alert message displayed");
 					}	
+
+					if (paginationButtons[i].equals(lastPagePagination)) {
+						Test_Variables.steps.createNode("1. Click on '>>' icon in pagination");
+						softAssert.assertEquals(pageCount, totalPages+"/"+totalPages);
+					}
+
+					if (paginationButtons[i].equals(previousPagePagination)) {	
+						Test_Variables.steps.createNode("1. Click on '<' icon in pagination");
+						softAssert.assertEquals(pageCount, (totalPages-1)+"/"+totalPages);
+					}
+
+					if (paginationButtons[i].equals(firstPagePagination)) {	
+						Test_Variables.steps.createNode("1. Click on '<<' icon in pagination");
+						softAssert.assertEquals(pageCount, 1+"/"+totalPages);
+					}
+
+					if (paginationButtons[i].equals(nextPagePagination)) {	
+						Test_Variables.steps.createNode("1. Click on '>' icon in pagination");
+						softAssert.assertEquals(pageCount, 2+"/"+totalPages);
+					}
+
+					softAssert.assertAll();
+					Test_Variables.test.pass("Navigated to next page successfully");
+					Test_Variables.results.createNode("Navigated to next page successfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+				}
+				else {
+					Assert.assertTrue(true, "Records are less then 100; pagination cannot be tested");
+					Test_Variables.test.skip("Records are less then 100; pagination cannot be tested");
+					Test_Variables.results.createNode("Records are less then 100; pagination cannot be tested");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+					Helper.saveResultNew(ITestResult.SKIP, ReportPath, null);	
 				}
 			}
+			catch(AssertionError er) {
+				Test_Variables.test.fail("Failed to get desired results on clicking button");
+				Test_Variables.results.createNode("Failed to get desired results on clicking button");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+			}
 			catch(Exception ex) {
+				Test_Variables.test.fail("Failed to get desired results on clicking button");
+				Test_Variables.results.createNode("Failed to get desired results on clicking button");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, ex);
 			}
 		}
 	}
-
-
-	@Test(priority= 11, enabled = true)
-	public void sorting() throws InterruptedException, IOException {
-		Helper.driver.get(Constants.url_SalmonellaLog);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(3000);
-		Test_Functions.Lock(Test_Elements.slTable, "Salmonella Log", Constants.SalmonellaReportPath, 2);
-	}
-
+		
 
 	@Test (enabled= true, priority = 12) 
 	public void AllignmentTest() throws InterruptedException, IOException {
