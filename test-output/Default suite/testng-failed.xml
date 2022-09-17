@@ -3,17 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Administration.UserManagement">
+      <class name="Test.Ancera.Administration.OrganizationManagement">
         <methods>
-          <include name="LockFilter"/>
+          <include name="UpdateOrganizationSites"/>
           <include name="endreport"/>
           <include name="extent"/>
-          <include name="SiteAdminSitesAssigned"/>
-          <include name="VerifyTestingSitesAccess"/>
-          <include name="DeleteUser"/>
-          <include name="AccessRoleCount"/>
+          <include name="ExportCSV"/>
+          <include name="OrganizationSitesHierarchyCheck"/>
         </methods>
-      </class> <!-- Test.Ancera.Administration.UserManagement -->
+      </class> <!-- Test.Ancera.Administration.OrganizationManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

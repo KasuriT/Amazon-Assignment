@@ -182,62 +182,6 @@ public class Test_Variables {
 	
 	////////////////////////////////////////////////////Organization Management Screen Variables//////////////////////////////////////////////
 	
-	
-	public static ArrayList<OrgModel> lstOrgMandatoryCheck = new ArrayList<>(
-			Arrays.asList(
-					new OrgModel(false, "", false, "", "", "Leave all mandatory fields empty", true,
-							"Click on next button", "",  false, "AN-OM-03: Verify user cannot create organization with leaving all fields empty", 
-							"This testcase will verify that user cannot create organization with leaving all fields empty", "User was not able to create organization with all fields empty successfully", "User was able to create organization with all feilds empty"),
-
-					new OrgModel( false, "Ancera Test Org", false, "", "", "Enter only org name", true,
-							"Click on next button", "",  false, "AN-OM-04: Verify user cannot create organization with only filling org name field",
-							"This testcase will verify that user cannot create organization with only filling org name field", "User was not able to create organization with only filling org name field", "User was able to create organization with only filling org name field"),
-
-					new OrgModel(false, "", false, "", "ancera"+date0+"@ancera.com", "Enter only email", true,
-							"Click on next button", "",  false, "AN-OM-05: Verify user cannot create organization with only filling email field",
-							"This testcase will verify that user cannot create organization with only filling email field", "User was not able to create organization with only filling email field", "User was able to create organization with only filling email field"),
-
-					new OrgModel( false, "", true, "", "", "Enter phone code leaving phone number empty", true,
-							"Click on next button", "",  false, "AN-OM-06: Verify user cannot create organization with only filling phone code field", 
-							"This testcase will verify that user cannot create organization with only filling phone code field", "User was not able to create organization with only filling phone code field successfully", "User was able to create organization with only filling phone number field"),
-
-					new OrgModel( true, "", false, "", "", "Select any value from Org Type dropdown", true,
-							"Click on next button", "",  false, "AN-OM-07: Verify user cannot create organization with only filling org type field", 
-							"This testcase will verify that user cannot create organization with only filling org type field", "User was not able to create organization with only filling org type field successfully", "User was able to create organization with only filling org type field"),
-
-					new OrgModel( true, "Ancera Test Org", false, "", "", "Select only Org Type and Name", true,
-							"Click on next button", "",  false, "AN-OM-08: Verify user cannot create organization with only filling Org Type and Name field", 
-							"This testcase will verify that user cannot create organization with only filling Org Type and Name field", "User was not able to create organization with only filling Org Type and Name field successfully", "User was able to create organization with only filling Org Type and Name field"),
-
-					new OrgModel( false, "", false, "", "ancera"+date0+"@ancera.com", "Select only Org Type and Email", true,
-							"Click on next button", "",  false, "AN-OM-09: Verify user cannot create organization with only filling Org Type and Email field", 
-							"This testcase will verify that user cannot create organization with only filling Org Type and Email field", "User was not able to create organization with only filling Org Type and Email field successfully", "User was able to create organization with only filling Org Type and Email field"),
-
-					new OrgModel( true, "Ancera Test Org", true, "", "ancera"+date0+"@ancera.com", "Select Org Type, Country Code", true,
-							"Click on next button", "",  false, "AN-OM-10: Verify user cannot create organization with only filling Org Type and Country Code field",
-							"This testcase will verify that user cannot create organization with only filling Org Type and Country Code field", "User was not able to create organization with only filling Org Type and Country Code field successfully", "User was able to create organization with only filling Org Type and Country Code field"),
-
-					new OrgModel( true, "Ancera Test Org", false, "", "ancera"+date0+"@ancera.com", "Select Org Type, Name and Email", true,
-							"Click on next button", "",  false, "AN-OM-11: Verify user cannot create organization with only filling Org Type, Email and Name field", 
-							"This testcase will verify that user cannot create organization with only filling Org Type, Email and Name field", "User was not able to create organization with only filling Org Type, Email and Name field successfully", "User was able to create organization with only filling Org Type, Email and Name field"),
-
-					new OrgModel( true, "Ancera Test Org", true, "6666666666", "", "Fill all fields and leave only email field empty", true,
-							"Click on next button", "",  false, "AN-OM-12: Verify user cannot create organization with leaving only email field empty",
-							"This testcase will verify that user cannot create organization with leaving only email field empty", "User was not able to create organization with leaving only email field empty successfully", "User was able to create organization with leaving only email field empty"),
-
-					new OrgModel( true, "", true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields and leave only name field empty", true,
-							"Click on next button", "",  false, "AN-OM-13: Verify user cannot create organization with leaving only name field empty", 
-							"This testcase will verify that user cannot create organization with leaving only name field empty", "User was not able to create organization with leaving only name field empty successfully", "User was able to create organization with leaving only name field empty"),
-
-					new OrgModel( true, "Test Organization"+date0, true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields ", false,
-							"Click on next button", "600000",  true, "AN-OM-15: Verify max user limit in Max Users Field",
-							"This testcase will verify max user limit in Max Users Field", "User was not able to create organization after exceeding max user limit in Max Users Field", "User was able to create organization after exceeding max user limit in Max Users Field"),
-					
-					
-					new OrgModel( true, "Test Organization"+date0, true, "6666666666", "ancera"+date0+"@ancera.com", "Fill all fields ", false,
-							"Click on next button", "",  true, "AN-OM-16: Verify user navigates to step 2 of create organization popup after filling valid data in all fields",
-							"This testcase will verify that user navigates to step 2 of create organization popup after filling valid data in all fields", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields successfully", "User was able to navigate to step 2 of create organization popup after filling valid data in all fields")
-					));
 
 	public static ArrayList<String> lstOrganizationCreate = new ArrayList<>(
 			Arrays.asList("Test Organization"+date0,
@@ -245,11 +189,6 @@ public class Test_Variables {
 					"ancera",  //invalid email
 					"ancera"+date0+"@ancera.com",  //valid email
 					"100"));
-	
-	
-	public static ArrayList<OrgModel> lstOrgPractice = new ArrayList<>(
-			Arrays.asList(
-					new OrgModel("OrgModel", Constants.url_organization)));
 
 
 	public static ArrayList<String> lstOrgAlertMessages = new ArrayList<>(

@@ -240,7 +240,7 @@ public class OrgModel {
 		objTmp.getParentSiteID = true;
 		objTmp.ErrorCase = true;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "Country does not exist.";
+		objTmp.ErrorMessage = "Country does not exists.";
 		objTmp.passStep = "User was not able to upload Bulk Sites with country other than USA successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites with country other than USA";
 		objTmp.lstFilters.add(objFilter);
@@ -257,7 +257,7 @@ public class OrgModel {
 		objTmp.getParentSiteID = true;
 		objTmp.ErrorCase = true;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "State does not exist.";
+		objTmp.ErrorMessage = "State does not exists.";
 		objTmp.passStep = "User was not able to upload Bulk Sites with country other than USA successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites with country other than USA";
 		objTmp.lstFilters.add(objFilter);
@@ -274,7 +274,7 @@ public class OrgModel {
 		objTmp.getParentSiteID = true;
 		objTmp.ErrorCase = true;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "City does not exist.";
+		objTmp.ErrorMessage = "City does not exists.";
 		objTmp.passStep = "User was not able to upload Bulk Sites with country other than USA successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites with country other than USA";
 		objTmp.lstFilters.add(objFilter);

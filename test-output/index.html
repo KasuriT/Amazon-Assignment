@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 3 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -40,7 +40,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Default_suite" class="navigator-link">
-              <span class="suite-name border-passed">Default suite</span>
+              <span class="suite-name border-failed">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -51,7 +51,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\junaid.alam\AppData\Local\Temp\testng-eclipse-1029307773\testng-customsuite.xml</span>
+                    <span>C:\Users\junaid.alam\AppData\Local\Temp\testng-eclipse--886662952\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -93,7 +93,31 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">16 methods, 3 failed,   13 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Default_suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="ExportCSV">ExportCSV</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="OrganizationSitesHierarchyCheck">OrganizationSitesHierarchyCheck</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="UpdateOrganizationSites">UpdateOrganizationSites</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Default_suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -104,17 +128,67 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Login.TestLogin" class="method navigator-link" hash-for-method="login">login</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="BulkUpload">BulkUpload</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Login.TestLogin" class="method navigator-link" hash-for-method="logout">logout</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="BulkUploadEmpty">BulkUploadEmpty</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Login.TestLogin" class="method navigator-link" hash-for-method="verifyLogout">verifyLogout</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="CreateOrganization">CreateOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="CreateOrganizationSite">CreateOrganizationSite</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="DeleteOrganization">DeleteOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="DeleteOrganizationSites">DeleteOrganizationSites</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="InActiveOrganization">InActiveOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="OrganizationSiteMandatoryCheck">OrganizationSiteMandatoryCheck</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="SiteResetButton">SiteResetButton</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="UpdateOrganization">UpdateOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="VerifyInActiveOrganization">VerifyInActiveOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="VerifyUpdateOrganization">VerifyUpdateOrganization</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="Test.Ancera.Administration.OrganizationManagement" class="method navigator-link" hash-for-method="VerifyUpdateOrganizationSites">VerifyUpdateOrganizationSites</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -129,31 +203,310 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
-          <div class="suite-Default_suite-class-passed">
+          <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">Test.Ancera.Login.TestLogin</span>
+              <img src="failed.png"/>
+              <span class="class-name">Test.Ancera.Administration.OrganizationManagement</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="login">
-                  </a> <!-- login -->
-                  <span class="method-name">login</span>
+                  <a name="ExportCSV">
+                  </a> <!-- ExportCSV -->
+                  <span class="method-name">ExportCSV</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;#orgn-log th:nth-child(1) .log-header__filter-icon&quot;}
+  (Session info: chrome=105.0.5195.125)
+For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
+Build info: version: &apos;4.1.2&apos;, revision: &apos;9a5a329c5a&apos;
+System info: host: &apos;APL-LHR-JA0201&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [4ba7199c08bbc3505fce41409a65390f, findElement {using=css selector, value=#orgn-log th:nth-child(1) .log-header__filter-icon}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 105.0.5195.125, chrome: {chromedriverVersion: 105.0.5195.52 (412c95e51883..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:65029}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:65029/devtoo..., se:cdpVersion: 105.0.5195.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 4ba7199c08bbc3505fce41409a65390f
+	at jdk.internal.reflect.GeneratedConstructorAccessor13.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:558)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:382)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
+	at Test.Ancera.Test_Functions.CSVExport(Test_Functions.java:589)
+	at Test.Ancera.Administration.OrganizationManagement.ExportCSV(OrganizationManagement.java:1216)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:764)
+	at org.testng.TestRunner.run(TestRunner.java:585)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+	at org.testng.TestNG.runSuites(TestNG.java:1069)
+	at org.testng.TestNG.run(TestNG.java:1037)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="logout">
-                  </a> <!-- logout -->
-                  <span class="method-name">logout</span>
+                  <a name="OrganizationSitesHierarchyCheck">
+                  </a> <!-- OrganizationSitesHierarchyCheck -->
+                  <span class="method-name">OrganizationSitesHierarchyCheck</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;li .text-ellipsis&quot;}
+  (Session info: chrome=105.0.5195.125)
+For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
+Build info: version: &apos;4.1.2&apos;, revision: &apos;9a5a329c5a&apos;
+System info: host: &apos;APL-LHR-JA0201&apos;, ip: &apos;192.168.56.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [4ba7199c08bbc3505fce41409a65390f, findElement {using=css selector, value=li .text-ellipsis}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 105.0.5195.125, chrome: {chromedriverVersion: 105.0.5195.52 (412c95e51883..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:65029}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:65029/devtoo..., se:cdpVersion: 105.0.5195.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 4ba7199c08bbc3505fce41409a65390f
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:558)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:382)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
+	at Test.Ancera.Helper.click(Helper.java:119)
+	at Test.Ancera.Administration.OrganizationManagement.OrganizationSitesHierarchyCheck(OrganizationManagement.java:351)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:764)
+	at org.testng.TestRunner.run(TestRunner.java:585)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+	at org.testng.TestNG.runSuites(TestNG.java:1069)
+	at org.testng.TestNG.run(TestNG.java:1037)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
+</div> <!-- stack-trace -->
+                  <em>
+(Test Case: Organization Site Check)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="verifyLogout">
-                  </a> <!-- verifyLogout -->
-                  <span class="method-name">verifyLogout</span>
+                  <a name="UpdateOrganizationSites">
+                  </a> <!-- UpdateOrganizationSites -->
+                  <span class="method-name">UpdateOrganizationSites</span>
+                  <div class="stack-trace">java.lang.Exception: java.lang.AssertionError: The following asserts failed:
+	Latitude did not autofilled expected [40.712775] but found [41],
+	Longitude did not autofilled expected [-74.005973] but found [-74]
+	at Test.Ancera.Administration.OrganizationManagement.UpdateOrganizationSites(OrganizationManagement.java:750)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:764)
+	at org.testng.TestRunner.run(TestRunner.java:585)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
+	at org.testng.TestNG.runSuites(TestNG.java:1069)
+	at org.testng.TestNG.run(TestNG.java:1037)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.AssertionError: The following asserts failed:
+	Latitude did not autofilled expected [40.712775] but found [41],
+	Longitude did not autofilled expected [-74.005973] but found [-74]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
+	at Test.Ancera.Administration.OrganizationManagement.UpdateOrganizationSites(OrganizationManagement.java:742)
+	... 28 more
+
+</div> <!-- stack-trace -->
+                  <em>
+(Test Case: Update Organization Sites )                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-failed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">Test.Ancera.Administration.OrganizationManagement</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="BulkUpload">
+                  </a> <!-- BulkUpload -->
+                  <span class="method-name">BulkUpload</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="BulkUploadEmpty">
+                  </a> <!-- BulkUploadEmpty -->
+                  <span class="method-name">BulkUploadEmpty</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="CreateOrganization">
+                  </a> <!-- CreateOrganization -->
+                  <span class="method-name">CreateOrganization</span>
+                  <em>
+(Test Case: Create New Organization)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="CreateOrganizationSite">
+                  </a> <!-- CreateOrganizationSite -->
+                  <span class="method-name">CreateOrganizationSite</span>
+                  <em>
+(Test Case: Create Organization Site)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="DeleteOrganization">
+                  </a> <!-- DeleteOrganization -->
+                  <span class="method-name">DeleteOrganization</span>
+                  <em>
+(Test Case: Delete Organization)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="DeleteOrganizationSites">
+                  </a> <!-- DeleteOrganizationSites -->
+                  <span class="method-name">DeleteOrganizationSites</span>
+                  <em>
+(Test Case: Delete Organization Sites )                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="InActiveOrganization">
+                  </a> <!-- InActiveOrganization -->
+                  <span class="method-name">InActiveOrganization</span>
+                  <em>
+(Test Case: InActive Organization)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="OrganizationSiteMandatoryCheck">
+                  </a> <!-- OrganizationSiteMandatoryCheck -->
+                  <span class="method-name">OrganizationSiteMandatoryCheck</span>
+                  <em>
+(Test Case: Organization Site Mandatory Check)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="SiteResetButton">
+                  </a> <!-- SiteResetButton -->
+                  <span class="method-name">SiteResetButton</span>
+                  <em>
+(Exceptional Flow: Site Reset fields)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="UpdateOrganization">
+                  </a> <!-- UpdateOrganization -->
+                  <span class="method-name">UpdateOrganization</span>
+                  <em>
+(Test Case: Update New Organization )                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="VerifyInActiveOrganization">
+                  </a> <!-- VerifyInActiveOrganization -->
+                  <span class="method-name">VerifyInActiveOrganization</span>
+                  <em>
+(Test Case: Verify InActive Organization)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="VerifyUpdateOrganization">
+                  </a> <!-- VerifyUpdateOrganization -->
+                  <span class="method-name">VerifyUpdateOrganization</span>
+                  <em>
+(Test Case: Verify Updated Organization )                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="VerifyUpdateOrganizationSites">
+                  </a> <!-- VerifyUpdateOrganizationSites -->
+                  <span class="method-name">VerifyUpdateOrganizationSites</span>
+                  <em>
+(Test Case: Verify Update Organization Sites )                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -161,7 +514,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\junaid.alam\AppData\Local\Temp\testng-eclipse-1029307773\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\junaid.alam\AppData\Local\Temp\testng-eclipse--886662952\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -170,7 +523,7 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Test.Ancera.Login.TestLogin&quot;/&gt;
+      &lt;class name=&quot;Test.Ancera.Administration.OrganizationManagement&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -210,24 +563,76 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(3);
+data.addRows(16);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'login')
-data.setCell(0, 2, 'Test.Ancera.Login.TestLogin')
-data.setCell(0, 3, 22935);
+data.setCell(0, 1, 'BulkUpload')
+data.setCell(0, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(0, 3, 258361);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'logout')
-data.setCell(1, 2, 'Test.Ancera.Login.TestLogin')
-data.setCell(1, 3, 3913);
+data.setCell(1, 1, 'DeleteOrganization')
+data.setCell(1, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(1, 3, 47943);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'verifyLogout')
-data.setCell(2, 2, 'Test.Ancera.Login.TestLogin')
-data.setCell(2, 3, 2483);
+data.setCell(2, 1, 'CreateOrganizationSite')
+data.setCell(2, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(2, 3, 26543);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'VerifyInActiveOrganization')
+data.setCell(3, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(3, 3, 25837);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'CreateOrganization')
+data.setCell(4, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(4, 3, 25232);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'InActiveOrganization')
+data.setCell(5, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(5, 3, 19910);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'UpdateOrganization')
+data.setCell(6, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(6, 3, 19667);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'UpdateOrganizationSites')
+data.setCell(7, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(7, 3, 18342);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'BulkUploadEmpty')
+data.setCell(8, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(8, 3, 17352);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'OrganizationSitesHierarchyCheck')
+data.setCell(9, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(9, 3, 12899);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'VerifyUpdateOrganizationSites')
+data.setCell(10, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(10, 3, 12893);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'OrganizationSiteMandatoryCheck')
+data.setCell(11, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(11, 3, 10573);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'DeleteOrganizationSites')
+data.setCell(12, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(12, 3, 6203);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'VerifyUpdateOrganization')
+data.setCell(13, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(13, 3, 2913);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'SiteResetButton')
+data.setCell(14, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(14, 3, 2036);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'ExportCSV')
+data.setCell(15, 2, 'Test.Ancera.Administration.OrganizationManagement')
+data.setCell(15, 3, 1300);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 29 seconds</span>
+              <span class="suite-total-time">Total running time: 8 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -242,9 +647,30 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">8 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">Test.Ancera.Administration.OrganizationManagement</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">AssignAgreement</span>
+                <br/>
+                <span class="ignored-method-name">LockFilter</span>
+                <br/>
+                <span class="ignored-method-name">sorting</span>
+                <br/>
+                <span class="ignored-method-name">testInvalidEmail</span>
+                <br/>
+                <span class="ignored-method-name">OpenClosePopup</span>
+                <br/>
+                <span class="ignored-method-name">ResetButton</span>
+                <br/>
+                <span class="ignored-method-name">Navigate</span>
+                <br/>
+                <span class="ignored-method-name">WildcardOrg</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Default_suite" class="panel">
@@ -253,26 +679,84 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Test.Ancera.Login.TestLogin</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">Test.Ancera.Administration.OrganizationManagement</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">extent</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
               <div class="test-method">
-                <span class="method-name">login</span>
-                <span class="method-start">16754 ms</span>
+                <span class="method-name">CreateOrganization</span>
+                <span class="method-start">23260 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">logout</span>
-                <span class="method-start">39689 ms</span>
+                <span class="method-name">UpdateOrganization</span>
+                <span class="method-start">48497 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">verifyLogout</span>
-                <span class="method-start">43605 ms</span>
+                <span class="method-name">VerifyUpdateOrganization</span>
+                <span class="method-start">68166 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">OrganizationSitesHierarchyCheck</span>
+                <span class="method-start">71082 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">OrganizationSiteMandatoryCheck</span>
+                <span class="method-start">83985 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">SiteResetButton</span>
+                <span class="method-start">94560 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">CreateOrganizationSite</span>
+                <span class="method-start">96598 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">UpdateOrganizationSites</span>
+                <span class="method-start">123143 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">VerifyUpdateOrganizationSites</span>
+                <span class="method-start">141489 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">DeleteOrganizationSites</span>
+                <span class="method-start">154384 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">BulkUploadEmpty</span>
+                <span class="method-start">160590 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">BulkUpload</span>
+                <span class="method-start">177944 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">InActiveOrganization</span>
+                <span class="method-start">436310 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">VerifyInActiveOrganization</span>
+                <span class="method-start">456222 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">DeleteOrganization</span>
+                <span class="method-start">482061 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">ExportCSV</span>
+                <span class="method-start">530006 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">endreport</span>
-                <span class="method-start">46088 ms</span>
+                <span class="method-start">531309 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -8,11 +8,13 @@ import static Test.Ancera.Test_Elements.firstPagePagination;
 import static Test.Ancera.Test_Elements.lastPagePagination;
 import static Test.Ancera.Test_Elements.loading_cursor;
 import static Test.Ancera.Test_Elements.nextPagePagination;
+import static Test.Ancera.Test_Elements.orgNameCol;
 import static Test.Ancera.Test_Elements.previousPagePagination;
 import static Test.Ancera.Test_Variables.PreConditions;
 import static Test.Ancera.Test_Variables.Results;
 import static Test.Ancera.Test_Variables.Steps;
 import static Test.Ancera.Test_Variables.extent;
+import static Test.Ancera.Test_Variables.lstOrganizationCreate;
 import static Test.Ancera.Test_Variables.preconditions;
 import static Test.Ancera.Test_Variables.results;
 import static Test.Ancera.Test_Variables.steps;
@@ -710,7 +712,15 @@ public class Test_Functions {
 	}
 	
 	
-	
+	public static void openEditOrgPopup() throws InterruptedException, IOException {
+		for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(0))) {
+				driver.findElement(By.id("edit-orgn-"+i)).click();
+				waitElementInvisible(loading_cursor);
+				break;
+			}
+		}
+	}
 
 	public static void searchOrg() throws InterruptedException {
 		Helper.driver.get(Constants.url_user);
@@ -819,7 +829,7 @@ public class Test_Functions {
 		return flag;
 	}
 
-
+/*
 	public void Navigate(String url, String id, String expectedid) throws InterruptedException, IOException {
 
 		try{
@@ -842,4 +852,5 @@ public class Test_Functions {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 		}
 	}
+	*/
 }

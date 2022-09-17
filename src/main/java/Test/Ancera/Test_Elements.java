@@ -134,6 +134,8 @@ public class Test_Elements {
 
 	/////////////////////////////////////////Organization Management Elements////////////////////////////////////////////////
 	
+	public static String orgManagementTable = "orgn-log";
+	public static String orgCSVFileName = "Organizations Log - ";
 	public static By orgTitle = By.id("Organization Management");
 	public static By orgCreateButton = By.id("create-organization");
 	public static By orgTypeDropDownExpand = By.cssSelector("#orgTypeId .ng-arrow-wrapper");
