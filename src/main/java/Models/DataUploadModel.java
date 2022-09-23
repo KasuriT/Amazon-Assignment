@@ -998,7 +998,7 @@ public class DataUploadModel {
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList(ResultID, "100900112"));
 		objTmp.steps = "Enter invalid site id";
 		objTmp.ErrorCase = true;
-		objTmp.ErrorMessage = "SiteID in SITE_ID does not exist in system.";
+		objTmp.ErrorMessage = "Site ID does not exists in this organization.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with site id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with site id that does not exist";
@@ -1014,7 +1014,7 @@ public class DataUploadModel {
 		objFilter.LstColumnValues = new ArrayList<>(Arrays.asList("A1286705789", ""));
 		objTmp.steps = "Enter invalid result id";
 		objTmp.ErrorCase = true;
-		objTmp.ErrorMessage = "ResultId in Result ID does not exist in system.";
+		objTmp.ErrorMessage = "ResultId in Result ID does not exists in system.";
 		objTmp.AlertMessage = "Errors found in "+DataUpload.sampleMetadataFileName;
 		objTmp.passStep = "User was not able to upload file with result id that does not exist successfully";
 		objTmp.failStep = "User was able to upload file with result id that does not exist";

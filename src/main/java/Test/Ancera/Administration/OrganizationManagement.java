@@ -1,4 +1,5 @@
 package Test.Ancera.Administration;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,11 +10,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -21,16 +22,18 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Models.OrgModel;
 import Models.ReportFilters;
+
+import com.aventstack.extentreports.gherkin.model.Scenario;
+
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
-import Test.Ancera.Constants;
 import Test.Ancera.Test_Elements;
 import Test.Ancera.Test_Functions;
+
 import static Test.Ancera.Test_Variables.*;
 import static Test.Ancera.Helper.*;
 import static Test.Ancera.Test_Elements.*;
@@ -47,36 +50,33 @@ public class OrganizationManagement{
 		ConfigureLogin.login();
 	}
 	
-	@Test(priority = 1, enabled = false)
+	
+	
+	@Test(priority = 1, enabled = true)
 	public void Navigate() throws InterruptedException, IOException {
-	Test_Functions.NavigateToScreen(url_organization, "Organization Management", OrgManagementReportPath, orgTitle);
+	NavigateToScreen(url_organization, "Organization Management", OrgManagementReportPath, orgTitle);
 	}
 
-	@Test (priority = 2, enabled = false) 
+	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		Lock(orgManagementTable, "Organization Management", Constants.OrgManagementReportPath, 0);
+		Lock(orgManagementTable, "Organization Management", OrgManagementReportPath, 0);
 	}
 
-	@Test (priority = 3, enabled = false) 
+	@Test (priority = 3, enabled = true) 
 	public void WildcardOrg() throws InterruptedException, IOException {
 		driver.get(url_organization);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		Wildcard(orgManagementTable, "Organization Management", OrgManagementReportPath, 0);
+		Wildcard1(orgManagementTable, "Organization Management", OrgManagementReportPath, 0);
 	}
 
-
-	@Test(priority= 4, enabled = false)
+	@Test(priority= 4, enabled = true)
 	public void sorting() throws InterruptedException, IOException {
-		driver.get(url_organization);
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(3000);
-		Sorting(orgManagementTable, "Organization Management", OrgManagementReportPath);
+		Sorting1(orgManagementTable, "Organization Management", OrgManagementReportPath, 0);
 	}
 	
-
 	
-	@Test (enabled= false, priority= 6) 
+	@Test (enabled= true, priority= 6) 
 	public void OpenClosePopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-OM-02: Verify user can open and close Create New User Popup");
@@ -89,6 +89,10 @@ public class OrganizationManagement{
 			preconditions.createNode("3. Hover to sidebar; Click on Administration and select Organization Management");	
 			steps.createNode("1. Click on Create New button");
 
+			driver.get(url_organization);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);
+			
 			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
 			click(orgCreateButton);
 			waitElementInvisible(loading_cursor);
@@ -113,7 +117,7 @@ public class OrganizationManagement{
 	}
 	
 
-	@Test (enabled= false, priority= 7) 
+	@Test (enabled= true, priority= 7, dependsOnMethods = {"OpenClosePopup"}) 
 	public void ResetButton() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-OM-17: Verify user can send reset fields");
@@ -143,7 +147,7 @@ public class OrganizationManagement{
 	}
 
 
-	@Test (enabled= false, priority= 8) 
+	@Test (enabled= true, priority= 8, dependsOnMethods = {"ResetButton"}) 
 	public void testInvalidEmail() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-OM-19: Verify user cannot create Organization with invalid email", "This test case will verify that user cannot create new organization with invalid email");
@@ -347,46 +351,39 @@ public class OrganizationManagement{
 			
 			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
 				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(0))) {
+			//		if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals("q")) {
 					driver.findElement(By.id("edit-orgn-sites-"+i)).click();
 					waitElementInvisible(loading_cursor);
 					break;
 				}
 			}
-
-			Thread.sleep(1000);	
-			click(orgParentSiteClick);
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(2000);
-			click(orgSiteTypeInput);
-			String orgType = driver.findElement(orgSiteTypeDropDownValue).getText();
-			softAssert.assertEquals(orgType, "Organization");
-			
+	
 			steps.createNode("3. Click on + icon to create new site and verify Site Type is Region");
-			driver.findElement(orgAddSite1).click();
+			click(orgAddSite1);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInput).click();
+			click(orgSiteTypeInput);
 			String regionType = driver.findElement(orgSiteTypeDropDownValue).getText();	
 			softAssert.assertEquals(regionType, "Region");
 			driver.findElement(orgSiteNameInput).sendKeys("Test Region");
-			driver.findElement(popupSaveButton).click();
+			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("4. Verify Region Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("5. Click on + icon to create new site and verify Site Type is Sub Region");
-			driver.findElement(orgAddSite2).click();
+			click(orgAddSite2);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInput).click();
+			click(orgSiteTypeInput);
 			String subregionType = driver.findElement(orgSiteTypeDropDownValue).getText();
 			softAssert.assertEquals(subregionType, "Sub Region");
 			driver.findElement(orgSiteNameInput).sendKeys("Test Sub Region");
-			driver.findElement(popupSaveButton).click();
+			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("6. Verify Sub Region Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -410,7 +407,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test Complex Site");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("8. Verify Complex Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -438,7 +435,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test House");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("12. Verify House Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -451,7 +448,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test Processing Plant Site");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1500);
 			steps.createNode("13. Create Processing PLant Site");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -479,7 +476,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test Chiller Site");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("15. Verify Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -491,7 +488,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test Testing Lab Site");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("16. Create Testing Lab Site");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -505,7 +502,7 @@ public class OrganizationManagement{
 			driver.findElement(orgSiteNameInput).sendKeys("Test Sub Division Site");
 			driver.findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1500);
 			steps.createNode("18. Verify Lab Sub Division Site can be saved");
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
@@ -533,6 +530,7 @@ public class OrganizationManagement{
 		}
 	}	
 
+	
 	@Test (description="Test Case: Organization Site Mandatory Check",enabled= true, priority= 13) 
 	public void OrganizationSiteMandatoryCheck() throws InterruptedException, IOException {
 		try{
@@ -1217,7 +1215,486 @@ public class OrganizationManagement{
 		}
 	}
 	
-	@Test(priority= 25)
+	
+	@Test (enabled= true, priority= 25) 
+	public static void CreateAlliedPartnerOrganization() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify user can create New Allied Partner Organizationn");
+			steps.createNode("1. Enter valid data in all fields");
+			steps.createNode("2. Click on save button");
+			
+			driver.get(url_organization);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);			
+			
+			String recordsCountBefore = driver.findElement(By.id(ResultsCount)).getText();
+			click(orgCreateButton);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			click(orgTypeDropDownExpand);
+			Thread.sleep(750);
+			driver.findElement(orgTypeInput).sendKeys("Allied Partner");
+			driver.findElement(orgTypeInput).sendKeys(Keys.ENTER);
+			Thread.sleep(750);
+			clear(orgNameInput);
+			type(orgNameInput, lstOrganizationCreate.get(5));
+			click(popupNextButton);
+			Thread.sleep(700);
+			type(orgMaxUsersInput, "10");
+			click(orgSystemRolesExpand);
+			Thread.sleep(700);
+			driver.findElement(By.xpath("//label[text() = 'Select All']")).click();
+			click(orgSystemRolesExpand);
+			
+			click(orgReportRolesExpand);
+			Thread.sleep(700);
+			driver.findElement(By.xpath("//label[text() = 'Select All']")).click();
+			click(orgReportRolesExpand);
+			click(popupSaveButton);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(0)); 
+			String recordsCountAfter = driver.findElement(By.id(ResultsCount)).getText();
+			softAssert.assertNotEquals(recordsCountAfter, recordsCountBefore);	
+			softAssert.assertAll();
+			test.pass("New Allied Organization created successfully");
+			results.createNode("New Allied Organization created successfully; displayed alert message 'New organization created.'");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("New AlliedOrganization creation failed");
+			results.createNode("New Allied Organization creation failed");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("New Allied Organization creation failed");
+			results.createNode("New Allied Organization creation failed");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 26) 
+	public static void AddProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify user can add/remove product for Allied Partner Organization");
+			SoftAssert softAssert = new SoftAssert();
+			
+			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(5))) {
+					driver.findElement(By.xpath("(//*[@title = 'Manage Products'])["+i+"]")).click();
+					waitElementInvisible(loading_cursor);
+					break;
+				}
+			}		
+			
+			Thread.sleep(800);
+			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			softAssert.assertEquals(size(orgUploadProductImage), 0, "Product not added successfully");
+			
+			click(orgRemoveUploadedProduct);
+			softAssert.assertEquals(size(orgUploadProductImage), 1, "Product not removed successfully");
+			
+			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(orgAddProductName, "Allied Product 1");
+			type(orgAddProductDescription, "Product for Allied Organization");
+			click(popupSaveButton);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(6)); 
+			softAssert.assertAll();
+			test.pass("Product added successfully");
+			results.createNode("Product added successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("Product failed to add successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed to add successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 27) 
+	public static void VerifyProductInCompanyProductsScreen() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify product added from Organization Management screen is reflected on Company Products screen");
+			SoftAssert softAssert = new SoftAssert();
+			
+			driver.get(url_companyProducts);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);	
+					
+			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(2) label")).getText().equals(lstOrganizationCreate.get(5))) {
+					softAssert.assertFalse(driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(""), "Product name is empty");
+					softAssert.assertFalse(driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(5) label")).getText().equals(""), "Product description is empty");
+					break;
+				}
+			}	
+			softAssert.assertAll();
+			test.pass("Product reflected successfully");
+			results.createNode("Product reflected successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+
+		}catch(AssertionError er){
+			test.fail("Product did not reflected successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed to add successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 28) 
+	public static void AddProductInCompanyProductsScreen() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify user can add product in Company Products screen");
+			SoftAssert softAssert = new SoftAssert();
+			
+			click(CompanyProductCreateNewButton);
+			waitElementInvisible(loading_cursor);
+			
+			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			softAssert.assertEquals(size(orgUploadProductImage), 0, "Product not added successfully");
+			
+			click(orgRemoveUploadedProduct);
+			softAssert.assertEquals(size(orgUploadProductImage), 1, "Product not removed successfully");
+			
+			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(CompanyProductNameInput, lstOrganizationCreate.get(5));
+			driver.findElement(CompanyProductNameInput).sendKeys(Keys.ENTER);
+			type(orgAddProductName, "Allied Product 2");
+			type(orgAddProductDescription, "Product for Allied Organization");
+			click(popupSaveButtonXpath);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(6)); 
+			softAssert.assertAll();
+			test.pass("Product added successfully");
+			results.createNode("Product added successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("Product failed to create");
+			results.createNode("Product failed to create");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed to create");
+			results.createNode("Product failed to create");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 29, dependsOnMethods = {"AddProductInCompanyProductsScreen"}) 
+	public static void VerifyProductInOrganizationScreen() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify product added from Company Products is reflected on Organization Management screen screen");
+			SoftAssert softAssert = new SoftAssert();
+			
+			driver.get(url_organization);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);	
+					
+			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(5))) {
+					driver.findElement(By.xpath("(//*[@title = 'Manage Products'])["+i+"]")).click();
+					waitElementInvisible(loading_cursor);
+					break;
+				}
+			}
+			
+			softAssert.assertEquals(size(orgGetTotalCreatedProducts), 2, "Product created from Company Product screen is not reflected on Organization Screen");
+			softAssert.assertAll();
+			test.pass("Product reflected successfully");
+			results.createNode("Product reflected successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+
+		}catch(AssertionError er){
+			test.fail("Product did not reflected successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed to add successfully");
+			results.createNode("Product failed to add successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 30) 
+	public static void DeleteProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify user can delete product for Allied Partner Organization");
+			SoftAssert softAssert = new SoftAssert();
+			
+			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(5))) {
+					try {
+					driver.findElement(By.xpath("(//*[@title = 'Manage Products'])["+i+"]")).click();
+					}
+					catch (ElementNotInteractableException ex){
+					}
+					break;
+				}
+			}		
+			
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			scroll(orgDeleteUploadedProduct);
+			Thread.sleep(800);
+			click(orgDeleteUploadedProduct);
+			waitElementVisible(popupYesButton);
+			click(popupYesButton);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(6)); 
+			test.pass("Product deleted successfully");
+			results.createNode("Product deleted successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("Product failed to deleted successfully");
+			results.createNode("Product failed to deleted successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed to deleted successfully");
+			results.createNode("Product failed to deleted successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 31) 
+	public static void EditProductInCompanyProductsScreen() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify product can be edited in Company Product Screen");
+			SoftAssert softAssert = new SoftAssert();
+			
+			driver.get(url_companyProducts);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);	
+					
+			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(2) label")).getText().equals(lstOrganizationCreate.get(5))) {
+					click(By.id(CompanyNameProductEditButton+""+i));
+					waitElementInvisible(loading_cursor);
+					break;
+				}
+			}	
+			
+			type(orgAddProductDescription, "Product for Allied Organization Description");
+			click(popupSaveButtonXpath);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(8)); 
+			
+			softAssert.assertAll();
+			test.pass("Product updated successfully");
+			results.createNode("Product updated successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+
+		}catch(AssertionError er){
+			test.fail("Product failed update successfully");
+			results.createNode("Product failed update successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product failed update successfully");
+			results.createNode("Product failed update successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 32) 
+	public static void DeleteProductInCompanyProductsScreen() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-20: Verify product can be deleted in Company Product Screen");
+			SoftAssert softAssert = new SoftAssert();
+					
+			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(2) label")).getText().equals(lstOrganizationCreate.get(5))) {
+					click(By.id(CompanyNameProductDeleteButton+""+i));
+					waitElementInvisible(loading_cursor);
+					break;
+				}
+			}	
+			
+			click(popupYesButton);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(7)); 
+			
+			softAssert.assertAll();
+			test.pass("Product deleted successfully");
+			results.createNode("Product deleted successfully");	
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+
+		}catch(AssertionError er){
+			test.fail("Product did not deleted successfully");
+			results.createNode("Product did not deleted successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Product did not deleted successfully");
+			results.createNode("Product did not deleted successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}	
+	}
+	
+	
+	@Test (enabled= true, priority= 33) 
+	public void DeleteAlliedOrganization() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-61: Verify Organization can be deleted and verify it from table and user dropdown as well");
+			
+			driver.get(url_organization);
+			waitElementInvisible(loading_cursor);
+			waitElementVisible(orgTitle);
+			Thread.sleep(2000);
+
+			String recordsCountBefore = driver.findElement(By.id(ResultsCount)).getText();
+			
+			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(5))) {
+					driver.findElement(By.id("delete-orgn-"+i)).click();
+					waitElementInvisible(loading_cursor);
+					break;
+				}
+			}
+			
+			Thread.sleep(1000);
+			click(confirmationYes);
+			waitElementVisible(alertMessage);
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(5)); 
+			Thread.sleep(3500);
+			String recordsCountAfter = driver.findElement(By.id(ResultsCount)).getText();
+			softAssert.assertNotEquals(recordsCountBefore, recordsCountAfter);
+			
+			softAssert.assertAll();
+			test.pass("Organization deleted and verified successfully");
+			results.createNode("Organization deleted and verified successfully");
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("Organization failed to delete");
+			results.createNode("Organization failed to delete");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Organization failed to delete");
+			results.createNode("Organization failed to delete");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}
+	}
+	
+	
+	@Test (enabled= true, priority= 33) 
+	public void TestFilterCompanyProducts() throws InterruptedException, IOException {
+		try{
+			test = extent.createTest("AN-OM-61: Verify Allied Company and Product Name filter functionality");
+			
+			driver.get(url_companyProducts);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(2000);
+			
+			SoftAssert softAssert = new SoftAssert();
+			
+			String recordsCountBefore = driver.findElement(By.id(ResultsCount)).getText();
+			
+			click(By.id(productAlliedCompany+""+ShowFilter));
+			waitElementInvisible(loading_cursor);
+			click(By.cssSelector("#ul-"+productAlliedCompany+" li:nth-child(2) label"));
+			click(By.id(productAlliedCompany+""+ApplyFilter));
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			String recordsCountAfter = driver.findElement(By.id(ResultsCount)).getText();
+			softAssert.assertNotEquals(recordsCountBefore, recordsCountAfter, "Allied Company filter failed to apply");
+			click(By.id(productAlliedCompany+""+ClearFilter));
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			
+			click(By.id(productName+""+ShowFilter));
+			waitElementInvisible(loading_cursor);
+			click(By.cssSelector("#ul-"+productName+" li:nth-child(2) label"));
+			click(By.id(productName+""+ApplyFilter));
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			test.addScreenCaptureFromPath(getScreenshot("Organization Management", OrgManagementReportPath));
+			String recordsCountAfter2 = driver.findElement(By.id(ResultsCount)).getText();
+			softAssert.assertNotEquals(recordsCountBefore, recordsCountAfter2, "Product Name filter failed to apply");
+			click(By.id(productName+""+ClearFilter));
+			
+			softAssert.assertAll();
+			test.pass("Filters functionality verified successfully");
+			results.createNode("Filters functionality verified successfully");
+		
+			saveResultNew(ITestResult.SUCCESS, OrgManagementReportPath, null);
+		}catch(AssertionError er){
+			test.fail("Filters functionality failed to verify successfully");
+			results.createNode("Filters functionality failed to verify successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, new Exception(er));
+		}	
+		catch(Exception ex){
+			test.fail("Filters functionality failed to verify successfully");
+			results.createNode("Filters functionality failed to verify successfully");
+			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
+		}
+	}
+	
+	
+		
+	
+
+	@Test (priority = 34, enabled = true) 
+	public void WildcardCP() throws InterruptedException, IOException {
+		driver.get(url_companyProducts);
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
+		Wildcard1(CompanyProductsTableName, "Company Products", OrgManagementReportPath, 1);
+	}
+
+
+	@Test(priority= 35, enabled = true)
+	public void sortingCP() throws InterruptedException, IOException {
+		Sorting1(CompanyProductsTableName, "Company Products", OrgManagementReportPath, 1);
+	}
+	
+	
+	@Test(priority= 36, enabled = true)
+	public void PaginationCP() throws InterruptedException, IOException {
+		Pagination(CompanyProductsTableName, "Company Products", OrgManagementReportPath);
+	}
+	
+	
+	@Test(priority= 37, enabled = true)
+	public void RowsPerPageCP() throws InterruptedException, IOException {
+		RowsPerPage1();
+	}
+	
+	
+	@Test(priority= 38)
 	public void ExportCSV() throws InterruptedException, IOException {
 		driver.get(url_organization);
 		waitElementInvisible(loading_cursor);

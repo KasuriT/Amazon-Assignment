@@ -320,7 +320,135 @@ public class Test_Functions {
 		}			
 	}
 
-	
+
+	@Test (enabled= true) 
+	public static void Wildcard1(String tablename, String name, String ReportPath, int skipColumns) throws InterruptedException, IOException {
+		int totalNumberofColumns = Helper.driver.findElements(By.cssSelector("#"+tablename+" th .log-header .mb-0")).size() + skipColumns;   //get total columns and skip irrelevant columns
+		for (int i=1;i<=totalNumberofColumns; i++) {
+			try {
+				String recordBefore = Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText();   //get result count
+				if ( Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon")).size() != 0) {     //check column has filter icon
+					WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon"));
+					WebElement columnName = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+					Test_Variables.test = Test_Variables.extent.createTest("AN_Wildcard-"+i+": Verify user can apply wildcard on "+columnName.getText()+" filter", "This testcase will verify that user can apply wildcard filter");
+					Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+					Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+					Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+					Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+					Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+					Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+					Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" page opens");
+
+					SoftAssert softAssert = new SoftAssert();
+					WebElement filter_scroll = columnName;	//scroll to filter			
+					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);   
+					Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon")).click();   //open filter popup
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+					Thread.sleep(500);
+
+					if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard")).size() != 0) {
+						if (Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard")).isDisplayed()) {  //check if filter has wildcard option
+							if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .data-log-radio")).size() == 0) {  //check if toggle is selected or not
+								Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard")).click();  //click on toggle button to enable
+								Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							}
+
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__search-input input")).click();
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__search-input input")).sendKeys("h");
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							Thread.sleep(800);
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							Thread.sleep(800);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("+name+", ReportPath));
+							//List<WebElement> rows1 = Helper.driver.findElements(By.cssSelector("#"+tablename+" [id='dc-table-graph'] td:nth-child(1) label"));
+							//int count1 = rows1.size();
+
+							int count1 = driver.findElements(By.id("col-0")).size();
+							//	int count1 = Helper.driver.findElements(By.cssSelector("#coccidia-data-log tr")).size() - 1;
+							Thread.sleep(800);
+							for (int j = 0; j<count1; j++) {
+								int k = i-1;
+								int l = k-skipColumns;
+								String str = Helper.driver.findElement(By.cssSelector("#"+tablename+" #row-"+j+" #col-"+l+" label")).getText();
+								//	System.out.println(1 +": "+str);
+								softAssert.assertTrue(str.startsWith("h") || str.startsWith("H"), "WildCard Starts With failed");
+
+							}
+
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+							Thread.sleep(1500);
+
+							Helper.driver.findElement(By.xpath("//*[text() = ' Ends With ']")).click();
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							Thread.sleep(800);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("+name+", ReportPath));
+
+							//	List<WebElement> rows2 = Helper.driver.findElements(By.cssSelector("#"+tablename+" [id='dc-table-graph'] td:nth-child(1) label"));
+							//	int count2 = rows2.size();
+							int count2 = driver.findElements(By.id("col-0")).size();
+							for (int j = 0; j<count2; j++) {
+								int k = i-1;
+								int l = k-skipColumns;
+								String str = Helper.driver.findElement(By.cssSelector("#"+tablename+" #row-"+j+" #col-"+l+" label")).getText();
+								softAssert.assertTrue(str.endsWith("h") || str.endsWith("H"), "WildCard Ends With failed");
+							}
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+")  .log-header__filter-icon")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+							Thread.sleep(800);
+							Helper.driver.findElement(By.xpath("//*[text() = ' Contains ']")).click();
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+							Thread.sleep(800);
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("+name+", ReportPath));
+							//List<WebElement> rows3 = Helper.driver.findElements(By.cssSelector("#"+tablename+" [id='dc-table-graph'] td:nth-child(1) label"));
+							//int count3 = rows3.size();
+							int count3 = driver.findElements(By.id("col-0")).size();
+							Thread.sleep(1000);
+							for (int j = 0; j<count3; j++) {
+								int k = i-1;
+								int l = k-skipColumns;
+								String str = Helper.driver.findElement(By.cssSelector("#"+tablename+" #row-"+j+" #col-"+l+" label")).getText();
+								softAssert.assertTrue(str.contains("h") || str.contains("H"), "WildCard Contains failed");
+							}
+							String recordAfter = Helper.driver.findElement(By.cssSelector("#"+tablename+" #"+Test_Elements.ResultsCount)).getText(); 
+							softAssert.assertNotEquals(recordAfter, recordBefore);		
+							Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__clear-filter span")).click();
+							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+						}	
+					}
+					else {
+						Test_Variables.test.skip("Filter does not have wildcard option");
+						Test_Variables.results.createNode("Filter does not have wildcard option");
+						Helper.saveResultNew(ITestResult.SKIP, ReportPath, null);
+					}
+
+					Thread.sleep(700);
+
+					softAssert.assertAll();
+					Test_Variables.test.pass("Wildcards tested successfully");
+					Test_Variables.results.createNode("Wildcards tested successfully");
+					Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+				}	
+			}
+			catch(AssertionError er) {
+				Test_Variables.test.fail("Wildcards failed to test successfully");
+				Test_Variables.results.createNode("Wildcards failed to test successfully");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+			}
+			catch(Exception ex) {
+				Test_Variables.test.fail("Wildcards failed to test successfully");
+				Test_Variables.results.createNode("Wildcards failed to test successfully");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(ex));
+			}
+		}			
+	}
+
+
+
 	@Test 
 	public static void Pagination(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
 		for (int i=0; i<=3;i++) {
@@ -335,7 +463,7 @@ public class Test_Functions {
 				String recordBefore = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
 				test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
 				test.addScreenCaptureFromPath(getScreenshot(name, ReportPath));
-				
+
 
 				String removeComma = recordBefore.replace(",", "");
 				double x = Double.parseDouble(removeComma);
@@ -407,16 +535,18 @@ public class Test_Functions {
 		}
 	}
 
-	
+
 	@Test (enabled= true) 
 	public static void Sorting(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
 		for (int i=1;i<=Helper.driver.findElements(By.cssSelector("#"+tablename+" th")).size(); i++) {
 			try {
 				SoftAssert softAssert = new SoftAssert();
-
+				WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
 				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0")).size() !=0) {
-					if (!Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Time") || !Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Date")) {
-						WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+					//		if (!Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Time") || !Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Date")) {
+					System.out.println(column);
+					if (!column.getText().equals("Result Time") || !column.getText().equals("Result Date")) {
+						//	WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
 						Test_Variables.test = Test_Variables.extent.createTest("AN-Sorting-"+i+": Apply Sorting on "+column.getText()+" column", "This test case will verify that user can apply sorting on "+column.getText()+ " column");
 						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
 						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
@@ -463,7 +593,71 @@ public class Test_Functions {
 		}
 	}
 
-	
+
+
+	@Test (enabled= true) 
+	public static void Sorting1(String tablename, String name, String ReportPath, int skipColumns) throws InterruptedException, IOException {
+		int totalNumberofColumns = Helper.driver.findElements(By.cssSelector("#"+tablename+" th .log-header .mb-0")).size() + skipColumns;   //get total columns and skip irrelevant columns
+		for (int i=1;i<=totalNumberofColumns; i++) {
+			try {
+				SoftAssert softAssert = new SoftAssert();
+
+				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0")).size() !=0) {
+					WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+					Test_Variables.test = Test_Variables.extent.createTest("AN-Sorting-"+i+": Apply Sorting on "+column.getText()+" column", "This test case will verify that user can apply sorting on "+column.getText()+ " column");
+					Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+					Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+					Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+					Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+					Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+					Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+					Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" screen opens");
+
+					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("CREATED")) {
+						Test_Variables.test.skip("Column sorted successfully");
+						Test_Variables.results.createNode("Column sorted successfully");
+						Helper.saveResultNew(ITestResult.SKIP, ReportPath, null);
+					}
+
+					else {
+						WebElement filter_scroll = column;
+						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+						Test_Variables.steps.createNode("1. Click on "+column.getText()+" column header");
+
+						column.click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
+						Thread.sleep(1000);
+						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_desc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
+							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));			
+						}
+
+						column.click();
+						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
+						Thread.sleep(1000);
+						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
+							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_asc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
+							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
+							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+						}
+						softAssert.assertAll();
+						Test_Variables.test.pass("Column sorted successfully");
+						Test_Variables.results.createNode("Column sorted successfully");
+						Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+					}
+				}
+			}
+			catch(AssertionError er) {
+				Test_Variables.test.fail("Column failed to sort");
+				Test_Variables.results.createNode("Column failed to sort");
+				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+			}
+		}
+	}
+
+
 	@Test (description="Test Case: Test Table Rows") 
 	public static void RowsPerPage() throws InterruptedException, IOException {
 
@@ -503,7 +697,7 @@ public class Test_Functions {
 					List<WebElement> rows = Helper.driver.findElements(By.cssSelector("tr"));
 					int count = rows.size();
 					int new_count = count - 4;
-					
+
 					softAssert.assertEquals(new_count, tableRows[i]);
 					Test_Variables.test.pass(tableRows[i]+" displayed succcessfully");
 					Test_Variables.results.createNode(tableRows[i]+" displayed succcessfully");
@@ -564,8 +758,111 @@ public class Test_Functions {
 			}	
 		}
 	}
+
 	
 	
+	@Test (description="Test Case: Test Table Rows") 
+	public static void RowsPerPage1() throws InterruptedException, IOException {
+
+		int[] tableRows = {100, 250, 500};
+		for (int i=0; i<=tableRows.length; i++) {
+			try {
+				Test_Variables.test = Test_Variables.extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
+				Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+				Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+				Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+				Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+				Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+				Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+				Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+				Test_Variables.preconditions.createNode("5. Open any Report");
+
+				Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+				Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(Test_Elements.ResultsCount))); 
+				Thread.sleep(500);	
+
+				Actions actions = new Actions(Helper.driver);
+				SoftAssert softAssert = new SoftAssert();
+				Test_Variables.steps.createNode("1. Select "+tableRows[i]+" from dropdown below");
+				String results1 = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
+
+				if (NumberFormat.getNumberInstance(Locale.US).parse(results1).intValue() > tableRows[i]) {
+					WebElement expandFilter = Helper.driver.findElement(By.id("rows"));
+					actions.moveToElement(expandFilter).click().perform();				
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(2000);
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+					int j = i+1;
+					Helper.driver.findElement(By.cssSelector("option:nth-child("+j+")")).click();
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+					Thread.sleep(1000);
+					List<WebElement> rows = Helper.driver.findElements(By.cssSelector("tr td:nth-child(3)"));
+					int count = rows.size();
+				//	int new_count = count - 4;
+
+					softAssert.assertEquals(count, tableRows[i]);
+					softAssert.assertAll();
+					Test_Variables.test.pass(tableRows[i]+" displayed succcessfully");
+					Test_Variables.results.createNode(tableRows[i]+" displayed succcessfully");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);
+				}
+				else {
+					softAssert.assertTrue(true, "Records are less then "+tableRows[i]);
+					Test_Variables.test.pass("Records are less then "+tableRows[i]);
+					Test_Variables.results.createNode("Rcords are less then "+tableRows[i]);
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);	
+				}
+
+				Test_Variables.test = Test_Variables.extent.createTest("Verify "+tableRows[i]+" rows per page remained apply on moving to next page");
+				Test_Variables.steps.createNode("1. Select "+tableRows[i]+" from dropdown below");
+				Test_Variables.steps.createNode("2. Go to next page from pagination");
+				Test_Variables.steps.createNode("3. Verify that still "+tableRows[i]+" is selected");
+
+				String results2 = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
+				int sum = tableRows[i] + tableRows[i];
+
+				if (NumberFormat.getNumberInstance(Locale.US).parse(results2).intValue() > sum) {
+
+					ClickElement.clickById(Helper.driver, "next-page");
+					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					Thread.sleep(1000);
+					List<WebElement> rows = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1)"));
+					int count = rows.size();
+			//		int new_count = count - 4;
+					//System.out.println("ROW COUNT : "+new_count);
+					softAssert.assertEquals(count, tableRows[i]);
+					Test_Variables.test.pass(tableRows[i]+"records displayed succcessfully on next page");
+					Test_Variables.results.createNode(tableRows[i]+"records displayed succcessfully on next page");
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);	
+				}
+
+				else {
+					softAssert.assertTrue(true, "Records are less then "+sum);
+					Test_Variables.test.pass("Records are less then "+sum);
+					Test_Variables.results.createNode("Records are less then "+sum);
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.CoccidiaReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.CoccidiaReportPath, null);	
+				}
+				softAssert.assertAll();
+			}
+
+			catch(AssertionError er) {
+				Test_Variables.test.fail(tableRows[i]+" failed to display on next page");
+				Test_Variables.results.createNode(tableRows[i]+" failed to display on next page");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, new Exception(er));
+			}
+			catch(Exception ex) {
+				Test_Variables.test.fail(tableRows[i]+" failed to display on next page");
+				Test_Variables.results.createNode(tableRows[i]+" failed to display on next page");
+				Helper.saveResultNew(ITestResult.FAILURE, Constants.CoccidiaReportPath, ex);
+			}	
+		}
+	}
+
 
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (enabled= true) 
@@ -684,34 +981,153 @@ public class Test_Functions {
 		}
 		Thread.sleep(1000);
 	}
-
 	
+	
+	
+	@SuppressWarnings({ "unused", "resource" })
+	@Test (enabled= true) 
+	public static void CSVExport1(String name, String ReportPath, String CSVFileName, String tablename, int filterNumber, int skipColumns) throws InterruptedException, IOException {
+		try {
+			Test_Variables.test = Test_Variables.extent.createTest("AN-CSVExport: Verify user can download CSV file and verify the records", "This test case will verify that user can download CSV file");
+			Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
+			Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
+			Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+
+			Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
+			Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
+			Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			Test_Variables.preconditions.createNode("5. Click on "+name+"; "+name+" screen opens");
+
+			Test_Variables.steps.createNode("1. Hover mouse towards table; Export file button becomes visible");
+			Test_Variables.steps.createNode("2. Click on the button; Dropdown cloud pop ups");
+			Test_Variables.steps.createNode("3. Verify the columns are same in table and CSV");
+			SoftAssert softAssert = new SoftAssert();
+			Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+			Thread.sleep(1000);						
+			ClickElement.clickByCss(Helper.driver, "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
+
+			ClickElement.clickByCss(Helper.driver, "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+			Thread.sleep(2000);
+			String getRowText = Helper.driver.findElement(By.id(Test_Elements.ResultsCount)).getText();
+
+			Helper.driver.findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
+			Thread.sleep(1000);
+			Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
+			ClickElement.clickById(Helper.driver, "export-csv");
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			Date date1 = new Date();
+			String date= dateFormat.format(date1);
+			Thread.sleep(1500);
+
+			SalmonellaLog fr= new SalmonellaLog();
+			File newfile = fr.getTheNewestFile(Test_Variables.fileDownloadPath, "csv");
+			String filename= newfile.getName();
+			softAssert.assertEquals(filename, CSVFileName+date+".csv");
+			Test_Variables.test.pass("CSV file downloaded successfully");
+			Test_Variables.results.createNode("CSV file downloads successfully");
+			Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+
+			File file = new File(Test_Variables.fileDownloadPath+"\\"+filename);
+			if(file.exists()){
+				System.out.println("File Exists");
+			}	
+
+
+			FileReader filereader = new FileReader(file);
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			StringBuffer buffer = new StringBuffer();
+			String data[];		    				
+
+			int columnsCountTotal = 0;
+			int rowsCount = 1;
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+					int rows = Helper.driver.findElements(By.cssSelector("tr")).size();
+					if (rowsCount < rows) {
+						int totalColumns = Helper.driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
+						int columnsCount = columnsCountTotal+3;
+						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), Helper.driver.findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
+						}
+						else {
+							rowsCount = rowsCount+1;
+							columnsCount =0;
+							columnsCountTotal = skipColumns;   //for salmonella and coccidia -1 else 0
+						}
+						columnsCountTotal++;
+					}
+				}
+				//System.out.println(" ");
+			}
+
+			Path path = Paths.get(Test_Variables.fileDownloadPath+"\\"+filename);
+			long lines = 0;
+			try {
+				lines = Files.lines(path).count();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			long excludeHeader = lines - 1;
+			String s = String.valueOf(excludeHeader);
+
+			String str = getRowText;
+			str = str.replace(",", "");
+			softAssert.assertEquals(s, str);
+
+			if(file.delete()) {
+				System.out.println("CSV file deleted");  
+			}
+			softAssert.assertAll();
+			Test_Variables.test.pass("Column data exported successfully");
+			Test_Variables.results.createNode("Column data exported successfully");
+			Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
+		}
+		catch(AssertionError er) {
+			Test_Variables.test.fail("CSV file failed to download");
+			Test_Variables.results.createNode("CSV file failed to download");
+			Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			System.out.println("Failure");
+			Test_Variables.test.fail("CSV file failed to download");
+			Test_Variables.results.createNode("CSV file failed to download");
+			Helper.saveResultNew(ITestResult.FAILURE, ReportPath, ex);
+		}
+		Thread.sleep(1000);
+	}
+
+
 	public static void openEditUserPopup(String emailAddress) throws InterruptedException, IOException {
 		Helper.driver.get(Constants.url_user);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
-		
 		Helper.driver.findElement(By.id("userEmail_show-filter")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Helper.driver.findElement(By.id("userEmail_search-input")).sendKeys(emailAddress);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Helper.driver.findElement(By.cssSelector("th:nth-child(4) li:nth-child(1) label")).click();					  
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.id("userEmail_apply")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		WebElement scroll = Helper.driver.findElement(By.id("edit-user-1"));
 		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 		Thread.sleep(1000); 
 		Helper.driver.findElement(By.cssSelector("#edit-user-1 img")).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		
+
 	}
-	
-	
+
+
 	public static void openEditOrgPopup() throws InterruptedException, IOException {
 		for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
 			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(lstOrganizationCreate.get(0))) {
@@ -829,7 +1245,7 @@ public class Test_Functions {
 		return flag;
 	}
 
-/*
+	/*
 	public void Navigate(String url, String id, String expectedid) throws InterruptedException, IOException {
 
 		try{
@@ -852,5 +1268,5 @@ public class Test_Functions {
 			Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
 		}
 	}
-	*/
+	 */
 }

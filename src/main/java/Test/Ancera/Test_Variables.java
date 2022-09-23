@@ -188,7 +188,8 @@ public class Test_Variables {
 					"(666) 666-6666",
 					"ancera",  //invalid email
 					"ancera"+date0+"@ancera.com",  //valid email
-					"100"));
+					"100",
+					"Test_Allied_Org_"+date0));
 
 
 	public static ArrayList<String> lstOrgAlertMessages = new ArrayList<>(
@@ -197,7 +198,10 @@ public class Test_Variables {
 					"New site created.",
 					"Site details updated.",
 					"Site details deleted successfully.",
-					"Organization details deleted successfully."));
+					"Organization details deleted successfully.",
+					"Product has been saved successfully.", 
+					"Product details deleted",
+					"Product details updated"));
 	
 	public static ArrayList<OrgModel> lstOrgBulkSite = new ArrayList<>(
 			Arrays.asList(

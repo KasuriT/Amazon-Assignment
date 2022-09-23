@@ -129,8 +129,9 @@ public class Helper {
     	driver.findElement(locator).clear();
     }
     
-    public static void size(By locator) {
-    	driver.findElements(locator).size();
+    public static int size(By locator) {
+    	int elementSize = driver.findElements(locator).size();
+    	return elementSize;
     }
     
     public static void waitElementVisible(By locator) {

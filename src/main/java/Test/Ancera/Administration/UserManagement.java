@@ -58,7 +58,7 @@ public class UserManagement {
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
-		Wildcard(userManagementTable, "User Management", UserManagementReportPath, 0);
+		Wildcard1(userManagementTable, "User Management", UserManagementReportPath, 0);
 	}
 
 
@@ -68,26 +68,30 @@ public class UserManagement {
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
-		Sorting(userManagementTable, "User Management", UserManagementReportPath);
+		Sorting1(userManagementTable, "User Management", UserManagementReportPath, 0);
 	}
 	
 	@Test(priority= 4)
 	public void pagination() throws InterruptedException, IOException {
+		Pagination(userManagementTable, "User Management", UserManagementReportPath);
+	}
+	
+	@Test(priority= 5)
+	public void rowsperPage() throws InterruptedException, IOException {
 		driver.get(Constants.url_user);
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
-		Pagination(userManagementTable, "User Management", UserManagementReportPath);
+		RowsPerPage1();
 	}
 
-	@Test(priority= 5)
+	@Test(priority= 6)
 	public void ExportCSV() throws InterruptedException, IOException {
-
 		CSVExport("User Management", UserManagementReportPath, Test_Elements.userCSVFileName, userManagementTable, 1);
 	}
 	
 
-	@Test (enabled= true, priority= 6) 
+	@Test (enabled= true, priority= 7) 
 	public void OpenClosePopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-02: Verify user can open and close Create New User Popup", "This test case will verify that user is able to open and close create new user popup");
@@ -119,10 +123,10 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 7) 
+	@Test (enabled= true, priority= 8) 
 	public void CreateUser() throws InterruptedException, IOException {
 		try{
-			test = Test_Variables.extent.createTest("AN-UM-10: Verify user can create a user", "This test case will verify create new ancera user");
+			test = Test_Variables.extent.createTest("AN-UM-03: Verify user can create a user", "This test case will verify create new ancera user");
 			steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
@@ -130,10 +134,10 @@ public class UserManagement {
 
 			SoftAssert softAssert = new SoftAssert();
 
-			//driver.get(Constants.url_user);
-			//waitElementInvisible(loading_cursor);
-			//waitElementClickable(usercreateButton);
-			//Thread.sleep(3000);
+			driver.get(Constants.url_user);
+			waitElementInvisible(loading_cursor);
+			waitElementClickable(usercreateButton);
+			Thread.sleep(3000);
 
 			click(By.id(userEmail+""+ShowFilter));
 			waitElementInvisible(loading_cursor);
@@ -188,6 +192,8 @@ public class UserManagement {
 
 			WebElement org = driver.findElement(userOrgInput);
 			org.click();
+		//	org.sendKeys(Keys.DOWN);
+		//	org.sendKeys(Keys.DOWN);
 			org.sendKeys(Keys.ENTER);
 
 			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
@@ -197,10 +203,19 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
+			
+			click(reportRoleExpand);
+			driver.findElement(reportRoleSelect).sendKeys(Keys.ENTER);
+
+			click(AgreeementExpand);
+			driver.findElement(AgreementSelect).sendKeys(Keys.ENTER);
+		
 			driver.findElement(systemRolesExpand).click();
 			Thread.sleep(1000);
 			driver.findElement(systemRolesSelect).sendKeys("Admin");
 			driver.findElement(systemRolesSelect).sendKeys(Keys.ENTER);
+			
+			
 			driver.findElement(popupSaveButton).click();    
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -223,9 +238,9 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 8, retryAnalyzer = RetryFailedCases.class, dependsOnMethods = {"CreateUser"}) 
+	@Test (enabled= true, priority= 9, retryAnalyzer = RetryFailedCases.class, dependsOnMethods = {"CreateUser"}) 
 	public void VerifyEmail() throws InterruptedException, IOException {
-		test = extent.createTest("AN-UM-11: Verify user receives an email to reset password");
+		test = extent.createTest("AN-UM-04: Verify user receives an email to reset password");
 		steps = test.createNode(Scenario.class, Steps);
 		results = test.createNode(Scenario.class, Results);
 
@@ -292,10 +307,10 @@ public class UserManagement {
 
 
 
-	@Test (enabled= true, priority= 9) 
+	@Test (enabled= true, priority= 10) 
 	public void ResetPassword() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-UM-12: Verify user can set password and log in");
+			test = extent.createTest("AN-UM-05: Verify user can set password and log in");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Click on the reset password link;  user redirects to application to set new password");
@@ -314,7 +329,14 @@ public class UserManagement {
 			driver.findElement(loginPassword).sendKeys(createUserPassword);
 			driver.findElement(loginButton).click();
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(2000);	
+			Thread.sleep(1000);	
+			
+			if (size(AcceptAgreementonLogin) !=0) {
+			click(AcceptAgreementonLogin);
+			}
+			
+			Thread.sleep(1500);	
+			
 			test.addScreenCaptureFromPath(Helper.getScreenshot("User Management", UserManagementReportPath));
 			Assert.assertTrue(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).isDisplayed(), "New user was not able to login into application");
 			test.pass("Password was reset; user logged in successfully");
@@ -335,10 +357,10 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 10) 
+	@Test (enabled= true, priority= 11) 
 	public void VerifyReportRole() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-UM-13: Verify user can view assigned reports and agreement");
+			test = extent.createTest("AN-UM-06: Verify user can view assigned reports and agreement");
 			steps = Test_Variables.test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Assign report role and agreement to new user");
@@ -348,22 +370,8 @@ public class UserManagement {
 			Thread.sleep(2000);
 
 			openEditUserPopup(createUserEmail);
-			click(popupNextButton);
-			Thread.sleep(1000);
-			click(popupNextButton);
-
-			click(reportRoleExpand);
-			driver.findElement(reportRoleSelect).sendKeys(Keys.ENTER);
-
-			click(AgreeementExpand);
-			driver.findElement(AgreementSelect).sendKeys(Keys.ENTER);
-
-			click(popupSaveButton);
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(2000);
-
-			Assert.assertEquals(Helper.driver.findElement(alertMessage).getText(), "User details updated.");
-
+			click(popupCloseButton);
+	
 			click(agreeementSearchedUser);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
@@ -393,10 +401,10 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 11) 
+	@Test (enabled= true, priority= 12) 
 	public void VerifyTestingSitesAccess() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user");
+			test = extent.createTest("AN-UM-07: Verify Sites column displays Active after assigning All Testing Sites to the user");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
@@ -426,27 +434,32 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details updated.");
-			Thread.sleep(5000);
+		//	waitElementVisible(By.xpath("//*[text()= ' Active ']"));
+			Thread.sleep(10000);
 			softAssert.assertEquals(driver.findElement(By.cssSelector("#col-"+userSiteAccessCol+" label")).getText(), "Active");
 			softAssert.assertAll();
+			test.pass("Testing sites assigned successfully");
+			results.createNode("Testing sites assigned successfully");
+			test.addScreenCaptureFromPath(getScreenshot("User Management", Constants.UserManagementReportPath));
+			saveResultNew(ITestResult.SUCCESS, Constants.UserManagementReportPath, null);
 		}
 		catch(AssertionError er) {
-			test.fail("Sites column failed to display Active after assigning Sites to the user");
-			results.createNode("Sites column failed to display Active after assigning Sites to the user");  
+			test.fail("Testing sites failed to assigned successfully");
+			results.createNode("Testing sites failed to assigned successfully");  
 			saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, new Exception(er));
 		}
 		catch(Exception ex) {
-			test.fail("Sites column failed to display Active after assigning Sites to the user");
-			results.createNode("Sites column failed to display Active after assigning Sites to the user");  	
+			test.fail("Testing sites failed to assigned successfully");
+			results.createNode("Testing sites failed to assigned successfully");  	
 			saveResultNew(ITestResult.FAILURE, Constants.UserManagementReportPath, ex);
 		}
 	}
 
 
-	@Test (enabled= false, priority= 12) 
+	@Test (enabled= true, priority= 13, dependsOnMethods = {"VerifyTestingSitesAccess"}) 
 	public void VerifyCollectionSitesAccess() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Collection Sites to the user");
+			test = extent.createTest("AN-UM-08: Verify Sites column displays Active after assigning All Collection Sites to the user");
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
@@ -454,12 +467,10 @@ public class UserManagement {
 			steps.createNode("1. Assign All Collection Sites to the new user");
 			steps.createNode("2. Verify user was able to assign All Collection Sites to the user");
 			SoftAssert softAssert = new SoftAssert();
-
-			driver.get(Constants.url_user);
+			
+			click(editSearchedUser);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
-
-			openEditUserPopup(createUserEmail);
 			click(popupNextButton);
 			click(popupNextButton);
 			Thread.sleep(750);
@@ -477,8 +488,6 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details updated.");
-			Thread.sleep(5000);
-			softAssert.assertEquals(driver.findElement(By.cssSelector("#col-"+userSiteAccessCol+" label")).getText(), "Active");
 			softAssert.assertAll();
 		}
 		catch(AssertionError er) {
@@ -494,7 +503,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Update User", enabled = true, priority= 13) 
+	@Test (description="Test Case: Update User", enabled = true, priority= 14) 
 	public void UpdateUser() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-17: Verify user can update a user and convert user to piper user");
@@ -536,7 +545,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 14) 
+	@Test (enabled= true, priority= 15) 
 	public void EditAssignRolePopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-18: Verify user can be edited from assign roles and right popup", "This test case will verify that user can be edited from roles and right popup");
@@ -594,7 +603,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Site Admin New User Create", enabled= true, priority= 15) 
+	@Test (description="Test Case: Site Admin New User Create", enabled= true, priority= 16) 
 	public void SiteAdminNewUserCreate() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-19: Verify site admin is able to create new user", "This test case will verify that is able to create new user");
@@ -643,13 +652,14 @@ public class UserManagement {
 			Thread.sleep(500);
 			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(1000);
+			Thread.sleep(2500);
 			
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New user created."); 
 			test.addScreenCaptureFromPath(getScreenshot("User Management", UserManagementReportPath));
 
 			click(By.id(userEmail+""+ShowFilter));
 			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
 			type(By.id(userEmail+""+SearchInput), "siteadminuser@anc.com");
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
@@ -680,7 +690,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Site Admin Sites Assigned", enabled= true, priority= 16) 
+	@Test (description="Test Case: Site Admin Sites Assigned", enabled= true, priority= 17) 
 	public void SiteAdminSitesAssigned() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-21: Verify user can only see sites that are assigned to him", "This test case will verify that user can only see sites that are assigned to him");
@@ -694,7 +704,7 @@ public class UserManagement {
 			click(editSearchedOrg);
 			waitElementInvisible(loading_cursor);
 
-			int siteSizeOrg = driver.findElements(By.cssSelector(".tree-list-toggle")).size();
+			int siteSizeOrg = driver.findElements(By.cssSelector(".tree-list-toggle")).size();  //42
 
 			driver.get(url_user);
 			waitElementInvisible(loading_cursor);
@@ -711,10 +721,10 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			int siteSizeUser = driver.findElements(By.cssSelector(".form-check-label")).size();
+			int siteSizeUser = driver.findElements(By.cssSelector(".form-check-label")).size();  //22
 
-			int sites = (siteSizeOrg/2)+1;
-			softAssert.assertNotEquals(sites, siteSizeUser, "Site Admin is not able to see only the sites that are assigned to him");
+			int sites = (siteSizeOrg/2)+1;    //(42/2=21)+1 = 22
+			softAssert.assertEquals(sites, siteSizeUser, "Site Admin is not able to see only the sites that are assigned to him");
 
 			driver.get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
@@ -722,11 +732,10 @@ public class UserManagement {
 
 			driver.findElement(By.id(orgOrganzationType+""+ShowFilter)).click();		
 			Thread.sleep(1000);
-			softAssert.assertNotEquals(driver.findElement(By.cssSelector("#sort-orgnTypeName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org type filter");
+			softAssert.assertEquals(driver.findElement(By.cssSelector("#sort-orgnTypeName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org type filter");
 			driver.findElement(By.id(orgName+""+ShowFilter)).click();
 			Thread.sleep(1000);
-			softAssert.assertNotEquals(driver.findElement(By.cssSelector("#sort-orgnName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org filter");
-
+			softAssert.assertEquals(driver.findElement(By.cssSelector("#sort-orgnName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org filter");
 
 			softAssert.assertAll();
 			test.pass("Sites showed only those that are assigned to user successfully");
@@ -746,7 +755,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 17) 
+	@Test (enabled= true, priority= 18) 
 	public void OrgTypeColumn() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-22: Verify user can only see organization that is assigned to him", "This test case will verify that user can only see organization that is assigned to him");
@@ -792,7 +801,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 18) 
+	@Test (enabled= true, priority= 19) 
 	public void ClientMappingSiteAdmin() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-23: Verify user can only see organization that is assigned to him in client mapping", "This test case will verify that user can only see organization that is assigned to him in client mapping");
@@ -827,7 +836,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 19) 
+	@Test (enabled= true, priority= 20) 
 	public void DataUploadSiteAdmin() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-24: Verify user can only see organization that is assigned to him in data upload screen");
@@ -863,7 +872,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= false, priority= 20) 
+	@Test (enabled= false, priority= 21) 
 	public void SiteAdminEditSites() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-25: Verify user can edit sites of his organization", "This test case will verify that user can only see organization that is assigned to him in client mapping");
@@ -931,7 +940,7 @@ public class UserManagement {
 	}
 
 
-	@Test (description="Test Case: Delete User", enabled= true, priority= 21) 
+	@Test (description="Test Case: Delete User", enabled= true, priority= 22) 
 	public void DeleteUser() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-26: Verify user can be deleted");
@@ -947,7 +956,8 @@ public class UserManagement {
 			type(loginPassword, login_password);
 			click(loginButton);
 			waitElementInvisible(loading_cursor);
-
+			Thread.sleep(1000);
+			
 			driver.get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
@@ -963,9 +973,9 @@ public class UserManagement {
 			driver.findElement(By.id(userEmail+""+SelectAll)).click();
 			driver.findElement(By.id(userEmail+""+ApplyFilter )).click();
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			scroll(deleteSearchedUser);
-			Thread.sleep(500);
+			Thread.sleep(700);
 			driver.findElement(deleteSearchedUser).click();
 			Thread.sleep(1500);
 			driver.findElement(popupYesButton).click();
@@ -993,7 +1003,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority =22) 
+	@Test (enabled= false, priority =23) 
 	public void AccessRoleCount() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-UM-65: Verify count of assign role in popup is same as that in table");
@@ -1007,6 +1017,7 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
+			
 			driver.findElement(By.cssSelector("tr:nth-child(3) #col-"+userRoleCol+" img")).click();
 			waitElementInvisible(loading_cursor);
 
@@ -1041,7 +1052,6 @@ public class UserManagement {
 			saveResultNew(ITestResult.FAILURE, UserManagementReportPath, ex);
 		}
 	}
-
 
 
 	@AfterTest

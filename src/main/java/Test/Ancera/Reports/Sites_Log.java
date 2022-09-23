@@ -1,11 +1,9 @@
 package Test.Ancera.Reports;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Locale;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -39,8 +37,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static Test.Ancera.Test_Variables.*;
+import static Test.Ancera.Constants.url_login;
 import static Test.Ancera.Helper.*;
 import static Test.Ancera.Test_Elements.*;
+import static Test.Ancera.Test_Functions.Pagination;
 
 public class Sites_Log {
 
@@ -70,177 +70,37 @@ public class Sites_Log {
 		driver.get(Constants.url_SitesLog);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 		Thread.sleep(3000);
-		Test_Functions.Wildcard(Test_Elements.sitesLogTable, "Sites Log", Constants.SitesLogReportPath, 2);
+		Test_Functions.Wildcard1(Test_Elements.sitesLogTable, "Sites Log", Constants.SitesLogReportPath, 2);
 	}
 	
 	
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
-		Test_Functions.Sorting(Test_Elements.sitesLogTable, "Sites Log", Constants.SitesLogReportPath);
+		Test_Functions.Sorting1(Test_Elements.sitesLogTable, "Sites Log", Constants.SitesLogReportPath, 2);
 	}
 	
 	@Test(priority= 5, enabled = true)
 	public void RowsPerPage1() throws InterruptedException, IOException {
-		Test_Functions.RowsPerPage();
+		Test_Functions.RowsPerPage1();
 	}	
 	
-
-	@Test (description="Test Case: Test Pagination",enabled= true, priority = 6) 
-	public void Pagination() throws InterruptedException, IOException {
-		lstSitesLogPagination = SitesLogModel.pagination();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-found-count"))); 
-		Thread.sleep(500);
-
-		for (SitesLogModel objModel : lstSitesLogPagination) { 	
-			try {
-				test = extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				preconditions = test.createNode(Scenario.class, Test_Variables.PreConditions);
-				steps = test.createNode(Scenario.class, Test_Variables.Steps);
-				results = test.createNode(Scenario.class, Test_Variables.Results);
-
-				preconditions.createNode("1. Go to url " +Constants.url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
-
-				for (ReportFilters objFilter : objModel.lstFilters) {	
-					try {
-						String recordNumber = Helper.driver.findElement(By.id("results-found-count")).getText();
-						test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-
-						String removeComma = recordNumber.replace(",", "");
-						double x = Double.parseDouble(removeComma);
-						double y = 100;
-						double divide = Math.ceil(Math.abs(x/y));
-						final int totalPages = (int)divide;
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						String results = Helper.driver.findElement(By.id("results-found-count")).getText();
-
-						if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
-							Helper.driver.findElement(By.id(objFilter.paginationPage)).click();
-
-							if (objModel.paginationExist) {
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								steps.createNode("1. Verify pagination exists");
-								Assert.assertTrue(Helper.driver.findElements(By.id("activePageNumber")).size() != 0);
-								test.pass("Pagination displayed successfully");
-								Test_Variables.results.createNode("Pagination displayed successfully");
-								test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);		
-							}
-
-
-							if (objModel.paginationLastPage) {
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								steps.createNode("1. Click on '>>' icon in pagination");
-
-								if (driver.findElements(By.id("message")).size() !=0) {
-									Thread.sleep(500);
-									test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));	
-									Assert.fail("An error alert message displayed");
-								}	
-								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-								Assert.assertEquals(pageCount, totalPages+"/"+totalPages);
-								test.pass("Navigated to last page successfully");
-								Test_Variables.results.createNode("Navigated to last page successfully");
-								test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-							}
-
-							if (objModel.paginationPreviousPage) {
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								steps.createNode("1. Click on '<' icon in pagination");
-								if (driver.findElements(By.id("message")).size() !=0) {
-									Thread.sleep(500);
-									test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-									Assert.fail("An error alert message displayed");
-								}
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-								Assert.assertEquals(pageCount, (totalPages-1)+"/"+totalPages);
-								test.pass("Navigated to previous page successfully");
-								Test_Variables.results.createNode("Navigated to previous page successfully");
-								test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-							}
-
-
-							if (objModel.paginationFirstPage) {	
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								steps.createNode("1. Click on '<<' icon in pagination");
-								if (Helper.driver.findElements(By.id("message")).size() !=0) {
-									Thread.sleep(500);
-									test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-									Assert.fail("An error alert message displayed");
-								}
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								String pageCount =	driver.findElement(By.id("activePageNumber")).getText();
-								Assert.assertEquals(pageCount, 1+"/"+totalPages);
-								test.pass("Navigated to first page successfully");
-								Test_Variables.results.createNode("Navigated to first page successfully");
-								test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-							}
-
-
-							if (objModel.paginationNextPage) {	
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
-								steps.createNode("1. Click on '>' icon in pagination");
-								if (Helper.driver.findElements(By.id("message")).size() !=0) {
-									Thread.sleep(500);
-									test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-									Assert.fail("An error alert message displayed");
-								}
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-								String pageCount =	Helper.driver.findElement(By.id("activePageNumber")).getText();
-								Assert.assertEquals(pageCount, 2+"/"+totalPages);
-								test.pass("Navigated to next page successfully");
-								Test_Variables.results.createNode("Navigated to next page successfully");
-								test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-								saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
-							}
-						}
-
-						else {
-							Assert.assertTrue(true, "Records are less then 100; pagination cannot be tested");
-							test.pass("Records are less then 100; pagination cannot be tested");
-							Test_Variables.results.createNode("Records are less then 100; pagination cannot be tested");
-							test.addScreenCaptureFromPath(Helper.getScreenshot("Sites Log", Constants.SitesLogReportPath));
-							saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);	
-						}
-					}
-					catch(AssertionError er) {
-						test.fail("Failed to get desired results on clicking "+objFilter.FilterName+" button");
-						Test_Variables.results.createNode("Failed to get desired results on clicking "+objFilter.FilterName+" button");
-						saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, new Exception(er));
-					}
-					catch(Exception ex) {
-						test.fail("Failed to get desired results on clicking "+objFilter.FilterName+" button");
-						Test_Variables.results.createNode("Failed to get desired results on clicking "+objFilter.FilterName+" button");
-						saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, ex);
-					}
-				}
-			}
-			catch(Exception ex) {
-			}
-		}
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Helper.driver.findElement(By.id("first-page")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+	@Test(priority= 6, enabled = true)
+	public void PaginationSites() throws InterruptedException, IOException {
+		driver.get(Constants.url_SitesLog);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		Thread.sleep(3000);
+		Pagination(sitesLogTable, "Sites Log", Constants.SitesLogReportPath);
 	}
-
-
+	
 
 	@Test (enabled= true, priority =7) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
-			test = Test_Variables.extent.createTest("AN-Sites-72: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
+			test = extent.createTest("AN-Sites-72: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
 
-			preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-			steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-			results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
+			preconditions = test.createNode(Scenario.class, PreConditions);
+			steps = test.createNode(Scenario.class, Steps);
+			results = test.createNode(Scenario.class, Results);
 
 			preconditions.createNode("1. Go to url " +Constants.url_login);
 			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
@@ -381,8 +241,138 @@ public class Sites_Log {
 		return theNewestFile;
 	}
 
+	
+	
+	@SuppressWarnings({ "resource", "unused" })
+	@Test (description="Test Case: Test Sites CSV Download",enabled= true, priority = 15) 
+	public void CSVExportNew() throws InterruptedException, IOException {
+		try {
+			test = extent.createTest("AN-Sites-216: Verify user can download Sites CSV file", "This test case will verify that user can download Sites CSV file");
+			preconditions = test.createNode(Scenario.class, PreConditions);
+			steps = test.createNode(Scenario.class, Steps);
+			results = test.createNode(Scenario.class, Results);
+
+			preconditions.createNode("1. Go to url " +url_login);
+			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
+			preconditions.createNode("3. Hover to sidebar to expand the menu");
+			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
+			preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
+			
+			driver.get(Constants.url_SitesLog);
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);	
+			
+			steps.createNode("1. Hover mouse towards table");
+			steps.createNode("2. Export file button becomes visible");
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			
+			
+			driver.findElement(By.id("siteId_show-filter")).click();
+			
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(1000);						
+			ClickElement.clickByCss(Helper.driver, "#"+Test_Elements.clSortFilter+""+Test_Elements.sitesSiteID+" li:nth-child(3) label");
+
+			ClickElement.clickById(Helper.driver, Test_Elements.sitesSiteID+""+Test_Elements.sitesApplyFilter);
+			Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			Thread.sleep(800);
+			
+			String getRowText = driver.findElement(By.id("results-found-count")).getText();
+
+			steps.createNode("3. Click on the button");
+			steps.createNode("4. Dropdown cloud pop ups");
+			driver.findElement(By.cssSelector("#csv-action img")).click();
+			test.addScreenCaptureFromPath(getScreenshot("Sites Log", Constants.SitesLogReportPath));
+			Thread.sleep(1000);
+			steps.createNode("5. Click on Export as CSV");
+			driver.findElement(By.xpath("//*[text() = ' Export as CSV ']")).click();
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			Date date1 = new Date();
+			String date= dateFormat.format(date1);
+			Thread.sleep(1500);
+
+			SalmonellaLog fr= new SalmonellaLog();
+			File newfile = fr.getTheNewestFile(fileDownloadPath, "csv");
+			String filename= newfile.getName();
+			Assert.assertEquals(filename, sitesCSVFileName+date+".csv");
+			test.pass("CSV file downloaded successfully");
+			results.createNode("CSV file downloads successfully");
+			saveResultNew(ITestResult.SUCCESS, Constants.SitesLogReportPath, null);
+
+			File file = new File(fileDownloadPath+"\\"+filename);
+			if(file.exists()){
+				System.out.println("File Exists");
+			}	
+
+			SoftAssert softAssert = new SoftAssert();
+			FileReader filereader = new FileReader(file);
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			StringBuffer buffer = new StringBuffer();
+			String data[];		    				
+
+			int columnsCountTotal = 0;
+			int rowsCount = 1;
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+
+					int rows = driver.findElements(By.cssSelector("tr")).size();
+					if (rowsCount < rows) {
+						int totalColumns = driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
+						int columnsCount = columnsCountTotal+3;
+						if (driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						}
+						else {
+							rowsCount = rowsCount+1;
+							columnsCount =0;
+							columnsCountTotal = -1;
+						}
+						columnsCountTotal++;
+					}
+				}
+			}
+			
+				
+			Path path = Paths.get(fileDownloadPath+"\\"+filename);
+			long lines = 0;
+			try {
+				lines = Files.lines(path).count();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			long excludeHeader = lines - 1;
+			String s = String.valueOf(excludeHeader);
+
+			String str = getRowText;
+			str = str.replace(",", "");
+			Assert.assertEquals(s, str);
+
+			file = new File(fileDownloadPath+"\\"+filename); 
+			if(file.delete())
+				System.out.println("CSV file deleted");
+		}
+		catch(AssertionError er) {
+			test.fail("CSV file failed to download");
+			results.createNode("CSV file failed to download");
+			saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, new Exception(er));
+		}
+		catch(Exception ex) {
+			System.out.println("Failure");
+			test.fail("CSV file failed to download");
+			results.createNode("CSV file failed to download");
+			saveResultNew(ITestResult.FAILURE, Constants.SitesLogReportPath, ex);
+		}
+	}
+	
+	
+	
+	
 	@SuppressWarnings({ "unused", "resource" })
-	@Test (description="Test Case: Test Sites CSV Download",enabled= true, priority =9) 
+	@Test (description="Test Case: Test Sites CSV Download",enabled= false, priority =9) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			test = Test_Variables.extent.createTest("AN-Sites-83: Verify user can download Sites CSV file and verify the records", "This test case will verify that user can download Sites CSV file");

@@ -83,7 +83,7 @@ public class PiperManagementModel {
 		*/
 		objTmp = new PiperManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.TestCaseName = "AN-PCM-18: Verify that user can create an alert setting with mulitple valid emails";
+		objTmp.TestCaseName = "AN-PCM-13: Verify that user can create an alert setting with mulitple valid emails";
 		objTmp.TestCaseDescription = "This test case will verify that user can create an alert setting with mulitple valid emails";
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.steps = "Enter valid emails seperated by commas";

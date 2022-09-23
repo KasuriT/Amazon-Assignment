@@ -21,6 +21,7 @@ public class Constants {
 	public static String url_reportsManagement = url+"/home/admin/reportroles";
 	public static String url_alert = url+"/home/admin/alerts";
 	public static String url_agreementManagement = url+"/home/admin/user-agreement";
+	public static String url_companyProducts = url+"/home/admin/product";
 	public static String url_barcodeManagement = url+"/home/admin/barcode-generation";
 	public static String url_complexConfig = url+"/home/admin/complex-cycling-config";
 	public static String url_flockRegistration = url+"/home/admin/flock-management"; 

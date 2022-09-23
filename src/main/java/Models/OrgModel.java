@@ -170,7 +170,7 @@ public class OrgModel {
 		objTmp.ErrorCase = true;
 		objTmp.fileName =BulkSitefileName;
 		objTmp.AlertMessage = "Errors found in "+BulkSitefileName;
-		objTmp.ErrorMessage = "Site Type does not exist.";
+		objTmp.ErrorMessage = "Site Type does not exists.";
 		objTmp.passStep = "User was not able to upload Bulk Sites leaving Site Type empty successfully";
 		objTmp.failStep = "User was able to upload Bulk Sites leaving Site Type empty";
 		objTmp.lstFilters.add(objFilter);

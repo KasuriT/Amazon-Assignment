@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Elements {
 
-	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(90, 1));
+	public static WebDriverWait wait = new WebDriverWait(Helper.driver, Duration.ofSeconds(150, 1));
 
 	//////////////////////////////////////////////////Login Elements//////////////////////////////////////////////////////////
 
@@ -36,6 +36,7 @@ public class Test_Elements {
 	public static By popupNextButton = By.id("btn-next");
 	public static By popupResetButton = By.id("btn-reset");
 	public static By popupSaveButton = By.id("btn-save");
+	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");	
 	public static By popupYesButton = By.id("btn-yes");
 	public static By popupOKButton = By.id("btn-ok");
 	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
@@ -87,6 +88,7 @@ public class Test_Elements {
 	public static By AgreeementExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");
 	public static By AgreementSelect = By.xpath("//*[@id=\"euladdl\"]//div[2]/input");
 	
+	public static By AcceptAgreementonLogin = By.xpath("//*[text()= ' Accept ']");
 	
 	public static By openUserSites = By.cssSelector(".btn-sites");
 	public static By selectTestingSites = By.id("select-testing-sites");
@@ -95,7 +97,7 @@ public class Test_Elements {
 	public static By saveUserSites = By.id("btn-ok-sites");
 	
 	public static By editSearchedUser = By.id("edit-user-1");
-	public static By deleteSearchedUser = By.cssSelector("#delete-user-1 img");
+	public static By deleteSearchedUser = By.id("delete-user-1");
 	public static By agreeementSearchedUser = By.id("view-agreements-1");
 	public static By agreementList = By.xpath("//*[@id=\"manage-user\"]//app-user-license-log//tbody/tr[1]");
 	public static By enterNewPassword = By.id("passwordId");
@@ -172,6 +174,14 @@ public class Test_Elements {
 	public static By orgSiteLatitudeInput = By.id("num-LatId");
 	public static By orgSiteLongitudeInput = By.id("num-LonId");
 	
+	public static By orgUploadProductImage = By.id("file");
+	public static By orgAddProductName = By.id("nameId");
+	public static By orgAddProductDescription = By.id("descriptionId");
+	public static By orgRemoveUploadedProduct = By.id("topRightCornerBtn");
+	public static By orgDeleteUploadedProduct = By.xpath("(//button[@type = 'button'])[3]");
+	public static By orgGetTotalCreatedProducts = By.cssSelector(".fileItemInActive");
+	
+	
 	public static By editSearchedOrg = By.cssSelector("#edit-orgn-sites-1 img");
 	
 	public static By orgAddSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/div/img");
@@ -201,10 +211,30 @@ public class Test_Elements {
 
 	////////////////////////////////////////End Organization Management Elements//////////////////////////////////////////////
 
+	
+	/////////////////////////////////////////////Company Products Elements////////////////////////////////////////////////////
+	
+	public static By getCompanyProductsColumnNames = By.cssSelector("th .log-header label");
+	public static String CompanyProductsTableName = "manage-company-product";	
+	public static By CompanyProductCreateNewButton = By.id("create-product");	
+	public static By CompanyProductNameInput = By.cssSelector("#CompanyId input");
+	public static String CompanyNameProductEditButton = "edit-product-";
+	public static String CompanyNameProductDeleteButton = "delete-product-";
+	
+	public static String alliedCompanyCol = "0";
+	public static String productImageCol = "1";
+	public static String productNameCol = "2";
+	public static String productDescriptionCol = "3";
+	
+	public static String productAlliedCompany = "alliedCompany";
+	public static String productName = "productName";
+	
+	//////////////////////////////////////////End Company Products Elements///////////////////////////////////////////////////
 
-
+	
 	//////////////////////////////////////////// Access Management Elements//////////////////////////////////////////////////
 
+	public static By accessTitle = By.id("Access Management");
 	public static By accessCreateButton = By.id("create-role");
 	public static By accessName = By.xpath("//div[1]/app-anc-input-box/div/input[1]");
 	public static By accessDesc = By.xpath("//div[2]/app-anc-input-box/div/input[1]");
@@ -220,6 +250,7 @@ public class Test_Elements {
 	//////////////////////////////////////////// Barcode Management Elements//////////////////////////////////////////////////
 
 	public static By barcodeManagmentTitle = By.id("Barcode Management");
+	public static String barcodeManagementSiteId = "siteId";
 
 	//////////////////////////////////////////End BArcode Management Elements////////////////////////////////////////////////
 
@@ -296,6 +327,8 @@ public class Test_Elements {
 
 	//////////////////////////////////////////Report Management Elements////////////////////////////////////////////////////
 
+	public static By reportsManagementTitle = By.id("Reports Management");
+	public static String reportsManagementTable = "dataformat-log";
 	public static By rmCreateButton = By.id("create-report-role");
 	public static By rmName = By.id("nameId");
 	public static By rmDesc = By.id("DescId");
@@ -314,6 +347,7 @@ public class Test_Elements {
 
 	/////////////////////////////////////////Agreement Management Elements////////////////////////////////////////////////////
 	
+	public static By amTitle = By.id("Agreement Management");
 	public static String amBeforelist = "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[2]/div[2]/form/div/div/div/div/table/tbody/tr[";
 	public static String amAfterList = "]/td[1]";
 	public static String amAfterList2 = "]/td[2]/label";
@@ -464,10 +498,15 @@ public class Test_Elements {
 	
 	
 	/////////////////////////////////////Piper Management Elements////////////////////////////////////////////////////////7
-	public static By piperManagementTitle = By.id("PIPER Management");
+	public static By piperManagementTitle = By.id("PIPER Configuration Management");
 	public static String piperManagementTable = "manage-piper-log";
 	/////////////////////////////////////End Piper Management Elements/////////////////////////////////////////////////////
 	
+	
+	/////////////////////////////////////Piper Configuration Elements////////////////////////////////////////////////////////7
+	public static By piperConfigurationTitle = By.id("PIPER Configuration Management");
+	//public static String piperConfigurationTable = "manage-piper-log";
+	/////////////////////////////////////End Piper Configuration Elements/////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////Data Template Management Elements/////////////////////////////////////////////
 

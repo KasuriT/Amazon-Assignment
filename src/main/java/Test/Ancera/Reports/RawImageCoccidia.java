@@ -39,10 +39,8 @@ public class RawImageCoccidia {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Raw Image Ingestion"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Raw Image Ingestion Test Report"); 
-
 		Helper.config();
 		ConfigureLogin.login();
 	}
@@ -55,7 +53,6 @@ public class RawImageCoccidia {
 		for (RawImageModel objModel : Test_Variables.lstRawImageCoccidia) { 
 			try{
 				for (ReportFilters objFilter : objModel.lstFilters) {
-
 
 					if (objModel.isInstallationRunConfigure) {
 						Helper.driver.get(Constants.url_piperConfiguration);			
