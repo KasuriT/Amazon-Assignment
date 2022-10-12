@@ -92,7 +92,7 @@ public class SalmonellaLog {
 	
 	@Test(priority= 5, enabled = true)
 	public void RowsPerPage() throws InterruptedException, IOException {
-		RowsPerPage();
+		RowsPerPage1();
 	}
 	
 	
@@ -344,8 +344,7 @@ public class SalmonellaLog {
 	}
 
 	
-
-
+	
 	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 9) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {

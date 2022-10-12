@@ -52,6 +52,7 @@ public class UserManagement {
 		Lock(userManagementTable, "User Management", Constants.UserManagementReportPath, 0);
 	}
 
+	
 	@Test (priority = 2) 
 	public void WildcardUser() throws InterruptedException, IOException {
 		driver.get(Constants.url_user);

@@ -57,7 +57,7 @@ public class PiperManagement {
 	
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
-		Sorting(piperManagementTable, "PIPER Management", PiperManagementReportPath);
+		Sorting1(piperManagementTable, "PIPER Management", PiperManagementReportPath, 0);
 	}
 	
 	

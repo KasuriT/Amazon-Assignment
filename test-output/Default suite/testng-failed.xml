@@ -3,13 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.MetaData.DataUpload">
+      <class name="Test.Ancera.Administration.FlockManagement">
         <methods>
-          <include name="endreport"/>
           <include name="extent"/>
-          <include name="FlockMetadata"/>
+          <include name="tearDown"/>
+          <include name="test"/>
+          <include name="CreateFlock"/>
+          <include name="endreport"/>
         </methods>
-      </class> <!-- Test.Ancera.MetaData.DataUpload -->
+      </class> <!-- Test.Ancera.Administration.FlockManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

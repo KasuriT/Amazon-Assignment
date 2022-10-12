@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -123,6 +124,11 @@ public class Helper {
     public static void type(By locator, String text) {
     	driver.findElement(locator).sendKeys(text);
         Test_Variables.test.log(Status.INFO, "Typing "+text+" in "+locator);
+    }
+    
+    public static void enterKey(By locator) {
+    	driver.findElement(locator).sendKeys(Keys.ENTER);
+        Test_Variables.test.log(Status.INFO, "Press enter key in "+locator);
     }
     
     public static void clear(By locator) {

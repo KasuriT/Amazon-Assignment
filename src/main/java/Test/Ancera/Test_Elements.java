@@ -362,7 +362,164 @@ public class Test_Elements {
 	public static String amExpandOrgType = "/html/body/app-root/div/app-manage-user-license-component/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/ul/li/div/div[2]/label[1]";
 	
 	//////////////////////////////////////End Agreement Management Elements///////////////////////////////////////////////////
+
+
+	///////////////////////////////////////////////Flock Management Elements/////////////////////////////////////////////////////////
+	public static By FlockManagementTitle = By.id("Flock Management");
 	
+	public static String flockPlacementTable = "flock-placement-log";
+	public static String flockMortalityTable = "flock-mortality-log";
+	public static String flockSettlementTable = "flock-settlement-log";
+	public static String flockCondemnationTable = "flock-condemnation-log";
+	
+	public static By flockPlacementTab = By.xpath("//*[text() = 'Placement ']");
+	public static By flockMortalityTab = By.xpath("//*[text() = 'Mortality ']");
+	public static By flockSettlementTab = By.xpath("//*[text() = 'Settlement ']");
+	public static By flockCondemnationTab = By.xpath("//*[text() = 'Condemnation ']");
+		
+	public static By flockCreateButton = By.id("create-flock");
+	
+	public static By flockFarmMandatoryCheck = By.xpath("//*[@ng-reflect-id = 'farmSiteId-0' and @ng-reflect-mandatory = 'true']");	
+	
+	public static By flockFarmDropdownExpand = By.cssSelector("[formcontrolname='farmId'] .down ");
+	public static By flockFarmDropdownSearch = By.cssSelector("[formcontrolname='farmId'] input");
+	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId-0 input");
+	public static By flockIntegratorFlockAddNew = By.cssSelector(".ng-tag-label");
+	public static By flockBirdSizeInput = By.cssSelector("#birdSizeId-0 input");
+	public static By flockBirdSexInput = By.cssSelector("#birdSexId-0 input");
+		
+	public static By flockPlacementDateCalendar = By.xpath("(//*[@class = 'apl-datepicker__calender-icon'])[1]");
+	public static By flockEstHarvestDateCalendar = By.xpath("(//*[@class = 'apl-datepicker__calender-icon'])[2]");
+	public static By flockHousePlacedDropdownExpand = By.cssSelector("#housePlaced-0 .ng-arrow-wrapper");
+	public static By flockHousePlacedList = By.cssSelector("#housePlaced-0 .ng-option");
+	public static By flockAddNewProgram = By.xpath("//*[text() = 'Add New Program']");
+	
+	public static String flockIDCol = "0";
+	public static String flockIntegratorIDCol = "1";
+	public static String flockBirdSizeCol = "2";
+	public static String flockBirdSexCol = "3";
+	public static String flockMarketingProgramCol = "4";
+	public static String flockBirdBreedCol = "5";
+	public static String flockProgramDetailsCol = "7";
+	public static String flockFarmCol = "10";
+	
+	public static String flockMortalityCol = "7";
+	
+	public static String flockWeeklyFarmRankCol = "7";
+	public static String flockHistoricalFarmCostVarianceCol = "8";
+	public static String flockWeeklyFarmCostVarianceCol = "9";
+	public static String flockDaysOutCol = "10";
+	public static String flockAgeOfLiterCol = "11";
+	public static String flockAverageSoldAgeCol = "12";
+	public static String flockNumBirdsSolidCol = "13";
+	public static String flockPlacementDensityCol = "14";
+	public static String flockProcessingDateCol = "15";
+	public static String flockProcessingSiteIDCol = "16";
+	public static String flockUSDAPlantIDCol = "17";
+	public static String flockPlantLocationCol = "18";
+	public static String flockNumOfBirdsProcessedCol = "19";
+	public static String flockAvgBirdWeightLBCol = "20";
+	public static String flockAvgBirdWeightKGCol = "21";
+	
+	
+	public static By flockInlineButton = By.cssSelector("edit-inline-access");
+	public static By flockInlineButtonSave = By.cssSelector("edit-inlineSave-access");
+	public static By flockBirdBreed = By.cssSelector("#birdBreedId-0-5 input");
+	
+	
+	public static By flockInlineNewProgramIcon = By.cssSelector("tr:nth-child(1) #col-"+flockProgramDetailsCol+" img");
+	public static By flockInlineAddNewProgramPopup = By.id("add-program");
+	public static By flockInlineProgramName = By.cssSelector("#programId input");
+	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
+	public static By flockProgramSaveButton = By.cssSelector("btn-save-program");
+	
+	public static By flockInlineMortality1Input = By.cssSelector("tr:nth-child(1) #col-"+flockMortalityCol+" img");
+	
+	
+	
+	public static By flockAuditTrail = By.id("audit-trial-0");
+	public static By flockAuditRowCount = By.cssSelector(".audit-v2 tr");
+	public static By flockEditMortalityTab = By.cssSelector("#flockManage li:nth-child(2)");
+	public static By flockEditSettlementTab = By.cssSelector("#flockManage li:nth-child(3)");
+	public static By flockEditCondemnationTab = By.cssSelector("#flockManage li:nth-child(4)");
+	
+	public static By flockWeeklyFarmRank = By.id("num-weeklyFarmRank");
+	public static By flockHistoricalFarmCostVariance = By.id("num-historicalFarmCostVariance");
+	public static By flockWeeklyFarmCostVariance = By.id("num-weeklyFarmCostVariance");
+	public static By flockNumBirdsDOAPlant = By.id("num-numBirdsDOAPlant");
+	
+	
+	
+	//public static By flockEditCondemnationTab = By.cssSelector("#num-week_2_Mortality");
+	
+
+	
+	
+
+	
+	
+	public static By flockProgramSaveDisabledCheck = By.cssSelector("#btn-save.disabled-v2");
+	
+	
+
+
+
+	
+
+	public static String flockShowFilter = "_show-filter";
+	public static String flockSortFilter = "sort-";
+	public static String flockApplyFilter = "_apply";
+	public static String flockClearFilter = "_clear-filter";
+
+	public static String flockIntegratorID = "integratorFlockId";
+	public static String flockSiteID = "siteId";
+	public static String flockHatchDate = "hatchDate";
+	public static String flockPlacementDate = "placementDate";
+	public static String flockNumBirdsPlaced = "numOfBirdsPlaced";
+	public static String flockBirdType = "birdType";
+	public static String flockBirdSex = "birdSex";
+	//public static String flockBirdBreed = "birdBreed";
+	public static String flockProcessingDate = "processingDate";
+	public static String flockProcessingSiteID = "processingSiteId";
+	public static String flockNumBirdsDOA = "numBirdsDoaPlant";
+	public static String flockNumBirdsProcessed = "numBirdsProcessed";
+	public static String flockTotalWeightProcessedLB = "totalWeightProcessedLB";
+	public static String flockTotalWeightProcessedKG = "totalWeightProcessedKG";
+	public static String flockTotalFeedWeightLB = "totalFeedWeightLB";
+	public static String flockTotalFeedWeightKG = "totalFeedWeightKG";
+	public static String flockTotalWeightCondemendLB  = "totalWeightCondemnedLB";
+	public static String flockTotalWeightCondemendKG  = "totalWeightCondemnedKG";
+	public static String flockNumBirdsCondemnedWhole = "numBirdsCondemnedWhole";
+	public static String flockBirdsWeightCondemnedLB = "birdWeightCondemnedLB";
+	public static String flockBirdsWeightCondemnedKG = "birdWeightCondemnedKG";
+	public static String flockPartsWeightCondemnedLB = "partsWeightCondemnedLB";
+	public static String flockPartsWeightCondemnedKG = "partsWeightCondemnedKG";
+	public static String flockTotalGrowerPay = "totalAmountPaidUSD";
+	public static String flockAmountPaidPerPound = "totalAmountPaidUSDWeightLB";
+	public static String flockTotalCostUSDPerWeight = "totalCostUSDPerWeightLB";
+	public static String flockLiveability = "livabilityPerc";
+	public static String flockMortality = "mortalityPerc";
+	public static String flockAvgDailyWeightGainLB = "avgDailyWeightGainLB";
+	public static String flockAvgAgeBirdsProcessed = "avgAgeOfBirdProcessedDays";
+	public static String flockAvgBirdWeightLB = "avgBirdWeightLB";
+	public static String flockAvgBirdWeightKG = "avgBirdWeightKG";
+	public static String flockFCR = "fcr";
+	public static String flockNumBirdsSold = "numBirdsSold";
+	public static String flockAdjFCR = "adjFcr";
+	public static String flockAGradePaws = "aGradePawsPerc";
+	public static String flockOutTimeDays = "outTimeDays";
+	public static String flockBirdSize = "birdSize";
+	public static String flockMarketingProgram = "marketingProgram";
+	public static String flockUSDAPlantID = "usdaPlantId";
+	public static String flockDowngradePawsPerc = "downgradePawsPerc";
+	public static String flockTotalMortality = "totalMortality";
+	public static String flockTimeFrame = "timeFrame";
+	public static String flockUniqueFlockID = "uniqueFlockId";
+
+
+
+	/////////////////////////////////////////////////End Flock Management Elements////////////////////////////////////////////////////////////
+
 	
 	/////////////////////////////////////////Program Management Elements////////////////////////////////////////////////////
 	public static By programManagementTitle = By.id("Program Management");
@@ -371,16 +528,32 @@ public class Test_Elements {
 	public static By programName = By.id("programNameId");
 	public static By programColumn1 = By.cssSelector("#col-0 label");
 	public static By programTargetPathogen = By.cssSelector("#targetPathogenId input");
+	public static By programTargetPathogenValue = By.cssSelector("#targetPathogenId .ng-value-label");
 	public static By programProgramType = By.cssSelector("#programTypeId input");
+	public static By programProgramTypeValue = By.cssSelector("#programTypeId .ng-value-label");
+	public static By programProgramTypeDisabledCheck = By.cssSelector("#programTypeId.ng-select-disabled");
 	public static By programSupplier = By.cssSelector("#supplierId input");
 	public static By programDescription = By.id("descriptionId");
-	public static By programStartDate = By.id("");
+//	public static By programStartDate = By.id("startDate img");
 	public static By programNoApplicationFlock = By.id("num-numOfApplicationId");
 	public static String programDaysApplicationFlock = "num-flockDayApplicationId";
+	public static By programStartDateIcon = By.cssSelector("#startDate img");
+	public static By programComplexList = By.cssSelector("#compleSiteId .toggle-list");
+	public static By programComplexSearch = By.id("compleSiteId_search");
 	
 	public static By programFeedTypeDropdown = By.cssSelector("#feedTypeId-1 input");
+	public static By programFeedTypeValue = By.cssSelector("#feedTypeId-1 .ng-value-label");
 	public static By programFlockDayStart  = By.id("num-flockDayStartId-1");
 	public static By programFlockDayEnd  = By.id("num-flockDayEndId-1");
+	
+	public static By programComplexSelected = By.cssSelector("#compleSiteId.ng-valid");
+	public static By programComplexMandatoryCheck = By.cssSelector("//*[@id='compleSiteId' and @ng-reflect-mandatory = 'true']");
+	
+	
+	public static By programBioshuttleFlockDayStart = By.id("num-bioShuttleFlockDayStart");
+	public static By programBioshuttleFlockDayStartError = By.cssSelector("#bioShuttleFlockDayStart-error-container .hide");
+	public static By programBioshuttleFlockDayEnd = By.id("num-bioshuttleFlockDayEnd");
+	public static By programBioshuttleFlockDayEndError = By.cssSelector("#bioShuttleFlockDayEnd-error-container .hide");
 	
 	public static By programAddFeedType = By.xpath("//*[text() = 'Add Feed Type']");
 	public static By programFeedType2Dropdown = By.cssSelector("#feedTypeId-2 input");
@@ -394,11 +567,10 @@ public class Test_Elements {
 	public static By programBioshuttleProgramTab = By.xpath("//*[text() = 'Vaccine with Bioshuttle ']");
 	public static By programProgramUtilizationTab = By.xpath("//*[text() = 'Program Utilization ']");
 	
-	public static String programEditVaccineButton = "edit-vaccine-program-";
-	public static String programEditFeedButton = "edit-feed-program-";
-	public static String programDeleteVaccineButton = "delete-vaccine-program-";
-	public static String programDeleteFeedButton = "delete-feed-program-";
-	
+//	public static String programEditVaccineButton = "edit-vaccine-program-";
+//	public static String programEditFeedButton = "edit-feed-program-";
+//	public static String programDeleteVaccineButton = "delete-vaccine-program-";
+//	public static String programDeleteFeedButton = "delete-feed-program-";
 
 	public static String programFeedTable = "feed-program-log";
 	public static String programTreatmentTable = "treatment-log";
@@ -409,12 +581,17 @@ public class Test_Elements {
 	public static String programFeed_ID = "feedprogram";
 	public static String programTreatment_ID = "treatment";
 	public static String programVaccine_ID = "vaccine";
-	public static String programBioshuttle_ID = "vaccinebio";
+	public static String programBioshuttle_ID = "vaccine-bio";
 	
 	public static String programFeedEdit = "edit-feed-program-";
 	public static String programTreatmentEdit = "edit-treatment-program-";
 	public static String programVaccineEdit = "edit-vaccine-program-";
 	public static String programBioshuttleEdit = "edit-vaccine-bio-program-";
+	
+	public static String programFeedCopy = "copy-feed-program-";
+	public static String programTreatmentCopy = "copy-treatment-program-";
+	public static String programVaccineCopy = "0-";
+	public static String programBioshuttleCopy = "copy-vaccine-bio-program-";
 	
 	public static String programFeedDelete = "delete-feed-program-";
 	public static String programTreatmentDelete = "delete-treatment-program-";
@@ -447,27 +624,28 @@ public class Test_Elements {
 	
 	public static String programVaccineProgramNameCol = "#col-0-vaccine label";
 	public static String programVaccineSupplierNameCol = "#col-1-vaccine label";
-	public static String programVaccineNumberOfApplicationFlockCol = "#col-1-vaccine label";
-	public static String programVaccineDescriptionCol = "#col-2-vaccine label";
-	public static String programVaccineStartDateCol = "#col-3-vaccine label";
-	public static String programVaccineEndDateCol = "#col-4-vaccine label";
-	public static String programVaccineFlockDayApplicationCol = "#col-5-vaccine label";
+	public static String programVaccineNumberOfApplicationFlockCol = "#col-2-vaccine label";
+	public static String programVaccineDescriptionCol = "#col-3-vaccine label";
+	public static String programVaccineStartDateCol = "#col-4-vaccine label";
+	public static String programVaccineEndDateCol = "#col-5-vaccine label";
+	public static String programVaccineFlockDayApplicationCol = "#col-6-vaccine label";
 
 	public static String programBioshuttleProgramNameCol = "#col-0-vaccine-bio label";
 	public static String programBioshuttleSupplierNameCol = "#col-1-vaccine-bio label";
-	public static String programBioshuttleNumberOfApplicationFlockCol = "#col-1-vaccine-bio label";
-	public static String programBioshuttleDescriptionCol = "#col-2-vaccine-bio label";
-	public static String programBioshuttleStartDateCol = "#col-3-vaccine-bio label";
-	public static String programBioshuttleEndDateCol = "#col-4-vaccine-bio label";
-	public static String programBioshuttleFlockDayApplicationCol = "#col-5-vaccine-bio label";
-	public static String programBioshuttleNameCol = "#col-6-vaccine-bio label";
-	public static String programBioshuttleFlockDayStartCol = "#col-7-vaccine-bio label";
-	public static String programBioshuttleFlockDayEndCol = "#col-8-vaccine-bio label";
-
+	public static String programBioshuttleNumberOfApplicationFlockCol = "#col-2-vaccine-bio label";
+	public static String programBioshuttleDescriptionCol = "#col-3-vaccine-bio label";
+	public static String programBioshuttleStartDateCol = "#col-4-vaccine-bio label";
+	public static String programBioshuttleEndDateCol = "#col-5-vaccine-bio label";
+	public static String programBioshuttleFlockDayApplicationCol = "#col-6-vaccine-bio label";
+	public static String programBioshuttleNameCol = "#col-7-vaccine-bio label";
+	public static String programBioshuttleFlockDayStartCol = "#col-8-vaccine-bio label";
+	public static String programBioshuttleFlockDayEndCol = "#col-9-vaccine-bio label";
 	
-//	public static String programVaccineName = "vaccine_programName";
-	public static String programVaccineCSVFileName = "Vaccine Log - ";
 	public static String programFeedCSVFileName = "Feed Program Log - ";
+	public static String programTreatmentCSVFileName = "Treatment Program Log - ";
+	public static String programVaccineCSVFileName = "Vaccine Log - ";
+	public static String programBioshuttleCSVFileName = "Vaccine with Bioshuttle Log - ";
+	public static String programUtilizationCSVFileName = "Program Utilization Log - ";
 	
 	//////////////////////////////////////End Program Management Elements///////////////////////////////////////////////////
 	
@@ -933,163 +1111,6 @@ public class Test_Elements {
 	/////////////////////////////////////////////////End Sites Log Elements////////////////////////////////////////////////////////////
 	
 	
-	///////////////////////////////////////////////Flock Registration Elements/////////////////////////////////////////////////////////
-	public static By FlockRegistrationTitle = By.id("Flock Management");
-	public static String FlockRegistrationTable = "manage-flock-registration";
-	public static String flockIntegratorIDCol = "0";
-	public static String flockSiteIDCol = "1";
-	public static String flockPlacementDateCol = "2";
-	public static String flockNumBirdsPlacedCol = "3";
-	public static String flockBirdSexCol = "4";
-	public static String flockBirdBreedCol = "5";
-	public static String flockProcessingDateCol = "6";
-	public static String flockProcessingSiteIDCol = "7";
-	public static String flockNumBirdsDOACol = "8";
-	public static String flockNumBirdsProcessedCol = "9";
-	public static String flockTotalWeightProcessedLBCol = "10";
-	public static String flockTotalWeightProcessedKGCol = "11";
-	public static String flockTotalFeedWeightLBCol = "12";
-	public static String flockTotalFeedWeightKGCol = "13";
-	public static String flockTotalWeightCondemnedLBCol = "14";
-	public static String flockTotalWeightCondemnedKGCol = "15";
-	public static String flockNumBirdsCondemnedWholeCol = "16";
-//	public static String flockBirdsWeightCondemnedLBCol = "";
-//	public static String flockBirdsWeightCondemnedKGCol = "";
-	public static String flockPartsWeightCondemnedLBCol = "17";
-	public static String flockPartsWeightCondemnedKGCol = "18";
-//	public static String flockTotalAmountPaidCol = "";
-	public static String flockTotalGrowerPayCol = "19";
-	public static String flockAmountPaidPePoundCol = "20";
-//	public static String flockTotalAmountPaidWeightLBCol = "";
-	public static String flockTotalCostPerWeightCol = "21";
-	public static String flockLiveabilityCol = "22";
-	public static String flockMortalityCol = "23";
-	public static String flockAvgDailyWeightGainLBCol = "24";
-	public static String flockAvgAgeBirdsProcessedCol = "25";
-	public static String flockAvgBirdWeightLBCol = "26";
-	public static String flockAvgBirdWeightKGCol = "27";
-	public static String flockFCRCol = "28";
-	public static String flockNumBirdsSoldCol = "29";
-	public static String flockAdjFCRCol = "30";
-	public static String flockAGradePawsCol = "31";
-//	public static String flockLast7DaysCol = "";
-	public static String flockOutTimeDaysCol = "32";
-	public static String flockBirdSizeCol = "33";
-	public static String flockMarketingProgramCol = "34";
-	public static String flockUSDAPlantIDCol = "35";
-	public static String flockDowngradePawsPercCol = "36";
-	public static String flockTotalMortalityCol = "37";
-	public static String flockTimeFrameCol = "38";
-	public static String flockUniqueFlockIDCol = "39";
-	public static String flockFieldAccessCol = "40";
-	
-	
-	public static String flockAuditIntegratorIDCol = "";
-	public static String flockAuditSiteIDCol = "0";
-	public static String flockAuditPlacementDateCol = "1";
-	public static String flockAuditNumBirdsPlacedCol = "2";
-	public static String flockAuditBirdSexCol = "3";
-	public static String flockAuditBirdBreedCol = "4";
-	public static String flockAuditProcessingDateCol = "5";
-	public static String flockAuditProcessingSiteIDCol = "6";
-	public static String flockAuditNumBirdsDOACol = "7";
-	public static String flockAuditNumBirdsProcessedCol = "8";
-	public static String flockAuditTotalWeightProcessedLBCol = "9";
-	public static String flockAuditTotalWeightProcessedKGCol = "10";
-	public static String flockAuditTotalFeedWeightLBCol = "11";
-	public static String flockAuditTotalFeedWeightKGCol = "12";
-	public static String flockAuditTotalWeightCondemnedLBCol = "13";
-	public static String flockAuditTotalWeightCondemnedKGCol = "14";
-	public static String flockAuditNumBirdsCondemnedWholeCol = "15";
-	public static String flockAuditPartsWeightCondemnedLBCol = "16";
-	public static String flockAuditPartsWeightCondemnedKGCol = "17";
-	public static String flockAuditTotalGrowerPayCol = "18";
-	public static String flockAuditAmountPaidPerPoundCol = "19";
-	public static String flockAuditTotalCostPerWeightCol = "20";
-	public static String flockAuditLiveabilityCol = "21";
-	public static String flockAuditMortalityCol = "22";
-	public static String flockAuditAvgDailyWeightGainLBCol = "23";
-	public static String flockAuditAvgAgeBirdsProcessedCol = "24";
-	public static String flockAuditAvBirdWeightLBCol = "25";
-	public static String flockAuditAvBirdWeightKGCol = "26";
-	public static String flockAuditFCRCol = "27";
-	public static String flockAuditNumBirdsSoldCol = "28";
-	public static String flockAuditAdjFCRCol = "29";
-	public static String flockAuditAGradePawsCol = "30";
-	public static String flockAuditOutTimeDaysCol = "31";
-	public static String flockAuditBirdSizeCol = "32";
-	public static String flockAuditMarketingProgramCol = "33";
-	public static String flockAuditUSDAPlantIDCol = "34";
-	public static String flockAuditDowngradePawsPercCol = "35";
-	public static String flockAuditTotalMortalityCol = "36";
-	public static String flockAuditTimeFrameCol = "37";	
-	public static String flockAuditUniqueFlockIDCol = "38";	
-	
-	public static String flockShowFilter = "_show-filter";
-	public static String flockSortFilter = "sort-";
-	public static String flockApplyFilter = "_apply";
-	public static String flockClearFilter = "_clear-filter";
-
-	public static String flockIntegratorID = "integratorFlockId";
-	public static String flockSiteID = "siteId";
-	public static String flockHatchDate = "hatchDate";
-	public static String flockPlacementDate = "placementDate";
-	public static String flockNumBirdsPlaced = "numOfBirdsPlaced";
-	public static String flockBirdType = "birdType";
-	public static String flockBirdSex = "birdSex";
-	public static String flockBirdBreed = "birdBreed";
-	public static String flockProcessingDate = "processingDate";
-	public static String flockProcessingSiteID = "processingSiteId";
-	public static String flockNumBirdsDOA = "numBirdsDoaPlant";
-	public static String flockNumBirdsProcessed = "numBirdsProcessed";
-	public static String flockTotalWeightProcessedLB = "totalWeightProcessedLB";
-	public static String flockTotalWeightProcessedKG = "totalWeightProcessedKG";
-	public static String flockTotalFeedWeightLB = "totalFeedWeightLB";
-	public static String flockTotalFeedWeightKG = "totalFeedWeightKG";
-	public static String flockTotalWeightCondemendLB  = "totalWeightCondemnedLB";
-	public static String flockTotalWeightCondemendKG  = "totalWeightCondemnedKG";
-	public static String flockNumBirdsCondemnedWhole = "numBirdsCondemnedWhole";
-	public static String flockBirdsWeightCondemnedLB = "birdWeightCondemnedLB";
-	public static String flockBirdsWeightCondemnedKG = "birdWeightCondemnedKG";
-	public static String flockPartsWeightCondemnedLB = "partsWeightCondemnedLB";
-	public static String flockPartsWeightCondemnedKG = "partsWeightCondemnedKG";
-	public static String flockTotalGrowerPay = "totalAmountPaidUSD";
-	public static String flockAmountPaidPerPound = "totalAmountPaidUSDWeightLB";
-	public static String flockTotalCostUSDPerWeight = "totalCostUSDPerWeightLB";
-	public static String flockLiveability = "livabilityPerc";
-	public static String flockMortality = "mortalityPerc";
-	public static String flockAvgDailyWeightGainLB = "avgDailyWeightGainLB";
-	public static String flockAvgAgeBirdsProcessed = "avgAgeOfBirdProcessedDays";
-	public static String flockAvgBirdWeightLB = "avgBirdWeightLB";
-	public static String flockAvgBirdWeightKG = "avgBirdWeightKG";
-	public static String flockFCR = "fcr";
-	public static String flockNumBirdsSold = "numBirdsSold";
-	public static String flockAdjFCR = "adjFcr";
-	public static String flockAGradePaws = "aGradePawsPerc";
-	public static String flockOutTimeDays = "outTimeDays";
-	public static String flockBirdSize = "birdSize";
-	public static String flockMarketingProgram = "marketingProgram";
-	public static String flockUSDAPlantID = "usdaPlantId";
-	public static String flockDowngradePawsPerc = "downgradePawsPerc";
-	public static String flockTotalMortality = "totalMortality";
-	public static String flockTimeFrame = "timeFrame";
-	public static String flockUniqueFlockID = "uniqueFlockId";
-	
-	public static By flockCreateButton = By.id("create-flock");
-	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId input");
-	public static By flockBirdSizeExpandDropDown = By.cssSelector("#birdSizeId input");
-	public static By flockFarmExpandDropdown = By.cssSelector("#farmSiteId .down");
-	public static By flockFarmSeach = By.id("farmSiteId_search");
-	public static By flockHousePlacementDots = By.xpath("//div[8]/div/div[2]/i");
-	public static By flockProgramDetailsDots = By.xpath("//div[9]/div/div[2]/i");
-	public static By flockSelectHouses = By.xpath("//*[text() = 'Select Houses']");
-	public static By flockProgramExpandDropDown = By.cssSelector("#programId input");
-	public static By flockProgramStartDate = By.cssSelector("#startDate img");
-	public static By flockHouseSaveButton = By.id("btn-save-house");
-	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
-	public static By flockProgramSaveButton = By.id("btn-save-program");
-	
-	/////////////////////////////////////////////////End Flock Registration Elements////////////////////////////////////////////////////////////
 	
 	
 	///////////////////////////////////////////////Coccidia Timeline Log Elements/////////////////////////////////////////////////////////

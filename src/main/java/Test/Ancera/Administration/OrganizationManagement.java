@@ -50,8 +50,6 @@ public class OrganizationManagement{
 		ConfigureLogin.login();
 	}
 	
-	
-	
 	@Test(priority = 1, enabled = true)
 	public void Navigate() throws InterruptedException, IOException {
 	NavigateToScreen(url_organization, "Organization Management", OrgManagementReportPath, orgTitle);

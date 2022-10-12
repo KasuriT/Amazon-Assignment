@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Test.Ancera.Helper;
 import Test.Ancera.Test_Variables;
 
 public class RawImageModel {
@@ -28,7 +29,16 @@ public class RawImageModel {
 	public String runType;
 	public String countOutcome;
 
-	public static String fileAbsolutePath = "C:\\Users\\anc_admin\\Downloads\\RawImages\\";
+	public String totalImages;
+	public String startAssay_runID;
+	
+	public static String fileAbsolutePathSalm = Helper.projectPath+"/Images/Salemonella_Test_Dataset/";
+	public static String fileAbsolutePath = Helper.projectPath+"/Images/Cocci_Test_Images/Cocci_Test_Images/base64/";
+	public static String fileAbsolutePathCocci = Helper.projectPath+"/Images/Cocci_Test_Images/Cocci_Test_Images/";
+	
+	
+	public static String checksumValue = "7197adc9b0c93b1aefb11c81f431a68ac53db8e11dd071ca34d8546818b0ec42";
+	public static String base64fileValue = "20200820101434_PSN0024_EIM-3320-B0039_L07S01.txt";
 	
 	public RawImageModel() {
 
@@ -38,20 +48,20 @@ public class RawImageModel {
 		ArrayList<RawImageModel> lstRawImageModel = new ArrayList<RawImageModel>();	
 		RawImageModel objTmp;
 		ReportFilters objFilter;
-
+		
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 1;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L01S01.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
-		objTmp.runStartAssay = true;
+		objTmp.runStartAssay = false;
 		objTmp.checkLog = false;
 		objTmp.isErrorCode = false;
 		objTmp.isInstallationRunConfigure = false;
@@ -61,15 +71,15 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-/*		
+		/*
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 2;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L02S02.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -85,15 +95,15 @@ public class RawImageModel {
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
 
-		
+		/*
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 3;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L03S03.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -116,8 +126,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 4;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L04S04.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -139,8 +149,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 5;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L05S05.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -162,8 +172,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 6;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L06S06.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -185,8 +195,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 7;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L07S07.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -209,8 +219,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 8;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L08S08.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -232,8 +242,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 9;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L09S09.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -255,8 +265,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 10;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L10S10.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -278,8 +288,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 11;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L11S11.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -301,8 +311,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 12;
-		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
-		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.checksum = checksumValue;
+		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L12S12.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
@@ -319,7 +329,7 @@ public class RawImageModel {
 		lstRawImageModel.add(objTmp);
 					
 		/////////////////////////////Installation Run Cases//////////////////////////////////
-	/*	
+		/*
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -596,9 +606,9 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-2"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-		*/
+		
 		//////////////////////////////Error Code Cases///////////////////////////////////////
-			
+	*/		
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -612,18 +622,40 @@ public class RawImageModel {
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
 		objTmp.runStartAssay = false;
-		objTmp.checkLog = true;
+		objTmp.checkLog = false;
 		objTmp.isErrorCode = true;
+		objTmp.isInstallationRunConfigure = false;
 		objTmp.fileType = "";
 		objTmp.countOutcome = "E062";
 		objTmp.run_id = Test_Variables.dateYYYYMMDD+"-TestAut-3"+Test_Variables.date0+"_1";		
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-3"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-		
+	/*
+		objTmp = new RawImageModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
+		objTmp.lane = 2;
+		objTmp.checksum = "0113874a55889c461f7468d0900358e3da182072b7c250f16400982be26a22a5";
+		objTmp.base64fileName = fileAbsolutePath+"base64_1.txt";
+		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-3"+Test_Variables.date0+"_L02S02.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = true;
+		objTmp.isErrorCode = true;
+		objTmp.fileType = "";
+		objTmp.countOutcome = "E033";
+		objTmp.run_id = Test_Variables.dateYYYYMMDD+"-TestAut-3"+Test_Variables.date0+"_2";		
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-3"+Test_Variables.date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageModel.add(objTmp);
+		*/
 		return lstRawImageModel;
 	}	
-	
 	
 	public static ArrayList<RawImageModel> FillDataSalm() {
 		ArrayList<RawImageModel> lstRawImageModel = new ArrayList<RawImageModel>();	
@@ -636,13 +668,13 @@ public class RawImageModel {
 		objTmp.pathogen = "Salmonella";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 1;
-		objTmp.checksum = "d7c666d8d3ab6cc398e69966acb29f1a53e7a0319337c20a10cb6013ec9bcf0d";
-		objTmp.base64fileName = fileAbsolutePath+"base64_salm.txt";
+		objTmp.checksum = fileAbsolutePathSalm+"checksum\\SAL-4220_A0194_L10S01_cs.txt";
+		objTmp.base64fileName = fileAbsolutePathSalm+"base64\\SAL-4220_A0194_L10S01.txt";
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-RI-Salm-1"+Test_Variables.date0+"_L01S01.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
-		objTmp.runStartAssay = true;
+		objTmp.runStartAssay = false;
 		objTmp.checkLog = false;
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
@@ -651,7 +683,8 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-RI-Salm-1"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-		
+		//
+		/*
 		objTmp = new RawImageModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -942,7 +975,7 @@ public class RawImageModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(Test_Variables.dateYYYYMMDD+"-TestAut-2"+Test_Variables.date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageModel.add(objTmp);
-	
+	*/
 		return lstRawImageModel;
 	}
 }

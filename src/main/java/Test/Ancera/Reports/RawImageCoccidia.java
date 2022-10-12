@@ -39,8 +39,10 @@ public class RawImageCoccidia {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
+
 		Test_Variables.spark = new ExtentSparkReporter("target/Reports/Raw Image Ingestion"+Test_Variables.date+".html");
 		Test_Variables.spark.config().setReportName("Raw Image Ingestion Test Report"); 
+
 		Helper.config();
 		ConfigureLogin.login();
 	}
@@ -81,6 +83,7 @@ public class RawImageCoccidia {
 						Helper.driver.findElement(By.id("MinStdVal")).click();
 						Helper.driver.findElement(By.id("btn-save")).click();
 						Thread.sleep(2000);
+						Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log", Constants.RawImageReportPath));
 					}
 
 
@@ -219,7 +222,10 @@ public class RawImageCoccidia {
 						json3.put("checksum", objModel.checksum);
 						json3.put("fileName", objModel.fileName);
 						json3.put("fileType", objModel.fileType);
+						json3.put("ieSampleMatrixID", "57");
 
+
+						
 						if (!objModel.isErrorCode) {
 							String TestFile = objModel.base64fileName;
 							FileReader FR = new FileReader(TestFile);
@@ -274,7 +280,7 @@ public class RawImageCoccidia {
 							Test_Variables.preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 							Test_Variables.preconditions.createNode("5. Click on Coccidia Log");
 
-							Thread.sleep(180000);
+							Thread.sleep(240000);
 							Helper.driver.get(Constants.url_CoccidiaLog);
 							Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 							Test_Elements.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));

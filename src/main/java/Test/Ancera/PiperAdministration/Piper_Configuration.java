@@ -43,7 +43,7 @@ public class Piper_Configuration {
 
 	@Test (priority = 1) 
 	public void Navigate() throws InterruptedException, IOException {
-		NavigateToScreen(url_piperConfiguration, "Piper Configuration", PiperConfigurationReportPath, piperConfigurationTitle);
+		NavigateToScreen(url_piperConfiguration, "Piper Configuration Management", PiperConfigurationReportPath, piperConfigurationTitle);
 	}
 
 

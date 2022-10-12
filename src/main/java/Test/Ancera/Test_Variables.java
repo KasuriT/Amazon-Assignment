@@ -23,7 +23,7 @@ import Models.ComplexConfigModel;
 import Models.DataSecurityModel;
 import Models.DataTemplateModel;
 import Models.DataUploadModel;
-import Models.FlockRegistrationModel;
+import Models.FlockManagementModel;
 import Models.InstallationRunModel;
 import Models.LoginModel;
 import Models.NormalIngestionModel;
@@ -565,18 +565,18 @@ public class Test_Variables {
 	
 	////////////////////////////////////////////////////////////////////Flock Registration Variables///////////////////////////////////////////////////////////////////////////////////			
 
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationSearch = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationWildcardSearch = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationDateSearch = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationDateEnter = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationRowCount = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationPagination = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationSorting = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationLock = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationEdit = new ArrayList<>();
-	public static ArrayList<FlockRegistrationModel> lstFlockRegistrationValidation = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationSearch = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationWildcardSearch = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateSearch = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateEnter = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationRowCount = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationPagination = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationSorting = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationLock = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationEdit = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationValidation = new ArrayList<>();
 	
 	public static String flockCSVFileName = "Flock Registration Log - ";
 	public static String flockCSVAuditFileName = "Flock Registration Audit Log - ";
@@ -693,7 +693,7 @@ public class Test_Variables {
 					new ProfileModel(Constants.url_agreementManagement, "AN-PS-07: Navigate to Profile Setting from Agreement Management Screen", "This test case will verify user can navigate to Profile Setting page from Agreement Management Screen", "1. Hover to sidebar and click on Agreement Management", "Agreement Management"),
 					new ProfileModel(Constants.url_alert, "AN-PS-08: Navigate to Profile Setting from Alert Management Screen", "This test case will verify user can navigate to Profile Setting page from Alert Management Screen", "1. Hover to sidebar and click on Alert Management", "Alert Management"),
 					new ProfileModel(Constants.url_complexConfig, "AN-PS-09: Navigate to Profile Setting from Complex Cycling Config Screen", "This test case will verify user can navigate to Profile Setting page from Complex Cycling Config Management Screen", "1. Hover to sidebar and click on Complex Cycling Config", "Complex OPG Range Config"),
-					new ProfileModel(Constants.url_flockRegistration, "AN-PS-10: Navigate to Profile Setting from Flock Registration Screen", "This test case will verify user can navigate to Profile Setting page from Flock Registration Screen", "1. Hover to sidebar and click on Flock Registration", "Flock Management"),
+					new ProfileModel(Constants.url_flockManagement, "AN-PS-10: Navigate to Profile Setting from Flock Registration Screen", "This test case will verify user can navigate to Profile Setting page from Flock Registration Screen", "1. Hover to sidebar and click on Flock Registration", "Flock Management"),
 					new ProfileModel(Constants.url_programManagement, "AN-PS-11: Navigate to Profile Setting from Program Management Screen", "This test case will verify user can navigate to Profile Setting page from Program Registration Screen", "1. Hover to sidebar and click on Program Registration", "Program Management"),
 					new ProfileModel(Constants.url_piperManagement, "AN-PS-12: Navigate to Profile Setting from Piper Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Management", "PIPER Management"),
 					new ProfileModel(Constants.url_piperSoftware, "AN-PS-13: Navigate to Profile Setting from Piper Software Management Screen", "This test case will verify user can navigate to Profile Setting page from Piper Management Screen", "1. Hover to sidebar and click on Piper Software Management", "PIPER Software Management"),

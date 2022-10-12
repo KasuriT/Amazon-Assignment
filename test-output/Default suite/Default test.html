@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Sep 23 12:54:05 PKT 2022</td>
+<td>Started on:</td><td>Mon Oct 10 11:40:40 PKT 2022</td>
 </tr>
-<tr><td>Total time:</td><td>715 seconds (715707 ms)</td>
+<tr><td>Total time:</td><td>237 seconds (237749 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,10 +75,17 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='Test.Ancera.MetaData.DataUpload.FlockMetadata()'><b>FlockMetadata</b><br>Test class: Test.Ancera.MetaData.DataUpload</td>
-<td><div><pre>java.lang.Exception: java.lang.AssertionError: The following asserts failed:
-	expected [Flock Metadata.xlsx loaded successfully.] but found [An error occurred (E129). Please contact support at support@ancera.com or 203-871-3756]
-	at Test.Ancera.MetaData.DataUpload.FlockMetadata(DataUpload.java:134)
+<td title='Test.Ancera.Administration.FlockManagement.CreateFlock()'><b>CreateFlock</b><br>Test class: Test.Ancera.Administration.FlockManagement</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: message (tried for 150 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.1.2&apos;, revision: &apos;9a5a329c5a&apos;
+System info: host: &apos;APL-LHR-JA0201&apos;, ip: &apos;172.25.80.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.103, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:52406}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:52406/devtoo..., se:cdpVersion: 106.0.5249.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 00d02153099257eefb98fff4dfb2fff8
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at Test.Ancera.Helper.waitElementVisible(Helper.java:138)
+	at Test.Ancera.Administration.FlockManagement.CreateFlock(FlockManagement.java:308)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -107,16 +114,17 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: The following asserts failed:
-	expected [Flock Metadata.xlsx loaded successfully.] but found [An error occurred (E129). Please contact support at support@ancera.com or 203-871-3756]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at Test.Ancera.MetaData.DataUpload.FlockMetadata(DataUpload.java:125)
-	... 28 more
-</pre></div><a href='#' onClick='toggleBox("stack-trace926134772", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace926134772'><pre>java.lang.Exception: java.lang.AssertionError: The following asserts failed:
-	expected [Flock Metadata.xlsx loaded successfully.] but found [An error occurred (E129). Please contact support at support@ancera.com or 203-871-3756]
-	at Test.Ancera.MetaData.DataUpload.FlockMetadata(DataUpload.java:134)
+</pre></div><a href='#' onClick='toggleBox("stack-trace950625683", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace950625683'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: message (tried for 150 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.1.2&apos;, revision: &apos;9a5a329c5a&apos;
+System info: host: &apos;APL-LHR-JA0201&apos;, ip: &apos;172.25.80.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.103, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:52406}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:52406/devtoo..., se:cdpVersion: 106.0.5249.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 00d02153099257eefb98fff4dfb2fff8
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at Test.Ancera.Helper.waitElementVisible(Helper.java:138)
+	at Test.Ancera.Administration.FlockManagement.CreateFlock(FlockManagement.java:308)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -145,15 +153,9 @@ Caused by: java.lang.AssertionError: The following asserts failed:
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.AssertionError: The following asserts failed:
-	expected [Flock Metadata.xlsx loaded successfully.] but found [An error occurred (E129). Please contact support at support@ancera.com or 203-871-3756]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at Test.Ancera.MetaData.DataUpload.FlockMetadata(DataUpload.java:125)
-	... 28 more
 </pre></div></td>
-<td>663</td>
-<td>Test.Ancera.MetaData.DataUpload@32502377</td></tr>
+<td>170</td>
+<td>Test.Ancera.Administration.FlockManagement@771a660</td></tr>
 </table><p>
 </body>
 </html>

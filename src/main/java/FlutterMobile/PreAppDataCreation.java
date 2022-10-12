@@ -646,10 +646,10 @@ public class PreAppDataCreation extends DB_Config{
 			if(objModel.createFlock) {
 				try {
 					Test_Variables.test = Test_Variables.extent.createTest("AN-Flock: Verify user can create Flock", "This test case will verify that user can crate flock");
-					Helper.driver.get(Constants.url_flockRegistration);
+					Helper.driver.get(Constants.url_flockManagement);
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
 					Thread.sleep(2000);
-
+/*
 					Helper.driver.findElement(Test_Elements.flockCreateButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));	
 
@@ -679,7 +679,7 @@ public class PreAppDataCreation extends DB_Config{
 					((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
 					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.flockHousePlacementDots).click();
-					
+				
 					Helper.driver.findElement(By.cssSelector("#placementDate img")).click();
 					Thread.sleep(1000);		
 					WebElement dateWidgetTo = Test_Elements.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#placementDate .dp-popup"))).get(0);
@@ -696,7 +696,7 @@ public class PreAppDataCreation extends DB_Config{
 						Helper.driver.findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']")).click();;
 					}
 					
-					
+				
 					Helper.driver.findElement(Test_Elements.flockHouseSaveButton).click();
 					Thread.sleep(1000);
 					Helper.driver.findElement(Test_Elements.flockProgramDetailsDots).click();
@@ -704,7 +704,7 @@ public class PreAppDataCreation extends DB_Config{
 					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(objModel.program);	
 					Helper.driver.findElement(Test_Elements.flockProgramExpandDropDown).sendKeys(Keys.ENTER);
 					Thread.sleep(1000);
-				
+				*/
 					if (objModel.program.equals(ComplexConfigModel.vaccineName)) {
 						Helper.driver.findElement(Test_Elements.flockAdministrationMethod).sendKeys("CmsAdminMethod");
 						if (Helper.driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
@@ -715,7 +715,7 @@ public class PreAppDataCreation extends DB_Config{
 						}
 					}
 		
-					Helper.driver.findElement(Test_Elements.flockProgramSaveButton).click();
+					Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 					Thread.sleep(1000);
 				//	Helper.driver.findElement(Test_Elements.popupSaveButton).click();
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
@@ -725,18 +725,18 @@ public class PreAppDataCreation extends DB_Config{
 
 					Test_Variables.test.pass("Flock was created successfully");
 					Test_Variables.results.createNode("Flock was created successfully");
-					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockRegistrationReportPath));
-					Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockRegistrationReportPath, null);	
+					Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Flock Registration", Constants.FlockManagementReportPath));
+					Helper.saveResultNew(ITestResult.SUCCESS, Constants.FlockManagementReportPath, null);	
 				}
 				catch(AssertionError er) {
 					Test_Variables.test.fail("Flock failed to create");
 					Test_Variables.results.createNode("Flock failed to create");
-					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, new Exception(er));
+					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockManagementReportPath, new Exception(er));
 				}
 				catch(Exception ex) {
 					Test_Variables.test.fail("Flock failed to create");
 					Test_Variables.results.createNode("Flock failed to create");
-					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockRegistrationReportPath, ex);
+					Helper.saveResultNew(ITestResult.FAILURE, Constants.FlockManagementReportPath, ex);
 				}
 				
 			}
