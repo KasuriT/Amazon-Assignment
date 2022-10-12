@@ -150,6 +150,10 @@ public class Test_Elements {
 	public static By orgPhoneNumberError = By.cssSelector("#cellNumberId .has-error");
 	public static By orgEmailInput = By.id("emailId");
 	public static By orgEmailError = By.cssSelector("#emailId.has-error");
+
+	public static By orgAllowDomainsExpand = By.cssSelector("#domains .ng-arrow-wrapper");
+	public static By roleCategoryExpand = By.cssSelector("#roleCategoryId .ng-arrow-wrapper");
+	public static By selectAllCheckBox = By.xpath("//label[text() = 'Select All']");
 	public static By orgMaxUsersInput = By.id("num-idMaxUsers");
 	public static By orgMaxUsersError = By.cssSelector("#num-idMaxUsers .has-error");
 	public static By orgAgreementDropDownExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");

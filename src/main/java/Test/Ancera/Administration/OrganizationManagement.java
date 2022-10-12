@@ -204,9 +204,26 @@ public class OrganizationManagement{
 			Thread.sleep(750);
 			clear(orgNameInput);
 			type(orgNameInput, lstOrganizationCreate.get(0));
+			//	Allow Domains Start
+			Thread.sleep(750);
+			click(orgAllowDomainsExpand);
+			Thread.sleep(1000);
+			click(selectAllCheckBox);
+			Thread.sleep(750);
+			click(orgAllowDomainsExpand);
+			Thread.sleep(750);
+			// Allow Domains End
 			click(popupNextButton);
 			Thread.sleep(700);
 			type(orgMaxUsersInput, "10");
+			//	Role Category Start
+			click(roleCategoryExpand);
+			Thread.sleep(1000);
+			click(selectAllCheckBox);
+			Thread.sleep(750);
+			click(roleCategoryExpand);
+			Thread.sleep(750);
+			//	Role Category End
 			click(orgSystemRolesExpand);
 			Thread.sleep(700);
 			driver.findElement(By.xpath("//label[text() = 'Select All']")).click();
