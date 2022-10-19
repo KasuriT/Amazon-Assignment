@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -42,7 +43,7 @@ public class UserManagement {
 		ConfigureLogin.login();
 	}
 
-
+/*
 	@Test (priority = 1) 
 	public void LockFilter() throws InterruptedException, IOException {
 		driver.get(Constants.url_user);
@@ -91,7 +92,7 @@ public class UserManagement {
 		CSVExport("User Management", UserManagementReportPath, Test_Elements.userCSVFileName, userManagementTable, 1);
 	}
 	
-
+*/
 	@Test (enabled= true, priority= 7) 
 	public void OpenClosePopup() throws InterruptedException, IOException {
 		try{
@@ -135,11 +136,6 @@ public class UserManagement {
 
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(Constants.url_user);
-			waitElementInvisible(loading_cursor);
-			waitElementClickable(usercreateButton);
-			Thread.sleep(3000);
-
 			click(By.id(userEmail+""+ShowFilter));
 			waitElementInvisible(loading_cursor);
 			type(By.id(userEmail+""+SearchInput), createUserEmail);
@@ -150,11 +146,16 @@ public class UserManagement {
 				click(By.id(userEmail+""+SelectAll));
 				click(By.id(userEmail+""+ApplyFilter ));
 				waitElementInvisible(loading_cursor);
-				Thread.sleep(1000);
-				scroll(deleteSearchedUser);
+				Thread.sleep(2000);
+				scroll(agreeementSearchedUser);
 				waitElementClickable(deleteSearchedUser);
 				Thread.sleep(1000);
+				try {
 				click(deleteSearchedUser);
+				}
+				catch(StaleElementReferenceException ex){
+					click(deleteSearchedUser);
+				}
 				Thread.sleep(1500);
 				click(popupYesButton);
 				waitElementInvisible(loading_cursor);
@@ -168,6 +169,25 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
+			WebElement orgType = driver.findElement(userOrgTypeInput);
+			softAssert.assertTrue(orgType.isDisplayed());
+			orgType.sendKeys("Client");
+			orgType.sendKeys(Keys.ENTER);
+			driver.findElement(popupNextButton).click();
+			softAssert.assertTrue(orgType.isDisplayed());
+			Thread.sleep(1000);
+
+			WebElement org = driver.findElement(userOrgInput);
+			org.click();
+			org.sendKeys(Keys.ENTER);
+
+			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
+			driver.findElement(siteAdministratorToggle).click();
+
+			driver.findElement(popupNextButton).click();
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			
 			WebElement firstName = driver.findElement(userFirstNameInput);
 			firstName.sendKeys("Ancera Test");  
 			driver.findElement(popupNextButton).click();
@@ -180,30 +200,10 @@ public class UserManagement {
 
 			WebElement email = driver.findElement(userEmailInput);
 			email.sendKeys(createUserEmail);  
-			driver.findElement(popupNextButton).click();
-			waitElementInvisible(loading_cursor);
-
-			WebElement orgType = driver.findElement(userOrgTypeInput);
-			softAssert.assertTrue(orgType.isDisplayed());
-			orgType.sendKeys("Client");
-			orgType.sendKeys(Keys.ENTER);
-			driver.findElement(popupNextButton).click();
-			softAssert.assertTrue(orgType.isDisplayed());
-			Thread.sleep(1000);
-
-			WebElement org = driver.findElement(userOrgInput);
-			org.click();
-		//	org.sendKeys(Keys.DOWN);
-		//	org.sendKeys(Keys.DOWN);
-			org.sendKeys(Keys.ENTER);
-
-			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
-			driver.findElement(siteAdministratorToggle).click();
 
 			driver.findElement(popupNextButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-
 			
 			click(reportRoleExpand);
 			driver.findElement(reportRoleSelect).sendKeys(Keys.ENTER);
@@ -215,7 +215,6 @@ public class UserManagement {
 			Thread.sleep(1000);
 			driver.findElement(systemRolesSelect).sendKeys("Admin");
 			driver.findElement(systemRolesSelect).sendKeys(Keys.ENTER);
-			
 			
 			driver.findElement(popupSaveButton).click();    
 			waitElementVisible(alertMessage);
@@ -253,25 +252,27 @@ public class UserManagement {
 		Thread.sleep(5000);
 		
 		type(By.xpath(gmailEmail), createUserEmail);
-		driver.findElement(By.xpath(gmailEmail)).sendKeys(Keys.ENTER);	
+		enterKey(By.xpath(gmailEmail));
 		
 		waitElementClickable(By.xpath(gmailPassword));
 		Thread.sleep(5000);
 		type(By.xpath(gmailPassword), createUserPassword);
-		driver.findElement(By.xpath(gmailPassword)).sendKeys(Keys.ENTER);
+		enterKey(By.xpath(gmailPassword));
 
-		if (driver.findElements(By.xpath(gmailSecurityCheck)).size() != 0) { 
-
-			driver.findElement(By.xpath(gmailSecurityCheck)).click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath(gmailSecurityEmail)).sendKeys(createUserSecurityEmail);
-			driver.findElement(By.xpath(gmailSecurityEmail)).sendKeys(Keys.ENTER);	
-
+		if (size(gmailSecurityCheck) != 0) { 
+			click(gmailSecurityCheck);
+			Thread.sleep(3000);
+			type(gmailSecurityEmail, createUserSecurityEmail);
+			enterKey(gmailSecurityEmail);
+			
+			if (size(gmailNotNow) != 0) {
+				click(gmailNotNow);
+			}	
 		}
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
 		test.addScreenCaptureFromPath(getScreenshot("User Management", UserManagementReportPath));
-
+		Thread.sleep(2000);
 		List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
 		for(int i=0;i<a.size();i++){
 			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
@@ -418,6 +419,7 @@ public class UserManagement {
 			Thread.sleep(2000);
 
 			openEditUserPopup(createUserEmail);
+			waitElementClickable(popupNextButton);
 			click(popupNextButton);
 			click(popupNextButton);
 			Thread.sleep(750);
@@ -512,16 +514,17 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, Test_Variables.Results);
 			steps.createNode("1. Click on update button next to created user; Update user popup appears");
 			steps.createNode("2. Make any change and click on Save button");
-
+			
 			driver.get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
-
+			
 			openEditUserPopup(createUserEmail);
-			Thread.sleep(3000);
+			waitElementClickable(popupNextButton);
+			click(popupNextButton);
+			waitElementVisible(userLastNameInput);
 			clear(userLastNameInput);
 			type(userLastNameInput, "User Updated");
-			click(popupNextButton);
 			click(popupNextButton);
 			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
@@ -546,7 +549,7 @@ public class UserManagement {
 	}
 
 
-	@Test (enabled= true, priority= 15) 
+	@Test (enabled= false, priority= 15) 
 	public void EditAssignRolePopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-18: Verify user can be edited from assign roles and right popup", "This test case will verify that user can be edited from roles and right popup");
@@ -616,7 +619,9 @@ public class UserManagement {
 			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
 			preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select User Management");
 			steps.createNode("1. From Site Admin user create a new user");
-
+			
+			SoftAssert softAssert = new SoftAssert();
+			
 			driver.get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
@@ -625,12 +630,7 @@ public class UserManagement {
 			click(usercreateButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(800);
-			type(userFirstNameInput, "Ancera Test");
-			type(userLastNameInput, "User");
-			type(userEmailInput, "siteadminuser@anc.com");
-			click(popupNextButton);
-			Thread.sleep(700);
-			SoftAssert softAssert = new SoftAssert();
+			
 			click(userOrgTypeInput);
 			softAssert.assertEquals(driver.findElements(By.cssSelector(".ng-option")).size(), 1);
 			driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
@@ -645,6 +645,13 @@ public class UserManagement {
 		
 			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");		
 			click(popupNextButton);
+			
+			type(userFirstNameInput, "Ancera Test");
+			type(userLastNameInput, "User");
+			type(userEmailInput, "siteadminuser@anc.com");
+			click(popupNextButton);
+			Thread.sleep(700);
+			
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(700);
 			click(systemRolesExpand);
@@ -670,8 +677,15 @@ public class UserManagement {
 			Thread.sleep(1500);
 			scroll(deleteSearchedUser);
 			Thread.sleep(1000);
-			click(deleteSearchedUser);
-			Thread.sleep(1500);
+
+			try {
+				click(deleteSearchedUser);
+			}
+			catch(StaleElementReferenceException ex){
+				click(deleteSearchedUser);
+			}
+
+			waitElementClickable(popupYesButton);
 			click(popupYesButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
@@ -975,11 +989,20 @@ public class UserManagement {
 			driver.findElement(By.id(userEmail+""+ApplyFilter )).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
+			
 			scroll(deleteSearchedUser);
 			Thread.sleep(700);
-			driver.findElement(deleteSearchedUser).click();
-			Thread.sleep(1500);
-			driver.findElement(popupYesButton).click();
+		
+			try {
+				click(deleteSearchedUser);
+				}
+				catch(StaleElementReferenceException ex){
+					click(deleteSearchedUser);
+				}
+	
+			waitElementClickable(popupYesButton);
+			click(popupYesButton);
+
 			waitElementVisible(alertMessage);
 			Thread.sleep(5000);
 			SoftAssert softAssert = new SoftAssert();

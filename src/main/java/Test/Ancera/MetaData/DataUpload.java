@@ -47,7 +47,7 @@ public class DataUpload {
 	}
 
 
-	@Test (enabled= true, priority = 2) 
+	@Test (enabled= false, priority = 2) 
 	public void FlockMetadata() throws InterruptedException, IOException {
 		
 		lstDataUploadFlock = DataUploadModel.FillData();
@@ -64,7 +64,7 @@ public class DataUpload {
 				steps.createNode("2. Select Ancera from 'Upload For' dropdown and Flock Metadata from 'Data Template'");
 
 				driver.get(url_dataUpload);
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);	
 				driver.findElement(By.id("OrgnTypeID")).click();
 				driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
@@ -99,7 +99,7 @@ public class DataUpload {
 						
 						steps.createNode("3. "+objModel.steps);
 						driver.findElement(By.id("file-input")).sendKeys(fileAbsolutePath+"Excel\\"+flockFileName);
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
 						Thread.sleep(2000);
 						test.addScreenCaptureFromPath(getScreenshot("Data Upload", DataUploadReportPath));
@@ -151,7 +151,7 @@ public class DataUpload {
 	public void SitePerformance() throws InterruptedException, IOException {
 		
 		driver.get(url_dataUpload);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		
 		lstDataUploadSitePerformance = DataUploadModel.FillDataSitePerformance();
@@ -200,7 +200,7 @@ public class DataUpload {
 						
 						steps.createNode("3. "+objModel.steps);
 						driver.findElement(By.id("file-input")).sendKeys(fileAbsolutePath+"Excel\\"+sitePerformanceFileName);
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
 						Thread.sleep(750);
 						Assert.assertEquals(driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
@@ -245,7 +245,7 @@ public class DataUpload {
 				steps.createNode("2. Select Ancera from 'Upload For' dropdown and Sample Metadata from 'Data Template'");	
 				
 				driver.get(url_dataUpload);
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);		
 				driver.findElement(By.id("OrgnTypeID")).click();
 				driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
@@ -279,7 +279,7 @@ public class DataUpload {
 						
 						steps.createNode("3. "+objModel.steps);
 						driver.findElement(By.id("file-input")).sendKeys(fileAbsolutePath+"Excel\\"+sampleMetadataFileName);
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(3500);
 						SoftAssert softAssert = new SoftAssert();
 						softAssert.assertEquals(driver.findElement(By.id("message")).getText(), objModel.AlertMessage); 
@@ -323,6 +323,15 @@ public class DataUpload {
 			}
 		}
 	}
+	
+	
+	
+	@Test
+	public void as() {
+		String myHomePath= System.getProperty("user.home");
+		System.out.println(myHomePath);
+	}
+	
 
 
 	@Test (enabled= true, priority = 5) 
@@ -355,7 +364,7 @@ public class DataUpload {
 
 						steps.createNode("3. "+objModel.steps);
 						driver.findElement(By.id("file-input")).sendKeys(fileAbsolutePath+"Excel\\"+objModel.fileName);
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 			//			if (driver.findElement(By.id("message")).getText().equals(objModel.fileName+" loaded successfully.")) {
 						driver.findElement(By.cssSelector(".fa-save")).click();

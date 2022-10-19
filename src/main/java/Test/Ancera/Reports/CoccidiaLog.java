@@ -812,7 +812,7 @@ public class CoccidiaLog {
 			WebElement pngHover = driver.findElement(By.cssSelector(".run-timeline-bar-chart__download"));
 			Actions builder = new Actions(driver);
 			builder.moveToElement(pngHover).build().perform();
-
+			waitElementClickable(By.id("dc-bar-chart-coci-png"));
 			WebElement clickDownload = driver.findElement(By.id("dc-bar-chart-coci-png"));
 			Actions actions = new Actions(driver);
 			actions.moveToElement(clickDownload).click().perform();
@@ -869,6 +869,7 @@ public class CoccidiaLog {
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			test.addScreenCaptureFromPath(getScreenshot("Coccidia Log", CoccidiaReportPath));
 			Thread.sleep(1000);
@@ -979,6 +980,7 @@ public class CoccidiaLog {
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			test.addScreenCaptureFromPath(getScreenshot("Coccidia Log", CoccidiaReportPath));
 			Thread.sleep(1500);
@@ -1045,6 +1047,7 @@ public class CoccidiaLog {
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
 			steps.createNode("3. Click on the button");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1000);

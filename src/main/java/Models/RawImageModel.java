@@ -2,8 +2,6 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import Test.Ancera.Helper;
 import Test.Ancera.Test_Variables;
 
 public class RawImageModel {
@@ -32,10 +30,9 @@ public class RawImageModel {
 	public String totalImages;
 	public String startAssay_runID;
 	
-	public static String fileAbsolutePathSalm = Helper.projectPath+"/Images/Salemonella_Test_Dataset/";
-	public static String fileAbsolutePath = Helper.projectPath+"/Images/Cocci_Test_Images/Cocci_Test_Images/base64/";
-	public static String fileAbsolutePathCocci = Helper.projectPath+"/Images/Cocci_Test_Images/Cocci_Test_Images/";
-	
+	public static String fileAbsolutePath = Test_Variables.fileAbsolutePath+"Images\\Salemonella_Test_Dataset_Ancera\\";
+	public static String fileAbsolutePathSalm49 = Test_Variables.fileAbsolutePath+"Images\\Salemonella_Test_Dataset\\";
+	public static String fileAbsolutePathCocci = Test_Variables.fileAbsolutePath+"Images\\Cocci_Test_Images\\";
 	
 	public static String checksumValue = "7197adc9b0c93b1aefb11c81f431a68ac53db8e11dd071ca34d8546818b0ec42";
 	public static String base64fileValue = "20200820101434_PSN0024_EIM-3320-B0039_L07S01.txt";
@@ -55,14 +52,14 @@ public class RawImageModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 1;
-		objTmp.checksum = checksumValue;
-		objTmp.base64fileName = fileAbsolutePath+""+base64fileValue;
+		objTmp.checksum = fileAbsolutePathCocci+"checksum\\20200820101434_PSN0024_EIM-3320-B0039_L07S01_cs.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"base64\\20200820101434_PSN0024_EIM-3320-B0039_L07S01.txt";
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-TestAut-1"+Test_Variables.date0+"_L01S01.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
 		objTmp.runStartAssay = false;
-		objTmp.checkLog = false;
+		objTmp.checkLog = true;
 		objTmp.isErrorCode = false;
 		objTmp.isInstallationRunConfigure = false;
 		objTmp.fileType = "bmp";
@@ -668,8 +665,8 @@ public class RawImageModel {
 		objTmp.pathogen = "Salmonella";
 		objTmp.cartridgeID = "TestCartridge-"+Test_Variables.date0;
 		objTmp.lane = 1;
-		objTmp.checksum = fileAbsolutePathSalm+"checksum\\SAL-4220_A0194_L10S01_cs.txt";
-		objTmp.base64fileName = fileAbsolutePathSalm+"base64\\SAL-4220_A0194_L10S01.txt";
+		objTmp.checksum = fileAbsolutePathSalm49+"checksum\\SAL-4220_A0194_L10S01_cs.txt";
+		objTmp.base64fileName = fileAbsolutePathSalm49+"base64\\SAL-4220_A0194_L10S01.txt";
 		objTmp.fileName = Test_Variables.dateYYYYMMDD+"-RI-Salm-1"+Test_Variables.date0+"_L01S01.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";

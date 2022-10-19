@@ -1074,17 +1074,19 @@ public class DataUploadModel {
 	
 	public static ArrayList<DataUploadModel> FillDataSaveTemplate() {
 		ArrayList<DataUploadModel> lstDataUploadModel = new ArrayList<DataUploadModel>();
-		DataUploadModel objTmp = new DataUploadModel();
+		DataUploadModel objTmp; 
+		ReportFilters objFilter;
 		
-		ReportFilters objFilter = new ReportFilters();
-		objTmp.templateName = "Flock Metadata";
-		objTmp.TestCaseName = "AN-DU-22: Verify that user can save "+objTmp.templateName;
-		objTmp.TestCaseDescription = "This test case will verify that user can save "+objTmp.templateName;
-		objTmp.lstFilters = new ArrayList<>();
-		objTmp.fileName = "Flock Metadata.xlsx";
-		objTmp.steps = "Upload Flock Metadata";
-		objTmp.lstFilters.add(objFilter);
-		lstDataUploadModel.add(objTmp);
+//		objTmp = new DataUploadModel();	
+//		objFilter = new ReportFilters();
+//		objTmp.templateName = "Flock Metadata";
+//		objTmp.TestCaseName = "AN-DU-22: Verify that user can save "+objTmp.templateName;
+//		objTmp.TestCaseDescription = "This test case will verify that user can save "+objTmp.templateName;
+//		objTmp.lstFilters = new ArrayList<>();
+//		objTmp.fileName = "Flock Metadata.xlsx";
+//		objTmp.steps = "Upload Flock Metadata";
+//		objTmp.lstFilters.add(objFilter);
+//		lstDataUploadModel.add(objTmp);
 		
 		objTmp = new DataUploadModel();	
 		objFilter = new ReportFilters();

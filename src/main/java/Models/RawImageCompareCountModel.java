@@ -2,7 +2,6 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import Test.Ancera.Test_Variables;
 
 public class RawImageCompareCountModel {
@@ -29,9 +28,9 @@ public class RawImageCompareCountModel {
 	public String countOutcome;
 	public String totalImages;
 	
-	public static String fileAbsolutePath = "C:\\Users\\anc_admin\\Downloads\\Salemonella_Test_Dataset_Ancera\\";
-	public static String fileAbsolutePathSalm49 = "C:\\Users\\anc_admin\\Downloads\\Salemonella_Test_Dataset\\";
-	public static String fileAbsolutePathCocci = "C:\\Users\\anc_admin\\Downloads\\Cocci_Test_Images\\";
+	public static String fileAbsolutePath = Test_Variables.fileAbsolutePath+"Images\\Salemonella_Test_Dataset_Ancera\\";
+	public static String fileAbsolutePathSalm49 = Test_Variables.fileAbsolutePath+"Images\\Salemonella_Test_Dataset\\";
+	public static String fileAbsolutePathCocci = Test_Variables.fileAbsolutePath+"Images\\Cocci_Test_Images\\";
 	
 	
 	public RawImageCompareCountModel() {

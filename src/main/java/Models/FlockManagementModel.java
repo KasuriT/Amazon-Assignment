@@ -1,10 +1,9 @@
 package Models;
 
-import static Test.Ancera.Test_Variables.date0;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import Test.Ancera.Test_Elements;
+import Test.Ancera.Test_Variables;
 
 public class FlockManagementModel {
 
@@ -39,9 +38,13 @@ public class FlockManagementModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	public static String flockIntegratorID = "IntegratorID_"+date0;
+//	public static String flockIntegratorID = "IntegratorID_"+date0;
+//	public static String flockProgramName = "FlockVaccine_"+date0;
+	public static String flockProgramAdminMethod = "AdminMethod_"+Test_Variables.date0;
 
-
+	public static String flockIntegratorID = "IntegratorID_0245";
+	public static String flockProgramName = "FlockVaccine_5256";
+//	public static String flockProgramAdminMethod = "AdminMethod_5256";
 
 
 	public static ArrayList<FlockManagementModel> EditFlock() {

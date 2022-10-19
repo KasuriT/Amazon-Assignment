@@ -37,7 +37,7 @@ import java.util.Locale;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -418,66 +418,7 @@ public class Test_Functions {
 			}
 		}
 	}
-
-/*
-	@Test (enabled= true) 
-	public static void Sorting(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
-		for (int i=1;i<=Helper.driver.findElements(By.cssSelector("#"+tablename+" th")).size(); i++) {
-			try {
-				SoftAssert softAssert = new SoftAssert();
-				WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
-				if (Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0")).size() !=0) {
-					//		if (!Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Time") || !Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header label")).getText().equals("Result Date")) {
-					System.out.println(column);
-					if (!column.getText().equals("Result Time") || !column.getText().equals("Result Date")) {
-						//	WebElement column = Helper.driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
-						Test_Variables.test = Test_Variables.extent.createTest("AN-Sorting-"+i+": Apply Sorting on "+column.getText()+" column", "This test case will verify that user can apply sorting on "+column.getText()+ " column");
-						Test_Variables.preconditions = Test_Variables.test.createNode(Scenario.class, Test_Variables.PreConditions);
-						Test_Variables.steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
-						Test_Variables.results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
-
-						Test_Variables.preconditions.createNode("1. Go to url " +Constants.url_login);
-						Test_Variables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-						Test_Variables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-						Test_Variables.preconditions.createNode("4. Click on "+name+"; "+name+" screen opens");
-
-						WebElement filter_scroll = column;
-						((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-						Test_Variables.steps.createNode("1. Click on "+column.getText()+" column header");
-
-						column.click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
-						Thread.sleep(1000);
-						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_desc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
-							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));			
-						}
-
-						column.click();
-						Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));					
-						Thread.sleep(1000);
-						if (Helper.driver.findElements(By.cssSelector("#"+tablename+" .fa-sort-amount-down")).size() != 0) {
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_asc .log-header .mb-0")).size(), 1, "Did not sorted in descending order");
-							softAssert.assertEquals(Helper.driver.findElements(Test_Elements.alertMessage).size(), 0, "Exception message occured");
-							Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot(name, ReportPath));
-						}
-					}
-					softAssert.assertAll();
-					Test_Variables.test.pass("Column sorted successfully");
-					Test_Variables.results.createNode("Column sorted successfully");
-					Helper.saveResultNew(ITestResult.SUCCESS, ReportPath, null);
-				}
-			}
-			catch(AssertionError er) {
-				Test_Variables.test.fail("Column failed to sort");
-				Test_Variables.results.createNode("Column failed to sort");
-				Helper.saveResultNew(ITestResult.FAILURE, ReportPath, new Exception(er));
-			}
-		}
-	}
-*/
-
+	
 
 	@Test (enabled= true) 
 	public static void Sorting1(String tablename, String name, String ReportPath, int skipColumns) throws InterruptedException, IOException {
@@ -610,7 +551,7 @@ public class Test_Functions {
 					ClickElement.clickById(Helper.driver, "next-page");
 					Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
 					Thread.sleep(1000);
-					List<WebElement> rows = Helper.driver.findElements(By.cssSelector("tr td:nth-child(1)"));
+					List<WebElement> rows = Helper.driver.findElements(By.cssSelector("tr td:nth-child(3)"));
 					int count = rows.size();
 			//		int new_count = count - 4;
 					//System.out.println("ROW COUNT : "+new_count);
@@ -1004,11 +945,15 @@ public class Test_Functions {
 		Thread.sleep(1000);
 		Helper.driver.findElement(By.id("userEmail_apply")).click();
 		waitElementInvisible(loading_cursor);
-		Thread.sleep(1500);
-		WebElement scroll = Helper.driver.findElement(By.id("edit-user-1"));
-		((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+		Thread.sleep(1000);
+		Helper.scroll(By.id("edit-user-1"));
 		Thread.sleep(1000); 
+		try {
 		Helper.driver.findElement(By.cssSelector("#edit-user-1 img")).click();
+		}
+		catch (StaleElementReferenceException ex) {
+			Helper.driver.findElement(By.cssSelector("#edit-user-1 img")).click();
+		}
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 
@@ -1025,49 +970,28 @@ public class Test_Functions {
 		}
 	}
 
-	public static void searchOrg() throws InterruptedException {
-		Helper.driver.get(Constants.url_user);
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(4000);
-		Helper.driver.findElement(Test_Elements.usercreateButton).click();
-		Test_Elements.wait.until(ExpectedConditions.invisibilityOfElementLocated(Test_Elements.loader));
-		Thread.sleep(1500);
-		Helper.driver.findElement(Test_Elements.userFirstNameInput).sendKeys("Test");    
-		Helper.driver.findElement(Test_Elements.userLastNameInput).sendKeys("User");  
-		Helper.driver.findElement(By.cssSelector("#emailId")).sendKeys("test@email.com");
-		Thread.sleep(1000);
-		Helper.driver.findElement(Test_Elements.popupNextButton).click();
-		Thread.sleep(1000);
-		Helper.driver.findElement(Test_Elements.userOrgTypeDropDownExpand).click();
-		Thread.sleep(500);
-		Helper.driver.findElement(Test_Elements.userOrgTypeInput).sendKeys("Ancera");
-		Helper.driver.findElement(Test_Elements.userOrgTypeInput).sendKeys(Keys.ENTER);
-
-		Helper.driver.findElement(Test_Elements.userOrgDropDownExpand).click();
-		Thread.sleep(500);			
-		Helper.driver.findElement(Test_Elements.userOrgInput).sendKeys(Test_Variables.lstOrganizationCreate.get(0));
-		Thread.sleep(500);
-	}
 
 	////////////////////////////////Flock Management//////////////////////////////////////////////
 
 	public static void openFlockAudit() throws InterruptedException, IOException {
-		for(int i=0; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+		for(int i=1; i<=driver.findElements(By.cssSelector("tr")).size(); i++) {
 			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-1 label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
 				driver.findElement(By.id("audit-trial-"+i)).click();
 				waitElementInvisible(loading_cursor);	
 				Thread.sleep(1500);	
+				break;
 			}
 		}
 	}
 
 	
 	public static void openEditFlock() throws InterruptedException, IOException {
-		for(int i=0; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+		for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
 			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-1 label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
 				driver.findElement(By.id("edit-feed-program-"+i)).click();
 				waitElementInvisible(loading_cursor);	
 				Thread.sleep(1500);	
+				break;
 			}
 		}
 	}

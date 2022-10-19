@@ -5,10 +5,10 @@
     <classes>
       <class name="Test.Ancera.Administration.FlockManagement">
         <methods>
+          <include name="TemplateExport"/>
           <include name="extent"/>
           <include name="tearDown"/>
           <include name="test"/>
-          <include name="CreateFlock"/>
           <include name="endreport"/>
         </methods>
       </class> <!-- Test.Ancera.Administration.FlockManagement -->

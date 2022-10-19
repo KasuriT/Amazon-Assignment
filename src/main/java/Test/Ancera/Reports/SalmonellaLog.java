@@ -783,6 +783,8 @@ public class SalmonellaLog {
 		return theNewestFile;
 	}
 
+
+
 	@SuppressWarnings("unused")
 	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
@@ -801,7 +803,7 @@ public class SalmonellaLog {
 			steps.createNode("1. Hover mouse towards barchart on top");
 			steps.createNode("2. Export PNG button becomes visible");
 
-			driver.navigate().refresh();			
+			driver.get(url_SalmonellaLog);			
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
 			Thread.sleep(1000);	
 			driver.findElement(By.id("sampleId_show-filter")).click();
@@ -821,6 +823,7 @@ public class SalmonellaLog {
 
 			Thread.sleep(1000);
 			test.addScreenCaptureFromPath(getScreenshot("Salmonella Log", SalmonellaReportPath));
+			waitElementClickable(By.id("dc-bar-chart-salm-png"));
 			WebElement clickDownload = driver.findElement(By.id("dc-bar-chart-salm-png"));
 			Actions actions = new Actions(driver);
 			actions.moveToElement(clickDownload).click().perform();
@@ -856,7 +859,7 @@ public class SalmonellaLog {
 
 	
 	@SuppressWarnings({ "resource", "unused" })
-	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority = 15) 
+	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority = 16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-SL-216: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
@@ -878,6 +881,7 @@ public class SalmonellaLog {
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			test.addScreenCaptureFromPath(getScreenshot("Salmonella Log", SalmonellaReportPath));
 			Thread.sleep(1000);
@@ -966,7 +970,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Audit Download",enabled= true, priority = 18) 
+	@Test (description="Test Case: Test Salmonella Audit Download",enabled= true, priority = 17) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-CL-216: Verify user can download Salmonella Audit file", "This test case will verify that user can download Salmonella Audit file");
@@ -989,6 +993,7 @@ public class SalmonellaLog {
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			test.addScreenCaptureFromPath(getScreenshot("Salmonella Log", SalmonellaReportPath));
 			Thread.sleep(1500);
@@ -1028,7 +1033,7 @@ public class SalmonellaLog {
 	}
 
 
-	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 19) 
+	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 18) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-SL-217: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
@@ -1045,6 +1050,7 @@ public class SalmonellaLog {
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
 			steps.createNode("3. Click on the button");
+			waitElementClickable(By.cssSelector("#csv-action img"));
 			driver.findElement(By.cssSelector("#csv-action img")).click();
 			steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1500);

@@ -20,11 +20,13 @@ public class Test_Elements {
 
 	
 	/////////////////////////////////////////////ForgotPassword Elements//////////////////////////////////////////////////////
-
+	
+	public static By forgotPasswordButton = By.id("forgot-pass");
 	public static String gmailEmail = "//input[@type = 'email']";
 	public static String gmailPassword = "//input[@type = 'password']";
-	public static String gmailSecurityCheck = "//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/ul/li[1]/div/div[2]";
-	public static String gmailSecurityEmail = "//*[@id=\"view_container\"]/div";
+	public static By gmailSecurityCheck = By.xpath("//*[contains(text(), 'Confirm your recovery email')]");
+	public static By gmailSecurityEmail = By.cssSelector("input[type='email']");
+	public static By gmailNotNow = By.xpath("//*[contains(text(), 'Not now')]");
 
 	///////////////////////////////////////////End ForgotPassword Elements////////////////////////////////////////////////////
 
@@ -44,9 +46,7 @@ public class Test_Elements {
 	//public static By alertMessageClose = By.cssSelector("button.close span");
 	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
 	public static By confirmationYes = By.cssSelector("button.mr-4");
-	
-	public static String columnCount = "#table-header-vaccine-log th .log-header .mb-0";
-	
+		
 	public static String ShowFilter = "_show-filter";
 	public static String SortFilter = "sort-";
 	public static String ApplyFilter = "_apply";
@@ -59,6 +59,8 @@ public class Test_Elements {
 	public static String ResetFilters = "reset-all-filters";
 	public static String FieldAccess = "edit-field-access";
 	public static String CSVButton = "";
+	public static By clickSearchItemFromHierarchy = By.cssSelector("label b");
+	public static By clickAddNewDropdown = By.xpath("//*[text()='Add New + ']");
 	
 	public static String lastPagePagination = "last-page";
 	public static String previousPagePagination ="previous-page";
@@ -188,7 +190,7 @@ public class Test_Elements {
 	
 	public static By editSearchedOrg = By.cssSelector("#edit-orgn-sites-1 img");
 	
-	public static By orgAddSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/div/div[4]/div/img");
+	public static By orgAddSite1 = By.cssSelector("img[alt = 'add']");
 	public static By orgSite1Click = By.cssSelector("li:last-child ul:last-child li:last-child span");
 	public static By orgSite1Delete = By.cssSelector(".delete img");
 	public static By orgAddSite2 = By.xpath("//ul/div/li/ul/li/div/div[4]/div[1]/img");
@@ -391,6 +393,12 @@ public class Test_Elements {
 	public static By flockIntegratorFlockAddNew = By.cssSelector(".ng-tag-label");
 	public static By flockBirdSizeInput = By.cssSelector("#birdSizeId-0 input");
 	public static By flockBirdSexInput = By.cssSelector("#birdSexId-0 input");
+
+	public static By flockPlacementDensityInput = By.id("num-placementDensity");
+	public static By flockWeeklyFarmRank = By.id("num-weeklyFarmRank");
+	public static By flockHistoricalFarmCostVariance = By.id("num-historicalFarmCostVariance");
+	public static By flockWeeklyFarmCostVariance = By.id("num-weeklyFarmCostVariance");
+	public static By flockNumBirdsDOAPlant = By.id("num-numBirdsDOAPlant");
 		
 	public static By flockPlacementDateCalendar = By.xpath("(//*[@class = 'apl-datepicker__calender-icon'])[1]");
 	public static By flockEstHarvestDateCalendar = By.xpath("(//*[@class = 'apl-datepicker__calender-icon'])[2]");
@@ -398,6 +406,7 @@ public class Test_Elements {
 	public static By flockHousePlacedList = By.cssSelector("#housePlaced-0 .ng-option");
 	public static By flockAddNewProgram = By.xpath("//*[text() = 'Add New Program']");
 	
+	/////////////////Placement//////////////////
 	public static String flockIDCol = "0";
 	public static String flockIntegratorIDCol = "1";
 	public static String flockBirdSizeCol = "2";
@@ -406,28 +415,59 @@ public class Test_Elements {
 	public static String flockBirdBreedCol = "5";
 	public static String flockProgramDetailsCol = "7";
 	public static String flockFarmCol = "10";
+	///////////////End Placement//////////////////
 	
+	/////////////////Mortality//////////////////
 	public static String flockMortalityCol = "7";
+	////////////////End Mortality////////////////
 	
+	/////////////////Settlement//////////////////
 	public static String flockWeeklyFarmRankCol = "7";
 	public static String flockHistoricalFarmCostVarianceCol = "8";
 	public static String flockWeeklyFarmCostVarianceCol = "9";
-	public static String flockDaysOutCol = "10";
-	public static String flockAgeOfLiterCol = "11";
-	public static String flockAverageSoldAgeCol = "12";
-	public static String flockNumBirdsSolidCol = "13";
-	public static String flockPlacementDensityCol = "14";
-	public static String flockProcessingDateCol = "15";
-	public static String flockProcessingSiteIDCol = "16";
-	public static String flockUSDAPlantIDCol = "17";
-	public static String flockPlantLocationCol = "18";
-	public static String flockNumOfBirdsProcessedCol = "19";
-	public static String flockAvgBirdWeightLBCol = "20";
-	public static String flockAvgBirdWeightKGCol = "21";
+	public static String flockHatchDateCol = "10";
+	public static String flockDaysOutCol = "11";
+	public static String flockAgeOfLiterCol = "12";
+	public static String flockAverageSoldAgeCol = "13";
+	public static String flockNumBirdsSoldCol = "14";
+	public static String flockPlacementDensityCol = "15";
+	public static String flockProcessingDateCol = "16";
+	public static String flockProcessingSiteIDCol = "17";
+	public static String flockUSDAPlantIDCol = "18";
+	public static String flockPlantLocationCol = "19";
+	public static String flockNumOfBirdsProcessedCol = "20";
+	public static String flockAvgBirdWeightLBCol = "21";
+	public static String flockAvgBirdWeightKGCol = "22";
+	public static String flockTotalWeightProcessedLBCol = "23";
+	public static String flockTotalWeightProcessedKGCol = "24";
+	public static String flockTotalFeedWeightLBCol = "25";
+	public static String flockTotalFeedWeightKGCol = "26";
+	public static String flockFCRCol = "27";
+	public static String flockAdjustedFCRCol = "28";
+	public static String flockFeedCostPerLivePoundCol = "29";
+	public static String flockMedicationCostPerLivePoundCol = "30";
+	public static String flockGrowerCostPerLivePoundCol = "31";
+	public static String flockLivabilityPercentageCol = "32";
+	public static String flockOverallMortalityPercentageCol = "33";
+	/////////////////End Settlement//////////////////
 	
-	
-	public static By flockInlineButton = By.cssSelector("edit-inline-access");
-	public static By flockInlineButtonSave = By.cssSelector("edit-inlineSave-access");
+	/////////////////Condemnation//////////////////
+	public static String flockNumBirdsDOAPlantCol = "7";
+	public static String flockTotalWeightCondemnedLBCol = "8";
+	public static String flockTotalWeightCondemnedKGCol = "9";
+	public static String flockNumBirdsCondemnedWholeCol = "10";
+	public static String flockPartsWeightCondemnedLBCol = "11";
+	public static String flockPartsWeightCondemnedKGCol = "12";
+	public static String flockKCalLBCol = "13";
+	public static String flockGradeAPawsPercentageCol = "14";
+	public static String flockIPPercentageCol = "15";
+	public static String flockLeukosisPercentageCol = "16";
+	public static String flockSeptoxPercentageCol = "17";
+	public static String flockTumorPercentageCol = "18";
+	///////////////End Condemnation////////////////
+
+	public static By flockInlineButton = By.id("edit-inline-access");
+	public static By flockInlineButtonSave = By.id("edit-inlineSave-access");
 	public static By flockBirdBreed = By.cssSelector("#birdBreedId-0-5 input");
 	
 	
@@ -435,11 +475,50 @@ public class Test_Elements {
 	public static By flockInlineAddNewProgramPopup = By.id("add-program");
 	public static By flockInlineProgramName = By.cssSelector("#programId input");
 	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
-	public static By flockProgramSaveButton = By.cssSelector("btn-save-program");
+	public static By flockProgramSaveButton = By.id("btn-save-program");
 	
 	public static By flockInlineMortality1Input = By.cssSelector("tr:nth-child(1) #col-"+flockMortalityCol+" img");
 	
+	public static By flockInlineSettlementWeeklyFarmRank = By.cssSelector("tr:nth-child(1) #col-"+flockWeeklyFarmRankCol+" input");
+	public static By flockInlineSettlementHistoricalFarmCostVariance = By.cssSelector("tr:nth-child(1) #col-"+flockHistoricalFarmCostVarianceCol+" input");
+	public static By flockInlineSettlementWeeklyFarmCostVariance = By.cssSelector("tr:nth-child(1) #col-"+flockWeeklyFarmCostVarianceCol+" input");
+	public static By flockInlineSettlementhatchDate = By.cssSelector("tr:nth-child(1) #col-"+flockHatchDateCol+" input");
+	public static By flockInlineSettlementDaysOut = By.cssSelector("tr:nth-child(1) #col-"+flockDaysOutCol+" input");
+	public static By flockInlineSettlementAgeofLitter = By.cssSelector("tr:nth-child(1) #col-"+flockAgeOfLiterCol+" input");
+	public static By flockInlineSettlementAverageSoldAge = By.cssSelector("tr:nth-child(1) #col-"+flockAverageSoldAgeCol+" input");
+	public static By flockInlineSettlementNumBirdsSold = By.cssSelector("tr:nth-child(1) #col-"+flockNumBirdsSoldCol+" input");
+	public static By flockInlineSettlementPlacementDensity = By.cssSelector("tr:nth-child(1) #col-"+flockPlacementDensityCol+" input");
+	public static By flockInlineSettlementProcessingDate = By.cssSelector("tr:nth-child(1) #col-"+flockProcessingDateCol+" input");
+	public static By flockInlineSettlementProcessingSiteID = By.cssSelector("tr:nth-child(1) #col-"+flockProcessingSiteIDCol+" input");
+	public static By flockInlineSettlementUSDAPlantID = By.cssSelector("tr:nth-child(1) #col-"+flockUSDAPlantIDCol+" input");
+	public static By flockInlineSettlementPlantLocation = By.cssSelector("tr:nth-child(1) #col-"+flockPlantLocationCol+" input");
+	public static By flockInlineSettlementNumOfBridsProcessed = By.cssSelector("tr:nth-child(1) #col-"+flockNumOfBirdsProcessedCol+" input");
+	public static By flockInlineSettlementAvgBirdWeightLB = By.cssSelector("tr:nth-child(1) #col-"+flockAvgBirdWeightLBCol+" input");
+	public static By flockInlineSettlementAvgBirdWeightKG = By.cssSelector("tr:nth-child(1) #col-"+flockAvgBirdWeightKGCol+" input");
+	public static By flockInlineSettlementTotalWeightProcessedLB = By.cssSelector("tr:nth-child(1) #col-"+flockTotalWeightProcessedLBCol+" input");
+	public static By flockInlineSettlementTotalWeightProcessedKG = By.cssSelector("tr:nth-child(1) #col-"+flockTotalWeightProcessedKGCol+" input");
+	public static By flockInlineSettlementTotalFeedWeightLB = By.cssSelector("tr:nth-child(1) #col-"+flockTotalFeedWeightLBCol+" input");
+	public static By flockInlineSettlementTotalFeedWeightKG = By.cssSelector("tr:nth-child(1) #col-"+flockTotalFeedWeightKGCol+" input");
+	public static By flockInlineSettlementFCR = By.cssSelector("tr:nth-child(1) #col-"+flockFCRCol+" input");
+	public static By flockInlineSettlementAdjustedFCR = By.cssSelector("tr:nth-child(1) #col-"+flockAdjustedFCRCol+" input");
+	public static By flockInlineSettlementFeedCostPerLivePound = By.cssSelector("tr:nth-child(1) #col-"+flockFeedCostPerLivePoundCol+" input");
+	public static By flockInlineSettlementMedicationCostPerLivePound = By.cssSelector("tr:nth-child(1) #col-"+flockMedicationCostPerLivePoundCol+" input");
+	public static By flockInlineSettlementGrowerCostPerLivePound = By.cssSelector("tr:nth-child(1) #col-"+flockGrowerCostPerLivePoundCol+" input");
+	public static By flockInlineSettlementLivabilityPercentage = By.cssSelector("tr:nth-child(1) #col-"+flockLivabilityPercentageCol+" input");
+	public static By flockInlineSettlementOverallMortalityPercentage = By.cssSelector("tr:nth-child(1) #col-"+flockOverallMortalityPercentageCol+" input");
 	
+	public static By flockInlineNumBirdsDOAPlantCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockNumBirdsDOAPlantCol+" input");
+	public static By flockInlineTotalWeightCondemnedLBCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockTotalWeightCondemnedLBCol+" input");
+	public static By flockInlineTotalWeightCondemnedKGCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockTotalWeightCondemnedKGCol+" input");
+	public static By flockInlineNumBirdsCondemnedWholeCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockNumBirdsCondemnedWholeCol+" input");
+	public static By flockInlinePartsWeightCondemnedLBCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockPartsWeightCondemnedLBCol+" input");
+	public static By flockInlinePartsWeightCondemnedKGCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockPartsWeightCondemnedKGCol+" input");
+	public static By flockInlineKCalLBCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockKCalLBCol+" input");
+	public static By flockInlineGradeAPawsPercentageCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockGradeAPawsPercentageCol+" input");
+	public static By flockInlineIPPercentageCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockIPPercentageCol+" input");
+	public static By flockInlineLeukosisPercentageCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockLeukosisPercentageCol+" input");
+	public static By flockInlineSeptoxPercentageCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockSeptoxPercentageCol+" input");
+	public static By flockInlineTumorPercentageCondemnation = By.cssSelector("tr:nth-child(1) #col-"+flockTumorPercentageCol+" input");
 	
 	public static By flockAuditTrail = By.id("audit-trial-0");
 	public static By flockAuditRowCount = By.cssSelector(".audit-v2 tr");
@@ -447,15 +526,47 @@ public class Test_Elements {
 	public static By flockEditSettlementTab = By.cssSelector("#flockManage li:nth-child(3)");
 	public static By flockEditCondemnationTab = By.cssSelector("#flockManage li:nth-child(4)");
 	
-	public static By flockWeeklyFarmRank = By.id("num-weeklyFarmRank");
-	public static By flockHistoricalFarmCostVariance = By.id("num-historicalFarmCostVariance");
-	public static By flockWeeklyFarmCostVariance = By.id("num-weeklyFarmCostVariance");
-	public static By flockNumBirdsDOAPlant = By.id("num-numBirdsDOAPlant");
+
 	
 	
 	
-	//public static By flockEditCondemnationTab = By.cssSelector("#num-week_2_Mortality");
+	public static String placementFlockIDCol = "0";
+	public static String placementIntegratorFlockIDCol = "1";
+	public static String placementBirdSizeCol = "2";
+	public static String placementBirdSexCol = "3";
+	public static String placementMarketingProgramCol = "4";
+	public static String placementBirdBreedCol = "5";
+	public static String placementNoOFBirdsPlacedCol = "6";
+	public static String placementProgramDetailsCol = "7";
+	public static String placementHousePlacementCol = "8";
+	public static String placementComplexCol = "9";
+	public static String placementFarmCol = "10";
+	public static String placementPlacementDateCol = "11";
+	public static String placementIntegratorCol = "12";
+	public static String placementFarmSiteIDCol = "13";
+	public static String placementEstimatedHarvestDateCol = "14";
 	
+	public static String placementAuditFlockIDCol = "0";
+	public static String placementChangedDateCol = "audit-changed-date-0";
+	public static String placementAuditActionCol = "audit-action-0";
+	public static String placementAuditChangedDateCol = "audit-changed-by-0";
+	public static String placementAuditIntegratorFlockIDCol = "0";
+	public static String placementAuditBirdSizeCol = "1";
+	public static String placementAuditBirdSexCol = "2";
+	public static String placementAuditMarketingProgramCol = "3";
+	public static String placementAuditBirdBreedCol = "4";
+	public static String placementAuditNoOFBirdsPlacedCol = "5";
+	public static String placementAuditProgramDetailsCol = "6";
+	public static String placementAuditHousePlacementCol = "7";
+	public static String placementAuditComplexCol = "8";
+	public static String placementAuditFarmCol = "9";
+	public static String placementAuditPlacementDateCol = "10";
+	public static String placementAuditIntegratorCol = "11";
+	public static String placementAuditFarmSiteIDCol = "12";
+	public static String placementAuditEstimatedHarvestDateCol = "13";
+	
+	
+	public static String mortalityCol = "";
 
 	
 	
@@ -680,7 +791,7 @@ public class Test_Elements {
 	
 	
 	/////////////////////////////////////Piper Management Elements////////////////////////////////////////////////////////7
-	public static By piperManagementTitle = By.id("PIPER Configuration Management");
+	public static By piperManagementTitle = By.id("PIPER Management");
 	public static String piperManagementTable = "manage-piper-log";
 	/////////////////////////////////////End Piper Management Elements/////////////////////////////////////////////////////
 	

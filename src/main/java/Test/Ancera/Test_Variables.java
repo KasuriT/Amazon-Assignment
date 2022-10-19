@@ -1,5 +1,6 @@
 package Test.Ancera;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,9 +71,9 @@ public class Test_Variables {
 	public static String piperId = "PSN0023";
 	public static String piperPassword = "piperdemo";
 	
-	public static String fileDownloadPath = "C:\\Users\\junaid.alam\\Downloads";
-	
-	public static String fileAbsolutePath = "D:\\Eclipse-WorkSpace\\eclipse-workspace\\IEQACode\\";
+	public static String fileDownloadPath = System.getProperty("user.home")+"\\Downloads";
+	public static String fileAbsolutePath = System.getProperty("user.dir")+"\\";
+//	public static String fileAbsolutePath = "D:\\Eclipse-WorkSpace\\eclipse-workspace\\IEQACode\\";
 	
 	static DateFormat dateFormat = new SimpleDateFormat("MM_dd_HH_mm");
 	static Date date1 = new Date();

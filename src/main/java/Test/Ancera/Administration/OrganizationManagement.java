@@ -32,7 +32,6 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import Test.Ancera.ClickElement;
 import Test.Ancera.ConfigureLogin;
 import Test.Ancera.Test_Elements;
-import Test.Ancera.Test_Functions;
 
 import static Test.Ancera.Test_Variables.*;
 import static Test.Ancera.Helper.*;
@@ -44,7 +43,7 @@ public class OrganizationManagement{
 
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
-		spark = new ExtentSparkReporter("target/Reports/Administration_Organization_Management"+date+".html");	//	spark.config().setReportName("Organization Management Test Report"); 
+		spark = new ExtentSparkReporter("target/Reports/Administration_Organization_Management"+date+".html");
 		spark.config().setReportName("Organization Management Test Report"); 
 		config();
 		ConfigureLogin.login();
@@ -369,11 +368,13 @@ public class OrganizationManagement{
 			//		if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals("q")) {
 					driver.findElement(By.id("edit-orgn-sites-"+i)).click();
 					waitElementInvisible(loading_cursor);
+					Thread.sleep(700);
 					break;
 				}
 			}
 	
 			steps.createNode("3. Click on + icon to create new site and verify Site Type is Region");
+			waitElementClickable(orgAddSite1);
 			click(orgAddSite1);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
@@ -1156,7 +1157,9 @@ public class OrganizationManagement{
 			steps.createNode("3. Go to User Management and open new user popup");
 			steps.createNode("4. Search for the inactivated organization in Organization dropdown; should not appear");
 
-			searchOrg();
+			openEditUserPopup(login_email);
+			driver.findElement(userOrgInput).sendKeys(lstOrganizationCreate.get(0));
+			waitElementVisible(By.cssSelector(".ng-option-disabled"));
 			Assert.assertTrue(driver.findElement(By.cssSelector(".ng-option-disabled")).isDisplayed()); 
 			test.pass("Inactivated Organization was not found in dropdown successfully");
 			results.createNode("Inactivated Organization was not found in dropdown successfully");
@@ -1210,9 +1213,6 @@ public class OrganizationManagement{
 			Thread.sleep(3500);
 			String recordsCountAfter = driver.findElement(By.id(ResultsCount)).getText();
 			softAssert.assertNotEquals(recordsCountBefore, recordsCountAfter);
-			
-			Test_Functions.searchOrg();
-			softAssert.assertTrue(driver.findElement(By.cssSelector(".ng-option-disabled")).isDisplayed()); 
 			softAssert.assertAll();
 			test.pass("Organization deleted and verified successfully");
 			results.createNode("Organization deleted and verified successfully");
@@ -1234,7 +1234,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 25) 
 	public static void CreateAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify user can create New Allied Partner Organizationn");
+			test = extent.createTest("AN-OM-62: Verify user can create New Allied Partner Organizationn");
 			steps.createNode("1. Enter valid data in all fields");
 			steps.createNode("2. Click on save button");
 			
@@ -1253,7 +1253,25 @@ public class OrganizationManagement{
 			Thread.sleep(750);
 			clear(orgNameInput);
 			type(orgNameInput, lstOrganizationCreate.get(5));
+//			Allow Domains Start
+			click(orgAllowDomainsExpand);
+			Thread.sleep(750);
+			click(selectAllCheckBox);
+			Thread.sleep(750);
+			click(orgAllowDomainsExpand);
+			Thread.sleep(750);
+			// Allow Domains End
 			click(popupNextButton);
+			Thread.sleep(700);
+			type(orgMaxUsersInput, "10");
+			//	Role Category Start
+			click(roleCategoryExpand);
+			Thread.sleep(1000);
+			click(selectAllCheckBox);
+			Thread.sleep(750);
+			click(roleCategoryExpand);
+			Thread.sleep(750);
+			//	Role Category End
 			Thread.sleep(700);
 			type(orgMaxUsersInput, "10");
 			click(orgSystemRolesExpand);
@@ -1293,7 +1311,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 26) 
 	public static void AddProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify user can add/remove product for Allied Partner Organization");
+			test = extent.createTest("AN-OM-63: Verify user can add/remove product for Allied Partner Organization");
 			SoftAssert softAssert = new SoftAssert();
 			
 			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
@@ -1305,13 +1323,13 @@ public class OrganizationManagement{
 			}		
 			
 			Thread.sleep(800);
-			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(orgUploadProductImage, projectPath+"/Ancera_Logo/ancera_logo.jpg");
 			softAssert.assertEquals(size(orgUploadProductImage), 0, "Product not added successfully");
 			
 			click(orgRemoveUploadedProduct);
 			softAssert.assertEquals(size(orgUploadProductImage), 1, "Product not removed successfully");
 			
-			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(orgUploadProductImage, projectPath+"/Ancera_Logo/ancera_logo.jpg");
 			type(orgAddProductName, "Allied Product 1");
 			type(orgAddProductDescription, "Product for Allied Organization");
 			click(popupSaveButton);
@@ -1339,7 +1357,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 27) 
 	public static void VerifyProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify product added from Organization Management screen is reflected on Company Products screen");
+			test = extent.createTest("AN-OM-64: Verify product added from Organization Management screen is reflected on Company Products screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			driver.get(url_companyProducts);
@@ -1375,19 +1393,19 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 28) 
 	public static void AddProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify user can add product in Company Products screen");
+			test = extent.createTest("AN-OM-65: Verify user can add product in Company Products screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			click(CompanyProductCreateNewButton);
 			waitElementInvisible(loading_cursor);
 			
-			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(orgUploadProductImage, projectPath+"/Ancera_Logo/ancera_logo.jpg");
 			softAssert.assertEquals(size(orgUploadProductImage), 0, "Product not added successfully");
 			
 			click(orgRemoveUploadedProduct);
 			softAssert.assertEquals(size(orgUploadProductImage), 1, "Product not removed successfully");
 			
-			type(orgUploadProductImage, projectPath+"/Image/ancera_logo.jpg");
+			type(orgUploadProductImage, projectPath+"/Ancera_Logo/ancera_logo.jpg");
 			type(CompanyProductNameInput, lstOrganizationCreate.get(5));
 			driver.findElement(CompanyProductNameInput).sendKeys(Keys.ENTER);
 			type(orgAddProductName, "Allied Product 2");
@@ -1417,7 +1435,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 29, dependsOnMethods = {"AddProductInCompanyProductsScreen"}) 
 	public static void VerifyProductInOrganizationScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify product added from Company Products is reflected on Organization Management screen screen");
+			test = extent.createTest("AN-OM-66: Verify product added from Company Products is reflected on Organization Management screen screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			driver.get(url_organization);
@@ -1455,7 +1473,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 30) 
 	public static void DeleteProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify user can delete product for Allied Partner Organization");
+			test = extent.createTest("AN-OM-67: Verify user can delete product for Allied Partner Organization");
 			SoftAssert softAssert = new SoftAssert();
 			
 			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
@@ -1499,7 +1517,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 31) 
 	public static void EditProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify product can be edited in Company Product Screen");
+			test = extent.createTest("AN-OM-68: Verify product can be edited in Company Product Screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			driver.get(url_companyProducts);
@@ -1542,7 +1560,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 32) 
 	public static void DeleteProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify product can be deleted in Company Product Screen");
+			test = extent.createTest("AN-OM-69: Verify product can be deleted in Company Product Screen");
 			SoftAssert softAssert = new SoftAssert();
 					
 			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
@@ -1580,7 +1598,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 33) 
 	public void DeleteAlliedOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-61: Verify Organization can be deleted and verify it from table and user dropdown as well");
+			test = extent.createTest("AN-OM-70: Verify Organization can be deleted and verify it from table and user dropdown as well");
 			
 			driver.get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -1627,7 +1645,7 @@ public class OrganizationManagement{
 	@Test (enabled= true, priority= 33) 
 	public void TestFilterCompanyProducts() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-61: Verify Allied Company and Product Name filter functionality");
+			test = extent.createTest("AN-OM-71: Verify Allied Company and Product Name filter functionality");
 			
 			driver.get(url_companyProducts);
 			waitElementInvisible(loading_cursor);
@@ -1678,9 +1696,6 @@ public class OrganizationManagement{
 		}
 	}
 	
-	
-		
-	
 
 	@Test (priority = 34, enabled = true) 
 	public void WildcardCP() throws InterruptedException, IOException {
@@ -1716,7 +1731,6 @@ public class OrganizationManagement{
 		Thread.sleep(3000);	
 		CSVExport("Organization Management", OrgManagementReportPath, Test_Elements.orgCSVFileName, orgManagementTable, 1);
 	}
-
 
 
 	@AfterTest
