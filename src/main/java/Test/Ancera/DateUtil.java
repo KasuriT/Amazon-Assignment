@@ -34,7 +34,7 @@ public class DateUtil {
     
     public static String clickDay(String day) {
 		List<WebElement> selectDate = driver.findElements(By.cssSelector(".dp-calendar-wrapper button"));
-		for (int i =0;i<=selectDate.size();i++) {
+		for (int i =0;i<31;i++) {
 			if (selectDate.get(i).getText().equals("day")) {
 				selectDate.get(i).click();
 				break;

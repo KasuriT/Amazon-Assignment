@@ -1,6 +1,5 @@
 package Test.Ancera;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -200,7 +199,7 @@ public class Test_Variables {
 					"Site details updated.",
 					"Site details deleted successfully.",
 					"Organization details deleted successfully.",
-					"Product has been saved successfully.", 
+					"Product has been added successfully.", 
 					"Product details deleted",
 					"Product details updated"));
 	
@@ -580,7 +579,7 @@ public class Test_Variables {
 	public static ArrayList<FlockManagementModel> lstFlockRegistrationValidation = new ArrayList<>();
 	
 	public static String flockCSVFileName = "Flock Registration Log - ";
-	public static String flockCSVAuditFileName = "Flock Registration Audit Log - ";
+	
 	public static String flockSampleMetaData = "FLOCK METADATA";
 	
 	//////////////////////////////////////////////////////////////////End Flock Registration Variables////////////////////////////////////////////////////////////////////////////////

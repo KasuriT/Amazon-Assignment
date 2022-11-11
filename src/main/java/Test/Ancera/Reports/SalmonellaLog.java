@@ -918,7 +918,6 @@ public class SalmonellaLog {
 			int rowsCount = 1;
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
-
 					int rows = driver.findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
 						int totalColumns = driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;

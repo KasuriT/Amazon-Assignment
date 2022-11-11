@@ -178,8 +178,7 @@ public class OrganizationManagement{
 	}
 	
 
-	@Test (description="Test Case: Create New Organization",enabled= true, priority= 9) 
-	public static void CreateOrganization() throws InterruptedException, IOException {
+	public static void CreateOrganization(String orgName) throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-OM-20: Verify user can create New Organizationn", "This test case will verify that user can create new organization");
 			preconditions.createNode("1. Go to url " +url_login);
@@ -202,7 +201,7 @@ public class OrganizationManagement{
 			driver.findElement(orgTypeInput).sendKeys(Keys.ENTER);
 			Thread.sleep(750);
 			clear(orgNameInput);
-			type(orgNameInput, lstOrganizationCreate.get(0));
+			type(orgNameInput, orgName);
 			//	Allow Domains Start
 			Thread.sleep(750);
 			click(orgAllowDomainsExpand);
@@ -255,7 +254,14 @@ public class OrganizationManagement{
 			saveResultNew(ITestResult.FAILURE, OrgManagementReportPath, ex);
 		}	
 	}
-
+	
+	
+	@Test (description="Test Case: Create New Organization",enabled= true, priority= 9) 
+	public static void CreateOrganizationCall() throws InterruptedException, IOException {
+		CreateOrganization(lstOrganizationCreate.get(0));
+	}
+		
+		
 
 	@Test (description="Test Case: Update New Organization ",enabled= true, priority= 10) 
 	public void UpdateOrganization() throws InterruptedException, IOException {
@@ -277,7 +283,7 @@ public class OrganizationManagement{
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
-			openEditOrgPopup();
+			openEditOrgPopup(lstOrganizationCreate.get(0));
 			
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertNotEquals(driver.findElement(By.id("nmeOrgID")).getAttribute("value"), "", "Organization ID should not be empty in edit organization popup");
@@ -320,7 +326,7 @@ public class OrganizationManagement{
 			steps.createNode("2. Reopen the updated popup to verify that changes made were save or not");
 			steps.createNode("3. Click on update button");
 			
-			openEditOrgPopup();
+			openEditOrgPopup(lstOrganizationCreate.get(0));
 
 			Thread.sleep(1000);
 			Assert.assertEquals(driver.findElement(orgEmailInput).getAttribute("value"), "testorg@anc.com"); 
@@ -752,8 +758,8 @@ public class OrganizationManagement{
 			softAssert.assertEquals(driver.findElement(orgSiteStateInput).getText(), "State\nNew York");
 			softAssert.assertEquals(driver.findElement(orgSiteCityInput).getText(), "City\nNew York");
 	//		softAssert.assertEquals(driver.findElement(orgSiteZipCodeInput).getText(), "28092");
-			softAssert.assertEquals(driver.findElement(orgSiteLatitudeInput).getAttribute("value"),"41", "Latitude did not autofilled");
-			softAssert.assertEquals(driver.findElement(orgSiteLongitudeInput).getAttribute("value"),"-74", "Longitude did not autofilled");
+			softAssert.assertTrue(driver.findElement(orgSiteLatitudeInput).getAttribute("value").startsWith("40."), "Latitude did not autofilled");
+			softAssert.assertTrue(driver.findElement(orgSiteLongitudeInput).getAttribute("value").startsWith("-74."), "Longitude did not autofilled");
 			driver.findElement(popupSaveButton).click(); 
 			waitElementInvisible(loading_cursor);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
@@ -1117,7 +1123,7 @@ public class OrganizationManagement{
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			
-			openEditOrgPopup();
+			openEditOrgPopup(lstOrganizationCreate.get(0));
 			
 			Thread.sleep(1000);
 			click(popupNextButton);
@@ -1432,7 +1438,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test (enabled= true, priority= 29, dependsOnMethods = {"AddProductInCompanyProductsScreen"}) 
+	@Test (enabled= true, priority= 29) 
 	public static void VerifyProductInOrganizationScreen() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-OM-66: Verify product added from Company Products is reflected on Organization Management screen screen");
@@ -1526,15 +1532,18 @@ public class OrganizationManagement{
 					
 			for (int i=1;i<driver.findElements(By.cssSelector("tr td:nth-child(1)")).size(); i++) {
 				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(2) label")).getText().equals(lstOrganizationCreate.get(5))) {
-					click(By.id(CompanyNameProductEditButton+""+i));
+					int j = i-1;
+					click(By.id(CompanyNameProductEditButton+""+j));
 					waitElementInvisible(loading_cursor);
 					break;
 				}
 			}	
 			
 			type(orgAddProductDescription, "Product for Allied Organization Description");
+			waitElementClickable(popupSaveButtonXpath);
 			click(popupSaveButtonXpath);
 			waitElementInvisible(loading_cursor);
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			softAssert.assertEquals(driver.findElement(alertMessage).getText(), lstOrgAlertMessages.get(8)); 
 			
@@ -1697,7 +1706,7 @@ public class OrganizationManagement{
 	}
 	
 
-	@Test (priority = 34, enabled = true) 
+	@Test (priority = 34, enabled = false) 
 	public void WildcardCP() throws InterruptedException, IOException {
 		driver.get(url_companyProducts);
 		waitElementInvisible(loading_cursor);
@@ -1712,7 +1721,7 @@ public class OrganizationManagement{
 	}
 	
 	
-	@Test(priority= 36, enabled = true)
+	@Test(priority= 36, enabled = false)
 	public void PaginationCP() throws InterruptedException, IOException {
 		Pagination(CompanyProductsTableName, "Company Products", OrgManagementReportPath);
 	}

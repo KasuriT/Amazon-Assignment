@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -43,7 +43,7 @@ public class UserManagement {
 		ConfigureLogin.login();
 	}
 
-/*
+
 	@Test (priority = 1) 
 	public void LockFilter() throws InterruptedException, IOException {
 		driver.get(Constants.url_user);
@@ -92,11 +92,12 @@ public class UserManagement {
 		CSVExport("User Management", UserManagementReportPath, Test_Elements.userCSVFileName, userManagementTable, 1);
 	}
 	
-*/
-	@Test (enabled= true, priority= 7) 
+
+	@Test (enabled= false, priority= 7) 
 	public void OpenClosePopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-02: Verify user can open and close Create New User Popup", "This test case will verify that user is able to open and close create new user popup");
+			steps = test.createNode(Scenario.class, Steps);
 			steps.createNode("1. Click on Create New button");
 
 			driver.get(Constants.url_user);
@@ -123,17 +124,22 @@ public class UserManagement {
 			saveResultNew(ITestResult.FAILURE, UserManagementReportPath, new Exception(er));
 		}	
 	}
-
+	
 
 	@Test (enabled= true, priority= 8) 
 	public void CreateUser() throws InterruptedException, IOException {
 		try{
-			test = Test_Variables.extent.createTest("AN-UM-03: Verify user can create a user", "This test case will verify create new ancera user");
+			test = Test_Variables.extent.createTest("AN-UM-03: Verify user can create a user");
 			steps = Test_Variables.test.createNode(Scenario.class, Test_Variables.Steps);
 			results = Test_Variables.test.createNode(Scenario.class, Test_Variables.Results);
 
 			steps.createNode("1. Enter valid data in all fields and click on Save button");
 
+			driver.get(Constants.url_user);
+			waitElementInvisible(loading_cursor);
+			waitElementVisible(usercreateButton);
+			Thread.sleep(3000);
+			
 			SoftAssert softAssert = new SoftAssert();
 
 			click(By.id(userEmail+""+ShowFilter));
@@ -167,56 +173,102 @@ public class UserManagement {
 
 			click(usercreateButton);
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(3000);
-
-			WebElement orgType = driver.findElement(userOrgTypeInput);
-			softAssert.assertTrue(orgType.isDisplayed());
-			orgType.sendKeys("Client");
-			orgType.sendKeys(Keys.ENTER);
-			driver.findElement(popupNextButton).click();
-			softAssert.assertTrue(orgType.isDisplayed());
+			waitElementClickable(userOrgTypeInput);			
+			Thread.sleep(4000);
+			type(userOrgTypeInput, "Client");
+			enterKey(userOrgTypeInput);
+			click(popupNextButton);
+			softAssert.assertTrue(driver.findElement(userOrgTypeInput).isDisplayed());
 			Thread.sleep(1000);
 
-			WebElement org = driver.findElement(userOrgInput);
-			org.click();
-			org.sendKeys(Keys.ENTER);
-
+			click(userOrgInput);
+			enterKey(userOrgInput);
+			Thread.sleep(500);
+			String OrganizationName = getText(getOrgName);
+			
 			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
-			driver.findElement(siteAdministratorToggle).click();
-
+			try {
+				click(siteAdministratorToggle);
+			}
+			catch (ElementClickInterceptedException ex) {
+				click(siteAdministratorToggle);
+			}
+			
 			driver.findElement(popupNextButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			
-			WebElement firstName = driver.findElement(userFirstNameInput);
-			firstName.sendKeys("Ancera Test");  
+			type(userFirstNameInput, "Ancera Test");
+			type(userLastNameInput, "User");
+			type(userEmailInput, createUserEmail); 
 			driver.findElement(popupNextButton).click();
-			softAssert.assertTrue(firstName.isDisplayed());
 
-			WebElement lastName = driver.findElement(userLastNameInput);
-			lastName.sendKeys("User");  
-			driver.findElement(popupNextButton).click();
-			softAssert.assertTrue(lastName.isDisplayed());
+			if(driver.findElement(By.cssSelector("#emailId-error-container path:nth-child(1)")).isDisplayed())
+			{
+				driver.get(url_organization);
+				waitElementInvisible(loading_cursor);
+				waitElementVisible(orgCreateButton);
+				Thread.sleep(1000);
+				openEditOrgPopup(OrganizationName);
+				waitElementInvisible(loading_cursor);
+				click(orgDomains);
+				Thread.sleep(1000);
+				type(enterAllowDomain,"gmail.com");
+				Thread.sleep(1000);
+				click(selectAllCheckBox);
+				Thread.sleep(1000);
+				click(orgAllowDomainsExpand);
+				Thread.sleep(1000);
+				click(popupNextButton);
+				waitElementVisible(popupSaveButton);
+				click(popupSaveButton);
+				waitElementVisible(alertMessage);
+				
+				driver.get(url_user);
+				waitElementInvisible(loading_cursor);
+				waitElementVisible(usercreateButton);
+				Thread.sleep(3000);
+				
+				click(usercreateButton);
+				waitElementInvisible(loading_cursor);
+				waitElementClickable(userOrgTypeInput);			
+				Thread.sleep(4000);
+				type(userOrgTypeInput, "Client");
+				enterKey(userOrgTypeInput);
+				Thread.sleep(1000);
 
-			WebElement email = driver.findElement(userEmailInput);
-			email.sendKeys(createUserEmail);  
-
-			driver.findElement(popupNextButton).click();
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(1000);
-			
+				click(userOrgInput);
+				enterKey(userOrgInput);
+				Thread.sleep(500);
+				
+				try {
+					click(siteAdministratorToggle);
+				}
+				catch (ElementClickInterceptedException ex) {
+					click(siteAdministratorToggle);
+				}
+				
+				driver.findElement(popupNextButton).click();
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(1000);
+				
+				type(userFirstNameInput, "Ancera Test");
+				type(userLastNameInput, "User");
+				type(userEmailInput, createUserEmail); 
+				driver.findElement(popupNextButton).click();
+			}
+	
 			click(reportRoleExpand);
-			driver.findElement(reportRoleSelect).sendKeys(Keys.ENTER);
-
-			click(AgreeementExpand);
-			driver.findElement(AgreementSelect).sendKeys(Keys.ENTER);
+			enterKey(reportRoleSelect);
 		
-			driver.findElement(systemRolesExpand).click();
+			click(systemRolesExpand);
 			Thread.sleep(1000);
-			driver.findElement(systemRolesSelect).sendKeys("Admin");
-			driver.findElement(systemRolesSelect).sendKeys(Keys.ENTER);
+			type(systemRolesSelect, "Admin");
+			enterKey(systemRolesSelect);
+			click(systemRolesExpand);
 			
-			driver.findElement(popupSaveButton).click();    
+			waitElementClickable(popupSaveButton);
+			click(popupSaveButton); 
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 
@@ -255,10 +307,11 @@ public class UserManagement {
 		enterKey(By.xpath(gmailEmail));
 		
 		waitElementClickable(By.xpath(gmailPassword));
-		Thread.sleep(5000);
+		Thread.sleep(4000);
 		type(By.xpath(gmailPassword), createUserPassword);
 		enterKey(By.xpath(gmailPassword));
-
+		
+		Thread.sleep(4000);
 		if (size(gmailSecurityCheck) != 0) { 
 			click(gmailSecurityCheck);
 			Thread.sleep(3000);
@@ -270,9 +323,9 @@ public class UserManagement {
 			}	
 		}
 		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
+		waitElementVisible(By.xpath("//*[@class='yW']/span"));
 		test.addScreenCaptureFromPath(getScreenshot("User Management", UserManagementReportPath));
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
 		for(int i=0;i<a.size();i++){
 			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
@@ -280,10 +333,9 @@ public class UserManagement {
 			}
 		}
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Create Password")));
-		Thread.sleep(1000);
+		waitElementVisible(By.linkText("Create Password"));
+		Thread.sleep(2000);
 		if (driver.findElement(By.linkText("Create Password")).getText().equals("Create Password")) {
-
 			test.pass("Reset password email received successfully");
 			results.createNode("Email to reset password received successfully");
 			test.addScreenCaptureFromPath(getScreenshot("User Management", UserManagementReportPath));	
@@ -306,7 +358,6 @@ public class UserManagement {
 				.get();
 		driver.switchTo().window(newTabHandle);
 	}
-
 
 
 	@Test (enabled= true, priority= 10) 
@@ -419,8 +470,11 @@ public class UserManagement {
 			Thread.sleep(2000);
 
 			openEditUserPopup(createUserEmail);
+			waitElementVisible(userRoleCategory);
 			waitElementClickable(popupNextButton);
+			Thread.sleep(1000);
 			click(popupNextButton);
+			Thread.sleep(1000);
 			click(popupNextButton);
 			Thread.sleep(750);
 
@@ -520,7 +574,9 @@ public class UserManagement {
 			Thread.sleep(2000);
 			
 			openEditUserPopup(createUserEmail);
+			waitElementVisible(userRoleCategory);
 			waitElementClickable(popupNextButton);
+			Thread.sleep(1000);
 			click(popupNextButton);
 			waitElementVisible(userLastNameInput);
 			clear(userLastNameInput);
@@ -582,6 +638,7 @@ public class UserManagement {
 			
 			String Reporting = Helper.driver.findElement(reportRoleGetValue).getText();
 			click(popupSaveButton);
+			waitElementClickable(popupYesButton);
 			Thread.sleep(750);
 			click(popupYesButton);
 			waitElementInvisible(loading_cursor);
@@ -648,7 +705,7 @@ public class UserManagement {
 			
 			type(userFirstNameInput, "Ancera Test");
 			type(userLastNameInput, "User");
-			type(userEmailInput, "siteadminuser@anc.com");
+			type(userEmailInput, "siteadminuser"+date0+"@gmail.com");
 			click(popupNextButton);
 			Thread.sleep(700);
 			
@@ -668,7 +725,7 @@ public class UserManagement {
 			click(By.id(userEmail+""+ShowFilter));
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			type(By.id(userEmail+""+SearchInput), "siteadminuser@anc.com");
+			type(By.id(userEmail+""+SearchInput), "siteadminuser"+date0+"@gmail.com");
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 			click(By.id(userEmail+""+SelectAll));
@@ -686,6 +743,7 @@ public class UserManagement {
 			}
 
 			waitElementClickable(popupYesButton);
+			Thread.sleep(1000);
 			click(popupYesButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
@@ -725,8 +783,10 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
+			waitElementVisible(editSearchedUser);
 			driver.findElement(editSearchedUser).click();
 			waitElementInvisible(loading_cursor);
+			waitElementVisible(userRoleCategory);
 			Thread.sleep(1000);
 			driver.findElement(popupNextButton).click();
 			Thread.sleep(700);
@@ -990,8 +1050,9 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			
-			scroll(deleteSearchedUser);
-			Thread.sleep(700);
+			scroll(agreeementSearchedUser);
+			waitElementClickable(deleteSearchedUser);
+			Thread.sleep(1000);
 		
 			try {
 				click(deleteSearchedUser);
@@ -1001,6 +1062,7 @@ public class UserManagement {
 				}
 	
 			waitElementClickable(popupYesButton);
+			Thread.sleep(700);
 			click(popupYesButton);
 
 			waitElementVisible(alertMessage);

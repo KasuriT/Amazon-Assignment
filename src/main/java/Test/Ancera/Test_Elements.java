@@ -42,6 +42,7 @@ public class Test_Elements {
 	public static By popupYesButton = By.id("btn-yes");
 	public static By popupOKButton = By.id("btn-ok");
 	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
+	public static By popupTotalRows = By.cssSelector(".apl-resp-table td:nth-child(1)");
 	public static By alertMessage = By.id("message");
 	//public static By alertMessageClose = By.cssSelector("button.close span");
 	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
@@ -61,11 +62,16 @@ public class Test_Elements {
 	public static String CSVButton = "";
 	public static By clickSearchItemFromHierarchy = By.cssSelector("label b");
 	public static By clickAddNewDropdown = By.xpath("//*[text()='Add New + ']");
+	public static By getDropdownValueCount = By.cssSelector("div[role='option']");
 	
 	public static String lastPagePagination = "last-page";
 	public static String previousPagePagination ="previous-page";
 	public static String firstPagePagination = "first-page";
 	public static String nextPagePagination = "next-page";
+	
+	public static By auditGetRowCount = By.cssSelector(".popup-content tr");
+	public static By auditActionRow1 = By.id("audit-action-1");
+	
 	
 	//////////////////////////////////////////////Static Elements///////////////////////////////////////////////////////////
 		
@@ -80,6 +86,7 @@ public class Test_Elements {
 	public static By userOrgDropDownExpand = By.cssSelector("#organizationId .ng-arrow-wrapper");
 	public static By userOrgInput = By.cssSelector("#organizationId input");
 	public static By siteAdministratorToggle = By.cssSelector("#site-administrator .row");
+	public static By userRoleCategory = By.id("roleCategoryId");
 	public static By systemRolesExpand = By.cssSelector("#rolesId .ng-arrow-wrapper");
 	public static By systemRoleSelect1 = By.cssSelector(".ng-dropdown-panel .ng-option:nth-child(2) label");
 	public static By systemRolesSelect = By.xpath("//*[@id=\"rolesId\"]//div[2]/input");
@@ -89,6 +96,9 @@ public class Test_Elements {
 	public static By reportRoleGetValue = By.cssSelector("#reportRoleId .ng-value-label");
 	public static By AgreeementExpand = By.cssSelector("#euladdl .ng-arrow-wrapper");
 	public static By AgreementSelect = By.xpath("//*[@id=\"euladdl\"]//div[2]/input");
+	public static By getOrgName = By.cssSelector("#organizationId .ng-value-label");
+	public static By orgDomains = By.cssSelector("#domains");
+	public static By enterAllowDomain = By.cssSelector("#domains input[type=text]");
 	
 	public static By AcceptAgreementonLogin = By.xpath("//*[text()= ' Accept ']");
 	
@@ -384,15 +394,24 @@ public class Test_Elements {
 	public static By flockCondemnationTab = By.xpath("//*[text() = 'Condemnation ']");
 		
 	public static By flockCreateButton = By.id("create-flock");
+	public static By flockAddNewFlockButton = By.id("add-flock");
 	
 	public static By flockFarmMandatoryCheck = By.xpath("//*[@ng-reflect-id = 'farmSiteId-0' and @ng-reflect-mandatory = 'true']");	
 	
 	public static By flockFarmDropdownExpand = By.cssSelector("[formcontrolname='farmId'] .down ");
 	public static By flockFarmDropdownSearch = By.cssSelector("[formcontrolname='farmId'] input");
+	public static By flockFarmDropdownGetAllSites = By.cssSelector("[formcontrolname='farmId'] tr");
 	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId-0 input");
 	public static By flockIntegratorFlockAddNew = By.cssSelector(".ng-tag-label");
 	public static By flockBirdSizeInput = By.cssSelector("#birdSizeId-0 input");
+	public static By flockBirdSizeDropDownOptions = By.cssSelector("#birdSizeId-0 .ng-option");
 	public static By flockBirdSexInput = By.cssSelector("#birdSexId-0 input");
+	public static By flockBirdSexDropDownOptions = By.cssSelector("#birdSexId-0 .ng-option");
+	public static By flockMarketingProgramInput = By.cssSelector("#marketingProgramId-0 input");
+	public static By flockMarketingProgramDropDownOptions = By.cssSelector("#marketingProgramId-0 .ng-option");
+	
+	public static By flockDoseInput = By.id("numBirdsPlacedId");
+	public static By flockProgramDeleteButton = By.cssSelector("[title='Delete program details']");
 
 	public static By flockPlacementDensityInput = By.id("num-placementDensity");
 	public static By flockWeeklyFarmRank = By.id("num-weeklyFarmRank");
@@ -404,19 +423,37 @@ public class Test_Elements {
 	public static By flockEstHarvestDateCalendar = By.xpath("(//*[@class = 'apl-datepicker__calender-icon'])[2]");
 	public static By flockHousePlacedDropdownExpand = By.cssSelector("#housePlaced-0 .ng-arrow-wrapper");
 	public static By flockHousePlacedList = By.cssSelector("#housePlaced-0 .ng-option");
+	public static By flockHousePlacedInput = By.cssSelector("#housePlaced-0 .ng-input input");
 	public static By flockAddNewProgram = By.xpath("//*[text() = 'Add New Program']");
+	public static By flockAddNewProgramTypeInput = By.cssSelector("#programTypeId-0-0 input");
+	public static By flockAddNewProgramNameInput = By.cssSelector("#programId-0-0 input");
+	public static By flockCMSAdminInput = By.cssSelector("input#administrationMethodId");
 	
 	/////////////////Placement//////////////////
-	public static String flockIDCol = "0";
-	public static String flockIntegratorIDCol = "1";
-	public static String flockBirdSizeCol = "2";
-	public static String flockBirdSexCol = "3";
-	public static String flockMarketingProgramCol = "4";
-	public static String flockBirdBreedCol = "5";
-	public static String flockProgramDetailsCol = "7";
-	public static String flockFarmCol = "10";
+	public static String flockIDPlacementCol = "0";
+	public static String flockIntegratorIDPlacementCol = "1";
+	public static String flockBirdSizePlacementCol = "2";
+	public static String flockBirdSexPlacementCol = "3";
+	public static String flockMarketingProgramPlacementCol = "4";
+	public static String flockBirdBreedPlacementCol = "5";
+	public static String flockNumofBirdsPlacedPlacementCol = "6";
+	public static String flockProgramDetailsPlacementCol = "7";
+	public static String flockComplexPlacementCol = "9";
+	public static String flockFarmPlacementCol = "10";
+	public static String flockIntegratorPlacementCol = "12";
+	public static String flockFarmSiteIDPlacementCol = "13";
 	///////////////End Placement//////////////////
 	
+	//////////Common Columns in all Tabs///////////
+	public static String flockFlockIDCol = "0";
+	public static String flockIntegratorFlockIDCol = "1";
+	public static String flockIntegratorCol = "2";
+	public static String flockComplexCol = "3";
+	public static String flockFarmCol = "4";
+	public static String flockFarmSiteIDCol = "5";
+	public static String flockPlacementDateCol = "6";
+	///////End Common Columns in all Tabs///////////
+
 	/////////////////Mortality//////////////////
 	public static String flockMortalityCol = "7";
 	////////////////End Mortality////////////////
@@ -466,18 +503,20 @@ public class Test_Elements {
 	public static String flockTumorPercentageCol = "18";
 	///////////////End Condemnation////////////////
 
-	public static By flockInlineButton = By.id("edit-inline-access");
-	public static By flockInlineButtonSave = By.id("edit-inlineSave-access");
+	public static String flockInlineButton = "edit-inline-access";
+	public static String flockInlineButtonTooltip = ("span[title  =' In-line Edit']");
+	
+	public static String flockInlineButtonSave = "edit-inlineSave-access";
 	public static By flockBirdBreed = By.cssSelector("#birdBreedId-0-5 input");
 	
 	
-	public static By flockInlineNewProgramIcon = By.cssSelector("tr:nth-child(1) #col-"+flockProgramDetailsCol+" img");
+	public static By flockInlineNewProgramIcon = By.cssSelector("tr:nth-child(1) #col-"+flockProgramDetailsPlacementCol);
 	public static By flockInlineAddNewProgramPopup = By.id("add-program");
 	public static By flockInlineProgramName = By.cssSelector("#programId input");
 	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
 	public static By flockProgramSaveButton = By.id("btn-save-program");
 	
-	public static By flockInlineMortality1Input = By.cssSelector("tr:nth-child(1) #col-"+flockMortalityCol+" img");
+	public static By flockInlineMortality1Input = By.cssSelector("tr:nth-child(1) #col-"+flockMortalityCol+" input");
 	
 	public static By flockInlineSettlementWeeklyFarmRank = By.cssSelector("tr:nth-child(1) #col-"+flockWeeklyFarmRankCol+" input");
 	public static By flockInlineSettlementHistoricalFarmCostVariance = By.cssSelector("tr:nth-child(1) #col-"+flockHistoricalFarmCostVarianceCol+" input");
@@ -525,11 +564,7 @@ public class Test_Elements {
 	public static By flockEditMortalityTab = By.cssSelector("#flockManage li:nth-child(2)");
 	public static By flockEditSettlementTab = By.cssSelector("#flockManage li:nth-child(3)");
 	public static By flockEditCondemnationTab = By.cssSelector("#flockManage li:nth-child(4)");
-	
-
-	
-	
-	
+	/*
 	public static String placementFlockIDCol = "0";
 	public static String placementIntegratorFlockIDCol = "1";
 	public static String placementBirdSizeCol = "2";
@@ -545,7 +580,7 @@ public class Test_Elements {
 	public static String placementIntegratorCol = "12";
 	public static String placementFarmSiteIDCol = "13";
 	public static String placementEstimatedHarvestDateCol = "14";
-	
+	*/
 	public static String placementAuditFlockIDCol = "0";
 	public static String placementChangedDateCol = "audit-changed-date-0";
 	public static String placementAuditActionCol = "audit-action-0";
@@ -567,19 +602,8 @@ public class Test_Elements {
 	
 	
 	public static String mortalityCol = "";
-
-	
-	
-
-	
 	
 	public static By flockProgramSaveDisabledCheck = By.cssSelector("#btn-save.disabled-v2");
-	
-	
-
-
-
-	
 
 	public static String flockShowFilter = "_show-filter";
 	public static String flockSortFilter = "sort-";
@@ -631,6 +655,9 @@ public class Test_Elements {
 	public static String flockTimeFrame = "timeFrame";
 	public static String flockUniqueFlockID = "uniqueFlockId";
 
+	public static String flockPlacementCSVFileName = "Placement Log - ";
+	public static String flockEOFTemplateFileName = "End of Flock Template_";
+	public static String flockPlacementAuditFileName = "Placement Audit Log - ";
 
 
 	/////////////////////////////////////////////////End Flock Management Elements////////////////////////////////////////////////////////////
@@ -662,7 +689,7 @@ public class Test_Elements {
 	public static By programFlockDayEnd  = By.id("num-flockDayEndId-1");
 	
 	public static By programComplexSelected = By.cssSelector("#compleSiteId.ng-valid");
-	public static By programComplexMandatoryCheck = By.cssSelector("//*[@id='compleSiteId' and @ng-reflect-mandatory = 'true']");
+	public static By programComplexMandatoryCheck = By.xpath("//*[@id='compleSiteId' and @ng-reflect-mandatory = 'true']");
 	
 	
 	public static By programBioshuttleFlockDayStart = By.id("num-bioShuttleFlockDayStart");

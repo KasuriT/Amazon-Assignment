@@ -38,13 +38,17 @@ public class FlockManagementModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-//	public static String flockIntegratorID = "IntegratorID_"+date0;
-//	public static String flockProgramName = "FlockVaccine_"+date0;
+	public static String flockIntegratorID = "IntegratorID_"+Test_Variables.date0;
+	public static String flockProgramName = "FlockVaccine_"+Test_Variables.date0;
 	public static String flockProgramAdminMethod = "AdminMethod_"+Test_Variables.date0;
+	public static String flockBirdSize = "Large";
+	public static int totalColumnsinFlock = 56;
 
-	public static String flockIntegratorID = "IntegratorID_0245";
-	public static String flockProgramName = "FlockVaccine_5256";
+//	public static String flockIntegratorID = "IntegratorID_2528";
+//	public static String flockProgramName = "FlockVaccine_2528";
 //	public static String flockProgramAdminMethod = "AdminMethod_5256";
+
+	
 
 
 	public static ArrayList<FlockManagementModel> EditFlock() {
@@ -88,7 +92,7 @@ public class FlockManagementModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 		objFilter.FilterID = Test_Elements.flockBirdSex;
-		objFilter.ColumnID = Test_Elements.flockBirdSexCol;
+		objFilter.ColumnID = Test_Elements.flockBirdSexPlacementCol;
 		objTmp.input = "Male";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -102,7 +106,7 @@ public class FlockManagementModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 	//	objFilter.FilterID = Test_Elements.flockBirdBreed;
-		objFilter.ColumnID = Test_Elements.flockBirdBreedCol;
+		objFilter.ColumnID = Test_Elements.flockBirdBreedPlacementCol;
 		objTmp.input = "Australorp";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);

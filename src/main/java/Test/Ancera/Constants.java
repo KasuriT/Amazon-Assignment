@@ -2,8 +2,12 @@ package Test.Ancera;
 
 public class Constants {
 
+	public static final String browser = "chrome";
+	public static long implicitwait=10;
+	
 	public static String url = "https://ie-qa.ancera.com"; 
-	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
+//	public static String api = "https://disapi-qa.ancera.com/api/ancerainput/v1";
+	public static String api = "https://disapi-qa.azurewebsites.net/api/ancerainput/v1";
 //	public static String api = "http://hipir-1.anceralabs.com/api/ancerainput/v1";
 	
 //	public static String url = "https://ie-dev.ancera.com";
@@ -35,7 +39,7 @@ public class Constants {
 	public static String url_reports = url+"/home/reports/explore";
 
 	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=16&code=0001&type=1";  //qa
-	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=17&code=0002&type=2";   //qa
+	public static String url_CoccidiaLog = url+"/home/reports/log/coccidia-log?report=Coccidia%20Log&id=9&code=0002&type=2";   //qa
 	public static String url_SitesLog = url+"/home/reports/log/sites-log?report=Sites%20Log&id=244&code=0012&type=12";   //qa
 	
 //	public static String url_SalmonellaLog = url+"/home/reports/log/salmonella-log?report=Salmonella%20Log&id=1&code=0001&type=1";   //uat

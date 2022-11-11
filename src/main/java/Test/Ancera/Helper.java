@@ -1,6 +1,12 @@
 package Test.Ancera;
 
+import static Test.Ancera.Constants.FlockManagementReportPath;
+import static Test.Ancera.Helper.config;
 import static Test.Ancera.Helper.driver;
+import static Test.Ancera.Helper.getScreenshot;
+import static Test.Ancera.Test_Variables.date;
+import static Test.Ancera.Test_Variables.spark;
+import static Test.Ancera.Test_Variables.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +33,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
@@ -34,6 +41,7 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -166,6 +174,10 @@ public class Helper {
 	public static void scroll(By locator) {
 		WebElement scroll = driver.findElement(locator);
 		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
+	}
+	
+	public static void getScreenshot() throws IOException {
+		test.addScreenCaptureFromPath(getScreenshot("Screenshot", FlockManagementReportPath));
 	}
 
 }
