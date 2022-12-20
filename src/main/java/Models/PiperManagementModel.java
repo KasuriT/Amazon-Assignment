@@ -16,7 +16,7 @@ public class PiperManagementModel {
 	public boolean negativeScenario;
 	public boolean positiveScenario;
 	public ArrayList<ReportFilters> lstFilters;
-	
+	public static ArrayList<PiperManagementModel> lstPiperManagementCreate = new ArrayList<>();
 	public PiperManagementModel() {
 
 	}

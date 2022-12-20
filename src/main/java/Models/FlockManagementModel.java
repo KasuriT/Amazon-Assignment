@@ -1,9 +1,18 @@
 package Models;
 
+import static MiscFunctions.Helper.driver;
+import static MiscFunctions.Helper.getText;
+import static MiscFunctions.Helper.waitElementInvisible;
+import static PageObjects.BasePage.loading_cursor;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import Test.Ancera.Test_Elements;
-import Test.Ancera.Test_Variables;
+
+import org.openqa.selenium.By;
+
+import MiscFunctions.DateUtil;
+import PageObjects.FlockManagementPage;
 
 public class FlockManagementModel {
 
@@ -29,6 +38,14 @@ public class FlockManagementModel {
 	public String steps;
 	public String input;
 
+
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateSearch = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateEnter = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationEdit = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationValidation = new ArrayList<>();
+	
 	public FlockManagementModel() {
 
 	}
@@ -38,9 +55,9 @@ public class FlockManagementModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	public static String flockIntegratorID = "IntegratorID_"+Test_Variables.date0;
-	public static String flockProgramName = "FlockVaccine_"+Test_Variables.date0;
-	public static String flockProgramAdminMethod = "AdminMethod_"+Test_Variables.date0;
+	public static String flockIntegratorID = "IntegratorID_"+DateUtil.date0;
+	public static String flockProgramName = "FlockVaccine_"+DateUtil.date0;
+	public static String flockProgramAdminMethod = "AdminMethod_"+DateUtil.date0;
 	public static String flockBirdSize = "Large";
 	public static int totalColumnsinFlock = 56;
 
@@ -91,8 +108,8 @@ public class FlockManagementModel {
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.flockBirdSex;
-		objFilter.ColumnID = Test_Elements.flockBirdSexPlacementCol;
+		objFilter.FilterID = FlockManagementPage.flockBirdSex;
+		objFilter.ColumnID = FlockManagementPage.flockBirdSexPlacementCol;
 		objTmp.input = "Male";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -106,7 +123,7 @@ public class FlockManagementModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 	//	objFilter.FilterID = Test_Elements.flockBirdBreed;
-		objFilter.ColumnID = Test_Elements.flockBirdBreedPlacementCol;
+		objFilter.ColumnID = FlockManagementPage.flockBirdBreedPlacementCol;
 		objTmp.input = "Australorp";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -228,4 +245,34 @@ public class FlockManagementModel {
 		
 		return lstFlockManagementModel;
 	}
+	
+	
+	public static void openFlockAudit() throws InterruptedException, IOException {
+		for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID) && getText(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockBirdSizePlacementCol+" label")).equals(FlockManagementModel.flockBirdSize)) {
+				
+				int j = i-1;
+			
+			System.out.println(1);
+				driver.findElement(By.id("audit-trial-"+j)).click();
+		
+				waitElementInvisible(loading_cursor);	
+				Thread.sleep(1500);	
+				break;
+			}
+		}
+	}
+
+	
+	public static void openEditFlock() throws InterruptedException, IOException {
+		for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockIntegratorCol+" label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
+				driver.findElement(By.id("edit-feed-program-"+i)).click();
+				waitElementInvisible(loading_cursor);	
+				Thread.sleep(1500);	
+				break;
+			}
+		}
+	}
+	
 }

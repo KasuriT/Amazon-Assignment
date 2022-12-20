@@ -14,6 +14,7 @@ public class APIVersionModel {
 	public String messageResponse;
 	public String messageResponseAPI;
 	public boolean responseBody;
+	public static ArrayList<APIVersionModel> lstTestAPIVersion = new ArrayList<>();
 	
 	public static ArrayList<APIVersionModel> FillData() {
 		ArrayList<APIVersionModel> lstAPIVersionModel = new ArrayList<APIVersionModel>();

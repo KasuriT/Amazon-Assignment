@@ -1,0 +1,47 @@
+package PageObjects;
+
+import org.openqa.selenium.By;
+
+public class BasePage {
+
+	public static String loading_cursor = "notification-loading";
+	public static By loader = By.id("notification-loading");
+	public static By popupNextButton = By.id("btn-next");
+	public static By popupResetButton = By.id("btn-reset");
+	public static By popupSaveButton = By.id("btn-save");
+	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");	
+	public static By popupYesButton = By.id("btn-yes");
+	public static By popupOKButton = By.id("btn-ok");
+	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
+	public static By popupTotalRows = By.cssSelector(".apl-resp-table td:nth-child(1)");
+	public static By alertMessage = By.id("message");
+	//public static By alertMessageClose = By.cssSelector("button.close span");
+	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");
+	public static By confirmationYes = By.cssSelector("button.mr-4");
+		
+	public static String ShowFilter = "_show-filter";
+	public static String SortFilter = "sort-";
+	public static String ApplyFilter = "_apply";
+	public static String ClearFilter = "_clear-filter";
+	public static String SearchInput = "_search-input";
+	public static String SelectAll = "_cust-cb-lst-txt_selectAll";
+	public static String LockFilter = "save-filters";
+	public static String UnlockFilter = "remove-filters";
+	public static String ResultsCount = "results-found-count";
+	public static String ResetFilters = "reset-all-filters";
+	public static String FieldAccess = "edit-field-access";
+	public static String CSVButton = "";
+	public static By clickSearchItemFromHierarchy = By.cssSelector("label b");
+	public static By clickAddNewDropdown = By.xpath("//*[text()='Add New + ']");
+	public static By getDropdownValueCount = By.cssSelector("div[role='option']");
+	
+	public static String lastPagePagination = "last-page";
+	public static String previousPagePagination ="previous-page";
+	public static String firstPagePagination = "first-page";
+	public static String nextPagePagination = "next-page";
+	
+	public static By auditGetRowCount = By.cssSelector(".popup-content tr");
+	public static By auditActionRow1 = By.id("audit-action-1");
+	public static By alertClose = By.xpath("//*[@id=\"alrt\"]/button/span");
+	
+}

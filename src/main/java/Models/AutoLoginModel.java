@@ -8,7 +8,8 @@ public class AutoLoginModel {
 	public String TestCaseDescription;
 	public String precondition;
 	public ArrayList<ReportFilters> lstFilters;
-
+	public static ArrayList<AutoLoginModel> lstAutoLoginCheck = new ArrayList<>();
+	
 	public AutoLoginModel() {
 
 	}
