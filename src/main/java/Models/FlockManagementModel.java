@@ -12,7 +12,9 @@ import java.util.Arrays;
 import org.openqa.selenium.By;
 
 import MiscFunctions.DateUtil;
-import PageObjects.FlockManagementPage;
+import MiscFunctions.Helper;
+import static PageObjects.FlockManagementPage.*;
+
 
 public class FlockManagementModel {
 
@@ -21,16 +23,6 @@ public class FlockManagementModel {
 	public String TestCaseNameSearch;
 	public String TestCaseDescriptionSearch;
 	public ArrayList<ReportFilters> lstFilters;
-	public boolean paginationExist;
-	public boolean paginationLastPage;
-	public boolean paginationNextPage;
-	public boolean paginationFirstPage;
-	public boolean paginationPreviousPage;
-	public boolean sortLogic1;
-	public boolean sortLogic2;
-	public boolean startWith;
-	public boolean endsWith;
-	public boolean contains;
 	public boolean viewAccess;
 	public boolean unviewAccess;
 	public boolean sortDescFirst;
@@ -59,8 +51,8 @@ public class FlockManagementModel {
 	public static String flockProgramName = "FlockVaccine_"+DateUtil.date0;
 	public static String flockProgramAdminMethod = "AdminMethod_"+DateUtil.date0;
 	public static String flockBirdSize = "Large";
-	public static int totalColumnsinFlock = 56;
-
+	public static int totalColumnsinFlock = 56;  
+//
 //	public static String flockIntegratorID = "IntegratorID_2528";
 //	public static String flockProgramName = "FlockVaccine_2528";
 //	public static String flockProgramAdminMethod = "AdminMethod_5256";
@@ -108,8 +100,8 @@ public class FlockManagementModel {
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = FlockManagementPage.flockBirdSex;
-		objFilter.ColumnID = FlockManagementPage.flockBirdSexPlacementCol;
+		objFilter.FilterID = flockBirdSex;
+		objFilter.ColumnID = flockBirdSexPlacementCol;
 		objTmp.input = "Male";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -123,7 +115,7 @@ public class FlockManagementModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 	//	objFilter.FilterID = Test_Elements.flockBirdBreed;
-		objFilter.ColumnID = FlockManagementPage.flockBirdBreedPlacementCol;
+		objFilter.ColumnID = flockBirdBreedPlacementCol;
 		objTmp.input = "Australorp";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -247,32 +239,27 @@ public class FlockManagementModel {
 	}
 	
 	
-	public static void openFlockAudit() throws InterruptedException, IOException {
-		for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
-			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID) && getText(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockBirdSizePlacementCol+" label")).equals(FlockManagementModel.flockBirdSize)) {
-				
-				int j = i-1;
-			
-			System.out.println(1);
-				driver.findElement(By.id("audit-trial-"+j)).click();
-		
-				waitElementInvisible(loading_cursor);	
-				Thread.sleep(1500);	
-				break;
-			}
-		}
-	}
-
+    public static void openFlockAudit() throws InterruptedException, IOException {
+        Helper.click(flockMortalityTab);
+        
+        for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {     
+            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
+                int j = i-1;
+                driver.findElement(By.id("audit-trial-"+j)).click();
+        
+                waitElementInvisible(loading_cursor);    
+                Thread.sleep(1500);    
+                break;
+            }}}
 	
-	public static void openEditFlock() throws InterruptedException, IOException {
-		for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
-			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+FlockManagementPage.flockIntegratorCol+" label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
-				driver.findElement(By.id("edit-feed-program-"+i)).click();
-				waitElementInvisible(loading_cursor);	
-				Thread.sleep(1500);	
-				break;
-			}
-		}
-	}
-	
+    
+    public static void openEditFlock() throws InterruptedException, IOException {
+        Helper.click(flockMortalityTab);
+        for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
+            if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorCol+" label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
+                driver.findElement(By.id("edit-feed-program-"+i)).click();
+                waitElementInvisible(loading_cursor);    
+                Thread.sleep(1500);    
+            }
+        }}
 }

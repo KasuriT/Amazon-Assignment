@@ -304,13 +304,6 @@ public class FlockManagement extends DB_Config {
 
 	
 	
-	@Test
-	public void edit() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(1000);
-		FlockManagementModel.openFlockAudit();
-	}
 	
 
 	@Test (enabled= true, priority = 26) 
@@ -434,21 +427,19 @@ public class FlockManagement extends DB_Config {
 
 			softAssert.assertAll();
 
-			test.pass("Flock was created successfully");
+			
 			getScreenshot();
+			test.pass("Flock was created successfully");
 			saveResult(ITestResult.SUCCESS, null);	
 		}
 		catch(AssertionError er) {
 			test.fail("Flock failed to create");
-			results.createNode("Flock failed to create");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Flock failed to create");
-			results.createNode("Flock failed to create");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		//	getStmt().close();
 	}
 
 
@@ -488,24 +479,20 @@ public class FlockManagement extends DB_Config {
 			type(flockBirdSizeInput, FlockManagementModel.flockBirdSize);
 			driver.findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
 
-
 			scroll(flockPlacementDateCalendar);
 			click(flockPlacementDateCalendar);
-			//	scroll(By.xpath("//*[@id=\"manage-program\"]/div[2]/app-placement-log/div[2]/app-popup-component/div/div/div/div[3]/app-add-editflock-management/form/div/div/div[2]/div/div[1]/section/div[4]/div[1]/div[1]/app-date-select-box/div/div[2]/div/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[2]/button[3]"));
-			Thread.sleep(1000);
-			//	DateUtil.clickDay("01");
-			click(By.xpath("//*[@id=\"manage-program\"]/div[2]/app-placement-log/div[2]/app-popup-component/div/div/div/div[3]/app-add-editflock-management/form/div/div/div[2]/div/div[1]/section/div[4]/div[1]/div[1]/app-date-select-box/div/div[2]/div/dp-date-picker/div[2]/div/dp-day-calendar/div/div/div[2]/button[3]"));
 
+            List<WebElement> list = driver.findElements(By.cssSelector(".dp-current-day"));
+            scroll(By.xpath("//label[text() = 'Flock Information']"));
+            Thread.sleep(1000);    
 
+            list.get(2).click();
+            Thread.sleep(1000);
+			
 			click(flockHousePlacedDropdownExpand);
 			Thread.sleep(1000);
 			click(By.xpath("//*[text() = 'Select All']"));
 			click(flockHousePlacedDropdownExpand);
-
-			//			scroll(flockAddNewProgram);
-			//			click(flockPlacementDateCalendar);
-			//			Thread.sleep(700);
-			//			DateUtil.clickDay("01");
 
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -524,7 +511,6 @@ public class FlockManagement extends DB_Config {
 			test.fail("Flock failed to create");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		//	getStmt().close();
 	}
 
 
@@ -545,8 +531,6 @@ public class FlockManagement extends DB_Config {
 			FlockManagementModel.openEditFlock();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-
-			//	softAssert.assertEquals(size(flockAddNewFlockButton), 0, "Add new Flock button is visible on Edit Flock popup");
 
 			type(flockBirdSexInput, "Male");
 			driver.findElement(flockBirdSexInput).sendKeys(Keys.ENTER);
@@ -604,18 +588,15 @@ public class FlockManagement extends DB_Config {
 			softAssert.assertAll();
 
 			test.pass("Flock was edited successfully");
-			results.createNode("Flock was edited successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);	
 		}
 		catch(AssertionError er) {
 			test.fail("Flock failed to edit");
-			results.createNode("Flock failed to edit");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Flock failed to edit");
-			results.createNode("Flock failed to edit");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}

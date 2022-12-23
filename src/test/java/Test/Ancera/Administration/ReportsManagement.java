@@ -19,7 +19,6 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Config.ReadPropertyFile;
 import MiscFunctions.DateUtil;
-import MiscFunctions.Helper;
 import MiscFunctions.NavigateToScreen;
 import Models.ReportsManagementModel;
 import PageObjects.SalmonellaLogPage;
@@ -344,12 +343,12 @@ public class ReportsManagement {
 			type(By.id(UserManagementPage.userEmail+""+SearchInput), config.ie_username());
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
-			Helper.driver.findElement(By.cssSelector("th:nth-child(4) li:nth-child(1) label")).click();					  
+            driver.findElement(By.cssSelector("th:nth-child(4) li:nth-child(1) label")).click();                      			  
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			click(By.id(UserManagementPage.userEmail+""+ApplyFilter));
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			String ReportRole = driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+UserManagementPage.userReportingCol+" label")).getText();
 
 			driver.get(url_reportsManagement);

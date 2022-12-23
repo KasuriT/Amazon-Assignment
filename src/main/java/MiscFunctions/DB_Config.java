@@ -2,18 +2,20 @@ package MiscFunctions;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+
+import Config.ReadPropertyFile;
 
 public class DB_Config {
 
 	static Connection con = null;
 	private static Statement stmt;	
 
+    public static ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 
 	@BeforeTest
 	public static void test() {
@@ -25,13 +27,13 @@ public class DB_Config {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
 			//	String DB_URL ="jdbc:sqlserver://sql-ie-qa-001.database.windows.net;databaseName=IE-DW;user="+UserName+";Password="+Password;
 
-			if (Constants.config.url().contains("qa")) {
-				String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=QA-IE-DW;user="+UserName+";Password="+Password;
+            if (config.environment().equals("qa")) {
+            	String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=QA-IE-DW;user="+UserName+";Password="+Password;
 				Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
 				setStmt(con.createStatement());
 			}
 
-			if (Constants.config.url().contains("dev")) {
+            if (config.environment().equals("dev")) {
 				String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=PRH-IE-DW;user="+UserName+";Password="+Password;
 				Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
 				setStmt(con.createStatement());
