@@ -1,19 +1,14 @@
 package LogViewFunctions;
 
-import static MiscFunctions.Constants.url_login;
-import static MiscFunctions.Constants.wait;
-import static MiscFunctions.ExtentVariables.PreConditions;
 import static MiscFunctions.ExtentVariables.Results;
 import static MiscFunctions.ExtentVariables.Steps;
 import static MiscFunctions.ExtentVariables.extent;
-import static MiscFunctions.ExtentVariables.preconditions;
 import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getScreenshot;
-import static MiscFunctions.Helper.saveResult;
-import static MiscFunctions.Helper.waitElementInvisible;
+import static MiscFunctions.Methods.getScreenshot;
+import static Config.BaseTest.saveResult;
+import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.loading_cursor;
 
@@ -25,14 +20,16 @@ import java.util.Locale;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 
+import Config.BaseTest;
 import MiscFunctions.ClickElement;
+import MiscFunctions.Methods;
+import PageObjects.BasePage;
 
 public class RowsPerPage {
 
@@ -43,38 +40,32 @@ public class RowsPerPage {
 		for (int i=0; i<=tableRows.length; i++) {
 			try {
 				test = extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
-				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-
-				preconditions.createNode("1. Go to url " +url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Open any Report");
+				BaseTest driver = new BaseTest();
 
 				waitElementInvisible(loading_cursor);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(ResultsCount))); 
+				Methods.waitElementVisible(By.id(ResultsCount));
 				Thread.sleep(500);	
 
-				Actions actions = new Actions(driver);
+				Actions actions = new Actions(driver.getDriver());
 				SoftAssert softAssert = new SoftAssert();
 				steps.createNode("1. Select "+tableRows[i]+" from dropdown below");
-				String results1 = driver.findElement(By.id(ResultsCount)).getText();
+				String results1 = driver.getDriver().findElement(By.id(ResultsCount)).getText();
 
 				if (NumberFormat.getNumberInstance(Locale.US).parse(results1).intValue() > tableRows[i]) {
-					WebElement expandFilter = driver.findElement(By.id("rows"));
+					WebElement expandFilter = driver.getDriver().findElement(By.id("rows"));
 					actions.moveToElement(expandFilter).click().perform();				
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(2000);
 					getScreenshot();
 					int j = i+1;
-					driver.findElement(By.cssSelector("option:nth-child("+j+")")).click();
+					driver.getDriver().findElement(By.cssSelector("option:nth-child("+j+")")).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
-					List<WebElement> rows = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
+					List<WebElement> rows = driver.getDriver().findElements(By.cssSelector("tr td:nth-child(3)"));
 					int count = rows.size();
-				//	int new_count = count - 4;
+					//	int new_count = count - 4;
 
 					softAssert.assertEquals(count, tableRows[i]);
 					softAssert.assertAll();
@@ -96,17 +87,18 @@ public class RowsPerPage {
 				steps.createNode("2. Go to next page from pagination");
 				steps.createNode("3. Verify that still "+tableRows[i]+" is selected");
 
-				String results2 = driver.findElement(By.id(ResultsCount)).getText();
+				String results2 = driver.getDriver().findElement(By.id(ResultsCount)).getText();
 				int sum = tableRows[i] + tableRows[i];
 
 				if (NumberFormat.getNumberInstance(Locale.US).parse(results2).intValue() > sum) {
 
-					ClickElement.clickById(driver, "next-page");
-					wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					ClickElement.clickById(driver.getDriver(), "next-page");
+
+					Methods.waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1000);
-					List<WebElement> rows = driver.findElements(By.cssSelector("tr td:nth-child(3)"));
+					List<WebElement> rows = driver.getDriver().findElements(By.cssSelector("tr td:nth-child(3)"));
 					int count = rows.size();
-			//		int new_count = count - 4;
+					//		int new_count = count - 4;
 					//System.out.println("ROW COUNT : "+new_count);
 					softAssert.assertEquals(count, tableRows[i]);
 					test.pass(tableRows[i]+"records displayed succcessfully on next page");
@@ -137,8 +129,8 @@ public class RowsPerPage {
 			}	
 		}
 	}
-	
-	
+
+
 	@Test (description="Test Case: Test Table Rows") 
 	public static void RowsPerPage1(String tablename) throws InterruptedException, IOException {
 
@@ -146,38 +138,33 @@ public class RowsPerPage {
 		for (int i=0; i<=tableRows.length; i++) {
 			try {
 				test = extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
-				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
 
-				preconditions.createNode("1. Go to url " +url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Open any Report");
 
+				BaseTest driver = new BaseTest();
 				waitElementInvisible(loading_cursor);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#"+tablename+" #"+ResultsCount))); 
+				Methods.waitElementVisible(By.cssSelector("#"+tablename+" #"+ResultsCount));
 				Thread.sleep(500);	
 
-				Actions actions = new Actions(driver);
+				Actions actions = new Actions(driver.getDriver());
 				SoftAssert softAssert = new SoftAssert();
 				steps.createNode("1. Select "+tableRows[i]+" from dropdown below");
-				String results1 = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();
+				String results1 = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();
 
 				if (NumberFormat.getNumberInstance(Locale.US).parse(results1).intValue() > tableRows[i]) {
-					WebElement expandFilter = driver.findElement(By.cssSelector("#"+tablename+" #rows"));
+					WebElement expandFilter = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #rows"));
 					actions.moveToElement(expandFilter).click().perform();				
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(2000);
 					getScreenshot();
 					int j = i+1;
-					driver.findElement(By.cssSelector("#"+tablename+" option:nth-child("+j+")")).click();
+					driver.getDriver().findElement(By.cssSelector("#"+tablename+" option:nth-child("+j+")")).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
-					List<WebElement> rows = driver.findElements(By.cssSelector("#"+tablename+" tr td:nth-child(3)"));
+					List<WebElement> rows = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr td:nth-child(3)"));
 					int count = rows.size();
-				//	int new_count = count - 4;
+					//	int new_count = count - 4;
 
 					softAssert.assertEquals(count, tableRows[i]);
 					softAssert.assertAll();
@@ -199,17 +186,17 @@ public class RowsPerPage {
 				steps.createNode("2. Go to next page from pagination");
 				steps.createNode("3. Verify that still "+tableRows[i]+" is selected");
 
-				String results2 = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();
+				String results2 = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();
 				int sum = tableRows[i] + tableRows[i];
 
 				if (NumberFormat.getNumberInstance(Locale.US).parse(results2).intValue() > sum) {
 
-					ClickElement.clickByCss(driver, "#"+tablename+" #next-page");
-					wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" #next-page");
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1000);
-					List<WebElement> rows = driver.findElements(By.cssSelector("#"+tablename+" tr td:nth-child(3)"));
+					List<WebElement> rows = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr td:nth-child(3)"));
 					int count = rows.size();
-			//		int new_count = count - 4;
+					//		int new_count = count - 4;
 					//System.out.println("ROW COUNT : "+new_count);
 					softAssert.assertEquals(count, tableRows[i]);
 					test.pass(tableRows[i]+"records displayed succcessfully on next page");
@@ -240,5 +227,5 @@ public class RowsPerPage {
 			}	
 		}
 	}
-	
+
 }

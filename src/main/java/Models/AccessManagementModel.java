@@ -1,21 +1,9 @@
 package Models;
 
-import static MiscFunctions.Constants.url_user;
-import static MiscFunctions.Constants.wait;
 import static MiscFunctions.DateUtil.date0;
-import static MiscFunctions.Helper.driver;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.aeonbits.owner.ConfigFactory;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import Config.ReadPropertyFile;
 import PageObjects.SalmonellaLogPage;
 
 public class AccessManagementModel {
@@ -76,44 +64,6 @@ public class AccessManagementModel {
 	
 	public AccessManagementModel() {
 	}
-
-	public static ArrayList<AccessManagementModel> UserManagementAccessData() {
-		ArrayList<AccessManagementModel> lstAccessModel = new ArrayList<AccessManagementModel>();
-		AccessManagementModel objTmp = new AccessManagementModel();
-		ReportFilters  objFilter = new ReportFilters();
-		objFilter.FilterName = "Lane Filter";
-		objTmp.TestCaseName = "AN-SL-11: ";
-		objTmp.TestCaseDescription = "";
-		objTmp.lstFilters = new ArrayList<>();
-		objFilter = new ReportFilters();
-		objFilter.LstFilterXpath = new ArrayList<>(Arrays.asList("#"+SalmonellaLogPage.slSortFilter+""+SalmonellaLogPage.slLane));
-		objFilter.LstFilterValues = new ArrayList<>(Arrays.asList("2", "3")); 
-		objTmp.lstFilters.add(objFilter);
-		lstAccessModel.add(objTmp);	
-
-		return lstAccessModel;
-	}
 	
-	
-	public static void getUserAccess() throws InterruptedException, IOException {
-		driver.get(url_user);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
-		Thread.sleep(1000);
-		for(int i=1; i<=500; i++) {
-			if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(4) label")).getText().equals(config.ie_username())) {
-				WebElement scroll = driver.findElement(By.id("edit-user-"+i));
-				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", scroll);
-				Thread.sleep(1000);
-				driver.findElement(By.id("edit-user-"+i)).click();
-				break;
-			}
-		}
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-		Thread.sleep(4000);
-		driver.findElement(By.id("btn-next")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.id("btn-next")).click();
-		Thread.sleep(1000);
-	}
+
 }

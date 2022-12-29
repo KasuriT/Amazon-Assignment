@@ -1,10 +1,18 @@
 package PageObjects;
 
-import static MiscFunctions.Helper.click;
-
+import static MiscFunctions.Constants.url_user;
+import static MiscFunctions.Methods.click;
+import static MiscFunctions.Methods.type;
+import static MiscFunctions.Methods.scroll;
+import static MiscFunctions.Methods.waitElementInvisible;
+import static MiscFunctions.Methods.waitElementVisible;
+import static PageObjects.BasePage.loading_cursor;
+import java.io.IOException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.StaleElementReferenceException;
+
+import Config.BaseTest;
+
 
 public class UserManagementPage {
 
@@ -82,6 +90,33 @@ public class UserManagementPage {
 	Thread.sleep(2000);
 	}
 	
-	
-	
+	public static void openEditUserPopup(String emailAddress) throws InterruptedException, IOException {
+		BaseTest driver = new BaseTest();
+		driver.getDriver().get(url_user);
+		waitElementInvisible(loading_cursor);
+		waitElementVisible(UserManagementPage.usercreateButton);
+		Thread.sleep(3000);
+		click(By.id("userEmail_show-filter"));
+		waitElementInvisible(loading_cursor);
+		type(By.id("userEmail_search-input"), emailAddress);
+
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
+		click(By.cssSelector("th:nth-child(4) li:nth-child(1) label"));					  
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(1000);
+		click(By.id("userEmail_apply"));
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(1000);
+		scroll(By.id("edit-user-1"));
+		Thread.sleep(1000); 
+		try {
+			click(By.cssSelector("#edit-user-1 img"));
+		}
+		catch (StaleElementReferenceException ex) {
+			click(By.cssSelector("#edit-user-1 img"));
+		}
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
+	}
 }

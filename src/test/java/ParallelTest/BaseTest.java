@@ -1,4 +1,8 @@
-package Config;
+package ParallelTest;
+
+import static MiscFunctions.DateUtil.date;
+import static MiscFunctions.ExtentVariables.extent;
+import static MiscFunctions.ExtentVariables.spark;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +20,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
@@ -32,7 +39,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 
-	private static ThreadLocal<ChromeDriver> driver = new ThreadLocal<>();
+	protected static ThreadLocal<ChromeDriver> driver = new ThreadLocal<>();
+	
 	
 	@BeforeClass
 	public static void config() {
@@ -50,19 +58,19 @@ public class BaseTest {
 		options.addArguments("disable-popup-blocking");
 
 		driver.set(new ChromeDriver(options));
-		BaseTest drive = new BaseTest();
-		drive.getDriver().manage().window().maximize();
-		drive.getDriver().get(Constants.url_login);
-
+		getDriver().manage().window().maximize();
+	//	getDriver().get(Constants.url_login);
+		getDriver().get("https://www.espncricinfo.com/live-cricket-score");
+		
 		ExtentVariables.spark.config().setDocumentTitle("Ancera Test Report");
 		ExtentVariables.spark.config().setTheme(Theme.DARK);
 		ExtentVariables.extent = new ExtentReports();
-		ExtentVariables.extent.attachReporter(ExtentVariables.spark);	
+		ExtentVariables.extent.attachReporter(ExtentVariables.spark);
 		
 	}
 	
 	
-	public WebDriver getDriver() {
+	public static WebDriver getDriver() {
 		return driver.get();
 	}
 	
@@ -90,27 +98,19 @@ public class BaseTest {
 
 	public static String get_Screenshot() throws IOException {
 		String dateName = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss").format(new Date());
-		BaseTest drive = new BaseTest();
-		TakesScreenshot ts = (TakesScreenshot) drive.getDriver();
+		TakesScreenshot ts = (TakesScreenshot) BaseTest.getDriver();
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String destination = Constants.ReportFilePath + Constants.ReportScreenshotPath +dateName+".png";
+		String destination = links.ReportFilePath + links.ReportScreenshotPath +dateName+".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
-		return "." + Constants.ReportScreenshotPath + dateName+".png";
+		return "." + links.ReportScreenshotPath + dateName+".png";
 	}
 	
-	
+
 	@AfterClass
 	public void tearDown() throws Exception {
 		getDriver().quit();
-//		extent.flush();
+		extent.flush();
 		DB_Config.tearDown();
 	}
-	
-//	@AfterTest
-//	public void tearDown1() throws Exception {
-//		extent.flush();
-//	}
-	
-	
 }

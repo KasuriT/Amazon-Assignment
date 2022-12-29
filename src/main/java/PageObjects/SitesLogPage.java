@@ -1,14 +1,14 @@
 package PageObjects;
 
 import static MiscFunctions.Constants.url_reports;
-import static MiscFunctions.Helper.click;
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getText;
-import static MiscFunctions.Helper.waitElementInvisible;
+import static MiscFunctions.Methods.click;
+import static MiscFunctions.Methods.getText;
+import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.loading_cursor;
-
 import org.openqa.selenium.By;
 import org.testng.Assert;
+
+import Config.BaseTest;
 
 public class SitesLogPage {
 
@@ -65,7 +65,8 @@ public class SitesLogPage {
 	public static String sitesCSVAuditFileName = "Sites Audit Log - ";
 	
 	public static void openSitesLogPage() {
-		driver.get(url_reports);
+		BaseTest driver = new BaseTest();
+		driver.getDriver().get(url_reports);
 		waitElementInvisible(loading_cursor);
 		click(sitesLogBox);
 		waitElementInvisible(loading_cursor);

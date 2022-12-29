@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 
-import Constants.FrameworkConstants;
+import MiscFunctions.FrameworkConstants;
 import Enums.ConfigProperties;
 import Exceptions.PropertyFileUsageException;
 

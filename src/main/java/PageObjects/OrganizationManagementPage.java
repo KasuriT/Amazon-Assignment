@@ -1,5 +1,9 @@
 package PageObjects;
 
+import static MiscFunctions.Methods.*;
+import static Models.OrganizationManagementModel.OrganizationName;
+import static PageObjects.BasePage.loading_cursor;
+import java.io.IOException;
 import org.openqa.selenium.By;
 
 public class OrganizationManagementPage {
@@ -46,7 +50,7 @@ public class OrganizationManagementPage {
 	public static By orgSiteLatitudeInput = By.id("num-LatId");
 	public static By orgSiteLongitudeInput = By.id("num-LonId");
 	
-	public static By orgUploadProductImage = By.id("file");
+	public static By orgUploadProductImage = By.cssSelector(".textLink");
 	public static By orgAddProductName = By.id("nameId");
 	public static By orgAddProductDescription = By.id("descriptionId");
 	public static By orgRemoveUploadedProduct = By.id("topRightCornerBtn");
@@ -81,4 +85,24 @@ public class OrganizationManagementPage {
 	public static String orgState = "provinceName";
 	public static String orgCountry = "countryName";
 	
+	public static void openEditOrgPopup(String orgName) throws InterruptedException, IOException {
+		for (int i=1;i<size(By.cssSelector("tr")); i++) {
+			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+OrganizationManagementPage.orgNameCol+" label")).equals(orgName)) {
+				click(By.id("edit-orgn-"+i));
+				waitElementInvisible(loading_cursor);
+				break;
+			}
+		}
+	}
+	
+	public static void openEditOrgSitesPopup(String orgName) throws InterruptedException, IOException {
+		for (int i=1;i<size(By.cssSelector("tr")); i++) {
+			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).equals(OrganizationName)) {
+				click(By.id("edit-orgn-sites-"+i));
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(700);
+				break;
+			}
+		}
+	}
 }

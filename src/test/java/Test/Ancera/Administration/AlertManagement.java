@@ -14,44 +14,44 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
 import Models.AlertManagementModel;
 import Models.ForgotPasswordModel;
 import Models.ReportFilters;
+import PageObjects.BasePage;
 import Test.Ancera.Login.LoginTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import static MiscFunctions.Helper.getScreenshot;
+import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
-public class AlertManagement {
+public class AlertManagement extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 
 		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/Administration_Alert_Management"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("Agreement Management Test Report"); 
-
-		Helper.config();
-		LoginTest.login();
 	}
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 
 	@Test (description="Test Case: Navigate to Alert Management Screen",enabled= true, priority = 1) 
 	public void NavigateAlertManagement() throws InterruptedException, IOException {
@@ -61,9 +61,9 @@ public class AlertManagement {
 			ExtentVariables.steps = ExtentVariables.test.createNode(Scenario.class, ExtentVariables.Steps);
 			ExtentVariables.results = ExtentVariables.test.createNode(Scenario.class, ExtentVariables.Results);
 
-			Helper.getScreenshot();
-			Helper.driver.get(Constants.url_alert);
-			Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Alert Management")));
+			getScreenshot();
+			getDriver().get(Constants.url_alert);
+			waitElementVisible(By.id("Alert Management"));
 			Thread.sleep(1000);
 
 			ExtentVariables.preconditions.createNode("1. Go to url " +Constants.url_login);
@@ -71,21 +71,21 @@ public class AlertManagement {
 			ExtentVariables.steps.createNode("1. Hover to sidebar to expand the menu");
 			ExtentVariables.steps.createNode("2. Click on Administration and select Alert Management");
 
-			Assert.assertEquals(Helper.driver.findElement(By.id("Alert Management")).getText(), "Alert Management"); 
+			Assert.assertEquals(getDriver().findElement(By.id("Alert Management")).getText(), "Alert Management"); 
 			ExtentVariables.test.pass("User navigated successfully");
 			ExtentVariables.results.createNode("User navigates to Alert Management Screen");
-			Helper.getScreenshot();
-			Helper.saveResult(ITestResult.SUCCESS, null);	
+			getScreenshot();
+			saveResult(ITestResult.SUCCESS, null);	
 		}
 		catch(AssertionError er) {
 			ExtentVariables.test.fail("User navigation failed");
 			ExtentVariables.results.createNode("User did not navigate to Alert Management Screen");
-			Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			ExtentVariables.test.fail("User navigation failed");
 			ExtentVariables.results.createNode("User did not navigate to Alert Management Screen");
-			Helper.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
 
@@ -94,36 +94,36 @@ public class AlertManagement {
 	public void EmailLogin() throws InterruptedException, IOException {
 		try {
 
-			((JavascriptExecutor)Helper.driver).executeScript("window.open()");
-			ArrayList<String> tabs = new ArrayList<String>(Helper.driver.getWindowHandles());
-			Helper.driver.switchTo().window(tabs.get(1));
+			((JavascriptExecutor)getDriver()).executeScript("window.open()");
+			ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());
+			getDriver().switchTo().window(tabs.get(1));
 
-			Helper.driver.get(Constants.url_GmailSignin);   
+			getDriver().get(Constants.url_GmailSignin);   
 			Thread.sleep(1500);
 
-			if (Helper.driver.findElements(By.id("identifierId")).size() != 0) {
-				Helper.driver.findElement(By.id("identifierId")).sendKeys(ForgotPasswordModel.forgotPassword_email);    
+			if (getDriver().findElements(By.id("identifierId")).size() != 0) {
+				getDriver().findElement(By.id("identifierId")).sendKeys(ForgotPasswordModel.forgotPassword_email);    
 				Thread.sleep(1000);
-				Helper.driver.findElement(By.id("identifierId")).sendKeys(Keys.ENTER);	
+				getDriver().findElement(By.id("identifierId")).sendKeys(Keys.ENTER);	
 			}
 
-			Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+			waitElementVisible(By.name("password"));
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.name("password")).sendKeys(ForgotPasswordModel.forgotPassword_password);
-			Helper.driver.findElement(By.name("password")).sendKeys(Keys.ENTER);	
+			getDriver().findElement(By.name("password")).sendKeys(ForgotPasswordModel.forgotPassword_password);
+			getDriver().findElement(By.name("password")).sendKeys(Keys.ENTER);	
 			Thread.sleep(6000);
-			System.out.println(Helper.driver.findElements(By.id(("headingText"))).size());
+			System.out.println(getDriver().findElements(By.id(("headingText"))).size());
 			
-			if (Helper.driver.findElements(By.id(("headingText"))).size() !=  0) {
-				Helper.driver.findElement(By.cssSelector((".vxx8jf"))).click();
+			if (getDriver().findElements(By.id(("headingText"))).size() !=  0) {
+				getDriver().findElement(By.cssSelector((".vxx8jf"))).click();
 				Thread.sleep(2000);
-				Helper.driver.findElement(By.id("knowledge-preregistered-email-response")).sendKeys(ForgotPasswordModel.forgotPasswordSecurityEmail);
-				Helper.driver.findElement(By.id("knowledge-preregistered-email-response")).sendKeys(Keys.ENTER);
+				getDriver().findElement(By.id("knowledge-preregistered-email-response")).sendKeys(ForgotPasswordModel.forgotPasswordSecurityEmail);
+				getDriver().findElement(By.id("knowledge-preregistered-email-response")).sendKeys(Keys.ENTER);
 			}
 
 			Thread.sleep(2000);
-			ArrayList<String> tabs2 = new ArrayList<String> (Helper.driver.getWindowHandles());
-			Helper.driver.switchTo().window(tabs2.get(0));
+			ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
+			getDriver().switchTo().window(tabs2.get(0));
 			Thread.sleep(2000);	
 		}
 		catch(Exception ex) {
@@ -154,25 +154,25 @@ public class AlertManagement {
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
 
-						for (int i=2; i <=Helper.driver.findElements(By.cssSelector("tr")).size(); i++) {
-							if (Helper.driver.findElements(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).size() != 0) {
-								if (Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).getText().equals(objModel.AlertDesc)) {
-									Helper.driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).click();
+						for (int i=2; i <=getDriver().findElements(By.cssSelector("tr")).size(); i++) {
+							if (getDriver().findElements(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).size() != 0) {
+								if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).getText().equals(objModel.AlertDesc)) {
+									getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(6)")).click();
 									Thread.sleep(1500);
-									WebElement filter_scroll = Helper.driver.findElement(By.id("duplicate-alert"));
-									((JavascriptExecutor)Helper.driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+									WebElement filter_scroll = getDriver().findElement(By.id("duplicate-alert"));
+									((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
 									Thread.sleep(1000);
-									if (Helper.driver.findElements(By.id("activate-alert")).size() == 1) {
-										Helper.driver.findElement(By.id("activate-alert")).click();
+									if (getDriver().findElements(By.id("activate-alert")).size() == 1) {
+										getDriver().findElement(By.id("activate-alert")).click();
 									}
 									else {
-										Helper.driver.findElement(By.id("close-duplicate-modal")).click();
+										getDriver().findElement(By.id("close-duplicate-modal")).click();
 									}
 								}
 							}
 						}
 
-						List<WebElement> rows = Helper.driver.findElements(By.cssSelector("td:nth-child(6)"));
+						List<WebElement> rows = getDriver().findElements(By.cssSelector("td:nth-child(6)"));
 						List<String> value = new ArrayList<String>();
 
 						for (int j=0; j<rows.size(); j++){
@@ -184,138 +184,138 @@ public class AlertManagement {
 						}
 						else{
 							//System.out.println("Not Found");
-							Helper.driver.findElement(By.id("create-alert")).click();
+							getDriver().findElement(By.id("create-alert")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys("Ancera");
+							getDriver().findElement(By.cssSelector("#organizationId input")).sendKeys("Ancera");
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
+							getDriver().findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector("div[class='form-control form-control-inv']")).click();
+							getDriver().findElement(By.cssSelector("div[class='form-control form-control-inv']")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector(".d-inline-block ")).click();
+							getDriver().findElement(By.cssSelector(".d-inline-block ")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("list-title_apply")).click();
+							getDriver().findElement(By.id("list-title_apply")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("alert-info-input")).sendKeys(objModel.AlertInfo);
-							Helper.driver.findElement(By.id("alert-desc-input")).sendKeys(objModel.AlertDesc);
+							getDriver().findElement(By.id("alert-info-input")).sendKeys(objModel.AlertInfo);
+							getDriver().findElement(By.id("alert-desc-input")).sendKeys(objModel.AlertDesc);
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("btn-next")).click();
+							getDriver().findElement(By.id("btn-next")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.cssSelector("#dataSourcesid input")).sendKeys(objModel.DataSource);
-							Helper.driver.findElement(By.cssSelector("#dataSourcesid input")).sendKeys(Keys.ENTER);
+							getDriver().findElement(By.cssSelector("#dataSourcesid input")).sendKeys(objModel.DataSource);
+							getDriver().findElement(By.cssSelector("#dataSourcesid input")).sendKeys(Keys.ENTER);
 
-							if (Helper.driver.findElements(By.cssSelector("#reportId input")).size() != 0) {
+							if (getDriver().findElements(By.cssSelector("#reportId input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#reportId input")).sendKeys(objModel.Report);
-								Helper.driver.findElement(By.cssSelector("#reportId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#reportId input")).sendKeys(objModel.Report);
+								getDriver().findElement(By.cssSelector("#reportId input")).sendKeys(Keys.ENTER);
 							}
 
-							if (Helper.driver.findElements(By.cssSelector("#fieldId input")).size() != 0) {
+							if (getDriver().findElements(By.cssSelector("#fieldId input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#fieldId input")).sendKeys(objModel.AlertVariable);
-								Helper.driver.findElement(By.cssSelector("#fieldId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#fieldId input")).sendKeys(objModel.AlertVariable);
+								getDriver().findElement(By.cssSelector("#fieldId input")).sendKeys(Keys.ENTER);
 							}
 
-							if (Helper.driver.findElements(By.cssSelector("#alertModesId input")).size() != 0 ) {
+							if (getDriver().findElements(By.cssSelector("#alertModesId input")).size() != 0 ) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#alertModesId input")).sendKeys(objModel.AlertMode);
-								Helper.driver.findElement(By.cssSelector("#alertModesId input")).sendKeys(Keys.ENTER);	  //threshold
-							}
-
-							Thread.sleep(1000);
-							if (Helper.driver.findElements(By.cssSelector("#thresholdConditionId input")).size() != 0) {
-								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#thresholdConditionId input")).sendKeys(objModel.Condition);
-								Helper.driver.findElement(By.cssSelector("#thresholdConditionId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#alertModesId input")).sendKeys(objModel.AlertMode);
+								getDriver().findElement(By.cssSelector("#alertModesId input")).sendKeys(Keys.ENTER);	  //threshold
 							}
 
 							Thread.sleep(1000);
-							if (Helper.driver.findElements(By.id("minId")).size() != 0) {
+							if (getDriver().findElements(By.cssSelector("#thresholdConditionId input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("minId")).sendKeys(objModel.minValue);
+								getDriver().findElement(By.cssSelector("#thresholdConditionId input")).sendKeys(objModel.Condition);
+								getDriver().findElement(By.cssSelector("#thresholdConditionId input")).sendKeys(Keys.ENTER);
 							}
 
 							Thread.sleep(1000);
-							if (Helper.driver.findElements(By.id("maxId")).size() != 0) {
+							if (getDriver().findElements(By.id("minId")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("maxId")).sendKeys(objModel.maxValue);
+								getDriver().findElement(By.id("minId")).sendKeys(objModel.minValue);
+							}
+
+							Thread.sleep(1000);
+							if (getDriver().findElements(By.id("maxId")).size() != 0) {
+								Thread.sleep(1000);
+								getDriver().findElement(By.id("maxId")).sendKeys(objModel.maxValue);
 							}
 
 							Thread.sleep(1000);
 							System.out.println("adasd");
-							if (Helper.driver.findElements(By.id("aggregateModeId")).size() != 0) {
+							if (getDriver().findElements(By.id("aggregateModeId")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#aggregateModeId input")).sendKeys(objModel.AggregateMode);
-								Helper.driver.findElement(By.cssSelector("#aggregateModeId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#aggregateModeId input")).sendKeys(objModel.AggregateMode);
+								getDriver().findElement(By.cssSelector("#aggregateModeId input")).sendKeys(Keys.ENTER);
 							}
 
 							Thread.sleep(1000);
-							if (Helper.driver.findElements(By.id("aggregeateConditionId")).size() != 0) {
+							if (getDriver().findElements(By.id("aggregeateConditionId")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#aggregeateConditionId input")).sendKeys(objModel.Condition);
-								Helper.driver.findElement(By.cssSelector("#aggregeateConditionId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#aggregeateConditionId input")).sendKeys(objModel.Condition);
+								getDriver().findElement(By.cssSelector("#aggregeateConditionId input")).sendKeys(Keys.ENTER);
 							}
 
 							Thread.sleep(1000);
-							if (Helper.driver.findElements(By.id("alert-aggregate-days-input")).size() != 0) {
+							if (getDriver().findElements(By.id("alert-aggregate-days-input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("alert-aggregate-days-input")).sendKeys(objModel.Text);
+								getDriver().findElement(By.id("alert-aggregate-days-input")).sendKeys(objModel.Text);
 							}
 
-							if (Helper.driver.findElements(By.id("absenceDelayFactorId-input")).size() != 0) {
+							if (getDriver().findElements(By.id("absenceDelayFactorId-input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("absenceDelayFactorId-input")).sendKeys(objModel.Deviation);
+								getDriver().findElement(By.id("absenceDelayFactorId-input")).sendKeys(objModel.Deviation);
 							}
 
-							if (Helper.driver.findElements(By.id("alert-deviation-input")).size() != 0) {
+							if (getDriver().findElements(By.id("alert-deviation-input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("alert-deviation-input")).sendKeys(objModel.Deviation);	
+								getDriver().findElement(By.id("alert-deviation-input")).sendKeys(objModel.Deviation);	
 							}
 
-							if (Helper.driver.findElements(By.id("notifyEveryId")).size() != 0) {
+							if (getDriver().findElements(By.id("notifyEveryId")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#notifyEveryId input")).sendKeys(objModel.Notify);
-								Helper.driver.findElement(By.cssSelector("#notifyEveryId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#notifyEveryId input")).sendKeys(objModel.Notify);
+								getDriver().findElement(By.cssSelector("#notifyEveryId input")).sendKeys(Keys.ENTER);
 							}
 
-							if (Helper.driver.findElements(By.id("alert-custom-days-input")).size() != 0) {
+							if (getDriver().findElements(By.id("alert-custom-days-input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("alert-custom-days-input")).sendKeys(objModel.customDays);
+								getDriver().findElement(By.id("alert-custom-days-input")).sendKeys(objModel.customDays);
 							}
 
-							if (Helper.driver.findElements(By.id("alert-duration-input")).size() != 0) {
+							if (getDriver().findElements(By.id("alert-duration-input")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("alert-duration-input")).sendKeys(objModel.Text);
+								getDriver().findElement(By.id("alert-duration-input")).sendKeys(objModel.Text);
 							}					
 
-							if (Helper.driver.findElements(By.id("absenceDelayFactorId")).size() != 0) {
+							if (getDriver().findElements(By.id("absenceDelayFactorId")).size() != 0) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.cssSelector("#absenceDelayFactorId input")).sendKeys(objModel.Days);
-								Helper.driver.findElement(By.cssSelector("#absenceDelayFactorId input")).sendKeys(Keys.ENTER);
+								getDriver().findElement(By.cssSelector("#absenceDelayFactorId input")).sendKeys(objModel.Days);
+								getDriver().findElement(By.cssSelector("#absenceDelayFactorId input")).sendKeys(Keys.ENTER);
 							}
 
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("btn-next")).click();
+							getDriver().findElement(By.id("btn-next")).click();
 							Thread.sleep(1000);
-							Helper.driver.findElement(By.id("btn-finish")).click();
+							getDriver().findElement(By.id("btn-finish")).click();
 							Thread.sleep(1000);
-							Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-							Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), "New alert configuration created.");
+							waitElementVisible(BasePage.alertMessage);
+							Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "New alert configuration created.");
 							Thread.sleep(1000);
 						}
 
 						ExtentVariables.test.pass("User was able to create alert successfully");
 						ExtentVariables.results.createNode("User was able to create alert successfully");
 						getScreenshot();
-						Helper.saveResult(ITestResult.SUCCESS, null);
+						saveResult(ITestResult.SUCCESS, null);
 					}catch(AssertionError er) {
 						ExtentVariables.test.fail("User failed to create alert");
 						ExtentVariables.results.createNode("User failed to create alert");
-						Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+						saveResult(ITestResult.FAILURE, new Exception(er));
 					}catch(Exception ex){
 						ExtentVariables.test.fail("User failed to create alert");
 						ExtentVariables.results.createNode("User failed to create alert");
-						Helper.saveResult(ITestResult.FAILURE, ex);
+						saveResult(ITestResult.FAILURE, ex);
 					}	
 				}
 
@@ -398,14 +398,14 @@ public class AlertManagement {
 				Thread.sleep(1000);
 				}
 
-				ArrayList<String> tabs2 = new ArrayList<String> (Helper.driver.getWindowHandles());
-				Helper.driver.switchTo().window(tabs2.get(1));
+				ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
+				getDriver().switchTo().window(tabs2.get(1));
 				Thread.sleep(2000);	
 
-				Helper.driver.navigate().refresh();
-				Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
+				getDriver().navigate().refresh();
+				waitElementVisible(By.xpath("//*[@class='yW']/span"));
 				Thread.sleep(2000);
-				List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
+				List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
 				for(int i=0;i<a.size();i++){
 					if(a.get(i).getText().equals("Ancera Alert Center")){  
 						Assert.assertTrue(a.get(i).getText().equals("Ancera Alert Center"));
@@ -414,20 +414,13 @@ public class AlertManagement {
 				}
 
 				Thread.sleep(1000);
-				Helper.driver.findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
+				getDriver().findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
 
-				Helper.driver.switchTo().window(tabs2.get(0));
+				getDriver().switchTo().window(tabs2.get(0));
 				Thread.sleep(2000);	
 			}	
 			catch(Exception ex) {
 			}
 		}
-	}
-
-
-
-	@AfterTest
-	public static void endreport() {
-		ExtentVariables.extent.flush();
 	}
 }

@@ -28,7 +28,6 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -36,15 +35,16 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import Config.ReadPropertyFile;
-import Constants.FrameworkConstants;
+import MiscFunctions.FrameworkConstants;
+import MiscFunctions.Methods;
 import MiscFunctions.ClickElement;
 import MiscFunctions.DB_Config;
 import MiscFunctions.DateUtil;
 import Models.ComplexConfigModel;
 import Models.ProgramManagementModel;
 import Models.ReportFilters;
-import Models.UserManagementModel;
 import PageObjects.CoccidiaLogPage;
 import PageObjects.UserManagementPage;
 import Test.Ancera.Administration.OrganizationManagement;
@@ -63,10 +63,10 @@ import static PageObjects.ComplexOPGPage.*;
 import static PageObjects.BasePage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
+import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
-public class PreAppDataCreation extends DB_Config {
+public class PreAppDataCreation extends BaseTest {
 
 	String name = "none";
 
@@ -74,15 +74,18 @@ public class PreAppDataCreation extends DB_Config {
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Pre_Flutter_Mobile"+DateUtil.date+".html");
 		spark.config().setReportName("Pre Flutter Mobile Test Report"); 
-		config();
-		LoginTest.login();
 		DB_Config.test();
 	}
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 
 	@Test (enabled = true, priority = 1) 
 	public void CreateOrganization() throws InterruptedException, IOException {
-		OrganizationManagement.CreateOrganization(ComplexConfigModel.organizationName);
+		OrganizationManagement org = new OrganizationManagement();
+		org.CreateOrganizationFunction(ComplexConfigModel.organizationName);
 	}
 
 
@@ -93,13 +96,13 @@ public class PreAppDataCreation extends DB_Config {
 			steps = test.createNode(Scenario.class, Steps);
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(url_organization);
+			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 
-			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(ComplexConfigModel.organizationName)) {
-					driver.findElement(By.id("edit-orgn-sites-"+i)).click();
+			for (int i=1;i<getDriver().findElements(By.cssSelector("tr")).size(); i++) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(ComplexConfigModel.organizationName)) {
+					getDriver().findElement(By.id("edit-orgn-sites-"+i)).click();
 					waitElementInvisible(loading_cursor);
 					break;
 				}
@@ -107,113 +110,114 @@ public class PreAppDataCreation extends DB_Config {
 
 			Thread.sleep(1000);	
 
-			driver.findElement(orgAddSite1).click();
+			getDriver().findElement(orgAddSite1).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInput).click();
-			String regionType = driver.findElement(orgSiteTypeDropDownValue).getText();	
+			getDriver().findElement(orgSiteTypeInput).click();
+			String regionType = getDriver().findElement(orgSiteTypeDropDownValue).getText();	
 			softAssert.assertEquals(regionType, "Region");
-			driver.findElement(orgSiteNameInput).sendKeys("Test Region");
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys("Test Region");
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("4. Verify Region Site can be saved");
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("5. Click on + icon to create new site and verify Site Type is Sub Region");
-			driver.findElement(orgAddSite2).click();
+			getDriver().findElement(orgAddSite2).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInput).click();
-			String subregionType = driver.findElement(orgSiteTypeDropDownValue).getText();
+			getDriver().findElement(orgSiteTypeInput).click();
+			String subregionType = getDriver().findElement(orgSiteTypeDropDownValue).getText();
 			softAssert.assertEquals(subregionType, "Sub Region");
-			driver.findElement(orgSiteNameInput).sendKeys("Test Sub Region");
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys("Test Sub Region");
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("6. Verify Sub Region Site can be saved");
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("7. Click on + icon to create new site and verify Site Type as Complex, Processing PLant, Testing Lab");
-			driver.findElement(orgAddSite3).click();
+			getDriver().findElement(orgAddSite3).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInputChild).click();
+			getDriver().findElement(orgSiteTypeInputChild).click();
 			Thread.sleep(1000);
 
-			driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.complexName);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(By.cssSelector("div .ng-option:nth-child(1)")).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.complexName);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			steps.createNode("8. Verify Complex Site can be saved");
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("9. Click on + icon to create new site and verify Site Type as Farm");
-			driver.findElement(orgAddSite4).click();
+			getDriver().findElement(orgAddSite4).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(orgSiteTypeInputChild).click();
-			String farmType = driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			getDriver().findElement(orgSiteTypeInputChild).click();
+			String farmType = getDriver().findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
 			softAssert.assertEquals(farmType, "Farm");
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationFarm1Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationFarm1Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 			steps.createNode("10. Verify Farm Site can be saved");
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("11. Create House 1");
-			driver.findElement(orgAddSite5).click();
+			getDriver().findElement(orgAddSite5).click();
 			Thread.sleep(2000);
-			driver.findElement(orgSiteTypeInputChild).click();
-			String HouseType = driver.findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
+			getDriver().findElement(orgSiteTypeInputChild).click();
+			String HouseType = getDriver().findElement(By.cssSelector("div .ng-option:nth-child(1)")).getText();	
 			softAssert.assertEquals(HouseType, "House");
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse1Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse1Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(2000);
 			steps.createNode("12. Verify House Site can be saved");
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			steps.createNode("13. Create house 2");
-			driver.findElement(orgAddSite5).click();
+			getDriver().findElement(orgAddSite5).click();
 			Thread.sleep(2000);
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse2Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse2Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(2000);
 
 			steps.createNode("14. Create house 3");
-			driver.findElement(orgAddSite5).click();
+			getDriver().findElement(orgAddSite5).click();
 			Thread.sleep(2000);
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse3Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse3Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 
 			steps.createNode("15. Create house 4");
-			driver.findElement(orgAddSite5).click();
+			getDriver().findElement(orgAddSite5).click();
 			Thread.sleep(2000);
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse4Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse4Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 
 			steps.createNode("16. Create house 5");
-			driver.findElement(orgAddSite5).click();
+			getDriver().findElement(orgAddSite5).click();
 			Thread.sleep(2000);
-			driver.findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse5Name);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(orgSiteNameInput).sendKeys(ComplexConfigModel.organizationHouse5Name);
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+		waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 
 			softAssert.assertAll();
@@ -239,7 +243,7 @@ public class PreAppDataCreation extends DB_Config {
 		try{
 			test = extent.createTest("AN-UM-14: Verify Sites column displays Active after assigning All Testing Sites to the user");
 			ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
-			UserManagementModel.openEditUserPopup(config.ie_username());
+			UserManagementPage.openEditUserPopup(config.ie_username());
 			click(popupNextButton);
 			click(popupNextButton);
 			Thread.sleep(750);
@@ -284,7 +288,7 @@ public class PreAppDataCreation extends DB_Config {
 		try {		
 			test = extent.createTest("AN-Program-02: Verify that user is able to create new Vaccine program", "This testcase will verify that user is able to create new program");
 
-			driver.get(url_programManagement);
+			getDriver().get(url_programManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 			SoftAssert softAssert = new SoftAssert();
@@ -292,8 +296,8 @@ public class PreAppDataCreation extends DB_Config {
 			click(programVaccineProgramTab);
 			waitElementInvisible(loading_cursor);
 
-			for (int j=1;j<driver.findElements(By.id("col-0-vaccine")).size();j++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-0-vaccine label")).getText().equals(ComplexConfigModel.vaccineName)) {
+			for (int j=1;j<getDriver().findElements(By.id("col-0-vaccine")).size();j++) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") #col-0-vaccine label")).getText().equals(ComplexConfigModel.vaccineName)) {
 					test.skip("Program already created");
 					results.createNode("Program already created");
 					getScreenshot();
@@ -302,30 +306,30 @@ public class PreAppDataCreation extends DB_Config {
 				}
 
 				else {
-					driver.findElement(By.xpath("//*[text()=' Register New Program']")).click();
+					getDriver().findElement(By.xpath("//*[text()=' Register New Program']")).click();
 					waitElementInvisible(loading_cursor);
 					//Program Name
-					driver.findElement(programName).sendKeys(ComplexConfigModel.vaccineName);
+					getDriver().findElement(programName).sendKeys(ComplexConfigModel.vaccineName);
 
 					//Target Pathogen
-					driver.findElement(programTargetPathogen).click();
+					getDriver().findElement(programTargetPathogen).click();
 					Thread.sleep(500);
-					driver.findElement(programTargetPathogen).sendKeys(Keys.ENTER);
+					getDriver().findElement(programTargetPathogen).sendKeys(Keys.ENTER);
 					Thread.sleep(500);
 
 					//Program Type
-					driver.findElement(programProgramType).sendKeys("Vaccine");
+					getDriver().findElement(programProgramType).sendKeys("Vaccine");
 					Thread.sleep(500);	
-					driver.findElement(programProgramType).sendKeys(Keys.ENTER);
+					getDriver().findElement(programProgramType).sendKeys(Keys.ENTER);
 
 					//Supplier
-					driver.findElement(programSupplier).sendKeys(ProgramManagementModel.SupplierName);
+					getDriver().findElement(programSupplier).sendKeys(ProgramManagementModel.SupplierName);
 					Thread.sleep(500);
-					if (driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-						driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+					if (getDriver().findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+						getDriver().findElement(By.xpath("//*[text()='Add New + ']")).click();
 					}
 					else {
-						driver.findElement(By.cssSelector(".list-item")).click();		
+						getDriver().findElement(By.cssSelector(".list-item")).click();		
 					}
 					Thread.sleep(500);
 
@@ -343,36 +347,37 @@ public class PreAppDataCreation extends DB_Config {
 					System.out.println(2);	
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(500);
-					WebElement dateWidgetTo = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
+					Methods method = new Methods();
+					WebElement dateWidgetTo = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
 					List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
 					System.out.println(3);
 					DateUtil.clickGivenDay(columns1, DateUtil.getFirstDay());
 					Thread.sleep(500);
 
 					//End Date
-					driver.findElement(By.cssSelector("#endDate img")).click();
+					getDriver().findElement(By.cssSelector("#endDate img")).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(500);
-					WebElement dateWidgetToEnd = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#endDate .dp-popup"))).get(0);
+					WebElement dateWidgetToEnd = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#endDate .dp-popup"))).get(0);
 					List<WebElement> columns2 = dateWidgetToEnd.findElements(By.tagName("button"));
 					DateUtil.clickGivenDay(columns2, DateUtil.getDay("30"));
 					Thread.sleep(700);
 
 					//Program Description
-					driver.findElement(programDescription).sendKeys(ProgramManagementModel.DescriptionName);
+					getDriver().findElement(programDescription).sendKeys(ProgramManagementModel.DescriptionName);
 
 					String NoApplicationFlock = "2";
-					driver.findElement(programNoApplicationFlock).sendKeys(NoApplicationFlock);
+					getDriver().findElement(programNoApplicationFlock).sendKeys(NoApplicationFlock);
 					Thread.sleep(500);
 
 					for(int i=1; i<=Integer.parseInt(NoApplicationFlock); i++) {
-						driver.findElement(By.id(programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
+						getDriver().findElement(By.id(programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
 					}
 
 					getScreenshot();
 					click(popupSaveButtonXpath);
 					waitElementVisible(alertMessage);
-					softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New program has been created successfully"); 
+					softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 					test.pass("New Program created successfully");
 					results.createNode("New Program created successfully");
 					getScreenshot();
@@ -399,15 +404,15 @@ public class PreAppDataCreation extends DB_Config {
 		try {		
 			test = extent.createTest("AN-Program-05: Verify that user is able to create new Feed program", "This testcase will verify that user is able to create new program");
 
-			driver.get(url_programManagement);
+			getDriver().get(url_programManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 
-			driver.findElement(programFeedProgramTab).click();
+			getDriver().findElement(programFeedProgramTab).click();
 			Thread.sleep(1500);
 
-			for (int j=1;j<driver.findElements(By.id("col-0-feedprogram")).size();j++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") #col-0-feedprogram label")).getText().equals(ComplexConfigModel.vaccineName)) {
+			for (int j=1;j<getDriver().findElements(By.id("col-0-feedprogram")).size();j++) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") #col-0-feedprogram label")).getText().equals(ComplexConfigModel.vaccineName)) {
 					test.skip("Program already created");
 					results.createNode("Program already created");
 					getScreenshot();
@@ -417,31 +422,31 @@ public class PreAppDataCreation extends DB_Config {
 
 				else {
 
-					driver.findElement(programCreateButton).click();
+					getDriver().findElement(programCreateButton).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1500);
 
-					driver.findElement(programName).sendKeys(ComplexConfigModel.feedName);
+					getDriver().findElement(programName).sendKeys(ComplexConfigModel.feedName);
 
-					driver.findElement(programTargetPathogen).click();
+					getDriver().findElement(programTargetPathogen).click();
 					Thread.sleep(1000);
-					driver.findElement(programTargetPathogen).sendKeys(Keys.ENTER);
+					getDriver().findElement(programTargetPathogen).sendKeys(Keys.ENTER);
 
-					driver.findElement(programProgramType).sendKeys("Feed");
+					getDriver().findElement(programProgramType).sendKeys("Feed");
 					Thread.sleep(700);	
-					driver.findElement(programProgramType).sendKeys(Keys.ENTER);
+					getDriver().findElement(programProgramType).sendKeys(Keys.ENTER);
 
-					driver.findElement(programSupplier).sendKeys("China");
+					getDriver().findElement(programSupplier).sendKeys("China");
 					Thread.sleep(700);
-					if (driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-						driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+					if (getDriver().findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+						getDriver().findElement(By.xpath("//*[text()='Add New + ']")).click();
 					}
 					else {
-						driver.findElement(By.cssSelector(".list-item")).click();		
+						getDriver().findElement(By.cssSelector(".list-item")).click();		
 					}
 					Thread.sleep(700);
 
-					driver.findElement(programDescription).sendKeys("Feed Testing Program");
+					getDriver().findElement(programDescription).sendKeys("Feed Testing Program");
 
 					//Complex
 					click(programComplexList);
@@ -455,34 +460,35 @@ public class PreAppDataCreation extends DB_Config {
 					click(programStartDateIcon);
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(500);
-					WebElement dateWidgetTo = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
+					Methods method = new Methods();
+					WebElement dateWidgetTo = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
 					List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
 					DateUtil.clickGivenDay(columns1, DateUtil.getFirstDay());
 					Thread.sleep(500);
 					
 
-					driver.findElement(programFeedTypeDropdown).click();
+					getDriver().findElement(programFeedTypeDropdown).click();
 					Thread.sleep(1000);	
-					driver.findElement(programFeedTypeDropdown).sendKeys(Keys.ENTER);
+					getDriver().findElement(programFeedTypeDropdown).sendKeys(Keys.ENTER);
 
-					driver.findElement(programFlockDayStart).sendKeys("1");
+					getDriver().findElement(programFlockDayStart).sendKeys("1");
 
-					WebElement EndDay = driver.findElement(programFlockDayStart);
-					driver.findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("10");
+					WebElement EndDay = getDriver().findElement(programFlockDayStart);
+					getDriver().findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("10");
 
-					WebElement ingredient = driver.findElement(programFeedTypeDropdown);
-					driver.findElement(with(By.tagName("input")).below(ingredient)).sendKeys("Sugar");
+					WebElement ingredient = getDriver().findElement(programFeedTypeDropdown);
+					getDriver().findElement(with(By.tagName("input")).below(ingredient)).sendKeys("Sugar");
 
-					WebElement ingredientCategory = driver.findElement(programFlockDayStart);
-					driver.findElement(with(By.tagName("input")).below(ingredientCategory)).click();
-					List<WebElement> ingredientCategories = driver.findElements(By.cssSelector(".ng-option-label"));
+					WebElement ingredientCategory = getDriver().findElement(programFlockDayStart);
+					getDriver().findElement(with(By.tagName("input")).below(ingredientCategory)).click();
+					List<WebElement> ingredientCategories = getDriver().findElements(By.cssSelector(".ng-option-label"));
 					ingredientCategories.get(0).click();
 
 					getScreenshot();
-					driver.findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
+					getDriver().findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(2000);
-					Assert.assertEquals(driver.findElement(alertMessage).getText(), "New program has been created successfully"); 
+					Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 					test.pass("New Program created successfully");
 					results.createNode("New Program created successfully");
 					getScreenshot();
@@ -519,71 +525,71 @@ public class PreAppDataCreation extends DB_Config {
 			preconditions.createNode("4. Click on Administration and select Complex OPG Range Config; Screen opens");
 			steps.createNode("1. Create Configuration");
 
-			driver.get(url_complexConfig);;
+			getDriver().get(url_complexConfig);;
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			ComplexConfigModel.lstCreateComplexConfig = ComplexConfigModel.CreateConfig();
 
-			driver.findElement(complexCreateButton).click();
+			getDriver().findElement(complexCreateButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(complexSelectComplexDropdown).click();
+			getDriver().findElement(complexSelectComplexDropdown).click();
 			Thread.sleep(1000);
-			driver.findElement(complexSearchComplex).sendKeys(ComplexConfigModel.complexName);
+			getDriver().findElement(complexSearchComplex).sendKeys(ComplexConfigModel.complexName);
 			Thread.sleep(1000);
-			driver.findElement(complexSelectComplexSite).click();
+			getDriver().findElement(complexSelectComplexSite).click();
 
-			driver.findElement(complexSelectProgramType).sendKeys("Vaccine");
+			getDriver().findElement(complexSelectProgramType).sendKeys("Vaccine");
 			Thread.sleep(2000);
-			driver.findElement(complexSelectProgramType).sendKeys(Keys.ENTER);
+			getDriver().findElement(complexSelectProgramType).sendKeys(Keys.ENTER);
 
-			driver.findElement(complexSelectProgramId).sendKeys(ComplexConfigModel.vaccineName);
+			getDriver().findElement(complexSelectProgramId).sendKeys(ComplexConfigModel.vaccineName);
 			Thread.sleep(1000);
-			driver.findElement(complexSelectProgramId).sendKeys(Keys.ENTER);
+			getDriver().findElement(complexSelectProgramId).sendKeys(Keys.ENTER);
 
 			By addProgramButton = RelativeLocator.with(By.tagName("button")).toRightOf(complexSelectProgramId);
-			driver.findElement(addProgramButton).click();
+			getDriver().findElement(addProgramButton).click();
 
-			driver.findElement(complexSelectProgramType).sendKeys("Feed");
+			getDriver().findElement(complexSelectProgramType).sendKeys("Feed");
 			Thread.sleep(1000);
-			driver.findElement(complexSelectProgramType).sendKeys(Keys.ENTER);
+			getDriver().findElement(complexSelectProgramType).sendKeys(Keys.ENTER);
 
-			driver.findElement(complexSelectProgramId).sendKeys(ComplexConfigModel.feedName);
+			getDriver().findElement(complexSelectProgramId).sendKeys(ComplexConfigModel.feedName);
 			Thread.sleep(1000);
-			driver.findElement(complexSelectProgramId).sendKeys(Keys.ENTER);
+			getDriver().findElement(complexSelectProgramId).sendKeys(Keys.ENTER);
 
-			driver.findElement(addProgramButton).click();
+			getDriver().findElement(addProgramButton).click();
 
 			for (ComplexConfigModel objModel : ComplexConfigModel.lstCreateComplexConfig) { 	
 
-				driver.findElement(complexOPGType).click();
+				getDriver().findElement(complexOPGType).click();
 				Thread.sleep(1000);
-				List<WebElement> OPGTypeSelect = driver.findElements(complexSelectValueFromDropdown);
+				List<WebElement> OPGTypeSelect = getDriver().findElements(complexSelectValueFromDropdown);
 				OPGTypeSelect.get(0).click();
 
-				driver.findElement(complexBirdSize).click();
+				getDriver().findElement(complexBirdSize).click();
 				Thread.sleep(1000);
-				List<WebElement> BirdSizeSelect = driver.findElements(complexSelectValueFromDropdown);
+				List<WebElement> BirdSizeSelect = getDriver().findElements(complexSelectValueFromDropdown);
 				BirdSizeSelect.get(0).click();
 
-				driver.findElement(complexSamplingInterval).click();
+				getDriver().findElement(complexSamplingInterval).click();
 				Thread.sleep(1000);
-				List<WebElement> SamplingIntervalSelect = driver.findElements(complexSelectValueFromDropdown);
+				List<WebElement> SamplingIntervalSelect = getDriver().findElements(complexSelectValueFromDropdown);
 				SamplingIntervalSelect.get(0).click();
 
-				driver.findElement(complexComplexThreshold).sendKeys(objModel.ComplexThreshold);
-				driver.findElement(complexHouseThreshold).sendKeys(objModel.HouseThreshold);
-				driver.findElement(complexLowerLimit).sendKeys(objModel.LowerLimit);
-				driver.findElement(complexUpperLimit).sendKeys(objModel.UpperLimit);
+				getDriver().findElement(complexComplexThreshold).sendKeys(objModel.ComplexThreshold);
+				getDriver().findElement(complexHouseThreshold).sendKeys(objModel.HouseThreshold);
+				getDriver().findElement(complexLowerLimit).sendKeys(objModel.LowerLimit);
+				getDriver().findElement(complexUpperLimit).sendKeys(objModel.UpperLimit);
 				Thread.sleep(1000);
 				By addConfigButton = RelativeLocator.with(By.tagName("button")).toRightOf(complexUpperLimit);
-				driver.findElement(addConfigButton).click();
+				getDriver().findElement(addConfigButton).click();
 			}
 
-			driver.findElement(complexSubmitButton).click();
+			getDriver().findElement(complexSubmitButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			Assert.assertNotEquals(driver.findElement(alertMessage).getText(), "Complex cycling configuration details saved");
+			Assert.assertNotEquals(getDriver().findElement(alertMessage).getText(), "Complex cycling configuration details saved");
 			test.pass("Complex cycling configuration details saved successfully");
 			results.createNode("Complex cycling configuration details saved successfully");
 			getScreenshot();
@@ -614,11 +620,11 @@ public class PreAppDataCreation extends DB_Config {
 			if(objModel.createFlock) {
 				try {
 					test = extent.createTest("AN-Flock: Verify user can create Flock", "This test case will verify that user can crate flock");
-					driver.get(url_flockManagement);
+					getDriver().get(url_flockManagement);
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(2000);
 					
-					driver.findElement(flockCreateButton).click();
+					getDriver().findElement(flockCreateButton).click();
 					waitElementInvisible(loading_cursor);	
 					Thread.sleep(2000);
 
@@ -636,18 +642,18 @@ public class PreAppDataCreation extends DB_Config {
 						click(flockIntegratorFlockAddNew);
 					}
 					else {
-						driver.findElement(flockIntegratorFlockID).sendKeys(Keys.ENTER);
+						getDriver().findElement(flockIntegratorFlockID).sendKeys(Keys.ENTER);
 					}
 					
 					click(flockBirdSizeInput);
-					List<WebElement> birdSizeList = driver.findElements(flockBirdSizeDropDownOptions);
+					List<WebElement> birdSizeList = getDriver().findElements(flockBirdSizeDropDownOptions);
 					birdSizeList.get(objModel.birdSize).click();
 					
 					scroll(flockPlacementDateCalendar);
 					click(flockPlacementDateCalendar);
 
-			//		List<WebElement> list = driver.findElements(By.cssSelector(".dp-current-day"));
-			//		List<WebElement> list = driver.findElements(By.xpath("//*[text()='01']"));
+			//		List<WebElement> list = getDriver().findElements(By.cssSelector(".dp-current-day"));
+			//		List<WebElement> list = getDriver().findElements(By.xpath("//*[text()='01']"));
 					scroll(By.xpath("//label[text() = 'Flock Information']"));
 					Thread.sleep(1000);	
 
@@ -667,12 +673,12 @@ public class PreAppDataCreation extends DB_Config {
 
 					for(int i = 0; i<objModel.LstHouses.size(); i++) {
 						scroll(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']"));
-						driver.findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']")).click();
+						getDriver().findElement(By.xpath("//*[text() = '"+objModel.LstHouses.get(i)+"']")).click();
 
 					}
 
 					scroll(flockAddNewProgram);
-					ClickElement.clickByXpath(driver, "//*[text() = 'Add New Program']");
+					ClickElement.clickByXpath(getDriver(), "//*[text() = 'Add New Program']");
 				//	click(flockAddNewProgram);
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
@@ -700,7 +706,7 @@ public class PreAppDataCreation extends DB_Config {
 					waitElementInvisible(loading_cursor);
 					waitElementVisible(alertMessage);
 					Thread.sleep(5000);
-					Assert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+					Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 					System.out.println("Flock created successfully");
 
 					test.pass("Flock was created successfully");
@@ -820,7 +826,7 @@ public class PreAppDataCreation extends DB_Config {
 							String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '"+objModel.SampleID+"'";
 							//	String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '20220714-Cocci-10535'";
 
-							ResultSet rs2 = getStmt().executeQuery(query2);
+							ResultSet rs2 = DB_Config.getStmt().executeQuery(query2);
 
 							while (rs2.next()) {
 								System.out.println("Count: "+rs2.getString("count"));
@@ -828,40 +834,41 @@ public class PreAppDataCreation extends DB_Config {
 								if (rs2.getString("count").equals("12")) {
 
 									CoccidiaLogPage.openCoccidiaLogPage();
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-									wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+									waitElementInvisible(loading_cursor);
+									waitElementInvisible(loading_cursor);
+									waitElementVisible(By.id("sort-sampleId"));
 									Thread.sleep(3000);
 
 									steps.createNode("1. Click on Sample ID to expand the filter");
-									ClickElement.clickById(driver, "sampleId_show-filter");			
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									ClickElement.clickById(getDriver(), "sampleId_show-filter");			
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(1000);
-									driver.findElement(By.id("sampleId_view-all")).click();
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									getDriver().findElement(By.id("sampleId_view-all")).click();
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(1000);
 									steps.createNode("2. Search for the Sample ID's against which the data is ingested");							
 
-									driver.findElement(By.id("sampleId_search-input")).clear();
-									driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.SampleID);
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									getDriver().findElement(By.id("sampleId_search-input")).clear();
+									getDriver().findElement(By.id("sampleId_search-input")).sendKeys(objModel.SampleID);
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(2000);	
 									try {
-										driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.SampleID)).click();
+										getDriver().findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.SampleID)).click();
 									}
 									catch(Exception ex) {
 										Thread.sleep(1000);
-										driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.SampleID)).click();
+										getDriver().findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.SampleID)).click();
 									}
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(800);
 
 
 									steps.createNode("3. Click on Apply filter button");
-									driver.findElement(By.id("sampleId_apply")).click();
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									getDriver().findElement(By.id("sampleId_apply")).click();
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(4000);
 									getScreenshot();
-									String records = driver.findElement(By.id("results-found-count")).getText();
+									String records = getDriver().findElement(By.id("results-found-count")).getText();
 
 									softAssert.assertEquals(records, "12"); 
 									getScreenshot();									test.pass("Run ingested successfully");
@@ -907,10 +914,10 @@ public class PreAppDataCreation extends DB_Config {
 					XSSFSheet worksheet = wb.getSheetAt(0);
 					Cell cell = null;
 
-					if (driver.findElement(By.id(ResultsCount)).getText().equals("12")) {
+					if (getDriver().findElement(By.id(ResultsCount)).getText().equals("12")) {
 						for (int z=0; z<12; z++) {
 
-							String getResultID = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clResultIDCol+" label")).getText();
+							String getResultID = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clResultIDCol+" label")).getText();
 							//System.out.println("1: "+getResultID);
 							cell=worksheet.getRow(z+1).createCell(metadata_ResultID); 
 							cell.setCellValue(getResultID);  
@@ -923,16 +930,16 @@ public class PreAppDataCreation extends DB_Config {
 							//								cell.setCellValue(rs1.getString("siteUniqueNumber")); 
 							//							}
 
-							String getCollectionSiteID = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clCollectionSiteIDCol+" label")).getText();
+							String getCollectionSiteID = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clCollectionSiteIDCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_CollectionSiteID); 
 							cell.setCellValue(getCollectionSiteID); 
 
-							String getSampleID = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clSampleIDCol+" label")).getText();
+							String getSampleID = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clSampleIDCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_LabSampleID); 
 							cell.setCellValue(getSampleID);  
 
 							String selectQuery = "Select unique_Flock_id from dbo.flock_mgmt where integrator_flock_id = '"+ComplexConfigModel.flockIntegratorID+"' and Bird_Size = '"+objModel.birdSizeName+"'";
-							ResultSet rs = getStmt().executeQuery(selectQuery);
+							ResultSet rs = DB_Config.getStmt().executeQuery(selectQuery);
 							while (rs.next()) {
 								String flockID = rs.getString("unique_flock_id");
 								//System.out.println("Unique Flock ID: "+flockID);
@@ -940,23 +947,23 @@ public class PreAppDataCreation extends DB_Config {
 								cell.setCellValue(flockID); 
 							}
 
-							String getComplex = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clComplexCol+" label")).getText();
+							String getComplex = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clComplexCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_Complex); 
 							cell.setCellValue(getComplex); 
 
-							String getFarm = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clFarmCol+" label")).getText();
+							String getFarm = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clFarmCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_Farm); 
 							cell.setCellValue(getFarm); 
 
-							String getLane = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clLaneCol+" label")).getText();
+							String getLane = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clLaneCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_Lane); 
 							cell.setCellValue(getLane);  
 
-							String getResultDate = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clDateCol+" label")).getText();
+							String getResultDate = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clDateCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_ResultDate); 
 							cell.setCellValue(getResultDate);
 
-							String getresultTime = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clTimeCol+" label")).getText();
+							String getresultTime = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clTimeCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_ResultTime); 
 							cell.setCellValue(getresultTime); 
 
@@ -966,7 +973,7 @@ public class PreAppDataCreation extends DB_Config {
 							cell=worksheet.getRow(z+1).createCell(metadata_InstrumentID); 
 							cell.setCellValue(InstrumentID);
 
-							String getPiperUser = driver.findElement(By.cssSelector("#row-"+z+" #col-"+clPiperUserCol)).getText();
+							String getPiperUser = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clPiperUserCol)).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_PiperUser); 
 							cell.setCellValue(getPiperUser);
 
@@ -981,27 +988,28 @@ public class PreAppDataCreation extends DB_Config {
 						wb.write(output_file);
 						output_file.close();  
 
-						driver.get(url_dataUpload);
-						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrgnTypeID"))); 
+						getDriver().get(url_dataUpload);
+						waitElementVisible(By.id("OrgnTypeID"));
 						Thread.sleep(000);
-						driver.findElement(By.id("OrgnTypeID")).click();
-						driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-						driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+						getDriver().findElement(By.id("OrgnTypeID")).click();
+						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
 						Thread.sleep(1000);
-						driver.findElement(By.id("DataFormatId")).click();
-						driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
-						driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
+						getDriver().findElement(By.id("DataFormatId")).click();
+						getDriver().findElement(By.cssSelector("#DataFormatId input")).sendKeys("Sample Metadata");
+						getDriver().findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
 						Thread.sleep(1000);
-						driver.findElement(By.id("file-input")).sendKeys(FrameworkConstants.CSMDataTemplateUpload);
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
+						getDriver().findElement(By.id("file-input")).sendKeys(FrameworkConstants.CSMDataTemplateUpload);
+						waitElementInvisible(loading_cursor);
+						waitElementVisible(alertMessage);
 						Thread.sleep(4000);
-						driver.findElement(By.cssSelector(".fa-save")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))); 
+						getDriver().findElement(By.cssSelector(".fa-save")).click();
+						waitElementInvisible(loading_cursor);
+						waitElementVisible(alertMessage);
+						waitElementVisible(alertMessage);
 						Thread.sleep(6000);
 						getScreenshot();
-						Assert.assertTrue(driver.findElement(alertMessage).getText().contains("SampleMetadata_Mobile.xlsx saved successfully."));
+						Assert.assertTrue(getDriver().findElement(alertMessage).getText().contains("SampleMetadata_Mobile.xlsx saved successfully."));
 						System.out.println("Template created successfully");
 						test.pass("Template saved successfully");
 						results.createNode("Template saved successfully");
@@ -1027,15 +1035,6 @@ public class PreAppDataCreation extends DB_Config {
 			}
 		}
 	//	getStmt().close();	
-	}
-
-
-	@AfterTest
-	public static void endreport() {
-		extent.flush();
-		DB_Config.getStmt();
-		DB_Config.setStmt(getStmt());
-		//	driver.close();
 	}
 
 }

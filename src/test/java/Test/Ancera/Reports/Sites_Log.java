@@ -8,7 +8,6 @@ import java.util.Date;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -21,6 +20,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+import Config.BaseTest;
 import MiscFunctions.ClickElement;
 import MiscFunctions.DateUtil;
 import MiscFunctions.DownloadFileCheck;
@@ -43,15 +43,18 @@ import static LogViewFunctions.FilterSort.*;
 import static LogViewFunctions.Pagination.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
+import static MiscFunctions.Methods.*;
 
-public class Sites_Log {
+public class Sites_Log extends BaseTest {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Sites_Log"+DateUtil.date+".html");
 		spark.config().setReportName("Sites Log Test Report"); 
-		config();
+	}
+	
+	@Test
+	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
 	
@@ -60,12 +63,6 @@ public class Sites_Log {
 		test = extent.createTest("SL-AN-01: Verify user can navigate to Sites Log Screen");
 		SitesLogPage.openSitesLogPage();
 	}
-	
-	
-//	@Test (priority = 1) 
-//	public void NavigateSites() throws InterruptedException, IOException {
-//		NavigateToScreen(url_SitesLog, "Sites Log", sitesLogTitle);
-//	}
 
 
 	@Test (priority = 2, enabled = true) 
@@ -76,8 +73,9 @@ public class Sites_Log {
 
 	@Test (priority = 3) 
 	public void WildcardFilter() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Wildcard(sitesLogTable, "Sites Log", 2);
 	}
@@ -95,8 +93,8 @@ public class Sites_Log {
 	
 	@Test(priority= 6, enabled = true)
 	public void PaginationSites() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Pagination(sitesLogTable, "Sites Log", ReportFilePath);
 	}
@@ -119,8 +117,8 @@ public class Sites_Log {
 			steps.createNode("1. Verify int data type columns are right alligned");
 
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertNotEquals(driver.findElements(By.cssSelector("#col-"+sitesLatitudeCol+" .text-right")).size(), 0, "Latitude column is not right alligned");
-			softAssert.assertNotEquals(driver.findElements(By.cssSelector("#col-"+sitesLongitudeCol+" .text-right")).size(), 0, "Longitude column is not right alligned");
+			softAssert.assertNotEquals(getDriver().findElements(By.cssSelector("#col-"+sitesLatitudeCol+" .text-right")).size(), 0, "Latitude column is not right alligned");
+			softAssert.assertNotEquals(getDriver().findElements(By.cssSelector("#col-"+sitesLongitudeCol+" .text-right")).size(), 0, "Longitude column is not right alligned");
 
 			test.pass("Int data type columns are right alligned");
 			results.createNode("Int data type columns are right alligned");
@@ -161,57 +159,57 @@ public class Sites_Log {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);     
-						driver.findElement(By.id("edit-field-access")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.id("edit-field-access")).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(2000);
 						steps.createNode("2. Unselect "+objFilter.FilterName+" column and Select previously unselected filter column and click on save button");
 
 						if(objModel.viewAccess) {
-							if (driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
-								driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
+							if (getDriver().findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
+								getDriver().findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}	
 
 						if(objModel.unviewAccess) {
 							int inc = Integer.parseInt(objFilter.FilterID) + 1;
-							if (driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
-								driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
+							if (getDriver().findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
+								getDriver().findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}
 
-						driver.findElement(By.id("btn-save")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+						getDriver().findElement(By.id("btn-save")).click();
+						waitElementInvisible(loading_cursor);
+						waitElementVisible(alertMessage);
 						Thread.sleep(1000);
-						Assert.assertEquals(driver.findElement(By.id("message")).getText(), "Report Settings Saved");
+						Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "Report Settings Saved");
 
 						if(objModel.viewAccess) {
 							steps.createNode("3. Verify selected column is displayed in the table");
-							Assert.assertEquals(driver.findElements(By.id(objModel.FilterUnHideID)).size(), 1);
+							Assert.assertEquals(getDriver().findElements(By.id(objModel.FilterUnHideID)).size(), 1);
 						}	
 						if(objModel.unviewAccess) {
 							steps.createNode("4. Verify unselected column is hidden in the table");
-							Assert.assertEquals(driver.findElements(By.id(objModel.FilterHideID)).size(), 0);
+							Assert.assertEquals(getDriver().findElements(By.id(objModel.FilterHideID)).size(), 0);
 						}
 						steps.createNode("5. Open audit log and verify that unselected column is hidden while selected column is displayed");
-						driver.findElement(By.id("audit-trial-0")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.id("audit-trial-0")).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 
 						if(objModel.viewAccess) {
-							Assert.assertEquals(driver.findElements(By.cssSelector("#audit-"+objModel.FilterUnHideID+".table-header-report")).size(), 1);	
+							Assert.assertEquals(getDriver().findElements(By.cssSelector("#audit-"+objModel.FilterUnHideID+".table-header-report")).size(), 1);	
 						}
 
 						if(objModel.unviewAccess) {
-							Assert.assertEquals(driver.findElements(By.cssSelector("#audit-"+objModel.FilterHideID+".table-header-report")).size(), 0);
+							Assert.assertEquals(getDriver().findElements(By.cssSelector("#audit-"+objModel.FilterHideID+".table-header-report")).size(), 0);
 						}
 
-						driver.findElement(By.cssSelector(SalmonellaLogPage.closeAudit)).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.cssSelector(SalmonellaLogPage.closeAudit)).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 
 						test.pass("Column was hidden successfully");
@@ -267,35 +265,35 @@ public class Sites_Log {
 			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
 			
-			driver.navigate().refresh();
+			getDriver().navigate().refresh();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);	
 			
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(loading_cursor);
 			
 			
-			driver.findElement(By.id("siteId_show-filter")).click();
+			getDriver().findElement(By.id("siteId_show-filter")).click();
 			
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);						
-			ClickElement.clickByCss(driver, "#"+SalmonellaLogPage.slSortFilter+""+sitesSiteID+" li:nth-child(3) label");
+			ClickElement.clickByCss(getDriver(), "#"+SalmonellaLogPage.slSortFilter+""+sitesSiteID+" li:nth-child(3) label");
 
-			ClickElement.clickById(driver, sitesSiteID+""+sitesApplyFilter);
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), sitesSiteID+""+sitesApplyFilter);
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(800);
 			
-			String getRowText = driver.findElement(By.id("results-found-count")).getText();
+			String getRowText = getDriver().findElement(By.id("results-found-count")).getText();
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			getScreenshot();
 			Thread.sleep(1000);
 			steps.createNode("5. Click on Export as CSV");
-			driver.findElement(By.xpath("//*[text() = ' Export as CSV ']")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.xpath("//*[text() = ' Export as CSV ']")).click();
+			waitElementInvisible(loading_cursor);
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
@@ -326,12 +324,12 @@ public class Sites_Log {
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
 
-					int rows = driver.findElements(By.cssSelector("tr")).size();
+					int rows = getDriver().findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
-						int totalColumns = driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
+						int totalColumns = getDriver().findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
 						int columnsCount = columnsCountTotal+3;
-						if (driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
-							softAssert.assertEquals(data[i].trim(), driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						if (getDriver().findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), getDriver().findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
 						}
 						else {
 							rowsCount = rowsCount+1;
@@ -396,24 +394,24 @@ public class Sites_Log {
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(loading_cursor);
 
-			driver.navigate().refresh();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			
-		//	driver.findElement(By.id(sitesSiteID+""+sitesShowFilter)).click();	
-			driver.findElement(By.id("siteId_show-filter")).click();
+		//	getDriver().findElement(By.id(sitesSiteID+""+sitesShowFilter)).click();	
+			getDriver().findElement(By.id("siteId_show-filter")).click();
 			
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);						
-			ClickElement.clickByCss(driver, "#"+SalmonellaLogPage.slSortFilter+""+sitesSiteID+" li:nth-child(3) label");
+			ClickElement.clickByCss(getDriver(), "#"+SalmonellaLogPage.slSortFilter+""+sitesSiteID+" li:nth-child(3) label");
 
-			ClickElement.clickById(driver, sitesSiteID+""+sitesApplyFilter);
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), sitesSiteID+""+sitesApplyFilter);
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(800);
 
-			String getRowText = driver.findElement(By.id("results-found-count")).getText();
+			String getRowText = getDriver().findElement(By.id("results-found-count")).getText();
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
@@ -425,11 +423,11 @@ public class Sites_Log {
 			steps.createNode("11. Verify Created By is same in table and CSV");
 
 			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			Thread.sleep(1000);
 			getScreenshot();
-			ClickElement.clickById(driver, "export-csv");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), "export-csv");
+			waitElementInvisible(loading_cursor);
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
@@ -459,14 +457,14 @@ public class Sites_Log {
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
 
-					int a = driver.findElements(By.cssSelector("tr")).size();
+					int a = getDriver().findElements(By.cssSelector("tr")).size();
 					if (k < a) {
 						System.out.print(data[i] + " ");
 
 						int l = j+3;
-						if (driver.findElements(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).size() != 0 && l<=14) {
-							//	System.out.print(driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
-							softAssert.assertEquals(data[i], driver.findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
+						if (getDriver().findElements(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).size() != 0 && l<=14) {
+							//	System.out.print(getDriver().findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText()+" ");
+							softAssert.assertEquals(data[i], getDriver().findElement(By.cssSelector("tr:nth-child("+k+") td:nth-child("+l+")")).getText());
 						}
 						else {
 							k = k+1;
@@ -532,19 +530,19 @@ public class Sites_Log {
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
-			ClickElement.clickByCss(driver, "#select-site-0 .custom-checkbox");
+			ClickElement.clickByCss(getDriver(), "#select-site-0 .custom-checkbox");
 			Thread.sleep(1000);
 
-			//String getRowCount = driver.findElement(By.id("results-found-count")).getText();
+			//String getRowCount = getDriver().findElement(By.id("results-found-count")).getText();
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			getScreenshot();
 			Thread.sleep(1500);
 			steps.createNode("5. Click on Export with Audit as CSV");
-			ClickElement.clickById(driver, "export-audit-csv");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), "export-audit-csv");
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
@@ -581,7 +579,7 @@ public class Sites_Log {
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		//	driver.close();
+		//	getDriver().close();
 	}
 
 }

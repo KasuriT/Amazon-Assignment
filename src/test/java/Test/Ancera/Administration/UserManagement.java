@@ -14,7 +14,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -22,15 +21,15 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import Config.ReadPropertyFile;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
+import MiscFunctions.FrameworkConstants;
 import MiscFunctions.RetryFailedCases;
-import Models.OrganizationManagementModel;
-import Models.UserManagementModel;
 import PageObjects.OrganizationManagementPage;
+import PageObjects.UserManagementPage;
 import Test.Ancera.Login.LoginTest;
 import Utilities.DataUtil;
 import Utilities.ExcelReader;
@@ -46,25 +45,29 @@ import static LogViewFunctions.Pagination.*;
 import static LogViewFunctions.RowsPerPage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
-import static LogViewFunctions.CSVExport.*;
+import static MiscFunctions.Methods.*;
+import static LogViewFunctions.LogCSVExport.*;
 import static Models.UserManagementModel.*;
 
 
-public class UserManagement {
+public class UserManagement extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_User_Management"+DateUtil.date+".html");
 		spark.config().setReportName("User Management Test Report"); 
-		config();
+	}
+	
+	
+	@Test
+	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
 
 
 	@Test (priority = 1) 
 	public void LockFilter() throws InterruptedException, IOException {
-		driver.get(Constants.url_user);
+		getDriver().get(Constants.url_user);
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
@@ -74,7 +77,7 @@ public class UserManagement {
 	
 	@Test (priority = 2) 
 	public void WildcardUser() throws InterruptedException, IOException {
-		driver.get(Constants.url_user);
+		getDriver().get(Constants.url_user);
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
@@ -84,7 +87,7 @@ public class UserManagement {
 
 	@Test(priority= 3)
 	public void sorting() throws InterruptedException, IOException {
-		driver.get(Constants.url_user);
+		getDriver().get(Constants.url_user);
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
@@ -98,7 +101,7 @@ public class UserManagement {
 	
 	@Test(priority= 5)
 	public void rowsperPage() throws InterruptedException, IOException {
-		driver.get(Constants.url_user);
+		getDriver().get(Constants.url_user);
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
@@ -118,7 +121,7 @@ public class UserManagement {
 			steps = test.createNode(Scenario.class, Steps);
 			steps.createNode("1. Click on Create New button");
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
@@ -126,11 +129,11 @@ public class UserManagement {
 			click(usercreateButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(By.cssSelector(".pop-head")).getText(), "Create User", "Popup failed to open"); 
+			Assert.assertEquals(getDriver().findElement(By.cssSelector(".pop-head")).getText(), "Create User", "Popup failed to open"); 
 
 			click(popupCloseButton);
 			waitElementInvisible(loading_cursor);
-			Assert.assertEquals(Helper.driver.findElements(popupNextButton).size(), 0); 
+			Assert.assertEquals(getDriver().findElements(popupNextButton).size(), 0); 
 			test.pass("User popup window opened and closed successfully");
 			results.createNode("User popup window opened and closed successfully");
 			getScreenshot();
@@ -153,7 +156,7 @@ public class UserManagement {
 
 			steps.createNode("1. Enter valid data in all fields and click on Save button");
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
@@ -166,7 +169,7 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 			
-			if (driver.findElement(By.id(userEmail+""+SelectAll)).isDisplayed()) {
+			if (getDriver().findElement(By.id(userEmail+""+SelectAll)).isDisplayed()) {
 				click(By.id(userEmail+""+SelectAll));
 				click(By.id(userEmail+""+ApplyFilter ));
 				waitElementInvisible(loading_cursor);
@@ -196,7 +199,7 @@ public class UserManagement {
 			type(userOrgTypeInput, "Client");
 			enterKey(userOrgTypeInput);
 			click(popupNextButton);
-			softAssert.assertTrue(driver.findElement(userOrgTypeInput).isDisplayed());
+			softAssert.assertTrue(getDriver().findElement(userOrgTypeInput).isDisplayed());
 			Thread.sleep(1000);
 
 			click(userOrgInput);
@@ -204,7 +207,7 @@ public class UserManagement {
 			Thread.sleep(500);
 			String OrganizationName = getText(getOrgName);
 			
-			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
+			softAssert.assertEquals(getDriver().findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");
 			try {
 				click(siteAdministratorToggle);
 			}
@@ -212,22 +215,22 @@ public class UserManagement {
 				click(siteAdministratorToggle);
 			}
 			
-			driver.findElement(popupNextButton).click();
+			getDriver().findElement(popupNextButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			
 			type(userFirstNameInput, "Ancera Test");
 			type(userLastNameInput, "User");
 			type(userEmailInput, createUserEmail); 
-			driver.findElement(popupNextButton).click();
+			getDriver().findElement(popupNextButton).click();
 
-			if(driver.findElement(By.cssSelector("#emailId-error-container path:nth-child(1)")).isDisplayed())
+			if(getDriver().findElement(By.cssSelector("#emailId-error-container path:nth-child(1)")).isDisplayed())
 			{
-				driver.get(url_organization);
+				getDriver().get(url_organization);
 				waitElementInvisible(loading_cursor);
 				waitElementVisible(OrganizationManagementPage.orgCreateButton);
 				Thread.sleep(1000);
-				OrganizationManagementModel.openEditOrgPopup(OrganizationName);
+				OrganizationManagementPage.openEditOrgPopup(OrganizationName);
 				waitElementInvisible(loading_cursor);
 				click(orgDomains);
 				Thread.sleep(1000);
@@ -242,7 +245,7 @@ public class UserManagement {
 				click(popupSaveButton);
 				waitElementVisible(alertMessage);
 				
-				driver.get(url_user);
+				getDriver().get(url_user);
 				waitElementInvisible(loading_cursor);
 				waitElementVisible(usercreateButton);
 				Thread.sleep(3000);
@@ -266,14 +269,14 @@ public class UserManagement {
 					click(siteAdministratorToggle);
 				}
 				
-				driver.findElement(popupNextButton).click();
+				getDriver().findElement(popupNextButton).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				
 				type(userFirstNameInput, "Ancera Test");
 				type(userLastNameInput, "User");
 				type(userEmailInput, createUserEmail); 
-				driver.findElement(popupNextButton).click();
+				getDriver().findElement(popupNextButton).click();
 			}
 	
 			click(reportRoleExpand);
@@ -290,7 +293,7 @@ public class UserManagement {
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 
-			softAssert.assertEquals(Helper.driver.findElement(alertMessage).getText(), "New user created."); 
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New user created."); 
 			softAssert.assertAll();
 			test.pass("New User created successfully");
 			results.createNode("New User created successfully");
@@ -317,7 +320,7 @@ public class UserManagement {
 		steps.createNode("1. Go to email account against which the user is created");
 		steps.createNode("2. Check that mail to reset password is received or not");
 
-		driver.get(Constants.url_GmailSignin);
+		getDriver().get(Constants.url_GmailSignin);
 		waitElementClickable(By.xpath(gmailEmail));
 		Thread.sleep(5000);
 		
@@ -344,7 +347,7 @@ public class UserManagement {
 		waitElementVisible(By.xpath("//*[@class='yW']/span"));
 		getScreenshot();
 		Thread.sleep(5000);
-		List<WebElement> a = Helper.driver.findElements(By.xpath("//*[@class='yW']/span"));
+		List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
 		for(int i=0;i<a.size();i++){
 			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
 				a.get(i).click();
@@ -353,7 +356,7 @@ public class UserManagement {
 
 		waitElementVisible(By.linkText("Create Password"));
 		Thread.sleep(2000);
-		if (driver.findElement(By.linkText("Create Password")).getText().equals("Create Password")) {
+		if (getDriver().findElement(By.linkText("Create Password")).getText().equals("Create Password")) {
 			test.pass("Reset password email received successfully");
 			results.createNode("Email to reset password received successfully");
 			getScreenshot();	
@@ -364,17 +367,17 @@ public class UserManagement {
 			results.createNode("Email to reset password did not received");
 		}
 
-		driver.findElement(By.linkText("Create Password")).click();
+		getDriver().findElement(By.linkText("Create Password")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
+		getDriver().findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
 
-		String currentTabHandle = driver.getWindowHandle();
-		String newTabHandle = driver.getWindowHandles()
+		String currentTabHandle = getDriver().getWindowHandle();
+		String newTabHandle = getDriver().getWindowHandles()
 				.stream()
 				.filter(handle -> !handle.equals(currentTabHandle ))
 				.findFirst()
 				.get();
-		driver.switchTo().window(newTabHandle);
+		getDriver().switchTo().window(newTabHandle);
 	}
 
 
@@ -388,17 +391,17 @@ public class UserManagement {
 			steps.createNode("2. Enter email and newly set password; user should be logged in");
 
 			waitElementVisible(enterNewPassword);
-			driver.findElement(enterNewPassword).sendKeys(createUserPassword);
-			driver.findElement(enterConfirmPassword).sendKeys(createUserPassword);
-			driver.findElement(clickPasswordButton).click();
+			getDriver().findElement(enterNewPassword).sendKeys(createUserPassword);
+			getDriver().findElement(enterConfirmPassword).sendKeys(createUserPassword);
+			getDriver().findElement(clickPasswordButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			driver.findElement(logoutButton).click();
+			getDriver().findElement(logoutButton).click();
 			waitElementVisible(loginEmail);
-			driver.findElement(loginEmail).sendKeys(createUserEmail);
-			driver.findElement(loginPassword).sendKeys(createUserPassword);
-			driver.findElement(loginButton).click();
+			getDriver().findElement(loginEmail).sendKeys(createUserEmail);
+			getDriver().findElement(loginPassword).sendKeys(createUserPassword);
+			getDriver().findElement(loginButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);	
 			
@@ -409,7 +412,7 @@ public class UserManagement {
 			Thread.sleep(1500);	
 			
 			getScreenshot();
-			Assert.assertTrue(Helper.driver.findElement(By.id("Ancera Intelligence Engine")).isDisplayed(), "New user was not able to login into application");
+			Assert.assertTrue(getDriver().findElement(By.id("Ancera Intelligence Engine")).isDisplayed(), "New user was not able to login into application");
 			test.pass("Password was reset; user logged in successfully");
 			results.createNode("Password was reset; user logged in successfully");
 			getScreenshot();
@@ -418,12 +421,12 @@ public class UserManagement {
 		catch(AssertionError er) {
 			test.fail("User failed to login");
 			results.createNode("User failed to login");  
-			Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("User failed to login");
 			results.createNode("User failed to login");  	
-			Helper.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
 
@@ -436,24 +439,24 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Assign report role and agreement to new user");
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			UserManagementModel.openEditUserPopup(createUserEmail);
+			UserManagementPage.openEditUserPopup(createUserEmail);
 			click(popupCloseButton);
 	
 			click(agreeementSearchedUser);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElements(agreementList).size(), 1);
+			Assert.assertEquals(getDriver().findElements(agreementList).size(), 1);
 			click(popupCloseButton);
 
-			driver.get(Constants.url_reports);
+			getDriver().get(Constants.url_reports);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			Assert.assertNotEquals(Helper.driver.findElements(By.cssSelector(".report-img")).size(), 0);  //verify reports are visible in reports screen
+			Assert.assertNotEquals(getDriver().findElements(By.cssSelector(".report-img")).size(), 0);  //verify reports are visible in reports screen
 			test.pass("Assigned reports were visible to the user successfully");
 			results.createNode("Assigned reports were visible to the user successfully");
 			getScreenshot();
@@ -483,11 +486,11 @@ public class UserManagement {
 			steps.createNode("2. Verify user was able to assign All Testing Sites to the user");
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			UserManagementModel.openEditUserPopup(createUserEmail);
+			UserManagementPage.openEditUserPopup(createUserEmail);
 			waitElementVisible(userRoleCategory);
 			waitElementClickable(popupNextButton);
 			Thread.sleep(1000);
@@ -508,10 +511,10 @@ public class UserManagement {
 			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details updated.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "User details updated.");
 		//	waitElementVisible(By.xpath("//*[text()= ' Active ']"));
 			Thread.sleep(10000);
-			softAssert.assertEquals(driver.findElement(By.cssSelector("#col-"+userSiteAccessCol+" label")).getText(), "Active");
+			softAssert.assertEquals(getDriver().findElement(By.cssSelector("#col-"+userSiteAccessCol+" label")).getText(), "Active");
 			softAssert.assertAll();
 			test.pass("Testing sites assigned successfully");
 			results.createNode("Testing sites assigned successfully");
@@ -562,7 +565,7 @@ public class UserManagement {
 			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details updated.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "User details updated.");
 			softAssert.assertAll();
 		}
 		catch(AssertionError er) {
@@ -587,11 +590,11 @@ public class UserManagement {
 			steps.createNode("1. Click on update button next to created user; Update user popup appears");
 			steps.createNode("2. Make any change and click on Save button");
 			
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 			
-			UserManagementModel.openEditUserPopup(createUserEmail);
+			UserManagementPage.openEditUserPopup(createUserEmail);
 			waitElementVisible(userRoleCategory);
 			waitElementClickable(popupNextButton);
 			Thread.sleep(1000);
@@ -604,8 +607,8 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(4000);
 
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "User details updated."); 
-			Assert.assertEquals(driver.findElement(By.cssSelector("#col-"+userLastNameCol+" label")).getText(), "User Updated", "Last name in popup not same as in table"); 
+			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "User details updated."); 
+			Assert.assertEquals(getDriver().findElement(By.cssSelector("#col-"+userLastNameCol+" label")).getText(), "User Updated", "Last name in popup not same as in table"); 
 
 			test.pass("User updated successfully");
 			results.createNode("User updated successfully; an alert message appears 'User details updated.'");
@@ -633,7 +636,7 @@ public class UserManagement {
 			steps.createNode("1. Click on assign roles and report button next to user");
 			steps.createNode("2. Verify user is able to edit user from there");
 
-			driver.get(url_user);
+			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
@@ -642,27 +645,27 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			type(By.id(userEmail+""+SearchInput ), createUserEmail);
 			Thread.sleep(1500);
-			driver.findElement(By.id(userEmail+""+SelectAll)).click();
-			driver.findElement(By.id(userEmail+""+ApplyFilter )).click();
+			getDriver().findElement(By.id(userEmail+""+SelectAll)).click();
+			getDriver().findElement(By.id(userEmail+""+ApplyFilter )).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 			click(By.cssSelector("tr:nth-child(1) #col-"+userRoleCol+" img"));
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2500);
 			click(reportRoleExpand);
-			driver.findElement(reportRoleSelect).sendKeys(Keys.ARROW_DOWN);
-			driver.findElement(reportRoleSelect).sendKeys(Keys.ENTER);
+			getDriver().findElement(reportRoleSelect).sendKeys(Keys.ARROW_DOWN);
+			getDriver().findElement(reportRoleSelect).sendKeys(Keys.ENTER);
 			Thread.sleep(700);
 			
-			String Reporting = Helper.driver.findElement(reportRoleGetValue).getText();
+			String Reporting = getDriver().findElement(reportRoleGetValue).getText();
 			click(popupSaveButton);
 			waitElementClickable(popupYesButton);
 			Thread.sleep(750);
 			click(popupYesButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(700);
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "Roles and Rights has been updated successfully");
-			Assert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+userReportingCol+" label")).getText(), Reporting);
+			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Roles and Rights has been updated successfully");
+			Assert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+userReportingCol+" label")).getText(), Reporting);
 
 			test.pass("User was able to edit from assign roles and reports successfully");
 			results.createNode("User was able to edit from assign roles and reports successfully");
@@ -697,7 +700,7 @@ public class UserManagement {
 			
 			SoftAssert softAssert = new SoftAssert();
 			
-			driver.get(url_user);
+			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
@@ -707,18 +710,18 @@ public class UserManagement {
 			Thread.sleep(800);
 			
 			click(userOrgTypeInput);
-			softAssert.assertEquals(driver.findElements(By.cssSelector(".ng-option")).size(), 1);
-			driver.findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
+			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);
+			getDriver().findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(700);
 			
 			click(userOrgInput);
-			softAssert.assertEquals(driver.findElements(By.cssSelector(".ng-option")).size(), 1);
+			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 		
-			softAssert.assertEquals(driver.findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");		
+			softAssert.assertEquals(getDriver().findElements(siteAdministratorToggle).size(), 1, "Site Administrator button is not displayed");		
 			click(popupNextButton);
 			
 			type(userFirstNameInput, "Ancera Test");
@@ -737,7 +740,7 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2500);
 			
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New user created."); 
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New user created."); 
 			getScreenshot();
 
 			click(By.id(userEmail+""+ShowFilter));
@@ -765,7 +768,7 @@ public class UserManagement {
 			click(popupYesButton);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details deleted."); 
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "User details deleted."); 
 			softAssert.assertAll();		
 			getScreenshot();
 		}
@@ -789,46 +792,46 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, Results);
 
 			SoftAssert softAssert = new SoftAssert();
-			driver.get(url_organization);
+			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			click(OrganizationManagementPage.editSearchedOrg);
 			waitElementInvisible(loading_cursor);
 
-			int siteSizeOrg = driver.findElements(By.cssSelector(".tree-list-toggle")).size();  //42
+			int siteSizeOrg = getDriver().findElements(By.cssSelector(".tree-list-toggle")).size();  //42
 
-			driver.get(url_user);
+			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
 			waitElementVisible(editSearchedUser);
-			driver.findElement(editSearchedUser).click();
+			getDriver().findElement(editSearchedUser).click();
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(userRoleCategory);
 			Thread.sleep(1000);
-			driver.findElement(popupNextButton).click();
+			getDriver().findElement(popupNextButton).click();
 			Thread.sleep(700);
-			driver.findElement(popupNextButton).click();
+			getDriver().findElement(popupNextButton).click();
 			Thread.sleep(800);
-			driver.findElement(openUserSites).click();
+			getDriver().findElement(openUserSites).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			int siteSizeUser = driver.findElements(By.cssSelector(".form-check-label")).size();  //22
+			int siteSizeUser = getDriver().findElements(By.cssSelector(".form-check-label")).size();  //22
 
 			int sites = (siteSizeOrg/2)+1;    //(42/2=21)+1 = 22
 			softAssert.assertEquals(sites, siteSizeUser, "Site Admin is not able to see only the sites that are assigned to him");
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
-			driver.findElement(By.id(OrganizationManagementPage.orgOrganzationType+""+ShowFilter)).click();		
+			getDriver().findElement(By.id(OrganizationManagementPage.orgOrganzationType+""+ShowFilter)).click();		
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(By.cssSelector("#sort-orgnTypeName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org type filter");
-			driver.findElement(By.id(OrganizationManagementPage.orgName+""+ShowFilter)).click();
+			softAssert.assertEquals(getDriver().findElement(By.cssSelector("#sort-orgnTypeName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org type filter");
+			getDriver().findElement(By.id(OrganizationManagementPage.orgName+""+ShowFilter)).click();
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(By.cssSelector("#sort-orgnName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org filter");
+			softAssert.assertEquals(getDriver().findElement(By.cssSelector("#sort-orgnName .filter-popup__footer--count")).getText(), "Showing 1 - 1 Results", "Site Admin is not able to see only his organization in org filter");
 
 			softAssert.assertAll();
 			test.pass("Sites showed only those that are assigned to user successfully");
@@ -856,23 +859,23 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, ExtentVariables.Results);
 
 			SoftAssert softAssert = new SoftAssert();
-			driver.get(Constants.url_organization);
+			getDriver().get(Constants.url_organization);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
-			softAssert.assertEquals(driver.findElement(By.id(ResultsCount)).getText(), "1", "Only assigned org is not displayed");
+			softAssert.assertEquals(getDriver().findElement(By.id(ResultsCount)).getText(), "1", "Only assigned org is not displayed");
 
-			String orgName = driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1) label")).getText();
+			String orgName = getDriver().findElement(By.cssSelector("tr:nth-child(1) td:nth-child(1) label")).getText();
 
-			Helper.driver.get(url_user);
+			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
 
-			String totalRows = driver.findElement(By.id(ResultsCount)).getText();
+			String totalRows = getDriver().findElement(By.id(ResultsCount)).getText();
 
 			for (int i=1; i<=Integer.parseInt(totalRows);i++) {
-				WebElement a = driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+userOrgCol+" label"));
+				WebElement a = getDriver().findElement(By.cssSelector("tr:nth-child("+i+") #col-"+userOrgCol+" label"));
 				softAssert.assertEquals(a.getText(), orgName);
 			}
 
@@ -902,16 +905,16 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Open client mapping popup and verify only 1 org dislays assigned to Site Admin");
 
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			driver.findElement(By.id("create-client-mapping")).click();
+			getDriver().findElement(By.id("create-client-mapping")).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(By.id("ClientId")).click();
+			getDriver().findElement(By.id("ClientId")).click();
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option")).size(), 1);					
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);					
 			test.pass("Client mapping only showed site admin org");
 			results.createNode("Client mapping only showed site admin org");
 			getScreenshot();
@@ -942,12 +945,12 @@ public class UserManagement {
 			preconditions.createNode("3. Hover to sidebar to expand the menu; Click on MetaData and select Data Template Managemnt");
 			steps.createNode("1. Open client mapping popup and verify only 1 org dislays assigned to Site Admin");
 
-			Helper.driver.get(url_dataUpload);
+			getDriver().get(url_dataUpload);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(By.id("ClientId")).click();
+			getDriver().findElement(By.id("ClientId")).click();
 			Thread.sleep(1000);
-			Assert.assertEquals(Helper.driver.findElements(By.cssSelector(".ng-option")).size(), 1);					
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);					
 			test.pass("Client mapping only showed site admin org");
 			results.createNode("Client mapping only showed site admin org");
 			getScreenshot();
@@ -973,10 +976,10 @@ public class UserManagement {
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Open client mapping popup and verify only 1 org displays assigned to Site Admin");
 
-			ExcelReader excel = new ExcelReader(Constants.SUITE1_XL_PATH);
+			ExcelReader excel = new ExcelReader(FrameworkConstants.SUITE1_XL_PATH);
 			DataUtil.checkExecution("master", "LoginTest", data.get("Runmode"), excel);
 			
-			driver.get(Constants.url_organization);
+			getDriver().get(Constants.url_organization);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
@@ -986,38 +989,38 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);	
 
-			driver.findElement(OrganizationManagementPage.orgAddSite1).click();
+			getDriver().findElement(OrganizationManagementPage.orgAddSite1).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			driver.findElement(OrganizationManagementPage.orgSiteTypeInputChild).click();   
+			getDriver().findElement(OrganizationManagementPage.orgSiteTypeInputChild).click();   
 			Thread.sleep(500);	
-			driver.findElement(OrganizationManagementPage.orgSiteTypeDropDownValue).click();  
+			getDriver().findElement(OrganizationManagementPage.orgSiteTypeDropDownValue).click();  
 
-			driver.findElement(OrganizationManagementPage.orgSiteNameInput).sendKeys("Test Region");
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(OrganizationManagementPage.orgSiteNameInput).sendKeys("Test Region");
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(3000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New site created.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New site created.");
 
 			Set<String> deleteIcons = new HashSet<String>();
-			driver.findElements(By.cssSelector("li .text-ellipsis"))
+			getDriver().findElements(By.cssSelector("li .text-ellipsis"))
 			.stream()
 			.forEach(product -> deleteIcons.add(product.getText()));
 			System.out.println("Total delete icon : "+deleteIcons.size());
 
-			List<WebElement> a = driver.findElements(By.cssSelector(".delete")) ;
+			List<WebElement> a = getDriver().findElements(By.cssSelector(".delete")) ;
 
 			int b = deleteIcons.size() - 2;
 			a.get(b).click();
 			Thread.sleep(2000);
 
-			driver.findElement(popupYesButton).click();
+			getDriver().findElement(popupYesButton).click();
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(2000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Site details deleted successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Site details deleted successfully.");
 			softAssert.assertAll();
 			test.pass("Client mapping only showed site admin org");
 			results.createNode("Client mapping only showed site admin org");
@@ -1045,7 +1048,7 @@ public class UserManagement {
 			steps.createNode("1. Click on delete butotn next to created user; confirmation box appears");
 			steps.createNode("2. Click on yes button");
 
-			driver.findElement(logoutButton).click();
+			getDriver().findElement(logoutButton).click();
 			waitElementVisible(loginEmail);
 			ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 			type(loginEmail, config.ie_username());
@@ -1054,20 +1057,20 @@ public class UserManagement {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			
-			driver.get(url_user);
+			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
 
-			String preRecords = driver.findElement(By.id(ResultsCount)).getText();
+			String preRecords = getDriver().findElement(By.id(ResultsCount)).getText();
 
-			driver.findElement(By.id(userEmail+""+ShowFilter )).click();
+			getDriver().findElement(By.id(userEmail+""+ShowFilter )).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(By.id(userEmail+""+SearchInput )).sendKeys(createUserEmail);
+			getDriver().findElement(By.id(userEmail+""+SearchInput )).sendKeys(createUserEmail);
 			Thread.sleep(1200);
-			driver.findElement(By.id(userEmail+""+SelectAll)).click();
-			driver.findElement(By.id(userEmail+""+ApplyFilter )).click();
+			getDriver().findElement(By.id(userEmail+""+SelectAll)).click();
+			getDriver().findElement(By.id(userEmail+""+ApplyFilter )).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			
@@ -1089,8 +1092,8 @@ public class UserManagement {
 			waitElementVisible(alertMessage);
 			Thread.sleep(5000);
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "User details deleted."); 
-			String postRecords = driver.findElement(By.id(ResultsCount)).getText();
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "User details deleted."); 
+			String postRecords = getDriver().findElement(By.id(ResultsCount)).getText();
 			softAssert.assertNotEquals(preRecords, postRecords);
 			softAssert.assertAll();
 			test.pass("Created user deleted successfully");
@@ -1120,20 +1123,20 @@ public class UserManagement {
 			steps.createNode("1. Click on assign roles and rights popup next to user and check the assign roles");
 			steps.createNode("2. Verify the assign roles in table next to that user");
 
-			driver.get(Constants.url_user);
+			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
 			Thread.sleep(3000);
 			
-			driver.findElement(By.cssSelector("tr:nth-child(3) #col-"+userRoleCol+" img")).click();
+			getDriver().findElement(By.cssSelector("tr:nth-child(3) #col-"+userRoleCol+" img")).click();
 			waitElementInvisible(loading_cursor);
 
-			driver.findElement(systemRolesExpand).click();
-			int roles = driver.findElements(systemRolesSelected).size();
-			driver.findElement(popupCloseButton).click();
+			getDriver().findElement(systemRolesExpand).click();
+			int roles = getDriver().findElements(systemRolesSelected).size();
+			getDriver().findElement(popupCloseButton).click();
 			Thread.sleep(1000);
 
-			String s = driver.findElement(By.cssSelector("tr:nth-child(3) td:nth-child(7) label")).getText();
+			String s = getDriver().findElement(By.cssSelector("tr:nth-child(3) td:nth-child(7) label")).getText();
 			int commas = 0;
 			for(int i=0;i<s.length();i++)
 			{
@@ -1160,10 +1163,4 @@ public class UserManagement {
 		}
 	}
 
-
-	@AfterTest
-	public static void endreport() {
-		ExtentVariables.extent.flush();
-		//Helper.driver.close();
-	}
 }

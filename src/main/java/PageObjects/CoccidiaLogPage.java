@@ -1,15 +1,12 @@
 package PageObjects;
 
 import static MiscFunctions.Constants.url_reports;
-import static MiscFunctions.Helper.click;
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getText;
-import static MiscFunctions.Helper.waitElementInvisible;
 import static PageObjects.BasePage.loading_cursor;
-
-
 import org.openqa.selenium.By;
 import org.testng.Assert;
+
+import Config.BaseTest;
+import MiscFunctions.Methods;
 
 public class CoccidiaLogPage {
 
@@ -158,11 +155,12 @@ public class CoccidiaLogPage {
 	public static String clSampleMetaData = "Sample Metadata Upload Template";
 	
 	public static void openCoccidiaLogPage() {
-		driver.get(url_reports);
-		waitElementInvisible(loading_cursor);
-		click(coccidiaLogBox);
-		waitElementInvisible(loading_cursor);
-		Assert.assertEquals(getText(coccidiaLogTitle), "Coccidia Log"); 	
+		BaseTest driver = new BaseTest();
+		driver.getDriver().get(url_reports);
+		Methods.waitElementInvisible(loading_cursor);
+		Methods.click(coccidiaLogBox);
+		Methods.waitElementInvisible(loading_cursor);
+		Assert.assertEquals(Methods.getText(coccidiaLogTitle), "Coccidia Log"); 	
 	}
 	
 }

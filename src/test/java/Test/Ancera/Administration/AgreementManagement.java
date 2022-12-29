@@ -8,10 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -19,30 +17,34 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import Config.ReadPropertyFile;
 import MiscFunctions.ClickElement;
 import MiscFunctions.DateUtil;
 import MiscFunctions.NavigateToScreen;
-import Models.UserManagementModel;
+import PageObjects.UserManagementPage;
 import Test.Ancera.Login.LoginTest;
 
 import static PageObjects.AgreementManagementPage.*;
 import static PageObjects.BasePage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
+import static MiscFunctions.Methods.*;
 import static Models.AgreementManagementModel.*;
 
-public class AgreementManagement {
+public class AgreementManagement extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_Agreement_Management"+DateUtil.date+".html");
 		spark.config().setReportName("Agreement Management Test Report"); 
-		config();
-		LoginTest.login();
 	}
 
+	
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 
 	@Test (priority = 1) 
 	public void Navigate() throws InterruptedException, IOException {
@@ -69,17 +71,17 @@ public class AgreementManagement {
 				steps.createNode("1. Click on dotted box; file explorer opens");
 				steps.createNode("2. Upload "+lstAgreementManagement.get(i).fileType+"and verify the file is uploaded and visible in box");
 				getScreenshot();
-				driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(i).fileName);
+				getDriver().findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(i).fileName);
 
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alrt")));
+				waitElementVisible(By.id("alrt"));
 				Thread.sleep(1000);
-				Assert.assertEquals(driver.findElement(By.id("message")).getText(), lstAgreementManagement.get(i).alertMessage);
+				Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), lstAgreementManagement.get(i).alertMessage);
 
 				test.pass(lstAgreementManagement.get(i).passMessage);
 				results.createNode(lstAgreementManagement.get(i).passMessage);
 				getScreenshot();
 				saveResult(ITestResult.SUCCESS,null);	
-				driver.findElement(By.cssSelector("#alrt > button")).click();
+				getDriver().findElement(By.cssSelector("#alrt > button")).click();
 			}
 			catch(AssertionError er) {
 				test.fail(lstAgreementManagement.get(i).failMessage);
@@ -112,18 +114,18 @@ public class AgreementManagement {
 
 			steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			driver.findElement(By.id("progressbar-2")).click();
+			getDriver().findElement(By.id("progressbar-2")).click();
 			Thread.sleep(500);
 			steps.createNode("2. Search for uploaded file in user agreement dropdown");
-			driver.findElement(By.cssSelector("#ApplyEulaId input")).sendKeys(lstAgreemmentManagementFileName.get(0));
+			getDriver().findElement(By.cssSelector("#ApplyEulaId input")).sendKeys(lstAgreemmentManagementFileName.get(0));
 			Thread.sleep(1000);
 
-			Assert.assertEquals(driver.findElement(By.xpath(amDropdownSelect)).getText(), lstAgreemmentManagementFileName.get(0));;
+			Assert.assertEquals(getDriver().findElement(By.xpath(amDropdownSelect)).getText(), lstAgreemmentManagementFileName.get(0));;
 			test.pass("The user was able to see the uploaded file in user agreement dropdown successfully");
 			results.createNode("The user was able to see the uploaded file in user agreement dropdown successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS,null);	
-			driver.findElement(By.id("progressbar-1")).click();
+			getDriver().findElement(By.id("progressbar-1")).click();
 		}
 		catch(AssertionError er) {
 			test.fail("The user was not able to see the uploaded file in user agreement dropdown");
@@ -157,24 +159,24 @@ public class AgreementManagement {
 
 			for (int i=1; i<=10; i++) {
 				String actualXpath = amBeforelist+i+amAfterList;
-				WebElement element = driver.findElement(By.xpath(actualXpath));
+				WebElement element = getDriver().findElement(By.xpath(actualXpath));
 
 				int j= i-1;
 				if (element.getText().equals(lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(500);
-					driver.findElement(By.id("view-license-"+j)).click();
+					getDriver().findElement(By.id("view-license-"+j)).click();
 					break;
 				}
 			}
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("close-popup-modal")));
+			waitElementVisible(By.id("close-popup-modal"));
 			Thread.sleep(1000);
-			Assert.assertTrue(driver.findElement(By.id("close-popup-modal")).isDisplayed());
+			Assert.assertTrue(getDriver().findElement(By.id("close-popup-modal")).isDisplayed());
 			test.pass("The user was able to view the uploaded file successfully");
 			results.createNode("The user was able to view the uploaded file successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS,null);	
-			driver.findElement(By.id("close-popup-modal")).click();
+			getDriver().findElement(By.id("close-popup-modal")).click();
 		}
 		catch(AssertionError er) {
 			test.fail("The user was not able to view the uploaded file successfully");
@@ -206,28 +208,28 @@ public class AgreementManagement {
 			getScreenshot();
 
 			steps.createNode("1. Click on delete icon next to uploaded file in table");
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
+			waitElementVisible(By.id("progressbar-1"));
 			Thread.sleep(1000);
 
 			for (int i=1; i<=10; i++) {
 				String actualXpath = amBeforelist+i+amAfterList2;
-				WebElement element = driver.findElement(By.xpath(actualXpath));
+				WebElement element = getDriver().findElement(By.xpath(actualXpath));
 
 				if (element.getText().equals(lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(1500);
 					int j= i-1;
-					driver.findElement(By.id("delete-license-"+j)).click();
+					getDriver().findElement(By.id("delete-license-"+j)).click();
 					break;
 				}
 			}
 
 			Thread.sleep(2500);
 			steps.createNode("2. Click on yes button from delete confirmation box");
-			driver.findElement(By.id("btn-yes")).click();
+			getDriver().findElement(By.id("btn-yes")).click();
 			Thread.sleep(1000); 
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "User agreement details deleted.");;
+			waitElementVisible(alertMessage);
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "User agreement details deleted.");;
 			test.pass("The user was able to delete the uploaded file from the table below successfully");
 			results.createNode("The user was able to delete the uploaded file from the table below successfully");
 			getScreenshot();
@@ -265,32 +267,32 @@ public class AgreementManagement {
 			steps.createNode("1. Click on delete icon next to uploaded file in table");
 			Thread.sleep(1000);
 
-			driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(0).fileName);
+			getDriver().findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(0).fileName);
 			Thread.sleep(2000);
 
 
 			for (int i=1; i<=15; i++) {
 				String actualXpath = amBeforeGrid+i+"]/p[1]";
-				WebElement element = driver.findElement(By.xpath(actualXpath));
+				WebElement element = getDriver().findElement(By.xpath(actualXpath));
 
 				if (element.getText().equals(lstAgreemmentManagementFileName.get(0))) {
 					Thread.sleep(500);
 					int j = i-1;
 
-					((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", element); 
 					Thread.sleep(500);
-					driver.findElement(By.id("del-license-ic-"+j)).click();
+					getDriver().findElement(By.id("del-license-ic-"+j)).click();
 					break;
 				}
 			}
 
 			Thread.sleep(1000);
 			steps.createNode("2. Click on yes button from delete confirmation box");
-			driver.findElement(By.id("btn-yes")).click();
+			getDriver().findElement(By.id("btn-yes")).click();
 			Thread.sleep(1000); 
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "User agreement details deleted.");;
+			waitElementVisible(alertMessage);
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "User agreement details deleted.");;
 			test.pass("The user was able to delete the uploaded file from the table below successfully");
 			results.createNode("The user was able to delete the uploaded file from the table below successfully");
 			getScreenshot();
@@ -326,40 +328,35 @@ public class AgreementManagement {
 			steps.createNode("1. Click on filename in user agreement name column and rename the file");
 			getScreenshot();
 
-			driver.findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(0).fileName);
+			getDriver().findElement(By.cssSelector("#file-license")).sendKeys(System.getProperty("user.dir")+lstAgreementManagement.get(0).fileName);
 			Thread.sleep(3000);
 
-			List<WebElement> rows = driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			List<WebElement> rows = getDriver().findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
 			int count = rows.size();
 
 			for(int j = 1; j<count; j++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(0))) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(0))) {
 
-					ClickElement.clickByCss(driver, "tr:nth-child("+j+") td:nth-child(2)");
-			//		driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).clear();
+					ClickElement.clickByCss(getDriver(), "tr:nth-child("+j+") td:nth-child(2)");
 					Thread.sleep(3000);
-System.out.println(1);
+
 					
 					for (int i=1; i <=13; i++) {
-						driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
+						getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
 					}
-					//					driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
-					//					driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
-					//					driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
-					//					driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(Keys.BACK_SPACE);
-					driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(lstAgreemmentManagementFileName.get(1));
+					getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2) label")).sendKeys(lstAgreemmentManagementFileName.get(1));
 					break;
 				}
 			}
 
 			Thread.sleep(500);
-			ClickElement.clickById(driver, "progressbar-1");
+			ClickElement.clickById(getDriver(), "progressbar-1");
 			Thread.sleep(1000);
 
 			for(int j = 1; j<count; j++) {
 
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
-					WebElement element = driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)"));
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
+					WebElement element = getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)"));
 
 					Assert.assertEquals(element.getText(), lstAgreemmentManagementFileName.get(1));
 					test.pass("The user was able to rename the uploaded file successfully");
@@ -398,23 +395,23 @@ System.out.println(1);
 			steps.createNode("1. Click on deactivate toggle button in Actions column next to uploaded file");
 			getScreenshot();
 
-			List<WebElement> rows = driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			List<WebElement> rows = getDriver().findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
 			int count = rows.size();
 
 			for(int j = 1; j<count; j++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
 					Thread.sleep(500);
-					driver.findElement(By.id("status-license-"+j)).click();
+					getDriver().findElement(By.id("status-license-"+j)).click();
 					break;
 				}			
 			}
 
 			Thread.sleep(1000);
-			driver.findElement(By.id("btn-yes")).click();
+			getDriver().findElement(By.id("btn-yes")).click();
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "User agreement details updated.");;
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "User agreement details updated.");;
 			test.pass("The user was able to deactivate the uploaded file successfully");
 			results.createNode("The user was able to deactivate the uploaded file successfully");
 			getScreenshot();
@@ -452,21 +449,21 @@ System.out.println(1);
 
 			steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			WebElement element = driver.findElement(By.id("progressbar-2"));
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("progressbar-2")));
+			WebElement element = getDriver().findElement(By.id("progressbar-2"));
+			waitElementClickable(By.id("progressbar-2"));
 
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
-			JavascriptExecutor js = (JavascriptExecutor) driver;
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			js.executeScript("window.scrollBy(0,-100)");
 			Thread.sleep(500);
 
-			ClickElement.clickById(driver, "progressbar-2");
+			ClickElement.clickById(getDriver(), "progressbar-2");
 			Thread.sleep(500);
 			steps.createNode("2. Search for deactivated file");
-			driver.findElement(By.cssSelector(".ng-input input")).sendKeys(lstAgreemmentManagementFileName.get(1));
+			getDriver().findElement(By.cssSelector(".ng-input input")).sendKeys(lstAgreemmentManagementFileName.get(1));
 			Thread.sleep(500);
 
-			Assert.assertEquals(driver.findElement(By.cssSelector(".ng-option")).getText(), "No items found");
+			Assert.assertEquals(getDriver().findElement(By.cssSelector(".ng-option")).getText(), "No items found");
 			test.pass("The user was not able to see the deactivated file in User Agreement dropdown successfully");
 			results.createNode("The user was not able to see the deactivated file in User Agreement dropdown successfully");
 			getScreenshot();
@@ -482,7 +479,7 @@ System.out.println(1);
 			results.createNode("Deactivated file showed in User Agreement dropdown");
 			saveResult(ITestResult.FAILURE,ex);
 		}
-		driver.findElement(By.id("progressbar-1")).click();
+		getDriver().findElement(By.id("progressbar-1")).click();
 	}
 
 
@@ -505,23 +502,23 @@ System.out.println(1);
 
 			steps.createNode("1. Click on Activate toggle button again");
 
-			List<WebElement> rows = driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+			List<WebElement> rows = getDriver().findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
 			int count = rows.size();
 
 			for(int j = 1; j<count; j++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
 					Thread.sleep(500);
-					driver.findElement(By.id("status-license-"+j)).click();
+					getDriver().findElement(By.id("status-license-"+j)).click();
 					break;
 				}			
 			}
 
 			Thread.sleep(1000);
-			driver.findElement(By.id("btn-yes")).click();
+			getDriver().findElement(By.id("btn-yes")).click();
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "User agreement details updated.");;
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "User agreement details updated.");;
 			test.pass("The user was able to reactivate the deactivated file successfully");
 			results.createNode("The user was able to deactivate the uploaded file successfully");
 			getScreenshot();
@@ -560,21 +557,21 @@ System.out.println(1);
 
 			steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			WebElement element = driver.findElement(By.id("progressbar-2"));
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("progressbar-2")));
+			WebElement element = getDriver().findElement(By.id("progressbar-2"));
+			waitElementClickable(By.id("progressbar-2"));
 
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
-			JavascriptExecutor js = (JavascriptExecutor) driver;
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			js.executeScript("window.scrollBy(0,-100)");
 			Thread.sleep(500);
 
-			ClickElement.clickById(driver, "progressbar-2");
+			ClickElement.clickById(getDriver(), "progressbar-2");
 			Thread.sleep(500);
 			steps.createNode("2. Search for uploaded file in user agreement dropdown");
-			driver.findElement(By.cssSelector(".ng-input input")).sendKeys(lstAgreemmentManagementFileName.get(1));
+			getDriver().findElement(By.cssSelector(".ng-input input")).sendKeys(lstAgreemmentManagementFileName.get(1));
 			Thread.sleep(1000);
 
-			Assert.assertEquals(driver.findElement(By.cssSelector(".ng-option")).getText(), lstAgreemmentManagementFileName.get(1));
+			Assert.assertEquals(getDriver().findElement(By.cssSelector(".ng-option")).getText(), lstAgreemmentManagementFileName.get(1));
 			test.pass("The user was able to see the uploaded file in user agreement dropdown successfully on reactivating the file");
 			results.createNode("The user was able to see the uploaded file in user agreement dropdown successfully on reactivating the file");
 			getScreenshot();
@@ -591,7 +588,7 @@ System.out.println(1);
 			results.createNode("The user was not able to see the uploaded file in user agreement dropdown on reactivating the file");
 			saveResult(ITestResult.FAILURE,ex);
 		}
-		driver.findElement(By.id("progressbar-1")).click();
+		getDriver().findElement(By.id("progressbar-1")).click();
 	}
 
 
@@ -614,15 +611,15 @@ System.out.println(1);
 
 			steps.createNode("1. Go to Apply User Agreement page");
 			Thread.sleep(500);
-			driver.findElement(By.id("progressbar-2")).click();
+			getDriver().findElement(By.id("progressbar-2")).click();
 			Thread.sleep(500);
 			steps.createNode("2. Search for user is search bar");
-			driver.findElement(By.id("userSearchId")).sendKeys("QA");
+			getDriver().findElement(By.id("userSearchId")).sendKeys("QA");
 			Thread.sleep(500);
-			driver.findElement(By.id("userSearchId")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.id("userSearchId")).sendKeys(Keys.ENTER);
 			Thread.sleep(1000);
 
-			if (Integer.parseInt(driver.findElement(By.xpath(amSearchNo)).getText()) >=1) {
+			if (Integer.parseInt(getDriver().findElement(By.xpath(amSearchNo)).getText()) >=1) {
 				test.pass("The user was able to search for the user in User Agreement page");
 				results.createNode("The user was able to search for the user in User Agreement page");
 				getScreenshot();
@@ -640,7 +637,7 @@ System.out.println(1);
 			results.createNode("The user was not able to search for the user in User Agreement page");
 			saveResult(ITestResult.FAILURE,ex);
 		}
-		driver.findElement(By.id("progressbar-1")).click();
+		getDriver().findElement(By.id("progressbar-1")).click();
 	}
 
 
@@ -659,14 +656,14 @@ System.out.println(1);
 			getScreenshot();
 			Thread.sleep(1000);
 			steps.createNode("1. Go to apply agreement page");
-			ClickElement.clickById(driver, "progressbar-2");
+			ClickElement.clickById(getDriver(), "progressbar-2");
 			Thread.sleep(3000);
 			steps.createNode("2. Click on organization radio button");
 
-			driver.findElement(By.id("ic-orgnType-1")).click();
+			getDriver().findElement(By.id("ic-orgnType-1")).click();
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "Please select user agreement.");;
+			waitElementVisible(alertMessage);
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "Please select user agreement.");;
 			test.pass("The user was not able to select radio button without selecting agreement from dropdown");
 			results.createNode("The user was not able to select radio button without selecting agreement from dropdown");
 			getScreenshot();
@@ -682,7 +679,7 @@ System.out.println(1);
 			results.createNode("The user was able to select radio button without selecting agreement from dropdown");
 			saveResult(ITestResult.FAILURE,ex);
 		}
-		driver.findElement(By.id("progressbar-1")).click();
+		getDriver().findElement(By.id("progressbar-1")).click();
 	}	
 
 
@@ -701,22 +698,22 @@ System.out.println(1);
 		preconditions.createNode("5. Upload a file");
 		preconditions.createNode("6. Go to Apply Agreement page and assign user with an agreement");
 
-		String filename = driver.findElement(By.id("eula-name-1")).getText();
+		String filename = getDriver().findElement(By.id("eula-name-1")).getText();
 
 		for (int i=0; i<2;i++) {
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
-			driver.findElement(By.id("progressbar-1")).click();
+			waitElementVisible(By.id("progressbar-1"));
+			getDriver().findElement(By.id("progressbar-1")).click();
 			Thread.sleep(1000);
 			steps.createNode("1. Deactivate the assigned agreement");
-			if (driver.findElements(By.cssSelector("#status-license-1 .wrapper-true")).size() == 1) {
-				driver.findElement(By.id("status-license-1")).click();
+			if (getDriver().findElements(By.cssSelector("#status-license-1 .wrapper-true")).size() == 1) {
+				getDriver().findElement(By.id("status-license-1")).click();
 			}
 			Thread.sleep(2000);
-			driver.findElement(By.id("btn-yes")).click();
+			getDriver().findElement(By.id("btn-yes")).click();
 			try {
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-				Assert.assertEquals(driver.findElement(By.id("message")).getText(), "User agreement details updated.");;
+				waitElementVisible(alertMessage);
+				Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "User agreement details updated.");;
 				test.pass("The user was able to deactivate assigned agreement successfully");
 				results.createNode("The user was able to deactivate assigned agreement successfully");
 				getScreenshot();
@@ -749,28 +746,28 @@ System.out.println(1);
 				preconditions.createNode("7. Deactivated the uploaded agreement");
 				ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 				steps.createNode("1. Go to user management page");
-				driver.get(url_user);
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+				getDriver().get(url_user);
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(2500); 
 
-				UserManagementModel.openEditUserPopup(config.ie_username());
+				UserManagementPage.openEditUserPopup(config.ie_username());
 				click(popupNextButton);
 				Thread.sleep(500);	
 				click(popupNextButton);
 				Thread.sleep(500);	
 				
 				steps.createNode("3. Search for the agreement in User Agreement dropdown");
-				ClickElement.clickById(driver, "euladdl");
+				ClickElement.clickById(getDriver(), "euladdl");
 				Thread.sleep(1000);
 				SoftAssert softAssert = new SoftAssert();
-				driver.findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(filename);
+				getDriver().findElement(By.cssSelector("#euladdl > div > div > div.ng-input > input[type=text]")).sendKeys(filename);
 				Thread.sleep(1000); 
 
 				if (i==0) {
-					softAssert.assertEquals(driver.findElements(By.cssSelector(".ng-option-disabled")).size(), "1", "'No items found' did not displayed on deactivating the agreement");
+					softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), "1", "'No items found' did not displayed on deactivating the agreement");
 				}
 				if (i==1) {
-					softAssert.assertEquals(driver.findElements(By.xpath("//*[contains(text(),'"+filename+"')]")).size(), 1, "Agreement did not displayed on deactivating the agreement");
+					softAssert.assertEquals(getDriver().findElements(By.xpath("//*[contains(text(),'"+filename+"')]")).size(), 1, "Agreement did not displayed on deactivating the agreement");
 				}
 				test.pass(lstAgreementManagementDeactivate.get(i).passMessage);
 				results.createNode(lstAgreementManagementDeactivate.get(i).passMessage);
@@ -788,8 +785,8 @@ System.out.println(1);
 				saveResult(ITestResult.FAILURE,ex);
 			}
 
-			driver.get(url_agreementManagement);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
+			getDriver().get(url_agreementManagement);
+			waitElementVisible(By.id("progressbar-1"));
 			Thread.sleep(1500);
 		}
 	}
@@ -811,18 +808,18 @@ System.out.println(1);
 			getScreenshot();
 
 			steps.createNode("1. Assign the agreement to some user or organization");
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("progressbar-1")));
+			waitElementVisible(By.id("progressbar-1"));
 			Thread.sleep(1000);
-			driver.findElement(By.id("progressbar-1")).click();
+			getDriver().findElement(By.id("progressbar-1")).click();
 			steps.createNode("2. Click on delete icon next to uploaded file in table");
 			Thread.sleep(1000);
-			driver.findElement(By.id("delete-license-0")).click();
+			getDriver().findElement(By.id("delete-license-0")).click();
 
 			steps.createNode("2. Click on yes button from delete confirmation box");
-			driver.findElement(By.id("btn-yes")).click();		
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().findElement(By.id("btn-yes")).click();		
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000); 
-			Assert.assertEquals(driver.findElement(By.id("message")).getText(), "This user agreement is already assigned. It cannot be deleted.");;
+			Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "This user agreement is already assigned. It cannot be deleted.");;
 			test.pass("The user was not able to delete the assigned agreement successfully");
 			results.createNode("The user was not able to delete the assigned agreement successfully");
 			getScreenshot();
@@ -844,23 +841,16 @@ System.out.println(1);
 	@Test (enabled= true, priority = 18) 
 	public void DeleteFile() throws InterruptedException, IOException {
 
-		List<WebElement> rows = driver.findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
+		List<WebElement> rows = getDriver().findElements(By.cssSelector("[class='ng-tns-c4-0'] tr"));
 		int count = rows.size();
 		for(int j = 1; j<count; j++) {
-			if (driver.findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
+			if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") td:nth-child(2)")).getText().equals(lstAgreemmentManagementFileName.get(1))) {
 				int x = j-1;
-				driver.findElement(By.id("delete-license-"+x)).click();
+				getDriver().findElement(By.id("delete-license-"+x)).click();
 				break;
 			}
 		}
 		Thread.sleep(2000);
-		driver.findElement(By.id("btn-yes")).click();	
-	}
-
-
-	@AfterTest
-	public static void endreport() {
-		extent.flush();
-		//driver.close();
+		getDriver().findElement(By.id("btn-yes")).click();	
 	}
 }

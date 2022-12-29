@@ -1,6 +1,8 @@
 package Test.Ancera.Ingestions;
 
 import static MiscFunctions.DateUtil.*;
+import static Models.IngestionsModel.piperId;
+import static Models.IngestionsModel.piperPassword;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -30,9 +32,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import MiscFunctions.Constants;
 import MiscFunctions.DB_Config;
-import MiscFunctions.ExtentVariables;
+import static MiscFunctions.Constants.*;
 import Models.IngestionsModel;
 import Models.RawImageCompareCountModel;
 import Models.ReportFilters;
@@ -41,10 +42,11 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+
 public class RawImageCountCompareCoccidia extends DB_Config {
 
 	@BeforeTest
-	public void extent() throws InterruptedException, IOException {
+	public void db_init() throws InterruptedException, IOException {
 		DB_Config.test();
 	}
 
@@ -65,14 +67,14 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
 					JSONObject json = new JSONObject();
-					json.put("piperid", IngestionsModel.piperId);
-					json.put("password", IngestionsModel.piperPassword);
-					json.put("DISAPIVersion", "15.2.0");
+					json.put("piperid", piperId);
+					json.put("password", piperPassword);
+					json.put("DISAPIVersion", "14.13");
 					request.body(json.toString());
-					Response response = request.post(Constants.api_login);
+			
+					Response response = request.post(api_login);
 					int code = response.getStatusCode();
 					Assert.assertEquals(code, 200);
-
 					String data = response.asString();
 					System.out.println(data);
 
@@ -86,7 +88,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 					request_announcement.header("Content-Type", "application/json");
 					request_announcement.header("Authorization", "bearer " +token);
 
-					HttpGet postRequest = new HttpGet(Constants.api_announcement);
+					HttpGet postRequest = new HttpGet(config.api_url()+"/runfilelist");
 					postRequest.addHeader("Content-Type", "application/json");
 					postRequest.addHeader("Authorization", "Bearer "+token);
 
@@ -113,7 +115,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 							request_startAssay.header("Content-Type", "application/json");
 							request_startAssay.header("Authorization", "bearer " +token);
 
-							HttpGet postRequest3 = new HttpGet(Constants.api_StartAssay);
+							HttpGet postRequest3 = new HttpGet(api_StartAssay);
 							postRequest3.addHeader("Content-Type", "application/json");
 							postRequest3.addHeader("Authorization", "Bearer "+token);
 
@@ -126,7 +128,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 							json4.put("PathogenName", objModel.pathogen);				
 
 							request_startAssay.body(json4.toString());
-							Response response3 = request_startAssay.post(Constants.api_StartAssay);
+							Response response3 = request_startAssay.post(api_StartAssay);
 
 							String data4 = response3.asString();
 							System.out.println(data4);
@@ -147,7 +149,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 						request_fileupload.header("Content-Type", "application/json");
 						request_fileupload.header("Authorization", "bearer " +token);
 
-						HttpGet postRequest1 = new HttpGet(Constants.api_RawImage);
+						HttpGet postRequest1 = new HttpGet(api_RawImage);
 						postRequest1.addHeader("Content-Type", "application/json");
 						postRequest1.addHeader("Authorization", "Bearer "+token);
 
@@ -197,7 +199,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 						json3.put("runMode", objModel.runMode);		
 
 						request_fileupload.body(json3.toString());
-						Response response2 = request_fileupload.post(Constants.api_RawImage);
+						Response response2 = request_fileupload.post(api_RawImage);
 						String data3 = response2.asString();
 						System.out.println(data3);
 

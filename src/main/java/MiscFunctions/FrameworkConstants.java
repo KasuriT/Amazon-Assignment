@@ -1,4 +1,4 @@
-package Constants;
+package MiscFunctions;
 
 import Enums.ConfigProperties;
 import Utilities.PropertyUtils;
@@ -18,6 +18,9 @@ public class FrameworkConstants {
 	
 	public static String OrganizationBulkSiteUploadInvalidFile = RESOURCESPATH+"\\BulkSiteUpload\\BulkSiteTemplateInvalid.xlsx";
 	public static String OrganizationBulkSiteUploadValidFile = RESOURCESPATH+"\\BulkSiteUpload\\BulkSiteTemplate.xlsx";
+	
+	public static String AnceraLogo = RESOURCESPATH+"\\Ancera_Logo\\ancera_logo.jpg";
+	
 	
 	public static String DataTemplateIdentificationColumnCheckFile = RESOURCESPATH+"\\Excel\\IndentificationFieldCheck.xlsx";
 	public static String NormalIngestionTemplateUpload = RESOURCESPATH+"\\Excel\\MetaData RunMode1.xlsx";
@@ -43,7 +46,20 @@ public class FrameworkConstants {
 	
 
 	
+	public static String RUNMODE_COL = "Runmode";
+	public static String DATA_SHEET = "TestData";
 	
+	public static String SUITE_SHEET = "Suite";
+	public static String SUITENAME_COL ="SuiteName";
+	
+	public static String TESTCASE_SHEET = "TestCases";
+	public static String TESTCASE_COL = "TestCases";
+	
+	public static String RUNMODE_YES = "Y";
+	public static String RUNMODE_NO = "N";
+	
+	public static String SUITE_XL_PATH = System.getProperty("user.dir") + "\\src\\test\\resources\\testdata\\Suite.xlsx";
+	public static String SUITE1_XL_PATH=System.getProperty("user.dir") + "\\src\\test\\resources\\testdata\\master.xlsx";
 	
 	public static String getExtentReportFilePath()  {
 		if(extentReportFilePath.isEmpty()) {
@@ -98,5 +114,7 @@ public class FrameworkConstants {
 //	public static String getChromeDriverPath() {
 //		return CHROMEDRIVERPATH;
 //	}
+	
+	
 
 }

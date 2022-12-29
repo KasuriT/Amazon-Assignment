@@ -3,8 +3,10 @@ package PageObjects;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
+import Config.BaseTest;
+
 import static MiscFunctions.Constants.*;
-import static MiscFunctions.Helper.*;
+import static MiscFunctions.Methods.*;
 import static PageObjects.BasePage.loading_cursor;
 
 public class SalmonellaLogPage {
@@ -155,7 +157,8 @@ public class SalmonellaLogPage {
 
 	
 	public static void openSalmonellaLogPage() {
-		driver.get(url_reports);
+		BaseTest driver = new BaseTest();
+		driver.getDriver().get(url_reports);
 		waitElementInvisible(loading_cursor);
 		click(salmonellaLogBox);
 		waitElementInvisible(loading_cursor);

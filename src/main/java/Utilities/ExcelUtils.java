@@ -11,7 +11,7 @@ import java.util.Map;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import Constants.FrameworkConstants;
+import MiscFunctions.FrameworkConstants;
 import Exceptions.FrameworkException;
 import Exceptions.InvalidPathForExcelException;
 

@@ -8,36 +8,39 @@ import java.util.Arrays;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
+import PageObjects.BasePage;
+
+import static MiscFunctions.Methods.*;
 import Test.Ancera.Login.LoginTest;
 
 import static Models.PiperSoftwareModel.*;
 
-public class PiperSoftwareManagement {
+public class PiperSoftwareManagement extends BaseTest{
 
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
 
 		ExtentVariables.spark = new 	ExtentSparkReporter("target/Reports/Administration_Piper_Software_Management"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("Piper Software Management Test Report"); 
-
-		Helper.config();
-		LoginTest.login();
 	}
 	
+	
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 	
 	@Test (description="Test Case: Navigate to Piper Software Management Screen",enabled= true, priority = 1) 
 	public void NavigatePSM() throws InterruptedException, IOException {
@@ -53,26 +56,26 @@ public class PiperSoftwareManagement {
 			ExtentVariables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			ExtentVariables.steps.createNode("1. Click on Piper Administration and select Piper Software Management");
 
-			Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-			Helper.driver.get(Constants.url_piperSoftware);
-			Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(BasePage.loading_cursor);
+			getDriver().get(Constants.url_piperSoftware);
+			waitElementInvisible(BasePage.loading_cursor);
 			Thread.sleep(1000);
-			String actual = Helper.driver.findElement(By.id("PIPER Software Management")).getText();
+			String actual = getDriver().findElement(By.id("PIPER Software Management")).getText();
 			String expected = "PIPER Software Management";
 
 			Assert.assertEquals(actual, expected); 
 			ExtentVariables.test.pass("User navigated successfully to PIPER Software Management screen");
 			ExtentVariables.results.createNode("User navigated successfully to PIPER Software Management screen");
-			Helper.getScreenshot();
-			Helper.saveResult(ITestResult.SUCCESS, null);
+			getScreenshot();
+			saveResult(ITestResult.SUCCESS, null);
 		}catch(AssertionError er) {
 			ExtentVariables.test.fail("User navigation failed");
 			ExtentVariables.results.createNode("PIPER Software Management failed to open");
-			Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}catch(Exception ex){
 			ExtentVariables.test.fail("User navigation failed");
 			ExtentVariables.results.createNode("PIPER Software Management failed to open");
-			Helper.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
 	
@@ -95,31 +98,31 @@ public class PiperSoftwareManagement {
 				Thread.sleep(2000);
 				ExtentVariables.steps.createNode("1. Click on dotted box; file explorer opens");
 				ExtentVariables.steps.createNode("2. Upload "+lstPSManagement.get(i).fileType+"and verify the file is uploaded and visible in box");
-				Helper.getScreenshot();
+				getScreenshot();
 			
-				Helper.driver.findElement(By.cssSelector(lstPSManagement.get(i).improcButton)).click();
+				getDriver().findElement(By.cssSelector(lstPSManagement.get(i).improcButton)).click();
 				
-				Helper.driver.findElement(By.cssSelector("#file-"+lstPSManagement.get(i).uploadButton)).sendKeys(System.getProperty("user.dir")+lstPSManagement.get(i).fileName);
+				getDriver().findElement(By.cssSelector("#file-"+lstPSManagement.get(i).uploadButton)).sendKeys(System.getProperty("user.dir")+lstPSManagement.get(i).fileName);
 
-				Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alrt")));
+				waitElementVisible(By.id("alrt"));
 				Thread.sleep(1000);
-				Assert.assertEquals(Helper.driver.findElement(By.id("message")).getText(), lstPSManagement.get(i).alertMessage);
+				Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), lstPSManagement.get(i).alertMessage);
 
 				ExtentVariables.test.pass(lstPSManagement.get(i).passMessage);
 				ExtentVariables.results.createNode(lstPSManagement.get(i).passMessage);
-				Helper.getScreenshot();
-				Helper.saveResult(ITestResult.SUCCESS, null);	
-				Helper.driver.findElement(By.cssSelector("#alrt > button")).click();
+				getScreenshot();
+				saveResult(ITestResult.SUCCESS, null);	
+				getDriver().findElement(By.cssSelector("#alrt > button")).click();
 			}
 			catch(AssertionError er) {
 				ExtentVariables.test.fail(lstPSManagement.get(i).failMessage);
 				ExtentVariables.results.createNode(lstPSManagement.get(i).failMessage);
-				Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+				saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 			catch(Exception ex) {
 				ExtentVariables.test.fail(lstPSManagement.get(i).failMessage);
 				ExtentVariables.results.createNode(lstPSManagement.get(i).failMessage);
-				Helper.saveResult(ITestResult.FAILURE, ex);
+				saveResult(ITestResult.FAILURE, ex);
 			}
 		}
 	}
@@ -155,7 +158,7 @@ public class PiperSoftwareManagement {
 			ExtentVariables.preconditions.createNode("3. Hover to sidebar to expand the menu");
 			ExtentVariables.preconditions.createNode("4. Click on Piper Administration and select Piper Software Management");
 
-			String a = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2)")).getText();
+			String a = getDriver().findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2)")).getText();
 			String lastFourDigits = "";
 			lastFourDigits = a.substring(a.length() - 2);
 			int i = Integer.parseInt(lastFourDigits) + 1; 
@@ -165,38 +168,32 @@ public class PiperSoftwareManagement {
 			Thread.sleep(1000);
 		//	String filename= newfile.getName();
 
-			Helper.driver.findElement(By.cssSelector("#file-userapp")).sendKeys(System.getProperty("user.dir")+"\\PSM_Files\\PiperUserApp_Installer.08.11.10."+i+".msi");
-			Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.cssSelector("#file-userapp")).sendKeys(System.getProperty("user.dir")+"\\PSM_Files\\PiperUserApp_Installer.08.11.10."+i+".msi");
+			waitElementInvisible(BasePage.loading_cursor);
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.id("btn-save")).click();
+			waitElementInvisible(BasePage.loading_cursor);
 			Thread.sleep(1000);
-			Helper.driver.findElement(By.id("btn-save")).click();
-			Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.id("btn-save")).click();
+			waitElementInvisible(BasePage.loading_cursor);
 			Thread.sleep(3000);
-			String b = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2)")).getText();
+			String b = getDriver().findElement(By.cssSelector("tr:nth-child(1) td:nth-child(2)")).getText();
 			Assert.assertEquals(b, "08.11.10."+i+"");
 			ExtentVariables.test.pass("Valid .msi file uploaded successfully");
 			ExtentVariables.results.createNode("Valid .msi file uploaded successfully");
-			Helper.getScreenshot();
-			Helper.saveResult(ITestResult.SUCCESS, null);
+			getScreenshot();
+			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			ExtentVariables.test.fail("Valid .msi file failed to upload");
 			ExtentVariables.results.createNode("Valid .msi file failed to upload");
-			Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			ExtentVariables.test.fail("Valid .msi file failed to upload");
 			ExtentVariables.results.createNode("Valid .msi file failed to upload");
-			Helper.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
-	}
-	
-	
-	@AfterTest
-	public static void endreport() {
-		ExtentVariables.extent.flush();
 	}
 	
 }

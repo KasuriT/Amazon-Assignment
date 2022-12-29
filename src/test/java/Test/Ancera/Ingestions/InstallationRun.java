@@ -8,10 +8,8 @@ import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -19,16 +17,18 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.ClickElement;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
 import Models.InstallationRunModel;
 import Models.ReportFilters;
+import PageObjects.BasePage;
 import PageObjects.CoccidiaLogPage;
 import PageObjects.SalmonellaLogPage;
 import Test.Ancera.Login.LoginTest;
+import static MiscFunctions.Methods.*;
 
 import static Models.IngestionsModel.*;
 import static PageObjects.SalmonellaLogPage.*;
@@ -37,19 +37,20 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class InstallationRun {
+public class InstallationRun extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/Installation_Run"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("Installation Run Test Report"); 
-
-		Helper.config();
-		LoginTest.login();
 	}
 
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
+	
 	@SuppressWarnings("unchecked") 
 	@Test (enabled= true, priority = 1) 
 	public void installationRunConfigSalmList() throws InterruptedException, IOException {
@@ -72,30 +73,31 @@ public class InstallationRun {
 				
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
-					Helper.driver.get(Constants.url_piperConfiguration);			
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().get(Constants.url_piperConfiguration);			
+					waitElementInvisible(BasePage.loading_cursor);
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1000);
 
 					for (int i = 1; i<=100; i++) {
-						if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
-							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionSalm)) {
+						if (getDriver().findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
+							if (getDriver().findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionSalm)) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("edit-installation-"+i)).click();
-								Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								getDriver().findElement(By.id("edit-installation-"+i)).click();
+								waitElementInvisible(BasePage.loading_cursor);
 								Thread.sleep(1000);
 								break;
 							}
 //							else {
-//								Helper.driver.findElement(By.id("PathogenName")).sendKeys("Salmonella");
-//								Helper.driver.findElement(By.id("PathogenName")).sendKeys(Keys.ENTER);
-//								Helper.driver.findElement(By.id("create-installation-run")).click();
-//								Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+//								getDriver().findElement(By.id("PathogenName")).sendKeys("Salmonella");
+//								getDriver().findElement(By.id("PathogenName")).sendKeys(Keys.ENTER);
+//								getDriver().findElement(By.id("create-installation-run")).click();
+//								waitElementInvisible(BasePage.loading_cursor);
 //								Thread.sleep(1000);
-//								Helper.driver.findElement(By.cssSelector("#ImprocName img")).click();
+//								getDriver().findElement(By.cssSelector("#ImprocName img")).click();
 //								Thread.sleep(800);
-//								Helper.driver.findElement(By.xpath("//*[contains(text(),'ImprocSalm01')]")).click();
-//								Helper.driver.findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Test_Variables.installationImprocVersionSalm);
-//								Helper.driver.findElement(By.xpath("//*[contains(text(),'Add New +')]")).click();
+//								getDriver().findElement(By.xpath("//*[contains(text(),'ImprocSalm01')]")).click();
+//								getDriver().findElement(By.cssSelector("#ImprocVersion input")).sendKeys(Test_Variables.installationImprocVersionSalm);
+//								getDriver().findElement(By.xpath("//*[contains(text(),'Add New +')]")).click();
 //								break;
 //							}
 						}
@@ -103,19 +105,19 @@ public class InstallationRun {
 
 					ExtentVariables.steps.createNode("2. Select improc name and improc version from dropdown");
 					ExtentVariables.steps.createNode("3. "+objModel.steps);
-					Helper.driver.findElement(By.id("MinMeanVal")).clear();
-					Helper.driver.findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
-					Helper.driver.findElement(By.id("MaxMeanVal")).clear();
-					Helper.driver.findElement(By.id("MaxMeanVal")).sendKeys(objFilter.MaxMean);
-					Helper.driver.findElement(By.id("MinStdVal")).clear();
-					Helper.driver.findElement(By.id("MinStdVal")).sendKeys(objFilter.MinStd);
-					Helper.driver.findElement(By.id("MaxStdVal")).clear();
-					Helper.driver.findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
-					Helper.driver.findElement(By.id("MinStdVal")).click();
-					Helper.getScreenshot();
-					Helper.driver.findElement(By.id("btn-save")).click();
+					getDriver().findElement(By.id("MinMeanVal")).clear();
+					getDriver().findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
+					getDriver().findElement(By.id("MaxMeanVal")).clear();
+					getDriver().findElement(By.id("MaxMeanVal")).sendKeys(objFilter.MaxMean);
+					getDriver().findElement(By.id("MinStdVal")).clear();
+					getDriver().findElement(By.id("MinStdVal")).sendKeys(objFilter.MinStd);
+					getDriver().findElement(By.id("MaxStdVal")).clear();
+					getDriver().findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
+					getDriver().findElement(By.id("MinStdVal")).click();
+					getScreenshot();
+					getDriver().findElement(By.id("btn-save")).click();
 					Thread.sleep(2000);
-					Helper.getScreenshot();
+					getScreenshot();
 					
 					RequestSpecification request = RestAssured.given();
 					request.header("Content-Type", "application/json");
@@ -216,93 +218,94 @@ public class InstallationRun {
 					Thread.sleep(75000);
 
 					SalmonellaLogPage.openSalmonellaLogPage();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(3000);
 
 					ExtentVariables.steps.createNode("4. Navigate to report and search for Ingested sample id");
-					Helper.driver.findElement(By.id("sampleId_show-filter")).click();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_show-filter")).click();
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(2000);
 
-					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_search-input")).clear();
+					getDriver().findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(3000);	
 
 					try {
-						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
+						getDriver().findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
 					}
 					catch (Exception ex) {
-						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+						ClickElement.clickByCss(getDriver(), "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					}
 
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1500);
 					System.out.println(z);
 					z++;
 
 					ExtentVariables.steps.createNode("5. Verify the status in QC Code column");
-					Helper.driver.findElement(By.id("sampleId_apply")).click();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_apply")).click();
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1500);					
 
 					for (int x=0; x<12; x++) {
-						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+slQCCodeCol)).getText();
+						String getData = getDriver().findElement(By.cssSelector("#row-"+x+" #col-"+slQCCodeCol)).getText();
 						System.out.println(getData);
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
 
-						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+slRunTypeCol+" label")).getText();
+						String getRunType = getDriver().findElement(By.cssSelector("#row-"+x+" #col-"+slRunTypeCol+" label")).getText();
 						Assert.assertEquals(getRunType, RunType_Installation, "Run Type is not displayed in table");
 
-						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-						Actions builder = new Actions(Helper.driver);
+						WebElement hover = getDriver().findElement(By.id("audit-trial-"+x));
+						Actions builder = new Actions(getDriver());
 						builder.moveToElement(hover).build().perform();
-						Constants.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-						Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Constants.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(closeAudit)));
+						waitElementClickable(By.id("audit-trial-"+x));
+						getDriver().findElement(By.id("audit-trial-"+x)).click();
+						waitElementInvisible(BasePage.loading_cursor);
+						waitElementClickable(By.cssSelector(closeAudit));
+
 						Thread.sleep(1500);
 
-						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditQCCodeCol+".text-dark")).getText();
+						String getAuditQCCode = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditQCCodeCol+".text-dark")).getText();
 						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 
-						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditRunTypeCol+".text-dark")).getText();
+						String getAuditRunType = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditRunTypeCol+".text-dark")).getText();
 						softAssert.assertEquals(getAuditRunType, RunType_Installation);
 						
 						if (objModel.runStartAssay) {
 							ExtentVariables.steps.createNode("Verify Action as 'Modified' in Audit log");
-							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							String getAuditAction = getDriver().findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Modified");
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
+							softAssert.assertEquals(getDriver().findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
 						}
 
 						if (!objModel.runStartAssay) {
 							ExtentVariables.steps.createNode("Verify Action as 'Created' in Audit log");
-							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							String getAuditAction = getDriver().findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Created");	
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
+							softAssert.assertEquals(getDriver().findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
 						}
 
-						Helper.getScreenshot();
-						Helper.driver.findElement(By.cssSelector(closeAudit)).click();
+						getScreenshot();
+						getDriver().findElement(By.cssSelector(closeAudit)).click();
 						Thread.sleep(800);
 					}
 			
-					Helper.getScreenshot();
+					getScreenshot();
 					softAssert.assertAll();	
 					ExtentVariables.test.pass(objModel.passStep);
 					ExtentVariables.results.createNode(objModel.passStep);
-					Helper.saveResult(ITestResult.SUCCESS,  null);
+					saveResult(ITestResult.SUCCESS,  null);
 					Thread.sleep(1000);		
 				}
 			}catch(AssertionError er) {
 				ExtentVariables.test.fail(objModel.failStep);
 				ExtentVariables.results.createNode(objModel.failStep);
-				Helper.saveResult(ITestResult.FAILURE,  new Exception(er));
+				saveResult(ITestResult.FAILURE,  new Exception(er));
 			}catch(Exception ex){
 				ExtentVariables.test.fail(objModel.failStep);
 				ExtentVariables.results.createNode(objModel.failStep);
-				Helper.saveResult(ITestResult.FAILURE,  ex);
+				saveResult(ITestResult.FAILURE,  ex);
 			}
 		}
 	}
@@ -330,16 +333,16 @@ public class InstallationRun {
 				
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
-					Helper.driver.get(Constants.url_piperConfiguration);			
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().get(Constants.url_piperConfiguration);			
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1000);
 
 					for (int i = 1; i<=100; i++) {
-						if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
-							if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionCocci)) {
+						if (getDriver().findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
+							if (getDriver().findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionCocci)) {
 								Thread.sleep(1000);
-								Helper.driver.findElement(By.id("edit-installation-"+i)).click();
-								Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								getDriver().findElement(By.id("edit-installation-"+i)).click();
+								waitElementInvisible(BasePage.loading_cursor);
 								Thread.sleep(1500);
 								break;
 							}
@@ -348,16 +351,16 @@ public class InstallationRun {
 
 					ExtentVariables.steps.createNode("2. Select improc name and improc version from dropdown");
 					ExtentVariables.steps.createNode("3. "+objModel.steps);
-					Helper.driver.findElement(By.id("MinMeanVal")).clear();
-					Helper.driver.findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
-					Helper.driver.findElement(By.id("MaxMeanVal")).clear();
-					Helper.driver.findElement(By.id("MaxMeanVal")).sendKeys(objFilter.MaxMean);
-					Helper.driver.findElement(By.id("MinStdVal")).clear();
-					Helper.driver.findElement(By.id("MinStdVal")).sendKeys(objFilter.MinStd);
-					Helper.driver.findElement(By.id("MaxStdVal")).clear();
-					Helper.driver.findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
-					Helper.driver.findElement(By.id("MinStdVal")).click();
-					Helper.driver.findElement(By.id("btn-save")).click();
+					getDriver().findElement(By.id("MinMeanVal")).clear();
+					getDriver().findElement(By.id("MinMeanVal")).sendKeys(objFilter.MinMean);
+					getDriver().findElement(By.id("MaxMeanVal")).clear();
+					getDriver().findElement(By.id("MaxMeanVal")).sendKeys(objFilter.MaxMean);
+					getDriver().findElement(By.id("MinStdVal")).clear();
+					getDriver().findElement(By.id("MinStdVal")).sendKeys(objFilter.MinStd);
+					getDriver().findElement(By.id("MaxStdVal")).clear();
+					getDriver().findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
+					getDriver().findElement(By.id("MinStdVal")).click();
+					getDriver().findElement(By.id("btn-save")).click();
 					Thread.sleep(2000);
 
 					////////////////////////////////////////////////////////////////////////////////////////
@@ -460,109 +463,103 @@ public class InstallationRun {
 					Thread.sleep(75000);
 
 					CoccidiaLogPage.openCoccidiaLogPage();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(2000);
 
 					ExtentVariables.steps.createNode("4. Navigate to report and search for Ingested sample id");
-					Helper.driver.findElement(By.id("sampleId_show-filter")).click();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_show-filter")).click();
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(2000);
 
-					Helper.driver.findElement(By.id("sampleId_search-input")).clear();
-					Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_search-input")).clear();
+					getDriver().findElement(By.id("sampleId_search-input")).sendKeys(objModel.sampleID);
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(3000);	
 
 					try {
-						Helper.driver.findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
+						getDriver().findElement(By.cssSelector("#sampleId_cust-cb-lst-txt_"+objModel.sampleID+" b")).click();
 					}
 					catch (Exception ex) {
-						ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
+						ClickElement.clickByCss(getDriver(), "#sampleId_cust-cb-lst-txt_"+objModel.sampleID);
 					}
 
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1500);
 					System.out.println(z);
 					z++;
 
 					ExtentVariables.steps.createNode("5. Verify the status in QC Code column");
-					Helper.driver.findElement(By.id("sampleId_apply")).click();
-					Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id("sampleId_apply")).click();
+					waitElementInvisible(BasePage.loading_cursor);
 					Thread.sleep(1500);				
 
 					for (int x=0; x<12; x++) {
-						String getData = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+CoccidiaLogPage.clQCCodeCol)).getText();
+						String getData = getDriver().findElement(By.cssSelector("#row-"+x+" #col-"+CoccidiaLogPage.clQCCodeCol)).getText();
 						System.out.println(getData);
 						Assert.assertEquals(getData, objModel.dataLogOutcome);
 
-						String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+x+" #col-"+CoccidiaLogPage.clRunTypeCol+" label")).getText();
+						String getRunType = getDriver().findElement(By.cssSelector("#row-"+x+" #col-"+CoccidiaLogPage.clRunTypeCol+" label")).getText();
 						Assert.assertEquals(getRunType, RunType_Installation, "Run Type is not displayed in table");
 
-						WebElement hover = Helper.driver.findElement(By.id("audit-trial-"+x));
-						Actions builder = new Actions(Helper.driver);
+						WebElement hover = getDriver().findElement(By.id("audit-trial-"+x));
+						Actions builder = new Actions(getDriver());
 						builder.moveToElement(hover).build().perform();
-						Constants.wait.until(ExpectedConditions.elementToBeClickable(By.id("audit-trial-"+x)));
-						Helper.driver.findElement(By.id("audit-trial-"+x)).click();
-						Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						Constants.wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(closeAudit)));
+						waitElementClickable(By.id("audit-trial-"+x));
+						getDriver().findElement(By.id("audit-trial-"+x)).click();
+						waitElementInvisible(BasePage.loading_cursor);
+						waitElementClickable(By.cssSelector(closeAudit));
 						Thread.sleep(1500);
 
-						String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+CoccidiaLogPage.clAuditQCCodeCol+".text-dark")).getText();
+						String getAuditQCCode = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+CoccidiaLogPage.clAuditQCCodeCol+".text-dark")).getText();
 						softAssert.assertEquals(getAuditQCCode, objModel.dataLogOutcome);
 
-						String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+CoccidiaLogPage.clAuditRunTypeCol+".text-dark")).getText();
+						String getAuditRunType = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+CoccidiaLogPage.clAuditRunTypeCol+".text-dark")).getText();
 						softAssert.assertEquals(getAuditRunType, RunType_Installation);
 
 						if (objModel.runStartAssay) {
-							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 1);
-							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-2")).size(), 0);
+							softAssert.assertEquals(getDriver().findElements(By.id("audit-action-1")).size(), 1);
+							softAssert.assertEquals(getDriver().findElements(By.id("audit-action-2")).size(), 0);
 						}
 						else {
-							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-0")).size(), 1);
-							softAssert.assertEquals(Helper.driver.findElements(By.id("audit-action-1")).size(), 0);
+							softAssert.assertEquals(getDriver().findElements(By.id("audit-action-0")).size(), 1);
+							softAssert.assertEquals(getDriver().findElements(By.id("audit-action-1")).size(), 0);
 						}
 						
 						if (objModel.runStartAssay) {
 							ExtentVariables.steps.createNode("Verify Action as 'Modified' in Audit log");
-							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							String getAuditAction = getDriver().findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Modified");
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
+							softAssert.assertEquals(getDriver().findElements(By.cssSelector(".popup-body tr")).size(), 3, "Rows in audit should be 2");
 						}
 						else {
 							ExtentVariables.steps.createNode("Verify Action as 'Created' in Audit log");
-							String getAuditAction = Helper.driver.findElement(By.id("audit-action-0")).getText();
+							String getAuditAction = getDriver().findElement(By.id("audit-action-0")).getText();
 							softAssert.assertEquals(getAuditAction, "Created");	
-							softAssert.assertEquals(Helper.driver.findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
+							softAssert.assertEquals(getDriver().findElements(By.cssSelector(".popup-body tr")).size(), 2, "Rows in audit should be 1");
 						}
 
-						Helper.getScreenshot();
-						Helper.driver.findElement(By.cssSelector(closeAudit)).click();
+						getScreenshot();
+						getDriver().findElement(By.cssSelector(closeAudit)).click();
 						Thread.sleep(800);
 					}
 					
-					Helper.getScreenshot();
+					getScreenshot();
 					softAssert.assertAll();
 					ExtentVariables.test.pass(objModel.passStep);
 					ExtentVariables.results.createNode(objModel.passStep);
-					Helper.saveResult(ITestResult.SUCCESS,  null);
+					saveResult(ITestResult.SUCCESS,  null);
 					Thread.sleep(1000);		
 				}
 			}catch(AssertionError er) {
 				ExtentVariables.test.fail(objModel.failStep);
 				ExtentVariables.results.createNode(objModel.failStep);
-				Helper.saveResult(ITestResult.FAILURE,  new Exception(er));
+				saveResult(ITestResult.FAILURE,  new Exception(er));
 			}catch(Exception ex){
 				ExtentVariables.test.fail(objModel.failStep);
 				ExtentVariables.results.createNode(objModel.failStep);
-				Helper.saveResult(ITestResult.FAILURE,  ex);
+				saveResult(ITestResult.FAILURE,  ex);
 			}
 		}
 	}
 
-
-	@AfterTest
-	public static void endreport() {
-		ExtentVariables.extent.flush();
-		//	Helper.driver.close();
-	}
 }

@@ -33,7 +33,6 @@ import org.testng.asserts.SoftAssert;
 
 import MiscFunctions.Constants;
 import MiscFunctions.DB_Config;
-import MiscFunctions.ExtentVariables;
 import Models.IngestionsModel;
 import Models.RawImageCompareCountModel;
 import Models.ReportFilters;

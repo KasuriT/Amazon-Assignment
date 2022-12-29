@@ -7,7 +7,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -15,10 +14,10 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
 import Models.APIVersionModel;
 import Models.IngestionsModel;
 import Models.ReportFilters;
@@ -27,7 +26,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class TestVersion {
+public class TestVersion extends BaseTest{
 
 	
 	@BeforeTest
@@ -35,7 +34,6 @@ public class TestVersion {
 
 		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/API Version Test"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("API Version Test Report"); 
-		Helper.config();
 	}
 	
 	
@@ -216,26 +214,21 @@ public class TestVersion {
 		
 					ExtentVariables.test.pass("API Version test verified successfully");
 					ExtentVariables.results.createNode("API Version test verified successfully");
-					Helper.saveResult(ITestResult.SUCCESS, null);			
+					saveResult(ITestResult.SUCCESS, null);			
 				}
 			}
 			catch(AssertionError er) {
 				ExtentVariables.test.fail("API Version test failed");
 				ExtentVariables.results.createNode("API Version test failed");
-				Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+				saveResult(ITestResult.FAILURE, new Exception(er));
 			}catch(Exception ex){
 				ExtentVariables.test.fail("API Version test failed");
 				ExtentVariables.results.createNode("API Version test failed");
-				Helper.saveResult(ITestResult.FAILURE, ex);
+				saveResult(ITestResult.FAILURE, ex);
 			}
 		}
 	}
 	
-	@AfterTest
-	public static void endreport() {
-		ExtentVariables.extent.flush();
-		Helper.driver.close();
-	}
 }
 
 

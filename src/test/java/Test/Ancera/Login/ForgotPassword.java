@@ -6,14 +6,13 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.RetryFailedCases;
@@ -21,29 +20,28 @@ import PageObjects.LoginPage;
 
 import static PageObjects.BasePage.*;
 import static PageObjects.ForgotPasswordPage.*;
-import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
 import static Models.ForgotPasswordModel.*;
+import static MiscFunctions.Methods.*;
 
 
-public class ForgotPassword {
+public class ForgotPassword extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws MalformedURLException {
 		spark = new ExtentSparkReporter("target/Reports/Forgot_Password"+DateUtil.date+".html");
 		spark.config().setReportName("Forgot Password Test Report"); 
-		config();
+	//	config();
 	}
 
 	@Test(enabled=true, priority= 1)
 	public void SendEmailLink() throws InterruptedException, IOException {
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("forgot-password-1")));
-		driver.findElement(By.id("forgot-password-1")).click();
+		waitElementClickable(By.id("forgot-password-1"));
+		getDriver().findElement(By.id("forgot-password-1")).click();
 
 		for (int i = 0; i<lstFpEmail.size(); i++) {
 			try {
-				test = extent.createTest(lstFpTestCase.get(i), lstFpTestCaseDescription.get(i));
+				test = extent.createTest(lstFpTestCase.get(i));
 				waitElementVisible(LoginPage.loginEmail);
 				Thread.sleep(1000);
 				clear(LoginPage.loginEmail);
@@ -53,7 +51,7 @@ public class ForgotPassword {
 				click(forgotPasswordButton);
 				
 				waitElementVisible(alertMessage);
-				String actual = driver.findElement(alertMessage).getText();
+				String actual = getDriver().findElement(alertMessage).getText();
 				String expected = lstFpAlertMessages.get(i) ;
 
 				Assert.assertEquals(actual, expected); 
@@ -70,7 +68,7 @@ public class ForgotPassword {
 				saveResult(ITestResult.FAILURE, ex);
 			}
 			Thread.sleep(1000);
-			driver.findElement(alertClose).click();
+			getDriver().findElement(alertClose).click();
 		}
 	}
 
@@ -79,7 +77,7 @@ public class ForgotPassword {
 		try {
 			test = extent.createTest("AN-FP-03: Verify user receives reset password link");
 
-			driver.get(Constants.url_GmailSignin);			
+			getDriver().get(Constants.url_GmailSignin);			
 			type(By.xpath(gmailEmail), forgotPassword_email);
 			enterKey(By.xpath(gmailEmail));
 			
@@ -98,9 +96,9 @@ public class ForgotPassword {
 				}	
 			}
 	
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='yW']/span")));
+			waitElementVisible(By.xpath("//*[@class='yW']/span"));
 			Thread.sleep(2000);
-			List<WebElement> a = driver.findElements(By.xpath("//*[@class='yW']/span"));
+			List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
 			for(int i=0;i<a.size();i++){
 				if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
 
@@ -110,8 +108,8 @@ public class ForgotPassword {
 			}
 
 			Thread.sleep(2000);  
-			Assert.assertTrue(driver.findElement(By.xpath(("//*[text()='Reset Password']"))).isDisplayed());
-			driver.findElement(By.xpath(("//*[text()='Reset Password']"))).click();
+			Assert.assertTrue(getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).isDisplayed());
+			getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).click();
 
 			test.pass("Email with reset password link received successfully");
 			getScreenshot();
@@ -127,16 +125,16 @@ public class ForgotPassword {
 		}
 		
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
+		getDriver().findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
 			
 		Thread.sleep(2000); 
-		String currentTabHandle = driver.getWindowHandle();
-		String newTabHandle = driver.getWindowHandles()
+		String currentTabHandle = getDriver().getWindowHandle();
+		String newTabHandle = getDriver().getWindowHandles()
 				.stream()
 				.filter(handle -> !handle.equals(currentTabHandle ))
 				.findFirst()
 				.get();
-		driver.switchTo().window(newTabHandle);
+		getDriver().switchTo().window(newTabHandle);
 		Thread.sleep(2000);  
 
 	}
@@ -147,34 +145,33 @@ public class ForgotPassword {
 		try {
 			test = extent.createTest("AN-FP-04: Verify user can reset password and login with new credentials");
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordId")));
+			waitElementVisible(By.id("passwordId"));
 			Thread.sleep(1000);
-			driver.findElement(By.id(("passwordId"))).sendKeys(forgotPassword_resetPassword);
-			driver.findElement(By.id(("rePassordId"))).sendKeys(forgotPassword_resetPassword);
-			driver.findElement(By.xpath(("/html/body/app-root/div/app-reset-password/div/div[3]/form/button"))).click(); 
+			getDriver().findElement(By.id(("passwordId"))).sendKeys(forgotPassword_resetPassword);
+			getDriver().findElement(By.id(("rePassordId"))).sendKeys(forgotPassword_resetPassword);
+			getDriver().findElement(By.xpath(("/html/body/app-root/div/app-reset-password/div/div[3]/form/button"))).click(); 
 			Thread.sleep(1500);
 
-			if (driver.findElements(alertMessage).size() != 0) {
+			if (getDriver().findElements(alertMessage).size() != 0) {
 				click(alertClose);
 			}
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
+			waitElementVisible(By.id("email"));
 			Thread.sleep(2000);
-			driver.findElement(By.id("email")).sendKeys(forgotPassword_email);
-			driver.findElement(By.id("pwd")).clear();
-			driver.findElement(By.id("pwd")).sendKeys(forgotPassword_resetPassword);
+			getDriver().findElement(By.id("email")).sendKeys(forgotPassword_email);
+			getDriver().findElement(By.id("pwd")).clear();
+			getDriver().findElement(By.id("pwd")).sendKeys(forgotPassword_resetPassword);
 			getScreenshot();
-			driver.findElement(By.id("btn-sign-in")).click();
+			getDriver().findElement(By.id("btn-sign-in")).click();
 
 			Thread.sleep(1500);
-			if (driver.findElements(By.cssSelector("div button.footer__btn-main")).size() != 0) {
-				driver.findElement(By.cssSelector("div button.footer__btn-main")).click();
+			if (getDriver().findElements(By.cssSelector("div button.footer__btn-main")).size() != 0) {
+				getDriver().findElement(By.cssSelector("div button.footer__btn-main")).click();
 			}
 			
-			
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Ancera Intelligence Engine")));
+			waitElementVisible(By.id("Ancera Intelligence Engine"));
 			Thread.sleep(2000);
-			Assert.assertTrue(driver.findElement(By.id("open-profile")).isDisplayed());
+			Assert.assertTrue(getDriver().findElement(By.id("open-profile")).isDisplayed());
 			test.pass("User successfully logged into the account with new credentials");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
@@ -188,10 +185,10 @@ public class ForgotPassword {
 		}
 	}
 
-	@AfterTest
-	public static void endreport() {
-		extent.flush();
-		driver.quit();
-	}
+//	@AfterTest
+//	public static void endreport() {
+//		extent.flush();
+//		getDriver().quit();
+//	}
 }
 

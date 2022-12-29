@@ -1,18 +1,9 @@
 package Models;
 
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getText;
-import static MiscFunctions.Helper.waitElementInvisible;
-import static PageObjects.BasePage.loading_cursor;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.openqa.selenium.By;
-
 import MiscFunctions.DateUtil;
-import MiscFunctions.Helper;
 import static PageObjects.FlockManagementPage.*;
 
 
@@ -239,27 +230,5 @@ public class FlockManagementModel {
 	}
 	
 	
-    public static void openFlockAudit() throws InterruptedException, IOException {
-        Helper.click(flockMortalityTab);
-        
-        for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {     
-            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
-                int j = i-1;
-                driver.findElement(By.id("audit-trial-"+j)).click();
-        
-                waitElementInvisible(loading_cursor);    
-                Thread.sleep(1500);    
-                break;
-            }}}
-	
-    
-    public static void openEditFlock() throws InterruptedException, IOException {
-        Helper.click(flockMortalityTab);
-        for(int i=1; i<driver.findElements(By.cssSelector("tr")).size(); i++) {
-            if (driver.findElement(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorCol+" label")).getText().equals(FlockManagementModel.flockIntegratorID)) {
-                driver.findElement(By.id("edit-feed-program-"+i)).click();
-                waitElementInvisible(loading_cursor);    
-                Thread.sleep(1500);    
-            }
-        }}
+
 }

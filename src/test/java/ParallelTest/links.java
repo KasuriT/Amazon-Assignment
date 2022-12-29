@@ -1,12 +1,19 @@
-package MiscFunctions;
+package ParallelTest;
+
+
+import java.time.Duration;
 
 import org.aeonbits.owner.ConfigFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import Config.ReadPropertyFile;
 
-public class Constants {
+public class links {
 
+	public static WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Duration.ofSeconds(150, 1));
 	public static ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 	
+
 	public static String url_login = config.url()+"/auth/sign-in";
 	public static String url_fp = config.url()+"/auth/forgot-password";
 	public static String url_home = config.url()+"/home";
@@ -37,12 +44,12 @@ public class Constants {
 	public static String api_login = config.api_url()+"/login";
 	public static String api_announcement = config.api_url()+"/runfilelist";
 	public static String api_FileUpload = config.api_url()+"/fileupload";
-	public static String api_StartAssay = config.api_url()+"/startAssay?apiVersion="+config.version();
-	public static String api_RawImage = config.api_url()+"/rawimgupload?apiVersion="+config.version();
-	public static String api_FileRequest = config.api_url()+"/filerequest?apiVersion="+config.version();
-	public static String api_MPNSettingRequest = config.api_url()+"/mpnsettingsrequest?apiVersion="+config.version();
-	public static String api_UserListRequest = config.api_url()+"/userlistrequest?apiversion="+config.version();
-	public static String api_HeartBeat = config.api_url()+"/heartbeat?apiversion="+config.version();
+	public static String api_StartAssay = config.api_url()+"/startAssay?apiVersion=18.0";
+	public static String api_RawImage = config.api_url()+"/rawimgupload?apiVersion=18.0";
+	public static String api_FileRequest = config.api_url()+"/filerequest?apiVersion=17.0";
+	public static String api_MPNSettingRequest = config.api_url()+"/mpnsettingsrequest?apiVersion=17.0";
+	public static String api_UserListRequest = config.api_url()+"/userlistrequest?apiversion=18.0";
+	public static String api_HeartBeat = config.api_url()+"/heartbeat?apiversion=17.0";
 	public static String api_SystemLogs = config.api_url()+"/systemlogs";
 	
 }

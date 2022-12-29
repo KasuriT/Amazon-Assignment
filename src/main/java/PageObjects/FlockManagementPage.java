@@ -1,6 +1,10 @@
 package PageObjects;
 
+import static PageObjects.BasePage.loading_cursor;
+import java.io.IOException;
 import org.openqa.selenium.By;
+import static MiscFunctions.Methods.*;
+import Models.FlockManagementModel;
 
 public class FlockManagementPage {
 
@@ -267,4 +271,31 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static String flockPlacementAuditFileName = "Placement Audit Log - ";
 	
 	public static String flockCSVFileName = "Flock Registration Log - ";
+	
+	
+	
+    public static void openFlockAudit() throws InterruptedException, IOException {
+        click(flockMortalityTab);
+        
+        for(int i=1; i<size(By.cssSelector("tr")); i++) {     
+            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
+                int j = i-1;
+                click(By.id("audit-trial-"+j));
+                waitElementInvisible(loading_cursor);    
+                Thread.sleep(1500);    
+                break;
+            }}}
+	
+    
+    public static void openEditFlock() throws InterruptedException, IOException {
+        click(flockMortalityTab);
+        for(int i=1; i<size(By.cssSelector("tr")); i++) {
+            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
+                click(By.id("edit-feed-program-"+i));
+                waitElementInvisible(loading_cursor);    
+                Thread.sleep(1500);    
+            }
+        }}
+	
+	
 }

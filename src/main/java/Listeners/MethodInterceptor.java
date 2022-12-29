@@ -8,7 +8,7 @@ import org.testng.IMethodInstance;
 import org.testng.IMethodInterceptor;
 import org.testng.ITestContext;
 
-import Constants.FrameworkConstants;
+import MiscFunctions.FrameworkConstants;
 import Utilities.ExcelUtils;
 
 public class MethodInterceptor implements IMethodInterceptor{

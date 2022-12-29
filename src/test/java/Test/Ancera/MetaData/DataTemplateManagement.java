@@ -16,7 +16,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -27,32 +26,39 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import Config.ReadPropertyFile;
-import Constants.FrameworkConstants;
+import MiscFunctions.FrameworkConstants;
+import MiscFunctions.Methods;
 import MiscFunctions.DateUtil;
 import MiscFunctions.NavigateToScreen;
 import Models.DataTemplateModel;
-import Models.UserManagementModel;
+import PageObjects.UserManagementPage;
 import Test.Ancera.Login.LoginTest;
 
 import static PageObjects.DataTemplateManagementPage.*;
 import static PageObjects.BasePage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
 import static Models.DataTemplateModel.*;
+import static MiscFunctions.Methods.*;
 
-public class DataTemplateManagement{
+public class DataTemplateManagement extends BaseTest{
 
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/MetaData_Template_Management"+DateUtil.date+".html");
-		spark.config().setReportName("Data TemplateManagement Test Report"); 
-		config();
-		LoginTest.login();
+		spark.config().setReportName("Data Template Management Test Report"); 
 	}
 
+	
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		System.out.println("Test 1: "+Thread.currentThread().getId());
+		LoginTest.login();
+	}
+	
 	
 	@Test(priority= 1, enabled = true)
 	public void Navigate() throws InterruptedException, IOException {
@@ -63,18 +69,7 @@ public class DataTemplateManagement{
 	@Test (description="Exceptional Flow: Reset field check", enabled= true, priority= 2) 
 	public void ResetFieldCheck() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-DTM-02: Verify user can reset Create Template fields", "This test case will verify that user is able to reset create template field");
-			preconditions = test.createNode(Scenario.class, PreConditions);
-			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
-			steps.createNode("1. Click on Create New button");
-			steps.createNode("2. Enter template name and description");
-			steps.createNode("3. Click on reset button");
+			test = extent.createTest("AN-DTM-02: Verify user can reset Create Template fields");
 
 			click(dtmCreateButton);
 			waitElementInvisible(loading_cursor);
@@ -88,23 +83,20 @@ public class DataTemplateManagement{
 			click(popupResetButton);
 			Thread.sleep(1500);
 
-			String nameActual = driver.findElement(dtmName).getText();
-			String descActual = driver.findElement(dtmDesc).getText();	
+			String nameActual = getDriver().findElement(dtmName).getText();
+			String descActual = getDriver().findElement(dtmDesc).getText();	
 
 			Assert.assertTrue(nameActual.isEmpty(), "Name field was not reset");
 			Assert.assertTrue(descActual.isEmpty(), "Description field was not reset");
 			test.pass("Template fields reset successfully");
-			results.createNode("Template fields reset successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 		}catch(AssertionError er) {
 			test.fail("Template fields failed to reset");
-			results.createNode("Template fields failed to reset");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Template fields failed to reset");
-			results.createNode("Template fields failed to reset");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}	
@@ -113,31 +105,26 @@ public class DataTemplateManagement{
 	@Test (description="Exceptional Flow: Column Reset field check", enabled= true, priority= 3) 
 	public void ClmResetFieldCheck() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-DTM-03: Verify user can reset Template Column fields", "This test case will verify that user is able to reset template column fields");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-DTM-03: Verify user can reset Template Column fields");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
 			steps.createNode("1. Click on Create New button");
 			steps.createNode("2. Enter data in template column fields");
 			steps.createNode("3. Click on reset button");
 
-			driver.findElement(dtmClmName).sendKeys("Test");
+			getDriver().findElement(dtmClmName).sendKeys("Test");
 			Thread.sleep(750);
-			driver.findElement(dtmClmDefaultValue).sendKeys("100");
+			getDriver().findElement(dtmClmDefaultValue).sendKeys("100");
 			Thread.sleep(750);
-			driver.findElement(dtmClmLength).sendKeys("100");
+			getDriver().findElement(dtmClmLength).sendKeys("100");
 			Thread.sleep(750);
 			getScreenshot();
-			driver.findElement(By.id("btn-reset-field")).click();
+			getDriver().findElement(By.id("btn-reset-field")).click();
 			Thread.sleep(1000);
 
-			String nameActual = driver.findElement(By.id("ColNameID")).getText();
-			String defaultValueActual = driver.findElement(By.id("defaultValueId")).getText();	
-			String lengthActual = driver.findElement(By.id("colLengthId")).getText();
+			String nameActual = getDriver().findElement(By.id("ColNameID")).getText();
+			String defaultValueActual = getDriver().findElement(By.id("defaultValueId")).getText();	
+			String lengthActual = getDriver().findElement(By.id("colLengthId")).getText();
 
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertTrue(nameActual.isEmpty(), "Name field was not reset");
@@ -165,42 +152,36 @@ public class DataTemplateManagement{
 	@Test (description="Exceptional Flow: Mandatory field check", enabled= true, priority= 4) 
 	public void MandatoryFieldCheck() throws InterruptedException, IOException {
 
-		driver.get(url_dataTemplate);	
+		getDriver().get(url_dataTemplate);	
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1500);
-		driver.findElement(dtmCreateButton).click();
+		getDriver().findElement(dtmCreateButton).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
 		for (DataTemplateModel objModel : lstDTMMandatoryCheck) {
 
 			test = extent.createTest(objModel.testcaseTitle, objModel.testcaseDesc);
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
-			preconditions.createNode("5. Click on Create New button, popup opens");
 			steps.createNode(objModel.step1);
 			steps.createNode("2. Click on save button");
 
-			driver.findElement(popupResetButton).click();
-			driver.findElement(dtmName).sendKeys(objModel.dtmName);
+			getDriver().findElement(popupResetButton).click();
+			getDriver().findElement(dtmName).sendKeys(objModel.dtmName);
 			Thread.sleep(1000);
-			driver.findElement(dtmDesc).sendKeys(objModel.dtmDesc);	
+			getDriver().findElement(dtmDesc).sendKeys(objModel.dtmDesc);	
 			Thread.sleep(1000);
 
 			getScreenshot();
-			driver.findElement(popupSaveButton).click(); 
+			getDriver().findElement(popupSaveButton).click(); 
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			if (driver.findElements(alertMessage).size() != 0) {
-				Actions actions = new Actions(driver);
-				actions.moveToElement(driver.findElement(alertMessageClose)).click().perform();
+			if (getDriver().findElements(alertMessage).size() != 0) {
+				Actions actions = new Actions(getDriver());
+				actions.moveToElement(getDriver().findElement(alertMessageClose)).click().perform();
 			}
 
 
@@ -210,12 +191,12 @@ public class DataTemplateManagement{
 				{
 					if ( objModel.dtmName.isEmpty())
 					{
-						Assert.assertEquals(driver.findElements(dtmNameValidation).size(), 1); 
+						Assert.assertEquals(getDriver().findElements(dtmNameValidation).size(), 1); 
 					}
 
 					if ( objModel.dtmDesc.isEmpty())
 					{
-						Assert.assertEquals(driver.findElements(dtmDescValidation).size(), 1); 
+						Assert.assertEquals(getDriver().findElements(dtmDescValidation).size(), 1); 
 					}
 
 					test.pass(objModel.passScenario);
@@ -239,9 +220,10 @@ public class DataTemplateManagement{
 
 			if (objModel.chkAlert)
 			{
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+				Methods.waitElementVisible(alertMessage);
 				Thread.sleep(1000);
-				String actual = driver.findElement(By.id("message")).getText();
+				
+				String actual = getDriver().findElement(By.id("message")).getText();
 				String expected = "Please select one column as key field";
 
 				try{
@@ -260,22 +242,22 @@ public class DataTemplateManagement{
 				{
 
 					Thread.sleep(1000);
-					driver.findElement(By.id("btn-reset-field")).click();
-					driver.findElement(dtmClmName).sendKeys(objModel.clmName);
+					getDriver().findElement(By.id("btn-reset-field")).click();
+					getDriver().findElement(dtmClmName).sendKeys(objModel.clmName);
 					Thread.sleep(1000);
 
 					if(objModel.clmType) {
-						driver.findElement(By.id("ColTypeId")).click();
+						getDriver().findElement(By.id("ColTypeId")).click();
 						Thread.sleep(1000);
-						driver.findElement(By.cssSelector(".ng-option:nth-child(1)")).click();			
+						getDriver().findElement(By.cssSelector(".ng-option:nth-child(1)")).click();			
 					}
 
-					driver.findElement(By.id("colLengthId")).sendKeys(objModel.clmLength);	
+					getDriver().findElement(By.id("colLengthId")).sendKeys(objModel.clmLength);	
 					Thread.sleep(1000);
 
+					waitElementVisible(By.id("btn-add-field"));
 
-					wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-add-field")));
-					driver.findElement(By.id("btn-add-field")).click(); 
+					getDriver().findElement(By.id("btn-add-field")).click(); 
 					Thread.sleep(1000);
 
 				}
@@ -284,12 +266,12 @@ public class DataTemplateManagement{
 
 					if ( objModel.clmName.isEmpty())
 					{
-						Assert.assertEquals(driver.findElements(dtmNameValidation).size(), 1); 
+						Assert.assertEquals(getDriver().findElements(dtmNameValidation).size(), 1); 
 					}
 
 					if ( objModel.clmLength.isEmpty())
 					{
-						Assert.assertEquals(driver.findElements(dtmNameValidation).size(), 1); 
+						Assert.assertEquals(getDriver().findElements(dtmNameValidation).size(), 1); 
 					}
 					test.pass(objModel.passScenario);
 					results.createNode(objModel.passScenario);
@@ -306,10 +288,10 @@ public class DataTemplateManagement{
 
 			if (objModel.verifyClm) {
 
-				WebElement filter_scroll = driver.findElement(By.id("edit-field-1"));
-				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+				WebElement filter_scroll = getDriver().findElement(By.id("edit-field-1"));
+				((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 
-				int actual =	driver.findElements(By.cssSelector(".dataformat-table-container tr")).size();
+				int actual =	getDriver().findElements(By.cssSelector(".dataformat-table-container tr")).size();
 				try{
 					Assert.assertEquals(actual, 2); 
 					test.pass("Column added successfully");
@@ -344,29 +326,29 @@ public class DataTemplateManagement{
 			steps.createNode("5. Click on save button");
 
 			SoftAssert softAssert = new SoftAssert();
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
-			int rowsActual = driver.findElements(By.cssSelector("tr")).size();
-			String rowsExpected = driver.findElement(By.id("results-found-count")).getText();
+			int rowsActual = getDriver().findElements(By.cssSelector("tr")).size();
+			String rowsExpected = getDriver().findElement(By.id("results-found-count")).getText();
 			softAssert.assertEquals(rowsActual-1, Integer.parseInt(rowsExpected), "Does not match the expected rows");
 
-			driver.findElement(dtmCreateButton).click();
+			getDriver().findElement(dtmCreateButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			driver.findElement(popupResetButton).click();
-			driver.findElement(dtmName).sendKeys(TemplateName);
+			getDriver().findElement(popupResetButton).click();
+			getDriver().findElement(dtmName).sendKeys(TemplateName);
 			Thread.sleep(1000);
-			driver.findElement(dtmDesc).sendKeys("Test Template created by Automation script");
+			getDriver().findElement(dtmDesc).sendKeys("Test Template created by Automation script");
 
-			driver.findElement(dtmClmReset).click();
-			driver.findElement(dtmClmName).sendKeys("ID");
-			driver.findElement(dtmClmType).click();
+			getDriver().findElement(dtmClmReset).click();
+			getDriver().findElement(dtmClmName).sendKeys("ID");
+			getDriver().findElement(dtmClmType).click();
 			Thread.sleep(1000);
 
 			String[] stringArray = {"Date", "String", "Decimal", "Time", "Integer"};
-			List<WebElement> op = driver.findElements(By.cssSelector(".ng-option-label"));
+			List<WebElement> op = getDriver().findElements(By.cssSelector(".ng-option-label"));
 			int size = op.size();
 			for(int i =0; i<size ; i++){
 				String options = op.get(i).getText();
@@ -374,24 +356,24 @@ public class DataTemplateManagement{
 				softAssert.assertEquals(options, stringArray[i]);
 			}
 
-			driver.findElement(By.cssSelector(".ng-option:nth-child(1)")).click();
-			driver.findElement(dtmClmLength).clear();
-			driver.findElement(dtmClmLength).sendKeys("25");	
-			driver.findElement(dtmClmAdd).click();
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(By.cssSelector(".ng-option:nth-child(1)")).click();
+			getDriver().findElement(dtmClmLength).clear();
+			getDriver().findElement(dtmClmLength).sendKeys("25");	
+			getDriver().findElement(dtmClmAdd).click();
+			getDriver().findElement(popupSaveButton).click();
 			Thread.sleep(1000);
 
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Please select one column as Key Field");
-			driver.findElement(dtmClmEdit).click();
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Please select one column as Key Field");
+			getDriver().findElement(dtmClmEdit).click();
 			Thread.sleep(1000);
-			driver.findElement(dtmKeyField).click();
-			driver.findElement(dtmClmSave).click();
+			getDriver().findElement(dtmKeyField).click();
+			getDriver().findElement(dtmClmSave).click();
 			Thread.sleep(1000);
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New data template created."); 
-			softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), DateUtil.dateMMDDYYYY1);
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New data template created."); 
+			softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) td:nth-child(3) label")).getText(), DateUtil.dateMMDDYYYY1);
 			softAssert.assertAll();
 			test.pass("New Template created successfully");
 			results.createNode("New Template created successfully; displays  an alert message 'New data template created.'");
@@ -406,7 +388,7 @@ public class DataTemplateManagement{
 			results.createNode("New Template failed to create");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		driver.findElement(alertMessageClose).click();
+		getDriver().findElement(alertMessageClose).click();
 	}
 
 
@@ -429,28 +411,28 @@ public class DataTemplateManagement{
 			steps.createNode("2. Make changes in template column");
 			steps.createNode("3. Click on save button");
 
-			for (int i=1;i<driver.findElements(By.cssSelector("tr")).size(); i++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
-					WebElement filter_scroll = driver.findElement(By.id("edit-data-format-"+i));
-					((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-					driver.findElement(By.id("edit-data-format-"+i)).click();
+			for (int i=1;i<getDriver().findElements(By.cssSelector("tr")).size(); i++) {
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
+					WebElement filter_scroll = getDriver().findElement(By.id("edit-data-format-"+i));
+					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+					getDriver().findElement(By.id("edit-data-format-"+i)).click();
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
 					break;
 				}
 			}	
 
-			WebElement filter_scroll = driver.findElement(dtmClmEdit);
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+			WebElement filter_scroll = getDriver().findElement(dtmClmEdit);
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 			Thread.sleep(1000);
-			driver.findElement(dtmClmEdit).click();
+			getDriver().findElement(dtmClmEdit).click();
 			Thread.sleep(1000);
-			driver.findElement(dtmClmDefaultValue).clear();  
-			driver.findElement(dtmClmDefaultValue).sendKeys("10");  
+			getDriver().findElement(dtmClmDefaultValue).clear();  
+			getDriver().findElement(dtmClmDefaultValue).sendKeys("10");  
 			Thread.sleep(1000);
-			driver.findElement(dtmClmSave).click();
+			getDriver().findElement(dtmClmSave).click();
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(By.cssSelector(".dataformat-table-container tr:nth-child(1) td:nth-child(5)")).getText(), "10"); 
+			Assert.assertEquals(getDriver().findElement(By.cssSelector(".dataformat-table-container tr:nth-child(1) td:nth-child(5)")).getText(), "10"); 
 			test.pass("Template column updated successfully");
 			results.createNode("Template column updated successfully");
 			getScreenshot();
@@ -486,14 +468,14 @@ public class DataTemplateManagement{
 			steps.createNode("3. Confirmation popup appears");
 			steps.createNode("4. Click on yes button");
 
-			WebElement filter_scroll = driver.findElement(dtmClmDelete);
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-			driver.findElement(dtmClmDelete).click();  //click on edit template column
+			WebElement filter_scroll = getDriver().findElement(dtmClmDelete);
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+			getDriver().findElement(dtmClmDelete).click();  //click on edit template column
 			Thread.sleep(2000);
 			getScreenshot();
-			driver.findElement(popupYesButton).click();
+			getDriver().findElement(popupYesButton).click();
 
-			Assert.assertEquals(driver.findElements(By.cssSelector(".dataformat-table-container tr")).size(), 1); 
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".dataformat-table-container tr")).size(), 1); 
 			test.pass("Template column updated successfully");
 			results.createNode("Template column updated successfully");
 			getScreenshot();
@@ -529,34 +511,34 @@ public class DataTemplateManagement{
 			steps.createNode("3. Click on save button");
 
 			waitElementInvisible(loading_cursor);	
-			driver.findElement(dtmClmReset).click();
-			driver.findElement(dtmClmName).sendKeys("ID");
-			driver.findElement(dtmClmType).click();
+			getDriver().findElement(dtmClmReset).click();
+			getDriver().findElement(dtmClmName).sendKeys("ID");
+			getDriver().findElement(dtmClmType).click();
 			Thread.sleep(1000);
-			driver.findElement(By.cssSelector(".ng-option:nth-child(2)")).click();	
-			driver.findElement(dtmClmLength).sendKeys("25");
+			getDriver().findElement(By.cssSelector(".ng-option:nth-child(2)")).click();	
+			getDriver().findElement(dtmClmLength).sendKeys("25");
 			Thread.sleep(1000);
-			driver.findElement(dtmKeyField).click();
+			getDriver().findElement(dtmKeyField).click();
 			Thread.sleep(1000);
-			driver.findElement(dtmClmAdd).click();
+			getDriver().findElement(dtmClmAdd).click();
 			Thread.sleep(1000);
 
 			//add identification column
-			driver.findElement(dtmClmName).sendKeys("Name");
-			driver.findElement(dtmClmType).click();
+			getDriver().findElement(dtmClmName).sendKeys("Name");
+			getDriver().findElement(dtmClmType).click();
 			Thread.sleep(1000);
-			driver.findElement(By.cssSelector(".ng-option:nth-child(2)")).click();	
+			getDriver().findElement(By.cssSelector(".ng-option:nth-child(2)")).click();	
 			Thread.sleep(1000);
-			driver.findElement(dtmIdentificationField).click();
+			getDriver().findElement(dtmIdentificationField).click();
 			Thread.sleep(1000);
-			driver.findElement(dtmClmAdd).click();
+			getDriver().findElement(dtmClmAdd).click();
 			Thread.sleep(1000);
 
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "Data template details updated."); 
+			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data template details updated."); 
 			test.pass("Template updated successfully");
 			results.createNode("Template updated successfully");
 			getScreenshot();
@@ -591,21 +573,21 @@ public class DataTemplateManagement{
 			steps.createNode("1. Click on update icon next to created template to open template in update mode");
 			steps.createNode("2. Click on export button");
 
-			int totalRows = driver.findElements(By.cssSelector("tr")).size();
+			int totalRows = getDriver().findElements(By.cssSelector("tr")).size();
 			for (int i=1; i<totalRows; i++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
-					WebElement filter_scroll = driver.findElement(By.id("delete-data-format-"+i));
-					((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-					driver.findElement(By.id("edit-data-format-"+i)).click();
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
+					WebElement filter_scroll = getDriver().findElement(By.id("delete-data-format-"+i));
+					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+					getDriver().findElement(By.id("edit-data-format-"+i)).click();
 					break;
 				}
 			}
 
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			driver.findElement(By.cssSelector(".export-csv-flock")).click();
+			getDriver().findElement(By.cssSelector(".export-csv-flock")).click();
 			Thread.sleep(1000);
-			driver.findElement(By.id("export-records")).click();
+			getDriver().findElement(By.id("export-records")).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(4000);
 
@@ -665,30 +647,30 @@ public class DataTemplateManagement{
 		try {
 			test = extent.createTest("AN-DTM-15: Verify identification column is not mandatory", "This test case will verify that identification column is not mandatory");
 
-			driver.get(url_dataUpload);
+			getDriver().get(url_dataUpload);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			driver.findElement(By.id("OrgnTypeID")).click();
-			driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-			driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.id("OrgnTypeID")).click();
+			getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+			getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1000);
-			driver.findElement(By.id("DataFormatId")).click();
-			driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(TemplateName);
-			driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.id("DataFormatId")).click();
+			getDriver().findElement(By.cssSelector("#DataFormatId input")).sendKeys(TemplateName);
+			getDriver().findElement(By.cssSelector("#DataFormatId input")).sendKeys(Keys.ENTER);
 			SoftAssert softAssert = new SoftAssert();
-			driver.findElement(By.id("file-input")).sendKeys(FrameworkConstants.DataTemplateIdentificationColumnCheckFile);
+			getDriver().findElement(By.id("file-input")).sendKeys(FrameworkConstants.DataTemplateIdentificationColumnCheckFile);
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			getScreenshot();
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "IndentificationFieldCheck.xlsx loaded successfully.", "File failed to load");
-			driver.findElement(By.cssSelector(".fa-save")).click();
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "IndentificationFieldCheck.xlsx loaded successfully.", "File failed to load");
+			getDriver().findElement(By.cssSelector(".fa-save")).click();
 			waitElementInvisible(loading_cursor);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
 			getScreenshot();
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "IndentificationFieldCheck.xlsx saved successfully.", "File failed to save; message not appeared");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "IndentificationFieldCheck.xlsx saved successfully.", "File failed to save; message not appeared");
 			softAssert.assertAll();
 			test.pass("Identification field check verified successfully");
 			saveResult(ITestResult.SUCCESS, null);
@@ -719,42 +701,42 @@ public class DataTemplateManagement{
 			steps.createNode("1. Inactivate the template");
 			steps.createNode("2. Go to data upload screen to verify that template is not visible there");
 
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 
-			int totalRows = driver.findElements(By.cssSelector("tr")).size();
+			int totalRows = getDriver().findElements(By.cssSelector("tr")).size();
 			for (int i=1; i<totalRows; i++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
-					WebElement filter_scroll = driver.findElement(By.id("delete-data-format-"+i));
-					((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-					driver.findElement(By.id("edit-data-format-"+i)).click();
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
+					WebElement filter_scroll = getDriver().findElement(By.id("delete-data-format-"+i));
+					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+					getDriver().findElement(By.id("edit-data-format-"+i)).click();
 					break;
 				}
 			}
 
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-			driver.findElement(dtmInactivateTemplate).click();
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(dtmInactivateTemplate).click();
+			getDriver().findElement(popupSaveButton).click();
 
 			waitElementInvisible(loading_cursor);	
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "Data template details updated."); 
+			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data template details updated."); 
 
-			driver.get(url_dataUpload);
+			getDriver().get(url_dataUpload);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 
-			driver.findElement(By.id("OrgnTypeID")).click();
-			driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
-			driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.id("OrgnTypeID")).click();
+			getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Ancera");
+			getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
 			Thread.sleep(1000);
-			driver.findElement(By.id("DataFormatId")).click();
-			driver.findElement(By.cssSelector("#DataFormatId input")).sendKeys(TemplateName);
+			getDriver().findElement(By.id("DataFormatId")).click();
+			getDriver().findElement(By.cssSelector("#DataFormatId input")).sendKeys(TemplateName);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElements(By.cssSelector(".ng-option-disabled")).size(), 1);
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), 1);
 			test.pass("Template was inactivated successfully");
 			results.createNode("Template was inactivated successfully");
 			getScreenshot();	
@@ -787,26 +769,26 @@ public class DataTemplateManagement{
 			steps.createNode("1. Click on delete icon next to created template; confirmation box popups");
 			steps.createNode("2. Click on yes button");
 
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 
-			int totalRows = driver.findElements(By.cssSelector("tr")).size();
+			int totalRows = getDriver().findElements(By.cssSelector("tr")).size();
 			for (int i=1; i<totalRows; i++) {
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
-					WebElement filter_scroll = driver.findElement(By.id("delete-data-format-"+i));
-					((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-					driver.findElement(By.id("delete-data-format-"+i)).click();
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals(TemplateName)) {
+					WebElement filter_scroll = getDriver().findElement(By.id("delete-data-format-"+i));
+					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+					getDriver().findElement(By.id("delete-data-format-"+i)).click();
 					break;
 				}
 			}
 
 			Thread.sleep(1000);
-			driver.findElement(popupYesButton).click();
+			getDriver().findElement(popupYesButton).click();
 			waitElementInvisible(loading_cursor);	
-			wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage));
+			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "Data template details deleted."); 
+			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data template details deleted."); 
 			test.pass("Template deleted successfully");
 			results.createNode("Template deleted successfully");
 			getScreenshot();	
@@ -842,14 +824,14 @@ public class DataTemplateManagement{
 
 			SoftAssert softAssert = new SoftAssert();
 			
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 			
-			for(int i=1; i<=Integer.parseInt(driver.findElement(By.id(ResultsCount)).getText()); i++) {
+			for(int i=1; i<=Integer.parseInt(getDriver().findElement(By.id(ResultsCount)).getText()); i++) {
 
-				if (driver.findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals("End of Flock Template")) {
-					driver.findElement(By.id("edit-data-format-"+i)).click();
+				if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") td:nth-child(1) label")).getText().equals("End of Flock Template")) {
+					getDriver().findElement(By.id("edit-data-format-"+i)).click();
 					waitElementInvisible(loading_cursor);	
 					Thread.sleep(2000);
 				}
@@ -873,11 +855,11 @@ public class DataTemplateManagement{
 					  "Integer", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal", "Decimal");
 		    
 			for(int i=1;i<columnName.size(); i++) {
-				softAssert.assertEquals(driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(3)  label")).getText(), columnName.get(i), driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(2)  label")).getText());
-				softAssert.assertEquals(driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(4)  label")).getText(), columnType.get(i), driver.findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(2)  label")).getText());
+				softAssert.assertEquals(getDriver().findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(3)  label")).getText(), columnName.get(i), getDriver().findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(2)  label")).getText());
+				softAssert.assertEquals(getDriver().findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(4)  label")).getText(), columnType.get(i), getDriver().findElement(By.cssSelector(".table-resp tr:nth-child("+i+") td:nth-child(2)  label")).getText());
 			}
 
-			driver.findElement(popupCloseButton).click();
+			getDriver().findElement(popupCloseButton).click();
 			softAssert.assertAll();
 			test.pass("EOF template columns verified successfully");
 			results.createNode("EOF template columns verified successfully");
@@ -914,14 +896,14 @@ public class DataTemplateManagement{
 
 			SoftAssert softAssert = new SoftAssert();
 
-			List<WebElement> templateNamesTable = driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
+			List<WebElement> templateNamesTable = getDriver().findElements(By.cssSelector("tr td:nth-child(1) label"));
 			int excludeBulkSiteTemplate = templateNamesTable.size() - 1;
 
-			driver.findElement(dtmClientMappingOpenButton).click();
+			getDriver().findElement(dtmClientMappingOpenButton).click();
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 			getScreenshot();	
-			List<WebElement> templateNamesClientMapping = driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
+			List<WebElement> templateNamesClientMapping = getDriver().findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 			
 			softAssert.assertEquals(templateNamesClientMapping.size(), excludeBulkSiteTemplate);
 			softAssert.assertAll();
@@ -949,11 +931,7 @@ public class DataTemplateManagement{
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
-			preconditions.createNode("5. Create a new template");
+			preconditions.createNode("1. Create a new template");
 			steps.createNode("1. Open Client mapping popup");
 			steps.createNode("2. Verify client dropdown in client mapping displays all clients assigned to user");		
 			
@@ -961,80 +939,82 @@ public class DataTemplateManagement{
 			
 			SoftAssert softAssert = new SoftAssert();
 
-			UserManagementModel.openEditUserPopup(config.ie_username());
+			UserManagementPage.openEditUserPopup(config.ie_username());
 			
-			driver.findElement(By.id("btn-next")).click();
+			getDriver().findElement(By.id("btn-next")).click();
 			Thread.sleep(1000);
-			driver.findElement(By.id("btn-next")).click();
+			getDriver().findElement(By.id("btn-next")).click();
 			getScreenshot();	
-			int userClientSites = driver.findElements(By.cssSelector(".site-tree-card")).size() - 1;
+			int userClientSites = getDriver().findElements(By.cssSelector(".site-tree-card")).size() - 1;
 			System.out.println("User client sites: "+userClientSites);
 			Thread.sleep(1000);
 			
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 			
-			List<WebElement> templateNamesTable = driver.findElements(By.cssSelector("tr td:nth-child(1) label"));
-			driver.findElement(dtmClientMappingOpenButton).click();
+			List<WebElement> templateNamesTable = getDriver().findElements(By.cssSelector("tr td:nth-child(1) label"));
+			getDriver().findElement(dtmClientMappingOpenButton).click();
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			driver.findElement(dtmClientMappingClientDropdown).click();
+			getDriver().findElement(dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);
 			getScreenshot();	
-			int MappingClientSites = driver.findElements(By.cssSelector(".ng-option")).size();
+			int MappingClientSites = getDriver().findElements(By.cssSelector(".ng-option")).size();
 			//check if all clients displays in dropdown which are assign to user
 			
 			System.out.println("Mapping: "+ MappingClientSites);
 		//	softAssert.assertEquals(userClientSites, MappingClientSites);
 			
-			driver.findElement(dtmClientMappingClientDropdown).click();
+			getDriver().findElement(dtmClientMappingClientDropdown).click();
 			Thread.sleep(1000);			
 			
+			if (size(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")) != 0) {
+			
+			
 			for (int j =1; j<=MappingClientSites; j++) {
-				driver.findElement(dtmClientMappingClientDropdown).click();
+				getDriver().findElement(dtmClientMappingClientDropdown).click();
 				Thread.sleep(1000);
 				
-				driver.findElement(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label")).click();
+				getDriver().findElement(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label")).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
-				List<WebElement> templateNamesClientMapping = driver.findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
+				List<WebElement> templateNamesClientMapping = getDriver().findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 				int i = templateNamesClientMapping.size()+1;
 		
-			//	String options = templateNamesClientMapping.get(i).getText();
-			//	String options1 = templateNamesTable.get(j).getText();
-			//	System.out.println(options+""+" :: "+options1);
-			//	softAssert.assertEquals(options, options1);
 				System.out.println(templateNamesTable.size()+""+" :: "+i);
 				
 				softAssert.assertEquals(templateNamesTable.size(), i);
 				
 			}
 
-			if (driver.findElement(By.id("isCreate0")).isSelected() == false) {
-				driver.findElement(By.cssSelector(".popup-content tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
+			if (getDriver().findElement(By.id("isCreate0")).isSelected() == false) {
+				getDriver().findElement(By.cssSelector(".popup-content tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
 			}
-			if (driver.findElement(By.id("isCreate1")).isSelected() == false) {
-				driver.findElement(By.cssSelector(".popup-content tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
+			if (getDriver().findElement(By.id("isCreate1")).isSelected() == false) {
+				getDriver().findElement(By.cssSelector(".popup-content tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
 			}
-			driver.findElement(popupSaveButton).click();
+			getDriver().findElement(popupSaveButton).click();
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Client mapping details has been updated successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Client mapping details has been updated successfully.");
 
 			softAssert.assertAll();
 			test.pass("Client dropdown in client mapping displayed all clients assigned to user successfully");
-			results.createNode("Client dropdown in client mapping displayed all clients assigned to user successfully");
 			getScreenshot();	
 			saveResult(ITestResult.SUCCESS, null);
+			}
+			else {
+				test.skip("Not able to test because sites are not assigned to user");
+				getScreenshot();	
+				saveResult(ITestResult.SKIP, null);
+			}
 		}catch(AssertionError er){
 			test.fail("Client dropdown in client mapping did not displayed all clients assigned to user");
-			results.createNode("Client dropdown in client mapping did not displayed all clients assigned to user");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Client dropdown in client mapping did not displayed all clients assigned to user");
-			results.createNode("Client dropdown in client mapping did not displayed all clients assigned to user");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -1057,19 +1037,20 @@ public class DataTemplateManagement{
 			steps.createNode("2. Assign templates to client");
 			steps.createNode("3. Go to data upload screen and verify that assign templates are displayed against that client");
 
-			driver.get(url_dataTemplate);
+			getDriver().get(url_dataTemplate);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			String rows = driver.findElement(By.id("results-found-count")).getText();
+			String rows = getDriver().findElement(By.id("results-found-count")).getText();
 
-			driver.findElement(dtmClientMappingOpenButton).click();
+			getDriver().findElement(dtmClientMappingOpenButton).click();
 			waitElementInvisible(loading_cursor);	
 
-			driver.findElement(dtmClientMappingClientDropdown).click();
+			getDriver().findElement(dtmClientMappingClientDropdown).click();
 			Thread.sleep(1500);
-			String clientName = driver.findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).getText();
-			driver.findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).click();
+			if (size(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")) != 0) {
+			String clientName = getDriver().findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).getText();
+			getDriver().findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).click();
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 
@@ -1077,28 +1058,33 @@ public class DataTemplateManagement{
 			int count = 0;
 			for (int i=0; i< templateRows; i++) {
 				
-				if (driver.findElement(By.id("isCreate"+i)).isSelected() == true) {		
+				if (getDriver().findElement(By.id("isCreate"+i)).isSelected() == true) {		
 					count = count + 1;
 					if (i == templateRows-1) {
-						driver.get(url_dataUpload);
+						getDriver().get(url_dataUpload);
 						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
-						driver.findElement(By.id("OrgnTypeID")).click();
-						driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Client");
-						driver.findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
+						getDriver().findElement(By.id("OrgnTypeID")).click();
+						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Client");
+						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
 						Thread.sleep(1000);
-						driver.findElement(By.id("ClientId")).click();
-						driver.findElement(By.cssSelector("#ClientId input")).sendKeys(clientName);
-						driver.findElement(By.cssSelector("#ClientId input")).sendKeys(Keys.ENTER);
-						driver.findElement(By.id("DataFormatId")).click();
+						getDriver().findElement(By.id("ClientId")).click();
+						getDriver().findElement(By.cssSelector("#ClientId input")).sendKeys(clientName);
+						getDriver().findElement(By.cssSelector("#ClientId input")).sendKeys(Keys.ENTER);
+						getDriver().findElement(By.id("DataFormatId")).click();
 						
-						Assert.assertEquals(driver.findElements(By.cssSelector(".ng-option")).size(), count);
+						Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), count);
 						test.pass("Template assigned to user displayed in data upload screen successfully");
 						results.createNode("Template assigned to user displayed in data upload screen successfully");
 						getScreenshot();	
 						saveResult(ITestResult.SUCCESS, null);
 					}	
 				}
+			}
+			}
+			else {
+				test.skip("Templates not displayed because sites are note assigned to users");
+				saveResult(ITestResult.SKIP, null);
 			}
 		}catch(AssertionError er){
 			test.fail("Template assigned to user failed to display in data upload screen");
@@ -1116,7 +1102,7 @@ public class DataTemplateManagement{
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		driver.close();
+//		getDriver().close();
 	}
 
 }

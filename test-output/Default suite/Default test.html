@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Dec 20 11:50:23 PKT 2022</td>
+<td>Started on:</td><td>Tue Dec 27 16:49:35 PKT 2022</td>
 </tr>
-<tr><td>Total time:</td><td>42 seconds (42004 ms)</td>
+<tr><td>Total time:</td><td>8 seconds (8039 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,13 +75,9 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='Test.Ancera.Ingestions.Normal_Ingestion.NormalIngestionCoccidia()'><b>NormalIngestionCoccidia</b><br>Test class: Test.Ancera.Ingestions.Normal_Ingestion<br>Test method: Test Case: Run Ingestion for Coccidia</td>
-<td><div><pre>java.lang.NoSuchMethodError: &apos;boolean io.restassured.common.mapper.resolver.ObjectMapperResolver.isJakartaEEInClassPath()&apos;
-	at io.restassured.config.ObjectMapperConfig.newJakartaEEObjectMapperFactoryOrNullIfNotInClasspath(ObjectMapperConfig.java:265)
-	at io.restassured.config.ObjectMapperConfig.&lt;init&gt;(ObjectMapperConfig.java:60)
-	at io.restassured.config.RestAssuredConfig.&lt;init&gt;(RestAssuredConfig.java:41)
-	at io.restassured.RestAssured.&lt;clinit&gt;(RestAssured.java:422)
-	at Test.Ancera.Ingestions.Normal_Ingestion.NormalIngestionCoccidia(Normal_Ingestion.java:849)
+<td title='Test.Ancera.Ingestions.RawImageCountCompareCoccidia.CountCompare()'><b>CountCompare</b><br>Test class: Test.Ancera.Ingestions.RawImageCountCompareCoccidia<br>Test method: Test Case: Raw Image Ingestion</td>
+<td><div><pre>java.lang.ExceptionInInitializerError
+	at Test.Ancera.Ingestions.RawImageCountCompareCoccidia.CountCompare(RawImageCountCompareCoccidia.java:83)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -110,13 +106,16 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div><a href='#' onClick='toggleBox("stack-trace800990938", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace800990938'><pre>java.lang.NoSuchMethodError: &apos;boolean io.restassured.common.mapper.resolver.ObjectMapperResolver.isJakartaEEInClassPath()&apos;
-	at io.restassured.config.ObjectMapperConfig.newJakartaEEObjectMapperFactoryOrNullIfNotInClasspath(ObjectMapperConfig.java:265)
-	at io.restassured.config.ObjectMapperConfig.&lt;init&gt;(ObjectMapperConfig.java:60)
-	at io.restassured.config.RestAssuredConfig.&lt;init&gt;(RestAssuredConfig.java:41)
-	at io.restassured.RestAssured.&lt;clinit&gt;(RestAssured.java:422)
-	at Test.Ancera.Ingestions.Normal_Ingestion.NormalIngestionCoccidia(Normal_Ingestion.java:849)
+Caused by: java.lang.IllegalArgumentException: Input must be set
+	at org.openqa.selenium.internal.Require.nonNull(Require.java:59)
+	at org.openqa.selenium.support.ui.FluentWait.&lt;init&gt;(FluentWait.java:97)
+	at org.openqa.selenium.support.ui.WebDriverWait.&lt;init&gt;(WebDriverWait.java:128)
+	at org.openqa.selenium.support.ui.WebDriverWait.&lt;init&gt;(WebDriverWait.java:61)
+	at MiscFunctions.Constants.&lt;clinit&gt;(Constants.java:14)
+	... 29 more
+</pre></div><a href='#' onClick='toggleBox("stack-trace1894287849", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1894287849'><pre>java.lang.ExceptionInInitializerError
+	at Test.Ancera.Ingestions.RawImageCountCompareCoccidia.CountCompare(RawImageCountCompareCoccidia.java:83)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -145,9 +144,16 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.IllegalArgumentException: Input must be set
+	at org.openqa.selenium.internal.Require.nonNull(Require.java:59)
+	at org.openqa.selenium.support.ui.FluentWait.&lt;init&gt;(FluentWait.java:97)
+	at org.openqa.selenium.support.ui.WebDriverWait.&lt;init&gt;(WebDriverWait.java:128)
+	at org.openqa.selenium.support.ui.WebDriverWait.&lt;init&gt;(WebDriverWait.java:61)
+	at MiscFunctions.Constants.&lt;clinit&gt;(Constants.java:14)
+	... 29 more
 </pre></div></td>
-<td>0</td>
-<td>Test.Ancera.Ingestions.Normal_Ingestion@18d87d80</td></tr>
+<td>3</td>
+<td>Test.Ancera.Ingestions.RawImageCountCompareCoccidia@35dab4eb</td></tr>
 </table><p>
 </body>
 </html>

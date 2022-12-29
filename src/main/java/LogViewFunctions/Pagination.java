@@ -8,10 +8,9 @@ import static MiscFunctions.ExtentVariables.preconditions;
 import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getScreenshot;
-import static MiscFunctions.Helper.saveResult;
-import static MiscFunctions.Helper.waitElementInvisible;
+import static MiscFunctions.Methods.getScreenshot;
+import static Config.BaseTest.saveResult;
+import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.firstPagePagination;
 import static PageObjects.BasePage.lastPagePagination;
@@ -31,6 +30,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
 
+import Config.BaseTest;
 import MiscFunctions.ExtentVariables;
 
 public class Pagination {
@@ -45,8 +45,9 @@ public class Pagination {
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
 
+				BaseTest driver = new BaseTest(); 
 				SoftAssert softAssert = new SoftAssert();
-				String recordBefore = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
+				String recordBefore = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
 				getScreenshot();
 				getScreenshot();
 
@@ -57,18 +58,18 @@ public class Pagination {
 				double divide = Math.ceil(Math.abs(x/y));
 				final int totalPages = (int)divide;
 				waitElementInvisible(loading_cursor);
-				String results = driver.findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
+				String results = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
 
 				waitElementInvisible(loading_cursor);	
 				steps.createNode("1. Verify pagination exists");
-				Assert.assertTrue(driver.findElements(By.cssSelector("#"+tablename+" #activePageNumber")).size() != 0, "Pagination not displaying");
+				Assert.assertTrue(driver.getDriver().findElements(By.cssSelector("#"+tablename+" #activePageNumber")).size() != 0, "Pagination not displaying");
 
 				if (NumberFormat.getNumberInstance(Locale.US).parse(results).intValue() > 100) {
-					driver.findElement(By.cssSelector("#"+tablename+" #"+paginationButtons[i])).click();
+					driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+paginationButtons[i])).click();
 					waitElementInvisible(loading_cursor);
-					String pageCount =	driver.findElement(By.cssSelector("#"+tablename+" #activePageNumber")).getText();
+					String pageCount =	driver.getDriver().findElement(By.cssSelector("#"+tablename+" #activePageNumber")).getText();
 
-					if (driver.findElements(By.id("message")).size() !=0) {
+					if (driver.getDriver().findElements(By.id("message")).size() !=0) {
 						Thread.sleep(500);
 						getScreenshot();	
 						softAssert.fail("An error alert message displayed");

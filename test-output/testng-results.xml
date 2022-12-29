@@ -1,28 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="2" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="23" passed="20" failed="3" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-12-20T11:50:23 PKT" name="Default suite" finished-at="2022-12-20T11:51:05 PKT" duration-ms="42004">
+  <suite started-at="2022-12-28T11:18:22 PKT" name="Suite" finished-at="2022-12-28T11:22:35 PKT" duration-ms="252549">
     <groups>
     </groups>
-    <test started-at="2022-12-20T11:50:23 PKT" name="Default test" finished-at="2022-12-20T11:51:05 PKT" duration-ms="42004">
-      <class name="Test.Ancera.Ingestions.Normal_Ingestion">
-        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Ingestions.Normal_Ingestion@18d87d80]" started-at="2022-12-20T11:50:23 PKT" name="extent" finished-at="2022-12-20T11:51:04 PKT" duration-ms="40954" status="PASS">
+    <test started-at="2022-12-28T11:18:22 PKT" name="Test" finished-at="2022-12-28T11:22:35 PKT" duration-ms="252549">
+      <class name="Test.Ancera.MetaData.DataTemplateManagement">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:18:22 PKT" name="extent" finished-at="2022-12-28T11:18:22 PKT" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extent -->
-        <test-method signature="NormalIngestionCoccidia()[pri:2, instance:Test.Ancera.Ingestions.Normal_Ingestion@18d87d80]" started-at="2022-12-20T11:51:04 PKT" name="NormalIngestionCoccidia" description="Test Case: Run Ingestion for Coccidia" finished-at="2022-12-20T11:51:04 PKT" duration-ms="360" status="FAIL">
-          <exception class="java.lang.NoSuchMethodError">
+        <test-method is-config="true" signature="config()[pri:0, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:18:22 PKT" name="config" finished-at="2022-12-28T11:18:49 PKT" duration-ms="26611" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- config -->
+        <test-method signature="Login()[pri:0, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:18:49 PKT" name="Login" finished-at="2022-12-28T11:18:53 PKT" duration-ms="4373" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="Navigate()[pri:1, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:18:53 PKT" name="Navigate" finished-at="2022-12-28T11:19:10 PKT" duration-ms="17025" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Navigate -->
+        <test-method signature="ResetFieldCheck()[pri:2, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:19:10 PKT" name="ResetFieldCheck" description="Exceptional Flow: Reset field check" finished-at="2022-12-28T11:19:18 PKT" duration-ms="7151" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ResetFieldCheck -->
+        <test-method signature="ClmResetFieldCheck()[pri:3, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:19:18 PKT" name="ClmResetFieldCheck" description="Exceptional Flow: Column Reset field check" finished-at="2022-12-28T11:19:23 PKT" duration-ms="4989" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ClmResetFieldCheck -->
+        <test-method signature="MandatoryFieldCheck()[pri:4, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:19:23 PKT" name="MandatoryFieldCheck" description="Exceptional Flow: Mandatory field check" finished-at="2022-12-28T11:20:12 PKT" duration-ms="49619" status="PASS">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
             <message>
-              <![CDATA['boolean io.restassured.common.mapper.resolver.ObjectMapperResolver.isJakartaEEInClassPath()']]>
+              <![CDATA[element not interactable
+  (Session info: chrome=108.0.5359.124)
+Build info: version: '4.1.2', revision: '9a5a329c5a'
+System info: host: 'APL-LHR-JA0201', ip: '172.26.0.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [acb7ca69126ddb679579c0cdb4435c46, sendKeysToElement {id=37bf1e87-3726-4d7e-bbfe-c0afe4098e14, value=[Ljava.lang.CharSequence;@7cf9318f}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 108.0.5359.124, chrome: {chromedriverVersion: 108.0.5359.71 (1e0e3868ee06..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:62980}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:62980/devtoo..., se:cdpVersion: 108.0.5359.124, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on WINDOWS (acb7ca69126ddb679579c0cdb4435c46)] -> id: colLengthId]
+Session ID: acb7ca69126ddb679579c0cdb4435c46]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.NoSuchMethodError: 'boolean io.restassured.common.mapper.resolver.ObjectMapperResolver.isJakartaEEInClassPath()'
-at io.restassured.config.ObjectMapperConfig.newJakartaEEObjectMapperFactoryOrNullIfNotInClasspath(ObjectMapperConfig.java:265)
-at io.restassured.config.ObjectMapperConfig.<init>(ObjectMapperConfig.java:60)
-at io.restassured.config.RestAssuredConfig.<init>(RestAssuredConfig.java:41)
-at io.restassured.RestAssured.<clinit>(RestAssured.java:422)
-at Test.Ancera.Ingestions.Normal_Ingestion.NormalIngestionCoccidia(Normal_Ingestion.java:849)
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=108.0.5359.124)
+Build info: version: '4.1.2', revision: '9a5a329c5a'
+System info: host: 'APL-LHR-JA0201', ip: '172.26.0.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [acb7ca69126ddb679579c0cdb4435c46, sendKeysToElement {id=37bf1e87-3726-4d7e-bbfe-c0afe4098e14, value=[Ljava.lang.CharSequence;@7cf9318f}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 108.0.5359.124, chrome: {chromedriverVersion: 108.0.5359.71 (1e0e3868ee06..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:62980}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:62980/devtoo..., se:cdpVersion: 108.0.5359.124, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on WINDOWS (acb7ca69126ddb679579c0cdb4435c46)] -> id: colLengthId]
+Session ID: acb7ca69126ddb679579c0cdb4435c46
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:558)
+at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:251)
+at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:107)
+at Test.Ancera.MetaData.DataTemplateManagement.MandatoryFieldCheck(DataTemplateManagement.java:256)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -35,33 +81,226 @@ at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java
 at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
 at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
 at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:764)
-at org.testng.TestRunner.run(TestRunner.java:585)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-at org.testng.TestNG.runSuites(TestNG.java:1069)
-at org.testng.TestNG.run(TestNG.java:1037)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+at java.base/java.lang.Thread.run(Thread.java:832)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.NoSuchMethodError -->
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NormalIngestionCoccidia -->
-        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Ingestions.Normal_Ingestion@18d87d80]" started-at="2022-12-20T11:51:04 PKT" name="endreport" finished-at="2022-12-20T11:51:05 PKT" duration-ms="639" status="PASS">
+        </test-method> <!-- MandatoryFieldCheck -->
+        <test-method signature="CreateTemplate()[pri:5, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:20:12 PKT" name="CreateTemplate" description="Test Case: Create Template Column" finished-at="2022-12-28T11:20:39 PKT" duration-ms="26702" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CreateTemplate -->
+        <test-method signature="UpdateTemplateColumn()[pri:6, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:20:39 PKT" name="UpdateTemplateColumn" description="Test Case: Update Template Column" finished-at="2022-12-28T11:20:47 PKT" duration-ms="8132" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UpdateTemplateColumn -->
+        <test-method signature="DeleteColumnTemplate()[pri:7, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:20:47 PKT" name="DeleteColumnTemplate" description="Delete Column Template" finished-at="2022-12-28T11:20:50 PKT" duration-ms="3154" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeleteColumnTemplate -->
+        <test-method signature="UpdateTemplate()[pri:8, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:20:50 PKT" name="UpdateTemplate" description="Update Template" finished-at="2022-12-28T11:21:03 PKT" duration-ms="12640" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UpdateTemplate -->
+        <test-method signature="ExportTemplate()[pri:9, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:21:03 PKT" name="ExportTemplate" description="Test Case: ExportTemplate" finished-at="2022-12-28T11:21:12 PKT" duration-ms="9588" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ExportTemplate -->
+        <test-method signature="IdentificationColumnTest()[pri:10, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:21:12 PKT" name="IdentificationColumnTest" description="Test Case: IdentificationColumn" finished-at="2022-12-28T11:21:28 PKT" duration-ms="15853" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- IdentificationColumnTest -->
+        <test-method signature="InActivateTemplate()[pri:11, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:21:28 PKT" name="InActivateTemplate" description="Test Case: Inactivate Template" finished-at="2022-12-28T11:21:53 PKT" duration-ms="24616" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- InActivateTemplate -->
+        <test-method signature="DeleteTemplate()[pri:12, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:21:53 PKT" name="DeleteTemplate" description="Test Case: Delete Template" finished-at="2022-12-28T11:22:05 PKT" duration-ms="12145" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeleteTemplate -->
+        <test-method signature="EndOfFlockColumnsVerification()[pri:13, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:05 PKT" name="EndOfFlockColumnsVerification" finished-at="2022-12-28T11:22:17 PKT" duration-ms="12265" status="FAIL">
+          <exception class="java.lang.NumberFormatException">
+            <message>
+              <![CDATA[For input string: ""]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.NumberFormatException: For input string: ""
+at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:68)
+at java.base/java.lang.Integer.parseInt(Integer.java:662)
+at java.base/java.lang.Integer.parseInt(Integer.java:770)
+at Test.Ancera.MetaData.DataTemplateManagement.EndOfFlockColumnsVerification(DataTemplateManagement.java:832)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+at java.base/java.lang.Thread.run(Thread.java:832)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NumberFormatException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EndOfFlockColumnsVerification -->
+        <test-method signature="VerifyClientMappingPopup()[pri:14, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:17 PKT" name="VerifyClientMappingPopup" finished-at="2022-12-28T11:22:19 PKT" duration-ms="2041" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyClientMappingPopup -->
+        <test-method signature="VerifyClientMappingList()[pri:15, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:19 PKT" name="VerifyClientMappingList" finished-at="2022-12-28T11:22:19 PKT" duration-ms="6" status="FAIL">
+          <exception class="java.lang.Error">
+            <message>
+              <![CDATA[Unresolved compilation problems: 
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Error: Unresolved compilation problems: 
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+
+at Models.UserManagementModel.openEditUserPopup(UserManagementModel.java:24)
+at Test.Ancera.MetaData.DataTemplateManagement.VerifyClientMappingList(DataTemplateManagement.java:943)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+at java.base/java.lang.Thread.run(Thread.java:832)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Error -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyClientMappingList -->
+        <test-method signature="VerifyClientUploadScreen()[pri:16, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:19 PKT" name="VerifyClientUploadScreen" finished-at="2022-12-28T11:22:34 PKT" duration-ms="14214" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyClientUploadScreen -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:34 PKT" name="tearDown" finished-at="2022-12-28T11:22:34 PKT" duration-ms="805" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.MetaData.DataTemplateManagement@428640fa]" started-at="2022-12-28T11:22:35 PKT" name="endreport" finished-at="2022-12-28T11:22:35 PKT" duration-ms="31" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endreport -->
-      </class> <!-- Test.Ancera.Ingestions.Normal_Ingestion -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+      </class> <!-- Test.Ancera.MetaData.DataTemplateManagement -->
+      <class name="Test.Ancera.Administration.BarcodeManagement">
+        <test-method is-config="true" signature="extent()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:18:22 PKT" name="extent" finished-at="2022-12-28T11:18:22 PKT" duration-ms="74" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- extent -->
+        <test-method is-config="true" signature="config()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:18:22 PKT" name="config" finished-at="2022-12-28T11:18:40 PKT" duration-ms="17276" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- config -->
+        <test-method signature="Login()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:18:40 PKT" name="Login" finished-at="2022-12-28T11:18:44 PKT" duration-ms="4745" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="NavigateBarcodeManagement()[pri:1, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:18:44 PKT" name="NavigateBarcodeManagement" description="Test Case: Navigate to Barcode Management Screen" finished-at="2022-12-28T11:18:59 PKT" duration-ms="14321" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NavigateBarcodeManagement -->
+        <test-method signature="AssignedSiteAppearance()[pri:2, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:18:59 PKT" name="AssignedSiteAppearance" description="Test Case: Assign Sites Appearance" finished-at="2022-12-28T11:19:20 PKT" duration-ms="21723" status="FAIL">
+          <exception class="java.lang.Error">
+            <message>
+              <![CDATA[Unresolved compilation problems: 
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Error: Unresolved compilation problems: 
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+The method getDriver() is undefined for the type UserManagementModel
+
+at Models.UserManagementModel.openEditUserPopup(UserManagementModel.java:24)
+at Test.Ancera.Administration.BarcodeManagement.AssignedSiteAppearance(BarcodeManagement.java:67)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+at java.base/java.lang.Thread.run(Thread.java:832)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Error -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AssignedSiteAppearance -->
+        <test-method signature="FilterFunctionality()[pri:3, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:19:20 PKT" name="FilterFunctionality" description="Test Case: Filter Functionality" finished-at="2022-12-28T11:19:38 PKT" duration-ms="17641" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- FilterFunctionality -->
+        <test-method signature="ErrorOpeningPrintScreen()[pri:4, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:19:38 PKT" name="ErrorOpeningPrintScreen" description="Test Case: Error Opening Print Screen" finished-at="2022-12-28T11:19:40 PKT" duration-ms="2059" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ErrorOpeningPrintScreen -->
+        <test-method signature="OpenPrintScreen()[pri:5, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:19:40 PKT" name="OpenPrintScreen" description="Test Case: Open print screen" finished-at="2022-12-28T11:19:50 PKT" duration-ms="9349" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- OpenPrintScreen -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:19:50 PKT" name="tearDown" finished-at="2022-12-28T11:19:50 PKT" duration-ms="915" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="endreport()[pri:0, instance:Test.Ancera.Administration.BarcodeManagement@4c1909a3]" started-at="2022-12-28T11:22:34 PKT" name="endreport" finished-at="2022-12-28T11:22:35 PKT" duration-ms="458" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- endreport -->
+      </class> <!-- Test.Ancera.Administration.BarcodeManagement -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

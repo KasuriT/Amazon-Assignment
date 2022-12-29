@@ -1,7 +1,5 @@
 package MiscFunctions;
 
-import static MiscFunctions.Helper.driver;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -12,6 +10,8 @@ import java.util.TimeZone;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import Config.BaseTest;
 public class DateUtil {
 
     public static String getCurrentDay() {
@@ -36,7 +36,8 @@ public class DateUtil {
     
     
     public static String clickDay(String day) {
-		List<WebElement> selectDate = driver.findElements(By.cssSelector(".dp-calendar-wrapper button"));
+    	BaseTest driver = new BaseTest();
+		List<WebElement> selectDate = driver.getDriver().findElements(By.cssSelector(".dp-calendar-wrapper button"));
 		for (int i =0;i<31;i++) {
 			if (selectDate.get(i).getText().equals("day")) {
 				selectDate.get(i).click();

@@ -27,6 +27,9 @@ public interface ReadPropertyFile extends Config {
 	String ie_username();
     String ie_password();
 
+    String version();
+    
+    
 //    @Key("db.hostname")
 //    String getDBHostname();
 //

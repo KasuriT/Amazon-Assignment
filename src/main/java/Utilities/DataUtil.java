@@ -5,7 +5,8 @@ import java.util.Hashtable;
 import org.testng.SkipException;
 import org.testng.annotations.DataProvider;
 
-import MiscFunctions.Constants;
+import MiscFunctions.FrameworkConstants;
+import MiscFunctions.FrameworkConstants.*;
 
 public class DataUtil {
 
@@ -28,7 +29,7 @@ public class DataUtil {
 		}
 		
 		
-		if(dataRunMode.equalsIgnoreCase(Constants.RUNMODE_NO)){
+		if(dataRunMode.equalsIgnoreCase(FrameworkConstants.RUNMODE_NO)){
 			
 			
 			throw new SkipException("Skipping the test : "+testCaseName+" as the Run mode to Data set is NO");
@@ -38,17 +39,17 @@ public class DataUtil {
 
 	public static boolean isSuiteRunnable(String suiteName) {
 
-		ExcelReader excel = new ExcelReader(Constants.SUITE_XL_PATH);
-		int rows = excel.getRowCount(Constants.SUITE_SHEET);
+		ExcelReader excel = new ExcelReader(FrameworkConstants.SUITE_XL_PATH);
+		int rows = excel.getRowCount(FrameworkConstants.SUITE_SHEET);
 
 		for (int rowNum = 2; rowNum <= rows; rowNum++) {
 
-			String data = excel.getCellData(Constants.SUITE_SHEET, Constants.SUITENAME_COL, rowNum);
+			String data = excel.getCellData(FrameworkConstants.SUITE_SHEET, FrameworkConstants.SUITENAME_COL, rowNum);
 
 			if (data.equals(suiteName)) {
 
-				String runmode = excel.getCellData(Constants.SUITE_SHEET, Constants.RUNMODE_COL, rowNum);
-				if (runmode.equals(Constants.RUNMODE_YES))
+				String runmode = excel.getCellData(FrameworkConstants.SUITE_SHEET, FrameworkConstants.RUNMODE_COL, rowNum);
+				if (runmode.equals(FrameworkConstants.RUNMODE_YES))
 					return true;
 				else
 					return false;
@@ -63,16 +64,16 @@ public class DataUtil {
 
 	public static boolean isTestRunnable(String testCaseName, ExcelReader excel) {
 
-		int rows = excel.getRowCount(Constants.TESTCASE_SHEET);
+		int rows = excel.getRowCount(FrameworkConstants.TESTCASE_SHEET);
 
 		for (int rowNum = 2; rowNum <= rows; rowNum++) {
 
-			String data = excel.getCellData(Constants.TESTCASE_SHEET, Constants.TESTCASE_COL, rowNum);
+			String data = excel.getCellData(FrameworkConstants.TESTCASE_SHEET, FrameworkConstants.TESTCASE_COL, rowNum);
 
 			if (data.equals(testCaseName)) {
 
-				String runmode = excel.getCellData(Constants.TESTCASE_SHEET, Constants.RUNMODE_COL, rowNum);
-				if (runmode.equals(Constants.RUNMODE_YES))
+				String runmode = excel.getCellData(FrameworkConstants.TESTCASE_SHEET, FrameworkConstants.RUNMODE_COL, rowNum);
+				if (runmode.equals(FrameworkConstants.RUNMODE_YES))
 					return true;
 				else
 					return false;
@@ -88,7 +89,7 @@ public class DataUtil {
 	@DataProvider
 	public static Object[][] getData(String testCase, ExcelReader excel) {
 
-		int rows = excel.getRowCount(Constants.DATA_SHEET);
+		int rows = excel.getRowCount(FrameworkConstants.DATA_SHEET);
 		System.out.println("Total rows are : " + rows);
 
 		String testName = testCase;
@@ -99,7 +100,7 @@ public class DataUtil {
 
 		for (testCaseRowNum = 1; testCaseRowNum <= rows; testCaseRowNum++) {
 
-			String testCaseName = excel.getCellData(Constants.DATA_SHEET, 0, testCaseRowNum);
+			String testCaseName = excel.getCellData(FrameworkConstants.DATA_SHEET, 0, testCaseRowNum);
 
 			if (testCaseName.equalsIgnoreCase(testName))
 				break;
@@ -113,7 +114,7 @@ public class DataUtil {
 		int dataStartRowNum = testCaseRowNum + 2;
 
 		int testRows = 0;
-		while (!excel.getCellData(Constants.DATA_SHEET, 0, dataStartRowNum + testRows).equals("")) {
+		while (!excel.getCellData(FrameworkConstants.DATA_SHEET, 0, dataStartRowNum + testRows).equals("")) {
 
 			testRows++;
 		}
@@ -125,7 +126,7 @@ public class DataUtil {
 		int colStartColNum = testCaseRowNum + 1;
 		int testCols = 0;
 
-		while (!excel.getCellData(Constants.DATA_SHEET, testCols, colStartColNum).equals("")) {
+		while (!excel.getCellData(FrameworkConstants.DATA_SHEET, testCols, colStartColNum).equals("")) {
 
 			testCols++;
 
@@ -146,8 +147,8 @@ public class DataUtil {
 
 				// System.out.println(excel.getCellData(Constants.DATA_SHEET,
 				// cNum, rNum));
-				String testData = excel.getCellData(Constants.DATA_SHEET, cNum, rNum);
-				String colName = excel.getCellData(Constants.DATA_SHEET, cNum, colStartColNum);
+				String testData = excel.getCellData(FrameworkConstants.DATA_SHEET, cNum, rNum);
+				String colName = excel.getCellData(FrameworkConstants.DATA_SHEET, cNum, colStartColNum);
 
 				table.put(colName, testData);
 

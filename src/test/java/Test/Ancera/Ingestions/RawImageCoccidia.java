@@ -11,7 +11,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -22,14 +21,15 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.ClickElement;
 import MiscFunctions.Constants;
 import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
-import MiscFunctions.Helper;
 import Models.InstallationRunModel;
 import Models.RawImageModel;
 import Models.ReportFilters;
+import PageObjects.BasePage;
 import PageObjects.CoccidiaLogPage;
 import Test.Ancera.Login.LoginTest;
 import io.restassured.RestAssured;
@@ -37,21 +37,22 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import static MiscFunctions.Helper.getScreenshot;
+import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
-public class RawImageCoccidia {
+public class RawImageCoccidia extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 
 		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/Raw Image Ingestion"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("Raw Image Ingestion Test Report"); 
-
-		Helper.config();
-		LoginTest.login();
 	}
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 
 	@SuppressWarnings({"unused", "resource" })
 	@Test (description="Test Case: Raw Image Ingestion for Coccidia", enabled= true, priority= 1) 
@@ -62,31 +63,31 @@ public class RawImageCoccidia {
 				for (ReportFilters objFilter : objModel.lstFilters) {
 
 					if (objModel.isInstallationRunConfigure) {
-						Helper.driver.get(Constants.url_piperConfiguration);			
-						Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().get(Constants.url_piperConfiguration);		
+						waitElementInvisible(BasePage.loading_cursor);
 						Thread.sleep(1000);
 						for (int i = 1; i<=100; i++) {
-							if (Helper.driver.findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
-								if (Helper.driver.findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionCocci)) {
+							if (getDriver().findElements(By.cssSelector("#installation-"+i+" td:nth-child(2)")).size() != 0) {
+								if (getDriver().findElement(By.cssSelector("#installation-"+i+" td:nth-child(2) label")).getText().equals(InstallationRunModel.installationImprocVersionCocci)) {
 									Thread.sleep(1000);
-									Helper.driver.findElement(By.id("edit-installation-"+i)).click();
-									Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									getDriver().findElement(By.id("edit-installation-"+i)).click();
+									waitElementInvisible(BasePage.loading_cursor);
 									Thread.sleep(1500);
 									break;
 								}
 							}
 						}
 
-						Helper.driver.findElement(By.id("MinMeanVal")).clear();
-						Helper.driver.findElement(By.id("MinMeanVal")).sendKeys("1");
-						Helper.driver.findElement(By.id("MaxMeanVal")).clear();
-						Helper.driver.findElement(By.id("MaxMeanVal")).sendKeys("2000");
-						Helper.driver.findElement(By.id("MinStdVal")).clear();
-						Helper.driver.findElement(By.id("MinStdVal")).sendKeys("1");
-						Helper.driver.findElement(By.id("MaxStdVal")).clear();
-						Helper.driver.findElement(By.id("MaxStdVal")).sendKeys("2000");
-						Helper.driver.findElement(By.id("MinStdVal")).click();
-						Helper.driver.findElement(By.id("btn-save")).click();
+						getDriver().findElement(By.id("MinMeanVal")).clear();
+						getDriver().findElement(By.id("MinMeanVal")).sendKeys("1");
+						getDriver().findElement(By.id("MaxMeanVal")).clear();
+						getDriver().findElement(By.id("MaxMeanVal")).sendKeys("2000");
+						getDriver().findElement(By.id("MinStdVal")).clear();
+						getDriver().findElement(By.id("MinStdVal")).sendKeys("1");
+						getDriver().findElement(By.id("MaxStdVal")).clear();
+						getDriver().findElement(By.id("MaxStdVal")).sendKeys("2000");
+						getDriver().findElement(By.id("MinStdVal")).click();
+						getDriver().findElement(By.id("btn-save")).click();
 						Thread.sleep(2000);
 						getScreenshot();
 					}
@@ -173,11 +174,11 @@ public class RawImageCoccidia {
 						catch(AssertionError er) {
 							ExtentVariables.test.fail("Start Assay API failed");
 							ExtentVariables.results.createNode("Start Assay API failed");
-							Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+							saveResult(ITestResult.FAILURE, new Exception(er));
 						}catch(Exception ex){
 							ExtentVariables.test.fail("Start Assay API failed");
 							ExtentVariables.results.createNode("Start Assay API failed");
-							Helper.saveResult(ITestResult.FAILURE, ex);
+							saveResult(ITestResult.FAILURE, ex);
 						}
 					}
 					/////////////////////////////////////////////////////////End Start Assay////////////////////////////////////////////////////////////////////////////////	
@@ -259,17 +260,17 @@ public class RawImageCoccidia {
 
 						ExtentVariables.test.pass("Raw Image API ran successfully");
 						ExtentVariables.results.createNode("Raw Image API ran successfully");
-						Helper.saveResult(ITestResult.SUCCESS, null);
+						saveResult(ITestResult.SUCCESS, null);
 						Thread.sleep(5000);
 					}
 					catch(AssertionError er) {
 						ExtentVariables.test.fail("Raw Image API failed to run");
 						ExtentVariables.results.createNode("Raw Image API ran successfully");
-						Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+						saveResult(ITestResult.FAILURE, new Exception(er));
 					}catch(Exception ex){
 						ExtentVariables.test.fail("Raw Image API failed to run");
 						ExtentVariables.results.createNode("Raw Image API ran successfully");
-						Helper.saveResult(ITestResult.FAILURE, ex);
+						saveResult(ITestResult.FAILURE, ex);
 					}
 
 					if(objModel.checkLog) {
@@ -287,29 +288,29 @@ public class RawImageCoccidia {
 
 							Thread.sleep(150000);
 							CoccidiaLogPage.openCoccidiaLogPage();
-							Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							Constants.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-sampleId")));
+							waitElementInvisible(BasePage.loading_cursor);
+							waitElementVisible(By.id("sort-sampleId"));
 							Thread.sleep(1000);
 
 							SoftAssert softAssert = new SoftAssert();
 							ExtentVariables.steps.createNode("1. Click on Sample ID to expand the filter");
-							ClickElement.clickById(Helper.driver, "sampleId_show-filter");			
-							Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							ClickElement.clickById(getDriver(), "sampleId_show-filter");			
+							waitElementInvisible(BasePage.loading_cursor);
 							Thread.sleep(1000);
 							ExtentVariables.steps.createNode("2. Search for the Sample ID's against which the data is ingested");
 
-							Helper.driver.findElement(By.id("sampleId_search-input")).sendKeys(RunID_Cocci);
-							Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id("sampleId_search-input")).sendKeys(RunID_Cocci);
+							waitElementInvisible(BasePage.loading_cursor);
 							Thread.sleep(2000);	
-							ClickElement.clickByCss(Helper.driver, "#sampleId_cust-cb-lst-txt_"+RunID_Cocci);
-							Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							ClickElement.clickByCss(getDriver(), "#sampleId_cust-cb-lst-txt_"+RunID_Cocci);
+							waitElementInvisible(BasePage.loading_cursor);
 							Thread.sleep(2000);	
 
 							ExtentVariables.steps.createNode("3. Click on Apply filter button");
-							Helper.driver.findElement(By.id("sampleId_apply")).click();
-							Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id("sampleId_apply")).click();
+							waitElementInvisible(BasePage.loading_cursor);
 							getScreenshot();
-							String records = Helper.driver.findElement(By.id("results-found-count")).getText();
+							String records = getDriver().findElement(By.id("results-found-count")).getText();
 							int results = Integer.parseInt(records); 
 
 							softAssert.assertEquals(results, objModel.lane); 
@@ -317,158 +318,158 @@ public class RawImageCoccidia {
 							for(int j = 0; j<objModel.lane; j++) {
 								int lane = j+1;
 								Test_Variables.steps.createNode("Verify Result Status is displayed as 'Completed' in table for lane" +lane);
-								String getResultStatus = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clResultStatusCol+" label")).getText();
+								String getResultStatus = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clResultStatusCol+" label")).getText();
 								softAssert.assertEquals(getResultStatus, "Completed", "Result Status is not displayed as Completed in table");
 
 								Test_Variables.steps.createNode("Verify SampleID is displayed as 'Completed' in table for lane" +lane);
-								String getSampleId = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
+								String getSampleId = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSampleIDCol+" label")).getText();
 								softAssert.assertEquals(getSampleId, objFilter.LstSampleID.get(0), "Sample ID is displayed blank in table");
 
 								Test_Variables.steps.createNode("Verify Pathogen is displayed as 'Coccidia' in table for lane" +lane);
-								String getPathogen = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clAssayCol+" label")).getText();
+								String getPathogen = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clAssayCol+" label")).getText();
 								softAssert.assertEquals(getPathogen, objModel.pathogen);
 
 								Test_Variables.steps.createNode("Verify Time is updated in table for lane" +lane);
-								String getTime = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
+								String getTime = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTimeCol+" label")).getText();
 								//	softAssert.assertEquals(getTime, dateRIT);
 
 								if (!objModel.isInstallationRunConfigure) {
 									Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
-									String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
+									String getQCCode = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
 									softAssert.assertEquals(getQCCode, objModel.countOutcome);
 								}
 
 								if (objModel.isInstallationRunConfigure) {
 									Test_Variables.steps.createNode("Verify QCCode is displayed in table for lane" +lane);
-									String getQCCode = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
+									String getQCCode = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clQCCodeCol+" label")).getText();
 									softAssert.assertEquals(getQCCode, "PASS");
 								}
 
 								if (objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Result is displayed in table for lane" +lane);
-									String getResult = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clResultCol+" label")).getText();
+									String getResult = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clResultCol+" label")).getText();
 									softAssert.assertEquals(getResult, "QCFail");
 								}
 
 								Test_Variables.steps.createNode("Verify Cartridge ID is same as that written in API body for lane" +lane);
-								String getCartridgeID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clCatridgeIDCol+" label")).getText();
+								String getCartridgeID = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clCatridgeIDCol+" label")).getText();
 								softAssert.assertEquals(getCartridgeID, objModel.cartridgeID);
 
 								Test_Variables.steps.createNode("Verify Instrument ID is same as that written in API body for lane" +lane);
-								String getInstrumentID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clInstrumentIDCol+" label")).getText();
+								String getInstrumentID = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clInstrumentIDCol+" label")).getText();
 								softAssert.assertEquals(getInstrumentID, objModel.InstrumentID);
 
 								Test_Variables.steps.createNode("Verify Run Type as "+Test_Variables.RunType+" in API body for lane" +lane);
-								String getRunType = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
+								String getRunType = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clRunTypeCol+" label")).getText();
 								softAssert.assertEquals(getRunType, objModel.runType, "Run Type is not displayed in table");
 
 								Test_Variables.steps.createNode("Verify Test Site ID is displayed in table for lane" +lane);
-								String getTestSiteID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
+								String getTestSiteID = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteIDCol+" label")).getText();
 								softAssert.assertEquals(getTestSiteID.isEmpty(),false, "Test Site ID is not dislayed in table");
 
 								Test_Variables.steps.createNode("Verify Test Site Name is displayed in table for lane" +lane);
-								String getTestSiteName = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
+								String getTestSiteName = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTestSiteNameCol+" label")).getText();
 								softAssert.assertEquals(getTestSiteName.isEmpty(), false, "Test Site Name is not dislayed in table");
 
 								if (!objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Total Count is displayed in table for lane" +lane);
-									String getTotalCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTotalCountCol+" label")).getText();
+									String getTotalCount = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clTotalCountCol+" label")).getText();
 									softAssert.assertEquals(getTotalCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Small Count is displayed in table for lane" +lane);
-									String getSmallCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSmallCountCol+" label")).getText();
+									String getSmallCount = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clSmallCountCol+" label")).getText();
 									softAssert.assertEquals(getSmallCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Medium Count is displayed in table for lane" +lane);
-									String getMediumCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clMediumCountCol+" label")).getText();
+									String getMediumCount = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clMediumCountCol+" label")).getText();
 									softAssert.assertEquals(getMediumCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Large Count is displayed in table for lane" +lane);
-									String getLargeCount = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clLargeCountCol+" label")).getText();
+									String getLargeCount = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.clLargeCountCol+" label")).getText();
 									softAssert.assertEquals(getLargeCount.isEmpty(), false);
 								}
-								String getSampleID = Helper.driver.findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
+								String getSampleID = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+Test_Elements.slSampleIDCol+" label")).getText();
 
 								Test_Variables.steps.createNode("Open Audit trail popup for lane" +lane);
-								Helper.driver.findElement(By.id("audit-trial-"+j)).click();
-								Constants.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								getDriver().findElement(By.id("audit-trial-"+j)).click();
+								waitElementInvisible(BasePage.loading_cursor);
 								Thread.sleep(1500);			
-								Test_Variables.test.addScreenCaptureFromPath(Helper.getScreenshot("Coccidia Log"));
+								Test_Variables.test.addScreenCaptureFromPath(getScreenshot("Coccidia Log"));
 								Test_Variables.steps.createNode("Verify Sample ID is displayed in Audit log for lane" +lane);
-								String getAuditSampleID = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-1.text-dark")).getText();
+								String getAuditSampleID = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-1.text-dark")).getText();
 								softAssert.assertEquals(getAuditSampleID, getSampleID);
 
 								Test_Variables.steps.createNode("Verify Sample ID is displayed in Audit log for lane" +lane);
-								String getAuditResultStatus = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditResultStatusCol+".text-dark")).getText();
+								String getAuditResultStatus = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditResultStatusCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditResultStatus, "Completed");
 
 								Test_Variables.steps.createNode("Verify Time is displayed in Audit log for lane" +lane);
-								String getAuditTime = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTimeCol+".text-dark")).getText();
+								String getAuditTime = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTimeCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTime, getTime);
 
 								if (!objModel.isInstallationRunConfigure) {
 									Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
-									String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
+									String getAuditQCCode = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditQCCode, objModel.countOutcome);
 								}
 
 								if (objModel.isInstallationRunConfigure) {
 									Test_Variables.steps.createNode("Verify QCCode is displayed in Audit log for lane" +lane);
-									String getAuditQCCode = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
+									String getAuditQCCode = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditQCCodeCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditQCCode, "PASS");
 								}
 
 								Test_Variables.steps.createNode("Verify Cartridge ID is displayed in Audit log for lane" +lane);
-								String getAuditCartridgeId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditCartridgeIDCol+".text-dark")).getText();
+								String getAuditCartridgeId = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditCartridgeIDCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditCartridgeId, objModel.cartridgeID);
 
 								Test_Variables.steps.createNode("Verify Instrument ID is displayed in Audit log for lane" +lane);
-								String getAuditInstrumentId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditInstrumentIDCol+".text-dark")).getText();
+								String getAuditInstrumentId = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditInstrumentIDCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditInstrumentId, objModel.InstrumentID);
 
 								Test_Variables.steps.createNode("Verify Run Type is displayed in Audit log for lane" +lane);
-								String getAuditRunType = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
+								String getAuditRunType = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditRunTypeCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditRunType, objModel.runType);
 
 								if (!objModel.isErrorCode) {
 									Test_Variables.steps.createNode("Verify Total Count is displayed in Audit log for lane" +lane);
-									String getAuditTotalCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTotalCountCol+".text-dark")).getText();
+									String getAuditTotalCount = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTotalCountCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditTotalCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Small Count is displayed in Audit log for lane" +lane);
-									String getAuditSmallCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditSmallCountCol+".text-dark")).getText();
+									String getAuditSmallCount = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditSmallCountCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditSmallCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Medium Count is displayed in Audit log for lane" +lane);
-									String getAuditMediumCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditMediumCountCol+".text-dark")).getText();
+									String getAuditMediumCount = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditMediumCountCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditMediumCount.isEmpty(), false);
 
 									Test_Variables.steps.createNode("Verify Large Count is displayed in Audit log for lane" +lane);
-									String getAuditLargeCount = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditLargeCountCol+".text-dark")).getText();
+									String getAuditLargeCount = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditLargeCountCol+".text-dark")).getText();
 									softAssert.assertEquals(getAuditLargeCount.isEmpty(), false);
 								}
 								Test_Variables.steps.createNode("Verify Test Site ID is displayed in Audit log for lane" +lane);
-								String getAuditTestSiteId = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteIDCol+".text-dark")).getText();
+								String getAuditTestSiteId = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteIDCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTestSiteId.isEmpty(), false);
 
 								Test_Variables.steps.createNode("Verify Test Site Name is displayed in Audit log for lane" +lane);
-								String getAuditTestSiteName = Helper.driver.findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
+								String getAuditTestSiteName = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+Test_Elements.clAuditTestSiteNameCol+".text-dark")).getText();
 								softAssert.assertEquals(getAuditTestSiteName.isEmpty(), false);
-								Helper.driver.findElement(By.cssSelector(Test_Elements.closeAudit)).click();   	
+								getDriver().findElement(By.cssSelector(Test_Elements.closeAudit)).click();   	
 								
 							}*/
 							softAssert.assertAll();	
 							ExtentVariables.test.pass("Ingested Successfully");
 							ExtentVariables.results.createNode("Data ingestion verified successfully");
-							Helper.saveResult(ITestResult.SUCCESS, null);
+							saveResult(ITestResult.SUCCESS, null);
 						}catch(AssertionError er) {
 							ExtentVariables.test.fail("Ingestion failed");
 							ExtentVariables.results.createNode("Data ingestion verification failed");
-							Helper.saveResult(ITestResult.FAILURE, new Exception(er));
+							saveResult(ITestResult.FAILURE, new Exception(er));
 						}catch(Exception ex){
 							ExtentVariables.test.fail("Ingestion failed");
 							ExtentVariables.results.createNode("Data ingestion verification failed");
-							Helper.saveResult(ITestResult.FAILURE, ex);
+							saveResult(ITestResult.FAILURE, ex);
 						}
 					}
 					Thread.sleep(2000);	

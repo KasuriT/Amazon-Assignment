@@ -8,45 +8,91 @@
 <body>
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
-<tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">42,004</td><td></td><td></td></tr>
+<tr><th colspan="8">Suite</th></tr>
+<tr><td><a href="#t0">Test</a></td><td class="num">20</td><td class="num">0</td><td class="num">0</td><td class="num attn">3</td><td class="num">252,549</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">Test.Ancera.Ingestions.Normal_Ingestion</td><td><a href="#m0">NormalIngestionCoccidia</a></td><td rowspan="1">1671519064186</td><td rowspan="1">360</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">Test.Ancera.Administration.BarcodeManagement</td><td><a href="#m0">AssignedSiteAppearance</a></td><td rowspan="1">1672208339276</td><td rowspan="1">21723</td></tr><tr class="failedodd"><td rowspan="2">Test.Ancera.MetaData.DataTemplateManagement</td><td><a href="#m1">EndOfFlockColumnsVerification</a></td><td rowspan="1">1672208525534</td><td rowspan="1">12265</td></tr><tr class="failedodd"><td><a href="#m2">VerifyClientMappingList</a></td><td rowspan="1">1672208539841</td><td rowspan="1">6</td></tr><tr><th colspan="4">Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="5">Test.Ancera.Administration.BarcodeManagement</td><td><a href="#m3">ErrorOpeningPrintScreen</a></td><td rowspan="1">1672208378646</td><td rowspan="1">2059</td></tr><tr class="passedeven"><td><a href="#m4">FilterFunctionality</a></td><td rowspan="1">1672208360999</td><td rowspan="1">17641</td></tr><tr class="passedeven"><td><a href="#m5">Login</a></td><td rowspan="1">1672208320203</td><td rowspan="1">4745</td></tr><tr class="passedeven"><td><a href="#m6">NavigateBarcodeManagement</a></td><td rowspan="1">1672208324949</td><td rowspan="1">14321</td></tr><tr class="passedeven"><td><a href="#m7">OpenPrintScreen</a></td><td rowspan="1">1672208380705</td><td rowspan="1">9349</td></tr><tr class="passedodd"><td rowspan="15">Test.Ancera.MetaData.DataTemplateManagement</td><td><a href="#m8">ClmResetFieldCheck</a></td><td rowspan="1">1672208358080</td><td rowspan="1">4989</td></tr><tr class="passedodd"><td><a href="#m9">CreateTemplate</a></td><td rowspan="1">1672208412688</td><td rowspan="1">26702</td></tr><tr class="passedodd"><td><a href="#m10">DeleteColumnTemplate</a></td><td rowspan="1">1672208447537</td><td rowspan="1">3154</td></tr><tr class="passedodd"><td><a href="#m11">DeleteTemplate</a></td><td rowspan="1">1672208513389</td><td rowspan="1">12145</td></tr><tr class="passedodd"><td><a href="#m12">ExportTemplate</a></td><td rowspan="1">1672208463332</td><td rowspan="1">9588</td></tr><tr class="passedodd"><td><a href="#m13">IdentificationColumnTest</a></td><td rowspan="1">1672208472920</td><td rowspan="1">15853</td></tr><tr class="passedodd"><td><a href="#m14">InActivateTemplate</a></td><td rowspan="1">1672208488773</td><td rowspan="1">24616</td></tr><tr class="passedodd"><td><a href="#m15">Login</a></td><td rowspan="1">1672208329510</td><td rowspan="1">4373</td></tr><tr class="passedodd"><td><a href="#m16">MandatoryFieldCheck</a></td><td rowspan="1">1672208363069</td><td rowspan="1">49619</td></tr><tr class="passedodd"><td><a href="#m17">Navigate</a></td><td rowspan="1">1672208333890</td><td rowspan="1">17025</td></tr><tr class="passedodd"><td><a href="#m18">ResetFieldCheck</a></td><td rowspan="1">1672208350915</td><td rowspan="1">7151</td></tr><tr class="passedodd"><td><a href="#m19">UpdateTemplate</a></td><td rowspan="1">1672208450692</td><td rowspan="1">12640</td></tr><tr class="passedodd"><td><a href="#m20">UpdateTemplateColumn</a></td><td rowspan="1">1672208439390</td><td rowspan="1">8132</td></tr><tr class="passedodd"><td><a href="#m21">VerifyClientMappingPopup</a></td><td rowspan="1">1672208537800</td><td rowspan="1">2041</td></tr><tr class="passedodd"><td><a href="#m22">VerifyClientUploadScreen</a></td><td rowspan="1">1672208539847</td><td rowspan="1">14214</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">Test.Ancera.Ingestions.Normal_Ingestion#NormalIngestionCoccidia</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NoSuchMethodError: &apos;boolean io.restassured.common.mapper.resolver.ObjectMapperResolver.isJakartaEEInClassPath()&apos;
-	at io.restassured.config.ObjectMapperConfig.newJakartaEEObjectMapperFactoryOrNullIfNotInClasspath(ObjectMapperConfig.java:265)
-	at io.restassured.config.ObjectMapperConfig.&lt;init&gt;(ObjectMapperConfig.java:60)
-	at io.restassured.config.RestAssuredConfig.&lt;init&gt;(RestAssuredConfig.java:41)
-	at io.restassured.RestAssured.&lt;clinit&gt;(RestAssured.java:422)
-	at Test.Ancera.Ingestions.Normal_Ingestion.NormalIngestionCoccidia(Normal_Ingestion.java:849)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:132)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:599)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:174)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:822)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.testng.TestRunner.privateRun(TestRunner.java:764)
-	at org.testng.TestRunner.run(TestRunner.java:585)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1218)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-	at org.testng.TestNG.runSuites(TestNG.java:1069)
-	at org.testng.TestNG.run(TestNG.java:1037)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Test</h2><h3 id="m0">Test.Ancera.Administration.BarcodeManagement#AssignedSiteAppearance</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Error: Unresolved compilation problems: 
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+
+	at Models.UserManagementModel.openEditUserPopup(UserManagementModel.java:24)
+	at Test.Ancera.Administration.BarcodeManagement.AssignedSiteAppearance(BarcodeManagement.java:67)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+... Removed 12 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">Test.Ancera.MetaData.DataTemplateManagement#EndOfFlockColumnsVerification</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NumberFormatException: For input string: &quot;&quot;
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:68)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:770)
+	at Test.Ancera.MetaData.DataTemplateManagement.EndOfFlockColumnsVerification(DataTemplateManagement.java:832)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+... Removed 12 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">Test.Ancera.MetaData.DataTemplateManagement#VerifyClientMappingList</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Error: Unresolved compilation problems: 
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+	The method getDriver() is undefined for the type UserManagementModel
+
+	at Models.UserManagementModel.openEditUserPopup(UserManagementModel.java:24)
+	at Test.Ancera.MetaData.DataTemplateManagement.VerifyClientMappingList(DataTemplateManagement.java:943)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+... Removed 12 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">Test.Ancera.Administration.BarcodeManagement#ErrorOpeningPrintScreen</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">Test.Ancera.Administration.BarcodeManagement#FilterFunctionality</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m5">Test.Ancera.Administration.BarcodeManagement#Login</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m6">Test.Ancera.Administration.BarcodeManagement#NavigateBarcodeManagement</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m7">Test.Ancera.Administration.BarcodeManagement#OpenPrintScreen</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m8">Test.Ancera.MetaData.DataTemplateManagement#ClmResetFieldCheck</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m9">Test.Ancera.MetaData.DataTemplateManagement#CreateTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m10">Test.Ancera.MetaData.DataTemplateManagement#DeleteColumnTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m11">Test.Ancera.MetaData.DataTemplateManagement#DeleteTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m12">Test.Ancera.MetaData.DataTemplateManagement#ExportTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m13">Test.Ancera.MetaData.DataTemplateManagement#IdentificationColumnTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m14">Test.Ancera.MetaData.DataTemplateManagement#InActivateTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m15">Test.Ancera.MetaData.DataTemplateManagement#Login</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m16">Test.Ancera.MetaData.DataTemplateManagement#MandatoryFieldCheck</h3><table class="result"><tr><th>Expected Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=108.0.5359.124)
+Build info: version: &apos;4.1.2&apos;, revision: &apos;9a5a329c5a&apos;
+System info: host: &apos;APL-LHR-JA0201&apos;, ip: &apos;172.26.0.1&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;15.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [acb7ca69126ddb679579c0cdb4435c46, sendKeysToElement {id=37bf1e87-3726-4d7e-bbfe-c0afe4098e14, value=[Ljava.lang.CharSequence;@7cf9318f}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 108.0.5359.124, chrome: {chromedriverVersion: 108.0.5359.71 (1e0e3868ee06..., userDataDir: C:\Users\JUNAID~1.ALA\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:62980}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:62980/devtoo..., se:cdpVersion: 108.0.5359.124, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on WINDOWS (acb7ca69126ddb679579c0cdb4435c46)] -&gt; id: colLengthId]
+Session ID: acb7ca69126ddb679579c0cdb4435c46
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:558)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:251)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:107)
+	at Test.Ancera.MetaData.DataTemplateManagement.MandatoryFieldCheck(DataTemplateManagement.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+... Removed 17 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m17">Test.Ancera.MetaData.DataTemplateManagement#Navigate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m18">Test.Ancera.MetaData.DataTemplateManagement#ResetFieldCheck</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m19">Test.Ancera.MetaData.DataTemplateManagement#UpdateTemplate</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m20">Test.Ancera.MetaData.DataTemplateManagement#UpdateTemplateColumn</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m21">Test.Ancera.MetaData.DataTemplateManagement#VerifyClientMappingPopup</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m22">Test.Ancera.MetaData.DataTemplateManagement#VerifyClientUploadScreen</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

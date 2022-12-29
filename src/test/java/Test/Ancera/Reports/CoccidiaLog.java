@@ -18,10 +18,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -31,6 +29,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+import Config.BaseTest;
 import LogViewFunctions.FieldLevelAccess;
 import MiscFunctions.ClickElement;
 import MiscFunctions.DateUtil;
@@ -53,20 +52,23 @@ import static LogViewFunctions.FilterSort.*;
 import static LogViewFunctions.Pagination.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
+import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
-public class CoccidiaLog {
+public class CoccidiaLog extends BaseTest{
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Coccidia_Log"+DateUtil.date+".html");
 		spark.config().setReportName("Coccidia Log Test Report"); 
-		config();
-		LoginTest.login();
 	}
 
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
+	
 	@Test (priority = 1) 
 	public void NavigateCoccidia() throws InterruptedException, IOException {
 		test = extent.createTest("CL-AN-01: Verify user can navigate to Salmonella Log Screen");
@@ -81,8 +83,8 @@ public class CoccidiaLog {
 
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Lock(coccidiaLogTable, "Coccidia Log", 2);
 	}
@@ -90,8 +92,9 @@ public class CoccidiaLog {
 
 	@Test (priority = 3) 
 	public void WildcardCocci() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Wildcard(coccidiaLogTable, "Coccidia Log", 2);
 	}
@@ -99,8 +102,8 @@ public class CoccidiaLog {
 	
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Sorting(coccidiaLogTable, "Coccidia Log", 2);
 	}
@@ -113,8 +116,8 @@ public class CoccidiaLog {
 	
 	@Test(priority= 6, enabled = true)
 	public void PaginationCocci() throws InterruptedException, IOException {
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Pagination(coccidiaLogTable, "Coccidia Log", ReportFilePath);
 	}
@@ -126,7 +129,7 @@ public class CoccidiaLog {
 	public void DateFilter() throws InterruptedException, IOException {
 
 		FieldLevelAccess.fieldLevelReset();
-		String recordBefore = driver.findElement(By.id("results-found-count")).getText();
+		String recordBefore = getDriver().findElement(By.id("results-found-count")).getText();
 		CoccidiaLogModel.lstCoccidiaDateSearch = CoccidiaLogModel.FillDate();
 		SoftAssert softAssert = new SoftAssert();
 
@@ -144,29 +147,29 @@ public class CoccidiaLog {
 			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
-				Actions actions = new Actions(driver);
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				Actions actions = new Actions(getDriver());
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				WebElement filter_scroll = driver.findElement(By.id(clResultDate+""+clShowFilter));
-				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-				driver.findElement(By.id("scanDateTime_show-filter")).click();
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				WebElement filter_scroll = getDriver().findElement(By.id(clResultDate+""+clShowFilter));
+				((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+				getDriver().findElement(By.id("scanDateTime_show-filter")).click();
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(1500);
-				//	String dateFrom = driver.findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
+				//	String dateFrom = getDriver().findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
 				//	softAssert.assertEquals(dateFrom, dateMMDDYYYY1);
 
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				steps.createNode("2. Click on "+objFilter.FilterName);
-				driver.findElement(By.id("list-title_date-selection")).click();
-				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				getDriver().findElement(By.id("list-title_date-selection")).click();
+				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
-				if (driver.findElement(By.cssSelector(objFilter.FilterListXPathSearch)).isEnabled()) {
-					actions.moveToElement(driver.findElement(By.cssSelector(objFilter.FilterListXPathSearch))).click().perform();	
-					wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+				if (getDriver().findElement(By.cssSelector(objFilter.FilterListXPathSearch)).isEnabled()) {
+					actions.moveToElement(getDriver().findElement(By.cssSelector(objFilter.FilterListXPathSearch))).click().perform();	
+					waitElementInvisible(loading_cursor);
 					Thread.sleep(750);
-					driver.findElement(By.id(clResultDate+""+clShowFilter)).click();
-					wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+					getDriver().findElement(By.id(clResultDate+""+clShowFilter)).click();
+					waitElementInvisible(loading_cursor);
 					Thread.sleep(700);
 					getScreenshot();	
 
@@ -183,11 +186,11 @@ public class CoccidiaLog {
 							cal.add(Calendar.DATE, Integer.parseInt(value));
 							Date todate2 = cal.getTime();    
 							String toDate = dateFormat.format(todate2);
-							String fromDateField = driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
-							String toDateField = driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
+							String fromDateField = getDriver().findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
+							String toDateField = getDriver().findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
 							steps.createNode("3. Verify the dates in To and From field"); 
-							String recordAfter = driver.findElement(By.id("results-found-count")).getText();
+							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
 							//	Assert.assertEquals(fromDateField, fromDate);
 							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
@@ -223,11 +226,11 @@ public class CoccidiaLog {
 							String toDate = dateFormat.format(todate2);
 
 							getScreenshot();
-							String fromDateField = driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
-							String toDateField = driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
+							String fromDateField = getDriver().findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
+							String toDateField = getDriver().findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 							Thread.sleep(1000);
 							steps.createNode("3. Verify the dates in To and From field"); 
-							String recordAfter = driver.findElement(By.id("results-found-count")).getText();
+							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
 							//	Assert.assertEquals(fromDateField, fromDate);
 							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
@@ -261,13 +264,13 @@ public class CoccidiaLog {
 							String toDate = dateFormat.format(todate2);
 
 							getScreenshot();
-							String fromDateField = driver.findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
-							String toDateField = driver.findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
+							String fromDateField = getDriver().findElement(By.cssSelector("input[placeholder='Start Date']")).getAttribute("value");
+							String toDateField = getDriver().findElement(By.cssSelector("input[placeholder='End Date']")).getAttribute("value");
 
 							Thread.sleep(1000);
 							steps.createNode("3. Verify the dates in To and From field"); 
 
-							String recordAfter = driver.findElement(By.id("results-found-count")).getText();
+							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
 							//	Assert.assertEquals(fromDateField, fromDate);
 							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
@@ -284,13 +287,13 @@ public class CoccidiaLog {
 							saveResult(ITestResult.FAILURE, ex);
 						}
 					}
-					driver.findElement(By.id(clResultDate+""+clShowFilter)).click();
+					getDriver().findElement(By.id(clResultDate+""+clShowFilter)).click();
 				}
 				else {
 					test.skip("Unable to test the scenario because button is disabled");
 					results.createNode("Unable to test the scenario because button is disabled");
 					saveResult(ITestResult.SKIP, null);
-					ClickElement.clickById(driver, "results-found-count");
+					ClickElement.clickById(getDriver(), "results-found-count");
 				}
 			}
 		}
@@ -312,40 +315,40 @@ public class CoccidiaLog {
 			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			driver.navigate().refresh();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);	
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sort-scanDateTime"))); 
+			waitElementInvisible(loading_cursor);
+			waitElementVisible(By.id("sort-scanDateTime"));
 			steps.createNode("1. Open date filter popup");
 			SoftAssert softAssert = new SoftAssert();
-			WebElement filter_scroll = driver.findElement(By.id(clSortFilter+""+clResultDate));
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+			WebElement filter_scroll = getDriver().findElement(By.id(clSortFilter+""+clResultDate));
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
 			Thread.sleep(1000);
-			driver.findElement(By.id(clResultDate+""+clShowFilter)).click();	
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.id(clResultDate+""+clShowFilter)).click();	
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 
 			steps.createNode("2. Click on objFilter.FilterName");
-			driver.findElement(By.id("list-title_date-selection")).click();
+			getDriver().findElement(By.id("list-title_date-selection")).click();
 			Thread.sleep(1000);
 
-			driver.findElement(By.cssSelector(clLast30Days)).click();	
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().findElement(By.cssSelector(clLast30Days)).click();	
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 			steps.createNode("3. Click on Lock button");
-			driver.findElement(By.id("save-filters")).click();;
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().findElement(By.id("save-filters")).click();;
+			waitElementInvisible(loading_cursor);
 
-			String recordsbeforefilter = driver.findElement(By.id("results-found-count")).getText(); 
+			String recordsbeforefilter = getDriver().findElement(By.id("results-found-count")).getText(); 
 			Thread.sleep(500);
 			getScreenshot();
 			steps.createNode("4. Close report");
 			steps.createNode("5. Reopen report and verify that records are still the same as before closing the report");
-			driver.navigate().refresh();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
-			String recordsafterfilter = driver.findElement(By.id("results-found-count")).getText();
+			String recordsafterfilter = getDriver().findElement(By.id("results-found-count")).getText();
 
 			softAssert.assertEquals(recordsafterfilter, recordsbeforefilter);
 			test.pass("Filter locked functionality verified successfully on date filter");
@@ -362,10 +365,10 @@ public class CoccidiaLog {
 			results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
-		driver.findElement(By.id("remove-filters")).click();
-		driver.findElement(By.id("reset-all-filters")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+		waitElementInvisible(loading_cursor);
+		getDriver().findElement(By.id("remove-filters")).click();
+		getDriver().findElement(By.id("reset-all-filters")).click();
+		waitElementInvisible(loading_cursor);
 	}
 
 
@@ -383,25 +386,25 @@ public class CoccidiaLog {
 			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
 			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
-			driver.navigate().refresh();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);	
-			String recordsBefore = driver.findElement(By.id("results-found-count")).getText();
+			String recordsBefore = getDriver().findElement(By.id("results-found-count")).getText();
 
-			WebElement filter_scroll = driver.findElement(By.id(clCollectionSiteName+""+clShowFilter));
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+			WebElement filter_scroll = getDriver().findElement(By.id(clCollectionSiteName+""+clShowFilter));
+			((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
 			Thread.sleep(800);		
 
-			driver.findElement(By.id(clCollectionSiteName+""+clShowFilter)).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.id(clCollectionSiteName+""+clShowFilter)).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);	
-			driver.findElement(By.cssSelector("#sort-site_id tr:nth-child(1) td:nth-child(1) .custom-control.custom-checkbox")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.cssSelector("#sort-site_id tr:nth-child(1) td:nth-child(1) .custom-control.custom-checkbox")).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(2000);
-			driver.findElement(By.cssSelector("#sort-site_id #list-title_apply")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.cssSelector("#sort-site_id #list-title_apply")).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			Assert.assertNotEquals(driver.findElement(By.id("results-found-count")).getText(), recordsBefore);
+			Assert.assertNotEquals(getDriver().findElement(By.id("results-found-count")).getText(), recordsBefore);
 			test.pass("Site Name filter verified successfully");
 			results.createNode("Site Name filter verified successfully");
 			getScreenshot();
@@ -443,11 +446,11 @@ public class CoccidiaLog {
 					try {	
 						steps.createNode("1. Apply "+objFilter.FilterName);	
 						steps.createNode("2. Verify all filter behaves contexually");
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+						waitElementInvisible(loading_cursor);	
 						Thread.sleep(500);
-						WebElement filter_scroll = driver.findElement(By.id("sort-"+objFilter.LstFilterSearch.get(0)));
-						((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						WebElement filter_scroll = getDriver().findElement(By.id("sort-"+objFilter.LstFilterSearch.get(0)));
+						((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(800);
 
 						if (objModel.firstCase) {
@@ -517,46 +520,46 @@ public class CoccidiaLog {
 								Thread.sleep(1000);
 
 								Thread.sleep(20000);
-								driver.navigate().refresh();
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								getDriver().navigate().refresh();
+								waitElementInvisible(loading_cursor);
 								Thread.sleep(2000);
 							}
 
 							steps.createNode("1. Apply "+objFilter.FilterName);
-							WebElement filter_scroll2 = driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter));
-							((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
+							WebElement filter_scroll2 = getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter));
+							((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
 							Thread.sleep(800);
 
-							driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter)).click();	
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter)).click();	
+							waitElementInvisible(loading_cursor);
 							Thread.sleep(1000);						
 
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-							driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							waitElementInvisible(loading_cursor);
+							getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
+							waitElementInvisible(loading_cursor);
 							Thread.sleep(1000);
-							driver.findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
+							getDriver().findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
 
-							driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter)).click();
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter)).click();
+							waitElementInvisible(loading_cursor);
 							Thread.sleep(2000);
 							steps.createNode("2. Verify all filter behaves contexually");
 
 							for (int l=0; l<objFilter.LstFilterSearch.size(); l++) {
 
-								WebElement filter_scroll3 = driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter));
-								((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll3); 
+								WebElement filter_scroll3 = getDriver().findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter));
+								((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll3); 
 
-								driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter)).click();		
-								wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+								getDriver().findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter)).click();		
+								waitElementInvisible(loading_cursor);
 								Thread.sleep(1000);	
 
-								String b = driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
+								String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
 								Assert.assertEquals(b, "Showing 1 - 1 Results");														
 							}
 
-							driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clClearFilter)).click();
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clClearFilter)).click();
+							waitElementInvisible(loading_cursor);
 							Thread.sleep(750);	
 						}
 
@@ -567,45 +570,45 @@ public class CoccidiaLog {
 							for (int t = 0; t<array.length; ) {
 								for(int k = 0; k<objFilter.LstFilterSearch.size(); k++) {
 
-									driver.findElement(By.id(objFilter.LstFilterSearch.get(k)+""+clShowFilter)).click();		
-									wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+									getDriver().findElement(By.id(objFilter.LstFilterSearch.get(k)+""+clShowFilter)).click();		
+									waitElementInvisible(loading_cursor);
 									Thread.sleep(1000);						
-									String a = driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(k)+" "+SalmonellaLogPage.footerCount)).getText();
+									String a = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(k)+" "+SalmonellaLogPage.footerCount)).getText();
 									array[t] = a;
 									//System.out.println("array: "+array[t]);
 									t++;
 
 									if(k==objFilter.LstFilterSearch.size() - 1) {
-										WebElement filter_scroll2 = driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter));
-										((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
+										WebElement filter_scroll2 = getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter));
+										((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll2); 
 										Thread.sleep(800);
 
-										driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter)).click();		
-										wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+										getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clShowFilter)).click();		
+										waitElementInvisible(loading_cursor);
 										Thread.sleep(1000);						
-										driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
-										wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+										getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clSearchInput)).sendKeys(objFilter.LstFilterValues.get(0));
+										waitElementInvisible(loading_cursor);
 										Thread.sleep(1000);
-										driver.findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
+										getDriver().findElement(By.cssSelector("#"+objFilter.LstFilterXpath.get(0)+"_cust-cb-lst-txt_"+objFilter.LstFilterValues.get(0))).click();
 
-										driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter)).click();
-										wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+										getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clApplyFilter)).click();
+										waitElementInvisible(loading_cursor);
 										Thread.sleep(2000);
 
 										for (int l=0; l<objFilter.LstFilterSearch.size(); l++) {
 
-											driver.findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter)).click();		
-											wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+											getDriver().findElement(By.id(objFilter.LstFilterSearch.get(l)+""+clShowFilter)).click();		
+											waitElementInvisible(loading_cursor);
 											Thread.sleep(1000);	
 
-											String b = driver.findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
+											String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
 											Assert.assertNotEquals(array[l], b);
 										}
 									}
 								}
 							}
-							driver.findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clClearFilter)).click();
-							wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+							getDriver().findElement(By.id(objFilter.LstFilterXpath.get(0)+""+clClearFilter)).click();
+							waitElementInvisible(loading_cursor);
 							Thread.sleep(750);	
 
 						}
@@ -648,16 +651,16 @@ public class CoccidiaLog {
 			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 			steps.createNode("1. Verify int data type columns are right alligned");
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clLaneCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clTotalOPGCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clSmallOPGCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clMediumOPGCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clLargeOPGCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clTotalCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clSmallCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clMediumCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clLargeCountCol+" .text-right")).isDisplayed() == true);
-			softAssert.assertTrue(driver.findElement(By.cssSelector("#col-"+clMeanIntensityCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clLaneCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clTotalOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clSmallOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clMediumOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clLargeOPGCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clTotalCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clSmallCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clMediumCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clLargeCountCol+" .text-right")).isDisplayed() == true);
+			softAssert.assertTrue(getDriver().findElement(By.cssSelector("#col-"+clMeanIntensityCol+" .text-right")).isDisplayed() == true);
 			softAssert.assertAll();
 			test.pass("Int data type columns are right alligned");
 			results.createNode("Int data type columns are right alligned");
@@ -678,8 +681,8 @@ public class CoccidiaLog {
 	@Test (enabled= true, priority = 12) 
 	public void FieldAccess() throws InterruptedException, IOException {
 
-		driver.navigate().refresh();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		getDriver().navigate().refresh();
+		waitElementInvisible(loading_cursor);
 
 		CoccidiaLogModel.lstCoccidiaFieldAccess = CoccidiaLogModel.FieldAccess();
 
@@ -700,57 +703,57 @@ public class CoccidiaLog {
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);     
-						driver.findElement(By.id("edit-field-access")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.id("edit-field-access")).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(2000);
 						steps.createNode("2. Unselect "+objFilter.FilterName+" column and Select previously unselected filter column and click on save button");
 
 						if(objModel.viewAccess) {
-							if (driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
-								driver.findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
+							if (getDriver().findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) input")).isSelected() == false) {
+								getDriver().findElement(By.cssSelector("tr:nth-child("+objFilter.FilterID+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}	
 
 						if(objModel.unviewAccess) {
 							int inc = Integer.parseInt(objFilter.FilterID) + 1;
-							if (driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
-								driver.findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
+							if (getDriver().findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) input")).isSelected() == true) {
+								getDriver().findElement(By.cssSelector("tr:nth-child("+inc+") td:nth-child(4) label .rpt-fields")).click();
 							}
 							Thread.sleep(1000);
 						}
 
-						driver.findElement(By.id("btn-save")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
-						wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+						getDriver().findElement(By.id("btn-save")).click();
+						waitElementInvisible(loading_cursor);
+						waitElementVisible(alertMessage);
 						Thread.sleep(1000);
-						Assert.assertEquals(driver.findElement(By.id("message")).getText(), "Report Settings Saved");
+						Assert.assertEquals(getDriver().findElement(By.id("message")).getText(), "Report Settings Saved");
 
 						if(objModel.viewAccess) {
 							steps.createNode("3. Verify selected column is displayed in the table");
-							Assert.assertEquals(driver.findElements(By.id(objModel.FilterUnHideID)).size(), 1);
+							Assert.assertEquals(getDriver().findElements(By.id(objModel.FilterUnHideID)).size(), 1);
 						}	
 						if(objModel.unviewAccess) {
 							steps.createNode("4. Verify unselected column is hidden in the table");
-							Assert.assertEquals(driver.findElements(By.id(objModel.FilterHideID)).size(), 0);
+							Assert.assertEquals(getDriver().findElements(By.id(objModel.FilterHideID)).size(), 0);
 						}
 						steps.createNode("5. Open audit log and verify that unselected column is hidden while selected column is displayed");
-						driver.findElement(By.id("audit-trial-0")).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.id("audit-trial-0")).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 
 						if(objModel.viewAccess) {
-							Assert.assertEquals(driver.findElements(By.cssSelector("#audit-"+objModel.FilterUnHideID+".table-header-report")).size(), 1);	
+							Assert.assertEquals(getDriver().findElements(By.cssSelector("#audit-"+objModel.FilterUnHideID+".table-header-report")).size(), 1);	
 						}
 
 						if(objModel.unviewAccess) {
-							Assert.assertEquals(driver.findElements(By.cssSelector("#audit-"+objModel.FilterHideID+".table-header-report")).size(), 0);
+							Assert.assertEquals(getDriver().findElements(By.cssSelector("#audit-"+objModel.FilterHideID+".table-header-report")).size(), 0);
 						}
 
-						driver.findElement(By.cssSelector(SalmonellaLogPage.closeAudit)).click();
-						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+						getDriver().findElement(By.cssSelector(SalmonellaLogPage.closeAudit)).click();
+						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 
 						test.pass("Column was hidden successfully");
@@ -778,14 +781,14 @@ public class CoccidiaLog {
 	@Test (enabled= true, priority = 13) 
 	public void FieldAccessResetDefault() throws InterruptedException, IOException {
 
-		driver.findElement(By.id("edit-field-access")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		getDriver().findElement(By.id("edit-field-access")).click();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
-		driver.findElement(By.id("btn-reset")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		getDriver().findElement(By.id("btn-reset")).click();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
-		driver.findElement(By.id("btn-save")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+		getDriver().findElement(By.id("btn-save")).click();
+		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 	}
 
@@ -809,30 +812,30 @@ public class CoccidiaLog {
 			steps.createNode("2. Export PNG button becomes visible");
 			steps.createNode("3. Click on the button");
 
-			driver.navigate().refresh();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(2000);	
-			driver.findElement(By.id("sampleId_show-filter")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.id("sampleId_show-filter")).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("#sort-sampleId li:nth-child(3) label")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.cssSelector("#sort-sampleId li:nth-child(3) label")).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			driver.findElement(By.id("sampleId_apply")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			getDriver().findElement(By.id("sampleId_apply")).click();
+			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 			
 			getScreenshot();
 
-			WebElement pngHover = driver.findElement(By.cssSelector(".run-timeline-bar-chart__download"));
-			Actions builder = new Actions(driver);
+			WebElement pngHover = getDriver().findElement(By.cssSelector(".run-timeline-bar-chart__download"));
+			Actions builder = new Actions(getDriver());
 			builder.moveToElement(pngHover).build().perform();
 			waitElementClickable(By.id("dc-bar-chart-coci-png"));
-			WebElement clickDownload = driver.findElement(By.id("dc-bar-chart-coci-png"));
-			Actions actions = new Actions(driver);
+			WebElement clickDownload = getDriver().findElement(By.id("dc-bar-chart-coci-png"));
+			Actions actions = new Actions(getDriver());
 			actions.moveToElement(clickDownload).click().perform();
 
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));	
+			waitElementInvisible(loading_cursor);	
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
@@ -878,19 +881,19 @@ public class CoccidiaLog {
 			
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			waitElementInvisible(loading_cursor);
 			
-			String getRowText = driver.findElement(By.id("results-found-count")).getText();
+			String getRowText = getDriver().findElement(By.id("results-found-count")).getText();
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
 			waitElementClickable(By.cssSelector("#csv-action img"));
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			getScreenshot();
 			Thread.sleep(1000);
 			steps.createNode("5. Click on Export as CSV");
-			driver.findElement(By.xpath("//*[text() = ' Export as CSV ']")).click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			getDriver().findElement(By.xpath("//*[text() = ' Export as CSV ']")).click();
+			waitElementInvisible(loading_cursor);
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
@@ -922,12 +925,12 @@ public class CoccidiaLog {
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
 
-					int rows = driver.findElements(By.cssSelector("tr")).size();
+					int rows = getDriver().findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
-						int totalColumns = driver.findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
+						int totalColumns = getDriver().findElements(By.cssSelector("tr:nth-child(1) td")).size() - 1;
 						int columnsCount = columnsCountTotal+3;
-						if (driver.findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
-							softAssert.assertEquals(data[i].trim(), driver.findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						if (getDriver().findElements(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), getDriver().findElement(By.cssSelector("tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
 						}
 						else {
 							rowsCount = rowsCount+1;
@@ -990,18 +993,18 @@ public class CoccidiaLog {
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");			
 		
-			ClickElement.clickByCss(driver, "#select-runId-0 .data-log-checkbox");
+			ClickElement.clickByCss(getDriver(), "#select-runId-0 .data-log-checkbox");
 			Thread.sleep(1000);
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
 			waitElementClickable(By.cssSelector("#csv-action img"));
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			getScreenshot();
 			Thread.sleep(1500);
 			steps.createNode("5. Click on Export with Audit as CSV");
-			ClickElement.clickById(driver, "export-audit-csv");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), "export-audit-csv");
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
 //			if(wait.until(ExpectedConditions.alertIsPresent())==null) {
@@ -1009,7 +1012,7 @@ public class CoccidiaLog {
 //			}
 //			else {
 //				System.out.println("Alert exists");
-//				driver.switchTo().alert().accept();
+//				getDriver().switchTo().alert().accept();
 //			}
 
 
@@ -1063,16 +1066,16 @@ public class CoccidiaLog {
 			steps.createNode("2. Export file button becomes visible");
 			steps.createNode("3. Click on the button");
 			waitElementClickable(By.cssSelector("#csv-action img"));
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1000);
-			ClickElement.clickByCss(driver, "#export-data-template label");
+			ClickElement.clickByCss(getDriver(), "#export-data-template label");
 			Thread.sleep(1000);
 			getScreenshot();
 			steps.createNode("5. Click on Export Data Template");
 			steps.createNode("6. Select Sample MetaData Template");
-			ClickElement.clickById(driver, "Sample-Metadata-Upload-Template");
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("notification-loading")));
+			ClickElement.clickById(getDriver(), "Sample-Metadata-Upload-Template");
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
 	
@@ -1104,12 +1107,5 @@ public class CoccidiaLog {
 			results.createNode("Sample MetaData failed to download");  	
 			saveResult(ITestResult.FAILURE, ex);
 		}
-	}
-
-
-	@AfterTest
-	public static void endreport() {
-		extent.flush();
-		driver.close();
 	}
 }

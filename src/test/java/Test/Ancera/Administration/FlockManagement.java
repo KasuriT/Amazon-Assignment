@@ -24,17 +24,19 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import Config.ReadPropertyFile;
 import MiscFunctions.ClickElement;
 import MiscFunctions.Constants;
 import MiscFunctions.DB_Config;
 import MiscFunctions.DateUtil;
+import MiscFunctions.Methods;
 import MiscFunctions.NavigateToScreen;
 import MiscFunctions.Queries;
 import Models.FlockManagementModel;
 import Models.ProgramManagementModel;
-import Models.UserManagementModel;
-//import Test.Ancera.Reports.SalmonellaLog;
+import PageObjects.FlockManagementPage;
+import PageObjects.UserManagementPage;
 import Test.Ancera.Login.LoginTest;
 
 import static LogViewFunctions.FilterLock.*;
@@ -45,8 +47,8 @@ import static LogViewFunctions.RowsPerPage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.DateUtil.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
-import static LogViewFunctions.CSVExport.*;
+import static MiscFunctions.Methods.*;
+import static LogViewFunctions.LogCSVExport.*;
 import static PageObjects.FlockManagementPage.*;
 import static PageObjects.ProgramManagementPage.*;
 import static PageObjects.BasePage.*;
@@ -57,18 +59,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class FlockManagement extends DB_Config {
+public class FlockManagement extends BaseTest {
 
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_Flock_Management"+date+".html");
 		spark.config().setReportName("Flock Management Test Report"); 
-		config();
-		LoginTest.login();
 		DB_Config.test();
 	}
 
+	@Test
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
+	
 		@Test (priority = 1) 
 	public void NavigateFlock() throws InterruptedException, IOException {
 			NavigateToScreen.navigate(url_flockManagement, "Flock Management", FlockManagementTitle);
@@ -83,7 +88,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 3) 
 	public void LockMortality() throws InterruptedException, IOException {
-		driver.findElement(flockMortalityTab).click();
+		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(flockMortalityTable, "Flock Management", 1);
@@ -92,7 +97,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 4) 
 	public void LockSettlement() throws InterruptedException, IOException {
-		driver.findElement(flockSettlementTab).click();
+		getDriver().findElement(flockSettlementTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(flockSettlementTable, "Flock Management", 1);
@@ -101,7 +106,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 5) 
 	public void LockCondemnation() throws InterruptedException, IOException {
-		driver.findElement(flockCondemnationTab).click();
+		getDriver().findElement(flockCondemnationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(flockCondemnationTable, "Flock Management", 1);
@@ -110,7 +115,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 6) 
 	public void WildcardPlacement() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
+		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(flockPlacementTable, "Flock Management", 1);
@@ -119,7 +124,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 7) 
 	public void WildcardMortality() throws InterruptedException, IOException {
-		driver.findElement(flockMortalityTab).click();
+		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(flockMortalityTable, "Flock Management", 1);
@@ -128,7 +133,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 8) 
 	public void WildcardSettlement() throws InterruptedException, IOException {
-		driver.findElement(flockSettlementTab).click();
+		getDriver().findElement(flockSettlementTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(flockSettlementTable, "Flock Management", 1);
@@ -137,7 +142,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 9) 
 	public void WildcardCondemnation() throws InterruptedException, IOException {
-		driver.findElement(flockCondemnationTab).click();
+		getDriver().findElement(flockCondemnationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(flockCondemnationTable, "Flock Management", 1);
@@ -146,7 +151,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 10)
 	public void SortingPlacement() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
+		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(2000);
 		Sorting(flockPlacementTable, "Flock Management", 1);
@@ -155,7 +160,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 11)
 	public void SortingMortality() throws InterruptedException, IOException {
-		driver.findElement(flockMortalityTab).click();
+		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(flockMortalityTable, "Flock Management", 1);
@@ -164,7 +169,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 12)
 	public void SortingSettlement() throws InterruptedException, IOException {
-		driver.findElement(flockSettlementTab).click();
+		getDriver().findElement(flockSettlementTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(flockSettlementTable, "Flock Management", 1);
@@ -173,7 +178,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 13)
 	public void SortingCondemnation() throws InterruptedException, IOException {
-		driver.findElement(flockCondemnationTab).click();
+		getDriver().findElement(flockCondemnationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(flockCondemnationTable, "Flock Management", 1);
@@ -182,7 +187,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 14, enabled = true)
 	public void RowsPerPagePlacement() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
+		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(flockPlacementTable);
@@ -191,7 +196,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 15, enabled = true)
 	public void RowsPerPageMortality() throws InterruptedException, IOException {
-		driver.findElement(flockMortalityTab).click();
+		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(flockMortalityTable);
@@ -200,7 +205,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 16, enabled = true)
 	public void RowsPerPageSettlement() throws InterruptedException, IOException {
-		driver.findElement(flockSettlementTab).click();
+		getDriver().findElement(flockSettlementTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(flockSettlementTable);
@@ -209,7 +214,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 17, enabled = true)
 	public void RowsPerPageCondemnation() throws InterruptedException, IOException {
-		driver.findElement(flockCondemnationTab).click();
+		getDriver().findElement(flockCondemnationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(flockCondemnationTable);
@@ -218,7 +223,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 18) 
 	public void PaginationPlacement() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
+		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Pagination(flockPlacementTable, "Program Management", ReportFilePath);
@@ -227,7 +232,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 19) 
 	public void PaginationMortality() throws InterruptedException, IOException {
-		driver.findElement(flockMortalityTab).click();
+		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(flockMortalityTable, "Program Management", ReportFilePath);
@@ -236,7 +241,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 20) 
 	public void PaginationSettlement() throws InterruptedException, IOException {
-		driver.findElement(flockSettlementTab).click();
+		getDriver().findElement(flockSettlementTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(flockSettlementTable, "Program Management", ReportFilePath);
@@ -245,7 +250,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test (priority = 21) 
 	public void PaginationCondemnation() throws InterruptedException, IOException {
-		driver.findElement(flockCondemnationTab).click();
+		getDriver().findElement(flockCondemnationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(flockCondemnationTable, "Program Management", ReportFilePath);
@@ -255,7 +260,7 @@ public class FlockManagement extends DB_Config {
 	@Test (priority = 25, enabled = true) 
 	public void CreateProgram() throws InterruptedException, IOException, SQLException {
 		test = extent.createTest("AN-FR-98: Verify user can create Program");
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementClickable(programVaccineProgramTab);
 		click(programVaccineProgramTab);
 		waitElementInvisible(loading_cursor);
@@ -271,7 +276,7 @@ public class FlockManagement extends DB_Config {
 		enterKey(programProgramType);
 
 		if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-			ResultSet getComplexNameResults = getStmt().executeQuery(Queries.getComplexName);
+			ResultSet getComplexNameResults = DB_Config.getStmt().executeQuery(Queries.getComplexName);
 			while (getComplexNameResults.next()) {
 				String complexName = getComplexNameResults.getString("siteName");
 				System.out.println("Complex Name: "+complexName);
@@ -280,7 +285,7 @@ public class FlockManagement extends DB_Config {
 			}
 		}
 		if (Constants.config.url().contains("uat")) {
-			driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
+			getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
 		}
 		
 		waitElementInvisible(loading_cursor);
@@ -290,7 +295,8 @@ public class FlockManagement extends DB_Config {
 		click(programStartDateIcon);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(500);
-		WebElement dateWidgetTo = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);	
+		Methods method = new Methods();
+		WebElement dateWidgetTo = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);	
 		List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
 		DateUtil.clickGivenDay(columns1, DateUtil.getFirstDay());
 		Thread.sleep(500);
@@ -298,7 +304,7 @@ public class FlockManagement extends DB_Config {
 		click(popupSaveButtonXpath);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(700);
-		Assert.assertEquals(driver.findElement(alertMessage).getText(), "New program has been created successfully");
+		Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully");
 		//	getStmt().close();
 	}
 
@@ -313,7 +319,7 @@ public class FlockManagement extends DB_Config {
 
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(url_flockManagement);
+			getDriver().get(url_flockManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
@@ -324,7 +330,7 @@ public class FlockManagement extends DB_Config {
 			Thread.sleep(1000);
 
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getFarmNameResults = getStmt().executeQuery(Queries.getFarmName);
+				ResultSet getFarmNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmName);
 				while (getFarmNameResults.next()) {
 					String farmName = getFarmNameResults.getString("siteName");
 					System.out.println("Farm Name: "+farmName);
@@ -335,7 +341,7 @@ public class FlockManagement extends DB_Config {
 			}
 			
 			if (Constants.config.url().contains("uat")) {
-				driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.FarmNameUAT);
+				getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.FarmNameUAT);
 			}
 			
 			waitElementInvisible(loading_cursor);
@@ -349,12 +355,12 @@ public class FlockManagement extends DB_Config {
 				click(flockIntegratorFlockAddNew);
 			}
 			else {
-				driver.findElement(flockIntegratorFlockID).sendKeys(Keys.ENTER);
+				getDriver().findElement(flockIntegratorFlockID).sendKeys(Keys.ENTER);
 			}
 
 
 			click(flockBirdSizeInput);
-			List<WebElement> birdSizeDropdownValues = driver.findElements(flockBirdSizeDropDownOptions);
+			List<WebElement> birdSizeDropdownValues = getDriver().findElements(flockBirdSizeDropDownOptions);
 			softAssert.assertEquals(birdSizeDropdownValues.get(0).getText(), "Small");
 			softAssert.assertEquals(birdSizeDropdownValues.get(1).getText(), "Medium");
 			softAssert.assertEquals(birdSizeDropdownValues.get(2).getText(), "Large");
@@ -363,17 +369,17 @@ public class FlockManagement extends DB_Config {
 
 
 			type(flockBirdSizeInput, FlockManagementModel.flockBirdSize);
-			driver.findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
+			getDriver().findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
 
 			click(flockBirdSexInput);
-			List<WebElement> birdSexDropdownValues = driver.findElements(flockBirdSexDropDownOptions);
+			List<WebElement> birdSexDropdownValues = getDriver().findElements(flockBirdSexDropDownOptions);
 			softAssert.assertEquals(birdSexDropdownValues.get(0).getText(), "Male");
 			softAssert.assertEquals(birdSexDropdownValues.get(1).getText(), "Female");
 			softAssert.assertEquals(birdSexDropdownValues.get(2).getText(), "Mixed");
 			enterKey(flockBirdSexInput);
 
 			click(flockMarketingProgramInput);
-			List<WebElement> flockMarketingProgramdropdownValues = driver.findElements(flockMarketingProgramDropDownOptions);
+			List<WebElement> flockMarketingProgramdropdownValues = getDriver().findElements(flockMarketingProgramDropDownOptions);
 			softAssert.assertEquals(flockMarketingProgramdropdownValues.get(0).getText(), "Conventional");
 			softAssert.assertEquals(flockMarketingProgramdropdownValues.get(1).getText(), "No Human Antibiotics");
 			softAssert.assertEquals(flockMarketingProgramdropdownValues.get(2).getText(), "No Antibiotics Ever");
@@ -385,7 +391,7 @@ public class FlockManagement extends DB_Config {
 			scroll(flockPlacementDateCalendar);
 			click(flockPlacementDateCalendar);
 
-			List<WebElement> list = driver.findElements(By.cssSelector(".dp-current-day"));
+			List<WebElement> list = getDriver().findElements(By.cssSelector(".dp-current-day"));
 			scroll(By.xpath("//label[text() = 'Flock Information']"));
 			Thread.sleep(1000);	
 
@@ -396,7 +402,7 @@ public class FlockManagement extends DB_Config {
 			Thread.sleep(1000);
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-			ResultSet getHouseNameResults = getStmt().executeQuery(Queries.getFarmHousesCount);
+			ResultSet getHouseNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmHousesCount);
 			while (getHouseNameResults.next()) {
 				int housesCount = getHouseNameResults.getInt("Count");
 				System.out.println("House Count: "+housesCount);
@@ -416,12 +422,12 @@ public class FlockManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(5000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 
 			String PostResultsCount = getText(By.id(ResultsCount));
 			softAssert.assertEquals(Integer.parseInt(PostResultsCount), Integer.parseInt(PreResultsCount)+1);
 
-			FlockManagementModel.openFlockAudit();
+			FlockManagementPage.openFlockAudit();
 			softAssert.assertEquals(size(auditGetRowCount), 3, "Audit Log not displaying a row for flock creation");
 			softAssert.assertEquals(getText(auditActionRow1), "Created", "Audit Log not displaying a row for with Action created");
 
@@ -449,7 +455,7 @@ public class FlockManagement extends DB_Config {
 			test = extent.createTest("AN-FR-99: Verify that Flock cannot be duplicated with same Site ID and Placement Date.");
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(url_flockManagement);
+			getDriver().get(url_flockManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
@@ -459,7 +465,7 @@ public class FlockManagement extends DB_Config {
 
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getFarmNameResults = getStmt().executeQuery(Queries.getFarmName);
+				ResultSet getFarmNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmName);
 				while (getFarmNameResults.next()) {
 					String farmName = getFarmNameResults.getString("siteName");
 					click(flockFarmDropdownExpand);
@@ -469,7 +475,7 @@ public class FlockManagement extends DB_Config {
 			}
 
 			if (Constants.config.url().contains("uat")) {
-				driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.FarmNameUAT);
+				getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.FarmNameUAT);
 			}
 			
 			waitElementInvisible(loading_cursor);
@@ -477,12 +483,12 @@ public class FlockManagement extends DB_Config {
 			click(By.cssSelector("label b"));
 			
 			type(flockBirdSizeInput, FlockManagementModel.flockBirdSize);
-			driver.findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
+			getDriver().findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
 
 			scroll(flockPlacementDateCalendar);
 			click(flockPlacementDateCalendar);
 
-            List<WebElement> list = driver.findElements(By.cssSelector(".dp-current-day"));
+            List<WebElement> list = getDriver().findElements(By.cssSelector(".dp-current-day"));
             scroll(By.xpath("//label[text() = 'Flock Information']"));
             Thread.sleep(1000);    
 
@@ -496,7 +502,7 @@ public class FlockManagement extends DB_Config {
 
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			softAssert.assertTrue(driver.findElement(alertMessage).getText().contains("already exists at"));
+			softAssert.assertTrue(getDriver().findElement(alertMessage).getText().contains("already exists at"));
 			softAssert.assertAll();
 
 			test.pass("Flock was created successfully");
@@ -518,27 +524,27 @@ public class FlockManagement extends DB_Config {
 	public void EditFlock() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("Verify user can edit flock");
-			driver.get(url_flockManagement);
+			getDriver().get(url_flockManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			SoftAssert softAssert = new SoftAssert();
 
-			FlockManagementModel.openFlockAudit();
+			FlockManagementPage.openFlockAudit();
 			int getRowsPre = size(flockAuditRowCount);
 			Thread.sleep(1000);
 			click(popupCloseButton);
 
-			FlockManagementModel.openEditFlock();
+			FlockManagementPage.openEditFlock();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
 			type(flockBirdSexInput, "Male");
-			driver.findElement(flockBirdSexInput).sendKeys(Keys.ENTER);
+			getDriver().findElement(flockBirdSexInput).sendKeys(Keys.ENTER);
 			click(By.xpath("(//*[@id = 'btn-save'])[1]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 
 
 			click(flockEditMortalityTab);
@@ -552,7 +558,7 @@ public class FlockManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 
 
 			click(flockEditSettlementTab);
@@ -566,7 +572,7 @@ public class FlockManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 
 
 			click(flockEditCondemnationTab);
@@ -576,11 +582,11 @@ public class FlockManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
-			softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Data saved successfully.");
+			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Data saved successfully.");
 			click(popupCloseButton);
 
 
-			FlockManagementModel.openFlockAudit();
+			FlockManagementPage.openFlockAudit();
 			int getRowsPost = size(flockAuditRowCount);
 			click(popupCloseButton);
 
@@ -607,7 +613,7 @@ public class FlockManagement extends DB_Config {
 		try {
 			test = extent.createTest("AN-FR-99: Verify House Placement popup from log and audit view");
 			SoftAssert softAssert = new SoftAssert();
-			driver.get(url_flockManagement);
+			getDriver().get(url_flockManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
@@ -656,7 +662,7 @@ public class FlockManagement extends DB_Config {
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			driver.get(url_flockManagement);
+			getDriver().get(url_flockManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			SoftAssert softAssert = new SoftAssert();
@@ -665,7 +671,7 @@ public class FlockManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getComplexNameResults = getStmt().executeQuery(Queries.getComplexName);
+				ResultSet getComplexNameResults = DB_Config.getStmt().executeQuery(Queries.getComplexName);
 				while (getComplexNameResults.next()) {
 					String complexName = getComplexNameResults.getString("siteName");
 					System.out.println("Complex Name: "+complexName);
@@ -676,7 +682,7 @@ public class FlockManagement extends DB_Config {
 				}
 			}
 			if (Constants.config.url().contains("uat")) {
-				driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
+				getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(2000);
 				click(By.id("complexName_cust-cb-lst-txt_"+ProgramManagementModel.ComplexNameUAT));	
@@ -879,7 +885,7 @@ public class FlockManagement extends DB_Config {
 			results.createNode("Flock inline failed");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		getStmt().close();
+		DB_Config.getStmt().close();
 	}
 
 
@@ -888,19 +894,19 @@ public class FlockManagement extends DB_Config {
 		try {
 			test = extent.createTest("AN-FR-105: Verify that all sites assigned to user are displayed in Flock Farm dropdown");
 			ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
-			UserManagementModel.openEditUserPopup(config.ie_username());
+			UserManagementPage.openEditUserPopup(config.ie_username());
 			click(popupNextButton);
 			Thread.sleep(500);
 			click(popupNextButton);
 			Thread.sleep(500);
 
 			int collectionSitesSize = 0;
-			for (int i=1;i<=driver.findElements(By.cssSelector(".site-tree-card")).size();i++) {
-				if (!driver.findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
+			for (int i=1;i<=getDriver().findElements(By.cssSelector(".site-tree-card")).size();i++) {
+				if (!getDriver().findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
 					collectionSitesSize = collectionSitesSize+1;
 
 					if (i == size(By.cssSelector(".site-tree-card"))) {
-						driver.get(url_flockManagement);
+						getDriver().get(url_flockManagement);
 						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
 
@@ -945,7 +951,7 @@ public class FlockManagement extends DB_Config {
 
 	@Test(priority= 42)
 	public void ExportCSVFeed() throws InterruptedException, IOException {
-		driver.get(url_flockManagement);
+		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		CSVExport1("Flock Management", flockPlacementCSVFileName, flockPlacementTable, 2, 0);
@@ -963,15 +969,15 @@ public class FlockManagement extends DB_Config {
 			steps.createNode("2. Export file button becomes visible");
 			Thread.sleep(1000);
 
-			//String getRowCount = driver.findElement(By.id("results-found-count")).getText();			
+			//String getRowCount = getDriver().findElement(By.id("results-found-count")).getText();			
 
 			steps.createNode("3. Click on the button");
 			steps.createNode("4. Dropdown cloud pop ups");
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			getScreenshot();
 			Thread.sleep(1500);
 			steps.createNode("5. Click on Export with Audit as CSV");
-			ClickElement.clickById(driver, "export-audit-csv");
+			ClickElement.clickById(getDriver(), "export-audit-csv");
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 		//	DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
@@ -1018,10 +1024,10 @@ public class FlockManagement extends DB_Config {
 			steps.createNode("3. Click on the button");
 
 
-			driver.findElement(By.cssSelector("#csv-action img")).click();
+			getDriver().findElement(By.cssSelector("#csv-action img")).click();
 			steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1000);
-			ClickElement.clickById(driver, "export-data-template");
+			ClickElement.clickById(getDriver(), "export-data-template");
 			Thread.sleep(1000);
 			getScreenshot();
 			steps.createNode("5. Click on Export Data Template");
@@ -1063,7 +1069,7 @@ public class FlockManagement extends DB_Config {
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		//	driver.close();
+		//	getDriver().close();
 	}
 
 }

@@ -29,9 +29,6 @@ public class ForgotPasswordModel {
 			Arrays.asList("AN-FP-01: Verify user is not able to reset password with user that is not registered", 
 					"AN-FP-02: Verify user is able to reset password for valid user"));
 	
-	public static ArrayList<String> lstFpTestCaseDescription = new ArrayList<>(
-			Arrays.asList("This test case will verify that user is not able to reset password with user that is not registered", 
-					"This test case will verify that user is able to reset password for valid user"));
 
 	public static ArrayList<String> lstFpPassMessage = new ArrayList<>(
 			Arrays.asList("User received alert message that 'User is not registered.' successfully", 
@@ -41,8 +38,5 @@ public class ForgotPasswordModel {
 			Arrays.asList("User did not received alert message that 'User is not registered.'", 
 					"User did not received alert message that 'Please check your e-mail for instructions.'"));
 	
-	public static ArrayList<String> lstFpStep1 = new ArrayList<>(
-			Arrays.asList("2. Enter invalid email for which account does not exist into Email Address field", 
-					"2. Enter valid email for which account exists into Email Address field"));
 	
 }

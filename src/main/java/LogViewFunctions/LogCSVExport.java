@@ -10,10 +10,9 @@ import static MiscFunctions.ExtentVariables.preconditions;
 import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
-import static MiscFunctions.Helper.driver;
-import static MiscFunctions.Helper.getScreenshot;
-import static MiscFunctions.Helper.saveResult;
-import static MiscFunctions.Helper.waitElementInvisible;
+import static MiscFunctions.Methods.getScreenshot;
+import static Config.BaseTest.saveResult;
+import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.loading_cursor;
 
@@ -36,10 +35,11 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+import Config.BaseTest;
 import MiscFunctions.ClickElement;
 import MiscFunctions.DownloadFileCheck;
 
-public class CSVExport {
+public class LogCSVExport {
 
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (enabled= true) 
@@ -60,27 +60,28 @@ public class CSVExport {
 			steps.createNode("2. Click on the button; Dropdown cloud pop ups");
 			steps.createNode("3. Verify the columns are same in table and CSV");
 			SoftAssert softAssert = new SoftAssert();
-			driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
+			BaseTest driver = new BaseTest();
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);						
-			ClickElement.clickByCss(driver, "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
 
-			ClickElement.clickByCss(driver, "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(2000);
-			String getRowText = driver.findElement(By.id(ResultsCount)).getText();
+			String getRowText = driver.getDriver().findElement(By.id(ResultsCount)).getText();
 
-			driver.findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
 			Thread.sleep(1000);
 			getScreenshot();
-			ClickElement.clickById(driver, "export-csv");
+			ClickElement.clickById(driver.getDriver(), "export-csv");
 			waitElementInvisible(loading_cursor);	
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 			Thread.sleep(1500);
 
-		//	SalmonellaLog fr= new SalmonellaLog();
+			//	SalmonellaLog fr= new SalmonellaLog();
 			File newfile = DownloadFileCheck.getTheNewestFile(fileDownloadPath, "csv");
 			String filename= newfile.getName();
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");
@@ -104,12 +105,12 @@ public class CSVExport {
 			int rowsCount = 1;
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
-					int rows = driver.findElements(By.cssSelector("tr")).size();
+					int rows = driver.getDriver().findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
-						int totalColumns = driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
+						int totalColumns = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
 						int columnsCount = columnsCountTotal+1;
-						if (driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+rowsCount+")")).size() != 0 && columnsCount<=totalColumns) {
-							softAssert.assertEquals(data[i].trim(), driver.findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
+						if (driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+rowsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), driver.getDriver().findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
 						}
 						else {
 							rowsCount = rowsCount+1;
@@ -158,9 +159,9 @@ public class CSVExport {
 		}
 		Thread.sleep(1000);
 	}
-	
-	
-	
+
+
+
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (enabled= true) 
 	public static void CSVExport1(String name, String CSVFileName, String tablename, int filterNumber, int skipColumns) throws InterruptedException, IOException {
@@ -180,28 +181,28 @@ public class CSVExport {
 			steps.createNode("2. Click on the button; Dropdown cloud pop ups");
 			steps.createNode("3. Verify the columns are same in table and CSV");
 			SoftAssert softAssert = new SoftAssert();
-
-			driver.findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
+			BaseTest driver = new BaseTest();
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);						
-			ClickElement.clickByCss(driver, "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
 
-			ClickElement.clickByCss(driver, "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(2000);
-			String getRowText = driver.findElement(By.id(ResultsCount)).getText();
+			String getRowText = driver.getDriver().findElement(By.id(ResultsCount)).getText();
 
-			driver.findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
 			Thread.sleep(1000);
 			getScreenshot();
-			ClickElement.clickById(driver, "export-csv");
+			ClickElement.clickById(driver.getDriver(), "export-csv");
 			waitElementInvisible(loading_cursor);	
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 			Thread.sleep(1500);
 
-		//	SalmonellaLog fr= new SalmonellaLog();
+			//	SalmonellaLog fr= new SalmonellaLog();
 			File newfile = DownloadFileCheck.getTheNewestFile(fileDownloadPath, "csv");
 			String filename= newfile.getName();
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");
@@ -225,13 +226,13 @@ public class CSVExport {
 			int rowsCount = 1;
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
-					int rows = driver.findElements(By.cssSelector("tr")).size();
+					int rows = driver.getDriver().findElements(By.cssSelector("tr")).size();
 					if (rowsCount < rows) {
-						int totalColumns = driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
-					//	int columnsCount = columnsCountTotal+3;
+						int totalColumns = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
+						//	int columnsCount = columnsCountTotal+3;
 						int columnsCount = columnsCountTotal+2;
-						if (driver.findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
-							softAssert.assertEquals(data[i].trim(), driver.findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
+						if (driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+							softAssert.assertEquals(data[i].trim(), driver.getDriver().findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
 						}
 						else {
 							rowsCount = rowsCount+1;
@@ -280,5 +281,5 @@ public class CSVExport {
 		}
 		Thread.sleep(1000);
 	}
-	
+
 }

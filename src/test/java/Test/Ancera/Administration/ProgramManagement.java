@@ -11,7 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -19,11 +18,12 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import Config.BaseTest;
 import MiscFunctions.Constants;
 import MiscFunctions.DB_Config;
+import MiscFunctions.Methods;
 import MiscFunctions.Queries;
 import Models.ProgramManagementModel;
-import Test.Ancera.Login.LoginTest;
 
 import static PageObjects.ProgramManagementPage.*;
 import static PageObjects.BasePage.*;
@@ -35,21 +35,20 @@ import static LogViewFunctions.RowsPerPage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.DateUtil.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Helper.*;
-import static LogViewFunctions.CSVExport.*;
+import static MiscFunctions.Methods.*;
+import static LogViewFunctions.LogCSVExport.*;
 import static Models.ProgramManagementModel.*;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class ProgramManagement extends DB_Config {
+public class ProgramManagement extends BaseTest {
 
 
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_Program_Management"+date+".html");
 		spark.config().setReportName("Program Management Test Report"); 
-		config();
-		LoginTest.login();
+		DB_Config.test();
 	}
 
 
@@ -63,7 +62,7 @@ public class ProgramManagement extends DB_Config {
 	public void CreatePrograms() throws InterruptedException, IOException, SQLException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
@@ -85,39 +84,39 @@ public class ProgramManagement extends DB_Config {
 				SoftAssert softAssert = new SoftAssert();
 
 
-				driver.findElement(By.xpath("//*[text()= 'Vaccine Programs ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= 'Vaccine Programs ']")).click();
 				waitElementInvisible(loading_cursor);
-				driver.findElement(By.xpath("//*[text()=' Register New Program']")).click();
+				getDriver().findElement(By.xpath("//*[text()=' Register New Program']")).click();
 				waitElementInvisible(loading_cursor);
 
 				//Program Name
-				softAssert.assertEquals(driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
-				driver.findElement(programName).sendKeys(objModel.ProgramName);
-				softAssert.assertEquals(driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				getDriver().findElement(programName).sendKeys(objModel.ProgramName);
+				softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
 
 				//Target Pathogen
-				driver.findElement(programTargetPathogen).click();
+				getDriver().findElement(programTargetPathogen).click();
 				Thread.sleep(500);
-				softAssert.assertEquals(driver.findElement(By.cssSelector(".ng-option-label")).getText(), "Coccidia");
-				driver.findElement(programTargetPathogen).sendKeys(Keys.ENTER);
+				softAssert.assertEquals(getDriver().findElement(By.cssSelector(".ng-option-label")).getText(), "Coccidia");
+				getDriver().findElement(programTargetPathogen).sendKeys(Keys.ENTER);
 				Thread.sleep(500);
-				softAssert.assertEquals(driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
 
 				//Program Type
-				driver.findElement(programProgramType).sendKeys(objModel.ProgramType);
+				getDriver().findElement(programProgramType).sendKeys(objModel.ProgramType);
 				Thread.sleep(500);	
-				softAssert.assertEquals(driver.findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
-				driver.findElement(programProgramType).sendKeys(Keys.ENTER);
+				softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
+				getDriver().findElement(programProgramType).sendKeys(Keys.ENTER);
 
 				//Supplier
 				if (!objModel.ProgramType.equals("Feed")) {    //creating feed program without supplier
-					driver.findElement(programSupplier).sendKeys(ProgramManagementModel.SupplierName);
+					getDriver().findElement(programSupplier).sendKeys(ProgramManagementModel.SupplierName);
 					Thread.sleep(500);
-					if (driver.findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-						driver.findElement(By.xpath("//*[text()='Add New + ']")).click();
+					if (getDriver().findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
+						getDriver().findElement(By.xpath("//*[text()='Add New + ']")).click();
 					}
 					else {
-						driver.findElement(By.cssSelector(".list-item")).click();		
+						getDriver().findElement(By.cssSelector(".list-item")).click();		
 					}
 					Thread.sleep(500);
 				}
@@ -126,8 +125,8 @@ public class ProgramManagement extends DB_Config {
 				//		softAssert.assertEquals(size(programComplexMandatoryCheck), 1, "Complex should be mandatory field");			
 				click(programComplexList);
 				if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-					//	driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameQA);
-					ResultSet getComplexNameResults = getStmt().executeQuery(Queries.getComplexName);
+					//	getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameQA);
+					ResultSet getComplexNameResults = DB_Config.getStmt().executeQuery(Queries.getComplexName);
 					while (getComplexNameResults.next()) {
 						String complexName = getComplexNameResults.getString("siteName");
 						System.out.println("Complex Name: "+complexName);
@@ -135,7 +134,7 @@ public class ProgramManagement extends DB_Config {
 					}
 				}
 				if (Constants.config.url().contains("uat")) {
-					driver.findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
+					getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
 				}
 	
 				Thread.sleep(1500);
@@ -147,72 +146,73 @@ public class ProgramManagement extends DB_Config {
 				click(programStartDateIcon);
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(500);
-				WebElement dateWidgetTo = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
+				Methods method = new Methods();
+				WebElement dateWidgetTo = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#startDate .dp-popup"))).get(0);
 				List<WebElement> columns1 = dateWidgetTo.findElements(By.tagName("button"));
 				clickGivenDay(columns1, getFirstDay());
 				Thread.sleep(500);
 
 				//End Date
-				driver.findElement(By.cssSelector("#endDate img")).click();
+				getDriver().findElement(By.cssSelector("#endDate img")).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(500);
-				WebElement dateWidgetToEnd = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#endDate .dp-popup"))).get(0);
+				WebElement dateWidgetToEnd = method.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#endDate .dp-popup"))).get(0);
 				List<WebElement> columns2 = dateWidgetToEnd.findElements(By.tagName("button"));
 				clickGivenDay(columns2, getDay("30"));
 				Thread.sleep(700);
 
 				//Program Description
-				driver.findElement(programDescription).sendKeys(ProgramManagementModel.DescriptionName);
+				getDriver().findElement(programDescription).sendKeys(ProgramManagementModel.DescriptionName);
 
 				//Vaccine Number of Applications on Flock
 				if (objModel.ProgramType.startsWith("Vaccine")) {
-					driver.findElement(programNoApplicationFlock).sendKeys("64");
-					softAssert.assertEquals(driver.findElements(By.cssSelector("#numOfApplicationId-error-container svg")).size(), 1, "Mandatory check failed on No of Application Flock");
+					getDriver().findElement(programNoApplicationFlock).sendKeys("64");
+					softAssert.assertEquals(getDriver().findElements(By.cssSelector("#numOfApplicationId-error-container svg")).size(), 1, "Mandatory check failed on No of Application Flock");
 					Thread.sleep(500);
 					clear(programNoApplicationFlock);
 
 					String NoApplicationFlock = "2";
-					driver.findElement(programNoApplicationFlock).sendKeys(NoApplicationFlock);
+					getDriver().findElement(programNoApplicationFlock).sendKeys(NoApplicationFlock);
 					Thread.sleep(500);
 
 					for(int i=1; i<=Integer.parseInt(NoApplicationFlock); i++) {
-						driver.findElement(By.id(programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
+						getDriver().findElement(By.id(programDaysApplicationFlock+"-"+i)).sendKeys(""+i);
 					}
 				}
 
 				//Feed Details
 				if (objModel.ProgramType.equals("Feed")) {
-					driver.findElement(programFeedTypeDropdown).click();
+					getDriver().findElement(programFeedTypeDropdown).click();
 					Thread.sleep(500);	
-					driver.findElement(programFeedTypeDropdown).sendKeys(Keys.ENTER);
+					getDriver().findElement(programFeedTypeDropdown).sendKeys(Keys.ENTER);
 
-					driver.findElement(programFlockDayStart).sendKeys("1");
+					getDriver().findElement(programFlockDayStart).sendKeys("1");
 
-					WebElement EndDay = driver.findElement(programFlockDayStart);
-					driver.findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("10");
+					WebElement EndDay = getDriver().findElement(programFlockDayStart);
+					getDriver().findElement(with(By.tagName("input")).toRightOf(EndDay)).sendKeys("10");
 
-					WebElement ingredient = driver.findElement(programFeedTypeDropdown);
-					driver.findElement(with(By.tagName("input")).below(ingredient)).sendKeys("Sugar");
+					WebElement ingredient = getDriver().findElement(programFeedTypeDropdown);
+					getDriver().findElement(with(By.tagName("input")).below(ingredient)).sendKeys("Sugar");
 
-					WebElement ingredientCategory = driver.findElement(programFlockDayStart);
-					driver.findElement(with(By.tagName("input")).below(ingredientCategory)).click();
-					List<WebElement> ingredientCategories = driver.findElements(By.cssSelector(".ng-option-label"));
+					WebElement ingredientCategory = getDriver().findElement(programFlockDayStart);
+					getDriver().findElement(with(By.tagName("input")).below(ingredientCategory)).click();
+					List<WebElement> ingredientCategories = getDriver().findElements(By.cssSelector(".ng-option-label"));
 					softAssert.assertEquals(ingredientCategories.get(0).getText(), "Antibiotic");
 					softAssert.assertEquals(ingredientCategories.get(1).getText(), "Coccidia Stat");
 					softAssert.assertEquals(ingredientCategories.get(2).getText(), "Natural");
 					ingredientCategories.get(0).click();
-					driver.findElement(By.xpath(("//*[text()='Add Ingredient']"))).click();
+					getDriver().findElement(By.xpath(("//*[text()='Add Ingredient']"))).click();
 				}
 
 				//Treatment Details
 				if(objModel.ProgramType.equals("Treatment")) {
-					driver.findElement(By.xpath("//div[2]/div[1]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("Treatment Program");
+					getDriver().findElement(By.xpath("//div[2]/div[1]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("Treatment Program");
 
 				}
 
 				//Bioshuttle Details
 				if(objModel.ProgramType.equals("Bioshuttle")) {
-					driver.findElement(By.xpath("//div[2]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("BioShuttle Vaccine");	//bioshuttle name field
+					getDriver().findElement(By.xpath("//div[2]/div[1]/app-anc-input-box/div/input[1]")).sendKeys("BioShuttle Vaccine");	//bioshuttle name field
 
 					type(programBioshuttleFlockDayStart, "64");
 					softAssert.assertEquals(size(programBioshuttleFlockDayStartError), 0, "Error did not appeared");
@@ -227,62 +227,62 @@ public class ProgramManagement extends DB_Config {
 				}
 
 				getScreenshot();
-				driver.findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
+				getDriver().findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
 
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1500);
-				softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New program has been created successfully"); 
+				softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 
 				//Feed Verification
 				if (objModel.ProgramType.equals("Feed")) {
 					waitElementVisible(By.cssSelector("tr:nth-child(1) "+programFeedProgramNameCol));
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedSupplierNameCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedFeedTypesCol)).getText(), "Feed Type 1");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedSupplierNameCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedFeedTypesCol)).getText(), "Feed Type 1");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
 				}
 
 				//Treatment Verification
 				if (objModel.ProgramType.equals("Treatment")) {
 					waitElementVisible(By.cssSelector("tr:nth-child(1) "+programTreatmentProgramNameCol));
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentNameCol)).getText(), "Treatment Program");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayStartCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayEndCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentRouteCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentTreatmentDescriptionCol)).getText(), "");					
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentNameCol)).getText(), "Treatment Program");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayStartCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayEndCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentRouteCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentTreatmentDescriptionCol)).getText(), "");					
 				}
 
 				//Vaccine Verification
 				if (objModel.ProgramType.equals("Vaccine")) {
 					waitElementVisible(By.cssSelector("tr:nth-child(1) "+programVaccineProgramNameCol));
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineFlockDayApplicationCol)).getText(), "1,2");								
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineFlockDayApplicationCol)).getText(), "1,2");								
 				}
 
 				//Vaccine Bioshuttle Verification
 				if (objModel.ProgramType.equals("Bioshuttle")) {
 					waitElementVisible(By.cssSelector("tr:nth-child(1) "+programBioshuttleProgramNameCol));
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayStartCol)).getText(), "1");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayEndCol)).getText(), "10");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayStartCol)).getText(), "1");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayEndCol)).getText(), "10");	
 				}
 
 				softAssert.assertAll();
@@ -301,7 +301,7 @@ public class ProgramManagement extends DB_Config {
 				saveResult(ITestResult.FAILURE, ex);
 			}
 		}
-		getStmt().close();
+		DB_Config.getStmt().close();
 	}
 
 
@@ -309,7 +309,7 @@ public class ProgramManagement extends DB_Config {
 	public void UpdatePrograms() throws InterruptedException, IOException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
@@ -330,18 +330,18 @@ public class ProgramManagement extends DB_Config {
 
 				SoftAssert softAssert = new SoftAssert();
 
-				driver.findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 
-				List<WebElement> programsName = driver.findElements(By.cssSelector(objModel.ProgramName_CSS));
+				List<WebElement> programsName = getDriver().findElements(By.cssSelector(objModel.ProgramName_CSS));
 
 				for (int i = 1; i <= programsName.size(); i++) {
-					if (driver.findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
+					if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
 						scroll(By.xpath("//*[@id='"+objModel.ProgramTable+"'] //*[text()='Action']"));
 						waitElementClickable(By.id(objModel.EditButtonPre+""+i+"-"+objModel.ButtonPost));
 						Thread.sleep(1000);
-						driver.findElement(By.id(objModel.EditButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
+						getDriver().findElement(By.id(objModel.EditButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
 						break;
 					}
 					else {
@@ -352,7 +352,7 @@ public class ProgramManagement extends DB_Config {
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				//Program Description
-				driver.findElement(programDescription).sendKeys(" Updated");
+				getDriver().findElement(programDescription).sendKeys(" Updated");
 				Thread.sleep(500);	
 				getScreenshot();
 				click(popupSaveButton);
@@ -360,54 +360,54 @@ public class ProgramManagement extends DB_Config {
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 
-				softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Program details updated"); 
+				softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Program details updated"); 
 
 				//Feed Verification
 				if (objModel.ProgramType.equals("Feed")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedSupplierNameCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedFeedTypesCol)).getText(), "Feed Type 1");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedSupplierNameCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedFeedTypesCol)).getText(), "Feed Type 1");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
 				}
 
 				//Treatment Verification
 				if (objModel.ProgramType.equals("Treatment")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentNameCol)).getText(), "Treatment Program");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentFlockDayStartCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentFlockDayEndCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentRouteCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programTreatmentTreatmentDescriptionCol)).getText(), "");					
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentNameCol)).getText(), "Treatment Program");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentFlockDayStartCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentFlockDayEndCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentRouteCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programTreatmentTreatmentDescriptionCol)).getText(), "");					
 				}
 
 				//Vaccine Verification
 				if (objModel.ProgramType.equals("Vaccine")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programVaccineFlockDayApplicationCol)).getText(), "1,2");								
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineFlockDayApplicationCol)).getText(), "1,2");								
 				}
 
 				//Vaccine Bioshuttle Verification
 				if (objModel.ProgramType.equals("Bioshuttle")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleFlockDayStartCol)).getText(), "1");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector(programBioshuttleFlockDayEndCol)).getText(), "10");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+" Updated");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleFlockDayStartCol)).getText(), "1");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector(programBioshuttleFlockDayEndCol)).getText(), "10");	
 				}
 				softAssert.assertAll();
 				test.pass("New Program updated successfully");
@@ -433,7 +433,7 @@ public class ProgramManagement extends DB_Config {
 	public void DuplicatePrograms() throws InterruptedException, IOException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
@@ -454,19 +454,19 @@ public class ProgramManagement extends DB_Config {
 
 				SoftAssert softAssert = new SoftAssert();
 
-				driver.findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
 				waitElementInvisible(loading_cursor);
 
-				List<WebElement> programsName = driver.findElements(By.cssSelector(objModel.ProgramName_CSS));
+				List<WebElement> programsName = getDriver().findElements(By.cssSelector(objModel.ProgramName_CSS));
 
 				for (int i = 1; i <= programsName.size(); i++) {
-					if (driver.findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
+					if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
 						System.out.println(1);
 						scroll(By.xpath("//*[@id='"+objModel.ProgramTable+"'] //*[text()='Action']"));
 						waitElementClickable(By.id(objModel.EditButtonPre+""+i+"-"+objModel.ButtonPost));
 						Thread.sleep(1000);
-						//	driver.findElement(By.id(objModel.CopyButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
-						driver.findElement(By.xpath("//*[@id = '"+objModel.CopyButtonPre+""+i+"-"+objModel.ButtonPost+"']")).click();		
+						//	getDriver().findElement(By.id(objModel.CopyButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
+						getDriver().findElement(By.xpath("//*[@id = '"+objModel.CopyButtonPre+""+i+"-"+objModel.ButtonPost+"']")).click();		
 
 						break;        
 					}
@@ -479,110 +479,110 @@ public class ProgramManagement extends DB_Config {
 				Thread.sleep(1000);
 
 				type(programName, objModel.ProgramName+"_Copy");
-				softAssert.assertEquals(driver.findElement(programTargetPathogenValue).getText(), "Coccidia", "Target Pathogen is empty ");
-				softAssert.assertEquals(driver.findElement(programProgramTypeValue).getText(), objModel.ProgramType, " Program Type is empty ");
+				softAssert.assertEquals(getDriver().findElement(programTargetPathogenValue).getText(), "Coccidia", "Target Pathogen is empty ");
+				softAssert.assertEquals(getDriver().findElement(programProgramTypeValue).getText(), objModel.ProgramType, " Program Type is empty ");
 				softAssert.assertEquals(size(programProgramTypeDisabledCheck), 1, "Program Type is not disabled");
 
 
 				//Supplier
 				if (!objModel.ProgramType.equals("Feed")) { 
-					softAssert.assertEquals(driver.findElement(programSupplier).getAttribute("value"), ProgramManagementModel.SupplierName, "Supplier name is empty ");
+					softAssert.assertEquals(getDriver().findElement(programSupplier).getAttribute("value"), ProgramManagementModel.SupplierName, "Supplier name is empty ");
 				}
 
 				//	softAssert.assertEquals(size(programComplexMandatoryCheck), 1, "Complex should be mandatory field");			
 				softAssert.assertEquals(size(programComplexSelected), 1);
-				softAssert.assertNotEquals(driver.findElement(By.id("startDate")).getAttribute("value"), "", "Start Date is empty");
-				softAssert.assertNotEquals(driver.findElement(By.id("endDate")).getAttribute("value"), "", "End Date is empty");
-				softAssert.assertNotEquals(driver.findElement(programDescription).getAttribute("value"), "", "Description is empty");
+				softAssert.assertNotEquals(getDriver().findElement(By.id("startDate")).getAttribute("value"), "", "Start Date is empty");
+				softAssert.assertNotEquals(getDriver().findElement(By.id("endDate")).getAttribute("value"), "", "End Date is empty");
+				softAssert.assertNotEquals(getDriver().findElement(programDescription).getAttribute("value"), "", "Description is empty");
 				clear(programDescription);				
 				type(programDescription, ProgramManagementModel.DescriptionName+"_Copy");
 
 				//Vaccine Number of Applications on Flock
 				if (objModel.ProgramType.startsWith("Vaccine")) {
 					String NoApplicationFlock = "2";
-					softAssert.assertEquals(driver.findElement(programNoApplicationFlock).getAttribute("value"), NoApplicationFlock, "No of Application Flock empty");
+					softAssert.assertEquals(getDriver().findElement(programNoApplicationFlock).getAttribute("value"), NoApplicationFlock, "No of Application Flock empty");
 
 					for(int i=1; i<=Integer.parseInt(NoApplicationFlock); i++) {
-						softAssert.assertEquals(Integer.parseInt(driver.findElement(By.id(programDaysApplicationFlock+"-"+i)).getAttribute("value")), i, "No of Application Flock Days empty");
+						softAssert.assertEquals(Integer.parseInt(getDriver().findElement(By.id(programDaysApplicationFlock+"-"+i)).getAttribute("value")), i, "No of Application Flock Days empty");
 					}
 				}
 
 				//Feed Details
 				if (objModel.ProgramType.equals("Feed")) {
-					softAssert.assertEquals(driver.findElement(programFeedTypeValue).getText(), "Feed Type 1");
-					//					softAssert.assertNotEquals(driver.findElement(programFlockDayStart).getAttribute("value"), "");
+					softAssert.assertEquals(getDriver().findElement(programFeedTypeValue).getText(), "Feed Type 1");
+					//					softAssert.assertNotEquals(getDriver().findElement(programFlockDayStart).getAttribute("value"), "");
 
-					WebElement EndDay = driver.findElement(programFlockDayStart);
-					softAssert.assertNotEquals(driver.findElement(with(By.tagName("input")).toRightOf(EndDay)).getAttribute("value"), "");
+					WebElement EndDay = getDriver().findElement(programFlockDayStart);
+					softAssert.assertNotEquals(getDriver().findElement(with(By.tagName("input")).toRightOf(EndDay)).getAttribute("value"), "");
 
-					//					WebElement ingredient = driver.findElement(programFeedTypeDropdown);
-					//					softAssert.assertEquals(driver.findElement(with(By.tagName("input")).below(ingredient)).getAttribute("value"), "Sugar");
+					//					WebElement ingredient = getDriver().findElement(programFeedTypeDropdown);
+					//					softAssert.assertEquals(getDriver().findElement(with(By.tagName("input")).below(ingredient)).getAttribute("value"), "Sugar");
 				}
 
 				//Treatment Details
 				if(objModel.ProgramType.equals("Treatment")) {
-					softAssert.assertEquals(driver.findElement(By.xpath("//div[2]/div[1]/div[1]/app-anc-input-box/div/input[1]")).getAttribute("value"), "Treatment Program");
+					softAssert.assertEquals(getDriver().findElement(By.xpath("//div[2]/div[1]/div[1]/app-anc-input-box/div/input[1]")).getAttribute("value"), "Treatment Program");
 				}
 
 				//Bioshuttle Details
 				if(objModel.ProgramType.equals("Bioshuttle")) {
-					softAssert.assertEquals(driver.findElement(By.xpath("//div[2]/div[1]/app-anc-input-box/div/input[1]")).getAttribute("value"), "BioShuttle Vaccine");
+					softAssert.assertEquals(getDriver().findElement(By.xpath("//div[2]/div[1]/app-anc-input-box/div/input[1]")).getAttribute("value"), "BioShuttle Vaccine");
 				}
 
 				getScreenshot();
-				driver.findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
+				getDriver().findElement(By.xpath(("//button[text() = ' Submit ']"))).click();
 
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 
-				softAssert.assertEquals(driver.findElement(alertMessage).getText(), "New program has been created successfully"); 
+				softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 
 				//Feed Verification
 				if (objModel.ProgramType.equals("Feed")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedSupplierNameCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedFeedTypesCol)).getText(), "Feed Type 1");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedProgramNameCol)).getText(), ProgramManagementModel.FeedProgramName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedSupplierNameCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedFeedTypesCol)).getText(), "Feed Type 1");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programFeedEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);			
 				}
 
 				//Treatment Verification
 				if (objModel.ProgramType.equals("Treatment")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentNameCol)).getText(), "Treatment Program");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayStartCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayEndCol)).getText(), "");			
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentRouteCol)).getText(), "");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentTreatmentDescriptionCol)).getText(), "");					
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentProgramNameCol)).getText(), ProgramManagementModel.TreatmentProgramName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentNameCol)).getText(), "Treatment Program");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayStartCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentFlockDayEndCol)).getText(), "");			
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentRouteCol)).getText(), "");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programTreatmentTreatmentDescriptionCol)).getText(), "");					
 				}
 
 				//Vaccine Verification
 				if (objModel.ProgramType.equals("Vaccine")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programVaccineFlockDayApplicationCol)).getText(), "1,2");								
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineProgramNameCol)).getText(), ProgramManagementModel.VaccineProgramName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programVaccineFlockDayApplicationCol)).getText(), "1,2");								
 				}
 
 				//Vaccine Bioshuttle Verification
 				if (objModel.ProgramType.equals("Bioshuttle")) {
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayStartCol)).getText(), "1");	
-					softAssert.assertEquals(driver.findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayEndCol)).getText(), "10");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleProgramNameCol)).getText(), ProgramManagementModel.BioshuttleProgramName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleSupplierNameCol)).getText(), ProgramManagementModel.SupplierName);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleNumberOfApplicationFlockCol)).getText(), "2");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleDescriptionCol)).getText(), ProgramManagementModel.DescriptionName+"_Copy");
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleStartDateCol)).getText(), dateMM+"/01/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleEndDateCol)).getText(), dateMM+"/30/"+dateYYYY);
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayApplicationCol)).getText(), "1,2");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayStartCol)).getText(), "1");	
+					softAssert.assertEquals(getDriver().findElement(By.cssSelector("tr:nth-child(1) "+programBioshuttleFlockDayEndCol)).getText(), "10");	
 				}
 
 				softAssert.assertAll();
@@ -608,7 +608,7 @@ public class ProgramManagement extends DB_Config {
 	public void DeleteDuplicatePrograms() throws InterruptedException, IOException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
@@ -621,18 +621,18 @@ public class ProgramManagement extends DB_Config {
 				steps.createNode("1. Delete the created program");
 
 				SoftAssert softAssert = new SoftAssert();
-				driver.findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
 				waitElementInvisible(loading_cursor);
 
-				List<WebElement> programsName = driver.findElements(By.cssSelector(objModel.ProgramName_CSS));
+				List<WebElement> programsName = getDriver().findElements(By.cssSelector(objModel.ProgramName_CSS));
 
 				for (int i = 1; i <= programsName.size(); i++) {
-					if (driver.findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName+"_Copy")) {
+					if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName+"_Copy")) {
 						System.out.println("1");
 						scroll(By.xpath("//*[@id='"+objModel.ProgramTable+"'] //*[text()='Action']"));
 						waitElementClickable(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost));
 						Thread.sleep(1000);
-						driver.findElement(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
+						getDriver().findElement(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
 						break;
 					}
 					else {
@@ -645,7 +645,7 @@ public class ProgramManagement extends DB_Config {
 				waitElementInvisible(loading_cursor);				
 				Thread.sleep(1000);
 
-				softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Program details deleted"); 			
+				softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Program details deleted"); 			
 				softAssert.assertAll();
 				test.pass("New Program deleted successfully");
 				results.createNode("New Program deleted successfully");
@@ -668,7 +668,7 @@ public class ProgramManagement extends DB_Config {
 	public void DeletePrograms() throws InterruptedException, IOException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 
@@ -681,18 +681,18 @@ public class ProgramManagement extends DB_Config {
 				steps.createNode("1. Delete the created program");
 
 				SoftAssert softAssert = new SoftAssert();
-				driver.findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
 				waitElementInvisible(loading_cursor);
 
-				List<WebElement> programsName = driver.findElements(By.cssSelector(objModel.ProgramName_CSS));
+				List<WebElement> programsName = getDriver().findElements(By.cssSelector(objModel.ProgramName_CSS));
 
 				for (int i = 1; i <= programsName.size(); i++) {
-					if (driver.findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
+					if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") "+objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
 						System.out.println("1");
 						scroll(By.xpath("//*[@id='"+objModel.ProgramTable+"'] //*[text()='Action']"));
 						waitElementClickable(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost));
 						Thread.sleep(1000);
-						driver.findElement(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
+						getDriver().findElement(By.id(objModel.DeleteButtonPre+""+i+"-"+objModel.ButtonPost)).click();		
 						break;
 					}
 					else {
@@ -705,7 +705,7 @@ public class ProgramManagement extends DB_Config {
 				waitElementInvisible(loading_cursor);				
 				Thread.sleep(1000);
 
-				softAssert.assertEquals(driver.findElement(alertMessage).getText(), "Program details deleted"); 			
+				softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Program details deleted"); 			
 				softAssert.assertAll();
 				test.pass("New Program deleted successfully");
 				results.createNode("New Program deleted successfully");
@@ -742,7 +742,7 @@ public class ProgramManagement extends DB_Config {
 
 			SoftAssert softAssert = new SoftAssert();
 
-			driver.get(Constants.url_programManagement);
+			getDriver().get(Constants.url_programManagement);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
@@ -753,7 +753,7 @@ public class ProgramManagement extends DB_Config {
 			String[] utilizationColumnNamesExpected = {"Flock ID", "Integrator Flock ID", "Program Type", "Program Name", "Complex", "Farm", "House Placement", "Start Date", "End Date"};
 
 
-			List<WebElement> feedColumnNamesActual = driver.findElements(By.cssSelector("#"+programFeedTable+" th"));
+			List<WebElement> feedColumnNamesActual = getDriver().findElements(By.cssSelector("#"+programFeedTable+" th"));
 			int sizeFeedTable = feedColumnNamesActual.size();
 
 			for(int i =0; i<sizeFeedTable ; i++){
@@ -767,7 +767,7 @@ public class ProgramManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			List<WebElement> treatmentColumnNamesActual = driver.findElements(By.cssSelector("#"+programTreatmentTable+" th"));
+			List<WebElement> treatmentColumnNamesActual = getDriver().findElements(By.cssSelector("#"+programTreatmentTable+" th"));
 			int sizeTreatmentTable = treatmentColumnNamesActual.size();
 			for(int i =0; i<sizeTreatmentTable ; i++){
 				softAssert.assertEquals(treatmentColumnNamesActual.get(i).getText(), treatmentColumnNamesExpected[i]);
@@ -780,7 +780,7 @@ public class ProgramManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			List<WebElement> vaccineColumnNamesActual = driver.findElements(By.cssSelector("#"+programVaccineTable+" th"));
+			List<WebElement> vaccineColumnNamesActual = getDriver().findElements(By.cssSelector("#"+programVaccineTable+" th"));
 			int sizeVaccineTable = vaccineColumnNamesActual.size();
 			for(int i =0; i<sizeVaccineTable ; i++){
 				softAssert.assertEquals(vaccineColumnNamesActual.get(i).getText(), vaccineColumnNamesExpected[i]);
@@ -793,7 +793,7 @@ public class ProgramManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			List<WebElement> bioshuttleColumnNamesActual = driver.findElements(By.cssSelector("#"+programBioshuttleTable+" th"));
+			List<WebElement> bioshuttleColumnNamesActual = getDriver().findElements(By.cssSelector("#"+programBioshuttleTable+" th"));
 			int sizeBioshuttleTable = vaccineColumnNamesActual.size();
 			for(int i =0; i<sizeBioshuttleTable ; i++){
 				softAssert.assertEquals(bioshuttleColumnNamesActual.get(i).getText(), bioshuttleColumnNamesExpected[i]);
@@ -806,7 +806,7 @@ public class ProgramManagement extends DB_Config {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			List<WebElement> utilizationColumnNamesActual = driver.findElements(By.cssSelector("#"+programUtilizationTable+" th"));
+			List<WebElement> utilizationColumnNamesActual = getDriver().findElements(By.cssSelector("#"+programUtilizationTable+" th"));
 			int sizeUtilizationTable = vaccineColumnNamesActual.size();
 			for(int i =0; i<sizeUtilizationTable ; i++){
 				softAssert.assertEquals(utilizationColumnNamesActual.get(i).getText(), utilizationColumnNamesExpected[i]);
@@ -836,7 +836,7 @@ public class ProgramManagement extends DB_Config {
 	public void ComplexFilterTest() throws InterruptedException, IOException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
 
-		driver.get(Constants.url_programManagement);
+		getDriver().get(Constants.url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		SoftAssert softAssert = new SoftAssert();
@@ -846,11 +846,11 @@ public class ProgramManagement extends DB_Config {
 				test = extent.createTest("AN-Program: Verify Site Name Filter Functionality");
 				results = test.createNode(Scenario.class, Results);
 
-				driver.findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
+				getDriver().findElement(By.xpath("//*[text()= '"+objModel.Program+" ']")).click();
 				waitElementInvisible(loading_cursor);
 
 
-				String recordsBefore = driver.findElement(By.cssSelector("#"+objModel.ProgramTable+" #"+ResultsCount)).getText();
+				String recordsBefore = getDriver().findElement(By.cssSelector("#"+objModel.ProgramTable+" #"+ResultsCount)).getText();
 
 				scroll(By.cssSelector("#"+objModel.ProgramTable+" #complex"+""+ShowFilter));
 				Thread.sleep(500);
@@ -858,7 +858,7 @@ public class ProgramManagement extends DB_Config {
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(700);	
 
-				if (driver.findElements(By.cssSelector("#sort-complex-"+objModel.ButtonPost+" tr")).size() >=2) {
+				if (getDriver().findElements(By.cssSelector("#sort-complex-"+objModel.ButtonPost+" tr")).size() >=2) {
 
 					scroll(By.cssSelector("#sort-complex-"+objModel.ButtonPost+" tr:nth-child(2) label:nth-child(1)"));
 					click(By.cssSelector("#sort-complex-"+objModel.ButtonPost+" tr:nth-child(2) label:nth-child(1)"));
@@ -869,7 +869,7 @@ public class ProgramManagement extends DB_Config {
 
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
-					softAssert.assertNotEquals(driver.findElement(By.cssSelector("#"+objModel.ProgramTable+" #"+ResultsCount)).getText(), recordsBefore);
+					softAssert.assertNotEquals(getDriver().findElement(By.cssSelector("#"+objModel.ProgramTable+" #"+ResultsCount)).getText(), recordsBefore);
 
 
 					test.pass("Checkbox selected successfully");
@@ -892,10 +892,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 10) 
 	public void LockFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(programFeedTable, "Program Management",0);
@@ -904,7 +904,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 11) 
 	public void LockTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(programTreatmentTable, "Program Management",0);
@@ -913,7 +913,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 12) 
 	public void LockVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(programVaccineTable, "Program Management",0);
@@ -922,7 +922,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 13) 
 	public void LockBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(programBioshuttleTable, "Program Management",0);
@@ -931,7 +931,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 14) 
 	public void LockUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Lock(programUtilizationTable, "Program Management",0);
@@ -940,10 +940,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 15) 
 	public void WildcardFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(programFeedTable, "Program Management",0);
@@ -952,7 +952,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 16) 
 	public void WildcardTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(programTreatmentTable, "Program Management",0);
@@ -961,7 +961,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 17) 
 	public void WildcardVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(programVaccineTable, "Program Management",0);
@@ -970,7 +970,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 18) 
 	public void WildcardBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(programBioshuttleTable, "Program Management",0);
@@ -979,7 +979,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 19) 
 	public void WildcardUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Wildcard(programUtilizationTable, "Program Management",0);
@@ -988,10 +988,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 20)
 	public void sortingFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(programFeedTable, "Program Management",0);
@@ -1000,7 +1000,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 21)
 	public void sortingTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(programTreatmentTable, "Program Management",0);
@@ -1009,7 +1009,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 22)
 	public void sortingVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(programVaccineTable, "Program Management",0);
@@ -1018,7 +1018,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 23)
 	public void sortingBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(programBioshuttleTable, "Program Management",0);
@@ -1027,7 +1027,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 24)
 	public void sortingUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Sorting(programUtilizationTable, "Program Management",0);
@@ -1036,10 +1036,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 25, enabled = true)
 	public void RowsPerPageFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(programFeedTable);
@@ -1048,7 +1048,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 26, enabled = true)
 	public void RowsPerPageTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(programTreatmentTable);
@@ -1057,7 +1057,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 27, enabled = true)
 	public void RowsPerPageVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(programVaccineTable);
@@ -1066,7 +1066,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 28, enabled = true)
 	public void RowsPerPageBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(programBioshuttleTable);
@@ -1075,7 +1075,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 29, enabled = true)
 	public void RowsPerPageUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		RowsPerPage1(programUtilizationTable);
@@ -1084,10 +1084,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 30) 
 	public void PaginationFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(programFeedTable, "Program Management", ReportFilePath);
@@ -1095,7 +1095,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 31) 
 	public void PaginationTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(programTreatmentTable, "Program Management", ReportFilePath);
@@ -1103,7 +1103,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 32) 
 	public void PaginationVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(programVaccineTable, "Program Management", ReportFilePath);
@@ -1111,7 +1111,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 33) 
 	public void PaginationBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(programBioshuttleTable, "Program Management", ReportFilePath);
@@ -1119,7 +1119,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test (priority = 34) 
 	public void PaginationUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		Pagination(programUtilizationTable, "Program Management", ReportFilePath);
@@ -1128,10 +1128,10 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 35)
 	public void ExportCSVFeed() throws InterruptedException, IOException {
-		driver.get(url_programManagement);
+		getDriver().get(url_programManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		driver.findElement(programFeedProgramTab).click();
+		getDriver().findElement(programFeedProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		CSVExport("Program Management",programFeedCSVFileName, programFeedTable, 1);
@@ -1140,7 +1140,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 36)
 	public void ExportCSVTreatment() throws InterruptedException, IOException {
-		driver.findElement(programTreatmentProgramTab).click();
+		getDriver().findElement(programTreatmentProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		CSVExport("Program Management",programTreatmentCSVFileName, programTreatmentTable, 1);
@@ -1148,7 +1148,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 37)
 	public void ExportCSVVaccine() throws InterruptedException, IOException {
-		driver.findElement(programVaccineProgramTab).click();
+		getDriver().findElement(programVaccineProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		CSVExport("Program Management",programVaccineCSVFileName, programVaccineTable, 1);
@@ -1156,7 +1156,7 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 38)
 	public void ExportCSVBioshuttle() throws InterruptedException, IOException {
-		driver.findElement(programBioshuttleProgramTab).click();
+		getDriver().findElement(programBioshuttleProgramTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		CSVExport("Program Management",programBioshuttleCSVFileName, programBioshuttleTable, 1);
@@ -1164,15 +1164,9 @@ public class ProgramManagement extends DB_Config {
 
 	@Test(priority= 39)
 	public void ExportCSVUtilization() throws InterruptedException, IOException {
-		driver.findElement(programProgramUtilizationTab).click();
+		getDriver().findElement(programProgramUtilizationTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 		CSVExport("Program Management",programUtilizationCSVFileName, programUtilizationTable, 1);
-	}
-
-	@AfterTest
-	public static void endreport() {
-		extent.flush();
-	//	driver.close();
 	}
 }
