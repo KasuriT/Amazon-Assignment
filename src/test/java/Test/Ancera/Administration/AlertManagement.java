@@ -16,6 +16,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -36,6 +38,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static MiscFunctions.ExtentVariables.extent;
 import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
@@ -48,7 +51,7 @@ public class AlertManagement extends BaseTest{
 		ExtentVariables.spark.config().setReportName("Agreement Management Test Report"); 
 	}
 
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -422,5 +425,10 @@ public class AlertManagement extends BaseTest{
 			catch(Exception ex) {
 			}
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 }

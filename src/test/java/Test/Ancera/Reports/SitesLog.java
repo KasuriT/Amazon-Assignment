@@ -2,15 +2,13 @@ package Test.Ancera.Reports;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
-import org.apache.commons.io.comparator.LastModifiedFileComparator;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -45,7 +43,7 @@ import static MiscFunctions.Constants.*;
 import static MiscFunctions.ExtentVariables.*;
 import static MiscFunctions.Methods.*;
 
-public class Sites_Log extends BaseTest {
+public class SitesLog extends BaseTest {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
@@ -53,7 +51,7 @@ public class Sites_Log extends BaseTest {
 		spark.config().setReportName("Sites Log Test Report"); 
 	}
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -73,8 +71,7 @@ public class Sites_Log extends BaseTest {
 
 	@Test (priority = 3) 
 	public void WildcardFilter() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
-		waitElementInvisible(loading_cursor);
+		SitesLogPage.openSitesLogPage();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Wildcard(sitesLogTable, "Sites Log", 2);
@@ -103,35 +100,21 @@ public class Sites_Log extends BaseTest {
 	@Test (enabled= true, priority =7) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-Sites-72: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
-
-			preconditions = test.createNode(Scenario.class, PreConditions);
-			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
-			steps.createNode("1. Verify int data type columns are right alligned");
+			test = extent.createTest("AN-Sites-72: Verify that int data type columns are right alligned");
 
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertNotEquals(getDriver().findElements(By.cssSelector("#col-"+sitesLatitudeCol+" .text-right")).size(), 0, "Latitude column is not right alligned");
 			softAssert.assertNotEquals(getDriver().findElements(By.cssSelector("#col-"+sitesLongitudeCol+" .text-right")).size(), 0, "Longitude column is not right alligned");
 
 			test.pass("Int data type columns are right alligned");
-			results.createNode("Int data type columns are right alligned");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 			softAssert.assertAll();	
 		}catch(AssertionError er) {
 			test.fail("Int data type columns are not right alligned");
-			results.createNode("Int data type columns are not right alligned");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}catch(Exception ex){
 			test.fail("Int data type columns are not right alligned");
-			results.createNode("Int data type columns are not right alligned");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -145,16 +128,8 @@ public class Sites_Log extends BaseTest {
 		for (SitesLogModel objModel : SitesLogModel.lstSitesLogFieldAccess) { 	
 			try {
 				test = extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-
-				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-
-				preconditions.createNode("1. Go to url " +url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
 				steps.createNode("1. Click on filed access icon; popup appears");
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
@@ -213,17 +188,14 @@ public class Sites_Log extends BaseTest {
 						Thread.sleep(1000);
 
 						test.pass("Column was hidden successfully");
-						results.createNode("Column was hidden successfully");
 						getScreenshot();
 						saveResult(ITestResult.SUCCESS, null);
 					}
 					catch(AssertionError er) {
 						test.fail(objFilter.FilterName+" column failed to hide");
-						results.createNode(objFilter.FilterName+" column failed to shide");
 						saveResult(ITestResult.FAILURE, new Exception(er));
 					}catch(Exception ex){
 						test.fail(objFilter.FilterName+" column failed to hide");
-						results.createNode(objFilter.FilterName+" column failed to shide");
 						saveResult(ITestResult.FAILURE, ex);
 					}
 				}
@@ -234,37 +206,15 @@ public class Sites_Log extends BaseTest {
 	}
 
 
-	public File getTheNewestFile(String filePath, String ext) {
-		File theNewestFile = null;
-		File dir = new File(filePath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + ext);
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			theNewestFile = files[0];
-		}
-
-		return theNewestFile;
-	}
-
-	
 	
 	@SuppressWarnings({ "resource", "unused" })
 	@Test (description="Test Case: Test Sites CSV Download",enabled= true, priority = 15) 
 	public void CSVExportNew() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-Sites-216: Verify user can download Sites CSV file", "This test case will verify that user can download Sites CSV file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-Sites-216: Verify user can download Sites CSV file");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
-			
 			getDriver().navigate().refresh();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);	
@@ -272,7 +222,6 @@ public class Sites_Log extends BaseTest {
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
 			waitElementInvisible(loading_cursor);
-			
 			
 			getDriver().findElement(By.id("siteId_show-filter")).click();
 			
@@ -381,16 +330,9 @@ public class Sites_Log extends BaseTest {
 	@Test (description="Test Case: Test Sites CSV Download",enabled= false, priority =9) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-Sites-83: Verify user can download Sites CSV file and verify the records", "This test case will verify that user can download Sites CSV file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-Sites-83: Verify user can download Sites CSV file and verify the records");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Sites Log; Sites Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -517,16 +459,9 @@ public class Sites_Log extends BaseTest {
 	@Test (description="Test Case: Test Sites Audit Download",enabled= true, priority = 11) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-Sites-84: Verify user can download Sites Audit file", "This test case will verify that user can download Sites Audit file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-Sites-84: Verify user can download Sites Audit file");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Sites Log; Coccidia Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -575,12 +510,9 @@ public class Sites_Log extends BaseTest {
 		}
 	}
 
-
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		//	getDriver().close();
 	}
-
 }
 

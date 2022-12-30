@@ -10,6 +10,8 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -22,6 +24,7 @@ import MiscFunctions.DateUtil;
 import MiscFunctions.ExtentVariables;
 import PageObjects.BasePage;
 
+import static MiscFunctions.ExtentVariables.extent;
 import static MiscFunctions.Methods.*;
 import Test.Ancera.Login.LoginTest;
 
@@ -31,13 +34,12 @@ public class PiperSoftwareManagement extends BaseTest{
 
 	@BeforeTest 
 	public void extent() throws InterruptedException, IOException {
-
 		ExtentVariables.spark = new 	ExtentSparkReporter("target/Reports/Administration_Piper_Software_Management"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("Piper Software Management Test Report"); 
 	}
 	
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -194,6 +196,11 @@ public class PiperSoftwareManagement extends BaseTest{
 			ExtentVariables.results.createNode("Valid .msi file failed to upload");
 			saveResult(ITestResult.FAILURE, ex);
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 	
 }

@@ -7,7 +7,6 @@ import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.getScreenshot;
-import static Config.BaseTest.saveResult;
 import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.loading_cursor;
@@ -35,14 +34,13 @@ public class RowsPerPage {
 
 	@Test (description="Test Case: Test Table Rows") 
 	public static void RowsPerPage() throws InterruptedException, IOException {
-
+		BaseTest driver = new BaseTest();
 		int[] tableRows = {100, 250, 500};
 		for (int i=0; i<=tableRows.length; i++) {
 			try {
 				test = extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-				BaseTest driver = new BaseTest();
 
 				waitElementInvisible(loading_cursor);
 				Methods.waitElementVisible(By.id(ResultsCount));
@@ -72,14 +70,14 @@ public class RowsPerPage {
 					test.pass(tableRows[i]+" displayed succcessfully");
 					results.createNode(tableRows[i]+" displayed succcessfully");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);
+					driver.saveResult(ITestResult.SUCCESS, null);
 				}
 				else {
 					softAssert.assertTrue(true, "Records are less then "+tableRows[i]);
 					test.pass("Records are less then "+tableRows[i]);
 					results.createNode("Rcords are less then "+tableRows[i]);
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);	
+					driver.saveResult(ITestResult.SUCCESS, null);	
 				}
 
 				test = extent.createTest("Verify "+tableRows[i]+" rows per page remained apply on moving to next page");
@@ -104,7 +102,7 @@ public class RowsPerPage {
 					test.pass(tableRows[i]+"records displayed succcessfully on next page");
 					results.createNode(tableRows[i]+"records displayed succcessfully on next page");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);	
+					driver.saveResult(ITestResult.SUCCESS, null);	
 				}
 
 				else {
@@ -112,7 +110,7 @@ public class RowsPerPage {
 					test.pass("Records are less then "+sum);
 					results.createNode("Records are less then "+sum);
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);	
+					driver.saveResult(ITestResult.SUCCESS, null);	
 				}
 				softAssert.assertAll();
 			}
@@ -120,12 +118,12 @@ public class RowsPerPage {
 			catch(AssertionError er) {
 				test.fail(tableRows[i]+" failed to display on next page");
 				results.createNode(tableRows[i]+" failed to display on next page");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				driver.saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 			catch(Exception ex) {
 				test.fail(tableRows[i]+" failed to display on next page");
 				results.createNode(tableRows[i]+" failed to display on next page");
-				saveResult(ITestResult.FAILURE, ex);
+				driver.saveResult(ITestResult.FAILURE, ex);
 			}	
 		}
 	}
@@ -133,7 +131,7 @@ public class RowsPerPage {
 
 	@Test (description="Test Case: Test Table Rows") 
 	public static void RowsPerPage1(String tablename) throws InterruptedException, IOException {
-
+		BaseTest driver = new BaseTest();
 		int[] tableRows = {100, 250, 500};
 		for (int i=0; i<=tableRows.length; i++) {
 			try {
@@ -141,8 +139,6 @@ public class RowsPerPage {
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
 
-
-				BaseTest driver = new BaseTest();
 				waitElementInvisible(loading_cursor);
 				Methods.waitElementVisible(By.cssSelector("#"+tablename+" #"+ResultsCount));
 				Thread.sleep(500);	
@@ -171,14 +167,14 @@ public class RowsPerPage {
 					test.pass(tableRows[i]+" displayed succcessfully");
 					results.createNode(tableRows[i]+" displayed succcessfully");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);
+					driver.saveResult(ITestResult.SUCCESS, null);
 				}
 				else {
 					softAssert.assertTrue(true, "Records are less then "+tableRows[i]);
 					test.skip("Records are less then "+tableRows[i]);
 					results.createNode("Records are less then "+tableRows[i]);
 					getScreenshot();
-					saveResult(ITestResult.SKIP, null);	
+					driver.saveResult(ITestResult.SKIP, null);	
 				}
 
 				test = extent.createTest("Verify "+tableRows[i]+" rows per page remained apply on moving to next page");
@@ -202,7 +198,7 @@ public class RowsPerPage {
 					test.pass(tableRows[i]+"records displayed succcessfully on next page");
 					results.createNode(tableRows[i]+"records displayed succcessfully on next page");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);	
+					driver.saveResult(ITestResult.SUCCESS, null);	
 				}
 
 				else {
@@ -210,7 +206,7 @@ public class RowsPerPage {
 					test.skip("Records are less then "+sum);
 					results.createNode("Records are less then "+sum);
 					getScreenshot();
-					saveResult(ITestResult.SKIP, null);	
+					driver.saveResult(ITestResult.SKIP, null);	
 				}
 				softAssert.assertAll();
 			}
@@ -218,12 +214,12 @@ public class RowsPerPage {
 			catch(AssertionError er) {
 				test.fail(tableRows[i]+" failed to display on next page");
 				results.createNode(tableRows[i]+" failed to display on next page");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				driver.saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 			catch(Exception ex) {
 				test.fail(tableRows[i]+" failed to display on next page");
 				results.createNode(tableRows[i]+" failed to display on next page");
-				saveResult(ITestResult.FAILURE, ex);
+				driver.saveResult(ITestResult.FAILURE, ex);
 			}	
 		}
 	}

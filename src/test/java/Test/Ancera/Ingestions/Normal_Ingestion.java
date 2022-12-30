@@ -21,6 +21,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -58,7 +60,7 @@ public class Normal_Ingestion extends BaseTest {
 		spark.config().setReportName("Normal Ingestion Test Report"); 
 	}
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -1591,5 +1593,10 @@ public class Normal_Ingestion extends BaseTest {
 				Thread.sleep(2000);	
 			}
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 }

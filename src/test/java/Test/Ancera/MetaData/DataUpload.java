@@ -14,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -35,12 +37,17 @@ import static Models.DataUploadModel.*;
 
 public class DataUpload extends BaseTest{
 
-
-
+	
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/MetaData_Upload"+DateUtil.date+".html");
 		spark.config().setReportName("Data Upload Test Report"); 
+		LoginTest.login();
+	}
+	
+	
+	@BeforeClass
+	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
 
@@ -565,11 +572,10 @@ public class DataUpload extends BaseTest{
 	}
 */
 
-//	@AfterTest
-//	public static void endreport() {
-//		extent.flush();
-//		getDriver().close();
-//	}
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 
 
 

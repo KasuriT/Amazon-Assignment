@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -31,7 +32,6 @@ public class ForgotPassword extends BaseTest{
 	public void extent() throws MalformedURLException {
 		spark = new ExtentSparkReporter("target/Reports/Forgot_Password"+DateUtil.date+".html");
 		spark.config().setReportName("Forgot Password Test Report"); 
-	//	config();
 	}
 
 	@Test(enabled=true, priority= 1)
@@ -185,10 +185,9 @@ public class ForgotPassword extends BaseTest{
 		}
 	}
 
-//	@AfterTest
-//	public static void endreport() {
-//		extent.flush();
-//		getDriver().quit();
-//	}
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 }
 

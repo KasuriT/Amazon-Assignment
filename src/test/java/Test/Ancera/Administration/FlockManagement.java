@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -69,7 +70,7 @@ public class FlockManagement extends BaseTest {
 		DB_Config.test();
 	}
 
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -1069,9 +1070,6 @@ public class FlockManagement extends BaseTest {
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		//	getDriver().close();
 	}
-
 }
 
-//.overlay-loader

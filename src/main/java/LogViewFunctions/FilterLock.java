@@ -10,7 +10,6 @@ import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.getScreenshot;
-import static Config.BaseTest.saveResult;
 import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.LockFilter;
 import static PageObjects.BasePage.ResetFilters;
@@ -40,6 +39,8 @@ public class FilterLock {
 
 	@Test (enabled= true) 
 	public static void Lock(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
+		
+		BaseTest base = new BaseTest();
 		int totalNumberofColumns = size(By.cssSelector("#"+tablename+" th .log-header .mb-0")) + skipColumns;
 		for (int i=1;i<=totalNumberofColumns; i++) {  //get size of columns
 			try {
@@ -78,7 +79,7 @@ public class FilterLock {
 						if (getText(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+SalmonellaLogPage.footerCount)).equals("Showing 1 - 1 Results")) {
 							test.skip("Values not enough to test lock filter functionality");
 							results.createNode("Values not enough to test lock filter functionality");
-							saveResult(ITestResult.SKIP, null);
+							base.saveResult(ITestResult.SKIP, null);
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon"));
 						}
 						else {
@@ -121,25 +122,25 @@ public class FilterLock {
 					else {
 						test.skip("Heirarchy filter cannot be tested with this method");
 						results.createNode("Heirarchy filter cannot be tested with this method");
-						saveResult(ITestResult.SKIP, null);
+						base.saveResult(ITestResult.SKIP, null);
 						click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__filter-icon"));
 					}
 					softAssert.assertAll();
 					test.pass("Lock functionality verified successfully");
 					results.createNode("Lock functionality verified successfully");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);
+					base.saveResult(ITestResult.SUCCESS, null);
 				}
 			}
 			catch(AssertionError er) {
 				test.fail("Column failed to Lock");
 				results.createNode("Column failed to Lock");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				base.saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 			catch(Exception ex) {
 				test.fail("Column failed to Lock");
 				results.createNode("Column failed to Lock");
-				saveResult(ITestResult.FAILURE, new Exception(ex));
+				base.saveResult(ITestResult.FAILURE, new Exception(ex));
 			}
 		}
 	}

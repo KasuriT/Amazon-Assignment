@@ -1,12 +1,15 @@
 package Test.Ancera.DISAPIs;
 
 
+import static MiscFunctions.ExtentVariables.extent;
+
 import java.io.IOException;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -26,12 +29,11 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class TestVersion extends BaseTest{
+public class TestVersion{
 
 	
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-
 		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/API Version Test"+DateUtil.date+".html");
 		ExtentVariables.spark.config().setReportName("API Version Test Report"); 
 	}
@@ -40,7 +42,7 @@ public class TestVersion extends BaseTest{
 	@SuppressWarnings({ "unused", "unchecked" })
 	@Test (description="Test Case: Test API Versions", enabled= true, priority= 1) 
 	public void APIVersion() throws InterruptedException, IOException	{
-
+		BaseTest base = new BaseTest();
 		APIVersionModel.lstTestAPIVersion = APIVersionModel.FillData(); 
 		for (APIVersionModel objModel : APIVersionModel.lstTestAPIVersion) { 	
 			try {
@@ -161,6 +163,8 @@ public class TestVersion extends BaseTest{
 					////////////////////////////////////Heartbeat//////////////////////////////////
 					ExtentVariables.test = ExtentVariables.extent.createTest("Response of Heartbeat API");
 					
+					BaseTest basetest = new BaseTest();
+					
 					RequestSpecification request_heartbeat = RestAssured.given();
 					request_heartbeat.header("Content-Type", "application/json");
 					request_heartbeat.header("Authorization", "bearer " +token);
@@ -214,21 +218,25 @@ public class TestVersion extends BaseTest{
 		
 					ExtentVariables.test.pass("API Version test verified successfully");
 					ExtentVariables.results.createNode("API Version test verified successfully");
-					saveResult(ITestResult.SUCCESS, null);			
+					base.saveResult(ITestResult.SUCCESS, null);			
 				}
 			}
 			catch(AssertionError er) {
 				ExtentVariables.test.fail("API Version test failed");
 				ExtentVariables.results.createNode("API Version test failed");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				base.saveResult(ITestResult.FAILURE, new Exception(er));
 			}catch(Exception ex){
 				ExtentVariables.test.fail("API Version test failed");
 				ExtentVariables.results.createNode("API Version test failed");
-				saveResult(ITestResult.FAILURE, ex);
+				base.saveResult(ITestResult.FAILURE, ex);
 			}
 		}
 	}
 	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 }
 
 

@@ -11,7 +11,6 @@ import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.getScreenshot;
-import static Config.BaseTest.saveResult;
 import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.loading_cursor;
@@ -44,6 +43,7 @@ public class LogCSVExport {
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (enabled= true) 
 	public static void CSVExport(String name, String CSVFileName, String tablename, int filterNumber) throws InterruptedException, IOException {
+		BaseTest driver = new BaseTest();
 		try {
 			test = extent.createTest("AN-CSVExport: Verify user can download CSV file and verify the records", "This test case will verify that user can download CSV file");
 			preconditions = test.createNode(Scenario.class, PreConditions);
@@ -60,7 +60,7 @@ public class LogCSVExport {
 			steps.createNode("2. Click on the button; Dropdown cloud pop ups");
 			steps.createNode("3. Verify the columns are same in table and CSV");
 			SoftAssert softAssert = new SoftAssert();
-			BaseTest driver = new BaseTest();
+			
 			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);						
@@ -87,7 +87,7 @@ public class LogCSVExport {
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");
 			test.pass("CSV file downloaded successfully");
 			results.createNode("CSV file downloads successfully");
-			saveResult(ITestResult.SUCCESS, null);
+			driver.saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
 			if(file.exists()){
@@ -144,18 +144,18 @@ public class LogCSVExport {
 			softAssert.assertAll();
 			test.pass("Column data exported successfully");
 			results.createNode("Column data exported successfully");
-			saveResult(ITestResult.SUCCESS, null);
+			driver.saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			saveResult(ITestResult.FAILURE, new Exception(er));
+			driver.saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			saveResult(ITestResult.FAILURE, ex);
+			driver.saveResult(ITestResult.FAILURE, ex);
 		}
 		Thread.sleep(1000);
 	}
@@ -165,6 +165,7 @@ public class LogCSVExport {
 	@SuppressWarnings({ "unused", "resource" })
 	@Test (enabled= true) 
 	public static void CSVExport1(String name, String CSVFileName, String tablename, int filterNumber, int skipColumns) throws InterruptedException, IOException {
+		BaseTest driver = new BaseTest();
 		try {
 			test = extent.createTest("AN-CSVExport: Verify user can download CSV file and verify the records", "This test case will verify that user can download CSV file");
 			preconditions = test.createNode(Scenario.class, PreConditions);
@@ -181,7 +182,6 @@ public class LogCSVExport {
 			steps.createNode("2. Click on the button; Dropdown cloud pop ups");
 			steps.createNode("3. Verify the columns are same in table and CSV");
 			SoftAssert softAssert = new SoftAssert();
-			BaseTest driver = new BaseTest();
 			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);						
@@ -208,7 +208,7 @@ public class LogCSVExport {
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");
 			test.pass("CSV file downloaded successfully");
 			results.createNode("CSV file downloads successfully");
-			saveResult(ITestResult.SUCCESS, null);
+			driver.saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
 			if(file.exists()){
@@ -266,18 +266,18 @@ public class LogCSVExport {
 			softAssert.assertAll();
 			test.pass("Column data exported successfully");
 			results.createNode("Column data exported successfully");
-			saveResult(ITestResult.SUCCESS, null);
+			driver.saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			saveResult(ITestResult.FAILURE, new Exception(er));
+			driver.saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			saveResult(ITestResult.FAILURE, ex);
+			driver.saveResult(ITestResult.FAILURE, ex);
 		}
 		Thread.sleep(1000);
 	}

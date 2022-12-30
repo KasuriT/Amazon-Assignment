@@ -10,6 +10,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -41,7 +43,7 @@ public class AgreementManagement extends BaseTest{
 	}
 
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -853,4 +855,10 @@ public class AgreementManagement extends BaseTest{
 		Thread.sleep(2000);
 		getDriver().findElement(By.id("btn-yes")).click();	
 	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
+	
 }

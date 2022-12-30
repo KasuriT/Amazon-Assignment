@@ -35,7 +35,7 @@ public class BaseTest {
 	private static ThreadLocal<ChromeDriver> driver = new ThreadLocal<>();
 	
 	@BeforeClass
-	public static void config() {
+	public void config() {
 		WebDriverManager.chromedriver().setup();
 		
 		Map<String, Object> prefs = new HashMap<String, Object>();
@@ -67,7 +67,8 @@ public class BaseTest {
 	}
 	
 	
-	public static void saveResult(int testResult, Exception e) throws IOException {		
+	public void saveResult(int testResult, Exception e) throws IOException {	
+		BaseTest base = new BaseTest();
 		ITestResult objResult = Reporter.getCurrentTestResult();
 		if (testResult == ITestResult.SUCCESS) {
 			objResult.setStatus(ITestResult.SUCCESS);
@@ -78,17 +79,17 @@ public class BaseTest {
 			objResult.setThrowable(e);
 			ExtentVariables.test.log(Status.FAIL, "Test Case Failed"); 
 			ExtentVariables.test.log(Status.FAIL, "Issue -> " + e); 
-			ExtentVariables.test.addScreenCaptureFromPath(get_Screenshot());
+			ExtentVariables.test.addScreenCaptureFromPath(base.get_Screenshot());
 		} else if (testResult == ITestResult.SKIP) {
 			ExtentVariables.test.log(Status.SKIP, "Test Case Skipped ");
 			Markup m = MarkupHelper.createLabel("Skipped", ExtentColor.YELLOW);
 			ExtentVariables.test.skip(m);
-			ExtentVariables.test.addScreenCaptureFromPath(get_Screenshot());
+			ExtentVariables.test.addScreenCaptureFromPath(base.get_Screenshot());
 		}
 	}
 	
 
-	public static String get_Screenshot() throws IOException {
+	public String get_Screenshot() throws IOException {
 		String dateName = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss").format(new Date());
 		BaseTest drive = new BaseTest();
 		TakesScreenshot ts = (TakesScreenshot) drive.getDriver();

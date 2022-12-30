@@ -100,7 +100,7 @@ public class Methods {
 	}
 	
 	public static void getScreenshot() throws IOException {
-		test.addScreenCaptureFromPath(BaseTest.get_Screenshot());
+	//	test.addScreenCaptureFromPath(BaseTest.get_Screenshot());
 	}
 	
 	

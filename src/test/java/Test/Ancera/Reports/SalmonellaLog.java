@@ -14,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -61,7 +63,7 @@ public class SalmonellaLog extends BaseTest{
 		spark.config().setReportName("Salmonella Log Test Report"); 
 	}
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -73,12 +75,6 @@ public class SalmonellaLog extends BaseTest{
 	}
 	
 	
-//	@Test (priority = 1) 
-//	public void NavigateSalmonella() throws InterruptedException, IOException {
-//		NavigateToScreen(url_SalmonellaLog, "Salmonella Log", salmonellaLogTitle);
-//	}
-
-	
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
 		Lock(salmonellaLogTable, "Salmonella Log", 2);
@@ -87,7 +83,8 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test (priority = 3) 
 	public void WildcardSalm() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
+		openSalmonellaLogPage();
+		//getDriver().navigate().refresh();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Wildcard(salmonellaLogTable, "Salmonella Log", 2);
@@ -97,7 +94,6 @@ public class SalmonellaLog extends BaseTest{
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
 		getDriver().navigate().refresh();
-		waitElementInvisible(loading_cursor);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Sorting(salmonellaLogTable, "Salmonella Log", 2);
@@ -131,15 +127,8 @@ public class SalmonellaLog extends BaseTest{
 		for (SalmonellaLogModel objModel : SalmonellaLogModel.lstSalmonellaDateSearch) { 
 			test = extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
 
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(getDriver());
@@ -293,17 +282,8 @@ public class SalmonellaLog extends BaseTest{
 	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 8) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-SL-10: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
-
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-SL-10: Verify lock filter functionality on date filter");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
@@ -338,17 +318,14 @@ public class SalmonellaLog extends BaseTest{
 
 			softAssert.assertEquals(recordsafterfilter, recordsbeforefilter);
 			test.pass("Filter locked functionality verified successfully on date filter");
-			results.createNode("Filter lock remained applied on reopening the report on date filter");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 			softAssert.assertAll();
 		}catch(AssertionError er) {
 			test.fail("Filer lock functionality failed on date filter");
-			results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}catch(Exception ex){
 			test.fail("Filer lock functionality failed on date filter");
-			results.createNode("Filter lock failed to remain applied on reopening the report on date filter");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 		waitElementInvisible(loading_cursor);
@@ -362,16 +339,8 @@ public class SalmonellaLog extends BaseTest{
 	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 9) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-SL-59: Verify Site Name Filter Functionality", "This test case will test Site Name Filter Functionality");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-SL-59: Verify Site Name Filter Functionality");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			getDriver().navigate().refresh();
 			waitElementInvisible(loading_cursor);	
@@ -393,18 +362,15 @@ public class SalmonellaLog extends BaseTest{
 			Thread.sleep(1000);
 			Assert.assertNotEquals(getDriver().findElement(By.id("results-found-count")).getText(), recordsBefore);
 			test.pass("Checkbox selected successfully");
-			results.createNode("Checkbox selected successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("Filer lock functionality failed");
-			results.createNode("Filter lock failed to remain applied on reopening the report");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Filer lock functionality failed");
-			results.createNode("Filter lock failed to remain applied on reopening the report");
 			saveResult(ITestResult.FAILURE, ex);
 		}	
 	}
@@ -412,7 +378,7 @@ public class SalmonellaLog extends BaseTest{
 
 
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= true, priority = 10) 
+	@Test (description="Test Case: Contextual",enabled= false, priority = 10) 
 	public void Contexual() throws InterruptedException, IOException {
 
 		getDriver().navigate().refresh();
@@ -426,12 +392,6 @@ public class SalmonellaLog extends BaseTest{
 				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-
-				preconditions.createNode("1. Go to url " +url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
 					try {	
@@ -680,16 +640,8 @@ public class SalmonellaLog extends BaseTest{
 		for (SalmonellaLogModel objModel : SalmonellaLogModel.lstSalmonellaFieldAccess) { 	
 			try {
 				test = extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-
-				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-
-				preconditions.createNode("1. Go to url " +url_login);
-				preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				preconditions.createNode("3. Hover to sidebar to expand the menu");
-				preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-				preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 				steps.createNode("1. Click on filed access icon; popup appears");
 
 				for (ReportFilters objFilter : objModel.lstFilters) {	
@@ -783,36 +735,13 @@ public class SalmonellaLog extends BaseTest{
 	}
 
 
-//	public File getTheNewestFile(String filePath, String ext) {
-//		File theNewestFile = null;
-//		File dir = new File(filePath);
-//		FileFilter fileFilter = new WildcardFileFilter("*." + ext);
-//		File[] files = dir.listFiles(fileFilter);
-//
-//		if (files.length > 0) {
-//			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-//			theNewestFile = files[0];
-//		}
-//
-//		return theNewestFile;
-//	}
-
-
-
 	@SuppressWarnings("unused")
 	@Test (description="Test Case: Test Salmonella PNG Download",enabled= true, priority = 15) 
 	public void PNGExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-SL-214: Verify user can download Salmonella PNG file", "This test case will verify user can download Salmonella PNG file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-SL-214: Verify user can download Salmonella PNG file");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			steps.createNode("1. Hover mouse towards barchart on top");
 			steps.createNode("2. Export PNG button becomes visible");
@@ -876,17 +805,10 @@ public class SalmonellaLog extends BaseTest{
 	@Test (description="Test Case: Test Salmonella CSV Download",enabled= true, priority = 16) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-SL-216: Verify user can download Salmonella CSV file", "This test case will verify that user can download Salmonella CSV file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-SL-216: Verify user can download Salmonella CSV file");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
-			
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
 			waitElementInvisible(loading_cursor);
@@ -985,16 +907,9 @@ public class SalmonellaLog extends BaseTest{
 	@Test (description="Test Case: Test Salmonella Audit Download",enabled= true, priority = 17) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-CL-216: Verify user can download Salmonella Audit file", "This test case will verify that user can download Salmonella Audit file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-216: Verify user can download Salmonella Audit file");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Coccidia Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -1047,16 +962,10 @@ public class SalmonellaLog extends BaseTest{
 	@Test (description="Test Case: Test Salmonella Template Download",enabled= true, priority = 18) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-SL-217: Verify user can download Salmonella Template file", "This test case will verify that user download Salmonella Template file");
+			test = extent.createTest("AN-SL-217: Verify user can download Salmonella Template file");
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -1097,5 +1006,10 @@ public class SalmonellaLog extends BaseTest{
 			results.createNode("Sample MetaData failed to download");  	
 			saveResult(ITestResult.FAILURE, ex);
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 }

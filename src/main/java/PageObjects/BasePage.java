@@ -44,4 +44,8 @@ public class BasePage {
 	public static By auditActionRow1 = By.id("audit-action-1");
 	public static By alertClose = By.xpath("//*[@id=\"alrt\"]/button/span");
 	
+	public static String filterIcon = ".log-header__filter-icon";
+	public static String filterSearchInput = ".filter-popup__search-input input";
+	public static String filterWildcardActionToggle = ".filter-popup__action--wildcard";
+	
 }

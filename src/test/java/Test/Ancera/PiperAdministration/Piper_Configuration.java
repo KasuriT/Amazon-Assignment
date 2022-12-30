@@ -10,6 +10,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -39,12 +41,12 @@ public class Piper_Configuration extends BaseTest{
 		spark.config().setReportName("Piper Configuration Test Report"); 
 	}
 
-
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
+	
 	
 	@Test (priority = 1) 
 	public void Navigate() throws InterruptedException, IOException {
@@ -833,4 +835,9 @@ public class Piper_Configuration extends BaseTest{
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}	 
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 }

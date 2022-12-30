@@ -9,6 +9,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -41,7 +43,7 @@ public class ReportsManagement extends BaseTest{
 		spark.config().setReportName("Reports Management Test Report"); 
 	}
 
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -1068,5 +1070,10 @@ public class ReportsManagement extends BaseTest{
 			results.createNode("User did not receive an alert message that 'Report Group details deleted.'");
 			saveResult(ITestResult.FAILURE, ex);
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 }

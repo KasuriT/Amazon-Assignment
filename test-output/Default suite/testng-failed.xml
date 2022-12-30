@@ -3,15 +3,33 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Test.Ancera.Ingestions.RawImageCountCompareCoccidia">
+      <class name="Test.Ancera.Administration.ProgramManagement">
         <methods>
-          <include name="CountCompare"/>
-          <include name="test"/>
-          <include name="db_init"/>
-          <include name="tearDown"/>
+          <include name="extent"/>
+          <include name="config"/>
+          <include name="WildcardFeed"/>
+          <include name="sortingFeed"/>
+          <include name="RowsPerPageVaccine"/>
+          <include name="Login"/>
+          <include name="ExportCSVUtilization"/>
+          <include name="LockFeed"/>
+          <include name="ExportCSVFeed"/>
+          <include name="ExportCSVVaccine"/>
           <include name="endreport"/>
+          <include name="PaginationUtilization"/>
+          <include name="RowsPerPageFeed"/>
+          <include name="PaginationFeed"/>
+          <include name="tearDown"/>
+          <include name="WildcardUtilization"/>
+          <include name="PaginationVaccine"/>
+          <include name="RowsPerPageUtilization"/>
+          <include name="LockVaccine"/>
+          <include name="LockUtilization"/>
+          <include name="WildcardVaccine"/>
+          <include name="sortingUtilization"/>
+          <include name="sortingVaccine"/>
         </methods>
-      </class> <!-- Test.Ancera.Ingestions.RawImageCountCompareCoccidia -->
+      </class> <!-- Test.Ancera.Administration.ProgramManagement -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

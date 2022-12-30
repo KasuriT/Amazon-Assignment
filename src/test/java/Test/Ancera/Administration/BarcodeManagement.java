@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -38,7 +39,7 @@ public class BarcodeManagement extends BaseTest{
 		spark.config().setReportName("Barcode Management Test Report"); 
 	}
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 		System.out.println("Test 2: "+Thread.currentThread().getId());
@@ -239,9 +240,6 @@ public class BarcodeManagement extends BaseTest{
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-//		getDriver().close();
 	}
-	
-	
 	
 }

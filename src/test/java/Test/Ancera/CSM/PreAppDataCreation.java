@@ -28,6 +28,8 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -77,7 +79,7 @@ public class PreAppDataCreation extends BaseTest {
 		DB_Config.test();
 	}
 
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -222,17 +224,14 @@ public class PreAppDataCreation extends BaseTest {
 
 			softAssert.assertAll();
 			test.pass("Site heirarchy verified successfully");
-			results.createNode("Site heirarchy verified successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);	
 		}catch(AssertionError er){
 			test.fail("Site heirarchy failed to verify successfully");
-			results.createNode("Site heirarchy failed to verify successfully");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}	
 		catch(Exception ex){
 			test.fail("Site heirarchy failed to verify successfully");
-			results.createNode("Site heirarchy failed to verify successfully");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}	
@@ -264,18 +263,15 @@ public class PreAppDataCreation extends BaseTest {
 
 			Assert.assertEquals(getText(alertMessage), "User details updated.");	
 			test.pass("Site Assigned to user successfully");
-			results.createNode("Site Assigned to user successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("Site failed to assigned to user successfully");
-			results.createNode("Site failed to assigned to user successfully");  
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
-			test.fail("Site failed to assigned to user successfully");
-			results.createNode("Site failed to assigned to user successfully");  	
+			test.fail("Site failed to assigned to user successfully");	
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -299,7 +295,6 @@ public class PreAppDataCreation extends BaseTest {
 			for (int j=1;j<getDriver().findElements(By.id("col-0-vaccine")).size();j++) {
 				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") #col-0-vaccine label")).getText().equals(ComplexConfigModel.vaccineName)) {
 					test.skip("Program already created");
-					results.createNode("Program already created");
 					getScreenshot();
 					saveResult(ITestResult.SKIP, null);
 					break;
@@ -379,7 +374,6 @@ public class PreAppDataCreation extends BaseTest {
 					waitElementVisible(alertMessage);
 					softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 					test.pass("New Program created successfully");
-					results.createNode("New Program created successfully");
 					getScreenshot();
 					saveResult(ITestResult.SUCCESS, null);
 					break;
@@ -388,11 +382,9 @@ public class PreAppDataCreation extends BaseTest {
 
 		}catch(AssertionError er) {
 			test.fail("New Program failed to create");
-			results.createNode("New Program failed to create");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}catch(Exception ex) {
 			test.fail("New Program failed to create");
-			results.createNode("New Program failed to create");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -414,7 +406,6 @@ public class PreAppDataCreation extends BaseTest {
 			for (int j=1;j<getDriver().findElements(By.id("col-0-feedprogram")).size();j++) {
 				if (getDriver().findElement(By.cssSelector("tr:nth-child("+j+") #col-0-feedprogram label")).getText().equals(ComplexConfigModel.vaccineName)) {
 					test.skip("Program already created");
-					results.createNode("Program already created");
 					getScreenshot();
 					saveResult(ITestResult.SKIP, null);
 					break;
@@ -490,7 +481,6 @@ public class PreAppDataCreation extends BaseTest {
 					Thread.sleep(2000);
 					Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully"); 
 					test.pass("New Program created successfully");
-					results.createNode("New Program created successfully");
 					getScreenshot();
 					saveResult(ITestResult.SUCCESS, null);
 					break;
@@ -500,18 +490,16 @@ public class PreAppDataCreation extends BaseTest {
 
 		}catch(AssertionError er) {
 			test.fail("New Program failed to create");
-			results.createNode("New Program failed to create");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}catch(Exception ex) {
 			test.fail("New Program failed to create");
-			results.createNode("New Program failed to create");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
 
 
 
-	@Test (description="Test Case: Create complex Configurations",enabled= true, priority = 6) 
+	@Test (description="Test Case: Create complex Configurations",enabled= true, priority = 6, dependsOnMethods = {"Login"}) 
 	public void CreateComplexConfig() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-Complex: Create Complex Configuration");
@@ -591,18 +579,15 @@ public class PreAppDataCreation extends BaseTest {
 			Thread.sleep(1000);
 			Assert.assertNotEquals(getDriver().findElement(alertMessage).getText(), "Complex cycling configuration details saved");
 			test.pass("Complex cycling configuration details saved successfully");
-			results.createNode("Complex cycling configuration details saved successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("Complex cycling configuration details failed to save");
-			results.createNode("Complex cycling configuration details failed to save");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			test.fail("Complex cycling configuration details failed to save");
-			results.createNode("Complex cycling configuration details failed to save");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -619,7 +604,7 @@ public class PreAppDataCreation extends BaseTest {
 
 			if(objModel.createFlock) {
 				try {
-					test = extent.createTest("AN-Flock: Verify user can create Flock", "This test case will verify that user can crate flock");
+					test = extent.createTest("AN-Flock: Verify user can create Flock");
 					getDriver().get(url_flockManagement);
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(2000);
@@ -679,7 +664,6 @@ public class PreAppDataCreation extends BaseTest {
 
 					scroll(flockAddNewProgram);
 					ClickElement.clickByXpath(getDriver(), "//*[text() = 'Add New Program']");
-				//	click(flockAddNewProgram);
 					waitElementInvisible(loading_cursor);
 					Thread.sleep(1000);
 					type(flockAddNewProgramTypeInput, objModel.programType);
@@ -710,18 +694,15 @@ public class PreAppDataCreation extends BaseTest {
 					System.out.println("Flock created successfully");
 
 					test.pass("Flock was created successfully");
-					results.createNode("Flock was created successfully");
 					getScreenshot();
 					saveResult(ITestResult.SUCCESS, null);	
 				}
 				catch(AssertionError er) {
 					test.fail("Flock failed to create");
-					results.createNode("Flock failed to create");
 					saveResult(ITestResult.FAILURE, new Exception(er));
 				}
 				catch(Exception ex) {
 					test.fail("Flock failed to create");
-					results.createNode("Flock failed to create");
 					saveResult(ITestResult.FAILURE, ex);
 				}
 
@@ -824,7 +805,6 @@ public class PreAppDataCreation extends BaseTest {
 						for (int x = 0;x<=120;x++) {
 
 							String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '"+objModel.SampleID+"'";
-							//	String query2 = "Select count(status) as count from COCCIDA_OUTPUT where Sample_ID = '20220714-Cocci-10535'";
 
 							ResultSet rs2 = DB_Config.getStmt().executeQuery(query2);
 
@@ -871,8 +851,9 @@ public class PreAppDataCreation extends BaseTest {
 									String records = getDriver().findElement(By.id("results-found-count")).getText();
 
 									softAssert.assertEquals(records, "12"); 
-									getScreenshot();									test.pass("Run ingested successfully");
-									results.createNode("Run ingested successfully");
+									getScreenshot();									
+									test.pass("Run ingested successfully");
+									
 									saveResult(ITestResult.SUCCESS, null);
 									break first;	
 								}
@@ -880,22 +861,17 @@ public class PreAppDataCreation extends BaseTest {
 									Thread.sleep(15000);
 								}					
 							}	
-
-
 						}
 					softAssert.assertAll();	
-
 				}
 
 				catch(Exception ex){
 					test.fail("Data failed to verify on uploading Sample Metadata Template");
-					results.createNode("Data failed to verify on uploading Sample Metadata Template");
 					saveResult(ITestResult.FAILURE, ex);	
 				}
 
 				catch(AssertionError er) {
 					test.fail("Ingestion failed");
-					results.createNode("Ingestion failed");
 					saveResult(ITestResult.FAILURE, new Exception(er));
 				}
 
@@ -907,7 +883,6 @@ public class PreAppDataCreation extends BaseTest {
 					steps = test.createNode(Scenario.class, Steps);
 					results = test.createNode(Scenario.class, Results);
 
-				//	FileInputStream fsIP= new FileInputStream(new File("./Excel/"+fileName_Mobile));
 					FileInputStream fsIP= new FileInputStream(new File(FrameworkConstants.CSMDataTemplateUpload));
 					@SuppressWarnings("resource")
 					XSSFWorkbook wb = new XSSFWorkbook(fsIP);
@@ -918,17 +893,8 @@ public class PreAppDataCreation extends BaseTest {
 						for (int z=0; z<12; z++) {
 
 							String getResultID = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clResultIDCol+" label")).getText();
-							//System.out.println("1: "+getResultID);
 							cell=worksheet.getRow(z+1).createCell(metadata_ResultID); 
 							cell.setCellValue(getResultID);  
-
-							//							String selectQuerySite = "Select siteUniqueNumber from dbo.Site where sitename = 'TestHouse1_'"+dateYYYYMMDD;
-							//							ResultSet rs1 = getStmt().executeQuery(selectQuerySite);
-							//							while (rs1.next()) {
-							//								System.out.println("Unique Site ID: "+rs1.getString("siteUniqueNumber"));
-							//								cell=worksheet.getRow(z+1).createCell(metadata_CollectionSiteID); 
-							//								cell.setCellValue(rs1.getString("siteUniqueNumber")); 
-							//							}
 
 							String getCollectionSiteID = getDriver().findElement(By.cssSelector("#row-"+z+" #col-"+clCollectionSiteIDCol+" label")).getText();
 							cell=worksheet.getRow(z+1).createCell(metadata_CollectionSiteID); 
@@ -982,7 +948,6 @@ public class PreAppDataCreation extends BaseTest {
 
 							fsIP.close();
 						}
-						//	getStmt().close();	
 
 						FileOutputStream output_file =new FileOutputStream(new File(FrameworkConstants.CSMDataTemplateUpload));
 						wb.write(output_file);
@@ -1012,29 +977,27 @@ public class PreAppDataCreation extends BaseTest {
 						Assert.assertTrue(getDriver().findElement(alertMessage).getText().contains("SampleMetadata_Mobile.xlsx saved successfully."));
 						System.out.println("Template created successfully");
 						test.pass("Template saved successfully");
-						results.createNode("Template saved successfully");
 						saveResult(ITestResult.SUCCESS, null);
 					}
 					else {
-						results.createNode("12 records not displaying in table hence file upload method not executed");
 						test.skip("12 records not displaying in table hence file upload method not executed");
-						results.createNode("12 records not displaying in table hence file upload method not executed");
 						saveResult(ITestResult.SKIP, null);
 					}
 				}
 				catch(AssertionError er) {
 					test.fail("Data failed to verify on uploading Sample Metadata Template");
-					results.createNode("Data failed to verify on uploading Sample Metadata Template");
 					saveResult(ITestResult.FAILURE, new Exception(er));
 				}catch(Exception ex){
 					test.fail("Data failed to verify on uploading Sample Metadata Template");
-					results.createNode("Data failed to verify on uploading Sample Metadata Template");
 					saveResult(ITestResult.FAILURE, ex);	
 				}
 				Thread.sleep(2000);	
 			}
 		}
-	//	getStmt().close();	
 	}
-
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 }

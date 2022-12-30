@@ -7,23 +7,20 @@ import static MiscFunctions.ExtentVariables.test;
 import static PageObjects.BasePage.loading_cursor;
 
 import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
-
 import Config.BaseTest;
-
-import static Config.BaseTest.*;
 import static MiscFunctions.Methods.*;
 
 public class NavigateToScreen {
 
 	@Test (enabled=true, invocationCount = 4) 
 	public static void navigate(String url,  String name, By id) throws InterruptedException, IOException {
+		BaseTest base = new BaseTest();
 		try{
 			test = extent.createTest("AN-01: Navigate to "+name+" Screen");
 			steps = test.createNode(Scenario.class, Steps);
@@ -38,14 +35,14 @@ public class NavigateToScreen {
 			Assert.assertEquals(drive.getDriver().findElement(id).getText(), ""+name); 			
 			test.pass("User navigated to "+name+" screen successfully");
 			getScreenshot();
-			saveResult(ITestResult.SUCCESS, null);
+			base.saveResult(ITestResult.SUCCESS, null);
 		}catch(AssertionError er){
 			test.fail("User failed to navigate to "+name+" screen");
-			saveResult(ITestResult.FAILURE, new Exception(er));
+			base.saveResult(ITestResult.FAILURE, new Exception(er));
 		}	
 		catch(Exception ex){
 			test.fail("User failed to navigate to "+name+" screen");
-			saveResult(ITestResult.FAILURE, ex);
+			base.saveResult(ITestResult.FAILURE, ex);
 		}		
 	}
 }

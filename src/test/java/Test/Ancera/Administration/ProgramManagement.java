@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -24,6 +26,7 @@ import MiscFunctions.DB_Config;
 import MiscFunctions.Methods;
 import MiscFunctions.Queries;
 import Models.ProgramManagementModel;
+import Test.Ancera.Login.LoginTest;
 
 import static PageObjects.ProgramManagementPage.*;
 import static PageObjects.BasePage.*;
@@ -51,13 +54,12 @@ public class ProgramManagement extends BaseTest {
 		DB_Config.test();
 	}
 
-
-	//	@Test(priority= 1)
-	//	public void Navigate() throws InterruptedException, IOException {
-	//		NavigateToScreen(url_programManagement, "Program Management",programManagementTitle);
-	//	}	
-
-
+	@BeforeClass
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();		
+	}
+	
+	
 	@Test (enabled= true, priority= 2) 
 	public void CreatePrograms() throws InterruptedException, IOException, SQLException {
 		lstProgramManagementSearch = ProgramManagementModel.FillData();
@@ -888,6 +890,8 @@ public class ProgramManagement extends BaseTest {
 			}	
 		}
 	}
+	
+	
 
 
 	@Test (priority = 10) 
@@ -1045,7 +1049,6 @@ public class ProgramManagement extends BaseTest {
 		RowsPerPage1(programFeedTable);
 	}
 
-
 	@Test(priority= 26, enabled = true)
 	public void RowsPerPageTreatment() throws InterruptedException, IOException {
 		getDriver().findElement(programTreatmentProgramTab).click();
@@ -1116,7 +1119,6 @@ public class ProgramManagement extends BaseTest {
 		Thread.sleep(1000);
 		Pagination(programBioshuttleTable, "Program Management", ReportFilePath);
 	}
-
 	@Test (priority = 34) 
 	public void PaginationUtilization() throws InterruptedException, IOException {
 		getDriver().findElement(programProgramUtilizationTab).click();
@@ -1169,4 +1171,11 @@ public class ProgramManagement extends BaseTest {
 		Thread.sleep(1000);
 		CSVExport("Program Management",programUtilizationCSVFileName, programUtilizationTable, 1);
 	}
+	
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
+	
 }

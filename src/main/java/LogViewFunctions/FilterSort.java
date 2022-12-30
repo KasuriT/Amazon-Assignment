@@ -8,7 +8,6 @@ import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.*;
 import static MiscFunctions.Methods.getScreenshot;
-import static Config.BaseTest.saveResult;
 import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.alertMessage;
 import static PageObjects.BasePage.loading_cursor;
@@ -30,6 +29,7 @@ public class FilterSort {
 
 	@Test (enabled= true) 
 	public static void Sorting(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
+		BaseTest base = new BaseTest();
 		int totalNumberofColumns = size(By.cssSelector("#"+tablename+" th .log-header .mb-0")) + skipColumns;   //get total columns and skip irrelevant columns
 		for (int i=1;i<=totalNumberofColumns; i++) {
 			try {
@@ -45,7 +45,7 @@ public class FilterSort {
 					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("CREATED")) {
 						test.skip("Column sorted successfully");
 						results.createNode("Column sorted successfully");
-						saveResult(ITestResult.SKIP, null);
+						base.saveResult(ITestResult.SKIP, null);
 					}
 
 					else {
@@ -73,14 +73,14 @@ public class FilterSort {
 						softAssert.assertAll();
 						test.pass("Column sorted successfully");
 						results.createNode("Column sorted successfully");
-						saveResult(ITestResult.SUCCESS, null);
+						base.saveResult(ITestResult.SUCCESS, null);
 					}
 				}
 			}
 			catch(AssertionError er) {
 				test.fail("Column failed to sort");
 				results.createNode("Column failed to sort");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				base.saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 		}
 	}

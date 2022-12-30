@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -41,9 +42,12 @@ public class AccessManagement extends BaseTest{
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_Access_Management"+DateUtil.date+".html");
 		spark.config().setReportName("Access Management Test Report"); 
-		LoginTest.login();
 	}
 
+	@BeforeClass
+	public void Login() throws InterruptedException, IOException {
+		LoginTest.login();
+	}
 
 	@Test (priority = 1) 
 	public void NavigateAm() throws InterruptedException, IOException {
@@ -2684,6 +2688,5 @@ public class AccessManagement extends BaseTest{
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-		//	getDriver().quit();
 	}
 }

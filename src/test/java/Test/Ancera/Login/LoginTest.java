@@ -7,6 +7,7 @@ import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -33,8 +34,9 @@ public class LoginTest extends BaseTest{
 	}
 
 
-	@Test(enabled=true, priority= 1, invocationCount = 4)
+	@Test(enabled=true, priority= 1)
 	public static void login() throws InterruptedException, IOException {
+		BaseTest base = new BaseTest();
 		try {
 			System.out.println("Login: "+Thread.currentThread().getId());
 			test = extent.createTest("Verify user can login into the IE portal");
@@ -46,14 +48,14 @@ public class LoginTest extends BaseTest{
 			BaseTest drive = new BaseTest();
 			Assert.assertTrue(drive.getDriver().findElement(By.id("Home")).isDisplayed()); 
 			test.pass("User logged in successfully");
-			saveResult(ITestResult.SUCCESS, null);
+			base.saveResult(ITestResult.SUCCESS, null);
 		}catch(AssertionError er) {
 			test.fail("User login failed");
-			saveResult(ITestResult.FAILURE, new Exception(er));
+			base.saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex){
 			test.fail("User login failed");
-			saveResult(ITestResult.FAILURE, ex);
+			base.saveResult(ITestResult.FAILURE, ex);
 		}	
 	}
 
@@ -108,7 +110,7 @@ public class LoginTest extends BaseTest{
 	}
 
 
-	@Test(enabled=true, priority= 4)
+	@Test(enabled=true, priority= 4, dependsOnMethods = {"verifyLogout"})
 	public void loginNegativeCases() throws InterruptedException, IOException {
 
 		for (int i = 0; i<lstLogin.size(); i++) {
@@ -187,9 +189,8 @@ public class LoginTest extends BaseTest{
 
 	 */
 
-	//	@AfterTest
-	//	public static void endreport() {
-	//		extent.flush();
-	//		driver.close();
-	//	}
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
 }

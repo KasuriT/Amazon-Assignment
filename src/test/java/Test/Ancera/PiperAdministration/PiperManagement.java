@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.openqa.selenium.By;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -35,11 +37,11 @@ public class PiperManagement extends BaseTest{
 		spark.config().setReportName("Piper Management Test Report"); 
 	}
 
-	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
+
 	
 	@Test(priority= 1)
 	public void Navigate() throws InterruptedException, IOException {
@@ -255,4 +257,9 @@ public class PiperManagement extends BaseTest{
 		}
 	}
 
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
+	}
+	
 }

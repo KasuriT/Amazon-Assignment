@@ -19,6 +19,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -53,7 +54,7 @@ public class DataTemplateManagement extends BaseTest{
 	}
 
 	
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		System.out.println("Test 1: "+Thread.currentThread().getId());
 		LoginTest.login();
@@ -1102,7 +1103,6 @@ public class DataTemplateManagement extends BaseTest{
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
-//		getDriver().close();
 	}
 
 }

@@ -20,6 +20,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -63,8 +65,8 @@ public class CoccidiaLog extends BaseTest{
 		spark.config().setReportName("Coccidia Log Test Report"); 
 	}
 
-
-	@Test
+	
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -74,16 +76,11 @@ public class CoccidiaLog extends BaseTest{
 		test = extent.createTest("CL-AN-01: Verify user can navigate to Salmonella Log Screen");
 		CoccidiaLogPage.openCoccidiaLogPage();
 	}
-	
-//	@Test (priority = 1) 
-//	public void NavigateCoccidia() throws InterruptedException, IOException {
-//		NavigateToScreen(url_CoccidiaLog, "Coccidia Log", coccidiaLogTitle);
-//	}
 
 
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
+		CoccidiaLogPage.openCoccidiaLogPage();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Lock(coccidiaLogTable, "Coccidia Log", 2);
@@ -92,8 +89,7 @@ public class CoccidiaLog extends BaseTest{
 
 	@Test (priority = 3) 
 	public void WildcardCocci() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
-		waitElementInvisible(loading_cursor);
+		CoccidiaLogPage.openCoccidiaLogPage();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Wildcard(coccidiaLogTable, "Coccidia Log", 2);
@@ -135,16 +131,8 @@ public class CoccidiaLog extends BaseTest{
 
 		for (CoccidiaLogModel objModel : CoccidiaLogModel.lstCoccidiaDateSearch) { 
 			test = extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			for (ReportFilters objFilter : objModel.lstFilters) {
 				Actions actions = new Actions(getDriver());
@@ -156,8 +144,6 @@ public class CoccidiaLog extends BaseTest{
 				getDriver().findElement(By.id("scanDateTime_show-filter")).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1500);
-				//	String dateFrom = getDriver().findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
-				//	softAssert.assertEquals(dateFrom, dateMMDDYYYY1);
 
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				steps.createNode("2. Click on "+objFilter.FilterName);
@@ -191,8 +177,6 @@ public class CoccidiaLog extends BaseTest{
 							Thread.sleep(1000);
 							steps.createNode("3. Verify the dates in To and From field"); 
 							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
-							//	Assert.assertEquals(fromDateField, fromDate);
-							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
 							test.pass(objFilter.FilterName+ " values verified successfully");
 							results.createNode(objFilter.FilterName+ " values verified successfully");
@@ -231,8 +215,6 @@ public class CoccidiaLog extends BaseTest{
 							Thread.sleep(1000);
 							steps.createNode("3. Verify the dates in To and From field"); 
 							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
-							//	Assert.assertEquals(fromDateField, fromDate);
-							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
 							test.pass(objFilter.FilterName+ " values verified successfully");
 							results.createNode(objFilter.FilterName+ " values verified successfully");
@@ -271,8 +253,6 @@ public class CoccidiaLog extends BaseTest{
 							steps.createNode("3. Verify the dates in To and From field"); 
 
 							String recordAfter = getDriver().findElement(By.id("results-found-count")).getText();
-							//	Assert.assertEquals(fromDateField, fromDate);
-							//	Assert.assertEquals(toDateField, toDate);
 							softAssert.assertNotEquals(recordBefore, recordAfter);
 							test.pass(objFilter.FilterName+ " values verified successfully");
 							results.createNode("1. "+objFilter.FilterName+ " values verified successfully");
@@ -303,17 +283,9 @@ public class CoccidiaLog extends BaseTest{
 	@Test (description="Test Case: Date Filter Lock Test",enabled= true, priority = 8) 
 	public void DateLockFilter() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-CL-15: Verify lock filter functionality on date filter", "This testcase will verify lock filter functionality on date filter");
-
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-15: Verify lock filter functionality on date filter");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			getDriver().navigate().refresh();
 			waitElementInvisible(loading_cursor);
@@ -375,16 +347,9 @@ public class CoccidiaLog extends BaseTest{
 	@Test (description="Test Case: Test Site Name Filter",enabled= true, priority = 9) 
 	public void SiteName() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-CL-57: Verify Site Name Filter Functionality", "This test case will test Site Name Filter Functionality");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-57: Verify Site Name Filter Functionality");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			getDriver().navigate().refresh();
 			waitElementInvisible(loading_cursor);
@@ -868,16 +833,8 @@ public class CoccidiaLog extends BaseTest{
 	@Test (description="Test Case: Test Coccidia CSV Download",enabled= true, priority = 15) 
 	public void CSVExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-CL-216: Verify user can download Coccidia CSV file", "This test case will verify that user can download Coccidia CSV file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-216: Verify user can download Coccidia CSV file");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 			
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -900,12 +857,10 @@ public class CoccidiaLog extends BaseTest{
 			String date= dateFormat.format(date1);
 			Thread.sleep(1500);
 
-		
 			File newfile = DownloadFileCheck.getTheNewestFile(fileDownloadPath, "csv");
 			String filename= newfile.getName();
 			Assert.assertEquals(filename, clCSVFileName+date+".csv");
 			test.pass("CSV file downloaded successfully");
-			results.createNode("CSV file downloads successfully");
 			saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
@@ -964,13 +919,11 @@ public class CoccidiaLog extends BaseTest{
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
-			results.createNode("CSV file failed to download");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
-			results.createNode("CSV file failed to download");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -979,16 +932,8 @@ public class CoccidiaLog extends BaseTest{
 	@Test (description="Test Case: Test Coccidia Audit Download",enabled= true, priority = 16) 
 	public void CSVAuditExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-CL-217: Verify user can download Coccidia Audit file", "This test case will verify that user can download Coccidia Audit file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-217: Verify user can download Coccidia Audit file");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");			
@@ -1007,15 +952,6 @@ public class CoccidiaLog extends BaseTest{
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(3000);
 
-//			if(wait.until(ExpectedConditions.alertIsPresent())==null) {
-//				System.out.println("Alert not exists");
-//			}
-//			else {
-//				System.out.println("Alert exists");
-//				getDriver().switchTo().alert().accept();
-//			}
-
-
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
@@ -1027,7 +963,6 @@ public class CoccidiaLog extends BaseTest{
 			//System.out.println("Latest CSV file is = "+filename);
 			Assert.assertEquals(filename, clCSVAuditFileName+date+".csv");
 			test.pass("CSV file downloaded successfully");
-			results.createNode("CSV file downloads successfully");
 			saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename); 
@@ -1036,13 +971,11 @@ public class CoccidiaLog extends BaseTest{
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
-			results.createNode("CSV file failed to download");
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
-			results.createNode("CSV file failed to download");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
@@ -1051,16 +984,8 @@ public class CoccidiaLog extends BaseTest{
 	@Test (description="Test Case: Test Coccidia Template Download",enabled= true, priority = 17) 
 	public void TemplateExport() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-CL-218: Verify user can download Coccidia Template file", "This test case will verify that user download Coccidia Template file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CL-218: Verify user can download Coccidia Template file");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Coccidia Log; Coccidia Log reports open");
 
 			steps.createNode("1. Hover mouse towards table");
 			steps.createNode("2. Export file button becomes visible");
@@ -1085,7 +1010,6 @@ public class CoccidiaLog extends BaseTest{
 			Assert.assertTrue(filename.startsWith(clSampleMetaData));
 		//	Assert.assertEquals(filename, clSampleMetaData+".xlsx");
 			test.pass("Sample MetaData template downloaded successfully");
-			results.createNode("Sample MetaData template downloads successfully");
 			saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename); 
@@ -1094,18 +1018,20 @@ public class CoccidiaLog extends BaseTest{
 
 
 			test.pass("Sample MetaData downloaded successfully");
-			results.createNode("Sample MetaData downloaded successfully");
 			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("Sample MetaData downoad failed");
-			results.createNode("Sample MetaData failed to download");  
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
-			test.fail("Sample MetaData downoad failed");
-			results.createNode("Sample MetaData failed to download");  	
+			test.fail("Sample MetaData downoad failed");	
 			saveResult(ITestResult.FAILURE, ex);
 		}
+	}
+	
+	@AfterTest
+	public static void endreport() {
+		extent.flush();
 	}
 }

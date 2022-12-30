@@ -17,6 +17,7 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -44,6 +45,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static MiscFunctions.ExtentVariables.extent;
 import static MiscFunctions.Methods.*;
 import static Models.IngestionsModel.*;
 
@@ -55,7 +57,7 @@ public class DataSecurity extends BaseTest {
 		ExtentVariables.spark.config().setReportName("Data Security Test Report"); 
 	}
 
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -460,7 +462,6 @@ public class DataSecurity extends BaseTest {
 
 	@AfterTest
 	public static void endreport() {
-		ExtentVariables.extent.flush();
-		//getDriver().close();
+		extent.flush();
 	}
 }

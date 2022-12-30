@@ -9,7 +9,6 @@ import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.getScreenshot;
-import static Config.BaseTest.saveResult;
 import static MiscFunctions.Methods.waitElementInvisible;
 import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.firstPagePagination;
@@ -37,6 +36,7 @@ public class Pagination {
 
 	@Test 
 	public static void Pagination(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
+		BaseTest driver = new BaseTest();
 		for (int i=0; i<=3;i++) {
 			try {
 				String[] paginationButtons = {lastPagePagination, previousPagePagination, firstPagePagination, nextPagePagination};
@@ -44,8 +44,7 @@ public class Pagination {
 				preconditions = test.createNode(Scenario.class, PreConditions);
 				steps = test.createNode(Scenario.class, Steps);
 				results = test.createNode(Scenario.class, Results);
-
-				BaseTest driver = new BaseTest(); 
+ 
 				SoftAssert softAssert = new SoftAssert();
 				String recordBefore = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();   //get result count
 				getScreenshot();
@@ -99,25 +98,25 @@ public class Pagination {
 					test.pass("Navigated to next page successfully");
 					ExtentVariables.results.createNode("Navigated to next page successfully");
 					getScreenshot();
-					saveResult(ITestResult.SUCCESS, null);
+					driver.saveResult(ITestResult.SUCCESS, null);
 				}
 				else {
 					Assert.assertTrue(true, "Records are less then 100; pagination cannot be tested");
 					test.skip("Records are less then 100; pagination cannot be tested");
 					ExtentVariables.results.createNode("Records are less then 100; pagination cannot be tested");
 					getScreenshot();
-					saveResult(ITestResult.SKIP, null);	
+					driver.saveResult(ITestResult.SKIP, null);	
 				}
 			}
 			catch(AssertionError er) {
 				test.fail("Failed to get desired results on clicking button");
 				results.createNode("Failed to get desired results on clicking button");
-				saveResult(ITestResult.FAILURE, new Exception(er));
+				driver.saveResult(ITestResult.FAILURE, new Exception(er));
 			}
 			catch(Exception ex) {
 				test.fail("Failed to get desired results on clicking button");
 				results.createNode("Failed to get desired results on clicking button");
-				saveResult(ITestResult.FAILURE, ex);
+				driver.saveResult(ITestResult.FAILURE, ex);
 			}
 		}
 	}
