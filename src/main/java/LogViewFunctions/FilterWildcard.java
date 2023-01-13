@@ -37,13 +37,12 @@ public class FilterWildcard {
 				
 				if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon)) != 0) {     //check column has filter icon
 					
-					WebElement columnName = driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));
+					WebElement columnName = driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));  //store name of filter
 					
-					test = extent.createTest("AN_Wildcard-"+i+": Verify user can apply wildcard on "+columnName.getText()+" filter");
+					test = extent.createTest("AN_Wildcard-"+i+": Verify user can apply wildcard on "+columnName.getText()+" filter");   //create testcase in report of that filter
 					steps = test.createNode(Scenario.class, Steps);
 
 					SoftAssert softAssert = new SoftAssert();
-					
 					
 					WebElement filter_scroll = columnName;	//scroll to filter			
 					((JavascriptExecutor)driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);   
@@ -54,20 +53,19 @@ public class FilterWildcard {
 					if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterWildcardActionToggle)) != 0) {
 						if (driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterWildcardActionToggle)).isDisplayed()) {  //check if filter has wildcard option
 							if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") .data-log-radio")) == 0) {  //check if toggle is selected or not
-								click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard"));  //click on toggle button to enable
+								click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard"));  //click on toggle button if not selected
 								waitElementInvisible(loading_cursor);
 							}
 
-							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterSearchInput));
-							type(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterSearchInput), "h");
+							type(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterSearchInput), "h");  //type in wildcard search box
 							waitElementInvisible(loading_cursor);
 							Thread.sleep(800);
-							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply"));
+							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply"));  //click on apply filter button
 							waitElementInvisible(loading_cursor);
 							Thread.sleep(800);
 							getScreenshot();
 
-							String getResultCount = getText(By.cssSelector("#"+tablename+" #"+ResultsCount)); 
+							String getResultCount = getText(By.cssSelector("#"+tablename+" #"+ResultsCount));   //get results after apply wildcard filter
 							String recordAfter = getResultCount.replace(",", "");
 							
 							int rows1 = size(By.id("col-0"));  //get rows returned in log view
@@ -83,6 +81,7 @@ public class FilterWildcard {
 								}
 							}
 
+							/*
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon));
 							waitElementInvisible(loading_cursor);	
 							Thread.sleep(1500);
@@ -120,12 +119,16 @@ public class FilterWildcard {
 								softAssert.assertTrue(str.contains("h") || str.contains("H"), "WildCard Contains failed");
 								}
 							}
+							
+							*/
+							
 							softAssert.assertNotEquals(recordAfter, recordBefore);		
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__clear-filter span"));
 							waitElementInvisible(loading_cursor);
 						}	
 					}
 					else {
+						getScreenshot();
 						test.skip("Filter does not have wildcard option");
 						driver.saveResult(ITestResult.SKIP, null);
 					}

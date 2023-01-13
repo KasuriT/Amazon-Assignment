@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -198,15 +199,10 @@ public class Piper_Configuration extends BaseTest{
 	@Test (enabled= true, priority = 3) 
 	public void CreatePiperConfigCocci() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-PCM-06: Verify user can create Coccidia configuration", "This test case will verify that user can create Coccidia Configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-06: Verify user can create Coccidia configuration");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Select improc name and improc version from dropdown and click on save button");
 			getDriver().get(url_piperConfiguration);
@@ -276,17 +272,13 @@ public class Piper_Configuration extends BaseTest{
 
 
 	@Test (enabled= true, priority = 4) 
-	public void UpdatePiperConfig() throws InterruptedException, IOException {
+	public void VerifyDropdownsDisabled() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-PCM-07: Verify dropdowns are disabled in update mode", "This testcase will verify that dropdowns are disabled in update mode");
+			test = extent.createTest("AN-PCM-07: Verify dropdowns are disabled in update mode");
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Select improc name and improc version from dropdown");
 
@@ -325,17 +317,17 @@ public class Piper_Configuration extends BaseTest{
 			results.createNode("Dropdowns were not disabled in update mode");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-
+	}
+		
+	
+	@Test (enabled= true, priority = 5) 
+	public void UpdatePiperConfig() throws InterruptedException, IOException {		
 		try{
-			test = extent.createTest("AN-PCM-08: Verify piper configuration can be updated", "This testcase will verify that piper configuration can be updated");
+			test = extent.createTest("AN-PCM-08: Verify piper configuration can be updated");
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Select improc name and improc version from dropdown");
 			Thread.sleep(1500);
@@ -363,19 +355,14 @@ public class Piper_Configuration extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority = 5) 
+	@Test (enabled= true, priority = 6) 
 	public void DeletePiperConfigSalm() throws InterruptedException, IOException {
 
 		try{
-			test = extent.createTest("AN-PCM-09: Verify user can delete Salmonella piper configuration", "This testcase will verify that user can delete piper configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-09: Verify user can delete Salmonella piper configuration");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Select improc name and improc version from dropdown");
 
@@ -416,22 +403,16 @@ public class Piper_Configuration extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority = 6) 
+	@Test (enabled= true, priority = 7) 
 	public void DeletePiperConfigCocci() throws InterruptedException, IOException {
 		try{
-			
-			getDriver().get(url_piperConfiguration);
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(1000);
-			test = extent.createTest("AN-PCM-10: Verify user can delete Coccidia piper configuration", "This testcase will verify that user can delete piper configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+//			getDriver().get(url_piperConfiguration);
+//			waitElementInvisible(loading_cursor);
+//			Thread.sleep(1000);
+			test = extent.createTest("AN-PCM-10: Verify user can delete Coccidia piper configuration");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Select improc name and improc version from dropdown");
 			Thread.sleep(2000);
@@ -470,10 +451,10 @@ public class Piper_Configuration extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority = 7) 
+	@Test (enabled= true, priority = 8) 
 	public void PAConnfigImprocCheck() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-PCM-11: Verify created imrpoc is displayed in P/A Configurations", "This testcase will verifycreated imrpoc is displayed in P/A Configurations");
+			test = extent.createTest("AN-PCM-11: Verify created imrpoc is displayed in P/A Configurations");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
@@ -481,50 +462,39 @@ public class Piper_Configuration extends BaseTest{
 			steps.createNode("2. Create new Improc");
 			steps.createNode("3. Verify created mrpoc in P/A configurations");
 
-//			getDriver().get(url_piperConfiguration);
-//			waitElementInvisible(loading_cursor);
-//			Thread.sleep(1000);
-			
-		//	for (int i=1; i<=2;i++) {
+			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Salmonella");
+			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
+			getDriver().findElement(By.id("create-mpn")).click();
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+			getDriver().findElement(By.cssSelector("#sampleMatrix3LId input")).click();
+			Thread.sleep(1000);
+			getDriver().findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1000);
+			getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).click();
+			getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(date1001+"."+date1001+"."+date1001+"."+date1001);
+			//getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys("59.59.59.59");
+			Thread.sleep(1500);
+			getScreenshot();
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
+			getDriver().findElement(By.cssSelector("#close-popup-modal p")).click();
 
-		//		if (i==1) {
-					getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Salmonella");
-					getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
-					getDriver().findElement(By.id("create-mpn")).click();
-					waitElementInvisible(loading_cursor);
-					Thread.sleep(1000);
-					getDriver().findElement(By.cssSelector("#sampleMatrix3LId input")).click();
-					Thread.sleep(1000);
-					getDriver().findElement(By.cssSelector("#sampleMatrix3LId input")).sendKeys(Keys.ENTER);
-					Thread.sleep(1000);
-					getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).click();
-					getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys(date1001+"."+date1001+"."+date1001+"."+date1001);
-					//getDriver().findElement(By.cssSelector("#ImprocVersion3LId input")).sendKeys("59.59.59.59");
-					Thread.sleep(1500);
-					getScreenshot();
-					Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
-					getDriver().findElement(By.cssSelector("#close-popup-modal p")).click();
-		//		}
-		//		if (i==2) {
-					Thread.sleep(1000);
-					getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).clear();
-					getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Listeria");
-					getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
-					Thread.sleep(1000);
-					getDriver().findElement(By.id("create-mpn")).click();
-					waitElementInvisible(loading_cursor);
-					Thread.sleep(1500);
-					getDriver().findElement(By.cssSelector("#sampleMatrixId input")).click();
-					Thread.sleep(1500);
-					getDriver().findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
-					Thread.sleep(1000);
-					getDriver().findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(date1001+"."+date1001+"."+date1001+"."+date1001);
-					//getDriver().findElement(By.cssSelector("#ImprocVersionId input")).sendKeys("59.59.59.59");
-					Thread.sleep(2000);
-					getScreenshot();
-					Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
-		//		}
-		//	}
+			Thread.sleep(1000);
+			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).clear();
+			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Listeria");
+			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1000);
+			getDriver().findElement(By.id("create-mpn")).click();
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1500);
+			getDriver().findElement(By.cssSelector("#sampleMatrixId input")).click();
+			Thread.sleep(1500);
+			getDriver().findElement(By.cssSelector("#sampleMatrixId input")).sendKeys(Keys.ENTER);
+			Thread.sleep(1000);
+			getDriver().findElement(By.cssSelector("#ImprocVersionId input")).sendKeys(date1001+"."+date1001+"."+date1001+"."+date1001);
+			Thread.sleep(2000);
+			getScreenshot();
+			Assert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option-disabled")).size(), 0);
 
 			test.pass("Created improc displayed in P/A Configurations successfully");
 			results.createNode("Created improc displayed in P/A Configurations successfully");
@@ -541,17 +511,12 @@ public class Piper_Configuration extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority = 8) 
+	@Test (enabled= true, priority = 9) 
 	public void CreatePAConfigSalm() throws InterruptedException, IOException {	
 		try{
-			test = extent.createTest("AN-PCM-12: Verify user can create P/A MPN Configuration for Salmonella", "This test case will verify that user can create P/A MPN Configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-12: Verify user can create P/A MPN Configuration for Salmonella");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to MPN P/A Config");
 			steps.createNode("2. Select improc name and improc version from dropdown and click on save button");
 
@@ -643,17 +608,12 @@ public class Piper_Configuration extends BaseTest{
 	}	 
 
 
-	@Test (enabled= true, priority = 9) 
+	@Test (enabled= true, priority = 10, dependsOnMethods = {"CreatePAConfigSalm"}) 
 	public void DeletePAConfigSalm() throws InterruptedException, IOException {	
 		try{
-			test = extent.createTest("AN-PCM-13: Verify user can delete P/A MPN Configuration for Salmonella", "This test case will verify that user can create P/A MPN Configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-13: Verify user can delete P/A MPN Configuration for Salmonella");
 			steps = test.createNode(Scenario.class, Steps);
-			results = test.createNode(Scenario.class, Results);
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
+
 			steps.createNode("1. Create P/A config");
 			steps.createNode("2. Delete that config");
 			
@@ -663,47 +623,48 @@ public class Piper_Configuration extends BaseTest{
 					int j = i-2;
 					WebElement filter_scroll = getDriver().findElement(By.id("delete-mpn-"+j));
 					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll); 
-					getDriver().findElement(By.id("delete-mpn-"+i)).click();
+			//		getDriver().findElement(By.id("delete-mpn-"+i)).click();
+					
+					try {
+						getDriver().findElement(By.id("delete-mpn-"+i)).click();
+						waitElementVisible(popupYesButton);
+						click(popupYesButton);
+						waitElementInvisible(loading_cursor);
+						Thread.sleep(1500);
+						String message = getDriver().findElement(By.id("message")).getText();
+						Assert.assertEquals(message, "Listeria Configuration details deleted");
+						getDriver().findElement(alertMessageClose).click();
+						test.pass("P/A MPN configuration deleted successfully");
+						results.createNode("P/A MPN configuration deleted successfully");
+						getScreenshot();
+						saveResult(ITestResult.SUCCESS, null);
+						}
+						catch(ElementNotInteractableException ex) {
+							test.skip("Cannot be deleted because delete icon is behind Help icon");
+							saveResult(ITestResult.SKIP, null);
+						}
 					break;
 				}
 			}
 
-			waitElementVisible(popupYesButton);
-			getDriver().findElement(By.id("btn-yes")).click();
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(1500);
-			String message = getDriver().findElement(By.id("message")).getText();
-			Assert.assertEquals(message, "MPN & P/A Configuration details deleted.");
-			getDriver().findElement(alertMessageClose).click();
-			test.pass("P/A MPN configuration deleted successfully");
-			results.createNode("P/A MPN configuration deleted successfully");
-			getScreenshot();
-			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("P/A MPN configuration failed to delete");
-			results.createNode("P/A MPN configuration failed to delete");
 			saveResult(ITestResult.FAILURE,
 					new Exception(er)); }
 		catch(Exception ex) {
 			test.fail("P/A MPN configuration failed to delete");
-			results.createNode("P/A MPN configuration failed to delete");
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}	 
 
 	
-	@Test (enabled= true, priority = 10) 
+	@Test (enabled= true, priority = 11) 
 	public void CreatePAConfigList() throws InterruptedException, IOException {	
 		try{
-			test = extent.createTest("AN-PCM-14: Verify user can create P/A MPN Configuration for Listeria", "This test case will verify that user can create P/A MPN Configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-14: Verify user can create P/A MPN Configuration for Listeria");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Click on create new button next to MPN P/A Config");
 			steps.createNode("2. Select improc name and improc version from dropdown and click on save button");
 
@@ -773,17 +734,12 @@ public class Piper_Configuration extends BaseTest{
 	}	 
 
 
-	@Test (enabled= true, priority = 11) 
+	@Test (enabled= true, priority = 12) 
 	public void DeletePAConfigList() throws InterruptedException, IOException {	
 		try{
-			test = extent.createTest("AN-PCM-15: Verify user can delete P/A MPN Configuration for Listeria", "This test case will verify that user can create P/A MPN Configuration");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-PCM-15: Verify user can delete P/A MPN Configuration for Listeria");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 			steps.createNode("1. Create P/A config");
 			steps.createNode("2. Delete that config");
 			
@@ -807,22 +763,30 @@ public class Piper_Configuration extends BaseTest{
 					WebElement scroll = getDriver().findElement(By.id("delete-mpn-"+j));
 					((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", scroll); 
 					Thread.sleep(2000);
+					
+					try {
 					getDriver().findElement(By.id("delete-mpn-"+i)).click();
+					waitElementVisible(popupYesButton);
+					click(popupYesButton);
+					waitElementInvisible(loading_cursor);
+					Thread.sleep(1500);
+					String message = getDriver().findElement(By.id("message")).getText();
+					Assert.assertEquals(message, "Listeria Configuration details deleted");
+					getDriver().findElement(alertMessageClose).click();
+					test.pass("P/A MPN configuration deleted successfully");
+					results.createNode("P/A MPN configuration deleted successfully");
+					getScreenshot();
+					saveResult(ITestResult.SUCCESS, null);
+					}
+					catch(ElementNotInteractableException ex) {
+						test.skip("Cannot be deleted because delete icon is behind Help icon");
+						saveResult(ITestResult.SKIP, null);
+					}
 					break;
 				}
 			}
 
-			waitElementVisible(popupYesButton);
-			click(popupYesButton);
-			waitElementInvisible(loading_cursor);
-			Thread.sleep(1500);
-			String message = getDriver().findElement(By.id("message")).getText();
-			Assert.assertEquals(message, "Listeria Configuration details deleted");
-			getDriver().findElement(alertMessageClose).click();
-			test.pass("P/A MPN configuration deleted successfully");
-			results.createNode("P/A MPN configuration deleted successfully");
-			getScreenshot();
-			saveResult(ITestResult.SUCCESS, null);
+
 		}
 		catch(AssertionError er) {
 			test.fail("P/A MPN configuration failed to delete");

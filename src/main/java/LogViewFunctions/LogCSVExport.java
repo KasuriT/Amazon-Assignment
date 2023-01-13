@@ -167,82 +167,75 @@ public class LogCSVExport {
 	public static void CSVExport1(String name, String CSVFileName, String tablename, int filterNumber, int skipColumns) throws InterruptedException, IOException {
 		BaseTest driver = new BaseTest();
 		try {
-			test = extent.createTest("AN-CSVExport: Verify user can download CSV file and verify the records", "This test case will verify that user can download CSV file");
-			preconditions = test.createNode(Scenario.class, PreConditions);
+			test = extent.createTest("AN-CSVExport: Verify user can download CSV file and verify the records");
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on "+name+"; "+name+" screen opens");
-
-			steps.createNode("1. Hover mouse towards table; Export file button becomes visible");
-			steps.createNode("2. Click on the button; Dropdown cloud pop ups");
-			steps.createNode("3. Verify the columns are same in table and CSV");
 			SoftAssert softAssert = new SoftAssert();
-			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	
+			
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+filterNumber+") .log-header__filter-icon")).click();	//open filter at index 'filternumber'
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);						
-			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") li:nth-child(3) label");    //select checkbox 
 
-			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" th:nth-child("+filterNumber+") .filter-popup__footer--apply");   //click on apply button
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(2000);
-			String getRowText = driver.getDriver().findElement(By.id(ResultsCount)).getText();
+			String getRowsCount = driver.getDriver().findElement(By.cssSelector("#"+tablename+" #"+ResultsCount)).getText();    //get results count after applying filter
 
-			driver.getDriver().findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();    //click on csv export popup icon
 			Thread.sleep(1000);
 			getScreenshot();
-			ClickElement.clickById(driver.getDriver(), "export-csv");
+			ClickElement.clickById(driver.getDriver(), "export-csv");    //click on export csv icon
 			waitElementInvisible(loading_cursor);	
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");    //get date in this format (date concats in downloaded filename)
 			Date date1 = new Date();
 			String date= dateFormat.format(date1);
 			Thread.sleep(1500);
 
-			//	SalmonellaLog fr= new SalmonellaLog();
 			File newfile = DownloadFileCheck.getTheNewestFile(fileDownloadPath, "csv");
-			String filename= newfile.getName();
-			softAssert.assertEquals(filename, CSVFileName+date+".csv");
+			String filename= newfile.getName();   							 //get the name of downloaded file
+			
+			softAssert.assertEquals(filename, CSVFileName+date+".csv");     //compare the actual and expected file name
 			test.pass("CSV file downloaded successfully");
-			results.createNode("CSV file downloads successfully");
 			driver.saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
-			if(file.exists()){
+			if(file.exists()){       //check if file exists
 				System.out.println("File Exists");
 			}	
 
 
-			FileReader filereader = new FileReader(file);
+			FileReader filereader = new FileReader(file);   //read content of downloaded file
 			CSVReader reader = new CSVReader(filereader);
-			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();    //skip header in excel file
 			StringBuffer buffer = new StringBuffer();
 			String data[];		    				
 
-			int columnsCountTotal = 0;
-			int rowsCount = 1;
+			int columnsCountTotal = 0;           //start from first column in IE
+			int rowsCount = 1;               //start from second row (skip header row in IE)
+			
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
-					int rows = driver.getDriver().findElements(By.cssSelector("tr")).size();
+					int rows = driver.getDriver().findElements(By.cssSelector("tr")).size();   //get total rows in IE
+					
 					if (rowsCount < rows) {
-						int totalColumns = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;
-						//	int columnsCount = columnsCountTotal+3;
-						int columnsCount = columnsCountTotal+2;
+						int totalColumns = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child(1) td")).size() - 1;  //get total columns (- 1  is done for skipping last column (Actions))
+
+						int columnsCount = columnsCountTotal+skipColumns;   //skip the initial columns (audit view and/or checkbox)
+						
 						if (driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
 							softAssert.assertEquals(data[i].trim(), driver.getDriver().findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
 						}
 						else {
-							rowsCount = rowsCount+1;
-							columnsCount =0;
+							rowsCount = rowsCount+1;   //move to next row
+							columnsCount = 0;     //move to first column again
 							columnsCountTotal = skipColumns;   //for salmonella and coccidia -1 else 0
 						}
 						columnsCountTotal++;
 					}
 				}
-				//System.out.println(" ");
 			}
 
 			Path path = Paths.get(fileDownloadPath+"\\"+filename);
@@ -254,11 +247,10 @@ public class LogCSVExport {
 			}
 
 			long excludeHeader = lines - 1;
-			String s = String.valueOf(excludeHeader);
-
-			String str = getRowText;
-			str = str.replace(",", "");
-			softAssert.assertEquals(s, str);
+			String getExcelFileRowsCount = String.valueOf(excludeHeader);
+			String getIERowsCount = getRowsCount.replace(",", "");   //remove comma from results count
+			
+			softAssert.assertEquals(getExcelFileRowsCount, getIERowsCount, "Rows does not match in IE and downloaded Excel file");
 
 			if(file.delete()) {
 				System.out.println("CSV file deleted");  

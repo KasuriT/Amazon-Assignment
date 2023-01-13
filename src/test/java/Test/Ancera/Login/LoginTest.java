@@ -65,6 +65,7 @@ public class LoginTest extends BaseTest{
 		try {
 			test = extent.createTest("AN-LO-01: Verify user can Logout");
 
+			Thread.sleep(1000);
 			hover(sideBar);
 			Thread.sleep(700);
 			String version = getText(getVersion);

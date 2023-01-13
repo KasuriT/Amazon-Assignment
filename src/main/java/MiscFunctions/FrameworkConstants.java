@@ -27,17 +27,12 @@ public class FrameworkConstants {
 	public static String CSMDataTemplateUpload = RESOURCESPATH+"\\Excel\\SampleMetadata_Mobile.xlsx";
 	public static String DataSecurityTemplateUpload = RESOURCESPATH+"\\Excel\\MetaData DataSecurity.xlsx";
 	
-	
-	
-	
-	
-	
-	
-//	private static final String CHROMEDRIVERPATH = RESOURCESPATH+"/executables/chromedriver.exe";
-	private static final String GECKODRIVERPATH = RESOURCESPATH+"/executables/geckodriver.exe";
+
+
 	private static final String CONFIGFILEPATH = MAINPATH+"/Config/config.properties";
 	private static final String JSONCONFIGFILEPATH = RESOURCESPATH + "/config/config.json";
-	private static final String EXCELPATH = RESOURCESPATH+"/excel/testdata.xlsx";
+	//private static final String EXCELPATH = RESOURCESPATH+"/excel/testdata.xlsx";
+	private static final String EXCELPATH = MAINPATH+"/Utilities/testdata.xlsx";
 	private static final String RUNMANGERSHEET = "RUNMANAGER";
 	private static final String ITERATIONDATASHEET = "DATA";
 	private static final String EXTENTREPORTFOLDERPATH = System.getProperty("user.dir")+"/extent-test-output/";
@@ -82,9 +77,6 @@ public class FrameworkConstants {
 		return CONFIGPROPERTIESFILE;
 	}
 	
-	public static String getGeckoDriverPath() {
-		return GECKODRIVERPATH;
-	}
 
 	
 	public static String getExcelpath() {
@@ -107,14 +99,7 @@ public class FrameworkConstants {
 		return ITERATIONDATASHEET;
 	}
 
-//	public static String getConfigFilePath() {
-//		return CONFIGFILEPATH;
-//	}
 
-//	public static String getChromeDriverPath() {
-//		return CHROMEDRIVERPATH;
-//	}
-	
 	
 
 }

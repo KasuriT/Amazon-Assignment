@@ -519,7 +519,7 @@ public class CoccidiaLog extends BaseTest{
 								waitElementInvisible(loading_cursor);
 								Thread.sleep(1000);	
 
-								String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
+								String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+footerCount)).getText();
 								Assert.assertEquals(b, "Showing 1 - 1 Results");														
 							}
 
@@ -538,7 +538,7 @@ public class CoccidiaLog extends BaseTest{
 									getDriver().findElement(By.id(objFilter.LstFilterSearch.get(k)+""+clShowFilter)).click();		
 									waitElementInvisible(loading_cursor);
 									Thread.sleep(1000);						
-									String a = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(k)+" "+SalmonellaLogPage.footerCount)).getText();
+									String a = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(k)+" "+footerCount)).getText();
 									array[t] = a;
 									//System.out.println("array: "+array[t]);
 									t++;
@@ -566,7 +566,7 @@ public class CoccidiaLog extends BaseTest{
 											waitElementInvisible(loading_cursor);
 											Thread.sleep(1000);	
 
-											String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+SalmonellaLogPage.footerCount)).getText();
+											String b = getDriver().findElement(By.cssSelector("#sort-"+objFilter.LstFilterSearch.get(l)+" "+footerCount)).getText();
 											Assert.assertNotEquals(array[l], b);
 										}
 									}

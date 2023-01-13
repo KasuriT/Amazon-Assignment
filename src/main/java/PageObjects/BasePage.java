@@ -46,6 +46,9 @@ public class BasePage {
 	
 	public static String filterIcon = ".log-header__filter-icon";
 	public static String filterSearchInput = ".filter-popup__search-input input";
+	public static String filterApplyButton = ".filter-popup__footer--apply";
+	public static String filterClearButton = ".log-header__clear-filter span";
 	public static String filterWildcardActionToggle = ".filter-popup__action--wildcard";
+	public static String footerCount = ".filter-popup__footer--count";
 	
 }

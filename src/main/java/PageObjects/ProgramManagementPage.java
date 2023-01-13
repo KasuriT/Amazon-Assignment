@@ -113,18 +113,24 @@ public static By programManagementTitle = By.id("Program Management");
 	public static String programVaccineFlockDayApplicationCol = "#col-6-vaccine label";
 
 	public static String programBioshuttleProgramNameCol = "#col-0-vaccine-bio label";
-	public static String programBioshuttleSupplierNameCol = "#col-1-vaccine-bio label";
-	public static String programBioshuttleNumberOfApplicationFlockCol = "#col-2-vaccine-bio label";
-	public static String programBioshuttleDescriptionCol = "#col-3-vaccine-bio label";
-	public static String programBioshuttleStartDateCol = "#col-4-vaccine-bio label";
-	public static String programBioshuttleEndDateCol = "#col-5-vaccine-bio label";
-	public static String programBioshuttleFlockDayApplicationCol = "#col-6-vaccine-bio label";
-	public static String programBioshuttleNameCol = "#col-7-vaccine-bio label";
-	public static String programBioshuttleFlockDayStartCol = "#col-8-vaccine-bio label";
-	public static String programBioshuttleFlockDayEndCol = "#col-9-vaccine-bio label";
+	public static String programBioshuttleProgramTypeCol = "#col-1-vaccine-bio label";
+	public static String programBioshuttleDescriptionCol = "#col-2-vaccine-bio label";
+	public static String programBioshuttleTargetPathogenCol = "#col-3-vaccine-bio label";
+	public static String programBioshuttleComplexCol = "#col-4-vaccine-bio label";
+	public static String programBioshuttleStartDateCol = "#col-5-vaccine-bio label";
+	public static String programBioshuttleEndDateCol = "#col-6-vaccine-bio label";
+	public static String programBioshuttleVaccineNameCol = "#col-7-vaccine-bio label";
+	public static String programBioshuttleVaccineSupplierCol = "#col-8-vaccine-bio label";
+	public static String programBioshuttleNumberOfApplicationOnFlockCol = "#col-9-vaccine-bio label";
+	public static String programBioshuttleFlockDayApplicationCol = "#col-10-vaccine-bio label";
+	public static String programBioshuttleFeedProgramNameCol = "#col-11-vaccine-bio label";
+	public static String programBioshuttleFeedProgramSupplierCol = "#col-12-vaccine-bio label";
+	public static String programBioshuttleFeedTypesCol = "#col-13-vaccine-bio label";
+	public static String programBioshuttleFeedTypeCategoriesCol = "#col-14-vaccine-bio label";
+
 	
 	public static String programFeedCSVFileName = "Feed Program Log - ";
-	public static String programTreatmentCSVFileName = "Treatment Program Log - ";
+	public static String programTreatmentCSVFileName = "Treatment Log - ";
 	public static String programVaccineCSVFileName = "Vaccine Log - ";
 	public static String programBioshuttleCSVFileName = "Bioshuttle Log - ";
 	public static String programUtilizationCSVFileName = "Program Utilization Log - ";

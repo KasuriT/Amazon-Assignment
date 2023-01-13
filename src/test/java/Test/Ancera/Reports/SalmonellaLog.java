@@ -83,17 +83,14 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test (priority = 3) 
 	public void WildcardSalm() throws InterruptedException, IOException {
-		openSalmonellaLogPage();
-		//getDriver().navigate().refresh();
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(3000);
 		Wildcard(salmonellaLogTable, "Salmonella Log", 2);
 	}
 
 	
 	@Test(priority= 4)
 	public void FilterSorting() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
+		getDriver().navigate().back();
+		getDriver().navigate().forward();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Sorting(salmonellaLogTable, "Salmonella Log", 2);
@@ -108,11 +105,13 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test(priority= 6, enabled = true)
 	public void PaginationSalm() throws InterruptedException, IOException {
-		getDriver().navigate().refresh();
+		getDriver().navigate().back();
+		getDriver().navigate().forward();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
 		Pagination(salmonellaLogTable, "Salmonella Log", ReportFilePath);
 	}
+	
 
 
 	@SuppressWarnings("unused")
@@ -591,17 +590,11 @@ public class SalmonellaLog extends BaseTest{
 	@Test (enabled= true, priority = 11) 
 	public void AllignmentTest() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-SL-174: Verify that int data type columns are right alligned", "This testcase will verify that int data type columns are right alligned");
+			test = extent.createTest("AN-SL-174: Verify that int data type columns are right alligned");
 
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on Analytics and select Reports; Reports page opens");
-			preconditions.createNode("5. Click on Salmonella Log; Salmonella Log reports open");
 			steps.createNode("1. Verify int data type columns are right alligned");
 
 			SoftAssert softAssert = new SoftAssert();
@@ -722,16 +715,7 @@ public class SalmonellaLog extends BaseTest{
 
 	@Test (enabled= true, priority = 14) 
 	public void FieldAccessResetDefault() throws InterruptedException, IOException {
-
-		getDriver().findElement(By.id("edit-field-access")).click();
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(1000);
-		getDriver().findElement(By.id("btn-reset")).click();
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(1000);
-		getDriver().findElement(By.id("btn-save")).click();
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(1000);
+		FieldLevelAccess.fieldLevelReset();
 	}
 
 

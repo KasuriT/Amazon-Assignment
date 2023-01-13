@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import Config.BaseTest;
+import MiscFunctions.Methods;
 
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.Methods.*;
@@ -12,6 +13,7 @@ import static PageObjects.BasePage.loading_cursor;
 public class SalmonellaLogPage {
 
 	private static By salmonellaLogBox = By.cssSelector("img[alt='Salmonella Log']"); 
+	private static By bacterialLogBox = By.cssSelector("img[alt='Bacterial Log']"); 
 	private static By salmonellaLogTitle = By.id("Salmonella Log");
 
 	public static String salmonellaLogTable = "salmonella-data-log";
@@ -52,7 +54,6 @@ public class SalmonellaLogPage {
 	public static String slFarmCol = "33";
 	public static String slComplexCol = "34";
 	public static String slFieldAccessCol = "35";
-	public static String footerCount = ".filter-popup__footer--count";
 	
 	public static String slAuditLaneColCss = "5";
 	public static String slAuditLaneCol = "0";
@@ -160,7 +161,12 @@ public class SalmonellaLogPage {
 		BaseTest driver = new BaseTest();
 		driver.getDriver().get(url_reports);
 		waitElementInvisible(loading_cursor);
+		if (Methods.size(salmonellaLogBox) != 0) {
 		click(salmonellaLogBox);
+		}
+		else {
+			click(bacterialLogBox);
+		}
 		waitElementInvisible(loading_cursor);
 		Assert.assertEquals(getText(salmonellaLogTitle), "Salmonella Log"); 	
 	}

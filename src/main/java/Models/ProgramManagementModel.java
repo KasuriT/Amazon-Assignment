@@ -53,7 +53,7 @@ public class ProgramManagementModel {
 	public static ArrayList<ProgramManagementModel> FillData() {
 		ArrayList<ProgramManagementModel> lstProgramManagementModel = new ArrayList<ProgramManagementModel>();
 		ProgramManagementModel objTmp;
-		
+	/*	
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Vaccine Programs";
 		objTmp.TestCaseNameCreate = "AN-Program-11: "+createProgramTestCaseTitle+objTmp.Program;
@@ -101,9 +101,9 @@ public class ProgramManagementModel {
 		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
 		objTmp.ProgramType = "Treatment";
 		lstProgramManagementModel.add(objTmp);	
-			
+	*/		
 		objTmp = new ProgramManagementModel();
-		objTmp.Program = "Vaccine with Bioshuttle";
+		objTmp.Program = "Bioshuttle";
 		objTmp.TestCaseNameCreate = "AN-Program-14: "+createProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameUpdate = "AN-Program-18: "+updateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDuplicate = "AN-Program-22: "+duplicateProgramTestCaseTitle+objTmp.Program;

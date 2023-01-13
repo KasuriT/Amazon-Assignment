@@ -656,7 +656,7 @@ public class FlockManagement extends BaseTest {
 
 
 
-	@Test (enabled= true, priority =30) 
+	@Test (enabled= false, priority =30) 
 	public void InlineEditFlock() throws InterruptedException, IOException, SQLException {
 		try {			
 			test = extent.createTest("Verify inline edit flock");

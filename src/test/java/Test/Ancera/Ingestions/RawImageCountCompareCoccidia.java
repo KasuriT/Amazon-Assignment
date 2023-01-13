@@ -47,7 +47,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 
 	@BeforeTest
 	public void db_init() throws InterruptedException, IOException {
-		DB_Config.test();
+	//	DB_Config.test();
 	}
 
 
