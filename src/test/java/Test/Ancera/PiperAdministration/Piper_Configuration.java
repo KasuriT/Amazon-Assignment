@@ -632,10 +632,9 @@ public class Piper_Configuration extends BaseTest{
 						waitElementInvisible(loading_cursor);
 						Thread.sleep(1500);
 						String message = getDriver().findElement(By.id("message")).getText();
-						Assert.assertEquals(message, "Listeria Configuration details deleted");
+						Assert.assertEquals(message, "MPN & P/A Configuration details deleted.");
 						getDriver().findElement(alertMessageClose).click();
 						test.pass("P/A MPN configuration deleted successfully");
-						results.createNode("P/A MPN configuration deleted successfully");
 						getScreenshot();
 						saveResult(ITestResult.SUCCESS, null);
 						}

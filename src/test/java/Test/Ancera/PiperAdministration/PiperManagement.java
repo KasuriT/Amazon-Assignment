@@ -51,15 +51,15 @@ public class PiperManagement extends BaseTest{
 	
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
+		getDriver().get(url_piperManagement);
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
 		Lock(piperManagementTable, "PIPER Management", 0);
 	}
 	
 	
 	@Test (priority = 3, enabled = true) 
 	public void WildcardPiper() throws InterruptedException, IOException {
-		getDriver().get(url_piperManagement);
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(3000);
 		Wildcard(piperManagementTable, "PIPER Management", 0);
 	}
 
@@ -76,7 +76,6 @@ public class PiperManagement extends BaseTest{
 			test = extent.createTest("AN-PM-011: Verify Test Site Filter Functionality");
 			steps = test.createNode(Scenario.class, "Steps");
 			results = test.createNode(Scenario.class, "Result");
-			getScreenshot();
 			steps.createNode("1. Verify Test Site Filter Functionality");
 			
 			SoftAssert softAssert = new SoftAssert();
@@ -84,12 +83,9 @@ public class PiperManagement extends BaseTest{
 			getDriver().findElement(By.id("testSite_show-filter")).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
-//			List<WebElement> a = getDriver().findElements(By.cssSelector("th:nth-child(2) label:nth-child(2)"));
-//			a.get(2).click();
 			click(By.cssSelector("th:nth-child(2) tr:nth-child(2) td:nth-child(2) label:nth-child(1)"));
-			getDriver().findElement(By.cssSelector("th:nth-child(2) .filter-popup__footer--apply")).click();
+			click(By.cssSelector("th:nth-child(2) .filter-popup__footer--apply"));
 			waitElementInvisible(loading_cursor);	
-			waitElementInvisible(loading_cursor);
 			steps.createNode("2. Click on lock button");	
 			getDriver().findElement(By.id(LockFilter)).click();
 			waitElementInvisible(loading_cursor);	

@@ -7,12 +7,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -28,6 +33,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import MiscFunctions.Constants;
 import MiscFunctions.DB_Config;
 import MiscFunctions.ExtentVariables;
+import Utilities.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
@@ -36,6 +42,7 @@ public class BaseTest {
 	
 	@BeforeClass
 	public void config() {
+		
 		WebDriverManager.chromedriver().setup();
 		
 		Map<String, Object> prefs = new HashMap<String, Object>();
@@ -43,16 +50,24 @@ public class BaseTest {
 		prefs.put( "profile.content_settings.pattern_pairs.*.multiple-automatic-downloads", 1 );
 		prefs.put("download.prompt_for_download", false);
 		prefs.put("profile.content_settings.exceptions.automatic_downloads.*.setting", 1 );
-
 		ChromeOptions options = new ChromeOptions();
 		options.setExperimentalOption("prefs", prefs);
 		options.addArguments("--disable-infobars");
 		options.addArguments("disable-popup-blocking");
-
 		driver.set(new ChromeDriver(options));
-		BaseTest drive = new BaseTest();
-		drive.getDriver().manage().window().maximize();
-		drive.getDriver().get(Constants.url_login);
+		BaseTest driver = new BaseTest();
+		
+//		if (ConfigFactory.create(ReadPropertyFile.class).runmode().equalsIgnoreCase("remote")) {
+//			DesiredCapabilities cap = new DesiredCapabilities();
+//			cap.setBrowserName("CHROME");
+//		//	cap.setBrowserName(BrowserType.CHROME);
+//			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
+//		}
+		
+		
+		
+		driver.getDriver().manage().window().maximize();
+		driver.getDriver().get(Constants.url_login);
 
 		ExtentVariables.spark.config().setDocumentTitle("Ancera Test Report");
 		ExtentVariables.spark.config().setTheme(Theme.DARK);

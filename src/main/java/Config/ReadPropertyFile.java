@@ -29,6 +29,8 @@ public interface ReadPropertyFile extends Config {
 
     String version();
     
+    String runmode();
+    
     
 //    @Key("db.hostname")
 //    String getDBHostname();

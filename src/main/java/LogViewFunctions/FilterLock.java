@@ -87,25 +87,15 @@ public class FilterLock {
 							steps.createNode("4. Reopen "+name+" screen");
 
 							//driver.getDriver().navigate().refresh();
-							driver.getDriver().navigate().back();
-							driver.getDriver().navigate().forward();
-
+							//driver.getDriver().navigate().back();
+							//driver.getDriver().navigate().forward();
 							waitElementInvisible(loading_cursor);
 							waitElementVisible(By.cssSelector("#"+tablename+" #"+ResultsCount));
 							Thread.sleep(3000);
-
-							//							if (tablename.equals(ProgramManagementPage.programFeedTable)) {
-							//								click(ProgramManagementPage.programFeedProgramTab);
-							//								waitElementInvisible(loading_cursor);
-							//								Thread.sleep(2000);
-							//							}
-
 							steps.createNode("5. Verify lock filter remains applied");
-							getScreenshot();
-
 							softAssert.assertEquals(getText(By.cssSelector("#"+tablename+" #"+ResultsCount)), recordsafterfilter, "Lock functionality failed");  //verify records remain save after refreshing the page
 							Thread.sleep(1000);
-
+							getScreenshot();
 							click(By.cssSelector("#"+tablename+" #"+UnlockFilter));  //unlock filter
 							waitElementInvisible(loading_cursor);
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+BasePage.filterClearButton)); //clear applied filter
