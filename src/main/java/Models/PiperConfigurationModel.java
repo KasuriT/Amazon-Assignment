@@ -2,7 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 
-import Test.Ancera.Test_Variables;
+import MiscFunctions.DateUtil;
+import MiscFunctions.ExtentVariables;
 
 public class PiperConfigurationModel {
 
@@ -15,6 +16,8 @@ public class PiperConfigurationModel {
 	public String sampleMatrix;
 	public boolean GreaterLesserCheck;
 	public ArrayList<ReportFilters> lstFilters;
+	public static ArrayList<PiperConfigurationModel> lstPiperConfigurationCreate = new ArrayList<>();
+	public static ArrayList<PiperConfigurationModel> lstPiperConfigurationCreatePA = new ArrayList<>();
 	
 	public PiperConfigurationModel() {
 	}
@@ -80,7 +83,7 @@ public class PiperConfigurationModel {
 		objTmp.TestCaseName = "AN-PCM-05: Verify user can create an Installtion Run";
 		objTmp.TestCaseDescription = "This test case will verify that user can create an INstallation Run";
 		objTmp.lstFilters = new ArrayList<>();
-		objFilter.MinMean = "1"+Test_Variables.date0;
+		objFilter.MinMean = "1"+DateUtil.date0;
 		objFilter.MaxMean = "99999";
 		objFilter.MinStd = "100";
 		objFilter.MaxStd = "1000";

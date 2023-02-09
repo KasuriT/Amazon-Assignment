@@ -2,8 +2,10 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import Test.Ancera.Test_Elements;
-import Test.Ancera.Test_Variables;
+
+import MiscFunctions.DateUtil;
+import static PageObjects.FlockManagementPage.*;
+
 
 public class FlockManagementModel {
 
@@ -12,16 +14,6 @@ public class FlockManagementModel {
 	public String TestCaseNameSearch;
 	public String TestCaseDescriptionSearch;
 	public ArrayList<ReportFilters> lstFilters;
-	public boolean paginationExist;
-	public boolean paginationLastPage;
-	public boolean paginationNextPage;
-	public boolean paginationFirstPage;
-	public boolean paginationPreviousPage;
-	public boolean sortLogic1;
-	public boolean sortLogic2;
-	public boolean startWith;
-	public boolean endsWith;
-	public boolean contains;
 	public boolean viewAccess;
 	public boolean unviewAccess;
 	public boolean sortDescFirst;
@@ -29,6 +21,14 @@ public class FlockManagementModel {
 	public String steps;
 	public String input;
 
+
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateSearch = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationDateEnter = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationFieldAccess = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationContexualCheck = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationEdit = new ArrayList<>();
+	public static ArrayList<FlockManagementModel> lstFlockRegistrationValidation = new ArrayList<>();
+	
 	public FlockManagementModel() {
 
 	}
@@ -38,12 +38,12 @@ public class FlockManagementModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	public static String flockIntegratorID = "IntegratorID_"+Test_Variables.date0;
-	public static String flockProgramName = "FlockVaccine_"+Test_Variables.date0;
-	public static String flockProgramAdminMethod = "AdminMethod_"+Test_Variables.date0;
+	public static String flockIntegratorID = "IntegratorID_"+DateUtil.date0;
+	public static String flockProgramName = "FlockVaccine_"+DateUtil.date0;
+	public static String flockProgramAdminMethod = "AdminMethod_"+DateUtil.date0;
 	public static String flockBirdSize = "Large";
-	public static int totalColumnsinFlock = 56;
-
+	public static int totalColumnsinFlock = 56;  
+//
 //	public static String flockIntegratorID = "IntegratorID_2528";
 //	public static String flockProgramName = "FlockVaccine_2528";
 //	public static String flockProgramAdminMethod = "AdminMethod_5256";
@@ -91,8 +91,8 @@ public class FlockManagementModel {
 		objTmp.TestCaseDescription = "This testcase will verify that user can edit "+objFilter.FilterName+" and a new row appears in audit log with changes made";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
-		objFilter.FilterID = Test_Elements.flockBirdSex;
-		objFilter.ColumnID = Test_Elements.flockBirdSexPlacementCol;
+		objFilter.FilterID = flockBirdSex;
+		objFilter.ColumnID = flockBirdSexPlacementCol;
 		objTmp.input = "Male";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -106,7 +106,7 @@ public class FlockManagementModel {
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter = new ReportFilters();
 	//	objFilter.FilterID = Test_Elements.flockBirdBreed;
-		objFilter.ColumnID = Test_Elements.flockBirdBreedPlacementCol;
+		objFilter.ColumnID = flockBirdBreedPlacementCol;
 		objTmp.input = "Australorp";
 		objTmp.steps = "Edit "+objFilter.FilterName;
 		objTmp.lstFilters.add(objFilter);
@@ -228,4 +228,7 @@ public class FlockManagementModel {
 		
 		return lstFlockManagementModel;
 	}
+	
+	
+
 }

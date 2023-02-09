@@ -1,9 +1,11 @@
 package Models;
 
+import static MiscFunctions.DateUtil.*;
+
 import java.util.ArrayList;
 
-import Test.Ancera.Test_Elements;
-import Test.Ancera.Test_Variables;
+import MiscFunctions.ExtentVariables;
+import PageObjects.ProgramManagementPage;
 
 public class ProgramManagementModel {
 
@@ -24,11 +26,12 @@ public class ProgramManagementModel {
 	public String steps;
 	public String input;
 	
-	public static String VaccineProgramName = "Sino_"+Test_Variables.dateYYYYMMDD+"_"+Test_Variables.date0;
-	public static String FeedProgramName = "Feed_"+Test_Variables.dateYYYYMMDD+"_"+Test_Variables.date0;
-	public static String TreatmentProgramName = "Treatment_"+Test_Variables.dateYYYYMMDD+"_"+Test_Variables.date0;
-	public static String BioshuttleProgramName = "Bioshuttle_"+Test_Variables.dateYYYYMMDD+"_"+Test_Variables.date0;
+	public static String VaccineProgramName = "Sino_"+dateYYYYMMDD+"_"+date0;
+	public static String FeedProgramName = "Feed_"+dateYYYYMMDD+"_"+date0;
+	public static String TreatmentProgramName = "Treatment_"+dateYYYYMMDD+"_"+date0;
+	public static String BioshuttleProgramName = "Bioshuttle_"+dateYYYYMMDD+"_"+date0;
 	
+	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
 //	public static String VaccineProgramName = "Sino_20220929_1858";
 //	public static String FeedProgramName = "Feed_20220929_1858";
 //	public static String TreatmentProgramName = "Treatment_20220929_1858";
@@ -50,7 +53,7 @@ public class ProgramManagementModel {
 	public static ArrayList<ProgramManagementModel> FillData() {
 		ArrayList<ProgramManagementModel> lstProgramManagementModel = new ArrayList<ProgramManagementModel>();
 		ProgramManagementModel objTmp;
-		
+	/*	
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Vaccine Programs";
 		objTmp.TestCaseNameCreate = "AN-Program-11: "+createProgramTestCaseTitle+objTmp.Program;
@@ -58,13 +61,13 @@ public class ProgramManagementModel {
 		objTmp.TestCaseNameDuplicate = "AN-Program-19: "+duplicateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDelete = "AN-Program-23: "+deleteProgramTestCaseTitle+objTmp.Program;
 		objTmp.ProgramName = VaccineProgramName;
-		objTmp.ProgramTable = Test_Elements.programVaccineTable;
-		objTmp.ProgramName_CSS =Test_Elements.programVaccineProgramNameCol;
+		objTmp.ProgramTable = ProgramManagementPage.programVaccineTable;
+		objTmp.ProgramName_CSS =ProgramManagementPage.programVaccineProgramNameCol;
 		objTmp.ProgramType = "Vaccine";
-		objTmp.EditButtonPre = Test_Elements.programVaccineEdit;
-		objTmp.CopyButtonPre = Test_Elements.programVaccineCopy;
-		objTmp.DeleteButtonPre = Test_Elements.programVaccineDelete;
-		objTmp.ButtonPost = Test_Elements.programVaccine_ID;
+		objTmp.EditButtonPre =  ProgramManagementPage.programVaccineEdit;
+		objTmp.CopyButtonPre = ProgramManagementPage.programVaccineCopy;
+		objTmp.DeleteButtonPre = ProgramManagementPage.programVaccineDelete;
+		objTmp.ButtonPost = ProgramManagementPage.programVaccine_ID;
 		lstProgramManagementModel.add(objTmp);	
 				
 		objTmp = new ProgramManagementModel();
@@ -74,12 +77,12 @@ public class ProgramManagementModel {
 		objTmp.TestCaseNameDuplicate = "AN-Program-20: "+duplicateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDelete = "AN-Program-24: "+deleteProgramTestCaseTitle+objTmp.Program;
 		objTmp.ProgramName = FeedProgramName;
-		objTmp.ProgramTable = Test_Elements.programFeedTable;
-		objTmp.ProgramName_CSS =Test_Elements.programFeedProgramNameCol;
-		objTmp.EditButtonPre = Test_Elements.programFeedEdit;
-		objTmp.CopyButtonPre = Test_Elements.programFeedCopy;
-		objTmp.DeleteButtonPre = Test_Elements.programFeedDelete;
-		objTmp.ButtonPost = Test_Elements.programFeed_ID;
+		objTmp.ProgramTable = ProgramManagementPage.programFeedTable;
+		objTmp.ProgramName_CSS =ProgramManagementPage.programFeedProgramNameCol;
+		objTmp.EditButtonPre = ProgramManagementPage.programFeedEdit;
+		objTmp.CopyButtonPre = ProgramManagementPage.programFeedCopy;
+		objTmp.DeleteButtonPre = ProgramManagementPage.programFeedDelete;
+		objTmp.ButtonPost = ProgramManagementPage.programFeed_ID;
 		objTmp.ProgramType = "Feed";
 		lstProgramManagementModel.add(objTmp);	
 	
@@ -90,29 +93,29 @@ public class ProgramManagementModel {
 		objTmp.TestCaseNameDuplicate = "AN-Program-21: "+duplicateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDelete = "AN-Program-25: "+deleteProgramTestCaseTitle+objTmp.Program;
 		objTmp.ProgramName = TreatmentProgramName;
-		objTmp.ProgramTable = Test_Elements.programTreatmentTable;
-		objTmp.ProgramName_CSS =Test_Elements.programTreatmentProgramNameCol;
-		objTmp.EditButtonPre = Test_Elements.programTreatmentEdit;
-		objTmp.CopyButtonPre = Test_Elements.programTreatmentCopy;
-		objTmp.DeleteButtonPre = Test_Elements.programTreatmentDelete;
-		objTmp.ButtonPost = Test_Elements.programTreatment_ID;
+		objTmp.ProgramTable = ProgramManagementPage.programTreatmentTable;
+		objTmp.ProgramName_CSS =ProgramManagementPage.programTreatmentProgramNameCol;
+		objTmp.EditButtonPre = ProgramManagementPage.programTreatmentEdit;
+		objTmp.CopyButtonPre = ProgramManagementPage.programTreatmentCopy;
+		objTmp.DeleteButtonPre = ProgramManagementPage.programTreatmentDelete;
+		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
 		objTmp.ProgramType = "Treatment";
 		lstProgramManagementModel.add(objTmp);	
-			
+	*/		
 		objTmp = new ProgramManagementModel();
-		objTmp.Program = "Vaccine with Bioshuttle";
+		objTmp.Program = "Bioshuttle";
 		objTmp.TestCaseNameCreate = "AN-Program-14: "+createProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameUpdate = "AN-Program-18: "+updateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDuplicate = "AN-Program-22: "+duplicateProgramTestCaseTitle+objTmp.Program;
 		objTmp.TestCaseNameDelete = "AN-Program-26: "+deleteProgramTestCaseTitle+objTmp.Program;
 		objTmp.ProgramName = BioshuttleProgramName;
-		objTmp.ProgramTable = Test_Elements.programBioshuttleTable;
-		objTmp.ProgramName_CSS =Test_Elements.programBioshuttleProgramNameCol;
-		objTmp.ProgramType = "Vaccine with Bioshuttle";
-		objTmp.EditButtonPre = Test_Elements.programBioshuttleEdit;
-		objTmp.CopyButtonPre = Test_Elements.programBioshuttleCopy;
-		objTmp.DeleteButtonPre = Test_Elements.programBioshuttleDelete;
-		objTmp.ButtonPost = Test_Elements.programBioshuttle_ID;
+		objTmp.ProgramTable = ProgramManagementPage.programBioshuttleTable;
+		objTmp.ProgramName_CSS =ProgramManagementPage.programBioshuttleProgramNameCol;
+		objTmp.ProgramType = "Bioshuttle";
+		objTmp.EditButtonPre = ProgramManagementPage.programBioshuttleEdit;
+		objTmp.CopyButtonPre = ProgramManagementPage.programBioshuttleCopy;
+		objTmp.DeleteButtonPre = ProgramManagementPage.programBioshuttleDelete;
+		objTmp.ButtonPost = ProgramManagementPage.programBioshuttle_ID;
 		lstProgramManagementModel.add(objTmp);
 
 		return lstProgramManagementModel;
