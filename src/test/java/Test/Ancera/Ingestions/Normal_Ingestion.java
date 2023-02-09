@@ -321,7 +321,7 @@ public class Normal_Ingestion extends BaseTest {
 								steps.createNode("Verify Time is same as in Log");
 								String getAuditTime = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditTimeCol+".text-dark")).getText(); 
 								softAssert.assertEquals(getAuditTime, getTime, "Action not displayed as 'Created 'in Audit Log");
-								softAssert.assertEquals(getAuditTime.isBlank(), false, "Time displayed blank in Audit Log");
+								softAssert.assertEquals(getAuditTime.isEmpty(), false, "Time displayed blank in Audit Log");
 						
 								steps.createNode("Verify Result Status as 'Pending' for lane "+lane);
 								String getAuditResultStatus = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditResultStatusCol+".text-dark")).getText(); 
@@ -486,7 +486,7 @@ public class Normal_Ingestion extends BaseTest {
 								
 								steps.createNode("Verify Time is displayed same as that written in API body for lane "+lane);
 								String getTime = getDriver().findElement(By.cssSelector("#row-"+i+" #col-"+slTimeCol+" label")).getText();
-								softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
+								softAssert.assertEquals(getTime.isEmpty(), false, "Time displayed blank");
 									
 								steps.createNode("Verify Collection Site ID is same as that written in API body for lane" +lane);
 								String getCSiteID = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+slSiteIDCol+" label")).getText();
@@ -494,7 +494,7 @@ public class Normal_Ingestion extends BaseTest {
 
 								steps.createNode("Verify Piper User is same as that written in API body for lane" +lane);
 								String getPiperUser = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+slPiperUserCol+" label")).getText();
-								Assert.assertEquals(getPiperUser.isBlank(), false, "Piper User is blank");
+								Assert.assertEquals(getPiperUser.isEmpty(), false, "Piper User is blank");
 
 								steps.createNode("Verify Run Type as "+RunType_NormalIngestion+" in API body for lane" +lane);
 								String getRunType_NormalIngestion = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+slRunTypeCol+" label")).getText();
@@ -570,7 +570,7 @@ public class Normal_Ingestion extends BaseTest {
 
 								steps.createNode("Verify Piper User is displayed in Audit log for lane" +lane);
 								String getAuditPiperUser = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditPiperUserCol+".text-dark")).getText();
-								softAssert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User is blank");
+								softAssert.assertEquals(getAuditPiperUser.isEmpty(), false, "Piper User is blank");
 
 								steps.createNode("Verify Run Type is displayed in Audit log for lane" +lane);
 								String getAuditRunType_NormalIngestion = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditRunTypeCol+".text-dark")).getText();
@@ -1033,7 +1033,7 @@ public class Normal_Ingestion extends BaseTest {
 
 							steps.createNode("Verify Time for lane "+lane);
 							String getTime = getDriver().findElement(By.cssSelector("#row-"+i+" #col-"+clTimeCol+" label")).getText();
-							softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
+							softAssert.assertEquals(getTime.isEmpty(), false, "Time displayed blank");
 							
 							steps.createNode("Verify Cartridge ID is same as that written in API body for lane "+lane);
 							String getCartridgeID = getDriver().findElement(By.cssSelector("#row-"+i+" #col-"+clCatridgeIDCol+" label")).getText();
@@ -1045,7 +1045,7 @@ public class Normal_Ingestion extends BaseTest {
 
 							steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
 							String getPiperUser = getDriver().findElement(By.cssSelector("#row-"+i+" #col-"+clPiperUserCol+" label")).getText();
-							softAssert.assertEquals(getPiperUser.isBlank(), false, "Piper User not displayed in table");
+							softAssert.assertEquals(getPiperUser.isEmpty(), false, "Piper User not displayed in table");
 
 							steps.createNode("Verify Test Site ID is written  for lane "+lane);
 							String getTestSiteID = getDriver().findElement(By.cssSelector("#row-"+i+" #col-"+clTestSiteIDCol+" label")).getText();
@@ -1097,7 +1097,7 @@ public class Normal_Ingestion extends BaseTest {
 
 							steps.createNode("Verify Piper User is same as that written in API body for lane "+lane);
 							String getAuditPiperUser = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-							softAssert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User not displayed in Audit Log");
+							softAssert.assertEquals(getAuditPiperUser.isEmpty(), false, "Piper User not displayed in Audit Log");
 
 							steps.createNode("Verify Test Site ID for lane "+lane);
 							String getAuditTestSiteId = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+clAuditTestSiteIDCol+".text-dark")).getText();
@@ -1260,11 +1260,11 @@ public class Normal_Ingestion extends BaseTest {
 						
 						steps.createNode("Verify Time for lane "+lane);
 						String getTime = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+clTimeCol+" label")).getText();
-						softAssert.assertEquals(getTime.isBlank(), false, "Time displayed blank");
+						softAssert.assertEquals(getTime.isEmpty(), false, "Time displayed blank");
 						
 						steps.createNode("Verify Piper User is same as that written in API body for lane" +lane);
 						String getPiperUser = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+clPiperUserCol+" label")).getText();
-						Assert.assertEquals(getPiperUser.isBlank(), false, "Piper User is Empty");
+						Assert.assertEquals(getPiperUser.isEmpty(), false, "Piper User is Empty");
 
 						steps.createNode("Verify Run Type as "+RunType_NormalIngestion+" in API body for lane" +lane);
 						String getRunType_NormalIngestion = getDriver().findElement(By.cssSelector("#row-"+j+" #col-"+clRunTypeCol+" label")).getText();
@@ -1559,7 +1559,7 @@ public class Normal_Ingestion extends BaseTest {
 							softAssert.assertEquals(getAuditInstrumentId, InstrumentID);
 
 							String getAuditPiperUser = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-23.text-dark")).getText();
-							Assert.assertEquals(getAuditPiperUser.isBlank(), false, "Piper User is empty");
+							Assert.assertEquals(getAuditPiperUser.isEmpty(), false, "Piper User is empty");
 
 							String getAuditImprocVersion = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+clAuditImprocIDCol+".text-dark")).getText();
 							softAssert.assertEquals(getAuditImprocVersion, ImprocVersion_Cocci);

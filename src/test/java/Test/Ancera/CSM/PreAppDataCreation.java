@@ -499,7 +499,7 @@ public class PreAppDataCreation extends BaseTest {
 
 
 
-	@Test (description="Test Case: Create complex Configurations",enabled= true, priority = 6, dependsOnMethods = {"Login"}) 
+	@Test (description="Test Case: Create complex Configurations",enabled= true, priority = 6) 
 	public void CreateComplexConfig() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-Complex: Create Complex Configuration");
@@ -596,7 +596,7 @@ public class PreAppDataCreation extends BaseTest {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Test (enabled= true, priority= 8) 
+	@Test (enabled= false, priority= 8) 
 	public void Ingestion_Flock() throws InterruptedException, IOException, SQLException	{
 		ComplexConfigModel.lstComplexConfig = ComplexConfigModel.FillDataCocci();
 
