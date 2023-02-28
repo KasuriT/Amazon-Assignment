@@ -226,11 +226,10 @@ public class Normal_Ingestion extends BaseTest {
 							steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							SalmonellaLogPage.openSalmonellaLogPage();
 							waitElementInvisible(BasePage.loading_cursor);
-							waitElementInvisible(BasePage.loading_cursor);
 							Thread.sleep(1000);
 							WebElement filter_scroll = getDriver().findElement(By.id("instrumentId_show-filter"));
 							((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
-
+							Thread.sleep(1500);
 							getDriver().findElement(By.id("cartridgeId_show-filter")).click();	
 							waitElementInvisible(BasePage.loading_cursor);
 							Thread.sleep(1000);

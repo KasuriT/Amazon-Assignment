@@ -1,110 +1,24 @@
-
-
 package Test.Ancera.Administration;
 import PageObjects.SurveyManagementPage;
-import PageObjects.SurveyManagementPage.*;
 
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.chrome.ChromegetDriver();
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.aeonbits.owner.ConfigFactory;
-import org.apache.commons.io.comparator.LastModifiedFileComparator;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import com.aventstack.extentreports.gherkin.model.Scenario;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-
 import Config.BaseTest;
-import Config.ReadPropertyFile;
-import MiscFunctions.ClickElement;
 import MiscFunctions.Constants;
-import MiscFunctions.DB_Config;
-import MiscFunctions.DateUtil;
-import MiscFunctions.Methods;
-import MiscFunctions.NavigateToScreen;
-import MiscFunctions.Queries;
-import Models.FlockManagementModel;
-import Models.ProgramManagementModel;
-import PageObjects.FlockManagementPage;
-import PageObjects.UserManagementPage;
+import MiscFunctions.DB_Config_DW;
 import Test.Ancera.Login.LoginTest;
 
-import static LogViewFunctions.FilterLock.*;
-import static LogViewFunctions.FilterWildcard.*;
-import static LogViewFunctions.FilterSort.*;
-import static LogViewFunctions.Pagination.*;
-import static LogViewFunctions.RowsPerPage.*;
-import static MiscFunctions.Constants.*;
 import static MiscFunctions.DateUtil.*;
 import static MiscFunctions.ExtentVariables.*;
-import static MiscFunctions.Methods.*;
-import static LogViewFunctions.LogCSVExport.*;
 import static PageObjects.SurveyManagementPage.*;
-import static PageObjects.ProgramManagementPage.*;
-import static PageObjects.BasePage.*;
 
-import java.io.*;
 //import static org.openqa.selenium.support.locators.RelativeLocator.with;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import org.openqa.selenium.By;
-import org.testng.Assert;
-
-import Config.BaseTest;
-
-import static MiscFunctions.Methods.*;
-import static PageObjects.BasePage.loading_cursor;
-
-import com.aventstack.extentreports.gherkin.model.Scenario;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.Reporter;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import java.io.IOException;
-import java.time.Duration;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class SurveyManagement extends BaseTest {
@@ -114,30 +28,20 @@ public class SurveyManagement extends BaseTest {
     public void extent() throws InterruptedException, IOException {
         spark = new ExtentSparkReporter("target/Reports/Survey_Management" + date + ".html");
         spark.config().setReportName("Survey Management Test Report");
-        DB_Config.test();
+        DB_Config_DW.test();
     }
 
-    @Test
+    @BeforeClass
     public void Login() throws InterruptedException, IOException {
         LoginTest.login();
     }
 
-
-
-
-
     @Test(priority = 1, enabled = true)
     public void NavigateSurveyMgtScreen() throws IOException, InterruptedException {
         SurveyManagementPage SurveyManagementPage = new SurveyManagementPage(getDriver());
-        SurveyManagementPage.NavigateToScreen(url_SurveyManagement, "Form Management", SurveyManagementPageTitle);
+        SurveyManagementPage.NavigateToScreen(Constants.url_surveyManagement, "Form Management", SurveyManagementPageTitle);
     }
 
-    @Test(description = "Test Case: Navigate to Survey Management Screen", enabled = true, priority = 2)
-    public void NavigateSurveyManagementPage() throws InterruptedException {
-        //getDriver().get(url_SurveyManagementPage);
-        //waitElementInvisible(loading_cursor);
-        //Thread.sleep(3000);
-    }
 
     @Test(description = "Test Case: Verify toolTip is replaced with Field Access icon", enabled = true, priority = 3)
     public void testTooltip() {
@@ -465,11 +369,9 @@ public class SurveyManagement extends BaseTest {
     }
 
 
-
     @AfterTest
     public static void endreport() {
         extent.flush();
-        //getDriver().close();
     }
 }
 

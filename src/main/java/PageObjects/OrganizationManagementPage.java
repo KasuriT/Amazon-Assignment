@@ -98,6 +98,7 @@ public class OrganizationManagementPage {
 	public static void openEditOrgSitesPopup(String orgName) throws InterruptedException, IOException {
 		for (int i=1;i<size(By.cssSelector("tr")); i++) {
 			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).equals(OrganizationName)) {
+				scroll(By.id("edit-orgn-sites-"+i));
 				click(By.id("edit-orgn-sites-"+i));
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(700);

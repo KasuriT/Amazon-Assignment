@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Queries extends DB_Config{
+public class Queries extends DB_Config_DW {
 
 	public static String site = "none";
 	
@@ -26,7 +26,8 @@ public class Queries extends DB_Config{
 			+ "			And frm.siteName = ("+getFarmName+") ";
 	
 
-	
+
+
 	public static void getSiteID() throws InterruptedException, IOException, SQLException	{
 		String query1 = "Select siteUniqueNumber from dbo.Site where siteName = 'TestHouse1_20220622' and isDeleted = 0";
 		ResultSet rs1 = getStmt().executeQuery(query1);

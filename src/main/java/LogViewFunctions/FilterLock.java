@@ -12,6 +12,9 @@ import static PageObjects.BasePage.ResultsCount;
 import static PageObjects.BasePage.UnlockFilter;
 import static PageObjects.BasePage.loading_cursor;
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -68,6 +71,7 @@ public class FilterLock {
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+BasePage.filterIcon));
 						}
 						else {
+							String getFilterItemName = getText(By.cssSelector("#"+tablename+" th:nth-child("+i+") li:nth-child(3) label"));   //get name of filter item to be selected
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") li:nth-child(3) label"));  //click on checkbox
 							Thread.sleep(500);
 							steps.createNode("1. Select any filter and click on apply filter button");
@@ -81,7 +85,19 @@ public class FilterLock {
 							Thread.sleep(1000);
 
 							String recordsafterfilter = getText(By.cssSelector("#"+tablename+" #"+ResultsCount));  //get records after applying filter
+							softAssert.assertTrue(!recordsafterfilter.equals(0), "Result found count cannot be zero");
 							softAssert.assertNotEquals(recordsafterfilter, recordBefore, "Filter failed to apply");
+
+							///////////////////////
+
+							List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr td:nth-child("+i+") label"));  //get list of items in table
+							for (int x=0; x<items.size(); x++) {
+							//	System.out.println(items.get(x).getText()+" > "+getFilterItemName);
+								//softAssert.assertTrue(items.get(x).getText().equals(getFilterItemName));
+								softAssert.assertEquals(items.get(x).getText(), getFilterItemName, "Expected "+getFilterItemName +" but found "+getFilterItemName);
+							}
+
+							///////////////////////////
 
 							steps.createNode("3. Close "+name+" screen");
 							steps.createNode("4. Reopen "+name+" screen");
