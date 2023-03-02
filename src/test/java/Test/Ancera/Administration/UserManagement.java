@@ -126,7 +126,7 @@ public class UserManagement extends BaseTest{
 			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			
 			click(usercreateButton);
 			waitElementInvisible(loading_cursor);
@@ -161,7 +161,7 @@ public class UserManagement extends BaseTest{
 			getDriver().get(Constants.url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			
 			SoftAssert softAssert = new SoftAssert();
 
@@ -171,11 +171,11 @@ public class UserManagement extends BaseTest{
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 			
-			if (getDriver().findElement(By.id(userEmail+""+SelectAll)).isDisplayed()) {
+			if (size(By.xpath("//b[text() = '"+createUserEmail+"']")) != 0) {
 				click(By.id(userEmail+""+SelectAll));
 				click(By.id(userEmail+""+ApplyFilter ));
 				waitElementInvisible(loading_cursor);
-				Thread.sleep(2000);
+				Thread.sleep(1500);
 				scroll(agreeementSearchedUser);
 				waitElementClickable(deleteSearchedUser);
 				Thread.sleep(1000);
@@ -197,7 +197,7 @@ public class UserManagement extends BaseTest{
 			click(usercreateButton);
 			waitElementInvisible(loading_cursor);
 			waitElementClickable(userOrgTypeInput);			
-			Thread.sleep(4000);
+			Thread.sleep(3000);
 			type(userOrgTypeInput, "Client");
 			enterKey(userOrgTypeInput);
 			click(popupNextButton);
@@ -313,7 +313,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority= 9, retryAnalyzer = RetryFailedCases.class, dependsOnMethods = {"CreateUser"}) 
+	@Test (enabled= true, priority= 9, retryAnalyzer = RetryFailedCases.class)
 	public void VerifyEmail() throws InterruptedException, IOException {
 		test = extent.createTest("AN-UM-04: Verify user receives an email to reset password");
 		steps = test.createNode(Scenario.class, Steps);
@@ -536,7 +536,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority= 13, dependsOnMethods = {"VerifyTestingSitesAccess"}) 
+	@Test (enabled= true, priority= 13)
 	public void VerifyCollectionSitesAccess() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-08: Verify Sites column displays Active after assigning All Collection Sites to the user");
@@ -970,7 +970,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= false, priority= 21) 
+	@Test (enabled= true, priority= 21)
 	public void SiteAdminEditSites(Hashtable<String,String> data) throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-25: Verify user can edit sites of his organization", "This test case will verify that user can only see organization that is assigned to him in client mapping");
@@ -978,8 +978,8 @@ public class UserManagement extends BaseTest{
 			results = test.createNode(Scenario.class, Results);
 			steps.createNode("1. Open client mapping popup and verify only 1 org displays assigned to Site Admin");
 
-			ExcelReader excel = new ExcelReader(FrameworkConstants.SUITE1_XL_PATH);
-			DataUtil.checkExecution("master", "LoginTest", data.get("Runmode"), excel);
+		//	ExcelReader excel = new ExcelReader(FrameworkConstants.SUITE1_XL_PATH);
+		//	DataUtil.checkExecution("master", "LoginTest", data.get("Runmode"), excel);
 			
 			getDriver().get(Constants.url_organization);
 			waitElementInvisible(loading_cursor);

@@ -7,17 +7,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.aeonbits.owner.ConfigFactory;
+import MiscFunctions.DB_Config_DW;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.Browser;
-import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -31,9 +27,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import MiscFunctions.Constants;
-import MiscFunctions.DB_Config;
 import MiscFunctions.ExtentVariables;
-import Utilities.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
@@ -82,7 +76,7 @@ public class BaseTest {
 	}
 	
 	
-	public void saveResult(int testResult, Exception e) throws IOException {	
+	public static void saveResult(int testResult, Exception e) throws IOException {
 		BaseTest base = new BaseTest();
 		ITestResult objResult = Reporter.getCurrentTestResult();
 		if (testResult == ITestResult.SUCCESS) {
@@ -120,7 +114,7 @@ public class BaseTest {
 	public void tearDown() throws Exception {
 		getDriver().quit();
 //		extent.flush();
-		DB_Config.tearDown();
+		DB_Config_DW.tearDown();
 	}
 	
 //	@AfterTest

@@ -27,6 +27,7 @@ public class Constants {
 	public static String url_dataTemplate = config.url()+"/home/metadata/dataformat";
 	public static String url_dataUpload = config.url()+"/home/client/dataupload";
 	public static String url_poultryManagement = config.url()+"/home/metadata/poultry";
+	public static String url_surveyManagement = config.url()+"/home/survey/survey";
 	public static String url_reports = config.url()+"/home/reports/explore";
 
 	public static String url_GmailSignin = "https://accounts.google.com/ServiceLogin?sacu=1&scc=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&osid=1&service=mail&ss=1&ltmpl=default&rm=false#identifier";

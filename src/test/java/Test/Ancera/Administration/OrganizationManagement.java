@@ -73,6 +73,9 @@ public class OrganizationManagement extends BaseTest{
 
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
+		getDriver().get(url_organization);
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
 		Lock(orgManagementTable, "Organization Management", 0);
 	}
 
@@ -769,14 +772,7 @@ public class OrganizationManagement extends BaseTest{
 				Thread.sleep(1000);
 				SoftAssert softAssert = new SoftAssert();
 
-				for (int i=1;i<getDriver().findElements(By.cssSelector("tr")).size(); i++) {
-				//	if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals(OrganizationName)) {
-						if (getDriver().findElement(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).getText().equals("Test Org 21")) {
-						getDriver().findElement(By.id("edit-orgn-sites-"+i)).click();
-						waitElementInvisible(loading_cursor);
-						break;
-					}
-				}
+				openEditOrgSitesPopup(OrganizationName);
 				
 				getDriver().findElement(By.cssSelector("li:nth-child(1) div span")).click();
 				waitElementInvisible(loading_cursor);

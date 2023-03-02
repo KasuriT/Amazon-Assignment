@@ -3,6 +3,7 @@ package Test.Ancera.Administration;
 import java.util.Arrays;
 import java.util.List;
 
+import MiscFunctions.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -27,13 +28,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import Config.BaseTest;
 import Config.ReadPropertyFile;
-import MiscFunctions.ClickElement;
-import MiscFunctions.Constants;
-import MiscFunctions.DB_Config;
-import MiscFunctions.DateUtil;
-import MiscFunctions.Methods;
-import MiscFunctions.NavigateToScreen;
-import MiscFunctions.Queries;
+import MiscFunctions.DB_Config_DW;
 import Models.FlockManagementModel;
 import Models.ProgramManagementModel;
 import PageObjects.FlockManagementPage;
@@ -67,7 +62,7 @@ public class FlockManagement extends BaseTest {
 	public void extent() throws InterruptedException, IOException {
 		spark = new ExtentSparkReporter("target/Reports/Administration_Flock_Management"+date+".html");
 		spark.config().setReportName("Flock Management Test Report"); 
-		DB_Config.test();
+		DB_Config_DW.test();
 	}
 
 	@BeforeClass
@@ -277,7 +272,7 @@ public class FlockManagement extends BaseTest {
 		enterKey(programProgramType);
 
 		if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-			ResultSet getComplexNameResults = DB_Config.getStmt().executeQuery(Queries.getComplexName);
+			ResultSet getComplexNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getComplexName);
 			while (getComplexNameResults.next()) {
 				String complexName = getComplexNameResults.getString("siteName");
 				System.out.println("Complex Name: "+complexName);
@@ -331,7 +326,7 @@ public class FlockManagement extends BaseTest {
 			Thread.sleep(1000);
 
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getFarmNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmName);
+				ResultSet getFarmNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getFarmName);
 				while (getFarmNameResults.next()) {
 					String farmName = getFarmNameResults.getString("siteName");
 					System.out.println("Farm Name: "+farmName);
@@ -403,7 +398,7 @@ public class FlockManagement extends BaseTest {
 			Thread.sleep(1000);
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-			ResultSet getHouseNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmHousesCount);
+			ResultSet getHouseNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getFarmHousesCount);
 			while (getHouseNameResults.next()) {
 				int housesCount = getHouseNameResults.getInt("Count");
 				System.out.println("House Count: "+housesCount);
@@ -417,9 +412,9 @@ public class FlockManagement extends BaseTest {
 				test.skip("cannot be executed on UAT");
 			}
 
-			waitElementClickable(popupSaveButton);
+			waitElementClickable(popupSubmitButton);
 			Thread.sleep(500);
-			click(popupSaveButton);
+			click(popupSubmitButton);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(5000);
@@ -466,7 +461,7 @@ public class FlockManagement extends BaseTest {
 
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getFarmNameResults = DB_Config.getStmt().executeQuery(Queries.getFarmName);
+				ResultSet getFarmNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getFarmName);
 				while (getFarmNameResults.next()) {
 					String farmName = getFarmNameResults.getString("siteName");
 					click(flockFarmDropdownExpand);
@@ -541,7 +536,7 @@ public class FlockManagement extends BaseTest {
 
 			type(flockBirdSexInput, "Male");
 			getDriver().findElement(flockBirdSexInput).sendKeys(Keys.ENTER);
-			click(By.xpath("(//*[@id = 'btn-save'])[1]"));
+			click(By.xpath("(//*[@id = 'btn-submit'])[1]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -555,7 +550,7 @@ public class FlockManagement extends BaseTest {
 				scroll(mortalityField);
 				type(mortalityField, Integer.toString(i));
 			}
-			click(By.xpath("(//*[@id = 'btn-save'])[2]"));
+			click(By.xpath("(//*[@id = 'btn-submit'])[2]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -569,7 +564,7 @@ public class FlockManagement extends BaseTest {
 			type(flockWeeklyFarmCostVariance, "1");
 			type(flockPlacementDensityInput, "1.5");
 			softAssert.assertEquals(getAttribute(flockPlacementDensityInput), "1.5", "Not able to write decimal value in Flock density field");
-			click(By.xpath("(//*[@id = 'btn-save'])[3]"));
+			click(By.xpath("(//*[@id = 'btn-submit'])[3]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -579,7 +574,7 @@ public class FlockManagement extends BaseTest {
 			click(flockEditCondemnationTab);
 			waitElementInvisible(loading_cursor);
 			type(flockNumBirdsDOAPlant, "1");
-			click(By.xpath("(//*[@id = 'btn-save'])[4]"));
+			click(By.xpath("(//*[@id = 'btn-submit'])[4]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -672,7 +667,7 @@ public class FlockManagement extends BaseTest {
 			waitElementInvisible(loading_cursor);
 			
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getComplexNameResults = DB_Config.getStmt().executeQuery(Queries.getComplexName);
+				ResultSet getComplexNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getComplexName);
 				while (getComplexNameResults.next()) {
 					String complexName = getComplexNameResults.getString("siteName");
 					System.out.println("Complex Name: "+complexName);
@@ -886,7 +881,7 @@ public class FlockManagement extends BaseTest {
 			results.createNode("Flock inline failed");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		DB_Config.getStmt().close();
+		DB_Config_DW.getStmt().close();
 	}
 
 

@@ -9,7 +9,8 @@ public class BasePage {
 	public static By popupNextButton = By.id("btn-next");
 	public static By popupResetButton = By.id("btn-reset");
 	public static By popupSaveButton = By.id("btn-save");
-	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");	
+	public static By popupSubmitButton = By.id("btn-submit");
+	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");
 	public static By popupYesButton = By.id("btn-yes");
 	public static By popupOKButton = By.id("btn-ok");
 	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
