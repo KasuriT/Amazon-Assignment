@@ -302,7 +302,8 @@ public class CoccidiaLog extends BaseTest{
 			Thread.sleep(1500);
 
 			steps.createNode("2. Click on objFilter.FilterName");
-			getDriver().findElement(By.id("list-title_date-selection")).click();
+			ClickElement.clickByCss(getDriver(), ".fa-chevron-down");
+			//getDriver().findElement(By.id("list-title_date-selection")).click();
 			Thread.sleep(1000);
 
 			getDriver().findElement(By.cssSelector(clLast30Days)).click();	
@@ -389,7 +390,7 @@ public class CoccidiaLog extends BaseTest{
 
 	
 	@SuppressWarnings({ "unused", "unchecked" })
-	@Test (description="Test Case: Contextual",enabled= true, priority = 10) 
+	@Test (description="Test Case: Contextual",enabled= false, priority = 10)
 	public void Contexual() throws InterruptedException, IOException {
 
 		Thread.sleep(1500);

@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import MiscFunctions.DB_Config_DW;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -32,7 +33,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import MiscFunctions.Constants;
-import MiscFunctions.DB_Config;
 import Models.IngestionsModel;
 import Models.RawImageCompareCountModel;
 import Models.ReportFilters;
@@ -41,11 +41,11 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class RawImageCountCompareSalmonella extends DB_Config {
+public class RawImageCountCompareSalmonella extends DB_Config_DW {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-		DB_Config.test();
+		DB_Config_DW.test();
 	}
 
 
@@ -331,9 +331,9 @@ public class RawImageCountCompareSalmonella extends DB_Config {
 	@AfterTest
 	public void endreport() throws Exception {
 
-		DB_Config.tearDown();
-		DB_Config.getStmt();
-		DB_Config.setStmt(getStmt());
+		DB_Config_DW.tearDown();
+		DB_Config_DW.getStmt();
+		DB_Config_DW.setStmt(getStmt());
 	}
 
 }

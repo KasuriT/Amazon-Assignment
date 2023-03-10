@@ -15,6 +15,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import Config.BaseTest;
 import Config.ReadPropertyFile;
 import MiscFunctions.DateUtil;
+import org.testng.asserts.SoftAssert;
 
 import static PageObjects.BasePage.*;
 import static PageObjects.LoginPage.*;
@@ -64,17 +65,17 @@ public class LoginTest extends BaseTest{
 	public void logout() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-LO-01: Verify user can Logout");
-
+			SoftAssert softAssert = new SoftAssert();
 			Thread.sleep(1000);
 			hover(sideBar);
 			Thread.sleep(700);
 			String version = getText(getVersion);
-			Assert.assertTrue(version.startsWith("Version: 5."), "Version not in side menu bar");
+			softAssert.assertTrue(version.startsWith("Version: 6."), "Version not in side menu bar");
 			getScreenshot();
 			click(logoutButton);
 			waitElementVisible(loginEmail);
-			Assert.assertTrue(getDriver().findElement(loginEmail).isDisplayed()); 
-
+			softAssert.assertTrue(getDriver().findElement(loginEmail).isDisplayed());
+			softAssert.assertAll();
 			test.pass("User logout successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
@@ -97,7 +98,7 @@ public class LoginTest extends BaseTest{
 			getDriver().navigate().back();
 			Assert.assertEquals(getDriver().getCurrentUrl(), url_login); 
 
-			test.pass("User remainned logout successfully");
+			test.pass("User remained logout successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
 		}catch(AssertionError er) {
