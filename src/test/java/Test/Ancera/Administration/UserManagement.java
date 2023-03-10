@@ -712,13 +712,15 @@ public class UserManagement extends BaseTest{
 			Thread.sleep(800);
 			
 			click(userOrgTypeInput);
-			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);
+			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1, "Only 1 org type ws not shown");
+			getScreenshot();
 			getDriver().findElement(By.cssSelector("#orgTypeId input")).sendKeys(Keys.ENTER);
 			Thread.sleep(700);
 			
 			click(userOrgInput);
-			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1);
+			softAssert.assertEquals(getDriver().findElements(By.cssSelector(".ng-option")).size(), 1, "Only 1 organization was not shown");
 			Thread.sleep(1000);
+			getScreenshot();
 			getDriver().findElement(By.cssSelector("#organizationId input")).sendKeys(Keys.ENTER);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
@@ -801,7 +803,7 @@ public class UserManagement extends BaseTest{
 			waitElementInvisible(loading_cursor);
 
 			int siteSizeOrg = getDriver().findElements(By.cssSelector(".tree-list-toggle")).size();  //42
-
+			getScreenshot();
 			getDriver().get(url_user);
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(usercreateButton);
@@ -818,7 +820,7 @@ public class UserManagement extends BaseTest{
 			getDriver().findElement(openUserSites).click();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
-
+			getScreenshot();
 			int siteSizeUser = getDriver().findElements(By.cssSelector(".form-check-label")).size();  //22
 
 			int sites = (siteSizeOrg/2)+1;    //(42/2=21)+1 = 22

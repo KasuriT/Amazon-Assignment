@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import MiscFunctions.DB_Config_DW;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -32,7 +33,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import MiscFunctions.DB_Config;
 import static MiscFunctions.Constants.*;
 import Models.IngestionsModel;
 import Models.RawImageCompareCountModel;
@@ -43,7 +43,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 
-public class RawImageCountCompareCoccidia extends DB_Config {
+public class RawImageCountCompareCoccidia extends DB_Config_DW {
 
 	@BeforeTest
 	public void db_init() throws InterruptedException, IOException {
@@ -243,7 +243,7 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 								String removeDecimal =	a.replaceAll("\\.0*$", "")	;							
 								System.out.println(removeDecimal);
 								
-								String path = System.getProperty("user.dir")+"\\CountComparison\\CountComparisonCocci.xlsx";
+								String path = System.getProperty("user.dir")+"\\src\\test\\resources\\CountComparison\\CountComparisonCocci.xlsx";
 								FileInputStream fs = new FileInputStream(path);
 								XSSFWorkbook workbook = new XSSFWorkbook(fs);
 								XSSFSheet sheet = workbook.getSheetAt(0);
@@ -305,9 +305,9 @@ public class RawImageCountCompareCoccidia extends DB_Config {
 	@AfterTest
 	public void endreport() throws Exception {
 
-		DB_Config.tearDown();
-		DB_Config.getStmt();
-		DB_Config.setStmt(getStmt());
+		DB_Config_DW.tearDown();
+		DB_Config_DW.getStmt();
+		DB_Config_DW.setStmt(getStmt());
 	}
 
 }

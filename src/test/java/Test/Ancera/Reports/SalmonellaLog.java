@@ -284,6 +284,8 @@ public class SalmonellaLog extends BaseTest{
 			test = extent.createTest("AN-SL-10: Verify lock filter functionality on date filter");
 			steps = test.createNode(Scenario.class, Steps);
 
+			openSalmonellaLogPage();
+
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			steps.createNode("1. Open date filter popup");
@@ -296,7 +298,8 @@ public class SalmonellaLog extends BaseTest{
 			Thread.sleep(1500);
 
 			steps.createNode("2. Click on objFilter.FilterName");
-			getDriver().findElement(By.id("list-title_date-selection")).click();
+			ClickElement.clickByCss(getDriver(), ".fa-chevron-down");
+			//getDriver().findElement(By.id("list-title_date-selection")).click();
 			Thread.sleep(1000);
 
 			getDriver().findElement(By.cssSelector(slLast30Days)).click();	
@@ -316,6 +319,14 @@ public class SalmonellaLog extends BaseTest{
 			String recordsafterfilter = getDriver().findElement(By.id("results-found-count")).getText();
 
 			softAssert.assertEquals(recordsafterfilter, recordsbeforefilter);
+
+			waitElementInvisible(loading_cursor);
+			click(By.id(UnlockFilter));
+			Thread.sleep(700);
+			click(By.id(ResetFilters));
+			waitElementInvisible(loading_cursor);
+
+
 			test.pass("Filter locked functionality verified successfully on date filter");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);
@@ -327,10 +338,6 @@ public class SalmonellaLog extends BaseTest{
 			test.fail("Filer lock functionality failed on date filter");
 			saveResult(ITestResult.FAILURE, ex);
 		}
-		waitElementInvisible(loading_cursor);
-		getDriver().findElement(By.id("remove-filters")).click();
-		getDriver().findElement(By.id("reset-all-filters")).click();
-		waitElementInvisible(loading_cursor);
 	}
 
 	

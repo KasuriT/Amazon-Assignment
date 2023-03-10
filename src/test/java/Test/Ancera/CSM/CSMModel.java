@@ -35,8 +35,8 @@ public class CSMModel {
 	public String program;
 	public String programType;
 	public static ArrayList<CSMModel> lstComplexConfig = new ArrayList<>();
-	public static String creationDate = dateYYYYMMDD;
-//	public static String creationDate = "20221110";
+//	public static String creationDate = dateYYYYMMDD;
+	public static String creationDate = "20230227";
 	
 	public CSMModel() {
 	}
@@ -512,7 +512,7 @@ public class CSMModel {
 	    objTmp.pathogen = "Coccidia";
 	    objTmp.cartridgeID = "CartridgeCocci"+date0;
 	    objTmp.SampleID = dateYYYYMMDD+"-Cocci-1"+date0;
-	    objTmp.createFlock = true;
+	    objTmp.createFlock = false;
 	    objTmp.birdSize = 0;  //small  
 	    objTmp.birdSizeName = "Small";
 	    objTmp.program = vaccineName;
@@ -655,7 +655,7 @@ public class CSMModel {
 	    objTmp.pathogen = "Coccidia";
 	    objTmp.cartridgeID = "CartridgeCocci"+date0;
 	    objTmp.SampleID = dateYYYYMMDD+"-Cocci-8"+date0;
-	    objTmp.createFlock = true;      
+	    objTmp.createFlock = false;
 	    objTmp.birdSize = 2;  //large 
 	    objTmp.birdSizeName = "Large";
 	    objTmp.program = vaccineName;

@@ -25,6 +25,7 @@ public class FrameworkConstants {
 	public static String DataTemplateIdentificationColumnCheckFile = RESOURCESPATH+"\\Excel\\IndentificationFieldCheck.xlsx";
 	public static String NormalIngestionTemplateUpload = RESOURCESPATH+"\\Excel\\MetaData RunMode1.xlsx";
 	public static String CSMDataTemplateUpload = RESOURCESPATH+"\\Excel\\SampleMetadata_Mobile.xlsx";
+	public static String CSMSiteIDsFile = RESOURCESPATH+"\\Excel\\CSMOrgSiteIDs.xlsx";
 	public static String DataSecurityTemplateUpload = RESOURCESPATH+"\\Excel\\MetaData DataSecurity.xlsx";
 	
 
