@@ -5,23 +5,26 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import static Config.BaseTest.saveResult;
 import static Test.Ancera.DBValidations.View_Queries.*;
 
 
 public class DSCoccidiaOPGView extends DB_Config_DW {
 
+
     public static void viewsDataCompare(String oldView, String newView) throws SQLException, InterruptedException, IOException {
         try {
             SoftAssert softAssert = new SoftAssert();
+
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            StackTraceElement element = stackTraceElements[2];
+            String methodName = element.getMethodName();
 
             String query1 = oldView;
             ResultSet rs1 = getStmt().executeQuery(query1);
@@ -43,6 +46,7 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             Thread.sleep(3000);
             List<String> datanew = new ArrayList<String>();
 
+
             while (rs2.next()) {
                 for (int i = 1; i <= column_count; i++) {
                     String columnValue = rs2.getString(i);
@@ -55,38 +59,51 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             for (int z = 1; z <= total_tabledata; z++) {
                 softAssert.assertEquals(datanew.get(z - 1), data.get(z - 1), "Data not matching in row " + (z - 1) / column_count);
             }
+
+            System.out.println("Total Rows Returned for method '" + methodName+"' are " + total_tabledata/column_count);
+
+
             softAssert.assertAll();
-        }
-        catch (AssertionError er) {
+        } catch (AssertionError er) {
             saveResult(ITestResult.FAILURE, new Exception(er));
         }
     }
 
-
-    @Test(enabled = true, priority = 1)
-    public void RowCompare() throws InterruptedException, IOException, SQLException {
+    public static void viewsRowCompare(String oldView, String newView) throws InterruptedException, IOException, SQLException {
         try {
             SoftAssert softAssert = new SoftAssert();
 
-           // String query1 = countRowsView + oldViewName;
-            String query1 = getAllRowsCountQuery(oldViewName);
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            StackTraceElement element = stackTraceElements[2];
+            String methodName = element.getMethodName();
+
+            String query1 = oldView;
             ResultSet rs1 = getStmt().executeQuery(query1);
             rs1.next();
             int countOldView = rs1.getInt(1);
-            System.out.println("Count1: " + countOldView);
+            System.out.println("Total Number of Rows in New View for method '" + methodName+"' are "+countOldView);
+         //   System.out.println("Total number of Rows in Old View: " + countOldView);
 
-          //  String query2 = countRowsView + newViewName;
-            String query2 = getAllRowsCountQuery(newViewName);
+            String query2 = newView;
             ResultSet rs2 = getStmt().executeQuery(query2);
             rs2.next();
             int countNewView = rs2.getInt(1);
-            System.out.println("Count2: " + countNewView);
+
+
+            System.out.println("Total Number of Rows in New View for method '" + methodName+"' are "+countNewView);
+         //   System.out.println("Total Number of Rows in New View: " + countNewView);
 
             softAssert.assertEquals(countNewView, countOldView);
             softAssert.assertAll();
         } catch (AssertionError er) {
             saveResult(ITestResult.FAILURE, new Exception(er));
         }
+    }
+
+
+    @Test(enabled = true, priority = 2)
+    public static void AllRowsCompare() throws SQLException, InterruptedException, IOException {
+        viewsRowCompare(getAllRowsCountQuery(oldViewName), getAllRowsCountQuery(newViewName));
     }
 
 
@@ -110,10 +127,24 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
         viewsDataCompare(getNoFlockAssociationQuery(oldViewName), getNoFlockAssociationQuery(newViewName));
     }
 
+    @Test(enabled = true, priority = 7)
+    public static void getNoCollectionDate() throws SQLException, InterruptedException, IOException {
+        viewsRowCompare(getNoCollectionDateQuery(oldViewName), getNoCollectionDateQuery(newViewName));
+    }
+
+    @Test(enabled = true, priority = 8)
+    public static void getNoProgramOnFlock() throws SQLException, InterruptedException, IOException {
+        viewsRowCompare(getNoProgramOnFlockQuery(oldViewName), getNoProgramOnFlockQuery(newViewName));
+    }
+
+    @Test(enabled = true, priority = 9)
+    public static void getCartridgeWithNo12Lanes() throws SQLException, InterruptedException, IOException {
+        viewsDataCompare(getCartridgeWithNo12LanesQuery(oldViewName), getCartridgeWithNo12LanesQuery(newViewName));
+    }
+
 
     @AfterTest
     public void endreport() throws Exception {
-
         DB_Config_DW.tearDown();
         DB_Config_DW.getStmt();
         DB_Config_DW.setStmt(getStmt());

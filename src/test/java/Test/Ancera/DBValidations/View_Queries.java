@@ -7,7 +7,7 @@ public class View_Queries {
 
 
     public static String getAllRowsCountQuery(String viewName) {
-        String allRowsCountQuery = "Select count(T_Run_ID) as countOldView from " + viewName;
+        String allRowsCountQuery = "Select count(T_Run_ID) as count from " + viewName;
         return allRowsCountQuery;
     }
 
@@ -273,5 +273,35 @@ public class View_Queries {
                 "\tAND cd.FARM_ID = Farm.siteUniqueNumber)";
         return noflockAssociationQuery;
     }
+
+    public static String getNoCollectionDateQuery(String viewName) {
+        String noCollectionDateQuery = "SELECT count(T_Run_ID) as count FROM "+viewName+"\n" +
+                "where COLLECTION_DATE IS NULL";
+        return noCollectionDateQuery;
+    }
+
+    public static String getNoProgramOnFlockQuery(String viewName) {
+        String noProgramOnFlockQuery = "SELECT COUNT(T_RUN_ID) as count \n" +
+                "FROM \n" +
+                "    "+viewName+"\n" +
+                "WHERE\n" +
+                "    FEED_PROGRAM IS NULL \n" +
+                "    AND BIO_SHUTTLE IS NULL \n" +
+                "    AND VACCINE IS NULL";
+        return noProgramOnFlockQuery;
+    }
+
+    public static String getCartridgeWithNo12LanesQuery(String viewName) {
+        String no12LaneReportedQuery = "SELECT CARTRIDGEID, COUNT(SAMPLE_ID) FROM "+viewName+"\n" +
+                "GROUP BY CARTRIDGEID\n" +
+                "HAVING COUNT(SAMPLE_ID) <> 12";
+        return no12LaneReportedQuery;
+    }
+
+
+
+
+
+
 
 }
