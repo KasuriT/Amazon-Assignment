@@ -15,7 +15,7 @@ import io.restassured.response.Response;
 public class ELKUtils {
 
 	private ELKUtils() {}
-
+/*
 	public static void sendDetailsToElk(String testname,String status) {
 
 		if(PropertyUtils.get(ConfigProperties.SENDRESULTTOELK).equalsIgnoreCase("yes")) {
@@ -35,5 +35,5 @@ public class ELKUtils {
 			response.prettyPrint();
 		}
 	}
-
+*/
 }
