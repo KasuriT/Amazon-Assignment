@@ -81,7 +81,7 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             ResultSet rs1 = getStmt().executeQuery(query1);
             rs1.next();
             int countOldView = rs1.getInt(1);
-            System.out.println("Total Number of Rows in New View for method '" + methodName+"' are "+countOldView);
+            System.out.println("Total Number of Rows in Old View for method '" + methodName+"' are "+countOldView);
          //   System.out.println("Total number of Rows in Old View: " + countOldView);
 
             String query2 = newView;
