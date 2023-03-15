@@ -33,7 +33,7 @@ public class ListenerClass implements ITestListener, ISuiteListener {
 	public void onTestSuccess(ITestResult result) {
 		//ExtentLogger.pass(result.getMethod().getMethodName() +" is passed");
 		log(PASS,result.getMethod().getMethodName() +" is passed");
-		ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "pass");
+	//	ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "pass");
 	}
 
 
@@ -42,7 +42,7 @@ public class ListenerClass implements ITestListener, ISuiteListener {
 			log(FAIL,result.getMethod().getMethodName() +" is failed");
 			log(FAIL,result.getThrowable().toString());
 			log(FAIL,Arrays.toString(result.getThrowable().getStackTrace()));
-			ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "fail");
+	//		ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "fail");
 	}
 
 
@@ -50,7 +50,7 @@ public class ListenerClass implements ITestListener, ISuiteListener {
 	public void onTestSkipped(ITestResult result) {
 		//ExtentLogger.skip(result.getMethod().getMethodName() +" is skipped");
 		log(SKIP,result.getMethod().getMethodName() +" is skipped");
-		ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "skip");
+	//	ELKUtils.sendDetailsToElk(result.getMethod().getDescription(), "skip");
 	}
 
 	@Override
