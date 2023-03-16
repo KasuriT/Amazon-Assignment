@@ -19,8 +19,9 @@ resources:
 pr:
  - RepoA/selenium_I
 
-push:
- - RepoA/selenium_I
+on:
+  push:
+    - RepoA/selenium_I
 
 steps:
 - task: Maven@3
