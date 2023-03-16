@@ -9,20 +9,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-resources:
-  repositories:
-  - repository: RepoA
-    type: git
-    name: ancerallc/ie-serverside
-    ref: refs/heads/selenium_I
-
-pr:
- - RepoA/selenium_I
-
-on:
-  push:
-    - RepoA/selenium_I
-
 steps:
 - task: Maven@3
   inputs:
