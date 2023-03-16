@@ -9,13 +9,26 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+  repositories:
+  - repository: RepoA
+    type: git
+    name: ancerallc/ie-serverside
+    ref: refs/heads/selenium_I
+
+pr:
+- RepoA/selenium_I
+
+push:
+- RepoA/selenium_I
+
 steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
     options: 'test -Dsurefire.suiteXmlFiles=db_validation_view.xml'
+    javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
