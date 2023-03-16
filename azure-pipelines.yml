@@ -17,10 +17,10 @@ resources:
     ref: refs/heads/selenium_I
 
 pr:
-- RepoA/selenium_I
+ - RepoA/selenium_I
 
 push:
-- RepoA/selenium_I
+ - RepoA/selenium_I
 
 steps:
 - task: Maven@3
