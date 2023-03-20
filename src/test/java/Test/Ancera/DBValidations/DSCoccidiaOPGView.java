@@ -211,7 +211,7 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
 
     @Test(enabled = true, priority = 9)
     public static void getNoProgramOnFlock() throws SQLException, InterruptedException, IOException {
-        viewsRowCompare(getNoProgramOnFlockQuery(oldViewName), getNoProgramOnFlockQuery(newViewName));
+        viewsDataCompare(getNoProgramOnFlockQuery(oldViewName), getNoProgramOnFlockQuery(newViewName));
     }
 
     @Test(enabled = true, priority = 10)
