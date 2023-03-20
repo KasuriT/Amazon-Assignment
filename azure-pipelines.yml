@@ -36,6 +36,6 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Pipeline Artifact'
   inputs:
-    targetPath: 'test-output/extentreport.html'
+    targetPath: 'test-output/extent-report.html'
     artifact: Report
   continueOnError: true
