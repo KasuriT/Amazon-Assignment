@@ -36,4 +36,4 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     artifactName: 'Extent Report'
-    pathToPublish: '$(System.DefaultWorkingDirectory)/test-output'
+    pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
