@@ -173,43 +173,43 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
     }
 
 
-    @Test(enabled = false, priority = 2)
+    @Test(enabled = true, priority = 2)
     public static void AllRowsCompare() throws SQLException, InterruptedException, IOException {
         viewsRowCompare(getAllRowsCountQuery(oldViewName), getAllRowsCountQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 3)
+    @Test(enabled = true, priority = 3)
     public static void AllDataCompare() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getAllDataQuery(oldViewName), getAllDataQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 4)
+    @Test(enabled = true, priority = 4)
     public static void DataCompareNoCyclingConfig() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoCyclingConfigQuery(oldViewName), getNoCyclingConfigQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 5)
+    @Test(enabled = true, priority = 5)
     public static void OutOfIntervalRange() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getOutofIntervalRangeQuery(oldViewName), getOutofIntervalRangeQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 6)
+    @Test(enabled = true, priority = 6)
     public static void NoFlockAssociation() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoFlockAssociationQuery(oldViewName), getNoFlockAssociationQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 7)
+    @Test(enabled = true, priority = 7)
     public static void getNoCollectionDate() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoCollectionDateQuery(oldViewName), getNoCollectionDateQuery(newViewName));
     //    viewsRowCompare(getNoCollectionDateQuery(oldViewName), getNoCollectionDateQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 8)
+    @Test(enabled = true, priority = 8)
     public static void getNoOfSamplesPerCollection() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoSamplesPerCollectionQuery(oldViewName), getNoSamplesPerCollectionQuery(newViewName));
     }
 
-    @Test(enabled = false, priority = 9)
+    @Test(enabled = true, priority = 9)
     public static void getNoProgramOnFlock() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoProgramOnFlockQuery(oldViewName), getNoProgramOnFlockQuery(newViewName));
     }
