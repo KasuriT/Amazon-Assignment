@@ -33,9 +33,7 @@ steps:
     goals: 'package'
 
 
-- task: PublishPipelineArtifact@1
-  displayName: 'Publish Pipeline Artifact'
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: 'test-output/extent-report.html'
-    artifact: Report
-  continueOnError: true
+    artifactName: 'Extent Report'
+    pathToPublish: '$(System.DefaultWorkingDirectory)/test-output'
