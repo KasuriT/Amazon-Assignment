@@ -31,3 +31,28 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: DownloadPipelineArtifact@2
+  inputs:
+    artifactName: 'extent-report'
+    downloadPath: '$(Build.ArtifactStagingDirectory)'
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/extent-report.zip'
+    destinationFolder: '$(Build.ArtifactStagingDirectory)/extent-report'
+
+- task: CmdLine@2
+  inputs:
+    script: 'npm install -g html-pdf'
+  displayName: 'Install HTML Viewer'
+
+- task: CmdLine@2
+  inputs:
+    script: 'html-pdf $(Build.ArtifactStagingDirectory)/extent-report/ExtentReport.html $(Build.ArtifactStagingDirectory)/extent-report/ExtentReport.pdf'
+  displayName: 'Convert HTML to PDF'
+
+- task: CmdLine@2
+  inputs:
+    script: 'start $(Build.ArtifactStagingDirectory)/extent-report/ExtentReport.pdf'
+  displayName: 'View Extent Report'
