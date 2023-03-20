@@ -274,14 +274,37 @@ public class View_Queries {
         return noflockAssociationQuery;
     }
 
-    public static String getNoCollectionDateQuery(String viewName) {
+    public static String getNoCollectionDateRowCountQuery(String viewName) {
         String noCollectionDateQuery = "SELECT count(T_Run_ID) as count FROM "+viewName+"\n" +
                 "where COLLECTION_DATE IS NULL";
         return noCollectionDateQuery;
     }
 
+    public static String getNoCollectionDateQuery(String viewName) {
+        String noCollectionDateQuery = "SELECT T_RUN_ID, SAMPLE_ID FROM "+viewName+"\n" +
+                "where COLLECTION_DATE IS NULL";
+        return noCollectionDateQuery;
+    }
+
+
+    public static String getNoSamplesPerCollectionQuery(String viewName) {
+        String noSamplesPerCollectionQuery = "SELECT \n" +
+                "    COLLECTION_SITE_ID, \n" +
+                "    CONVERT(DATE, COLLECTION_DATE) as \"Collection Date\", \n" +
+                "    COUNT(SAMPLE_ID) as \"Samples Collected\"\n" +
+                "FROM \n" +
+                "    DS_COCCIDIA_OPG_FLOCK_METADATA\n" +
+                "GROUP BY \n" +
+                "    COLLECTION_SITE_ID, \n" +
+                "    CONVERT(DATE, COLLECTION_DATE)\n" +
+                "HAVING COUNT(SAMPLE_ID) % 12 <> 0";
+        return noSamplesPerCollectionQuery;
+    }
+
+
+
     public static String getNoProgramOnFlockQuery(String viewName) {
-        String noProgramOnFlockQuery = "SELECT COUNT(T_RUN_ID) as count \n" +
+        String noProgramOnFlockQuery = "SELECT T_RUN_ID, SAMPLE_ID \n" +
                 "FROM \n" +
                 "    "+viewName+"\n" +
                 "WHERE\n" +
@@ -292,7 +315,7 @@ public class View_Queries {
     }
 
     public static String getCartridgeWithNo12LanesQuery(String viewName) {
-        String no12LaneReportedQuery = "SELECT CARTRIDGEID, COUNT(SAMPLE_ID) FROM "+viewName+"\n" +
+        String no12LaneReportedQuery = "SELECT CARTRIDGEID, COUNT(SAMPLE_ID) as SAMPLEID FROM "+viewName+"\n" +
                 "GROUP BY CARTRIDGEID\n" +
                 "HAVING COUNT(SAMPLE_ID) <> 12";
         return no12LaneReportedQuery;

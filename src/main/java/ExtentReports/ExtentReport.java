@@ -8,16 +8,18 @@ import java.util.Objects;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-
+import static MiscFunctions.ExtentVariables.extent;
 import MiscFunctions.FrameworkConstants;
 import Enums.CategoryType;
+
+import static MiscFunctions.DateUtil.date;
 
 
 public final class ExtentReport {
 
-	private ExtentReport() {}
+	//private ExtentReport() {}
 
-	private static ExtentReports extent;
+//	private static ExtentReports extent;
 
 
 	public static void initReports(String classname) {
@@ -29,6 +31,15 @@ public final class ExtentReport {
 			spark.config().setDocumentTitle("Ancera IE Report");
 			spark.config().setReportName(classname+" Test Report");
 		}
+	}
+
+	public static void initReport(String reportName) {
+		ExtentSparkReporter htmlReporter = new ExtentSparkReporter("target/Reports/"+reportName+"_"+date+".html");
+		extent = new ExtentReports();
+		extent.attachReporter(htmlReporter);
+		htmlReporter.config().setTheme(Theme.DARK);
+		htmlReporter.config().setDocumentTitle("Ancera Test Report");
+		htmlReporter.config().setReportName(reportName+" Test Report");
 	}
 
 
