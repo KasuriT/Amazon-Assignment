@@ -31,20 +31,3 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-
-- task: ExtentReportGeneration@1
-  inputs:
-    testResultsFormat: 'JUnit'
-    reportFilePath: '$(Build.SourcesDirectory)/TestResults/extent-report.html'
-    reportTitle: 'My Extent Report'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/TestResults'
-    ArtifactName: 'ExtentReport'
-
-- task: PublishHTML@1
-  inputs:
-    htmlReportFolder: '$(Build.SourcesDirectory)/TestResults'
-    reportName: 'extent-report.html'
-    reportTitle: 'My Extent Report'
