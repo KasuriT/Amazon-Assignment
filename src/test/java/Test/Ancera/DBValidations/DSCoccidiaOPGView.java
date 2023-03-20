@@ -106,7 +106,7 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
 
                     if (methodName.equals("getNoCollectionDate") || methodName.equals("getNoProgramOnFlock") ) {
                         test.info("T_RUN_ID: "+rs2.getString("T_RUN_ID")+
-                                " | SampleID: "+rs2.getString("SAMPLEID"));
+                                " | SampleID: "+rs2.getString("SAMPLE_ID"));
                     }
 
                     if (methodName.equals("getNoOfSamplesPerCollection")) {
