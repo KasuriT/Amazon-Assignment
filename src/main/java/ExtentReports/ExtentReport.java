@@ -34,7 +34,8 @@ public final class ExtentReport {
 	}
 
 	public static void initReport(String reportName) {
-		ExtentSparkReporter htmlReporter = new ExtentSparkReporter("target/Reports/"+reportName+"_"+date+".html");
+	//	ExtentSparkReporter htmlReporter = new ExtentSparkReporter("target/Reports/"+reportName+"_"+date+".html");
+		ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extent-test-reports/"+reportName+"_"+date+".html");
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
 		htmlReporter.config().setTheme(Theme.DARK);

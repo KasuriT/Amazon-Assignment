@@ -292,8 +292,7 @@ public class View_Queries {
                 "    COLLECTION_SITE_ID, \n" +
                 "    CONVERT(DATE, COLLECTION_DATE) as \"Collection Date\", \n" +
                 "    COUNT(SAMPLE_ID) as \"Samples Collected\"\n" +
-                "FROM \n" +
-                "    DS_COCCIDIA_OPG_FLOCK_METADATA\n" +
+                "FROM "+viewName+"\n" +
                 "GROUP BY \n" +
                 "    COLLECTION_SITE_ID, \n" +
                 "    CONVERT(DATE, COLLECTION_DATE)\n" +
