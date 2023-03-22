@@ -98,9 +98,11 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             Thread.sleep(3000);
             List<String> datanew = new ArrayList<String>();
 
-            test.info("Old View Query execution time: "+elapsedTimeQuery1/1000 + " seconds or "+elapsedTimeQuery1+ " milliseconds" );
-            test.info("New View Query execution time: "+elapsedTimeQuery2/1000 + " seconds or "+elapsedTimeQuery2+" milliseconds");
-
+            test.info("Old View Query execution time: "+elapsedTimeQuery1/1000 + " seconds ("+elapsedTimeQuery1+ " milliseconds)" );
+            test.info("New View Query execution time: "+elapsedTimeQuery2/1000 + " seconds ("+elapsedTimeQuery2+" milliseconds)");
+            long secondsDifference = (elapsedTimeQuery2/1000) - (elapsedTimeQuery1/1000);
+            long millisecondsDifference = (elapsedTimeQuery2) - (elapsedTimeQuery1);
+            test.info("New Query execution took: "+secondsDifference + " seconds more ("+millisecondsDifference+" milliseconds)");
 
 
             while (rs2.next()) {
