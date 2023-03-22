@@ -45,7 +45,15 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             SoftAssert softAssert = new SoftAssert();
 
             String query1 = oldView;
+
+            long startTimeQuery1 = System.currentTimeMillis();
+
             ResultSet rs1 = getStmt().executeQuery(query1);
+
+            long endTimeQuery1 = System.currentTimeMillis();
+            long elapsedTimeQuery1 = endTimeQuery1 - startTimeQuery1;
+            System.out.println("Response time Query 1: " + elapsedTimeQuery1 + " milliseconds");
+
             Thread.sleep(3000);
             List<String> data = new ArrayList<String>();
 
@@ -78,9 +86,22 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
             }
 
             String query2 = newView;
+
+            long startTimeQuery2 = System.currentTimeMillis();
+
             ResultSet rs2 = getStmt().executeQuery(query2);
+
+            long endTimeQuery2 = System.currentTimeMillis();
+            long elapsedTimeQuery2 = endTimeQuery2 - startTimeQuery2;
+            System.out.println("Response time Query 2: " + elapsedTimeQuery2 + " milliseconds");
+
             Thread.sleep(3000);
             List<String> datanew = new ArrayList<String>();
+
+            test.info("Old View Query execution time: "+elapsedTimeQuery1/1000 + " seconds or "+elapsedTimeQuery1+ " milliseconds" );
+            test.info("New View Query execution time: "+elapsedTimeQuery2/1000 + " seconds or "+elapsedTimeQuery2+" milliseconds");
+
+
 
             while (rs2.next()) {
                 for (int i = 1; i <= column_count; i++) {
@@ -114,9 +135,6 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
                                 " | CollectionDate: "+rs2.getString("Collection Date")+
                                 " | SamplesCollected: "+rs2.getString("Samples Collected"));
                     }
-
-
-
                 }
             }
 
@@ -201,7 +219,6 @@ public class DSCoccidiaOPGView extends DB_Config_DW {
     @Test(enabled = true, priority = 7)
     public static void getNoCollectionDate() throws SQLException, InterruptedException, IOException {
         viewsDataCompare(getNoCollectionDateQuery(oldViewName), getNoCollectionDateQuery(newViewName));
-    //    viewsRowCompare(getNoCollectionDateQuery(oldViewName), getNoCollectionDateQuery(newViewName));
     }
 
     @Test(enabled = true, priority = 8)
