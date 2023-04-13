@@ -1,9 +1,9 @@
-package Test.Ancera.DBValidations;
+package Test.Ancera.DBValidations.Queries;
 
-public class View_Queries {
+public class DSCoccidiaOPGFlockMetadata_Queries {
 
     public static String oldViewName = "DS_COCCIDIA_OPG_FLOCK_METADATA";
-    public static String newViewName = "DS_COCCIDIA_OPG_FLOCK_METADATA";
+    public static String newViewName = "DS_COCCIDIA_OPG_FLOCK_METADATA_NEW_TEMP";
 
 
     public static String getAllRowsCountQuery(String viewName) {
@@ -19,19 +19,20 @@ public class View_Queries {
 
 
     public static String getNoCyclingConfigQuery(String viewName) {
-        String NoCyclingConfigQuery = "WITH CTEFlock AS(SELECT\n" +
+        String NoCyclingConfigQuery = "WITH CTEFlock\n" +
+                "AS\n" +
+                "(SELECT\n" +
                 "\t\tfm.ID\n" +
-                "   ,fm.FARM_INTERNAL_ID\n" +
-                "   ,fm.BIRD_SIZE\n" +
-                "   ,fm.BIRD_SIZE_ID\n" +
-                "   ,fhd.HOUSE_INTERNAL_ID\n" +
-                "   ,House.siteUniqueNumber houseUniqueNumber\n" +
-                "   ,Farm.siteUniqueNumber farmUniqueNumber\n" +
-                "   ,FS.PROCESSING_DATE\n" +
-                "   ,fhd.PLACEMENT_DATE\n" +
-                "   ,fhd.HARVEST_DATE\n" +
+                "\t   ,fm.FARM_INTERNAL_ID\n" +
+                "\t   ,fhd.HOUSE_INTERNAL_ID\n" +
+                "\t   ,House.siteUniqueNumber AS HOUSE_UNIQUE_NUMBER\n" +
+                "\t   ,Farm.siteUniqueNumber AS FARM_UNIQUE_NUMBER\n" +
+                "\t   ,FS.PROCESSING_DATE\n" +
+                "\t   ,fhd.PLACEMENT_DATE\n" +
+                "\t   ,fhd.HARVEST_DATE\n" +
+                "\t   ,fhd.ID AS FLOCK_HOUSE_DETAILS_ID\n" +
                 "\tFROM FLOCK_MGMT fm\n" +
-                "\tINNER JOIN ET.[Site] Farm\n" +
+                "\tINNER JOIN ET.[SITE] Farm\n" +
                 "\t\tON fm.FARM_INTERNAL_ID = Farm.siteId\n" +
                 "\t\tAND Farm.isActive = 1\n" +
                 "\t\tAND Farm.isDeleted = 0\n" +
@@ -39,64 +40,41 @@ public class View_Queries {
                 "\t\tON fm.ID = fhd.FLOCK_ID\n" +
                 "\t\tAND fhd.isActive = 1\n" +
                 "\t\tAND fhd.isDeleted = 0\n" +
-                "\tINNER JOIN ET.[Site] House\n" +
+                "\tINNER JOIN ET.[SITE] House\n" +
                 "\t\tON fhd.HOUSE_INTERNAL_ID = House.siteId\n" +
                 "\t\tAND House.isActive = 1\n" +
                 "\t\tAND House.isDeleted = 0\n" +
-                "\tLEFT JOIN FLOCK_SETTLEMENT\tFS ON FS.FLOCK_ID=fm.ID AND FS.IS_ACTIVE=1 AND FS.Is_DELETED=0\n" +
-                "\tWHERE fm.BIRD_SIZE_ID IS NOT NULL\n" +
-                "\t),\n" +
-                "CTECycling\n" +
+                "\tLEFT JOIN FLOCK_SETTLEMENT FS\n" +
+                "\t\tON FS.FLOCK_ID = fm.ID\n" +
+                "\t\tAND FS.IS_ACTIVE = 1\n" +
+                "\t\tAND FS.Is_DELETED = 0\n" +
+                "\tWHERE fm.BIRD_SIZE_ID IS NOT NULL),\n" +
+                "CTESamplingPlan\n" +
                 "AS\n" +
                 "(SELECT\n" +
-                "\t\tCI.CyclingIntervalName\n" +
-                "\t   ,CI.startDay\n" +
-                "\t   ,CI.EndDay\n" +
-                "\t   ,DSCC.BIRD_SIZE\n" +
-                "\t   ,DSCC.BIRD_SIZE_ID\n" +
-                "\t   ,DSCC.CYCLING_INTERVAL_ID\n" +
-                "\t   ,Complex.siteuniquenumber INTERNAL_SITE_ID\n" +
-                "\n" +
-                "\t   ,PRG.FLOCK_ID\n" +
-                "\tFROM DS_COMPLEX_CYCLING_CONFIG DSCC /*SELECT * FROM FLOCKCYCLINGINTERVAL*/\n" +
-                "\tINNER JOIN ET.[Site] Complex\n" +
+                "\t\tDSCC.TARGET_AGE_RANGE_MIN  AS startDay\n" +
+                "\t\t,DSCC.TARGET_AGE_RANGE_MAX AS EndDay\n" +
+                "\t\t,fhd.FLOCK_ID\n" +
+                "\t\t,Complex.siteUniqueNumber INTERNAL_SITE_ID\n" +
+                "\t\t,DSCC.FLOCK_HOUSE_DETAILS_ID\n" +
+                "\tFROM DS_COMPLEX_CYCLING_CONFIG_NEW_TEMP DSCC\n" +
+                "\tINNER JOIN ET.[SITE] Complex\n" +
                 "\t\tON DSCC.INTERNAL_SITE_ID = Complex.siteId\n" +
                 "\t\tAND Complex.isActive = 1\n" +
                 "\t\tAND Complex.isDeleted = 0\n" +
-                "\tJOIN flockCyclingInterval CI\n" +
-                "\t\tON CI.CyclingIntervalId = DSCC.CYCLING_INTERVAL_ID\n" +
-                "\t\tAND CI.birdSizeName = DSCC.BIRD_SIZE\n" +
-                "\tJOIN ET.ComplexCyclingProgramAss CCP\n" +
-                "\t\tON CCP.configId = DSCC.CONFIG_ID\n" +
-                "\t\tAND CCP.isActive = 1\n" +
-                "\t\tAND CCP.isDeleted = 0\n" +
-                "\tJOIN dbo.FLOCK_PROGRAM_DETAILS PRG\n" +
-                "\t\tON PRG.PROGRAM_ID = CCP.programId\n" +
-                "\t\tAND PRG.isActive = 1\n" +
-                "\t\tAND PRG.isDeleted = 0\n" +
-                "\tJOIN FLOCK_MGMT fm\n" +
-                "\t\tON PRG.FLOCK_ID = fm.ID\n" +
-                "\t\tAND fm.BIRD_SIZE_ID = DSCC.BIRD_SIZE_ID\n" +
-                "\tWHERE DSCC.OPG_TYPE_ID IN (951 /*OPG_TOTAL*/, 952)\n" +
-                "\t--AND CCP.programId NOT IN(50,51,52,53,54,55,56)\n" +
-                "\n" +
-                "\t/*OPG_LARGE*/\n" +
-                "\tGROUP BY /*CONFIG_ID,*/\n" +
-                "\tDSCC.BIRD_SIZE\n" +
-                "   ,CI.startDay\n" +
-                "   ,CI.EndDay\n" +
-                "   ,DSCC.BIRD_SIZE_ID\n" +
-                "   ,DSCC.CYCLING_INTERVAL_ID\n" +
-                "   ,Complex.siteuniquenumber \n" +
-                "   ,CI.CyclingIntervalName\n" +
-                "   ,PRG.FLOCK_ID)\n" +
-                "\tSELECT\n" +
-                "\tcd.T_RUN_ID\n" +
-                "   ,cd.COLLECTION_DATE\n" +
-                "   ,cd.HOUSE_ID\n" +
-                "   ,cd.COLLECTION_SITE_ID\n" +
-                "   ,cd.COMPLEX_ID\n" +
-                "   ,cd.FARM_ID\n" +
+                "\tINNER JOIN FLOCK_HOUSE_DETAILS fhd\n" +
+                "\t\tON DSCC.FLOCK_HOUSE_DETAILS_ID = fhd.ID\n" +
+                "\t\tAND fhd.isActive = 1\n" +
+                "\t\tAND fhd.isDeleted = 0\n" +
+                "\tGROUP BY\n" +
+                "\t   DSCC.TARGET_AGE_RANGE_MIN\n" +
+                "\t   ,DSCC.TARGET_AGE_RANGE_MAX\n" +
+                "\t   ,fhd.FLOCK_ID\n" +
+                "\t   ,Complex.siteUniqueNumber\n" +
+                "\t   ,DSCC.FLOCK_HOUSE_DETAILS_ID\n" +
+                ")\n" +
+                "SELECT\n" +
+                "\t*\n" +
                 "FROM "+viewName+" cd\n" +
                 "WHERE (cd.COUNT_OUTCOME IS NULL\n" +
                 "OR cd.COUNT_OUTCOME = 'Completed')\n" +
@@ -105,18 +83,19 @@ public class View_Queries {
                 "\t\t1\n" +
                 "\tFROM CTEFlock flk\n" +
                 "\tWHERE cd.COLLECTION_DATE > flk.PLACEMENT_DATE\n" +
-                "\tAND cd.COLLECTION_DATE <= COALESCE(flk.PROCESSING_DATE ,flk.HARVEST_DATE, DATEADD(DAY, 63, flk.PLACEMENT_DATE))\n" +
-                "\tAND DATEDIFF(DAY, flk.PLACEMENT_DATE, cd.COLLECTION_DATE) + 1 <= DATEDIFF(DAY, flk.PLACEMENT_DATE, COALESCE(flk.PROCESSING_DATE ,flk.HARVEST_DATE, DATEADD(DAY, 63, flk.PLACEMENT_DATE))) + 1\n" +
-                "\tAND cd.HOUSE_ID = houseUniqueNumber\n" +
-                "\tAND cd.FARM_ID = FarmUniqueNumber)\n" +
+                "\tAND cd.COLLECTION_DATE <= COALESCE(flk.PROCESSING_DATE, flk.HARVEST_DATE, DATEADD(DAY, 63, flk.PLACEMENT_DATE))\n" +
+                "\tAND DATEDIFF(DAY, flk.PLACEMENT_DATE, cd.COLLECTION_DATE) + 1 \n" +
+                "\t\t<= DATEDIFF(DAY, flk.PLACEMENT_DATE, COALESCE(flk.PROCESSING_DATE, flk.HARVEST_DATE, DATEADD(DAY, 63, flk.PLACEMENT_DATE))) + 1\n" +
+                "\tAND cd.HOUSE_ID = HOUSE_UNIQUE_NUMBER\n" +
+                "\tAND cd.FARM_ID = FARM_UNIQUE_NUMBER)\n" +
                 "AND NOT EXISTS (SELECT\n" +
-                "\t\t*\n" +
-                "\tFROM CTECycling DSCC\n" +
+                "\t\t1\n" +
+                "\tFROM CTESamplingPlan DSCC\n" +
                 "\tINNER JOIN CTEFlock F\n" +
-                "\t\tON F.BIRD_SIZE = DSCC.BIRD_SIZE\n" +
-                "\t\tAND DSCC.FLOCK_ID = F.ID --AND DSCC.INTERNAL_SITE_ID=F.FARM_INTERNAL_ID\n" +
+                "\t\tON DSCC.FLOCK_ID = F.ID\n" +
+                "\t\tAND DSCC.FLOCK_HOUSE_DETAILS_ID = f.FLOCK_HOUSE_DETAILS_ID\n" +
                 "\tWHERE DSCC.INTERNAL_SITE_ID = cd.COMPLEX_ID\n" +
-                "\tAND cd.HOUSE_ID = F.houseUniqueNumber)";
+                "\tAND cd.HOUSE_ID = F.HOUSE_UNIQUE_NUMBER)";
 
         return NoCyclingConfigQuery;
     }
@@ -248,7 +227,7 @@ public class View_Queries {
                 "WHERE (cd.COUNT_OUTCOME IS NULL\n" +
                 "OR cd.COUNT_OUTCOME = 'Completed')\n" +
                 "AND cd.FLOCK_DAY IS NULL\n" +
-                "AND not EXISTS (SELECT\n" +
+                "AND NOT EXISTS (SELECT\n" +
                 "\t\t1\n" +
                 "\tFROM FLOCK_MGMT fm\n" +
                 "\tINNER JOIN ET.[Site] Farm\n" +
@@ -263,22 +242,19 @@ public class View_Queries {
                 "\t\tON fhd.HOUSE_INTERNAL_ID = House.siteId\n" +
                 "\t\tAND House.isActive = 1\n" +
                 "\t\tAND House.isDeleted = 0\n" +
-                "\tLEFT JOIN FLOCK_SETTLEMENT\tFS ON FS.FLOCK_ID=fm.ID AND FS.IS_ACTIVE=1 AND FS.Is_DELETED=0\n" +
+                "\tLEFT JOIN FLOCK_SETTLEMENT FS\n" +
+                "\t\tON FS.FLOCK_ID = fm.ID\n" +
+                "\t\tAND FS.IS_ACTIVE = 1\n" +
+                "\t\tAND FS.Is_DELETED = 0\n" +
                 "\tWHERE fm.BIRD_SIZE_ID IS NOT NULL\n" +
-                "\t\n" +
                 "\tAND cd.COLLECTION_DATE > fhd.PLACEMENT_DATE\n" +
-                "\tAND cd.COLLECTION_DATE <= COALESCE(FS.PROCESSING_DATE ,fhd.HARVEST_DATE, DATEADD(DAY, 63, fhd.PLACEMENT_DATE))\n" +
-                "\tAND DATEDIFF(DAY, fhd.PLACEMENT_DATE, cd.COLLECTION_DATE) + 1 <= DATEDIFF(DAY, fhd.PLACEMENT_DATE, COALESCE(FS.PROCESSING_DATE ,fhd.HARVEST_DATE, DATEADD(DAY, 63, fhd.PLACEMENT_DATE))) + 1\n" +
+                "\tAND cd.COLLECTION_DATE <= COALESCE(FS.PROCESSING_DATE, fhd.HARVEST_DATE, DATEADD(DAY, 63, fhd.PLACEMENT_DATE))\n" +
+                "\tAND DATEDIFF(DAY, fhd.PLACEMENT_DATE, cd.COLLECTION_DATE) + 1 <= DATEDIFF(DAY, fhd.PLACEMENT_DATE, COALESCE(FS.PROCESSING_DATE, fhd.HARVEST_DATE, DATEADD(DAY, 63, fhd.PLACEMENT_DATE))) + 1\n" +
                 "\tAND cd.HOUSE_ID = house.siteUniqueNumber\n" +
                 "\tAND cd.FARM_ID = Farm.siteUniqueNumber)";
         return noflockAssociationQuery;
     }
 
-    public static String getNoCollectionDateRowCountQuery(String viewName) {
-        String noCollectionDateQuery = "SELECT count(T_Run_ID) as count FROM "+viewName+"\n" +
-                "where COLLECTION_DATE IS NULL";
-        return noCollectionDateQuery;
-    }
 
     public static String getNoCollectionDateQuery(String viewName) {
         String noCollectionDateQuery = "SELECT T_RUN_ID, SAMPLE_ID FROM "+viewName+"\n" +

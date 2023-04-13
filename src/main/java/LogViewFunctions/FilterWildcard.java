@@ -45,7 +45,7 @@ public class FilterWildcard {
 					SoftAssert softAssert = new SoftAssert();
 					
 					WebElement filter_scroll = columnName;	//scroll to filter			
-					((JavascriptExecutor)driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);   
+					((JavascriptExecutor)driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
 					click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon));   //open filter popup
 					waitElementInvisible(loading_cursor);	
 					Thread.sleep(500);
@@ -68,7 +68,7 @@ public class FilterWildcard {
 							String getResultCount = getText(By.cssSelector("#"+tablename+" #"+ResultsCount));   //get results after apply wildcard filter
 							String recordAfter = getResultCount.replace(",", "");
 							
-							int rows1 = size(By.id("col-0"));  //get rows returned in log view
+							int rows1 = size(By.cssSelector("#"+tablename+ "#col-0"));  //get rows returned in log view
 							
 							Thread.sleep(800);
 							for (int j = 0; j<rows1; j++) {

@@ -33,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static LogViewFunctions.RowsPerPage.RowsPerPage;
 import static PageObjects.SitesLogPage.*;
 import static PageObjects.BasePage.*;
 import static LogViewFunctions.FilterLock.*;
@@ -84,8 +85,8 @@ public class SitesLog extends BaseTest {
 	}
 	
 	@Test(priority= 5, enabled = true)
-	public void RowsPerPage1() throws InterruptedException, IOException {
-		RowsPerPage1();
+	public void RowsPerPage() throws InterruptedException, IOException {
+		RowsPerPage();
 	}	
 	
 	@Test(priority= 6, enabled = true)

@@ -1,17 +1,10 @@
 package Test.Ancera.Administration;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.aeonbits.owner.ConfigFactory;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
@@ -36,6 +29,7 @@ import Test.Ancera.Login.LoginTest;
 import Utilities.DataUtil;
 import Utilities.ExcelReader;
 
+import static Models.ForgotPasswordModel.*;
 import static PageObjects.UserManagementPage.*;
 import static PageObjects.BasePage.*;
 import static PageObjects.ForgotPasswordPage.*;
@@ -59,8 +53,8 @@ public class UserManagement extends BaseTest{
 		spark = new ExtentSparkReporter("target/Reports/Administration_User_Management"+DateUtil.date+".html");
 		spark.config().setReportName("User Management Test Report"); 
 	}
-	
-	
+
+
 	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
@@ -110,11 +104,12 @@ public class UserManagement extends BaseTest{
 		RowsPerPage();
 	}
 
+
 	@Test(priority= 6)
 	public void ExportCSV() throws InterruptedException, IOException {
 		CSVExport("User Management", userCSVFileName, userManagementTable, 1);
 	}
-	
+
 
 	@Test (enabled= false, priority= 7) 
 	public void OpenClosePopup() throws InterruptedException, IOException {
@@ -147,7 +142,53 @@ public class UserManagement extends BaseTest{
 			saveResult(ITestResult.FAILURE, new Exception(er));
 		}	
 	}
-	
+
+
+	@Test(enabled= true, priority= 7)
+	public void DeleteEmail() throws InterruptedException, IOException {
+		test = extent.createTest("AN-FP-00: Delete all emails from gmail");
+
+		((JavascriptExecutor)getDriver()).executeScript("window.open()");
+		ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());
+		getDriver().switchTo().window(tabs.get(1));
+
+		getDriver().get(Constants.url_GmailSignin);
+		type(By.xpath(gmailEmail), createUserEmail);
+		Thread.sleep(1500);
+		enterKey(By.xpath(gmailEmail));
+
+		type(By.xpath(gmailPassword), createUserPassword);
+		Thread.sleep(1500);
+		enterKey(By.xpath(gmailPassword));
+		Thread.sleep(3000);
+
+		if (size(gmailSecurityCheck) != 0) {
+			click(gmailSecurityCheck);
+			Thread.sleep(3000);
+			type(gmailSecurityEmail, createUserSecurityEmail);
+			enterKey(gmailSecurityEmail);
+
+			if (size(gmailNotNow) != 0) {
+				click(gmailNotNow);
+			}
+		}
+
+		getDriver().findElement(By.xpath("//*[@id=\":1y\"]/div[1]/span")).click();
+		Thread.sleep(1500);
+		if (size(By.cssSelector("div[data-tooltip='Delete']")) != 0) {
+			getDriver().findElement(By.cssSelector("div[data-tooltip='Delete']")).click();
+		}
+		Thread.sleep(1500);
+
+		ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
+		getDriver().switchTo().window(tabs2.get(1));
+		getDriver().close();
+		getDriver().switchTo().window(tabs2.get(0));
+
+	}
+
+
+
 
 	@Test (enabled= true, priority= 8) 
 	public void CreateUser() throws InterruptedException, IOException {

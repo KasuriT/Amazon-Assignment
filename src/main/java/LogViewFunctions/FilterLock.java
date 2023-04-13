@@ -15,6 +15,7 @@ import static PageObjects.BasePage.loading_cursor;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.locks.Lock;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -35,6 +36,13 @@ public class FilterLock {
     @Test(enabled = true)
     public static void Lock(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
         BaseTest driver = new BaseTest();
+
+//        if (size(By.cssSelector("#"+tablename+" "+ LockFilter)) == 0) {
+//                click(By.id(UnlockFilter));
+//                click(By.id(ResetFilters));
+//                waitElementInvisible(loading_cursor);
+//        }
+
 
         int totalNumberofColumns = size(By.cssSelector("#" + tablename + " th .log-header .mb-0")) + skipColumns;  //get number of columns in table and skip the audit,checkbox and action column if exists
 
@@ -92,13 +100,55 @@ public class FilterLock {
 
                             ///////////////////////
 
-                            List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label"));  //get list of items in table
-                            for (int x = 0; x < items.size(); x++) {
-                                if (!getFilterItemName.equals("W2 Cell Count")) {
+
+                            if (size(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle.ng-star-inserted")) == 1) {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle.ng-star-inserted"));  //get list of items in table
+                           //     System.out.println("1");
+                                for (int x = 0; x < items.size(); x++) {
                                     softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
                                 }
                             }
 
+                            else if (size(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle")) == 1) {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle"));  //get list of items in table
+                           //     System.out.println("2");
+                                for (int x = 0; x < items.size(); x++) {
+                                    softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                }
+                            }
+
+                            else {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle"));  //get list of items in table
+                          //      System.out.println("3");
+                                for (int x = 0; x < items.size(); x++) {
+                                    if (!columnName.equals("W2 Cell Count")) {
+                                        softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                    }
+                                }
+                            }
+
+
+                            /*
+                            if(size(By.id("Program Management")) != 0) {
+
+                             //   if (getFilterItemName.equals("Vaccine Name") || getFilterItemName.equals("Vaccine Supplier") || getFilterItemName.equals("Feed Program Name"))
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle"));  //get list of items in table
+
+                                for (int x = 0; x < items.size(); x++) {
+                                        softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                }
+                            }
+
+                            else {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label"));  //get list of items in table
+
+                                for (int x = 0; x < items.size(); x++) {
+                                    if (!getFilterItemName.equals("W2 Cell Count")) {
+                                        softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                    }
+                                }
+                            }
+                            */
                             ///////////////////////////
 
                             steps.createNode("3. Close " + name + " screen");

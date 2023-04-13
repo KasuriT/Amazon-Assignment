@@ -28,8 +28,8 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static By flockFarmDropdownExpand = By.cssSelector("[formcontrolname='farmId'] .down ");
 	public static By flockFarmDropdownSearch = By.cssSelector("[formcontrolname='farmId'] input");
 	public static By flockFarmDropdownGetAllSites = By.cssSelector("[formcontrolname='farmId'] tr");
-	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId-0 input");
-	public static By flockIntegratorFlockAddNew = By.cssSelector(".ng-tag-label");
+	public static By flockIntegratorFlockID = By.cssSelector("#integratorFlockId-0");
+	public static By flockIntegratorFlockAddNew = By.xpath("//*[text() = 'Add New + ']");
 	public static By flockBirdSizeInput = By.cssSelector("#birdSizeId-0 input");
 	public static By flockBirdSizeDropDownOptions = By.cssSelector("#birdSizeId-0 .ng-option");
 	public static By flockBirdSexInput = By.cssSelector("#birdSexId-0 input");
@@ -63,10 +63,11 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static String flockBirdSexPlacementCol = "3";
 	public static String flockMarketingProgramPlacementCol = "4";
 	public static String flockBirdBreedPlacementCol = "5";
-	public static String flockNumofBirdsPlacedPlacementCol = "6";
-	public static String flockProgramDetailsPlacementCol = "7";
-	public static String flockComplexPlacementCol = "9";
-	public static String flockFarmPlacementCol = "10";
+	public static String flockNumofBirdsPlacedPlacementCol = "7";
+	public static String flockProgramDetailsPlacementCol = "8";
+	public static String flockProgramHousePlacementCol = "9";
+	public static String flockComplexPlacementCol = "10";
+	public static String flockFarmPlacementCol = "11";
 	public static String flockIntegratorPlacementCol = "12";
 	public static String flockFarmSiteIDPlacementCol = "13";
 	///////////////End Placement//////////////////
@@ -137,7 +138,7 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static By flockBirdBreed = By.cssSelector("#birdBreedId-0-5 input");
 	
 	
-	public static By flockInlineNewProgramIcon = By.cssSelector("tr:nth-child(1) #col-"+flockProgramDetailsPlacementCol);
+	public static By flockInlineNewProgramIcon = By.cssSelector("tr:nth-child(1) #col-"+flockProgramDetailsPlacementCol+" label span");
 	public static By flockInlineAddNewProgramPopup = By.id("add-program");
 	public static By flockInlineProgramName = By.cssSelector("#programId input");
 	public static By flockAdministrationMethod = By.cssSelector("#administrationMethodId input");
@@ -217,6 +218,7 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static By flockProgramSaveDisabledCheck = By.cssSelector("#btn-save.disabled-v2");
 
 	public static String flockShowFilter = "_show-filter";
+	public static String flockSearchFilter = "_search-input";
 	public static String flockSortFilter = "sort-";
 	public static String flockApplyFilter = "_apply";
 	public static String flockClearFilter = "_clear-filter";

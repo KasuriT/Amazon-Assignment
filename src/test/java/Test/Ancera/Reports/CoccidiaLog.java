@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import MiscFunctions.Constants;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
@@ -1030,6 +1031,102 @@ public class CoccidiaLog extends BaseTest{
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
+
+
+	@Test (description="Test Case: IE-9532",enabled= true, priority = 18)
+	public void LockFiltersRefreshPageTestCase() throws InterruptedException, IOException {
+		try {
+			test = extent.createTest("Verify that the log view will not be blank if the data does not exist in the 3 months data security feature.");
+			steps = test.createNode(Scenario.class, Steps);
+
+			steps.createNode("1. Navigate to Coccidia logs");
+			steps.createNode("2. View the latest 3 months data");
+			steps.createNode("3. Click on the reset filters button");
+
+			SoftAssert softAssert = new SoftAssert();
+
+			CoccidiaLogPage.openCoccidiaLogPage();
+			waitElementInvisible(loading_cursor);
+
+			click(By.id(ResetFilters));
+			waitElementInvisible(loading_cursor);
+
+			steps.createNode("4. Click on Lock button");
+			if (size(By.cssSelector("#save-filters.d-none")) == 0)
+			{
+				click(By.id("save-filters"));
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(1000);
+			}
+
+			steps.createNode("5. Apply filter for three months old previous data");
+			if (Constants.config.url().contains("uat")) {
+				//Apply filter on Customer Sample ID Column
+				WebElement filter_scroll = getDriver().findElement(By.id(clCustomerSampleID + "" + clShowFilter));
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+				getDriver().findElement(By.id("customer_sample_id_show-filter")).click();
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(1500);
+				getDriver().findElement(By.id("customer_sample_id_view-all")).click();
+				waitElementInvisible(loading_cursor);
+				getDriver().findElement(By.id("customer_sample_id_cust-cb-lst-txt_FC-9006")).click();
+				getDriver().findElement(By.id("customer_sample_id_apply")).click();
+			}
+			if (Constants.config.url().contains("qa")) {
+				WebElement filter_scroll = getDriver().findElement(By.id(clCustomerSampleID + "" + clShowFilter));
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+				getDriver().findElement(By.id("customer_sample_id_show-filter")).click();
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(1500);
+				getDriver().findElement(By.id("customer_sample_id_view-all")).click();
+				waitElementInvisible(loading_cursor);
+				getDriver().findElement(By.xpath("//small[@id='customer_sample_id_cust-cb-lst-txt_HF4-D07-H1-F024-BE']")).click();
+				Thread.sleep(1000);
+				getDriver().findElement(By.id("customer_sample_id_apply")).click();
+			}
+
+			if(Constants.config.url().contains("dev")){
+				WebElement filter_scroll = getDriver().findElement(By.id(clCustomerSampleID + "" + clShowFilter));
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+				getDriver().findElement(By.id("customer_sample_id_show-filter")).click();
+				waitElementInvisible(loading_cursor);
+				Thread.sleep(1500);
+				getDriver().findElement(By.id("customer_sample_id_view-all")).click();
+				waitElementInvisible(loading_cursor);
+				getDriver().findElement(By.xpath("//small[@id='customer_sample_id_cust-cb-lst-txt_HF4-D07-H1-F024-BE']")).click();
+				getDriver().findElement(By.id("customer_sample_id_apply")).click();
+			}
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(1000);
+
+			String recordsBeforeFilter = getDriver().findElement(By.id("results-found-count")).getText();
+			Thread.sleep(500);
+			getScreenshot();
+			steps.createNode("6. Refresh current page");
+			getDriver().navigate().refresh();
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(2000);
+			String recordsAfterFilter = getDriver().findElement(By.id("results-found-count")).getText();
+
+			softAssert.assertEquals(recordsAfterFilter, recordsBeforeFilter);
+
+			waitElementInvisible(loading_cursor);
+			getScreenshot();
+			softAssert.assertAll();
+
+			test.pass("Lock filters refresh page test case passed successfully");
+			saveResult(ITestResult.SUCCESS, null);
+		}
+		catch(AssertionError er) {
+			test.fail("Lock filters refresh page test case failed");
+			saveResult(ITestResult.FAILURE, new Exception(er));
+		}
+		catch(Exception ex) {
+			test.fail("Lock filters refresh page test case failed");
+			saveResult(ITestResult.FAILURE, ex);
+		}
+	}
+
 	
 	@AfterTest
 	public static void endreport() {

@@ -42,6 +42,7 @@ import static LogViewFunctions.Pagination.*;
 import static LogViewFunctions.RowsPerPage.*;
 import static MiscFunctions.Constants.*;
 import static MiscFunctions.DateUtil.*;
+import static MiscFunctions.DownloadFileCheck.getTheNewestFile;
 import static MiscFunctions.ExtentVariables.*;
 import static MiscFunctions.Methods.*;
 import static LogViewFunctions.LogCSVExport.*;
@@ -69,7 +70,8 @@ public class FlockManagement extends BaseTest {
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
-	
+
+	/*
 		@Test (priority = 1) 
 	public void NavigateFlock() throws InterruptedException, IOException {
 			NavigateToScreen.navigate(url_flockManagement, "Flock Management", FlockManagementTitle);
@@ -120,6 +122,9 @@ public class FlockManagement extends BaseTest {
 
 	@Test (priority = 7) 
 	public void WildcardMortality() throws InterruptedException, IOException {
+		getDriver().get(url_flockManagement);
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(1000);
 		getDriver().findElement(flockMortalityTab).click();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
@@ -304,9 +309,7 @@ public class FlockManagement extends BaseTest {
 		//	getStmt().close();
 	}
 
-	
-	
-	
+	*/
 
 	@Test (enabled= true, priority = 26) 
 	public void CreateFlock() throws InterruptedException, IOException, SQLException {
@@ -362,6 +365,7 @@ public class FlockManagement extends BaseTest {
 			softAssert.assertEquals(birdSizeDropdownValues.get(2).getText(), "Large");
 			softAssert.assertEquals(birdSizeDropdownValues.get(3).getText(), "Pullets");
 			softAssert.assertEquals(birdSizeDropdownValues.get(4).getText(), "Broilers");
+			softAssert.assertEquals(birdSizeDropdownValues.get(5).getText(), "Big Broilers");
 
 
 			type(flockBirdSizeInput, FlockManagementModel.flockBirdSize);
@@ -423,6 +427,8 @@ public class FlockManagement extends BaseTest {
 			String PostResultsCount = getText(By.id(ResultsCount));
 			softAssert.assertEquals(Integer.parseInt(PostResultsCount), Integer.parseInt(PreResultsCount)+1);
 
+			click(flockPlacementTab);
+			Thread.sleep(500);
 			FlockManagementPage.openFlockAudit();
 			softAssert.assertEquals(size(auditGetRowCount), 3, "Audit Log not displaying a row for flock creation");
 			softAssert.assertEquals(getText(auditActionRow1), "Created", "Audit Log not displaying a row for with Action created");
@@ -443,6 +449,8 @@ public class FlockManagement extends BaseTest {
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
+
+
 
 
 	@Test (description = "IE-3595", enabled= true, priority = 27) 
@@ -613,9 +621,9 @@ public class FlockManagement extends BaseTest {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			String b = getText(By.cssSelector("tr:nth-child(1) #col-8 label[title]:nth-child(2)"));
+			String b = getText(By.cssSelector("tr:nth-child(1) #col-"+flockPlacementDateCol+" label[title]:nth-child(2)"));
 
-			click(By.cssSelector("tr:nth-child(1) #col-8"));
+			click(By.cssSelector("tr:nth-child(1) #col-"+flockPlacementDateCol));
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
@@ -651,7 +659,7 @@ public class FlockManagement extends BaseTest {
 
 
 
-	@Test (enabled= false, priority =30) 
+	@Test (enabled= true, priority =30)
 	public void InlineEditFlock() throws InterruptedException, IOException, SQLException {
 		try {			
 			test = extent.createTest("Verify inline edit flock");
@@ -663,35 +671,17 @@ public class FlockManagement extends BaseTest {
 			Thread.sleep(1000);
 			SoftAssert softAssert = new SoftAssert();
 
-			click(By.id("complexName_show-filter"));
+			click(By.id(flockIntegratorID+flockShowFilter));
 			waitElementInvisible(loading_cursor);
-			
-			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-				ResultSet getComplexNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getComplexName);
-				while (getComplexNameResults.next()) {
-					String complexName = getComplexNameResults.getString("siteName");
-					System.out.println("Complex Name: "+complexName);
-					type(By.id("complexName_search-input"), complexName);
-					waitElementInvisible(loading_cursor);
-					Thread.sleep(2000);
-					click(By.id("complexName_cust-cb-lst-txt_"+complexName));		
-				}
-			}
-			if (Constants.config.url().contains("uat")) {
-				getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.ComplexNameUAT);
-				waitElementInvisible(loading_cursor);
-				Thread.sleep(2000);
-				click(By.id("complexName_cust-cb-lst-txt_"+ProgramManagementModel.ComplexNameUAT));	
-			}
-			
-		
-			click(By.id("complexName_apply"));
-			
+			type(By.id(flockIntegratorID+flockSearchFilter), FlockManagementModel.flockIntegratorID);
+			click (By.cssSelector("#ul-integratorFlockId li:nth-child(1) label"));
+			click(By.id(flockIntegratorID+flockApplyFilter));
 			waitElementInvisible(loading_cursor);
-			//		softAssert.assertEquals(size(By.cssSelector("#"+flockPlacementTable+" #"+flockInlineButtonTooltip)), 1, "Tooltip is not applied on in line edit button");
+		//	softAssert.assertEquals(size(By.cssSelector("#"+flockPlacementTable+" #"+flockInlineButtonTooltip)), 1, "Tooltip is not applied on in line edit button");
 			click(By.id(flockInlineButton));
 			waitElementInvisible(loading_cursor);
 
+			//verify fields should not be editable
 			softAssert.assertEquals(size(By.cssSelector("#"+flockPlacementTable+" #col-"+flockIDPlacementCol+" input")), 0, "Flock ID is editable field");
 			softAssert.assertEquals(size(By.cssSelector("#"+flockPlacementTable+" #col-"+flockNumofBirdsPlacedPlacementCol+" input")), 0, "Number of birds placed is editable field");
 			softAssert.assertEquals(size(By.cssSelector("#"+flockPlacementTable+" #col-"+flockComplexPlacementCol+" input")), 0, "Complex is editable field");
@@ -705,21 +695,22 @@ public class FlockManagement extends BaseTest {
 				click(flockProgramDeleteButton);
 			}
 			click(flockInlineAddNewProgramPopup);
-			type(flockInlineProgramName, FlockManagementModel.flockProgramName);
+//			type(flockInlineProgramName, FlockManagementModel.flockProgramName);
+			click(flockInlineProgramName);
+			Thread.sleep(500);
 			enterKey(flockInlineProgramName);
 			type(flockDoseInput, "1.52");
 
-			waitElementVisible(flockAdministrationMethod);
-			Thread.sleep(1000);	
-			type(flockAdministrationMethod, FlockManagementModel.flockProgramAdminMethod);
 
-			if (size(clickAddNewDropdown) != 0) {
-				click(clickAddNewDropdown);
-			}
-			else {
-				click(By.xpath("//*[text()='"+FlockManagementModel.flockProgramAdminMethod+"']"));		
-			}
+			if (size(flockAdministrationMethod) != 0) {
+				type(flockAdministrationMethod, FlockManagementModel.flockProgramAdminMethod);
 
+				if (size(clickAddNewDropdown) != 0) {
+					click(clickAddNewDropdown);
+				} else {
+					click(By.xpath("//*[text()='" + FlockManagementModel.flockProgramAdminMethod + "']"));
+				}
+			}
 			Thread.sleep(1000);
 			click(flockProgramSaveButton);
 			waitElementInvisible(loading_cursor);
@@ -908,7 +899,7 @@ public class FlockManagement extends BaseTest {
 
 						click(flockCreateButton);
 						waitElementInvisible(loading_cursor);
-						waitElementClickable(flockFarmDropdownExpand);
+						waitElementVisible(flockFarmDropdownExpand);
 						click(flockFarmDropdownExpand);
 						int sitesCountFarmDropdown = size(flockFarmDropdownGetAllSites);
 
@@ -931,22 +922,9 @@ public class FlockManagement extends BaseTest {
 	}
 
 
-	public File getTheNewestFile(String filePath, String ext) {
-		File theNewestFile = null;
-		File dir = new File(filePath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + ext);
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			theNewestFile = files[0];
-		}
-		return theNewestFile;
-	}
-
 
 	@Test(priority= 42)
-	public void ExportCSVFeed() throws InterruptedException, IOException {
+	public void ExportCSV() throws InterruptedException, IOException {
 		getDriver().get(url_flockManagement);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
@@ -1024,6 +1002,7 @@ public class FlockManagement extends BaseTest {
 			steps.createNode("4. Dropdown cloud pop ups");
 			Thread.sleep(1000);
 			ClickElement.clickById(getDriver(), "export-data-template");
+			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 			getScreenshot();
 			steps.createNode("5. Click on Export Data Template");

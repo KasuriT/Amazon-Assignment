@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -28,6 +29,9 @@ import PageObjects.BasePage;
 import PageObjects.CoccidiaLogPage;
 import PageObjects.SalmonellaLogPage;
 import Test.Ancera.Login.LoginTest;
+
+import static MiscFunctions.DateUtil.date;
+import static MiscFunctions.ExtentVariables.*;
 import static MiscFunctions.Methods.*;
 
 import static Models.IngestionsModel.*;
@@ -37,16 +41,15 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class InstallationRun extends BaseTest{
+public class InstallationRun extends BaseTest {
 
 	@BeforeTest
 	public void extent() throws InterruptedException, IOException {
-		ExtentVariables.spark = new ExtentSparkReporter("target/Reports/Installation_Run"+DateUtil.date+".html");
-		ExtentVariables.spark.config().setReportName("Installation Run Test Report"); 
+		spark = new ExtentSparkReporter("target/Reports/Normal Ingestion"+date+".html");
+		spark.config().setReportName("Normal Ingestion Test Report");
 	}
 
-
-	@Test
+	@BeforeClass
 	public void Login() throws InterruptedException, IOException {
 		LoginTest.login();
 	}
@@ -59,15 +62,10 @@ public class InstallationRun extends BaseTest{
 		InstallationRunModel.lstInstallationRunCreate = InstallationRunModel.FillData();
 		for (InstallationRunModel objModel : InstallationRunModel.lstInstallationRunCreate) { 
 			try{
-				ExtentVariables.test = ExtentVariables.extent.createTest(objModel.TestCaseName, objModel.TestCaseDescription);
-				ExtentVariables.preconditions = ExtentVariables.test.createNode(Scenario.class, ExtentVariables.PreConditions);
-				ExtentVariables.steps = ExtentVariables.test.createNode(Scenario.class, ExtentVariables.Steps);
-				ExtentVariables.results = ExtentVariables.test.createNode(Scenario.class, ExtentVariables.Results);
+				test = extent.createTest(objModel.TestCaseName);
+				steps = test.createNode(Scenario.class, Steps);
+				results = test.createNode(Scenario.class, Results);
 
-				ExtentVariables.preconditions.createNode("1. Go to url " +Constants.url_login);
-				ExtentVariables.preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-				ExtentVariables.preconditions.createNode("3. Hover to sidebar to expand the menu");
-				ExtentVariables.preconditions.createNode("4. Navigate to Piper Configuration Management screen");
 				ExtentVariables.steps.createNode("1. Click on create new button next to Installation Run Config");
 				SoftAssert softAssert = new SoftAssert();
 				

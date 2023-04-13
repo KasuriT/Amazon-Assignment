@@ -328,7 +328,7 @@ public class RawImageCompareCountModel {
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
 		*/
-
+/*
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////20 images dataset////////////////////////////////////////////
@@ -354,7 +354,7 @@ public class RawImageCompareCountModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_1_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
-/*
+
 
 		objTmp = new RawImageCompareCountModel();
 		objFilter = new ReportFilters();
@@ -791,21 +791,24 @@ public class RawImageCompareCountModel {
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_20_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
-		*/
+
+
+	*/
+
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////E032 Images/////////////////////////////////////////////
 
-/*
+
 		objTmp = new RawImageCompareCountModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 1;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_1.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_1.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L01S01.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_1.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_1.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L01S01.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -814,8 +817,8 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.startAssay_runID = dateYYYYMMDD+"_Cocci_1_"+date0;
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_1";
+		objTmp.startAssay_runID = dateYYYYMMDD+"_Cocci_3_"+date0;
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_1";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_1_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -827,9 +830,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 2;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_2.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_2.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L02S02.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_2.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_2.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L02S02.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -838,7 +841,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_2";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_2";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_2_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -849,9 +852,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 3;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_3.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_3.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L03S03.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_3.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_3.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L03S03.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -860,7 +863,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_3";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_3";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_3_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -872,9 +875,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 4;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_4.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_4.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L04S04.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_4.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_4.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L04S04.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -883,7 +886,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_4";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_4";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_4_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -895,9 +898,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 5;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_5.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_5.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L05S05.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_5.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_5.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L05S05.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -906,7 +909,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_5";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_5";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_5_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -918,9 +921,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 6;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_6.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_6.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L06S06.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_6.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_6.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L06S06.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -929,7 +932,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_6";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_6";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_6_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -941,9 +944,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 7;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_7.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_7.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L07S07.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_7.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_7.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L07S07.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -952,7 +955,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_7";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_7";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_7_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -964,9 +967,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 8;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_8.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_8.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L08S08.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_8.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_8.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L08S08.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -975,7 +978,7 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_8";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_8";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_8_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
@@ -987,9 +990,9 @@ public class RawImageCompareCountModel {
 		objTmp.pathogen = "Coccidia";
 		objTmp.cartridgeID = "TestCartridge-"+date0;
 		objTmp.lane = 9;
-		objTmp.checksum = fileAbsolutePathCocci+"E032_Images\\checksum_E032_9.txt";
-		objTmp.base64fileName = fileAbsolutePathCocci+"E032_Images\\E032_9.txt";
-		objTmp.fileName = dateYYYYMMDD+"_Cocci_1_"+date0+"_L09S09.bmp";
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E032\\checksum_E032_9.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_9.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L09S09.bmp";
 		objTmp.InstrumentID = "PSN0001";
 		objTmp.runType = "Normal";
 		objTmp.runMode = "1";
@@ -998,15 +1001,186 @@ public class RawImageCompareCountModel {
 		objTmp.isErrorCode = false;
 		objTmp.fileType = "bmp";
 		objTmp.countOutcome = "";
-		objTmp.run_id = dateYYYYMMDD+"_Cocci_1_"+date0+"_9";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_9";
 		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_9_"+date0));
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
 
+
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////Other Error Codes///////////////////////////////////////
+	/*
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 1;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_1.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_1.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L01S01.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = true;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.startAssay_runID = dateYYYYMMDD+"_Cocci_3_"+date0;
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_1";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_1_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 2;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_2.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_2.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L02S02.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_2";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_2_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 3;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_3.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_3.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L03S03.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_3";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_3_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 4;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_4.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_4.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L04S04.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_4";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_4_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 5;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_5.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_5.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L05S05.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_5";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_5_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 6;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_6.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_6.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L06S06.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_6";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_6_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 7;
+		objTmp.checksum = fileAbsolutePathCocci+"OtherErrorCodes\\checksum_errorcode_7.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"OtherErrorCodes\\errorcode_7.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L07S07.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_7";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_7_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
 */
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 		/////////////////////////////////////////////////////E066 Images/////////////////////////////////////////
-
+/*
 		objTmp = new RawImageCompareCountModel();
 		objFilter = new ReportFilters();
 		objTmp.lstFilters = new ArrayList<>();
@@ -1053,11 +1227,150 @@ public class RawImageCompareCountModel {
 		objTmp.lstFilters.add(objFilter);
 		lstRawImageCompareCountModel.add(objTmp);
 
+		*/
+
+		///////////////////////////////////E031 images////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////E066 Images/////////////////////////////////////////
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 1;
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E031\\checksum_E031_1.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E031\\E031_1.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_6_"+date0+"_L01S01.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = true;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.startAssay_runID = dateYYYYMMDD+"_Cocci_6_"+date0;
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_6_"+date0+"_1";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_1_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 2;
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E031\\checksum_E031_2.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E031\\E031_2.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_6_"+date0+"_L02S02.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_6_"+date0+"_2";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_2_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 3;
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E031\\E031Images\\checksum_6.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E031\\E031Images\\base64_6.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_6_"+date0+"_L03S03.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_6_"+date0+"_3";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_3_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 4;
+		objTmp.checksum = fileAbsolutePathCocci+"Images_E031\\E031Images\\checksum_7.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E031\\E031Images\\base64_7.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_6_"+date0+"_L02S02.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = false;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_6_"+date0+"_4";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_4_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+
+
+	/*
+		/////////////////////////////////////////////E032_Prod///////////////////////////////////////////////
+		objTmp = new RawImageCompareCountModel();
+		objFilter = new ReportFilters();
+		objTmp.lstFilters = new ArrayList<>();
+		objTmp.pathogen = "Coccidia";
+		objTmp.cartridgeID = "TestCartridge-"+date0;
+		objTmp.lane = 1;
+		objTmp.checksum = fileAbsolutePathCocci+"Images_Prod_E032\\checksum_E032_1.txt";
+		objTmp.base64fileName = fileAbsolutePathCocci+"Images_E032\\E032_1.txt";
+		objTmp.fileName = dateYYYYMMDD+"_Cocci_3_"+date0+"_L01S01.bmp";
+		objTmp.InstrumentID = "PSN0001";
+		objTmp.runType = "Normal";
+		objTmp.runMode = "1";
+		objTmp.runStartAssay = true;
+		objTmp.checkLog = false;
+		objTmp.isErrorCode = false;
+		objTmp.fileType = "bmp";
+		objTmp.countOutcome = "";
+		objTmp.startAssay_runID = dateYYYYMMDD+"_Cocci_3_"+date0;
+		objTmp.run_id = dateYYYYMMDD+"_Cocci_3_"+date0+"_1";
+		objFilter.LstSampleID = new ArrayList<>(Arrays.asList(dateYYYYMMDD+"_Cocci_1_"+date0));
+		objTmp.lstFilters.add(objFilter);
+		lstRawImageCompareCountModel.add(objTmp);
+
+		*/
 		return lstRawImageCompareCountModel;
 	}
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 	public static ArrayList<RawImageCompareCountModel> FillData20() {
@@ -2687,10 +3000,5 @@ public class RawImageCompareCountModel {
 
 		return lstRawImageCompareCountModel;
 	}
-
-
-
-
-
 
 }

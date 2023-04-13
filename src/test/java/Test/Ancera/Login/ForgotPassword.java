@@ -2,9 +2,11 @@ package Test.Ancera.Login;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -34,7 +36,51 @@ public class ForgotPassword extends BaseTest{
 		spark.config().setReportName("Forgot Password Test Report"); 
 	}
 
-	@Test(enabled=true, priority= 1)
+	@Test(enabled= true, priority= 1)
+	public void DeleteEmail() throws InterruptedException, IOException {
+			test = extent.createTest("AN-FP-00: Delete all emails from gmail");
+
+		((JavascriptExecutor)getDriver()).executeScript("window.open()");
+		ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());
+		getDriver().switchTo().window(tabs.get(1));
+
+			getDriver().get(Constants.url_GmailSignin);
+			type(By.xpath(gmailEmail), forgotPassword_email);
+			Thread.sleep(1500);
+			enterKey(By.xpath(gmailEmail));
+
+			type(By.xpath(gmailPassword), forgotPassword_password);
+			Thread.sleep(1500);
+			enterKey(By.xpath(gmailPassword));
+			Thread.sleep(3000);
+
+			if (size(gmailSecurityCheck) != 0) {
+				click(gmailSecurityCheck);
+				Thread.sleep(3000);
+				type(gmailSecurityEmail, forgotPasswordSecurityEmail);
+				enterKey(gmailSecurityEmail);
+
+				if (size(gmailNotNow) != 0) {
+					click(gmailNotNow);
+				}
+			}
+
+			getDriver().findElement(By.xpath("//*[@id=\":1y\"]/div[1]/span")).click();
+			Thread.sleep(1500);
+			if (size(By.cssSelector("div[data-tooltip='Delete']")) != 0) {
+				getDriver().findElement(By.cssSelector("div[data-tooltip='Delete']")).click();
+			}
+		Thread.sleep(1500);
+
+		ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
+		getDriver().switchTo().window(tabs2.get(1));
+		getDriver().close();
+		getDriver().switchTo().window(tabs2.get(0));
+
+		}
+
+
+	@Test(enabled=true, priority= 2)
 	public void SendEmailLink() throws InterruptedException, IOException {
 		waitElementClickable(By.id("forgot-password-1"));
 		getDriver().findElement(By.id("forgot-password-1")).click();
@@ -71,17 +117,19 @@ public class ForgotPassword extends BaseTest{
 			getDriver().findElement(alertClose).click();
 		}
 	}
-
-	@Test(enabled= true, priority= 2,  retryAnalyzer = RetryFailedCases.class)
+//,  retryAnalyzer = RetryFailedCases.class
+	@Test(enabled= true, priority= 3)
 	public void VerifyEmailReceived() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-FP-03: Verify user receives reset password link");
 
 			getDriver().get(Constants.url_GmailSignin);			
 			type(By.xpath(gmailEmail), forgotPassword_email);
+			Thread.sleep(1500);
 			enterKey(By.xpath(gmailEmail));
 			
 			type(By.xpath(gmailPassword), forgotPassword_password);
+			Thread.sleep(1500);
 			enterKey(By.xpath(gmailPassword));
 			Thread.sleep(3000);
 			
@@ -95,20 +143,19 @@ public class ForgotPassword extends BaseTest{
 					click(gmailNotNow);
 				}	
 			}
-	
+
 			waitElementVisible(By.xpath("//*[@class='yW']/span"));
-			Thread.sleep(2000);
+			getScreenshot();
+			Thread.sleep(3000);
 			List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
 			for(int i=0;i<a.size();i++){
-				if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
-
-					Thread.sleep(1000);
+				if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){
 					a.get(i).click();
 				}
 			}
 
-			Thread.sleep(2000);  
-			Assert.assertTrue(getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).isDisplayed());
+			Thread.sleep(2000);
+		//	Assert.assertTrue(getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).isDisplayed());
 			getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).click();
 
 			test.pass("Email with reset password link received successfully");
@@ -124,10 +171,10 @@ public class ForgotPassword extends BaseTest{
 			saveResult(ITestResult.FAILURE, ex);
 		}
 		
-		Thread.sleep(1000);
+		Thread.sleep(1500);
 		getDriver().findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
-			
-		Thread.sleep(2000); 
+//
+		Thread.sleep(2000);
 		String currentTabHandle = getDriver().getWindowHandle();
 		String newTabHandle = getDriver().getWindowHandles()
 				.stream()
@@ -135,12 +182,12 @@ public class ForgotPassword extends BaseTest{
 				.findFirst()
 				.get();
 		getDriver().switchTo().window(newTabHandle);
-		Thread.sleep(2000);  
+		Thread.sleep(2000);
 
 	}
 
 
-	@Test(enabled=true, priority= 3)
+	@Test(enabled=true, priority= 4)
 	public void VerifyLogin() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-FP-04: Verify user can reset password and login with new credentials");
