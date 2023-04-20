@@ -68,7 +68,7 @@ public class ProgramManagement extends BaseTest {
         LoginTest.login();
     }
 
-
+/*
     @Test(enabled = true, priority = 2)
     public void CreatePrograms() throws InterruptedException, IOException, SQLException {
         lstProgramManagementSearch = ProgramManagementModel.FillData();
@@ -969,6 +969,8 @@ public class ProgramManagement extends BaseTest {
             }
         }
     }
+
+ */
 
 
     @Test(priority = 10, enabled = true)

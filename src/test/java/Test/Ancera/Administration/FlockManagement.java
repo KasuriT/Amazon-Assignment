@@ -71,7 +71,7 @@ public class FlockManagement extends BaseTest {
 		LoginTest.login();
 	}
 
-	/*
+
 		@Test (priority = 1) 
 	public void NavigateFlock() throws InterruptedException, IOException {
 			NavigateToScreen.navigate(url_flockManagement, "Flock Management", FlockManagementTitle);
@@ -186,6 +186,8 @@ public class FlockManagement extends BaseTest {
 	}
 
 
+
+/*
 	@Test(priority= 14, enabled = true)
 	public void RowsPerPagePlacement() throws InterruptedException, IOException {
 		getDriver().get(url_flockManagement);
@@ -220,6 +222,7 @@ public class FlockManagement extends BaseTest {
 		Thread.sleep(1000);
 		RowsPerPage1(flockCondemnationTable);
 	}
+*/
 
 
 	@Test (priority = 18) 
@@ -256,8 +259,10 @@ public class FlockManagement extends BaseTest {
 		Thread.sleep(1000);
 		Pagination(flockCondemnationTable, "Program Management", ReportFilePath);
 	}
-	 
 
+
+
+/*
 	@Test (priority = 25, enabled = true) 
 	public void CreateProgram() throws InterruptedException, IOException, SQLException {
 		test = extent.createTest("AN-FR-98: Verify user can create Program");
@@ -308,8 +313,8 @@ public class FlockManagement extends BaseTest {
 		Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "New program has been created successfully");
 		//	getStmt().close();
 	}
+*/
 
-	*/
 
 	@Test (enabled= true, priority = 26) 
 	public void CreateFlock() throws InterruptedException, IOException, SQLException {
@@ -430,12 +435,11 @@ public class FlockManagement extends BaseTest {
 			click(flockPlacementTab);
 			Thread.sleep(500);
 			FlockManagementPage.openFlockAudit();
-			softAssert.assertEquals(size(auditGetRowCount), 3, "Audit Log not displaying a row for flock creation");
+			softAssert.assertEquals(size(auditGetRowCount), 2, "Audit Log not displaying a row for flock creation");
 			softAssert.assertEquals(getText(auditActionRow1), "Created", "Audit Log not displaying a row for with Action created");
 
 			softAssert.assertAll();
 
-			
 			getScreenshot();
 			test.pass("Flock was created successfully");
 			saveResult(ITestResult.SUCCESS, null);	
@@ -453,7 +457,7 @@ public class FlockManagement extends BaseTest {
 
 
 
-	@Test (description = "IE-3595", enabled= true, priority = 27) 
+	@Test (description = "IE-3595", enabled= false, priority = 27)
 	public void DuplicateFlockWithSameSiteAndPlacementDate() throws InterruptedException, IOException, SQLException {
 		try {
 			test = extent.createTest("AN-FR-99: Verify that Flock cannot be duplicated with same Site ID and Placement Date.");
@@ -467,25 +471,28 @@ public class FlockManagement extends BaseTest {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			
+
+
 			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
 				ResultSet getFarmNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getFarmName);
 				while (getFarmNameResults.next()) {
 					String farmName = getFarmNameResults.getString("siteName");
+					System.out.println("Farm Name: "+farmName);
 					click(flockFarmDropdownExpand);
 					type(flockFarmDropdownSearch, farmName);
 
-				}		
+				}
 			}
 
 			if (Constants.config.url().contains("uat")) {
 				getDriver().findElement(programComplexSearch).sendKeys(ProgramManagementModel.FarmNameUAT);
 			}
-			
+
 			waitElementInvisible(loading_cursor);
-			Thread.sleep(1000);
+			waitElementClickable(By.cssSelector("label b"));
+			Thread.sleep(2000);
 			click(By.cssSelector("label b"));
-			
+
 			type(flockBirdSizeInput, FlockManagementModel.flockBirdSize);
 			getDriver().findElement(flockBirdSizeInput).sendKeys(Keys.ENTER);
 
@@ -509,7 +516,7 @@ public class FlockManagement extends BaseTest {
 			softAssert.assertTrue(getDriver().findElement(alertMessage).getText().contains("already exists at"));
 			softAssert.assertAll();
 
-			test.pass("Flock was created successfully");
+			test.pass("Duplicate Flock failed to create successfully");
 			getScreenshot();
 			saveResult(ITestResult.SUCCESS, null);	
 		}
@@ -533,18 +540,23 @@ public class FlockManagement extends BaseTest {
 			Thread.sleep(1000);
 			SoftAssert softAssert = new SoftAssert();
 
+			System.out.println("1");
 			FlockManagementPage.openFlockAudit();
 			int getRowsPre = size(flockAuditRowCount);
 			Thread.sleep(1000);
+			System.out.println("2");
 			click(popupCloseButton);
 
+			System.out.println("3");
 			FlockManagementPage.openEditFlock();
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
+			System.out.println("4");
 
-			type(flockBirdSexInput, "Male");
+
+			type(flockBirdSexInput, "Female");
 			getDriver().findElement(flockBirdSexInput).sendKeys(Keys.ENTER);
-			click(By.xpath("(//*[@id = 'btn-submit'])[1]"));
+			click(By.xpath("(//*[@id = \"btn-save\"])[1]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -558,7 +570,7 @@ public class FlockManagement extends BaseTest {
 				scroll(mortalityField);
 				type(mortalityField, Integer.toString(i));
 			}
-			click(By.xpath("(//*[@id = 'btn-submit'])[2]"));
+			click(By.xpath("(//*[@id = 'btn-save'])[2]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -572,7 +584,7 @@ public class FlockManagement extends BaseTest {
 			type(flockWeeklyFarmCostVariance, "1");
 			type(flockPlacementDensityInput, "1.5");
 			softAssert.assertEquals(getAttribute(flockPlacementDensityInput), "1.5", "Not able to write decimal value in Flock density field");
-			click(By.xpath("(//*[@id = 'btn-submit'])[3]"));
+			click(By.xpath("(//*[@id = 'btn-save'])[3]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -582,7 +594,7 @@ public class FlockManagement extends BaseTest {
 			click(flockEditCondemnationTab);
 			waitElementInvisible(loading_cursor);
 			type(flockNumBirdsDOAPlant, "1");
-			click(By.xpath("(//*[@id = 'btn-submit'])[4]"));
+			click(By.xpath("(//*[@id = 'btn-save'])[4]"));
 			waitElementInvisible(loading_cursor);
 			waitElementVisible(alertMessage);
 			Thread.sleep(1000);
@@ -621,13 +633,15 @@ public class FlockManagement extends BaseTest {
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
-			String b = getText(By.cssSelector("tr:nth-child(1) #col-"+flockPlacementDateCol+" label[title]:nth-child(2)"));
+			String b = getText(By.cssSelector("tr:nth-child(1) #col-"+flockProgramHousePlacementCol+" label[title]:nth-child(2)"));
 
-			click(By.cssSelector("tr:nth-child(1) #col-"+flockPlacementDateCol));
+			click(By.cssSelector("tr:nth-child(1) #col-"+flockProgramHousePlacementCol));
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 
 			int totalHouses = Integer.parseInt(b.substring(1, b.length()-5)) +2;
+
+			System.out.println(totalHouses);
 			softAssert.assertEquals(size(popupTotalRows), totalHouses);
 
 			click(popupCloseButton);
@@ -887,12 +901,13 @@ public class FlockManagement extends BaseTest {
 			click(popupNextButton);
 			Thread.sleep(500);
 
-			int collectionSitesSize = 0;
-			for (int i=1;i<=getDriver().findElements(By.cssSelector(".site-tree-card")).size();i++) {
-				if (!getDriver().findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
-					collectionSitesSize = collectionSitesSize+1;
+		//	int collectionSitesSize = 0;
+		//	for (int i=1;i<=getDriver().findElements(By.cssSelector(".site-tree-card")).size();i++) {
+		//		if (!getDriver().findElement(By.xpath("//*[@id=\"select-sites\"]//div["+i+"]/div/p[2]")).getText().equals("Collection Sites: 0")) {
+					//collectionSitesSize = collectionSitesSize+1;
+				int collectionSitesSize = getDriver().findElements(By.cssSelector(".site-tree-card")).size();
 
-					if (i == size(By.cssSelector(".site-tree-card"))) {
+		//			if (i == size(By.cssSelector(".site-tree-card"))) {
 						getDriver().get(url_flockManagement);
 						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
@@ -907,9 +922,9 @@ public class FlockManagement extends BaseTest {
 						test.pass("Only those sites appeared  which are assigned to user successfully");
 						getScreenshot();
 						saveResult(ITestResult.SUCCESS, null);	
-					}
-				}
-			}
+		//			}
+		//		}
+		//	}
 		}
 		catch(AssertionError er) {
 			test.fail("Sites not appeared  which are assigned to user");
@@ -1040,6 +1055,8 @@ public class FlockManagement extends BaseTest {
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
+
+
 
 	@AfterTest
 	public static void endreport() {

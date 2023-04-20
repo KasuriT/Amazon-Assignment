@@ -38,11 +38,11 @@ public class FlockManagementModel {
 	public static String filterIndicatorTitle = "Verify user can apply filter and table displays relevant results on applying ";
 	public static String filterIndicatorDesc = "This test case will verify that user can apply filter and table displays relevant results on applying ";
 
-	public static String flockIntegratorID = "IntegratorID_3816";
-//	public static String flockIntegratorID = "IntegratorID_"+DateUtil.date0;
+//	public static String flockIntegratorID = "IntegratorID_4304";
+	public static String flockIntegratorID = "IntegratorID_"+DateUtil.date0;
 	public static String flockProgramName = "FlockVaccine_"+DateUtil.date0;
 	public static String flockProgramAdminMethod = "AdminMethod_"+DateUtil.date0;
-	public static String flockBirdSize = "Small";
+	public static String flockBirdSize = "Broilers";
 	public static int totalColumnsinFlock = 56;
 //
 //	public static String flockIntegratorID = "IntegratorID_2528";

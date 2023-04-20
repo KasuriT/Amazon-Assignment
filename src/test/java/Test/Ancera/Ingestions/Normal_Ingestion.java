@@ -221,7 +221,7 @@ public class Normal_Ingestion extends BaseTest {
 							String data4 = response3.asString();
 							System.out.println(data4);
 								
-							Thread.sleep(60000);
+							Thread.sleep(30000);
 
 							steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							SalmonellaLogPage.openSalmonellaLogPage();

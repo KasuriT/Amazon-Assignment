@@ -154,7 +154,7 @@ public class FilterLock {
                             steps.createNode("3. Close " + name + " screen");
                             steps.createNode("4. Reopen " + name + " screen");
 
-                            //driver.getDriver().navigate().refresh();
+                            driver.getDriver().navigate().refresh();
                             //driver.getDriver().navigate().back();
                             //driver.getDriver().navigate().forward();
                             waitElementInvisible(loading_cursor);

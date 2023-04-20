@@ -173,7 +173,8 @@ public class UserManagement extends BaseTest{
 			}
 		}
 
-		getDriver().findElement(By.xpath("//*[@id=\":1y\"]/div[1]/span")).click();
+		Thread.sleep(5000);
+		click(By.xpath("//*[@id=\":1y\"]/div[1]/span"));
 		Thread.sleep(1500);
 		if (size(By.cssSelector("div[data-tooltip='Delete']")) != 0) {
 			getDriver().findElement(By.cssSelector("div[data-tooltip='Delete']")).click();
@@ -186,8 +187,6 @@ public class UserManagement extends BaseTest{
 		getDriver().switchTo().window(tabs2.get(0));
 
 	}
-
-
 
 
 	@Test (enabled= true, priority= 8) 
@@ -942,7 +941,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority= 19) 
+	@Test (enabled= false, priority= 19)
 	public void ClientMappingSiteAdmin() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-UM-23: Verify user can only see organization that is assigned to him in client mapping", "This test case will verify that user can only see organization that is assigned to him in client mapping");

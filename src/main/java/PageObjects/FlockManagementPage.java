@@ -277,9 +277,9 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	
 	
     public static void openFlockAudit() throws InterruptedException, IOException {
-        click(flockMortalityTab);
+        click(flockPlacementTab);
         
-        for(int i=1; i<size(By.cssSelector("tr")); i++) {     
+        for(int i=1; i<size(By.cssSelector("tr")); i++) {
             if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
                 int j = i-1;
                 click(By.id("audit-trial-"+j));
@@ -290,12 +290,15 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	
     
     public static void openEditFlock() throws InterruptedException, IOException {
-        click(flockMortalityTab);
+        click(flockPlacementTab);
+
         for(int i=1; i<size(By.cssSelector("tr")); i++) {
-            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
+		//	System.out.println(getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")));
+            if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+flockIntegratorFlockIDCol+" label")).equals(FlockManagementModel.flockIntegratorID)) {
                 click(By.id("edit-feed-program-"+i));
                 waitElementInvisible(loading_cursor);    
-                Thread.sleep(1500);    
+                Thread.sleep(1500);
+				break;
             }
         }}
 	

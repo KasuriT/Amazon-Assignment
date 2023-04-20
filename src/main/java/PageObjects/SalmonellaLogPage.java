@@ -1,5 +1,6 @@
 package PageObjects;
 
+import MiscFunctions.Constants;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -168,8 +169,13 @@ public class SalmonellaLogPage {
 			click(bacterialLogBox);
 		}
 		waitElementInvisible(loading_cursor);
-		Assert.assertEquals(getText(salmonellaLogTitle), "Salmonella Log"); 	
+
+		if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
+			Assert.assertEquals(getText(salmonellaLogTitle), "Salmonella Log");
+		}
+
+		if (Constants.config.url().contains("uat")) {
+			Assert.assertEquals(getText(salmonellaLogTitle), "Bacterial Log");
+		}
 	}
-	
-	
 }
