@@ -39,6 +39,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static LogViewFunctions.RowsPerPage.RowsPerPage_;
 import static PageObjects.SalmonellaLogPage.*;
 import static PageObjects.BasePage.*;
 import static LogViewFunctions.FilterLock.*;
@@ -99,7 +100,7 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test(priority= 5, enabled = true)
 	public void RowsPerPage() throws InterruptedException, IOException {
-		RowsPerPage();
+		RowsPerPage_();
 	}
 	
 	

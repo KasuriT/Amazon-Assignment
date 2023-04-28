@@ -38,7 +38,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-46: Verify that user cannot upload Bulk Sites leaving Parent Site ID empty";
+		objTmp.testCaseTitle = "AN-OM-24: Verify that user cannot upload Bulk Sites leaving Parent Site ID empty";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(0,1,2));
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,1,1));
@@ -54,7 +54,7 @@ public class OrganizationManagementModel {
 	
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-47: Verify that user cannot upload Bulk Sites leaving Site Type empty";
+		objTmp.testCaseTitle = "AN-OM-25: Verify that user cannot upload Bulk Sites leaving Site Type empty";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1,2));
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,1));
@@ -71,7 +71,7 @@ public class OrganizationManagementModel {
 	
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-48: Verify that user cannot upload Bulk Sites with invalid Site Type";
+		objTmp.testCaseTitle = "AN-OM-26: Verify that user cannot upload Bulk Sites with invalid Site Type";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1,2));
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,1));
@@ -88,7 +88,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-49: Verify that user cannot upload Bulk Sites when Site Type violates hierarchy rules";
+		objTmp.testCaseTitle = "AN-OM-27: Verify that user cannot upload Bulk Sites when Site Type violates hierarchy rules";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1,2));
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,1));
@@ -105,7 +105,7 @@ public class OrganizationManagementModel {
 			
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-50: Verify that user cannot upload Bulk Sites leaving Site Name empty";
+		objTmp.testCaseTitle = "AN-OM-28: Verify that user cannot upload Bulk Sites leaving Site Name empty";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1,2));
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,1));
@@ -122,7 +122,7 @@ public class OrganizationManagementModel {
 			
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-51: Verify that user cannot upload Bulk Sites with duplicate Site Name";
+		objTmp.testCaseTitle = "AN-OM-29: Verify that user cannot upload Bulk Sites with duplicate Site Name";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 2, 1, 2, 1, 2, 1, 2));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 1, 2, 2, 8, 8, 9, 9));
@@ -138,7 +138,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-52: Verify that user cannot upload Bulk Sites with country other than USA";
+		objTmp.testCaseTitle = "AN-OM-30: Verify that user cannot upload Bulk Sites with country other than USA";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 1, 1, 2, 2,2));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 4,0, 1,2));
@@ -154,7 +154,7 @@ public class OrganizationManagementModel {
 	
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-53: Verify that user cannot upload Bulk Sites with invalid state";
+		objTmp.testCaseTitle = "AN-OM-31: Verify that user cannot upload Bulk Sites with invalid state";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 1, 1, 1));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 4, 5));
@@ -170,7 +170,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-54: Verify that user cannot upload Bulk Sites with invalid city";
+		objTmp.testCaseTitle = "AN-OM-32: Verify that user cannot upload Bulk Sites with invalid city";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 4, 5, 6));
@@ -186,7 +186,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-55: Verify that user cannot upload Bulk Sites with value in not in decimal number for latitude";
+		objTmp.testCaseTitle = "AN-OM-33: Verify that user cannot upload Bulk Sites with value in not in decimal number for latitude";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 4, 5, 6, 8));
@@ -202,7 +202,7 @@ public class OrganizationManagementModel {
 		
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-56: Verify that user cannot upload Bulk Sites with value in not in decimal number for Longitude";
+		objTmp.testCaseTitle = "AN-OM-34: Verify that user cannot upload Bulk Sites with value in not in decimal number for Longitude";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1, 1));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1, 2, 4, 5, 6, 8, 9));
@@ -218,7 +218,7 @@ public class OrganizationManagementModel {
 	
 		objTmp = new OrganizationManagementModel();
 		objFilter = new ReportFilters();
-		objTmp.testCaseTitle = "AN-OM-57: Verify that user can upload Bulk Sites hierarchy in correct order";
+		objTmp.testCaseTitle = "AN-OM-35: Verify that user can upload Bulk Sites hierarchy in correct order";
 		objTmp.lstFilters = new ArrayList<>();
 		objFilter.LstRowID = new ArrayList<>(Arrays.asList(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2));
 		objFilter.LstColumnID = new ArrayList<>(Arrays.asList(1,1,2,2,3,3,4,4,5,5,6,6,8,8,9,9));

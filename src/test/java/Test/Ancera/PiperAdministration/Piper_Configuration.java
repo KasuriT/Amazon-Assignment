@@ -460,7 +460,7 @@ public class Piper_Configuration extends BaseTest{
 
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Create new Improc");
-			steps.createNode("3. Verify created mrpoc in P/A configurations");
+			steps.createNode("3. Verify created imrpoc in P/A configurations");
 
 			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Salmonella");
 			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);

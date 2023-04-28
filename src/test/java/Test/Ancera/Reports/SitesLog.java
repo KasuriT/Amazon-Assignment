@@ -33,7 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static LogViewFunctions.RowsPerPage.RowsPerPage;
+
 import static PageObjects.SitesLogPage.*;
 import static PageObjects.BasePage.*;
 import static LogViewFunctions.FilterLock.*;

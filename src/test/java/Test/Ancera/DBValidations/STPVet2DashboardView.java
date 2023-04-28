@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import static ExtentReports.ExtentReport.initReport;
 import static MiscFunctions.DBValidationMethods.viewsDataCompare;
+import static MiscFunctions.DBValidationMethods.viewsDataCompareSP;
 import static MiscFunctions.ExtentVariables.extent;
 import static Test.Ancera.DBValidations.Queries.STPVet2DashBoardData_Queries.*;
 
@@ -25,7 +26,7 @@ public class STPVet2DashboardView extends DB_Config_DW {
 
     @Test(enabled = true, priority = 1)
     public static void DataCompareSTPVet2Dashboard() throws SQLException, InterruptedException, IOException {
-        viewsDataCompare(getvet2DashboardDataQuery(oldViewName), getvet2DashboardDataQuery(newViewName));
+        viewsDataCompareSP(getvet2DashboardDataQuery(oldViewName), getvet2DashboardDataQuery(newViewName));
     }
 
 

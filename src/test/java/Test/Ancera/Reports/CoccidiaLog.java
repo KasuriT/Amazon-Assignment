@@ -47,6 +47,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static LogViewFunctions.RowsPerPage.RowsPerPage_;
 import static PageObjects.CoccidiaLogPage.*;
 import static PageObjects.BasePage.*;
 import static LogViewFunctions.FilterLock.*;
@@ -107,7 +108,10 @@ public class CoccidiaLog extends BaseTest{
 	
 	@Test(priority= 5, enabled = true)
 	public void RowsPerPage() throws InterruptedException, IOException {
-		RowsPerPage();
+		CoccidiaLogPage.openCoccidiaLogPage();
+		waitElementInvisible(loading_cursor);
+		Thread.sleep(3000);
+		RowsPerPage_();
 	}
 	
 	
@@ -748,13 +752,13 @@ public class CoccidiaLog extends BaseTest{
 	@Test (enabled= true, priority = 13) 
 	public void FieldAccessResetDefault() throws InterruptedException, IOException {
 
-		getDriver().findElement(By.id("edit-field-access")).click();
+		click(By.id("edit-field-access"));
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
-		getDriver().findElement(By.id("btn-reset")).click();
+		click(popupResetButton);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
-		getDriver().findElement(By.id("btn-save")).click();
+		click(popupSaveButton);
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(1000);
 	}
@@ -1093,7 +1097,7 @@ public class CoccidiaLog extends BaseTest{
 				Thread.sleep(1500);
 				getDriver().findElement(By.id("customer_sample_id_view-all")).click();
 				waitElementInvisible(loading_cursor);
-				getDriver().findElement(By.xpath("//small[@id='customer_sample_id_cust-cb-lst-txt_HF4-D07-H1-F024-BE']")).click();
+				getDriver().findElement(By.xpath("//small[@id='customer_sample_id_cust-cb-lst-txt_1']")).click();
 				getDriver().findElement(By.id("customer_sample_id_apply")).click();
 			}
 			waitElementInvisible(loading_cursor);

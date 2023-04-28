@@ -123,10 +123,10 @@ public class OrganizationManagement extends BaseTest{
 	}
 	
 
-	@Test (enabled= true, priority= 7, dependsOnMethods = {"OpenClosePopup"}) 
+	@Test (enabled= true, priority= 7)
 	public void ResetButton() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-OM-17: Verify user can send reset fields");
+			test = extent.createTest("AN-OM-03: Verify user can send reset fields");
 
 			click(orgCreateButton);
 			waitElementInvisible(loading_cursor);
@@ -149,10 +149,10 @@ public class OrganizationManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority= 8, dependsOnMethods = {"ResetButton"}) 
+	@Test (enabled= true, priority= 8)
 	public void testInvalidEmail() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-19: Verify user cannot create Organization with invalid email", "This test case will verify that user cannot create new organization with invalid email");
+			test = extent.createTest("AN-OM-04: Verify user cannot create Organization with invalid email", "This test case will verify that user cannot create new organization with invalid email");
 			
 			getDriver().findElement(orgEmailInput).sendKeys("invalid@email");
 			getScreenshot();
@@ -177,7 +177,7 @@ public class OrganizationManagement extends BaseTest{
 
 	public void CreateOrganizationFunction(String orgName) throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-20: Verify user can create New Organizationn");
+			test = extent.createTest("AN-OM-05: Verify user can create New Organizationn");
 			
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -254,7 +254,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Update New Organization ",enabled= true, priority= 10) 
 	public void UpdateOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-22: Verify user can update Created Organization");	
+			test = extent.createTest("AN-OM-06: Verify user can update Created Organization");
 			
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -292,7 +292,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Verify Updated Organization ",enabled= true, priority= 11) 
 	public void VerifyUpdateOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-23: Verify Organization remained updated after updating it");	
+			test = extent.createTest("AN-OM-07: Verify Organization remained updated after updating it");
 
 			if (size(alertClose) != 0) {
 				click(alertClose);
@@ -320,7 +320,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Organization Site Check",enabled= true, priority= 12) 
 	public void OrganizationSitesHierarchyCheck() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-31-38: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
+			test = extent.createTest("AN-OM-08-16: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
@@ -517,7 +517,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Organization Site Mandatory Check",enabled= true, priority= 13) 
 	public void OrganizationSiteMandatoryCheck() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-39: Verify Organization Site mandatory checks");	
+			test = extent.createTest("AN-OM-17: Verify Organization Site mandatory checks");
 
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -547,7 +547,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Exceptional Flow: Site Reset fields", enabled= true, priority= 14)
 	public void SiteResetButton() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-OM-40: Verify Organization Site Reset fields check");
+			test = extent.createTest("AN-OM-18: Verify Organization Site Reset fields check");
 
 			type(orgSiteNameInput, "Lab");
 			getScreenshot();
@@ -574,7 +574,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Create Organization Site",enabled= true, priority= 15)
 	public void CreateOrganizationSite() throws InterruptedException, IOException {			
 		try {
-			test = extent.createTest("AN-OM-41: Verify Organization Site can be created");
+			test = extent.createTest("AN-OM-19: Verify Organization Site can be created");
 			click(orgSiteTypeInputChild);
 			Thread.sleep(500);	
 			click(orgSiteTypeDropDownValue);
@@ -637,7 +637,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Update Organization Sites ",enabled= true, priority= 16) 
 	public void UpdateOrganizationSites() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-OM-42: Verify Organization Site can be updated");
+			test = extent.createTest("AN-OM-20: Verify Organization Site can be updated");
 			
 			SoftAssert softAssert = new SoftAssert();
 			Thread.sleep(2000);
@@ -684,7 +684,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Verify Update Organization Sites ",enabled= true, priority= 17) 
 	public void VerifyUpdateOrganizationSites() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-43: Verify Organization Site remains updated on reopening");
+			test = extent.createTest("AN-OM-21: Verify Organization Site remains updated on reopening");
 
 			openEditOrgSitesPopup(OrganizationName);
 			
@@ -710,7 +710,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Delete Organization Sites ",enabled= true, priority= 18) 
 	public void DeleteOrganizationSites() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-44: Verify Organization Site can be deleted");
+			test = extent.createTest("AN-OM-22: Verify Organization Site can be deleted");
 
 
 			getDriver().findElement(orgSite1Delete).click(); 
@@ -738,7 +738,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority = 19) 
 	public void BulkUploadEmpty() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-OM-45: Verify user is not able to upload empty bulk site file");
+			test = extent.createTest("AN-OM-23: Verify user is not able to upload empty bulk site file");
 
 			getDriver().get(url_organization);;
 			waitElementInvisible(loading_cursor);
@@ -884,7 +884,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Assign Agreement to Organization",enabled= false, priority= 21) 
 	public void AssignAgreement() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-58: Verify Organization can be assigned Agreement");
+			test = extent.createTest("AN-OM-36: Verify Organization can be assigned Agreement");
 
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -919,7 +919,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: InActive Organization",enabled= true, priority= 22) 
 	public void InActiveOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-59: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
+			test = extent.createTest("AN-OM-37: Verify Organization Site can be made inactive", "This test case will verify that organization can be made inactive");
 
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -953,7 +953,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Verify InActive Organization",enabled= true, priority= 23) 
 	public void VerifyInActiveOrganization() throws InterruptedException, IOException {
 		try {
-			test = extent.createTest("AN-OM-60: Verify inactive Organization Site is not displayed in create user popup");
+			test = extent.createTest("AN-OM-38: Verify inactive Organization Site is not displayed in create user popup");
 
 			ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 			UserManagementPage.openEditUserPopup(config.ie_username());
@@ -977,7 +977,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (description="Test Case: Delete Organization",enabled= true, priority= 24) 
 	public void DeleteOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-61: Verify Organization can be deleted and verify it from table and user dropdown as well");
+			test = extent.createTest("AN-OM-39: Verify Organization can be deleted and verify it from table and user dropdown as well");
 
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -1020,7 +1020,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 25) 
 	public void CreateAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-62: Verify user can create New Allied Partner Organizationn");
+			test = extent.createTest("AN-OM-40: Verify user can create New Allied Partner Organizationn");
 
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -1092,7 +1092,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 26) 
 	public void AddProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-63: Verify user can add/remove product for Allied Partner Organization");
+			test = extent.createTest("AN-OM-41: Verify user can add/remove product for Allied Partner Organization");
 			SoftAssert softAssert = new SoftAssert();
 
 			if (size(alertClose)!=0) {
@@ -1140,7 +1140,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 27) 
 	public void VerifyProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-64: Verify product added from Organization Management screen is reflected on Company Products screen");
+			test = extent.createTest("AN-OM-42: Verify product added from Organization Management screen is reflected on Company Products screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			getDriver().get(url_companyProducts);
@@ -1173,7 +1173,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 28) 
 	public void AddProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-65: Verify user can add product in Company Products screen");
+			test = extent.createTest("AN-OM-43: Verify user can add product in Company Products screen");
 			SoftAssert softAssert = new SoftAssert();
 
 			getDriver().get(url_companyProducts);
@@ -1216,7 +1216,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 29) 
 	public void VerifyProductInOrganizationScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-66: Verify product added from Company Products is reflected on Organization Management screen screen");
+			test = extent.createTest("AN-OM-44: Verify product added from Company Products is reflected on Organization Management screen screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			getDriver().get(url_organization);
@@ -1254,7 +1254,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 30) 
 	public void DeleteProductsAlliedPartnerOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-67: Verify user can delete product for Allied Partner Organization");
+			test = extent.createTest("AN-OM-45: Verify user can delete product for Allied Partner Organization");
 			SoftAssert softAssert = new SoftAssert();
 
 			waitElementInvisible(loading_cursor);
@@ -1284,7 +1284,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 31) 
 	public void EditProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-68: Verify product can be edited in Company Product Screen");
+			test = extent.createTest("AN-OM-46: Verify product can be edited in Company Product Screen");
 			SoftAssert softAssert = new SoftAssert();
 			
 			getDriver().get(url_companyProducts);
@@ -1327,7 +1327,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= false, priority= 32)
 	public void DeleteProductInCompanyProductsScreen() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-69: Verify product can be deleted in Company Product Screen");
+			test = extent.createTest("AN-OM-47: Verify product can be deleted in Company Product Screen");
 			SoftAssert softAssert = new SoftAssert();
 
 			if (size(alertClose) != 0) {
@@ -1368,7 +1368,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 33) 
 	public void DeleteAlliedOrganization() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-70: Verify Organization can be deleted and verify it from table and user dropdown as well");
+			test = extent.createTest("AN-OM-48: Verify Organization can be deleted and verify it from table and user dropdown as well");
 			
 			getDriver().get(url_organization);
 			waitElementInvisible(loading_cursor);
@@ -1412,7 +1412,7 @@ public class OrganizationManagement extends BaseTest{
 	@Test (enabled= true, priority= 34)
 	public void TestFilterCompanyProducts() throws InterruptedException, IOException {
 		try{
-			test = extent.createTest("AN-OM-71: Verify Allied Company and Product Name filter functionality");
+			test = extent.createTest("AN-OM-49: Verify Allied Company and Product Name filter functionality");
 			
 			getDriver().get(url_companyProducts);
 			waitElementInvisible(loading_cursor);
@@ -1484,7 +1484,7 @@ public class OrganizationManagement extends BaseTest{
 	
 	@Test(priority= 38, enabled = true)
 	public void RowsPerPageCompanyProducts() throws InterruptedException, IOException {
-		RowsPerPage();
+		RowsPerPage_();
 	}
 	
 	

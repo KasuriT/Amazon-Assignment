@@ -101,7 +101,7 @@ public class UserManagement extends BaseTest{
 		waitElementInvisible(loading_cursor);
 		waitElementVisible(usercreateButton);
 		Thread.sleep(3000);
-		RowsPerPage();
+		RowsPerPage_();
 	}
 
 

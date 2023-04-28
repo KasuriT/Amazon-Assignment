@@ -21,7 +21,7 @@ import PageObjects.BasePage;
 public class Methods {
 
 	BaseTest drive = new BaseTest();
-	public WebDriverWait wait = new WebDriverWait(drive.getDriver(), Duration.ofSeconds(150, 1));
+	public WebDriverWait wait = new WebDriverWait(drive.getDriver(), Duration.ofSeconds(75, 1));
 	
 	public static void click(By locator) {
 		waitElementClickable(locator);

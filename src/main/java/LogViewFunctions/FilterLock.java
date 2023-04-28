@@ -37,9 +37,9 @@ public class FilterLock {
     public static void Lock(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
         BaseTest driver = new BaseTest();
 
-//        if (size(By.cssSelector("#"+tablename+" "+ LockFilter)) == 0) {
-//                click(By.id(UnlockFilter));
-//                click(By.id(ResetFilters));
+//        if (size(By.cssSelector("#"+tablename+" #save-filters.d-none")) != 0) {    //if lock is already applied unlock it
+//                click(By.id("#"+tablename+" #"+UnlockFilter));
+//                click(By.id("#"+tablename+" #"+ResetFilters));
 //                waitElementInvisible(loading_cursor);
 //        }
 

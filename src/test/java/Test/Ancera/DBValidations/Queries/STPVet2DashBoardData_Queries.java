@@ -2,8 +2,10 @@ package Test.Ancera.DBValidations.Queries;
 
 public class STPVet2DashBoardData_Queries {
 
+  //  public static String oldViewName = "stpVet2DashBoardData";
     public static String oldViewName = "stpVet2DashBoardData";
-    public static String newViewName = "stpVet2DashBoardData_NEW_TEMP";
+    public static String newViewName = "stpVet2DashBoardDataV2";
+//    public static String newViewName = "stpVet2DashBoardData_NEW_TEMP";
 
 
     public static String getvet2DashboardDataQuery(String viewName) {
