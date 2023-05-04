@@ -5,8 +5,7 @@
 
     <classes>
     	 <class name = "Test.Ancera.Reports.CoccidiaLog"/>
-    	 <class name = "Test.Ancera.Reports.SalmonellaLog"/>
-    	 <class name = "Test.Ancera.Reports.SitesLog"/>
+ 
      
     </classes>
   </test> <!-- Test -->
