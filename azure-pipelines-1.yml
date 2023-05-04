@@ -5,7 +5,7 @@
 
 
 trigger:
-  - IEQACode_Junaid
+  - master
 
 pool:
   vmImage: ubuntu-latest
@@ -28,6 +28,6 @@ steps:
 
 
   - task: PublishBuildArtifacts@1
-    inputs:
-      artifactName: 'Extent Report'
-      pathToPublish: '$(System.DefaultWorkingDirectory)/target/Reports'
+  inputs:
+    artifactName: 'Extent Report'
+    pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
