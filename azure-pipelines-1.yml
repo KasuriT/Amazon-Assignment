@@ -28,7 +28,7 @@ steps:
       goals: 'package'
 
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      artifactName: 'Extent Report'
-      pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
+  # - task: PublishBuildArtifacts@1
+  #   inputs:
+  #     artifactName: 'Extent Report'
+  #     pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
