@@ -24,18 +24,13 @@ import static MiscFunctions.ExtentVariables.*;
 import static Models.LoginModel.*;
 import static MiscFunctions.Methods.*;
 
-/*
+
 public class LoginTest extends BaseTest{
-*/
-
-public class LoginTest {
-@Test(enabled=true, priority= 1)
-	public static void login(){
-		System.out.println("hellloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-}
 
 
-/*
+
+
+
 	public static ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 
 	@BeforeTest
@@ -163,5 +158,5 @@ public class LoginTest {
 		extent.flush();
 	}
 
-	*/
+	
 }
