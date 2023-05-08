@@ -26,6 +26,13 @@ import static MiscFunctions.Methods.*;
 
 public class LoginTest extends BaseTest{
 
+@Test(enabled=true, priority= 1)
+	public static void login(){
+		System.out.println("hellloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+}
+
+
+/*
 	public static ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 
 	@BeforeTest
@@ -146,53 +153,12 @@ public class LoginTest extends BaseTest{
 		}
 	}
 
-	/*
-	@Test(dataProviderClass=Utilities.class,dataProvider="dp")
-	public void TestLogin(Hashtable<String,String> data) throws InterruptedException, IOException {
-
-	test = extent.createTest(data.get("testcasename"));
-
-	if(data.get("runmode").equalsIgnoreCase("N")){
-			throw new SkipException("Skipping the test as the Run mode is NO");	
-		}
-
-		try {
-		clear(loginEmail);
-		type(loginEmail, data.get("username"));
-
-		clear(loginPassword);
-		type(loginPassword, data.get("password"));
-		}
-
-		catch(IllegalArgumentException ex) {
-			clear(loginEmail);
-			type(loginEmail, data.get("username"));
-
-			clear(loginPassword);
-			type(loginPassword, data.get("password"));
-		}
-
-
-
-		if (data.get("validcase").equalsIgnoreCase("N")) {
-			waitElementVisible(alertMessage);
-			Thread.sleep(1000);
-			System.out.println("12");
-			getScreenshot();
-			Assert.assertEquals(driver.findElement(alertMessage).getText(), "Sorry, we don’t recognize these credentials.", "Alert message did not appear");
-			click(alertClose);
-		}
-		else {
-			waitElementVisible(By.id("Home"));
-			getScreenshot();
-			Assert.assertTrue(driver.findElement(By.id("Home")).isDisplayed()); 
-		}
-	}
-
-	 */
+	
 
 	@AfterTest
 	public static void endreport() {
 		extent.flush();
 	}
+
+	*/
 }
