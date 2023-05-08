@@ -20,21 +20,37 @@ steps:
 - script: | 
     echo 'hello world'
 
+
+- task: MavenAuthenticate@0
+  inputs:
+    mavenPOMFile: 'pom.xml'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    #options: 'test -Dsurefire.suiteXmlFiles=db_validation_view.xml'
-    options: 'test suiteXmlFiles=runner_reports.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    options: '-Xmx3072m'
+    mavenAuthenticateFeed: true
+    goals: 'clean install'
 
-
-- task: PublishBuildArtifacts@1
+# Run the TestNG XML file
+- task: JavaToolInstaller@0
   inputs:
-    artifactName: 'Extent Report'
-    pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
+    versionSpec: '8'
+    jdkArchitectureOption: 'x64'
+    toolName: 'JDK'
+- script: |
+    cd target/surefire-reports/
+    java -cp ../../target/test-classes:../../target/classes:/usr/share/maven/ref/repository/org/testng/testng/7.0.0/testng-7.0.0.jar org.testng.TestNG ../runner_reports.xml
+  displayName: 'Run TestNG XML file'
+
+
+
+
+
+
+
+
+
+
+
+
+
