@@ -26,7 +26,7 @@ steps:
     mavenOptions: '-Xmx3072m'
     #options: 'test -Dsurefire.suiteXmlFiles=db_validation_view.xml'
     #options: 'test -Dsurefire.suiteXmlFiles=runner_reports.xml'
-    options: 'test Test.Ancera.Login.LoginTest.java'
+    options: 'test -Dtest=Test.Ancera.Login.LoginTest.java'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
