@@ -130,7 +130,7 @@ public class BaseTest {
 		BaseTest drive = new BaseTest();
 		TakesScreenshot ts = (TakesScreenshot) drive.getDriver();
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String destination = Constants.ReportFilePath + Constants.ReportScreenshotPath +dateName+".png";
+		String destination = Constants.ReportFilePath + Constants.ReportScreenshotPath+dateName+".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
 		return "." + Constants.ReportScreenshotPath + dateName+".png";

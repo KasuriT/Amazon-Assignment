@@ -16,6 +16,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -82,9 +83,6 @@ public class CoccidiaLog extends BaseTest{
 
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		CoccidiaLogPage.openCoccidiaLogPage();
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(3000);
 		Lock(coccidiaLogTable, "Coccidia Log", 2);
 	}
 	
@@ -152,7 +150,12 @@ public class CoccidiaLog extends BaseTest{
 
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				steps.createNode("2. Click on "+objFilter.FilterName);
-				getDriver().findElement(By.id("list-title_date-selection")).click();
+				try {
+					getDriver().findElement(By.id("list-title_date-selection")).click();
+				}
+				catch(ElementClickInterceptedException ex ){
+					getDriver().findElement(By.id("list-title_date-selection")).click();
+				}
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				if (getDriver().findElement(By.cssSelector(objFilter.FilterListXPathSearch)).isEnabled()) {

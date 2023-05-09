@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import static Config.BaseTest.saveResult;
 import static Config.BaseTest.saveResultNoScreenshot;
 import static MiscFunctions.ExtentVariables.extent;
 import static MiscFunctions.ExtentVariables.test;
+import static java.util.Comparator.*;
 
 public class DBValidationMethods extends DB_Config_DW {
 
@@ -157,11 +159,9 @@ public class DBValidationMethods extends DB_Config_DW {
 
             long startTimeQuery1 = System.currentTimeMillis();
 
-
             String DB_URL = "jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName="+PRH_DB_Name+";user=" + DB_UserName + ";Password=" + DB_Password;
             Connection conn = DriverManager.getConnection(DB_URL, DB_UserName, DB_Password);
             setStmt(conn.createStatement());
-
 
             CallableStatement cstmt = conn.prepareCall(query1);
             ResultSet rs1 = cstmt.executeQuery();
@@ -232,7 +232,7 @@ public class DBValidationMethods extends DB_Config_DW {
 
             long startTimeQuery2 = System.currentTimeMillis();
 
-            CallableStatement cstmtNew = con.prepareCall(query2);
+            CallableStatement cstmtNew = conn.prepareCall(query2);
             ResultSet rs1New = cstmtNew.executeQuery();
 
             long endTimeQuery2 = System.currentTimeMillis();
@@ -254,7 +254,7 @@ public class DBValidationMethods extends DB_Config_DW {
 
             ResultSetMetaData rsmd1New = rs1New.getMetaData();
             int column_count1New = rsmd1New.getColumnCount();  //get column count
-            System.out.println("Columns Table 1: "+column_count1New);
+         //   System.out.println("Columns Table 1: "+column_count1New);
             while (rs1New.next()) {
                 int column_count = rsmd1New.getColumnCount();  //get column count
           //      test.info("T_RUN_ID Table 1: "+rs1New.getString("T_RUN_ID"));
@@ -269,7 +269,7 @@ public class DBValidationMethods extends DB_Config_DW {
             ResultSet rs2New = cstmtNew.getResultSet();
             ResultSetMetaData rsmd2New = rs2New.getMetaData();
             int column_count2New = rsmd2New.getColumnCount();  //get column count
-            System.out.println("Columns Table 2: "+column_count2New);
+          //  System.out.println("Columns Table 2: "+column_count2New);
             while (rs2New.next()) {
                 int column_count = rsmd2New.getColumnCount();  //get column count
             //    test.info("T_RUN_ID Table 2: "+rs2New.getString("T_RUN_ID"));
@@ -284,11 +284,12 @@ public class DBValidationMethods extends DB_Config_DW {
             ResultSet rs3New = cstmtNew.getResultSet();
             ResultSetMetaData rsmd3New = rs3New.getMetaData();
             int column_count3New = rsmd3New.getColumnCount();  //get column count
-            System.out.println("Columns Table 3: "+column_count3New);
+           // System.out.println("Columns Table 3: "+column_count3New);
             while (rs3New.next()) {
                 int column_count = rsmd3New.getColumnCount();  //get column count
                 for (int i = 1; i <= column_count; i++) {
                     String columnValue = rs3New.getString(i);
+                //    test.info("SITE_ID Table 3: "+rs2New.getString("SITE_ID"));
                     dataTableNew3.add(columnValue);    //add all table data to List 'dataTable3'
                 }
             }
@@ -298,57 +299,73 @@ public class DBValidationMethods extends DB_Config_DW {
             ResultSet rs4New = cstmtNew.getResultSet();
             ResultSetMetaData rsmd4New = rs4New.getMetaData();
             int column_count4New = rsmd4New.getColumnCount();  //get column count
-            System.out.println("Columns Table 4: "+column_count4New);
+          //  System.out.println("Columns Table 4: "+column_count4New);
             while (rs4New.next()) {
                 int column_count = rsmd4New.getColumnCount();  //get column count
                 for (int i = 1; i <= column_count; i++) {
                     String columnValue = rs4New.getString(i);
+               //     test.info("Intervention Name Table 4: "+rs2New.getString("interventionName"));
                     dataTableNew4.add(columnValue);    //add all table data to List 'dataTable4'
                 }
             }
 
 
-            int total_tabledata1 = column_count1 * dataTableNew1.size() / column_count1;  //get total number of values in table
+            List<String> sortedList1 = dataTable1.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+            List<String> sortedListNew1 = dataTableNew1.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
 
-          //  System.out.println(dataTable1);
-         //   System.out.println(dataTable1.get(1));
-        //    List<String> sortedList = dataTable1.stream().sorted().collect(Collectors.toList());
-         //   List<String> sortedListNew = dataTableNew1.stream().sorted().collect(Collectors.toList());
-         //   Collections.sort(dataTableNew1);
-            //   Collections.sort(dataTable1);
+            List<String> sortedList2 = dataTable2.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+            List<String> sortedListNew2 = dataTableNew2.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
 
-            for (int z = 1; z <= total_tabledata1; z++) {
-             //   System.out.println(sortedListNew.get(z - 1)+" >>>>>> "+sortedList.get(z - 1));
-             //   softAssert.assertEquals(sortedListNew.get(z - 1), sortedList.get(z - 1), "Data not matching in Table 1 row " + (z - 1) / column_count1);
-               softAssert.assertEquals(dataTableNew1.get(z - 1), dataTable1.get(z - 1), "Data not matching in Table 1 row " + (z - 1) / column_count1);
+            List<String> sortedList3 = dataTable3.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+            List<String> sortedListNew3 = dataTableNew3.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+
+            List<String> sortedList4 = dataTable4.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+            List<String> sortedListNew4 = dataTableNew4.stream().sorted(Comparator.nullsFirst(Comparator.naturalOrder())).collect(Collectors.toList());
+
+            int total_tabledata1 = column_count1 * dataTable1.size() / column_count1;  //get total number of values in table
+            int total_tabledata1New = column_count1New * dataTableNew1.size() / column_count1New;  //get total number of values in table
+
+            for (int z = 1; z <= total_tabledata1New; z++) {
+                softAssert.assertEquals(sortedListNew1.get(z - 1), sortedList1.get(z - 1), "Data not matching in Table 1 row " + (z - 1) / column_count1);
             }
-            System.out.println("Total Rows Returned for SP '" + methodName + "' are " + total_tabledata1 / column_count1);
-            test.log(Status.INFO, "Total Rows Returned for SP " + methodName + "' are " + total_tabledata1 / column_count1);
+            System.out.println("Total Rows Returned for SP Table 1 '" + methodName + "' are " + total_tabledata1New / column_count1New);
+            test.log(Status.INFO, "Total Rows Returned for Old SP Table 1 " + methodName + "' are " + total_tabledata1 / column_count1);
+            test.log(Status.INFO, "Total Rows Returned for New SP Table 1 " + methodName + "' are " + total_tabledata1New / column_count1New);
+            test.log(Status.INFO, "Total Columns Returned for New SP Table 1 " + methodName + "' are " + column_count1New);
 
 
-            int total_tabledata2 = column_count2 * dataTableNew2.size() / column_count2;  //get total number of values in table
+            int total_tabledata2 = column_count2 * dataTable2.size() / column_count2;  //get total number of values in table
+            int total_tabledata2New = column_count2New * dataTableNew2.size() / column_count2New;  //get total number of values in table
+
             for (int z = 1; z <= total_tabledata2; z++) {
-                softAssert.assertEquals(dataTableNew2.get(z - 1), dataTable2.get(z - 1), "Data not matching in Table 2 row " + (z - 1) / column_count2);
+                softAssert.assertEquals(sortedListNew2.get(z - 1), sortedList2.get(z - 1), "Data not matching in Table 2 row " + (z - 1) / column_count1);
             }
-            System.out.println("Total Rows Returned for method 2 '" + methodName + "' are " + total_tabledata2 / column_count2);
-            test.log(Status.INFO, "Total Rows Returned for method " + methodName + "' are " + total_tabledata2 / column_count2);
+            System.out.println("Total Rows Returned for SP Table 2 '" + methodName + "' are " + total_tabledata2New / column_count2New);
+            test.log(Status.INFO, "Total Rows Returned for Old SP Table 2 " + methodName + "' are " + total_tabledata2 / column_count2);
+            test.log(Status.INFO, "Total Rows Returned for New SP Table 2 " + methodName + "' are " + total_tabledata2New / column_count2New);
+            test.log(Status.INFO, "Total Columns Returned for New SP Table 2 " + methodName + "' are " + column_count2New);
 
+            int total_tabledata3 = column_count3 * dataTable3.size() / column_count3;  //get total number of values in table
+            int total_tabledata3New = column_count3New * dataTableNew3.size() / column_count3New;  //get total number of values in table
 
-            int total_tabledata3 = column_count3 * dataTableNew3.size() / column_count3;  //get total number of values in table
             for (int z = 1; z <= total_tabledata3; z++) {
-                softAssert.assertEquals(dataTableNew3.get(z - 1), dataTable3.get(z - 1), "Data not matching in Table 3 row " + (z - 1) / column_count3);
+                softAssert.assertEquals(sortedListNew3.get(z - 1), sortedList3.get(z - 1), "Data not matching in Table 3 row " + (z - 1) / column_count1);
             }
-            System.out.println("Total Rows Returned for method 2 '" + methodName + "' are " + total_tabledata3 / column_count3);
-            test.log(Status.INFO, "Total Rows Returned for method " + methodName + "' are " + total_tabledata3 / column_count3);
+            System.out.println("Total Rows Returned for SP Table 3 '" + methodName + "' are " + total_tabledata3New / column_count3New);
+            test.log(Status.INFO, "Total Rows Returned for Old SP Table 3 " + methodName + "' are " + total_tabledata3 / column_count3);
+            test.log(Status.INFO, "Total Rows Returned for New SP Table 3 " + methodName + "' are " + total_tabledata3New / column_count3New);
+            test.log(Status.INFO, "Total Columns Returned for New SP Table 3 " + methodName + "' are " + column_count3New);
 
+            int total_tabledata4 = column_count4 * dataTable4.size() / column_count4;  //get total number of values in table
+            int total_tabledata4New = column_count4New * dataTableNew4.size() / column_count4New;  //get total number of values in table
 
-            int total_tabledata4 = column_count4 * dataTableNew4.size() / column_count4;  //get total number of values in table
             for (int z = 1; z <= total_tabledata4; z++) {
-                softAssert.assertEquals(dataTableNew4.get(z - 1), dataTable4.get(z - 1), "Data not matching in Table 4 row " + (z - 1) / column_count4);
+                softAssert.assertEquals(sortedListNew4.get(z - 1), sortedList4.get(z - 1), "Data not matching in Table 4 row " + (z - 1) / column_count1);
             }
-            System.out.println("Total Rows Returned for method 2 '" + methodName + "' are " + total_tabledata4 / column_count4);
-            test.log(Status.INFO, "Total Rows Returned for method " + methodName + "' are " + total_tabledata4 / column_count4);
-
+            System.out.println("Total Rows Returned for SP Table 4 '" + methodName + "' are " + total_tabledata4New / column_count4New);
+            test.log(Status.INFO, "Total Rows Returned for Old SP Table 4 " + methodName + "' are " + total_tabledata4 / column_count4);
+            test.log(Status.INFO, "Total Rows Returned for New SP Table 4 " + methodName + "' are " + total_tabledata4New / column_count4New);
+            test.log(Status.INFO, "Total Columns Returned for New SP Table 4 " + methodName + "' are " + column_count4New);
 
             softAssert.assertAll();
             test.pass("Test Passed Successfully");

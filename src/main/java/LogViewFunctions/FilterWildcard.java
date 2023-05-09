@@ -1,5 +1,6 @@
 package LogViewFunctions;
 
+import static Config.BaseTest.saveResult;
 import static MiscFunctions.ExtentVariables.Steps;
 import static MiscFunctions.ExtentVariables.extent;
 import static MiscFunctions.ExtentVariables.steps;
@@ -26,60 +27,75 @@ import Config.BaseTest;
 
 public class FilterWildcard {
 
-	@Test (enabled= true) 
-	public static void Wildcard(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
-		int totalNumberofColumns = size(By.cssSelector("#"+tablename+" th .log-header .mb-0")) + skipColumns;   //get total columns and skip irrelevant columns
-		BaseTest driver = new BaseTest();
-		
-		for (int i=1;i<=totalNumberofColumns; i++) {
-			try {
-				String recordBefore = getText(By.cssSelector("#"+tablename+" #"+ResultsCount));   //get result count
-				
-				if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon)) != 0) {     //check column has filter icon
-					
-					WebElement columnName = driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header .mb-0"));  //store name of filter
-					
-					test = extent.createTest("AN_Wildcard-"+i+": Verify user can apply wildcard on "+columnName.getText()+" filter");   //create testcase in report of that filter
-					steps = test.createNode(Scenario.class, Steps);
+    @Test(enabled = true)
+    public static void Wildcard(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
+        try {
 
-					SoftAssert softAssert = new SoftAssert();
-					
-					WebElement filter_scroll = columnName;	//scroll to filter			
-					((JavascriptExecutor)driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
-					click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon));   //open filter popup
-					waitElementInvisible(loading_cursor);	
-					Thread.sleep(500);
+            waitElementVisible(By.cssSelector("#" + tablename + " th .log-header .mb-0"));
+            Thread.sleep(1000);
 
-					if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterWildcardActionToggle)) != 0) {
-						if (driver.getDriver().findElement(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterWildcardActionToggle)).isDisplayed()) {  //check if filter has wildcard option
-							if (size(By.cssSelector("#"+tablename+" th:nth-child("+i+") .data-log-radio")) == 0) {  //check if toggle is selected or not
-								click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__action--wildcard"));  //click on toggle button if not selected
-								waitElementInvisible(loading_cursor);
-							}
+            int totalNumberofColumns = size(By.cssSelector("#" + tablename + " th .log-header .mb-0")) + skipColumns;   //get total columns and skip irrelevant columns
+            BaseTest driver = new BaseTest();
 
-							type(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterSearchInput), "h");  //type in wildcard search box
-							waitElementInvisible(loading_cursor);
-							Thread.sleep(800);
-							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .filter-popup__footer--apply"));  //click on apply filter button
-							waitElementInvisible(loading_cursor);
-							Thread.sleep(800);
-							getScreenshot();
+            for (int i = 1; i <= totalNumberofColumns; i++) {
+                //	try {
+                if (size(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") " + filterIcon)) != 0) {     //check column has filter icon
+                    WebElement columnName = driver.getDriver().findElement(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .log-header .mb-0"));  //store name of filter
+                    test = extent.createTest("AN_Wildcard-" + i + ": Verify user can apply wildcard on " + columnName.getText() + " filter");   //create testcase in report of that filter
+                    steps = test.createNode(Scenario.class, Steps);
 
-							String getResultCount = getText(By.cssSelector("#"+tablename+" #"+ResultsCount));   //get results after apply wildcard filter
-							String recordAfter = getResultCount.replace(",", "");
-							
-							int rows1 = size(By.cssSelector("#"+tablename+ "#col-0"));  //get rows returned in log view
-							
-							Thread.sleep(800);
-							for (int j = 0; j<rows1; j++) {
-								int k = i-1;
-								int l = k-skipColumns;
-								if (Integer.parseInt(recordAfter) > 0 && recordBefore != recordAfter) {
-								String str = getText(By.cssSelector("#"+tablename+" #row-"+j+" #col-"+l+" label"));
+                    String recordBefore = getText(By.cssSelector("#" + tablename + " #" + ResultsCount));   //get result count
 
-								softAssert.assertTrue(str.startsWith("h") || str.startsWith("H"), "WildCard Starts With failed");
-								}
-							}
+                    if (recordBefore.equals("0")) {
+                        getScreenshot();
+                        test.skip("No record available on page on test wildcard functionality");
+                        saveResult(ITestResult.SKIP, null);
+                    } else {
+
+
+//						WebElement columnName = driver.getDriver().findElement(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .log-header .mb-0"));  //store name of filter
+
+//						test = extent.createTest("AN_Wildcard-" + i + ": Verify user can apply wildcard on " + columnName.getText() + " filter");   //create testcase in report of that filter
+//						steps = test.createNode(Scenario.class, Steps);
+
+                        SoftAssert softAssert = new SoftAssert();
+
+                        WebElement filter_scroll = columnName;    //scroll to filter
+                        ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", filter_scroll);
+                        click(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") " + filterIcon));   //open filter popup
+                        waitElementInvisible(loading_cursor);
+                        Thread.sleep(500);
+
+                        if (size(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") " + filterWildcardActionToggle)) != 0) {
+                            if (driver.getDriver().findElement(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") " + filterWildcardActionToggle)).isDisplayed()) {  //check if filter has wildcard option
+                                if (size(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .data-log-radio")) == 0) {  //check if toggle is selected or not
+                                    click(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .filter-popup__action--wildcard"));  //click on toggle button if not selected
+                                    waitElementInvisible(loading_cursor);
+                                }
+
+                                type(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") " + filterSearchInput), "h");  //type in wildcard search box
+                                waitElementInvisible(loading_cursor);
+                                Thread.sleep(800);
+                                click(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .filter-popup__footer--apply"));  //click on apply filter button
+                                waitElementInvisible(loading_cursor);
+                                Thread.sleep(800);
+                                getScreenshot();
+
+                                String getResultCount = getText(By.cssSelector("#" + tablename + " #" + ResultsCount));   //get results after apply wildcard filter
+                                String recordAfter = getResultCount.replace(",", "");
+
+                                int rows1 = size(By.cssSelector("#" + tablename + "#col-0"));  //get rows returned in log view
+
+                                Thread.sleep(800);
+                                for (int j = 0; j < rows1; j++) {
+                                    int k = i - 1;
+                                    int l = k - skipColumns;
+                                    if (Integer.parseInt(recordAfter) > 0 && recordBefore != recordAfter) {
+                                        String str = getText(By.cssSelector("#" + tablename + " #row-" + j + " #col-" + l + " label"));
+
+                                        softAssert.assertTrue(str.startsWith("h") || str.startsWith("H"), "WildCard Starts With failed");
+                                    }
+                                }
 
 							/*
 							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") "+filterIcon));
@@ -121,33 +137,34 @@ public class FilterWildcard {
 							}
 							
 							*/
-							
-							softAssert.assertNotEquals(recordAfter, recordBefore);		
-							click(By.cssSelector("#"+tablename+" th:nth-child("+i+") .log-header__clear-filter span"));
-							waitElementInvisible(loading_cursor);
-						}	
-					}
-					else {
-						getScreenshot();
-						test.skip("Filter does not have wildcard option");
-						driver.saveResult(ITestResult.SKIP, null);
-					}
 
-					Thread.sleep(700);
-					softAssert.assertAll();
-					test.pass("Wildcards tested successfully");
-					driver.saveResult(ITestResult.SUCCESS, null);
-				}	
-			}
-			catch(AssertionError er) {
-				test.fail("Wildcards failed to test successfully");
-				driver.saveResult(ITestResult.FAILURE, new Exception(er));
-			}
-			catch(Exception ex) {
-				test.fail("Wildcards failed to test successfully");
-				driver.saveResult(ITestResult.FAILURE, new Exception(ex));
-			}
-		}			
-	}
-	
+                                softAssert.assertNotEquals(recordAfter, recordBefore);
+                                click(By.cssSelector("#" + tablename + " th:nth-child(" + i + ") .log-header__clear-filter span"));
+                                waitElementInvisible(loading_cursor);
+                            } else {
+                                getScreenshot();
+                                test.skip("Filter does not have wildcard option");
+                                saveResult(ITestResult.SKIP, null);
+                            }
+                        }
+
+                        Thread.sleep(700);
+                        softAssert.assertAll();
+                        test.pass("Wildcards tested successfully");
+                        saveResult(ITestResult.SUCCESS, null);
+                    }  //
+                }
+            }
+
+        } catch (AssertionError er) {
+            test.fail("Wildcards failed to test successfully");
+            saveResult(ITestResult.FAILURE, new Exception(er));
+        } catch (Exception ex) {
+            test.fail("Wildcards failed to test successfully");
+            saveResult(ITestResult.FAILURE, new Exception(ex));
+            //			}
+        }
+        //	}
+    }
+
 }

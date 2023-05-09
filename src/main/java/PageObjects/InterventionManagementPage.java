@@ -782,6 +782,7 @@ public class InterventionManagementPage {
         // compare the data before and after sorting using assert
         List<String> actual = new ArrayList<>(beforeSort);
         Collections.sort(actual);
+
         softAssert.assertEquals(expected, actual, "Sorting action was not successful");
         softAssert.assertAll();
     }

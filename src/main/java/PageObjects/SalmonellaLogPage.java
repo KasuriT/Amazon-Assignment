@@ -6,8 +6,13 @@ import org.testng.Assert;
 
 import Config.BaseTest;
 import MiscFunctions.Methods;
+import org.testng.ITestResult;
 
+import java.io.IOException;
+
+import static Config.BaseTest.saveResult;
 import static MiscFunctions.Constants.*;
+import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.*;
 import static PageObjects.BasePage.loading_cursor;
 
@@ -16,6 +21,7 @@ public class SalmonellaLogPage {
 	private static By salmonellaLogBox = By.cssSelector("img[alt='Salmonella Log']"); 
 	private static By bacterialLogBox = By.cssSelector("img[alt='Bacterial Log']"); 
 	private static By salmonellaLogTitle = By.id("Salmonella Log");
+	private static By bacterialLogTitle = By.id("Bacterial Log");
 
 	public static String salmonellaLogTable = "salmonella-data-log";
 	
@@ -158,24 +164,36 @@ public class SalmonellaLogPage {
 	public static String slSampleMetaData = "Sample Metadata Upload Template";
 
 	
-	public static void openSalmonellaLogPage() {
-		BaseTest driver = new BaseTest();
-		driver.getDriver().get(url_reports);
-		waitElementInvisible(loading_cursor);
-		if (Methods.size(salmonellaLogBox) != 0) {
-		click(salmonellaLogBox);
-		}
-		else {
-			click(bacterialLogBox);
-		}
-		waitElementInvisible(loading_cursor);
+	public static void openSalmonellaLogPage() throws IOException {
+		try {
+			BaseTest driver = new BaseTest();
+			driver.getDriver().get(url_reports);
+			waitElementInvisible(loading_cursor);
+			if (Methods.size(salmonellaLogBox) != 0) {
+				click(salmonellaLogBox);
+			} else {
+				click(bacterialLogBox);
+			}
+			waitElementInvisible(loading_cursor);
 
-		if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-			Assert.assertEquals(getText(salmonellaLogTitle), "Salmonella Log");
-		}
+			if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
+				Assert.assertEquals(getText(salmonellaLogTitle), "Salmonella Log");
+			}
 
-		if (Constants.config.url().contains("uat")) {
-			Assert.assertEquals(getText(salmonellaLogTitle), "Bacterial Log");
+			if (Constants.config.url().contains("uat")) {
+				Assert.assertEquals(getText(bacterialLogTitle), "Bacterial Log");
+			}
+			getScreenshot();
+			test.pass("Navigated Successfully");
+			saveResult(ITestResult.SUCCESS, null);
+		}
+		catch(AssertionError er) {
+			test.fail("Failed to navigate");
+			saveResult(ITestResult.FAILURE, new Exception(er));
+		}
+		catch(Exception ex) {
+			test.fail("Failed to navigate");
+			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
 }

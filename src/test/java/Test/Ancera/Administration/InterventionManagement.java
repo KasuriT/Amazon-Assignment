@@ -124,6 +124,7 @@ public class InterventionManagement extends BaseTest {
         imp.verifySorting();
     }
 
+
     @AfterTest
     public static void endreport() {
         extent.flush();

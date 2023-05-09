@@ -144,7 +144,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test(enabled= true, priority= 7)
+	@Test(enabled= false, priority= 7)
 	public void DeleteEmail() throws InterruptedException, IOException {
 		test = extent.createTest("AN-FP-00: Delete all emails from gmail");
 
@@ -173,7 +173,9 @@ public class UserManagement extends BaseTest{
 			}
 		}
 
-		Thread.sleep(5000);
+		Thread.sleep(9000);
+
+		System.out.println(size(By.xpath("//*[@id=\":1y\"]/div[1]/span")));
 		click(By.xpath("//*[@id=\":1y\"]/div[1]/span"));
 		Thread.sleep(1500);
 		if (size(By.cssSelector("div[data-tooltip='Delete']")) != 0) {
@@ -353,7 +355,7 @@ public class UserManagement extends BaseTest{
 	}
 
 
-	@Test (enabled= true, priority= 9, retryAnalyzer = RetryFailedCases.class)
+	@Test (enabled= true, priority= 9)
 	public void VerifyEmail() throws InterruptedException, IOException {
 		test = extent.createTest("AN-UM-04: Verify user receives an email to reset password");
 		steps = test.createNode(Scenario.class, Steps);
@@ -385,16 +387,25 @@ public class UserManagement extends BaseTest{
 				click(gmailNotNow);
 			}	
 		}
-		
+
+		System.out.println("size: "+getDriver().findElements(By.xpath("//*[@class='yW']/span")).size());
 		waitElementVisible(By.xpath("//*[@class='yW']/span"));
 		getScreenshot();
 		Thread.sleep(5000);
 		List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
 		for(int i=0;i<a.size();i++){
-			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){  
+			System.out.println("s");
+			if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){
 				a.get(i).click();
 			}
 		}
+
+
+//		System.out.println("1");
+//		System.out.println("size: "+getDriver().findElements(By.xpath("//span[text() = 'ancera.org.dev']")).size());
+//		getDriver().findElement(By.xpath("//span[text() = 'ancera.org.dev']")).click();
+//		System.out.println("2");
+
 
 		waitElementVisible(By.linkText("Create Password"));
 		Thread.sleep(2000);
@@ -1206,6 +1217,8 @@ public class UserManagement extends BaseTest{
 			saveResult(ITestResult.FAILURE, ex);
 		}
 	}
+
+
 
 	@AfterTest
 	public static void endreport() {

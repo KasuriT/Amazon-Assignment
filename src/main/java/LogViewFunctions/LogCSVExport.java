@@ -1,5 +1,6 @@
 package LogViewFunctions;
 
+import static Config.BaseTest.saveResult;
 import static MiscFunctions.Constants.url_login;
 import static MiscFunctions.ExtentVariables.PreConditions;
 import static MiscFunctions.ExtentVariables.Results;
@@ -10,11 +11,11 @@ import static MiscFunctions.ExtentVariables.preconditions;
 import static MiscFunctions.ExtentVariables.results;
 import static MiscFunctions.ExtentVariables.steps;
 import static MiscFunctions.ExtentVariables.test;
-import static MiscFunctions.Methods.getScreenshot;
-import static MiscFunctions.Methods.waitElementInvisible;
-import static PageObjects.BasePage.ResultsCount;
-import static PageObjects.BasePage.loading_cursor;
+import static MiscFunctions.Methods.*;
+import static PageObjects.BasePage.*;
 
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,8 +25,11 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -87,7 +91,7 @@ public class LogCSVExport {
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");
 			test.pass("CSV file downloaded successfully");
 			results.createNode("CSV file downloads successfully");
-			driver.saveResult(ITestResult.SUCCESS, null);
+			saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
 			if(file.exists()){
@@ -144,18 +148,18 @@ public class LogCSVExport {
 			softAssert.assertAll();
 			test.pass("Column data exported successfully");
 			results.createNode("Column data exported successfully");
-			driver.saveResult(ITestResult.SUCCESS, null);
+			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			driver.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			driver.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
 		Thread.sleep(1000);
 	}
@@ -199,7 +203,7 @@ public class LogCSVExport {
 			
 			softAssert.assertEquals(filename, CSVFileName+date+".csv");     //compare the actual and expected file name
 			test.pass("CSV file downloaded successfully");
-			driver.saveResult(ITestResult.SUCCESS, null);
+			saveResult(ITestResult.SUCCESS, null);
 
 			File file = new File(fileDownloadPath+"\\"+filename);
 			if(file.exists()){       //check if file exists
@@ -215,7 +219,9 @@ public class LogCSVExport {
 
 			int columnsCountTotal = 0;           //start from first column in IE
 			int rowsCount = 1;               //start from second row (skip header row in IE)
-			
+			int csvColumns = 0;
+
+
 			while((data = reader.readNext()) != null) {
 				for (int i = 0; i<data.length; i++) {
 					int rows = driver.getDriver().findElements(By.cssSelector("tr")).size();   //get total rows in IE
@@ -226,14 +232,16 @@ public class LogCSVExport {
 						int columnsCount = columnsCountTotal+skipColumns;   //skip the initial columns (audit view and/or checkbox)
 						
 						if (driver.getDriver().findElements(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
-							softAssert.assertEquals(data[i].trim(), driver.getDriver().findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
+							softAssert.assertEquals(data[csvColumns].trim(), driver.getDriver().findElement(By.cssSelector("#"+tablename+" tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
 						}
 						else {
 							rowsCount = rowsCount+1;   //move to next row
 							columnsCount = 0;     //move to first column again
+							csvColumns = -1;
 							columnsCountTotal = skipColumns;   //for salmonella and coccidia -1 else 0
 						}
 						columnsCountTotal++;
+						csvColumns++;
 					}
 				}
 			}
@@ -255,23 +263,146 @@ public class LogCSVExport {
 			if(file.delete()) {
 				System.out.println("CSV file deleted");  
 			}
+
 			softAssert.assertAll();
 			test.pass("Column data exported successfully");
 			results.createNode("Column data exported successfully");
-			driver.saveResult(ITestResult.SUCCESS, null);
+			saveResult(ITestResult.SUCCESS, null);
 		}
 		catch(AssertionError er) {
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			driver.saveResult(ITestResult.FAILURE, new Exception(er));
+			saveResult(ITestResult.FAILURE, new Exception(er));
 		}
 		catch(Exception ex) {
 			System.out.println("Failure");
 			test.fail("CSV file failed to download");
 			results.createNode("CSV file failed to download");
-			driver.saveResult(ITestResult.FAILURE, ex);
+			saveResult(ITestResult.FAILURE, ex);
 		}
 		Thread.sleep(1000);
 	}
+
+
+
+
+	@Test (enabled= true)
+	public static void CSVAuditExport(String name, String CSVAuditFileName, String tablename, boolean clickCheckbox) throws InterruptedException, IOException {
+		BaseTest driver = new BaseTest();
+		try {
+			test = extent.createTest("AN-CSVExport: Verify user can download CSV Audit file for "+name+" and verify the records");
+			steps = test.createNode(Scenario.class, Steps);
+			results = test.createNode(Scenario.class, Results);
+
+			SoftAssert softAssert = new SoftAssert();
+
+			steps.createNode("1. Hover mouse towards table");
+			steps.createNode("2. Export file button becomes visible");
+
+			if(clickCheckbox == true) {
+				ClickElement.clickByCss(driver.getDriver(), "#" + tablename + " tr:nth-child(1) td:nth-child(1) .custom-checkbox");
+				Thread.sleep(1000);
+			}
+
+			steps.createNode("3. Click on the button");
+			steps.createNode("4. Dropdown cloud pop ups");
+			driver.getDriver().findElement(By.cssSelector("#"+tablename+" #csv-action img")).click();
+			getScreenshot();
+			Thread.sleep(1500);
+			steps.createNode("5. Click on Export with Audit as CSV");
+			ClickElement.clickByCss(driver.getDriver(), "#"+tablename+" #export-audit-csv");
+			waitElementInvisible(loading_cursor);
+			Thread.sleep(3000);
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+			Date date1 = new Date();
+			String date= dateFormat.format(date1);
+			Thread.sleep(1500);
+
+
+			File newfile = DownloadFileCheck.getTheNewestFile(fileDownloadPath, "csv");
+			String filename= newfile.getName();
+			softAssert.assertEquals(filename, CSVAuditFileName+date+".csv");     //compare the actual and expected file name
+			test.pass("CSV Audit file downloaded successfully");
+			saveResult(ITestResult.SUCCESS, null);
+
+			File file = new File(fileDownloadPath+"\\"+filename);
+			if(file.exists()){       //check if file exists
+				System.out.println("File Exists");
+			}
+
+			click(By.cssSelector("#"+tablename+ " #audit-trial-0"));   //open audit trail popup
+			waitElementInvisible(loading_cursor);
+
+			FileReader filereader = new FileReader(file);   //read content of downloaded file
+			CSVReader reader = new CSVReader(filereader);
+			reader = new CSVReaderBuilder(filereader).withSkipLines(1).build();    //skip header in excel file
+			StringBuffer buffer = new StringBuffer();
+			String data[];
+
+			int columnsCount = 1;           //start from first column in IE
+			int rowsCount = 1;               //start from second row (skip header row in IE)
+			int auditColumn = 0;
+
+			while((data = reader.readNext()) != null) {
+				for (int i = 0; i<data.length; i++) {
+					int rows = driver.getDriver().findElements(By.cssSelector(".popup-card tr")).size();   //get total rows in Audit popup
+
+					if (rowsCount < rows) {
+						int totalColumns = driver.getDriver().findElements(By.cssSelector(".popup-card tr:nth-child(1) td")).size();
+
+						if (driver.getDriver().findElements(By.cssSelector(".popup-card tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).size() != 0 && columnsCount<=totalColumns) {
+
+						System.out.println(data[auditColumn].trim()+"--->"+driver.getDriver().findElement(By.cssSelector(".popup-card tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim());
+						softAssert.assertEquals(data[auditColumn].trim(), driver.getDriver().findElement(By.cssSelector(".popup-card tr:nth-child("+rowsCount+") td:nth-child("+columnsCount+")")).getText().trim(), "data not matched");
+						}
+						else {
+							rowsCount = rowsCount+1;   //move to next row
+							columnsCount = 0;     //move to first column again
+							auditColumn = -1;
+						}
+						columnsCount++;
+						auditColumn++;
+
+					}
+				}
+			}
+
+
+			if(file.delete()) {
+				System.out.println("CSV file deleted");
+			}
+
+			click(popupCloseButton);
+
+			softAssert.assertAll();
+			test.pass("Column data exported successfully");
+			results.createNode("Column data exported successfully");
+			saveResult(ITestResult.SUCCESS, null);
+		}
+		catch(AssertionError er) {
+			test.fail("CSV file failed to download");
+			results.createNode("CSV file failed to download");
+			saveResult(ITestResult.FAILURE, new Exception(er));
+		}
+		catch(Exception ex) {
+			System.out.println("Failure");
+			test.fail("CSV file failed to download");
+			results.createNode("CSV file failed to download");
+			saveResult(ITestResult.FAILURE, ex);
+		}
+		Thread.sleep(1000);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

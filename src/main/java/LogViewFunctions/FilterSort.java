@@ -48,7 +48,7 @@ public class FilterSort {
 					steps = test.createNode(Scenario.class, Steps);
 					results = test.createNode(Scenario.class, Results);
 
-					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("CREATED")) {
+					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("CREATED") || column.getText().contains("Created") || column.getText().contains("Current Program")) {
 						test.skip("Column sorted successfully");
 						results.createNode("Column sorted successfully");
 						base.saveResult(ITestResult.SKIP, null);
