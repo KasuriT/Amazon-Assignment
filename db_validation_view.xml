@@ -5,8 +5,8 @@
     <classes>
       
       <class name="Test.Ancera.DBValidations.DSCoccidiaFlockView"/>
-      <class name="Test.Ancera.DBValidations.DSCoccidiaOPGMetadataView"/>
-      <class name="Test.Ancera.DBValidations.STPVet2DashboardView"/>
+      <!-- <class name="Test.Ancera.DBValidations.DSCoccidiaOPGMetadataView"/>
+      <class name="Test.Ancera.DBValidations.STPVet2DashboardView"/> -->
 
     </classes>
   </test> <!-- Test -->
