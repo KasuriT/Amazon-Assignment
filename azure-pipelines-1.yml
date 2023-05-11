@@ -3,15 +3,9 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-#resources:
-#  pipelines:
-#    - pipeline: ie-serverside-trigger
-#      source: ie-serverside
-#      project: ie-serverside
-#      trigger: true
 
 trigger:
-  - master
+  - IEQACode_Junaid
 
 pool:
   vmImage: ubuntu-latest
@@ -24,7 +18,7 @@ steps:
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
-      options: 'test -Dsurefire.suiteXmlFiles=db_validation_view.xml'
+      options: 'test -Dsurefire.suiteXmlFiles=runner_reports.xml'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
@@ -36,4 +30,4 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       artifactName: 'Extent Report'
-      pathToPublish: '$(System.DefaultWorkingDirectory)/extent-test-output'
+      pathToPublish: '$(System.DefaultWorkingDirectory)/target/Reports'

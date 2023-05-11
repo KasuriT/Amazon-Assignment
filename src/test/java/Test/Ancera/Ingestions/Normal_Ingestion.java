@@ -221,7 +221,7 @@ public class Normal_Ingestion extends BaseTest {
 							String data4 = response3.asString();
 							System.out.println(data4);
 								
-							Thread.sleep(60000);
+							Thread.sleep(30000);
 
 							steps.createNode("4. Verify 12 lanes are ingested in Salmonella Report");
 							SalmonellaLogPage.openSalmonellaLogPage();
@@ -319,7 +319,7 @@ public class Normal_Ingestion extends BaseTest {
 
 								steps.createNode("Verify Time is same as in Log");
 								String getAuditTime = getDriver().findElement(By.cssSelector("tr:nth-child(1) #col-"+slAuditTimeCol+".text-dark")).getText(); 
-								softAssert.assertEquals(getAuditTime, getTime, "Action not displayed as 'Created 'in Audit Log");
+								softAssert.assertEquals(getAuditTime, getTime, "Time displayed blank in Audit Log");
 								softAssert.assertEquals(getAuditTime.isEmpty(), false, "Time displayed blank in Audit Log");
 						
 								steps.createNode("Verify Result Status as 'Pending' for lane "+lane);

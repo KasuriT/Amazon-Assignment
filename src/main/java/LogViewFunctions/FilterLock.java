@@ -15,6 +15,7 @@ import static PageObjects.BasePage.loading_cursor;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.locks.Lock;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -36,7 +37,17 @@ public class FilterLock {
     public static void Lock(String tablename, String name, int skipColumns) throws InterruptedException, IOException {
         BaseTest driver = new BaseTest();
 
+//        if (size(By.cssSelector("#"+tablename+" #save-filters.d-none")) != 0) {    //if lock is already applied unlock it
+//                click(By.id("#"+tablename+" #"+UnlockFilter));
+//                click(By.id("#"+tablename+" #"+ResetFilters));
+//                waitElementInvisible(loading_cursor);
+//        }
+        waitElementVisible(By.cssSelector("#" + tablename + " th .log-header .mb-0"));
+        Thread.sleep(1000);
+
         int totalNumberofColumns = size(By.cssSelector("#" + tablename + " th .log-header .mb-0")) + skipColumns;  //get number of columns in table and skip the audit,checkbox and action column if exists
+        //     System.out.println("Col: "+totalNumberofColumns);
+
 
         for (int i = 1; i <= totalNumberofColumns; i++) {
             try {
@@ -90,23 +101,29 @@ public class FilterLock {
                             softAssert.assertTrue(!recordsafterfilter.equals(0), "Result found count cannot be zero");
                             softAssert.assertNotEquals(recordsafterfilter, recordBefore, "Filter failed to apply");
 
-                            ///////////////////////
-
-                            List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label"));  //get list of items in table
-                            for (int x = 0; x < items.size(); x++) {
-                                if (!getFilterItemName.equals("W2 Cell Count")) {
+                            if (size(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle.ng-star-inserted")) == 1) {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle.ng-star-inserted"));  //get list of items in table
+                                for (int x = 0; x < items.size(); x++) {
                                     softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
                                 }
+                            } else if (size(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle")) == 1) {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle"));  //get list of items in table
+                                for (int x = 0; x < items.size(); x++) {
+                                    softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                }
+                            } else {
+                                List<WebElement> items = driver.getDriver().findElements(By.cssSelector("#" + tablename + " tr td:nth-child(" + i + ") label.vertical-align-middle"));  //get list of items in table
+                                for (int x = 0; x < items.size(); x++) {
+                                    if (!columnName.equals("W2 Cell Count")) {
+                                        softAssert.assertEquals(items.get(x).getText(), getFilterItemName.trim());
+                                    }
+                                }
                             }
-
-                            ///////////////////////////
 
                             steps.createNode("3. Close " + name + " screen");
                             steps.createNode("4. Reopen " + name + " screen");
 
-                            //driver.getDriver().navigate().refresh();
-                            //driver.getDriver().navigate().back();
-                            //driver.getDriver().navigate().forward();
+                            driver.getDriver().navigate().refresh();
                             waitElementInvisible(loading_cursor);
                             waitElementVisible(By.cssSelector("#" + tablename + " #" + ResultsCount));
                             Thread.sleep(3000);

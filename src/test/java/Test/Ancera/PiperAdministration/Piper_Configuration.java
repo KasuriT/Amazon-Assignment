@@ -123,7 +123,7 @@ public class Piper_Configuration extends BaseTest{
 						getDriver().findElement(By.id("MinStdVal")).sendKeys(objFilter.MinStd);
 						getDriver().findElement(By.id("MaxStdVal")).clear();
 						getDriver().findElement(By.id("MaxStdVal")).sendKeys(objFilter.MaxStd);
-						getDriver().findElement(By.id("MinStdVal")).click();
+						getDriver().findElement(By.id("MaxMeanVal")).click();
 						getScreenshot();
 	
 						steps.createNode("3. "+objModel.steps);
@@ -245,7 +245,7 @@ public class Piper_Configuration extends BaseTest{
 			getDriver().findElement(By.id("MaxStdVal")).clear();
 			getDriver().findElement(By.id("MaxStdVal")).sendKeys("1"+date0);
 			Thread.sleep(1000);
-			getDriver().findElement(By.id("MinStdVal")).click();
+			getDriver().findElement(By.id("MaxMeanVal")).click();
 			getScreenshot();
 			getDriver().findElement(By.id("btn-save")).click();
 
@@ -460,7 +460,7 @@ public class Piper_Configuration extends BaseTest{
 
 			steps.createNode("1. Click on create new button next to Installation Run Config");
 			steps.createNode("2. Create new Improc");
-			steps.createNode("3. Verify created mrpoc in P/A configurations");
+			steps.createNode("3. Verify created imrpoc in P/A configurations");
 
 			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys("Salmonella");
 			getDriver().findElement(By.cssSelector("#PathogenNameConfig input")).sendKeys(Keys.ENTER);

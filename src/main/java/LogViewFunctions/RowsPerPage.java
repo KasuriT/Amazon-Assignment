@@ -33,10 +33,11 @@ import PageObjects.BasePage;
 public class RowsPerPage {
 
 	@Test (description="Test Case: Test Table Rows") 
-	public static void RowsPerPage() throws InterruptedException, IOException {
+	public static void RowsPerPage_() throws InterruptedException, IOException {
 		BaseTest driver = new BaseTest();
 		int[] tableRows = {100, 250, 500};
-		for (int i=0; i<=tableRows.length; i++) {
+
+		for (int i=0; i<tableRows.length; i++) {
 			try {
 				test = extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
 				steps = test.createNode(Scenario.class, Steps);
@@ -107,10 +108,10 @@ public class RowsPerPage {
 
 				else {
 					softAssert.assertTrue(true, "Records are less then "+sum);
-					test.pass("Records are less then "+sum);
+					test.skip("Records are less then "+sum);
 					results.createNode("Records are less then "+sum);
 					getScreenshot();
-					driver.saveResult(ITestResult.SUCCESS, null);	
+					driver.saveResult(ITestResult.SKIP, null);
 				}
 				softAssert.assertAll();
 			}
@@ -133,7 +134,7 @@ public class RowsPerPage {
 	public static void RowsPerPage1(String tablename) throws InterruptedException, IOException {
 		BaseTest driver = new BaseTest();
 		int[] tableRows = {100, 250, 500};
-		for (int i=0; i<=tableRows.length; i++) {
+		for (int i=0; i<tableRows.length; i++) {
 			try {
 				test = extent.createTest("Verify user can apply "+tableRows[i]+" rows per page");
 				steps = test.createNode(Scenario.class, Steps);

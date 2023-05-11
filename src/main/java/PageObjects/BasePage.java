@@ -13,6 +13,7 @@ public class BasePage {
 	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");
 	public static By popupYesButton = By.id("btn-yes");
 	public static By popupOKButton = By.id("btn-ok");
+	public static By popupNoButton = By.id("btn-no");
 	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
 	public static By popupTotalRows = By.cssSelector(".apl-resp-table td:nth-child(1)");
 	public static By alertMessage = By.id("message");
@@ -42,7 +43,7 @@ public class BasePage {
 	public static String nextPagePagination = "next-page";
 	
 	public static By auditGetRowCount = By.cssSelector(".popup-content tr");
-	public static By auditActionRow1 = By.id("audit-action-1");
+	public static By auditActionRow1 = By.id("audit-action-0");
 	public static By alertClose = By.xpath("//*[@id=\"alrt\"]/button/span");
 	
 	public static String filterIcon = ".log-header__filter-icon";

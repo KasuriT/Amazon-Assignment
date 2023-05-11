@@ -21,6 +21,7 @@ public class Constants {
 	public static String url_complexConfig = config.url()+"/home/admin/complex-cycling-config";
 	public static String url_flockManagement = config.url()+"/home/admin/flock-management"; 
 	public static String url_programManagement = config.url()+"/home/admin/program";
+	public static String url_interventionManagement = config.url()+"/home/admin/intervention-management";
 	public static String url_piperManagement = config.url()+"/home/admin/piper";
 	public static String url_piperSoftware = config.url()+"/home/admin/piper-software-management";
 	public static String url_piperConfiguration = config.url()+"/home/admin/piper-configuration";

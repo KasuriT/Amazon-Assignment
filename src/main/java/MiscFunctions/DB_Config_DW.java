@@ -16,22 +16,26 @@ public class DB_Config_DW {
 	private static Statement stmt;	
     public static ReadPropertyFile config = ConfigFactory.create(ReadPropertyFile.class);
 
+	public static String DB_UserName="akhan";
+	public static String DB_Password="Ancer@123!";
+	public static String PRH_DB_Name="PRH-IE-DW-15-3-2023";
+
 	@BeforeTest
 	public static void test() {
 		try{
-			String UserName="akhan";
-			String Password="Ancer@123!";
+
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
 
             if (config.environment().equals("qa")) {
-            	String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=QA-IE-DW;user="+UserName+";Password="+Password;
-				Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
+            	String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=QA-IE-DW;user="+DB_UserName+";Password="+DB_Password;
+				Connection con = DriverManager.getConnection(DB_URL, DB_UserName, DB_Password);
 				setStmt(con.createStatement());
 			}
 
             if (config.environment().equals("dev")) {
-				String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=PRH-IE-DW;user="+UserName+";Password="+Password;
-				Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
+				//String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName=PRH-IE-DW;user="+UserName+";Password="+Password;
+				String DB_URL ="jdbc:sqlserver://ancera-asql-001.database.windows.net;databaseName="+PRH_DB_Name+";user="+DB_UserName+";Password="+DB_Password;
+				Connection con = DriverManager.getConnection(DB_URL, DB_UserName, DB_Password);
 				setStmt(con.createStatement());
 			}
 		}

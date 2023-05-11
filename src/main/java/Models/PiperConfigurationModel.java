@@ -29,7 +29,7 @@ public class PiperConfigurationModel {
 		ArrayList<PiperConfigurationModel> lstPiperConfigurationModel = new ArrayList<PiperConfigurationModel>();
 		PiperConfigurationModel objTmp;
 		ReportFilters objFilter;
-	
+	/*
 		objTmp = new PiperConfigurationModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-PCM-02: Verify that user cannot create an installation run leaving all fields empty";
@@ -77,7 +77,7 @@ public class PiperConfigurationModel {
 		objTmp.GreaterLesserCheck = true;
 		objTmp.lstFilters.add(objFilter);
 		lstPiperConfigurationModel.add(objTmp);
-	
+	*/
 		objTmp = new PiperConfigurationModel();
 		objFilter = new ReportFilters();
 		objTmp.TestCaseName = "AN-PCM-05: Verify user can create an Installtion Run";

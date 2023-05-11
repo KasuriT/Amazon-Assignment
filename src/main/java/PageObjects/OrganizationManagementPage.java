@@ -43,14 +43,20 @@ public class OrganizationManagementPage {
 	public static By orgSiteNameInput = By.id("SiteNameId");
 	public static By orgSiteNameError = By.cssSelector("#SiteNameId.has-error"); 
 	public static By orgSiteAddressInput = By.id("streetAddressId");
-	public static By orgSiteCountryInput = By.cssSelector("#countryId");
-	public static By orgSiteStateInput = By.cssSelector("#stateId");
-	public static By orgSiteCityInput = By.cssSelector("#cityId");
+	public static By orgSiteCountryPlaceholder = By.cssSelector("#countryId .ng-placeholder");
+	public static By orgSiteCountryInput = By.cssSelector("#countryId .ng-value-label");
+
+	public static By orgSiteStatePlaceholder = By.cssSelector("#stateId .ng-placeholder");
+	public static By orgSiteStateInput = By.cssSelector("#stateId .ng-value-label");
+
+	public static By orgSiteCityPlaceholder = By.cssSelector("#cityId .ng-placeholder");
+	public static By orgSiteCityInput = By.cssSelector("#cityId .ng-value-label");
+
 	public static By orgSiteZipCodeInput = By.id("num-zipCodeId");
 	public static By orgSiteLatitudeInput = By.id("num-LatId");
 	public static By orgSiteLongitudeInput = By.id("num-LonId");
-	
-	public static By orgUploadProductImage = By.cssSelector(".textLink");
+	public static By orgUploadProductImage = By.cssSelector("#file");
+	public static By orgUploadProductImageSize = By.cssSelector(".textLink");
 	public static By orgAddProductName = By.id("nameId");
 	public static By orgAddProductDescription = By.id("descriptionId");
 	public static By orgRemoveUploadedProduct = By.id("topRightCornerBtn");

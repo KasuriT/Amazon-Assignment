@@ -27,9 +27,9 @@ public class InstallationRunModel {
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreate = new ArrayList<>();
 	public static ArrayList<InstallationRunModel> lstInstallationRunCreateCoccidia = new ArrayList<>();
 	
-	public static String installationImprocVersionSalm = "22.22.22.22";    //qa
-	public static String installationImprocVersionCocci = "11.12.13.14";   //qa
-	public static String installationImprocVersionListeria = "22.22.22.22";   //qa
+	public static String installationImprocVersionSalm = "06.06.06.06";    //qa
+	public static String installationImprocVersionCocci = "2.10.4.3";   //qa
+	public static String installationImprocVersionListeria = "06.06.06.06";   //qa
 	
 //	public static String installationImprocVersionSalm = "4.0.20.2";   //uat
 //	public static String installationImprocVersionCocci = "2.10.3.3";  //uat
@@ -165,7 +165,7 @@ public class InstallationRunModel {
 		objTmp.failStep = "QC Code was not Pass when Mean and Standard Deviation were in range";
 		objTmp.lstFilters.add(objFilter);
 		lstInstallationRunModel.add(objTmp);
-		
+
 		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////Listeria//////////////////////////////////////////////////////////////////////////////
 		

@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -39,6 +40,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static LogViewFunctions.RowsPerPage.RowsPerPage_;
 import static PageObjects.SalmonellaLogPage.*;
 import static PageObjects.BasePage.*;
 import static LogViewFunctions.FilterLock.*;
@@ -77,6 +79,7 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
+		openSalmonellaLogPage();
 		Lock(salmonellaLogTable, "Salmonella Log", 2);
 	}
 	
@@ -99,7 +102,7 @@ public class SalmonellaLog extends BaseTest{
 	
 	@Test(priority= 5, enabled = true)
 	public void RowsPerPage() throws InterruptedException, IOException {
-		RowsPerPage();
+		RowsPerPage_();
 	}
 	
 	
@@ -134,15 +137,20 @@ public class SalmonellaLog extends BaseTest{
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				steps.createNode("1. Click on date calendar icon; Calendar pops up");
-				getDriver().findElement(By.id(slResultDate+""+slShowFilter)).click();
+				getDriver().findElement(By.id(slResultDate + "" + slShowFilter)).click();
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1500);
 				String dateFrom = getDriver().findElement(By.xpath("//input[@placeholder='Start Date']")).getText();
 				//	softAssert.assertEquals(dateFrom, dateMMDDYYYY1);
 
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-				steps.createNode("2. Click on "+objFilter.FilterName);
-				getDriver().findElement(By.id("list-title_date-selection")).click();
+				steps.createNode("2. Click on " + objFilter.FilterName);
+				try {
+					getDriver().findElement(By.id("list-title_date-selection")).click();
+				}
+				catch(ElementNotInteractableException ex) {
+					getDriver().findElement(By.id("list-title_date-selection")).click();
+				}
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				if (getDriver().findElement(By.cssSelector(objFilter.FilterListXPathSearch)).isEnabled()) {

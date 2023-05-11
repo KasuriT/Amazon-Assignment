@@ -15,9 +15,11 @@ public class ProgramManagementModel {
 	public String TestCaseNameDelete;
 	public String Program;
 	public String ProgramTable;
-	public String ProgramName;
+	public String ProgramName = "Bioshuttle";
 	public String ProgramName_CSS;
 	public String ProgramType;
+
+
 	public String EditButtonPre;
 	public String CopyButtonPre;
 	public String ButtonPost;
@@ -25,35 +27,39 @@ public class ProgramManagementModel {
 
 	public String steps;
 	public String input;
-	
+
 	public static String VaccineProgramName = "Sino_"+dateYYYYMMDD+"_"+date0;
 	public static String FeedProgramName = "Feed_"+dateYYYYMMDD+"_"+date0;
 	public static String TreatmentProgramName = "Treatment_"+dateYYYYMMDD+"_"+date0;
 	public static String BioshuttleProgramName = "Bioshuttle_"+dateYYYYMMDD+"_"+date0;
-	
-	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
-//	public static String VaccineProgramName = "Sino_20220929_1858";
-//	public static String FeedProgramName = "Feed_20220929_1858";
-//	public static String TreatmentProgramName = "Treatment_20220929_1858";
-//	public static String BioshuttleProgramName = "Bioshuttle_20220929_1858";
-	
-	public static String SupplierName = "China";
-	public static String DescriptionName = "Testing Program";
-	
 
+	public static ArrayList<ProgramManagementModel> lstProgramManagementSearch = new ArrayList<>();
+//	public static String VaccineProgramName = "Sino_20230328_1059";
+//	public static String FeedProgramName = "Feed_20230328_1059";
+//	public static String TreatmentProgramName = "Treatment_20230328_1059";
+//	public static String BioshuttleProgramName = "Bioshuttle_20230328_1059";
+
+	public static String SupplierName = "China";
+	public static String formTreatmentName = "Liquid";
+	public static String ingredientName = "Narasin";
+	public static String ingredientNameQA = "Ingredient";
+
+	public static String DescriptionName = "Testing Program";
+
+	public static String ComplexNameQA = "Complex 1";
 	public static String ComplexNameUAT = "Complex 1";
 	public static String FarmNameUAT = "Farm A";
 
-	
+
 	public static String createProgramTestCaseTitle = "Verify user can create ";
 	public static String updateProgramTestCaseTitle = "Verify user can update ";
 	public static String duplicateProgramTestCaseTitle = "Verify user can duplicate ";
 	public static String deleteProgramTestCaseTitle = "Verify user can delete ";
-	
+
 	public static ArrayList<ProgramManagementModel> FillData() {
 		ArrayList<ProgramManagementModel> lstProgramManagementModel = new ArrayList<ProgramManagementModel>();
 		ProgramManagementModel objTmp;
-	/*	
+
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Vaccine Programs";
 		objTmp.TestCaseNameCreate = "AN-Program-11: "+createProgramTestCaseTitle+objTmp.Program;
@@ -68,8 +74,8 @@ public class ProgramManagementModel {
 		objTmp.CopyButtonPre = ProgramManagementPage.programVaccineCopy;
 		objTmp.DeleteButtonPre = ProgramManagementPage.programVaccineDelete;
 		objTmp.ButtonPost = ProgramManagementPage.programVaccine_ID;
-		lstProgramManagementModel.add(objTmp);	
-				
+		lstProgramManagementModel.add(objTmp);
+
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Feed Programs";
 		objTmp.TestCaseNameCreate = "AN-Program-12: "+createProgramTestCaseTitle+objTmp.Program;
@@ -84,24 +90,24 @@ public class ProgramManagementModel {
 		objTmp.DeleteButtonPre = ProgramManagementPage.programFeedDelete;
 		objTmp.ButtonPost = ProgramManagementPage.programFeed_ID;
 		objTmp.ProgramType = "Feed";
-		lstProgramManagementModel.add(objTmp);	
-	
-		objTmp = new ProgramManagementModel();
-		objTmp.Program = "Treatment";
-		objTmp.TestCaseNameCreate = "AN-Program-13: "+createProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameUpdate = "AN-Program-17: "+updateProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameDuplicate = "AN-Program-21: "+duplicateProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameDelete = "AN-Program-25: "+deleteProgramTestCaseTitle+objTmp.Program;
-		objTmp.ProgramName = TreatmentProgramName;
-		objTmp.ProgramTable = ProgramManagementPage.programTreatmentTable;
-		objTmp.ProgramName_CSS =ProgramManagementPage.programTreatmentProgramNameCol;
-		objTmp.EditButtonPre = ProgramManagementPage.programTreatmentEdit;
-		objTmp.CopyButtonPre = ProgramManagementPage.programTreatmentCopy;
-		objTmp.DeleteButtonPre = ProgramManagementPage.programTreatmentDelete;
-		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
-		objTmp.ProgramType = "Treatment";
-		lstProgramManagementModel.add(objTmp);	
-	*/		
+		lstProgramManagementModel.add(objTmp);
+
+//		objTmp = new ProgramManagementModel();
+//		objTmp.Program = "Treatment";
+//		objTmp.TestCaseNameCreate = "AN-Program-13: "+createProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameUpdate = "AN-Program-17: "+updateProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameDuplicate = "AN-Program-21: "+duplicateProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameDelete = "AN-Program-25: "+deleteProgramTestCaseTitle+objTmp.Program;
+//		objTmp.ProgramName = TreatmentProgramName;
+//		objTmp.ProgramTable = ProgramManagementPage.programTreatmentTable;
+//		objTmp.ProgramName_CSS =ProgramManagementPage.programTreatmentProgramNameCol;
+//		objTmp.EditButtonPre = ProgramManagementPage.programTreatmentEdit;
+//		objTmp.CopyButtonPre = ProgramManagementPage.programTreatmentCopy;
+//		objTmp.DeleteButtonPre = ProgramManagementPage.programTreatmentDelete;
+//		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
+//		objTmp.ProgramType = "Treatment";
+//		lstProgramManagementModel.add(objTmp);
+
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Bioshuttle";
 		objTmp.TestCaseNameCreate = "AN-Program-14: "+createProgramTestCaseTitle+objTmp.Program;
@@ -120,6 +126,6 @@ public class ProgramManagementModel {
 
 		return lstProgramManagementModel;
 	}
-	
-	
+
+
 }

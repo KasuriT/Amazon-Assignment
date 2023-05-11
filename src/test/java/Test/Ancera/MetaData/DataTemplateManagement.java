@@ -235,6 +235,11 @@ public class DataTemplateManagement extends BaseTest{
 					saveResult(ITestResult.SUCCESS, null);
 				}catch(AssertionError e){
 					test.fail("Not Able to add template without atleast one column failed");
+					saveResult(ITestResult.FAILURE, new Exception(e));
+				}
+				catch(Exception ex) {
+					test.fail("Not Able to add template without atleast one column failed");
+					saveResult(ITestResult.FAILURE, ex);
 				}
 			}
 
@@ -253,7 +258,7 @@ public class DataTemplateManagement extends BaseTest{
 						getDriver().findElement(By.cssSelector(".ng-option:nth-child(1)")).click();			
 					}
 
-					getDriver().findElement(By.id("colLengthId")).sendKeys(objModel.clmLength);	
+					getDriver().findElement(By.id("num-colLengthId")).sendKeys(objModel.clmLength);
 					Thread.sleep(1000);
 
 					waitElementVisible(By.id("btn-add-field"));
@@ -283,7 +288,13 @@ public class DataTemplateManagement extends BaseTest{
 			}
 			catch(AssertionError e){
 				test.fail(objModel.failScenario);
-				results.createNode(objModel.failScenario);	
+				results.createNode(objModel.failScenario);
+				saveResult(ITestResult.FAILURE, new Exception(e));
+			}
+			catch(Exception ex){
+				test.fail(objModel.failScenario);
+				results.createNode(objModel.failScenario);
+				saveResult(ITestResult.FAILURE, ex);
 			}
 
 
@@ -301,6 +312,12 @@ public class DataTemplateManagement extends BaseTest{
 					saveResult(ITestResult.SUCCESS, null);
 				}catch(AssertionError e){
 					test.fail("Column adding failed");
+					saveResult(ITestResult.FAILURE, new Exception(e));
+				}
+				catch(Exception ex){
+					test.fail("Column adding failed");
+					results.createNode("Column adding failed");
+					saveResult(ITestResult.FAILURE, ex);
 				}
 
 			}		
