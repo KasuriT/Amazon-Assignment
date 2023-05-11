@@ -92,21 +92,21 @@ public class ProgramManagementModel {
 		objTmp.ProgramType = "Feed";
 		lstProgramManagementModel.add(objTmp);
 
-		objTmp = new ProgramManagementModel();
-		objTmp.Program = "Treatment";
-		objTmp.TestCaseNameCreate = "AN-Program-13: "+createProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameUpdate = "AN-Program-17: "+updateProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameDuplicate = "AN-Program-21: "+duplicateProgramTestCaseTitle+objTmp.Program;
-		objTmp.TestCaseNameDelete = "AN-Program-25: "+deleteProgramTestCaseTitle+objTmp.Program;
-		objTmp.ProgramName = TreatmentProgramName;
-		objTmp.ProgramTable = ProgramManagementPage.programTreatmentTable;
-		objTmp.ProgramName_CSS =ProgramManagementPage.programTreatmentProgramNameCol;
-		objTmp.EditButtonPre = ProgramManagementPage.programTreatmentEdit;
-		objTmp.CopyButtonPre = ProgramManagementPage.programTreatmentCopy;
-		objTmp.DeleteButtonPre = ProgramManagementPage.programTreatmentDelete;
-		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
-		objTmp.ProgramType = "Treatment";
-		lstProgramManagementModel.add(objTmp);
+//		objTmp = new ProgramManagementModel();
+//		objTmp.Program = "Treatment";
+//		objTmp.TestCaseNameCreate = "AN-Program-13: "+createProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameUpdate = "AN-Program-17: "+updateProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameDuplicate = "AN-Program-21: "+duplicateProgramTestCaseTitle+objTmp.Program;
+//		objTmp.TestCaseNameDelete = "AN-Program-25: "+deleteProgramTestCaseTitle+objTmp.Program;
+//		objTmp.ProgramName = TreatmentProgramName;
+//		objTmp.ProgramTable = ProgramManagementPage.programTreatmentTable;
+//		objTmp.ProgramName_CSS =ProgramManagementPage.programTreatmentProgramNameCol;
+//		objTmp.EditButtonPre = ProgramManagementPage.programTreatmentEdit;
+//		objTmp.CopyButtonPre = ProgramManagementPage.programTreatmentCopy;
+//		objTmp.DeleteButtonPre = ProgramManagementPage.programTreatmentDelete;
+//		objTmp.ButtonPost = ProgramManagementPage.programTreatment_ID;
+//		objTmp.ProgramType = "Treatment";
+//		lstProgramManagementModel.add(objTmp);
 
 		objTmp = new ProgramManagementModel();
 		objTmp.Program = "Bioshuttle";

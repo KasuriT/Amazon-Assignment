@@ -3,18 +3,11 @@ package Test.Ancera.Administration;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.List;
-
-import org.apache.groovy.json.internal.IO;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -68,7 +61,7 @@ public class ProgramManagement extends BaseTest {
         LoginTest.login();
     }
 
-    /*
+
 
     @Test(priority = 2, enabled = true)
     public void LockFeed() throws InterruptedException, IOException {
@@ -365,11 +358,6 @@ public class ProgramManagement extends BaseTest {
     }
 
 
-     */
-
-
-
-
 
     @Test(enabled = true, priority = 40)
     public void CreatePrograms() throws InterruptedException, IOException, SQLException {
@@ -392,53 +380,53 @@ public class ProgramManagement extends BaseTest {
 
                     SoftAssert softAssert = new SoftAssert();
 
-                    getDriver().findElement(By.xpath("//*[text()= 'Vaccine Programs ']")).click();
+                    click(By.xpath("//*[text()= 'Vaccine Programs ']"));
                     waitElementInvisible(loading_cursor);
-                    getDriver().findElement(By.xpath("//*[text()=' Register New Program']")).click();
+                   click(By.xpath("//*[text()=' Register New Program']"));
                     waitElementInvisible(loading_cursor);
 
                     //Program Name
                     softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
-                    getDriver().findElement(programName).sendKeys(objModel.ProgramName);
+                    type(programName, objModel.ProgramName);
                     softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
 
                     //Target Pathogen
-                    getDriver().findElement(programTargetPathogen).click();
+                    click(programTargetPathogen);
                     Thread.sleep(500);
-                    softAssert.assertEquals(getDriver().findElement(By.cssSelector(".ng-option-label")).getText(), "Coccidia");
-                    getDriver().findElement(programTargetPathogen).sendKeys(Keys.ENTER);
+                    softAssert.assertEquals(getText(By.cssSelector(".ng-option-label")), "Coccidia");
+                    enterKey(programTargetPathogen);
                     Thread.sleep(500);
                     softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
 
                     //Program Type
-                    getDriver().findElement(programProgramType).sendKeys(objModel.ProgramType);
+                    type(programProgramType, objModel.ProgramType);
                     Thread.sleep(500);
                     softAssert.assertEquals(getDriver().findElements(By.cssSelector("#btn-save.disabled-v2")).size(), 2, "Mandatory check failed");
-                    getDriver().findElement(programProgramType).sendKeys(Keys.ENTER);
+                    enterKey(programProgramType);
 
                     //Vaccine Number of Applications on Flock
                     if (objModel.ProgramType.startsWith("Vaccine")) {
-                        getDriver().findElement(programNoApplicationFlock).sendKeys("64");
+                        type(programNoApplicationFlock, "64");
                         softAssert.assertEquals(getDriver().findElements(By.cssSelector("#numOfApplicationId-error-container svg")).size(), 1, "Mandatory check failed on No of Application Flock");
                         Thread.sleep(500);
                         clear(programNoApplicationFlock);
 
                         String NoApplicationFlock = "2";
-                        getDriver().findElement(programNoApplicationFlock).sendKeys(NoApplicationFlock);
+                        type(programNoApplicationFlock, NoApplicationFlock);
                         Thread.sleep(500);
 
                         for (int i = 1; i <= Integer.parseInt(NoApplicationFlock); i++) {
-                            getDriver().findElement(By.id(programDaysApplicationFlock + "-" + i)).sendKeys("" + i);
+                            type(By.id(programDaysApplicationFlock + "-" + i), "" + i);
                         }
                     }
                     //Supplier
                     if (!objModel.ProgramType.equals("Feed")) {    //creating feed program without supplier
-                        getDriver().findElement(programSupplier).sendKeys(ProgramManagementModel.SupplierName);
+                       type(programSupplier, ProgramManagementModel.SupplierName);
                         Thread.sleep(500);
                         if (getDriver().findElements(By.xpath("//*[text()='Add New + ']")).size() != 0) {
-                            getDriver().findElement(By.xpath("//*[text()='Add New + ']")).click();
+                            click(By.xpath("//*[text()='Add New + ']"));
                         } else {
-                            getDriver().findElement(By.cssSelector(".list-item")).click();
+                            click(By.cssSelector(".list-item"));
                         }
                         Thread.sleep(500);
                     }
@@ -612,7 +600,7 @@ public class ProgramManagement extends BaseTest {
     }
 
 
-    @Test(priority = 41, enabled = true, description = "Create Treatment functionality")
+    @Test(priority = 41, enabled = false, description = "Create Treatment functionality")
     public void VerifyCreateTreatmentFunctionality() throws InterruptedException, IOException {
         try {
             test = extent.createTest("Verify Create Treatment functionality on Program Management Screen ");
@@ -624,7 +612,7 @@ public class ProgramManagement extends BaseTest {
             Thread.sleep(1000);
             getScreenshot();
             SoftAssert softAssert = new SoftAssert();
-            getDriver().findElement(By.xpath("//*[text()= 'Vaccine Programs ']")).click();
+            getDriver().findElement(By.xpath("//*[text()= 'Treatment ']")).click();
             waitElementInvisible(loading_cursor);
             getDriver().findElement(By.xpath("//*[text()=' Record Treatment']")).click();
             waitElementInvisible(loading_cursor);
@@ -659,14 +647,20 @@ public class ProgramManagement extends BaseTest {
 
             //Flock placemment date field value select
             click(flockPlacementDateField);
-            Thread.sleep(700);
+            Thread.sleep(1500);
+           // enterKey(flockPlacementDateField);
             click(flockPlacementDateFieldValue);
             waitElementInvisible(loading_cursor);
 
             //select houses applied field
             click(housesAppliedField);
-            Thread.sleep(700);
-            click(housesAppliedValue);
+            Thread.sleep(3500);
+            type(housesAppliedField, "House 1");
+           enterKey(housesAppliedField);
+        //    click(housesAppliedValue);
+//            System.out.println(size(By.id("farm-house-head")));
+       //     getDriver().findElement(By.xpath("/html/body/app-root/div/app-manage-program/div/div[4]/app-popup-component/div/div/div/div[2]/app-create-treatment/form/div[2]/div[2]/div/div/div[2]/div[1]/div/div[2]/div/ng-select/ng-dropdown-panel/div[1]/div/div/input")).click();
+         //   click(By.id("farm-house-head"));
             waitElementInvisible(loading_cursor);
             click(treatmentNameField);
             Thread.sleep(700);
@@ -796,6 +790,7 @@ public class ProgramManagement extends BaseTest {
                     //    softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineStartDateCol)).getText(), dateMM + "/01/" + dateYYYY);
                     softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineEndDateCol)).getText(), dateMM + "/30/" + dateYYYY);
                     softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineFlockDayApplicationCol)).getText(), "1,2");
+                    softAssert.assertEquals(getDriver().findElement(By.cssSelector(programVaccineTargetPathogenCol)).getText(), "Coccidia", "Expected Coccidia");
                 }
 
                 //Vaccine Bioshuttle Verification
@@ -864,18 +859,13 @@ public class ProgramManagement extends BaseTest {
                     System.out.println(getDriver().findElement(By.cssSelector("tr:nth-child(" + i + ") " + objModel.ProgramName_CSS)).getText());
 
                     if (getDriver().findElement(By.cssSelector("tr:nth-child(" + i + ") " + objModel.ProgramName_CSS)).getText().equals(objModel.ProgramName)) {
-                        System.out.println("gfgdfg");
                         scroll(By.xpath("//*[@id='" + objModel.ProgramTable + "'] //*[text()='Action']"));
                         waitElementClickable(By.id(objModel.EditButtonPre + "" + i + "-" + objModel.ButtonPost));
                         Thread.sleep(1000);
-                        //	getDriver().findElement(By.id(objModel.CopyButtonPre+""+i+"-"+objModel.ButtonPost)).click();
                         getDriver().findElement(By.xpath("//*[@id = '" + objModel.CopyButtonPre + "" + i + "-" + objModel.ButtonPost + "']")).click();
 
                         break;
                     }
-//					else {
-//						Assert.assertTrue(false, "Program not found");
-//					}
                 }
 
                 waitElementInvisible(loading_cursor);

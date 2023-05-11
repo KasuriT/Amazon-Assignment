@@ -65,8 +65,13 @@ public class ForgotPassword extends BaseTest{
 				}
 			}
 
-			getDriver().findElement(By.xpath("//*[@id=\":1y\"]/div[1]/span")).click();
-			Thread.sleep(1500);
+		if(size(By.xpath("//*[@id=\":1y\"]/div[1]/span")) != 0) {
+			click(By.xpath("//*[@id=\":1y\"]/div[1]/span"));
+		}
+		else if (size(By.xpath("//*[@id=\":2k\"]")) != 0){
+			click(By.xpath("//*[@id=\":2k\"]"));
+		}
+		Thread.sleep(1500);
 			if (size(By.cssSelector("div[data-tooltip='Delete']")) != 0) {
 				getDriver().findElement(By.cssSelector("div[data-tooltip='Delete']")).click();
 			}
@@ -123,7 +128,8 @@ public class ForgotPassword extends BaseTest{
 		try {
 			test = extent.createTest("AN-FP-03: Verify user receives reset password link");
 
-			getDriver().get(Constants.url_GmailSignin);			
+			getDriver().get(Constants.url_GmailSignin);
+			/*
 			type(By.xpath(gmailEmail), forgotPassword_email);
 			Thread.sleep(1500);
 			enterKey(By.xpath(gmailEmail));
@@ -144,17 +150,21 @@ public class ForgotPassword extends BaseTest{
 				}	
 			}
 
+
+ */
 			waitElementVisible(By.xpath("//*[@class='yW']/span"));
 			getScreenshot();
 			Thread.sleep(3000);
 			List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
+			Thread.sleep(1000);
 			for(int i=0;i<a.size();i++){
 				if(a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")){
+					Thread.sleep(1000);
 					a.get(i).click();
 				}
 			}
 
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		//	Assert.assertTrue(getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).isDisplayed());
 			getDriver().findElement(By.xpath(("//*[text()='Reset Password']"))).click();
 
