@@ -4,7 +4,9 @@
   <test thread-count="10" parallel="classes" name="Test">
     <classes>
       
-      <class name="Test.Ancera.DBValidations.DSCoccidiaOPGView"/>
+      <class name="Test.Ancera.DBValidations.DSCoccidiaFlockView"/>
+      <class name="Test.Ancera.DBValidations.DSCoccidiaOPGMetadataView"/>
+      <class name="Test.Ancera.DBValidations.STPVet2DashboardView"/>
 
     </classes>
   </test> <!-- Test -->
