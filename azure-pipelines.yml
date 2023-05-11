@@ -3,12 +3,12 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-resources:
-  pipelines:
-    - pipeline: ie-serverside-trigger
-      source: ie-serverside
-      project: ie-serverside
-      trigger: true
+#resources:
+#  pipelines:
+#    - pipeline: ie-serverside-trigger
+#      source: ie-serverside
+#      project: ie-serverside
+#      trigger: true
 
 trigger:
   - master
