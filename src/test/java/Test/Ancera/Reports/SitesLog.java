@@ -87,7 +87,7 @@ public class SitesLog extends BaseTest {
         getDriver().navigate().refresh();
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
-        Pagination(complexLogTable, "Sites Log", ReportFilePath);
+        Pagination(complexLogTable, "Sites Log");
     }
 
 
@@ -127,7 +127,7 @@ public class SitesLog extends BaseTest {
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
         clickFarmTab();
-        Pagination(farmLogTable, "Sites Log", ReportFilePath);
+        Pagination(farmLogTable, "Sites Log");
     }
 
 //	@Test (priority = 12, enabled = true)
@@ -165,7 +165,7 @@ public class SitesLog extends BaseTest {
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
         clickHouseTab();
-        Pagination(houseLogTable, "Sites Log", ReportFilePath);
+        Pagination(houseLogTable, "Sites Log");
     }
 
     @Test (enabled= true, priority = 17)

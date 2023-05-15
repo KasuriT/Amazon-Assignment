@@ -92,7 +92,7 @@ public class UserManagement extends BaseTest {
 
         @Test(priority = 4)
         public void pagination() throws InterruptedException, IOException {
-            Pagination(userManagementTable, "User Management", ReportFilePath);
+            Pagination(userManagementTable, "User Management");
         }
 
         @Test(priority = 5)

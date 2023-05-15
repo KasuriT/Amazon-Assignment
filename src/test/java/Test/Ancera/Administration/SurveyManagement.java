@@ -42,7 +42,6 @@ public class SurveyManagement extends BaseTest {
         SurveyManagementPage.NavigateToScreen(Constants.url_surveyManagement, "Form Management", SurveyManagementPageTitle);
     }
 
-
     @Test(description = "Test Case: Verify toolTip is replaced with Field Access icon", enabled = true, priority = 3)
     public void testTooltip() {
         SurveyManagementPage SurveyManagementPage = new SurveyManagementPage(getDriver());

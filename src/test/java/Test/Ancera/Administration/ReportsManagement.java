@@ -50,7 +50,7 @@ public class ReportsManagement extends BaseTest{
 	
 	
 	@Test (priority = 1) 
-	public void NavigateSalmonella() throws InterruptedException, IOException {
+	public void Navigate() throws InterruptedException, IOException {
 		NavigateToScreen.navigate(url_reportsManagement, "Reports Management", reportsManagementTitle);
 	}
 

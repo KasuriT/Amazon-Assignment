@@ -1278,7 +1278,7 @@ public class SurveyManagementPage {
     }
 
     public void verifyPagination() throws InterruptedException, IOException {
-        Pagination(formManagementTable, "Form Management", ReportFilePath);
+        Pagination(formManagementTable, "Form Management");
     }
 
     public void verifyQuestionTypes() throws InterruptedException, IOException {

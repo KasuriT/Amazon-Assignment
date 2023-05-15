@@ -1478,7 +1478,7 @@ public class OrganizationManagement extends BaseTest{
 	
 	@Test(priority= 37, enabled = true)
 	public void PaginationCompanyProducts() throws InterruptedException, IOException {
-		Pagination(CompanyProductsTableName, "Company Products", ReportFilePath);
+		Pagination(CompanyProductsTableName, "Company Products");
 	}
 	
 	

@@ -118,7 +118,7 @@ public class CoccidiaLog extends BaseTest{
 		getDriver().navigate().refresh();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		Pagination(coccidiaLogTable, "Coccidia Log", ReportFilePath);
+		Pagination(coccidiaLogTable, "Coccidia Log");
 	}
 
 	

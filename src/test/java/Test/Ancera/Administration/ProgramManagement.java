@@ -270,7 +270,7 @@ public class ProgramManagement extends BaseTest {
         getDriver().findElement(programFeedProgramTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(programFeedTable, "Program Management", ReportFilePath);
+        Pagination(programFeedTable, "Program Management");
     }
 
     @Test(priority = 23, enabled = true)
@@ -278,7 +278,7 @@ public class ProgramManagement extends BaseTest {
         getDriver().findElement(programTreatmentProgramTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(programTreatmentTable, "Program Management", ReportFilePath);
+        Pagination(programTreatmentTable, "Program Management");
     }
 
     @Test(priority = 24, enabled = true)
@@ -286,7 +286,7 @@ public class ProgramManagement extends BaseTest {
         getDriver().findElement(programVaccineProgramTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(programVaccineTable, "Program Management", ReportFilePath);
+        Pagination(programVaccineTable, "Program Management");
     }
 
     @Test(priority = 25, enabled = true)
@@ -294,7 +294,7 @@ public class ProgramManagement extends BaseTest {
         getDriver().findElement(programBioshuttleProgramTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(programBioshuttleTable, "Program Management", ReportFilePath);
+        Pagination(programBioshuttleTable, "Program Management");
     }
 
     @Test(priority = 26, enabled = true)
@@ -302,7 +302,7 @@ public class ProgramManagement extends BaseTest {
         getDriver().findElement(programProgramUtilizationTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(programUtilizationTable, "Program Management", ReportFilePath);
+        Pagination(programUtilizationTable, "Program Management");
     }
 
 
