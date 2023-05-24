@@ -87,7 +87,7 @@ public class SitesLog extends BaseTest {
         getDriver().navigate().refresh();
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
-        Pagination(complexLogTable, "Sites Log", ReportFilePath);
+        Pagination(complexLogTable, "Sites Log");
     }
 
 
@@ -127,7 +127,7 @@ public class SitesLog extends BaseTest {
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
         clickFarmTab();
-        Pagination(farmLogTable, "Sites Log", ReportFilePath);
+        Pagination(farmLogTable, "Sites Log");
     }
 
 //	@Test (priority = 12, enabled = true)
@@ -165,13 +165,13 @@ public class SitesLog extends BaseTest {
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
         clickHouseTab();
-        Pagination(houseLogTable, "Sites Log", ReportFilePath);
+        Pagination(houseLogTable, "Sites Log");
     }
 
     @Test (enabled= true, priority = 17)
     public void VerifyColumnsComplexTab() throws IOException, InterruptedException {
         SitesLogPage.openSitesLogPage();
-        VerifyAllColumns(complexLogTable, new String[]{"", "", "Site ID", "Site Name", "Created Date", "Created By", "Organization", "Site Barcode", "Region", "Sub Region", "Number Of Farms Under Complex", "Current Program", "Planned Date To Change Program", "Number Of Houses", "Complex Manager", "Complex Manager Email", "Complex Manager Phone Number", "Street Address", "City", "State", "Zip Code", "Country", "Latitude", "Longitude", ""});
+        VerifyAllColumns(complexLogTable, new String[]{"", "", "Site ID", "Site Name", "Site Barcode","Created Date", "Created By", "Organization", "Region", "Sub Region", "Number Of Farms Under Complex", "Current Program", "Planned Date To Change Program", "Number Of Houses", "Complex Manager", "Complex Manager Email", "Complex Manager Phone Number", "Street Address", "City", "State", "Zip Code", "Country", "Latitude", "Longitude", ""});
     }
 
     @Test (enabled= true, priority = 18)

@@ -233,7 +233,7 @@ public class FlockManagement extends BaseTest {
         getDriver().get(url_flockManagement);
         waitElementInvisible(loading_cursor);
         Thread.sleep(3000);
-        Pagination(flockPlacementTable, "Program Management", ReportFilePath);
+        Pagination(flockPlacementTable, "Program Management");
     }
 
 
@@ -242,7 +242,7 @@ public class FlockManagement extends BaseTest {
         getDriver().findElement(flockMortalityTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(flockMortalityTable, "Program Management", ReportFilePath);
+        Pagination(flockMortalityTable, "Program Management");
     }
 
 
@@ -251,7 +251,7 @@ public class FlockManagement extends BaseTest {
         getDriver().findElement(flockSettlementTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(flockSettlementTable, "Program Management", ReportFilePath);
+        Pagination(flockSettlementTable, "Program Management");
     }
 
 
@@ -260,7 +260,7 @@ public class FlockManagement extends BaseTest {
         getDriver().findElement(flockCondemnationTab).click();
         waitElementInvisible(loading_cursor);
         Thread.sleep(1000);
-        Pagination(flockCondemnationTable, "Program Management", ReportFilePath);
+        Pagination(flockCondemnationTable, "Program Management");
     }
 
 

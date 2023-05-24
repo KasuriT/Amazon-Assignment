@@ -35,7 +35,7 @@ import MiscFunctions.ExtentVariables;
 public class Pagination {
 
 	@Test 
-	public static void Pagination(String tablename, String name, String ReportPath) throws InterruptedException, IOException {
+	public static void Pagination(String tablename, String name) throws InterruptedException, IOException {
 		BaseTest driver = new BaseTest();
 		for (int i=0; i<=3;i++) {
 			try {

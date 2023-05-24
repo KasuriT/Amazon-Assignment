@@ -21,7 +21,8 @@ public class OrganizationManagementModel {
 	
 	
 	public static String BulkSitefileName = "BulkSiteTemplate.xlsx";
-	public static String OrganizationName = "Test Organization"+date0;
+	public static String OrganizationName = "Test Organization2046";
+//	public static String OrganizationName = "Test Organization"+date0;
 	public static String AlliedOrganizationName = "Test_Allied_Org_"+date0;
 	public static String AlliedOrganizationNameCompanyProduct = "Allied_Product 2";
 //	public static String AlliedOrganizationName = "Test_Allied_Org_3451";

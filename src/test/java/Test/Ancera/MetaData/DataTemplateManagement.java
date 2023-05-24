@@ -900,22 +900,16 @@ public class DataTemplateManagement extends BaseTest{
 	public void VerifyClientMappingPopup() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-DTM-19: Verify client mapping popup opens and user is able to see all template list", "This test case will verify that client mapping popup opens and user is able to see all template list");
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
-			preconditions.createNode("5. Create a new template");
 			steps.createNode("1. Open Client mapping popup");
 			steps.createNode("2. Verify created template along with all other template are displayed in the list");
 
 			SoftAssert softAssert = new SoftAssert();
 
 			List<WebElement> templateNamesTable = getDriver().findElements(By.cssSelector("tr td:nth-child(1) label"));
-			int excludeBulkSiteTemplate = templateNamesTable.size() - 1;
+			int excludeBulkSiteTemplates = templateNamesTable.size() - 5;
 
 			getDriver().findElement(dtmClientMappingOpenButton).click();
 			waitElementInvisible(loading_cursor);	
@@ -923,7 +917,7 @@ public class DataTemplateManagement extends BaseTest{
 			getScreenshot();	
 			List<WebElement> templateNamesClientMapping = getDriver().findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
 			
-			softAssert.assertEquals(templateNamesClientMapping.size(), excludeBulkSiteTemplate);
+			softAssert.assertEquals(templateNamesClientMapping.size(), excludeBulkSiteTemplates);
 			softAssert.assertAll();
 			test.pass("Client mapping popup opened successfully and displayed all templates");
 			results.createNode("Client mapping popup opened successfully and displayed all templates");	
@@ -972,29 +966,29 @@ public class DataTemplateManagement extends BaseTest{
 			Thread.sleep(3000);
 			
 			List<WebElement> templateNamesTable = getDriver().findElements(By.cssSelector("tr td:nth-child(1) label"));
-			getDriver().findElement(dtmClientMappingOpenButton).click();
+			click(dtmClientMappingOpenButton);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			getDriver().findElement(dtmClientMappingClientDropdown).click();
+			click(dtmClientMappingClientDropdown);
 			Thread.sleep(1000);
 			getScreenshot();	
-			int MappingClientSites = getDriver().findElements(By.cssSelector(".ng-option")).size();
+			int MappingClientSites = size(By.cssSelector(".ng-option"));
 			//check if all clients displays in dropdown which are assign to user
 			
 			System.out.println("Mapping: "+ MappingClientSites);
 		//	softAssert.assertEquals(userClientSites, MappingClientSites);
 			
-			getDriver().findElement(dtmClientMappingClientDropdown).click();
+			click(dtmClientMappingClientDropdown);
 			Thread.sleep(1000);			
 			
 			if (size(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")) != 0) {
 			
 			
 			for (int j =1; j<=MappingClientSites; j++) {
-				getDriver().findElement(dtmClientMappingClientDropdown).click();
+				click(dtmClientMappingClientDropdown);
 				Thread.sleep(1000);
 				
-				getDriver().findElement(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label")).click();
+				click(By.cssSelector(".ng-option:nth-child("+j+") .ng-option-label"));
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(1000);
 				List<WebElement> templateNamesClientMapping = getDriver().findElements(By.cssSelector(".popup-content tr td:nth-child(2) label"));
@@ -1007,15 +1001,15 @@ public class DataTemplateManagement extends BaseTest{
 			}
 
 			if (getDriver().findElement(By.id("isCreate0")).isSelected() == false) {
-				getDriver().findElement(By.cssSelector(".popup-content tr:nth-child(1) td:nth-child(3) .custom-checkbox")).click();
+				click(By.cssSelector(".popup-content tr:nth-child(1) td:nth-child(3) .custom-checkbox"));
 			}
 			if (getDriver().findElement(By.id("isCreate1")).isSelected() == false) {
-				getDriver().findElement(By.cssSelector(".popup-content tr:nth-child(2) td:nth-child(3) .custom-checkbox")).click();
+				click(By.cssSelector(".popup-content tr:nth-child(2) td:nth-child(3) .custom-checkbox"));
 			}
-			getDriver().findElement(popupSaveButton).click();
+			click(popupSaveButton);
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
-			softAssert.assertEquals(getDriver().findElement(alertMessage).getText(), "Client mapping details has been updated successfully.");
+			softAssert.assertEquals(getText(alertMessage), "Client mapping details has been updated successfully.");
 
 			softAssert.assertAll();
 			test.pass("Client dropdown in client mapping displayed all clients assigned to user successfully");
@@ -1045,12 +1039,6 @@ public class DataTemplateManagement extends BaseTest{
 			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
-
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu");
-			preconditions.createNode("4. Click on MetaData and select Data Template Management; Data Template Management screen opens");
-			preconditions.createNode("5. Create a new template");
 			steps.createNode("1. Open Client mapping popup");
 			steps.createNode("2. Assign templates to client");
 			steps.createNode("3. Go to data upload screen and verify that assign templates are displayed against that client");
@@ -1059,20 +1047,20 @@ public class DataTemplateManagement extends BaseTest{
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1000);
 
-			String rows = getDriver().findElement(By.id("results-found-count")).getText();
+			String rows = getText(By.id(ResultsCount));
 
-			getDriver().findElement(dtmClientMappingOpenButton).click();
+			click(dtmClientMappingOpenButton);
 			waitElementInvisible(loading_cursor);	
 
-			getDriver().findElement(dtmClientMappingClientDropdown).click();
+			click(dtmClientMappingClientDropdown);
 			Thread.sleep(1500);
 			if (size(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")) != 0) {
 			String clientName = getDriver().findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).getText();
-			getDriver().findElement(By.cssSelector(".ng-option:nth-child(1) .ng-option-label")).click();
+			click(By.cssSelector(".ng-option:nth-child(1) .ng-option-label"));
 			waitElementInvisible(loading_cursor);	
 			Thread.sleep(1000);
 
-			int templateRows = Integer.parseInt(rows) - 1;
+			int templateRows = Integer.parseInt(rows) - 5;
 			int count = 0;
 			for (int i=0; i< templateRows; i++) {
 				
@@ -1082,7 +1070,7 @@ public class DataTemplateManagement extends BaseTest{
 						getDriver().get(url_dataUpload);
 						waitElementInvisible(loading_cursor);
 						Thread.sleep(1000);
-						getDriver().findElement(By.id("OrgnTypeID")).click();
+						click(By.id("OrgnTypeID"));
 						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys("Client");
 						getDriver().findElement(By.cssSelector("#OrgnTypeID input")).sendKeys(Keys.ENTER);
 						Thread.sleep(1000);

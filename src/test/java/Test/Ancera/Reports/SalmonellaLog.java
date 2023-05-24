@@ -112,7 +112,7 @@ public class SalmonellaLog extends BaseTest{
 		getDriver().navigate().forward();
 		waitElementInvisible(loading_cursor);
 		Thread.sleep(3000);
-		Pagination(salmonellaLogTable, "Salmonella Log", ReportFilePath);
+		Pagination(salmonellaLogTable, "Salmonella Log");
 	}
 	
 
