@@ -9,13 +9,18 @@ public class BasePage {
 	public static By popupNextButton = By.id("btn-next");
 	public static By popupResetButton = By.id("btn-reset");
 	public static By popupSaveButton = By.id("btn-save");
+	public static By popupCancelButton = By.id("btn-cancel");
 	public static By popupSubmitButton = By.id("btn-submit");
+	public static By popupSubmitButtonDisabled = By.cssSelector("#btn-submit.cursor-not-allowed");
 	public static By popupSaveButtonXpath = By.xpath("//button[text() = ' Submit ']");
 	public static By popupYesButton = By.id("btn-yes");
 	public static By popupOKButton = By.id("btn-ok");
 	public static By popupNoButton = By.id("btn-no");
 	public static By popupCloseButton = By.cssSelector("#close-popup-modal img");
+	public static By popupCloseButton2 = By.cssSelector("#close-gen-modal");
 	public static By popupTotalRows = By.cssSelector(".apl-resp-table td:nth-child(1)");
+	public static By popupHeaderTitle = By.cssSelector(".pop-head div");
+	public static By popupConfirmationTitle = By.cssSelector(".popupHeading h4");
 	public static By alertMessage = By.id("message");
 	//public static By alertMessageClose = By.cssSelector("button.close span");
 	public static By alertMessageClose = By.xpath("/html/body/app-root/app-notification-component/ngb-alert/button/span");

@@ -61,87 +61,87 @@ public class UserManagement extends BaseTest {
     }
 
 
-        @Test(priority = 1)
-        public void LockFilter() throws InterruptedException, IOException {
+    @Test(priority = 1)
+    public void LockFilter() throws InterruptedException, IOException {
+        getDriver().get(Constants.url_user);
+        waitElementInvisible(loading_cursor);
+        waitElementVisible(usercreateButton);
+        Thread.sleep(3000);
+        Lock(userManagementTable, "User Management", 0);
+    }
+
+
+    @Test(priority = 2)
+    public void WildcardUser() throws InterruptedException, IOException {
+        getDriver().get(Constants.url_user);
+        waitElementInvisible(loading_cursor);
+        waitElementVisible(usercreateButton);
+        Thread.sleep(3000);
+        Wildcard(userManagementTable, "User Management", 0);
+    }
+
+
+    @Test(priority = 3)
+    public void sorting() throws InterruptedException, IOException {
+        getDriver().get(Constants.url_user);
+        waitElementInvisible(loading_cursor);
+        waitElementVisible(usercreateButton);
+        Thread.sleep(3000);
+        Sorting(userManagementTable, "User Management", 0);
+    }
+
+    @Test(priority = 4)
+    public void pagination() throws InterruptedException, IOException {
+        Pagination(userManagementTable, "User Management");
+    }
+
+    @Test(priority = 5)
+    public void rowsperPage() throws InterruptedException, IOException {
+        getDriver().get(Constants.url_user);
+        waitElementInvisible(loading_cursor);
+        waitElementVisible(usercreateButton);
+        Thread.sleep(3000);
+        RowsPerPage_();
+    }
+
+
+    @Test(priority = 6)
+    public void ExportCSV() throws InterruptedException, IOException {
+        CSVExport("User Management", userCSVFileName, userManagementTable, 1);
+    }
+
+
+    @Test(enabled = false, priority = 7)
+    public void OpenClosePopup() throws InterruptedException, IOException {
+        try {
+            test = extent.createTest("AN-UM-02: Verify user can open and close Create New User Popup", "This test case will verify that user is able to open and close create new user popup");
+            steps = test.createNode(Scenario.class, Steps);
+            steps.createNode("1. Click on Create New button");
+
             getDriver().get(Constants.url_user);
             waitElementInvisible(loading_cursor);
             waitElementVisible(usercreateButton);
-            Thread.sleep(3000);
-            Lock(userManagementTable, "User Management", 0);
-        }
+            Thread.sleep(2000);
 
-
-        @Test(priority = 2)
-        public void WildcardUser() throws InterruptedException, IOException {
-            getDriver().get(Constants.url_user);
+            click(usercreateButton);
             waitElementInvisible(loading_cursor);
-            waitElementVisible(usercreateButton);
-            Thread.sleep(3000);
-            Wildcard(userManagementTable, "User Management", 0);
-        }
+            Thread.sleep(1000);
+            Assert.assertEquals(getDriver().findElement(By.cssSelector(".pop-head")).getText(), "Create User", "Popup failed to open");
 
-
-        @Test(priority = 3)
-        public void sorting() throws InterruptedException, IOException {
-            getDriver().get(Constants.url_user);
+            click(popupCloseButton);
             waitElementInvisible(loading_cursor);
-            waitElementVisible(usercreateButton);
-            Thread.sleep(3000);
-            Sorting(userManagementTable, "User Management", 0);
+            Assert.assertEquals(getDriver().findElements(popupNextButton).size(), 0);
+            test.pass("User popup window opened and closed successfully");
+            results.createNode("User popup window opened and closed successfully");
+            getScreenshot();
+            saveResult(ITestResult.SUCCESS, null);
+
+        } catch (AssertionError er) {
+            test.fail("User popup window did not open or closed successfully");
+            results.createNode("User popup window did not open or closed successfully");
+            saveResult(ITestResult.FAILURE, new Exception(er));
         }
-
-        @Test(priority = 4)
-        public void pagination() throws InterruptedException, IOException {
-            Pagination(userManagementTable, "User Management");
-        }
-
-        @Test(priority = 5)
-        public void rowsperPage() throws InterruptedException, IOException {
-            getDriver().get(Constants.url_user);
-            waitElementInvisible(loading_cursor);
-            waitElementVisible(usercreateButton);
-            Thread.sleep(3000);
-            RowsPerPage_();
-        }
-
-
-        @Test(priority = 6)
-        public void ExportCSV() throws InterruptedException, IOException {
-            CSVExport("User Management", userCSVFileName, userManagementTable, 1);
-        }
-
-
-        @Test(enabled = false, priority = 7)
-        public void OpenClosePopup() throws InterruptedException, IOException {
-            try {
-                test = extent.createTest("AN-UM-02: Verify user can open and close Create New User Popup", "This test case will verify that user is able to open and close create new user popup");
-                steps = test.createNode(Scenario.class, Steps);
-                steps.createNode("1. Click on Create New button");
-
-                getDriver().get(Constants.url_user);
-                waitElementInvisible(loading_cursor);
-                waitElementVisible(usercreateButton);
-                Thread.sleep(2000);
-
-                click(usercreateButton);
-                waitElementInvisible(loading_cursor);
-                Thread.sleep(1000);
-                Assert.assertEquals(getDriver().findElement(By.cssSelector(".pop-head")).getText(), "Create User", "Popup failed to open");
-
-                click(popupCloseButton);
-                waitElementInvisible(loading_cursor);
-                Assert.assertEquals(getDriver().findElements(popupNextButton).size(), 0);
-                test.pass("User popup window opened and closed successfully");
-                results.createNode("User popup window opened and closed successfully");
-                getScreenshot();
-                saveResult(ITestResult.SUCCESS, null);
-
-            } catch (AssertionError er) {
-                test.fail("User popup window did not open or closed successfully");
-                results.createNode("User popup window did not open or closed successfully");
-                saveResult(ITestResult.FAILURE, new Exception(er));
-            }
-        }
+    }
 
 
     @Test(enabled = true, priority = 7)
@@ -401,7 +401,7 @@ public class UserManagement extends BaseTest {
             List<WebElement> a = getDriver().findElements(By.xpath("//*[@class='yW']/span"));
             Thread.sleep(2000);
             for (int i = 0; i < a.size(); i++) {
-                System.out.println("Size: " + a.get(i).getText().equals("support"));
+                //   System.out.println("Size: " + a.get(i).getText().equals("support"));
                 if (a.get(i).getText().equals("ancera.org.dev") || a.get(i).getText().equals("support")) {
                     Thread.sleep(2000);
                     a.get(i).click();
@@ -426,6 +426,8 @@ public class UserManagement extends BaseTest {
                 results.createNode("Email to reset password did not received");
             }
 
+            scroll(By.xpath("//*[text() = 'Branford, CT 06405']"));
+            Thread.sleep(1000);
             getDriver().findElement(By.linkText("Create Password")).click();
             Thread.sleep(1000);
             getDriver().findElement(By.xpath("//*[@id=\":4\"]/div[2]/div[1]/div/div[2]/div[3]")).click();
@@ -1021,7 +1023,7 @@ public class UserManagement extends BaseTest {
 
 
     @Test(enabled = true, priority = 21)
-    public void SiteAdminEditSites(Hashtable<String, String> data) throws InterruptedException, IOException {
+    public void SiteAdminEditSites() throws InterruptedException, IOException {
         try {
             test = extent.createTest("AN-UM-25: Verify user can edit sites of his organization", "This test case will verify that user can only see organization that is assigned to him in client mapping");
             steps = ExtentVariables.test.createNode(Scenario.class, Steps);

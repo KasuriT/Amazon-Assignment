@@ -73,9 +73,9 @@ public class OrganizationManagementPage {
 	public static By orgAddSite3 = By.xpath("//ul/li/ul/li//div[4]/div[1]/img");
 	public static By orgAddSite4 = By.xpath("//ul/li//li//li//div[4]/div[1]/img");
 	public static By orgAddSite5 = By.xpath("//ul/div/li//li//li/ul/li/ul/li/div/div[4]/div[1]/img");
-	public static By orgAddSite6 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/div[1]/img");
-	public static By orgAddSite7 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/div[1]/img");
-	public static By orgDeleteSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[2]/img");
+	public static By orgAddSite6 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/div/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[2]/div/div[4]/div[1]/img");
+	public static By orgAddSite7 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/div/form/div[2]/div/div[1]/div/ul/div/li/ul/li/ul/li/ul/li[3]/div/div[4]/div[1]/img");
+	public static By orgDeleteSite1 = By.xpath("/html/body/app-root/div/app-manage-organization-v2/div/div[2]/app-popup-component/div/div/div/div[3]/app-create-site-component/div/form/div[2]/div/div[1]/div/ul/div/li/ul/li/div/div[4]/div[2]");
 	
 	public static String orgNameCol = "0";
 	public static String orgPhoneNumberCol = "1";
@@ -103,8 +103,9 @@ public class OrganizationManagementPage {
 	
 	public static void openEditOrgSitesPopup(String orgName) throws InterruptedException, IOException {
 		for (int i=1;i<size(By.cssSelector("tr")); i++) {
-			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).equals(OrganizationName)) {
+			if (getText(By.cssSelector("tr:nth-child("+i+") #col-"+orgNameCol+" label")).equals(orgName)) {
 				scroll(By.id("edit-orgn-sites-"+i));
+				Thread.sleep(1000);
 				click(By.id("edit-orgn-sites-"+i));
 				waitElementInvisible(loading_cursor);
 				Thread.sleep(700);

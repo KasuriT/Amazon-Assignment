@@ -372,7 +372,13 @@ public class LogCSVExport {
 				System.out.println("CSV file deleted");
 			}
 
-			click(popupCloseButton);
+			if (size(popupCloseButton)!=0) {
+				click(popupCloseButton);
+			}
+
+			if (size(popupCloseButton2)!=0) {
+				click(popupCloseButton2);
+			}
 
 			softAssert.assertAll();
 			test.pass("Column data exported successfully");

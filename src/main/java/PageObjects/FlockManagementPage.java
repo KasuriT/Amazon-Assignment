@@ -55,7 +55,8 @@ public static By FlockManagementTitle = By.id("Flock Management");
 	public static By flockAddNewProgramTypeInput = By.cssSelector("#programTypeId-0-0 input");
 	public static By flockAddNewProgramNameInput = By.cssSelector("#programId-0-0 input");
 	public static By flockCMSAdminInput = By.cssSelector("input#administrationMethodId");
-	
+	public static By flockCollectionPlanInputField = By.cssSelector("#collectionPlan-0-0-0 .ng-input input");
+
 	/////////////////Placement//////////////////
 	public static String flockIDPlacementCol = "0";
 	public static String flockIntegratorIDPlacementCol = "1";

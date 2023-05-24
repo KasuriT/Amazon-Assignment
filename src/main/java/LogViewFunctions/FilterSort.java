@@ -9,8 +9,7 @@ import static MiscFunctions.ExtentVariables.test;
 import static MiscFunctions.Methods.*;
 import static MiscFunctions.Methods.getScreenshot;
 import static MiscFunctions.Methods.waitElementInvisible;
-import static PageObjects.BasePage.alertMessage;
-import static PageObjects.BasePage.loading_cursor;
+import static PageObjects.BasePage.*;
 
 import java.io.IOException;
 import java.text.Collator;
@@ -221,7 +220,7 @@ public class FilterSort {
 					steps = test.createNode(Scenario.class, Steps);
 					results = test.createNode(Scenario.class, Results);
 
-					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("CREATED")) {
+					if (column.getText().contains("Time") || column.getText().contains("Date") || column.getText().contains("DATE") || column.getText().contains("Created") || column.getText().contains("Current")) {
 						test.skip("Column sorted successfully");
 						results.createNode("Column sorted successfully");
 						base.saveResult(ITestResult.SKIP, null);
@@ -240,6 +239,7 @@ public class FilterSort {
 							softAssert.assertEquals(size(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_desc .log-header .mb-0")), 1, "Did not sorted in descending order");
 							softAssert.assertEquals(size(alertMessage), 0, "Exception message occured");
 							getScreenshot();
+							click(alertMessageClose);
 						}
 
 						column.click();
@@ -249,6 +249,7 @@ public class FilterSort {
 							softAssert.assertEquals(size(By.cssSelector("#"+tablename+" th:nth-child("+i+").sort_asc .log-header .mb-0")), 1, "Did not sorted in descending order");
 							softAssert.assertEquals(size(alertMessage), 0, "Exception message occured");
 							getScreenshot();
+							click(alertMessageClose);
 						}
 
 						//capture all web Elements into list

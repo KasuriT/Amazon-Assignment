@@ -171,7 +171,7 @@ public class SitesLog extends BaseTest {
     @Test (enabled= true, priority = 17)
     public void VerifyColumnsComplexTab() throws IOException, InterruptedException {
         SitesLogPage.openSitesLogPage();
-        VerifyAllColumns(complexLogTable, new String[]{"", "", "Site ID", "Site Name", "Created Date", "Created By", "Organization", "Site Barcode", "Region", "Sub Region", "Number Of Farms Under Complex", "Current Program", "Planned Date To Change Program", "Number Of Houses", "Complex Manager", "Complex Manager Email", "Complex Manager Phone Number", "Street Address", "City", "State", "Zip Code", "Country", "Latitude", "Longitude", ""});
+        VerifyAllColumns(complexLogTable, new String[]{"", "", "Site ID", "Site Name", "Site Barcode","Created Date", "Created By", "Organization", "Region", "Sub Region", "Number Of Farms Under Complex", "Current Program", "Planned Date To Change Program", "Number Of Houses", "Complex Manager", "Complex Manager Email", "Complex Manager Phone Number", "Street Address", "City", "State", "Zip Code", "Country", "Latitude", "Longitude", ""});
     }
 
     @Test (enabled= true, priority = 18)

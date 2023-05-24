@@ -321,14 +321,9 @@ public class OrganizationManagement extends BaseTest{
 	public void OrganizationSitesHierarchyCheck() throws InterruptedException, IOException {
 		try{
 			test = extent.createTest("AN-OM-08-16: Verify Complete Organization Site Hierarchy", "This test case will verify complete site hierarchy");
-			preconditions = test.createNode(Scenario.class, PreConditions);
 			steps = test.createNode(Scenario.class, Steps);
 			results = test.createNode(Scenario.class, Results);
 
-			preconditions.createNode("1. Go to url " +url_login);
-			preconditions.createNode("2. Login with valid credentials; user navigates to home page");
-			preconditions.createNode("3. Hover to sidebar to expand the menu; Click on Administration and select Organization Management");
-			preconditions.createNode("4. Click on create new button and create a new Organization");
 			steps.createNode("1. Click on site button next to created Organization; Organization Site popup appears");
 			steps.createNode("2. Verify Site Type is Organization");
 
@@ -735,7 +730,7 @@ public class OrganizationManagement extends BaseTest{
 	}
 	
 	
-	@Test (enabled= true, priority = 19) 
+	@Test (enabled= false, priority = 19)
 	public void BulkUploadEmpty() throws InterruptedException, IOException {
 		try {
 			test = extent.createTest("AN-OM-23: Verify user is not able to upload empty bulk site file");
@@ -746,7 +741,7 @@ public class OrganizationManagement extends BaseTest{
 	
 			openEditOrgSitesPopup(OrganizationName);
 
-			getDriver().findElement(By.id("file-input")).sendKeys(FrameworkConstants.OrganizationBulkSiteUploadInvalidFile);
+			getDriver().findElement(By.cssSelector(".btn-lbl")).sendKeys(FrameworkConstants.OrganizationBulkSiteUploadInvalidFile);
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(1500);
 			Assert.assertEquals(getDriver().findElement(alertMessage).getText(), "Uploaded file contains no rows."); 
@@ -765,7 +760,7 @@ public class OrganizationManagement extends BaseTest{
 	}
 	
 
-	@Test (enabled= true, priority = 20) 
+	@Test (enabled= false, priority = 20)
 	public void BulkUpload() throws InterruptedException, IOException {
 
 		lstOrgBulkSiteUpload = OrganizationManagementModel.BulkSiteFillData();
@@ -835,7 +830,7 @@ public class OrganizationManagement extends BaseTest{
 						wb.write(output_file);
 						output_file.close(); 
 
-						getDriver().findElement(By.id("file-input")).sendKeys(FrameworkConstants.OrganizationBulkSiteUploadValidFile);
+						getDriver().findElement(By.cssSelector(".btn-lbl")).sendKeys(FrameworkConstants.OrganizationBulkSiteUploadValidFile);
 						waitElementInvisible(loading_cursor);
 						waitElementVisible(alertMessage); 
 

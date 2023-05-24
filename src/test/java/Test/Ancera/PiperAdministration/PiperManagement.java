@@ -51,9 +51,6 @@ public class PiperManagement extends BaseTest{
 	
 	@Test (priority = 2, enabled = true) 
 	public void LockFilter() throws InterruptedException, IOException {
-		getDriver().get(url_piperManagement);
-		waitElementInvisible(loading_cursor);
-		Thread.sleep(3000);
 		Lock(piperManagementTable, "PIPER Management", 0);
 	}
 	
@@ -79,8 +76,8 @@ public class PiperManagement extends BaseTest{
 			steps.createNode("1. Verify Test Site Filter Functionality");
 			
 			SoftAssert softAssert = new SoftAssert();
-			String recordBefore = getDriver().findElement(By.id(ResultsCount)).getText(); 
-			getDriver().findElement(By.id("testSite_show-filter")).click();
+			String recordBefore = getDriver().findElement(By.id(ResultsCount)).getText();
+			click(By.id("testSite_show-filter"));
 			waitElementInvisible(loading_cursor);
 			Thread.sleep(2000);
 			click(By.cssSelector("th:nth-child(2) tr:nth-child(2) td:nth-child(2) label:nth-child(1)"));
