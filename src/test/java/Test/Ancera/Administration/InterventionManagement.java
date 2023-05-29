@@ -47,7 +47,7 @@ public class InterventionManagement extends BaseTest {
     }
 
     @Test(priority = 4, enabled = true, description = "TC: IE-9468, TC: IE-9402")
-    public void VerifyIconsPresenceOnInlineEditFunctionality() throws IOException, InterruptedException {
+    public void VerifyIconsPresenceOnInlineEditFunctionality() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.iconsPresenceOnInlineEditFunctionality();
     }
@@ -71,7 +71,7 @@ public class InterventionManagement extends BaseTest {
     }
 
     @Test(priority = 8, enabled = true, description = "TC: IE-9416")
-    public void VerifyInlineEditInterventionFunctionality() throws IOException, InterruptedException {
+    public void VerifyInlineEditInterventionFunctionality() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.inlineEditIntervention();
     }

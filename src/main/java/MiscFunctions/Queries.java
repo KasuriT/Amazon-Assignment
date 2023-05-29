@@ -22,7 +22,7 @@ public class Queries extends DB_Config_DW {
 	}
 
 	public static String getFarmNameAssignedToUserAtIndex2(int userId) {
-		 String getFarmName = "DECLARE @userId BIGINT = 338;\n" +
+		 String getFarmName = "DECLARE @userId BIGINT  ="+userId+";"+
 				 "\n" +
 				 "SELECT siteName\n" +
 				 "FROM\n" +
@@ -60,6 +60,25 @@ public class Queries extends DB_Config_DW {
 				"frm.siteId IN (SELECT siteId FROM ClientSiteAssn WHERE userId=@userId AND isActive=1 AND isDeleted=0) OR " +
 				"frm.siteId IN (SELECT siteId FROM UserTestSitesAssn WHERE userId=@userId AND isActive=1 AND isDeleted=0))";
 		return getComplexName;
+	}
+
+	public static String getTwoComplexNameAssignedToUser(int userId) {
+		String getComplexName = "DECLARE @userId BIGINT = "+userId+";" +
+				"SELECT  Top 2 frm.siteName FROM Site frm WHERE frm.siteTypeId=5 AND frm.isActive=1 AND frm.isDeleted=0 AND " +
+				"(frm.siteId IN (SELECT siteId FROM UserSiteAssn WHERE userId=@userId AND isActive=1 AND isDeleted=0) OR " +
+				"frm.siteId IN (SELECT siteId FROM ClientSiteAssn WHERE userId=@userId AND isActive=1 AND isDeleted=0) OR " +
+				"frm.siteId IN (SELECT siteId FROM UserTestSitesAssn WHERE userId=@userId AND isActive=1 AND isDeleted=0))";
+		return getComplexName;
+	}
+
+	public static String getLastCreatedIntervention()
+	{
+		String getInterventionDisplayName = "select top 1 ENTITY_TYPE_DISPLAY " +
+				"from ENTITY_TYPE ET " +
+				"INNER JOIN ENTITY EN " +
+				"ON ET.ENTITY_TYPE_ID = EN.ENTITY_TYPE_ID " +
+				"order by ET.createdOn Desc";
+		return  getInterventionDisplayName;
 	}
 
 

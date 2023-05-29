@@ -1,8 +1,10 @@
 package PageObjects;
 
 import LogViewFunctions.FieldAccess;
+import MiscFunctions.Constants;
 import MiscFunctions.DB_Config_DB;
 import MiscFunctions.NavigateToScreen;
+import MiscFunctions.Queries;
 import Models.ProgramManagementModel;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import org.apache.groovy.json.internal.IO;
@@ -37,9 +39,14 @@ import static MiscFunctions.Constants.*;
 import static MiscFunctions.DateUtil.dateMMDDYYYY1;
 import static MiscFunctions.ExtentVariables.*;
 import static MiscFunctions.Methods.*;
+import static MiscFunctions.Queries.getLastCreatedIntervention;
+import static MiscFunctions.Queries.getUsersId;
 import static PageObjects.BasePage.*;
+import static PageObjects.FlockManagementPage.flockFarmDropdownExpand;
+import static PageObjects.FlockManagementPage.flockFarmDropdownSearch;
 import static PageObjects.LoginPage.logoutButton;
 import static PageObjects.LoginPage.sideBar;
+import static PageObjects.ProgramManagementPage.programComplexSearch;
 
 public class InterventionManagementPage {
     public static String text;
@@ -61,6 +68,7 @@ public class InterventionManagementPage {
     public static By inlineEditInterventionName = By.cssSelector("#col-0-1-entityTypeManagement input[formcontrolname='name']");
     public static By inlineEditComplex = By.xpath("//td[@id='col-0-2-entityTypeManagement']/label");
     public static By inlineEditFieldLabel = By.cssSelector("#col-0-2-entityTypeManagement input[formcontrolname='name']");
+    public static By inlineEditFieldLabel1 = By.cssSelector("#col-0-3-entityTypeManagement input[formcontrolname='name']");
     public static By mandatoryCheckInterventionName = By.xpath("//div[contains(text(),'Intervention name is required')]");
     public static By popupCrossIcon = By.xpath("//img[@id='close-confirmation']");
     public static By interventionCrossIcon = By.xpath("//div[@id='close-popup-modal']");
@@ -89,14 +97,14 @@ public class InterventionManagementPage {
     public static By interventionNameColumnFilter = By.cssSelector("#entitY_NAME_show-filter");
     public static By fieldLabelColumnFilter = By.cssSelector("#AttributeName_show-filter");
     public static By complexColumnFilter = By.cssSelector("#siteName_show-filter");
-    public static By viewInterventionsDropdown = By.cssSelector("#entityTypeId");
+    public static By viewInterventionsDropdown = By.cssSelector("#entityTypeId input");
     public static By dropdownValue = By.xpath("//span[contains(text(),'InterventionDisplay_1683667593')]");
     public static By createInterventionTypeButton = By.xpath("//a[contains(text(),'Create Intervention Type')]");
     public static By logInterventionTypeButton = By.xpath("//a[contains(text(),'Log Intervention')]");
     public static By selectComplexDropdown = By.cssSelector("#compleSiteId .toggle-list");
     public static By selectComplexDropdownField = By.xpath("//label[@for='compleSiteId']");
     public static By selectComplexSearch = By.id("compleSiteId_search");
-    public static By complexSearchFieldValue = By.xpath("//b[contains(text(),'Complex 1')]");
+    public static By complexSearchFieldValue = By.xpath("//b[contains(text(),'Georgia Complex')]");
     public static By complex2SearchFieldValue = By.xpath("//b[contains(text(),'Complex 2')]");
     public static By nameFieldInterventionForm = By.id("entityTypeName");
     @FindBy(how = How.ID, using = "entityTypeName")
@@ -229,18 +237,31 @@ public class InterventionManagementPage {
         Wildcard(interventionManagementTable, "Intervention Management", 1);
     }
 
-    public void iconsPresenceOnInlineEditFunctionality() throws IOException, InterruptedException {
+    public void iconsPresenceOnInlineEditFunctionality() throws IOException, InterruptedException, SQLException {
         test = extent.createTest("Verify icons reset and unlock button are hidden in inline mode on Intervention Management Screen ");
         steps = test.createNode(Scenario.class, Steps);
         results = test.createNode(Scenario.class, Results);
+        DB_Config_DB.test();
         try {
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(3000);
             SoftAssert softAssert = new SoftAssert();
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+
+            if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
+                ResultSet getInterventionResult = DB_Config_DB.getStmt().executeQuery(Queries.getLastCreatedIntervention());
+
+                while (getInterventionResult.next()) {
+                    String lastCreatedInterventionDisplay = getInterventionResult.getString("ENTITY_TYPE_DISPLAY");
+                    System.out.println("Intervention Display Name: " + lastCreatedInterventionDisplay);
+                    click(viewInterventionsDropdown);
+                    type(viewInterventionsDropdown, lastCreatedInterventionDisplay);
+                    enterKey(viewInterventionsDropdown);
+                    waitElementInvisible(loading_cursor);
+                }
+            }
+
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             softAssert.assertEquals(size(By.cssSelector(ResetFilters)), 0, "Reset filters icon is not hidden");
@@ -259,6 +280,7 @@ public class InterventionManagementPage {
             results.createNode("Confirmation popup display changes failed");
             saveResult(ITestResult.FAILURE, ex);
         }
+        DB_Config_DB.getStmt().close();
     }
 
     public long setUniqueTime() throws IOException {
@@ -465,36 +487,41 @@ public class InterventionManagementPage {
             String setInterventionNameField = "";
             long currentTime = setUniqueTime();
 
-            for (int i = 0; i < 2; i++) {
-                click(logInterventionTypeButton);
-                waitElementInvisible(loading_cursor);
-                if (i == 0) {
-                    click(selectComplexDropdown);
-                    driver.findElement(selectComplexSearch).sendKeys("Complex 1");
-                    enterKey(selectComplexSearch);
-                    click(complexSearchFieldValue);
-                } else {
-                    click(selectComplexDropdown);
-                    driver.findElement(selectComplexSearch).sendKeys("Complex 2");
-                    enterKey(selectComplexSearch);
-                    click(complex2SearchFieldValue);
+                if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev"))
+                {
+                    ResultSet getComplexNameResults = DB_Config_DB.getStmt().executeQuery(Queries.getTwoComplexNameAssignedToUser(getUsersId()));
+                    int i=0;
+                    //    ResultSet getComplexNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getComplexName);
+                    while (getComplexNameResults.next())
+                    {
+                        click(logInterventionTypeButton);
+                        waitElementInvisible(loading_cursor);
+                        click(selectComplexDropdown);
+                        Thread.sleep(2000);
+
+                        String complexName = getComplexNameResults.getString("siteName");
+                        System.out.println("Complex Name: " + complexName);
+                        type(programComplexSearch, complexName);
+                        Thread.sleep(1000);
+                        click(By.cssSelector("#compleSiteId b"));
+
+                        actions.click(interventionTypeField).sendKeys(displayFieldValue).sendKeys(Keys.ENTER).build().perform();
+                        waitElementInvisible(loading_cursor);
+                        setInterventionNameField = "Log" + currentTime;
+                        type(interventionNameField, setInterventionNameField);
+
+                        waitElementVisible(By.xpath("(//input[@placeholder='Placeholder'])[3]"));
+                        if (i == 1)
+                            actions.click(fieldLabelField).sendKeys("fieldLabel").sendKeys(Keys.ENTER).build().perform();
+                        else
+                            actions.click(fieldLabelField).sendKeys("fieldLabel2").sendKeys(Keys.ENTER).build().perform();
+                        waitElementInvisible(loading_cursor);
+                        click(submitButton);
+                        waitElementInvisible(loading_cursor);
+                        Thread.sleep(2000);
+                        i++;
+                    }
                 }
-
-                actions.click(interventionTypeField).sendKeys(displayFieldValue).sendKeys(Keys.ENTER).build().perform();
-                waitElementInvisible(loading_cursor);
-                setInterventionNameField = "Log" + currentTime;
-                type(interventionNameField, setInterventionNameField);
-
-                waitElementVisible(By.xpath("(//input[@placeholder='Placeholder'])[3]"));
-                if (i == 1)
-                    actions.click(fieldLabelField).sendKeys("fieldLabel").sendKeys(Keys.ENTER).build().perform();
-                else
-                    actions.click(fieldLabelField).sendKeys("fieldLabel2").sendKeys(Keys.ENTER).build().perform();
-                waitElementInvisible(loading_cursor);
-                click(submitButton);
-                waitElementInvisible(loading_cursor);
-                Thread.sleep(2000);
-            }
 
             System.out.println(setInterventionNameField);
             boolean sanityPassed = verifyLogInterventionDataSanity(setInterventionNameField, getInterventionLog);
@@ -537,9 +564,11 @@ public class InterventionManagementPage {
             sanityPassed = verifyLogInterventionDataSanity(logName, getUpdatedInterventionLog);
             softAssert.assertTrue(sanityPassed, "Data sanity for update functionality failed");
             // Verify the system does not allow the user to delete the response
-            try {
+            try
+            {
                 driver.findElement(By.xpath("//label[@title='Intervention']" + deleteIcon));
-            } catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e)
+            {
                 isDeleteIconPresent = false;
             }
 
@@ -612,17 +641,70 @@ public class InterventionManagementPage {
         }
     }
 
-    public void inlineEditIntervention() throws IOException, InterruptedException {
+    public void inlineEditIntervention() throws IOException, InterruptedException, SQLException {
         test = extent.createTest("Verify Inline Edit Functionality on Intervention Management Screen");
         steps = test.createNode(Scenario.class, Steps);
         results = test.createNode(Scenario.class, Results);
+        Actions actions = new Actions(driver);
+        DB_Config_DB.test();
         try {
+
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(3000);
             SoftAssert softAssert = new SoftAssert();
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
+            String interventionName = createInterventionType();
+            click(By.xpath("//label[@title='" + interventionName + "']" + editIcon));
+            waitElementInvisible(loading_cursor);
+            String displayFieldValue = displayField.getAttribute("value");
+            System.out.println(displayFieldValue);
+            click(popupCloseButton);
+
+            // Verify log intervention button is available on the intervention management screen and its clickable
+            softAssert.assertTrue(driver.findElement(logInterventionTypeButton).isEnabled(), "Log intervention button is not clickable");
+            // Verify that multiple responses can be added against log intervention type
+
+            String setInterventionNameField = "";
+            long currentTime = setUniqueTime();
+
+            if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev"))
+            {
+                ResultSet getComplexNameResults = DB_Config_DB.getStmt().executeQuery(Queries.getTwoComplexNameAssignedToUser(getUsersId()));
+                int i=0;
+                //    ResultSet getComplexNameResults = DB_Config_DW.getStmt().executeQuery(Queries.getComplexName);
+                while (getComplexNameResults.next())
+                {
+                    click(logInterventionTypeButton);
+                    waitElementInvisible(loading_cursor);
+                    click(selectComplexDropdown);
+                    Thread.sleep(2000);
+
+                    String complexName = getComplexNameResults.getString("siteName");
+                    System.out.println("Complex Name: " + complexName);
+                    type(programComplexSearch, complexName);
+                    Thread.sleep(1000);
+                    click(By.cssSelector("#compleSiteId b"));
+
+                    actions.click(interventionTypeField).sendKeys(displayFieldValue).sendKeys(Keys.ENTER).build().perform();
+                    waitElementInvisible(loading_cursor);
+                    setInterventionNameField = "Log" + currentTime;
+                    type(interventionNameField, setInterventionNameField);
+
+                    waitElementVisible(By.xpath("(//input[@placeholder='Placeholder'])[3]"));
+                    if (i == 1)
+                        actions.click(fieldLabelField).sendKeys("fieldLabel").sendKeys(Keys.ENTER).build().perform();
+                    else
+                        actions.click(fieldLabelField).sendKeys("fieldLabel2").sendKeys(Keys.ENTER).build().perform();
+                    waitElementInvisible(loading_cursor);
+                    click(submitButton);
+                    waitElementInvisible(loading_cursor);
+                    Thread.sleep(2000);
+                    i++;
+                }
+            }
+
+            //click(viewInterventionsDropdown);
+            //click(dropdownValue);
             waitElementInvisible(loading_cursor);
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
@@ -635,10 +717,10 @@ public class InterventionManagementPage {
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             clear(inlineEditInterventionName);
-            long currentTime = setUniqueTime();
+            //long currentTime = setUniqueTime();
             type(inlineEditInterventionName, interventionName + currentTime);
-            clear(inlineEditFieldLabel);
-            type(inlineEditFieldLabel, fieldLabel + currentTime);
+            clear(inlineEditFieldLabel1);
+            type(inlineEditFieldLabel1, fieldLabel + currentTime);
 
             // Verify that the complex field is not an editable field
             String actualCursorStyle = driver.findElement(inlineEditComplex).getCssValue("cursor");
@@ -650,20 +732,20 @@ public class InterventionManagementPage {
             softAssert.assertFalse(isAlertPresent, "Confirmation popup appeared");
             click(popupNoButton);
             waitElementInvisible(loading_cursor);
-            softAssert.assertEquals(size(inlineEditFieldLabel), 0, "the user will navigate to the simple log view");
+            softAssert.assertEquals(size(inlineEditFieldLabel1), 0, "the user will navigate to the simple log view");
             // Verify that the confirmation popup does appear and the user clicks on cross icon
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             clear(inlineEditInterventionName);
             type(inlineEditInterventionName, interventionName + currentTime);
-            clear(inlineEditFieldLabel);
-            type(inlineEditFieldLabel, fieldLabel + currentTime);
+            clear(inlineEditFieldLabel1);
+            type(inlineEditFieldLabel1, fieldLabel + currentTime);
             click(inlineEditIconSaveChanges);
             waitElementInvisible(loading_cursor);
             softAssert.assertFalse(isAlertPresent, "Confirmation popup appeared");
             click(popupCrossIcon);
             waitElementInvisible(loading_cursor);
-            softAssert.assertEquals(size(inlineEditFieldLabel), 1, "the user will navigate to the inline edit mode");
+            softAssert.assertEquals(size(inlineEditFieldLabel1), 1, "the user will navigate to the inline edit mode");
             // Verify that the confirmation popup does appear and the user clicks on yes
             click(inlineEditIconSaveChanges);
             waitElementInvisible(loading_cursor);
@@ -687,6 +769,7 @@ public class InterventionManagementPage {
             results.createNode("Inline Edit intervention functionality failed");
             saveResult(ITestResult.FAILURE, ex);
         }
+        DB_Config_DB.getStmt().close();
     }
 
     public void testSorting(WebElement columnElement) {
