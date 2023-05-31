@@ -67,8 +67,8 @@ public class InterventionManagementPage {
     public static By inlineEditIconSaveChanges = By.cssSelector("#intervention-management-log #edit-inlineSave-access");
     public static By inlineEditInterventionName = By.cssSelector("#col-0-1-entityTypeManagement input[formcontrolname='name']");
     public static By inlineEditComplex = By.xpath("//td[@id='col-0-2-entityTypeManagement']/label");
-    public static By inlineEditFieldLabel = By.cssSelector("#col-0-2-entityTypeManagement input[formcontrolname='name']");
-    public static By inlineEditFieldLabel1 = By.cssSelector("#col-0-3-entityTypeManagement input[formcontrolname='name']");
+    //public static By inlineEditFieldLabel = By.cssSelector("#col-0-2-entityTypeManagement input[formcontrolname='name']");
+    public static By inlineEditFieldLabel = By.cssSelector("#col-0-3-entityTypeManagement input[formcontrolname='name']");
     public static By mandatoryCheckInterventionName = By.xpath("//div[contains(text(),'Intervention name is required')]");
     public static By popupCrossIcon = By.xpath("//img[@id='close-confirmation']");
     public static By interventionCrossIcon = By.xpath("//div[@id='close-popup-modal']");
@@ -248,19 +248,8 @@ public class InterventionManagementPage {
             Thread.sleep(3000);
             SoftAssert softAssert = new SoftAssert();
 
+            getLastCreatedIntervention();
 
-            if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
-                ResultSet getInterventionResult = DB_Config_DB.getStmt().executeQuery(Queries.getLastCreatedIntervention());
-
-                while (getInterventionResult.next()) {
-                    String lastCreatedInterventionDisplay = getInterventionResult.getString("ENTITY_TYPE_DISPLAY");
-                    System.out.println("Intervention Display Name: " + lastCreatedInterventionDisplay);
-                    click(viewInterventionsDropdown);
-                    type(viewInterventionsDropdown, lastCreatedInterventionDisplay);
-                    enterKey(viewInterventionsDropdown);
-                    waitElementInvisible(loading_cursor);
-                }
-            }
 
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
@@ -719,8 +708,8 @@ public class InterventionManagementPage {
             clear(inlineEditInterventionName);
             //long currentTime = setUniqueTime();
             type(inlineEditInterventionName, interventionName + currentTime);
-            clear(inlineEditFieldLabel1);
-            type(inlineEditFieldLabel1, fieldLabel + currentTime);
+            clear(inlineEditFieldLabel);
+            type(inlineEditFieldLabel, fieldLabel + currentTime);
 
             // Verify that the complex field is not an editable field
             String actualCursorStyle = driver.findElement(inlineEditComplex).getCssValue("cursor");
@@ -732,20 +721,20 @@ public class InterventionManagementPage {
             softAssert.assertFalse(isAlertPresent, "Confirmation popup appeared");
             click(popupNoButton);
             waitElementInvisible(loading_cursor);
-            softAssert.assertEquals(size(inlineEditFieldLabel1), 0, "the user will navigate to the simple log view");
+            softAssert.assertEquals(size(inlineEditFieldLabel), 0, "the user will navigate to the simple log view");
             // Verify that the confirmation popup does appear and the user clicks on cross icon
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             clear(inlineEditInterventionName);
             type(inlineEditInterventionName, interventionName + currentTime);
-            clear(inlineEditFieldLabel1);
-            type(inlineEditFieldLabel1, fieldLabel + currentTime);
+            clear(inlineEditFieldLabel);
+            type(inlineEditFieldLabel, fieldLabel + currentTime);
             click(inlineEditIconSaveChanges);
             waitElementInvisible(loading_cursor);
             softAssert.assertFalse(isAlertPresent, "Confirmation popup appeared");
             click(popupCrossIcon);
             waitElementInvisible(loading_cursor);
-            softAssert.assertEquals(size(inlineEditFieldLabel1), 1, "the user will navigate to the inline edit mode");
+            softAssert.assertEquals(size(inlineEditFieldLabel), 1, "the user will navigate to the inline edit mode");
             // Verify that the confirmation popup does appear and the user clicks on yes
             click(inlineEditIconSaveChanges);
             waitElementInvisible(loading_cursor);
@@ -803,18 +792,19 @@ public class InterventionManagementPage {
         softAssert.assertAll();
     }
 
-    public void inlineEditInterventionCheckActions() throws IOException, InterruptedException {
+    public void inlineEditInterventionCheckActions() throws IOException, InterruptedException, SQLException {
         test = extent.createTest("Verify Inline Edit Intervention on Intervention Management Screen");
         steps = test.createNode(Scenario.class, Steps);
         results = test.createNode(Scenario.class, Results);
+        DB_Config_DB.test();
         try {
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(3000);
             SoftAssert softAssert = new SoftAssert();
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+            getLastCreatedIntervention();
+
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             // Verify that the sorting, filtering, and pagination feature does not work in inline edit mode
@@ -844,20 +834,22 @@ public class InterventionManagementPage {
             results.createNode("Inline Edit intervention functionality for sorting, filtering and pagination features failed");
             saveResult(ITestResult.FAILURE, ex);
         }
+        DB_Config_DB.getStmt().close();
     }
 
-    public void inlineEditNavigateToScreen() throws IOException, InterruptedException {
+    public void inlineEditNavigateToScreen() throws IOException, InterruptedException, SQLException {
         test = extent.createTest("Verify Inline Edit Intervention on Intervention Management Screen");
         steps = test.createNode(Scenario.class, Steps);
         results = test.createNode(Scenario.class, Results);
+        DB_Config_DB.test();
         try {
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(3000);
             SoftAssert softAssert = new SoftAssert();
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+            getLastCreatedIntervention();
+
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             // Verify that the confirmation dialogue box display whenever the user navigates to any screen from IE in inline edit mode
@@ -883,9 +875,9 @@ public class InterventionManagementPage {
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(1000);
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+            getLastCreatedIntervention();
+
             click(inlineEditIconIntervention);
             waitElementInvisible(loading_cursor);
             type(inlineEditInterventionName, " Editing");
@@ -912,6 +904,7 @@ public class InterventionManagementPage {
             results.createNode("Inline Edit intervention functionality for sorting, filtering and pagination features failed");
             saveResult(ITestResult.FAILURE, ex);
         }
+        DB_Config_DB.getStmt().close();
     }
 
     public void AccessRights() throws IOException, InterruptedException {
@@ -968,17 +961,19 @@ public class InterventionManagementPage {
         }
     }
 
-    public void inlineEditAccessRights() throws IOException {
+    public void inlineEditAccessRights() throws IOException, SQLException {
 
+        DB_Config_DB.test();
         //GO to intervention management screen and verify inline edit icon is clickable
         SoftAssert softAssert = new SoftAssert();
         driver.get(url_interventionManagement);
         waitElementInvisible(loading_cursor);
-        click(viewInterventionsDropdown);
-        click(dropdownValue);
-        waitElementInvisible(loading_cursor);
+
+        getLastCreatedIntervention();
+
         softAssert.assertTrue(driver.findElement(inlineEditIconIntervention).isEnabled(), "Inline Edit icon is clickable");
         getScreenshot();
+        DB_Config_DB.getStmt().close();
 
     }
 
@@ -1041,18 +1036,19 @@ public class InterventionManagementPage {
         }
     }
 
-    public void inlineEditAudit() throws IOException, InterruptedException {
+    public void inlineEditAudit() throws IOException, InterruptedException, SQLException {
         test = extent.createTest("Verify audit on Intervention Management Screen");
         steps = test.createNode(Scenario.class, Steps);
         results = test.createNode(Scenario.class, Results);
+        DB_Config_DB.test();
         try {
             SoftAssert softAssert = new SoftAssert();
             driver.get(url_interventionManagement);
             waitElementInvisible(loading_cursor);
             Thread.sleep(1000);
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+            getLastCreatedIntervention();
+
 
             // Click on the audit icon to get the current count of rows
             click(auditIconFirstRow);
@@ -1065,9 +1061,8 @@ public class InterventionManagementPage {
             driver.navigate().refresh();
             waitElementInvisible(loading_cursor);
             Thread.sleep(1000);
-            click(viewInterventionsDropdown);
-            click(dropdownValue);
-            waitElementInvisible(loading_cursor);
+
+            getLastCreatedIntervention();
 
             // Change one or two records in the rows
             click(inlineEditIconIntervention);
@@ -1113,6 +1108,7 @@ public class InterventionManagementPage {
             results.createNode("Audit for intervention management screen given failed");
             saveResult(ITestResult.FAILURE, ex);
         }
+        DB_Config_DB.getStmt().close();
     }
 
     public void testSortingFunctionality(WebElement columnElement) {
@@ -1960,5 +1956,21 @@ public class InterventionManagementPage {
             saveResult(ITestResult.FAILURE, ex);
         }
     }
+
+    public void getLastCreatedIntervention() throws SQLException {
+        if (Constants.config.url().contains("qa") || Constants.config.url().contains("dev")) {
+            ResultSet getInterventionResult = DB_Config_DB.getStmt().executeQuery(Queries.getLastCreatedIntervention());
+
+            while (getInterventionResult.next()) {
+                String lastCreatedInterventionDisplay = getInterventionResult.getString("ENTITY_TYPE_DISPLAY");
+                System.out.println("Intervention Display Name: " + lastCreatedInterventionDisplay);
+                click(viewInterventionsDropdown);
+                type(viewInterventionsDropdown, lastCreatedInterventionDisplay);
+                enterKey(viewInterventionsDropdown);
+                waitElementInvisible(loading_cursor);
+            }
+        }
+    }
+
 }
 

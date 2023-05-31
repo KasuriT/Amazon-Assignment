@@ -77,19 +77,19 @@ public class InterventionManagement extends BaseTest {
     }
 
     @Test(priority = 9, enabled = true, description = "TC: IE-9467")
-    public void VerifyInlineEditInterventionCheckActions() throws IOException, InterruptedException {
+    public void VerifyInlineEditInterventionCheckActions() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.inlineEditInterventionCheckActions();
     }
 
     @Test(priority = 10, enabled = true, description = "TC: IE-9430")
-    public void VerifyInlineEditNavigateToScreen() throws IOException, InterruptedException {
+    public void VerifyInlineEditNavigateToScreen() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.inlineEditNavigateToScreen();
     }
 
     @Test(priority = 11, enabled = true, description = "TC: IE-9411, 9412")
-    public void VerifyInlineEditAccessRights() throws IOException, InterruptedException {
+    public void VerifyInlineEditAccessRights() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.AccessRights();
         LoginTest.login();
@@ -99,7 +99,7 @@ public class InterventionManagement extends BaseTest {
     }
 
     @Test(priority = 12, enabled = true, description = "TC: IE-9446")
-    public void VerifyInlineEditAudit() throws IOException, InterruptedException {
+    public void VerifyInlineEditAudit() throws IOException, InterruptedException, SQLException {
         InterventionManagementPage imp = new InterventionManagementPage(getDriver());
         imp.inlineEditAudit();
     }
