@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>Test</groupId>
-	<artifactId>Ancera</artifactId>
+	<artifactId>Automation_Task</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Ancera</name>
+	<name>Automation_Task</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
@@ -148,8 +148,14 @@
 			<version>6.9.8</version>
 			<scope>compile</scope>
 		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 

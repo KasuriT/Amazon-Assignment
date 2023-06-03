@@ -18,9 +18,7 @@
 -->
 
     <classes>
-    
-        <class name="Test.Ancera.Login.LoginTest"/>
-        <class name="Test.Ancera.Login.ForgotPassword"/>
+
         
         
         <!--

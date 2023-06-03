@@ -3,15 +3,7 @@
 <suite parallel="classes" name="Suite">
   <test thread-count="5" parallel="classes" name="Test">
     <classes>
-      
-      <class name="Test.Ancera.Administration.UserManagement"/>
-      <class name="Test.Ancera.Administration.OrganizationManagement"/>
-      <class name="Test.Ancera.Administration.ReportsManagement"/>
-      <class name="Test.Ancera.Administration.FlockManagement"/>
-      <class name="Test.Ancera.Administration.ProgramManagement"/>
-      <class name="Test.Ancera.Administration.AccessManagement"/>
-      <class name="Test.Ancera.Administration.AgreementManagement"/>
-      <class name="Test.Ancera.Administration.BarcodeManagement"/>
+
 
     </classes>
   </test> <!-- Test -->
