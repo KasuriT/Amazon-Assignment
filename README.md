@@ -33,7 +33,7 @@ For failed test cases it will take a screen-shot as well at the point of failure
 
   Then It display the list of Nikon products
 
-  **Scenario O3: Sort the product category as "Price: High to Low"**
+**Scenario O3: Sort the product category as "Price: High to Low"**
 
   And I click on the "Sort by: Featured" button
   
@@ -43,7 +43,7 @@ For failed test cases it will take a screen-shot as well at the point of failure
   
   Then It display the list of Nikon product which is sorted according to "High - Low" category 
   
-  **Scenario O4: Select the second product from the List**
+**Scenario O4: Select the second product from the List**
   
   And I select & click on the second product from the available list.
   
@@ -51,7 +51,7 @@ For failed test cases it will take a screen-shot as well at the point of failure
   
   Then Display the detail of selected product
   
-  **Scenario O5: Verify that the product topic/header contains text “Nikon D3X”**
+**Scenario O5: Verify that the product topic/header contains text “Nikon D3X”**
  
   And verify that the product topic/header contains text "Nikon D3X"
   
